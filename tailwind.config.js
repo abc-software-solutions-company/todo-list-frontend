@@ -20,35 +20,26 @@ module.exports = {
     extend: {
       fontSize: {
         none: ['0', '0'],
-        superhero: ['11.25rem', '12.5rem'], // 180/200
-        hero: ['6.25rem', '7.313rem'], // 100/117
-        h1: ['2.375rem', '2.813rem'], // 38/45
-        h2: ['2rem', '2.375rem'], // 32/38
-        h3: ['1.5rem', '2.063rem'], // 24/33
-        base: ['1rem', '1.5rem'], // 16/19
-        base2: ['0.875rem', '1.188rem'], // 14/16
-        caption: ['0.75rem', '0.875rem'] // 12/14
+        hero: ['3.5rem', '4.25rem'], // 56/68
+        h1_medium: ['2.5rem', '3.0625rem'], // 40/49
+        h2_regular: ['1.75rem', '2.125rem'], // 28/34
+        h3_semibold: ['1.5rem', '1.8125rem'], // 24/29
+        h3_medium: ['1.5rem', '1.8125rem'], // 24/29
+        h4_regular: ['1.25rem', '1.5rem'], // 20/24
+        h4_medium: ['1.25rem', '1.5rem'], // 20/24
+        h5_regular: ['1.125rem', '1.375rem'], // 18/22
+        h5_medium: ['1.125rem', '1.375rem'] // 18/22
       },
-      letterSpacing: {
-        3: '0.03em', // -3%
-        2: '0.02em', // -2%
-        1: '0.01em' // -1%
-      },
+
       lineHeight: {
         0: '0'
       },
       screens: {
-        xl: '1198px'
+        xl: '1440px'
       },
       colors: {
-        'abc-blue': '#3CC7F4',
-        'abc-dark-blue': '#3D99D3',
-        'abc-deep-blue': '#3D91CE',
-        'abc-dark-red': '#DB5136',
-        'abc-yellow': '#DBA936',
-        'abc-deep-green': '#00A57E',
-        'abc-orange': '#EF7622',
-        'abc-dark': '#151313'
+        'todo-blue-10': '#EDF2F7',
+        'todo-blue-20': '#4B9AE8'
       },
       backgroundImage: {
         'gradient-45deg': 'linear-gradient(45deg, var(--tw-gradient-stops))'
