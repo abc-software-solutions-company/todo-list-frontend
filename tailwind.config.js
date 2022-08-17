@@ -11,7 +11,7 @@ module.exports = {
     },
     screens: Object.fromEntries(Object.entries(defaultTheme.screens).filter(([key, value]) => key !== '2xl')),
     fontFamily: {
-      sans: ['Quicksand', 'san-serif'],
+      sans: ['Montserrat', 'san-serif'],
       serif: ['Merriweather'],
       mono: ['"Roboto Mono"'],
       display: ['"Sansita Swashed"'],

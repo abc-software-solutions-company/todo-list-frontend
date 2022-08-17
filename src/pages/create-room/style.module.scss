@@ -1,0 +1,39 @@
+.create-room :global {
+  .container {
+    @apply mx-auto justify-center pt-[80px] pr-[366px] pb-[347px]  pl-[366px];
+  }
+  .logo-abc {
+    @apply flex justify-center;
+  }
+  .title-room {
+    @apply text-center text-todo-blue-20;
+    .title-todo {
+      @apply text-hero;
+    }
+    .description-todo {
+      @apply mt-[60px] text-h1_medium;
+    }
+  }
+
+  .section-room {
+    @apply mx-auto;
+  }
+  .btn {
+    @apply flex h-[60px] w-[342px] justify-center bg-todo-blue-20;
+    .title-btn {
+      @apply text-center text-h4_regular text-white;
+    }
+  }
+  .section-btn {
+    @apply mt-[29px]  flex;
+  }
+  .input-group-room {
+    @apply ml-[20px] flex;
+    .form-control-room {
+      @apply h-[60px] w-[270px] font-normal;
+    }
+    .input-group-text {
+      @apply grid h-[60px] w-[72px] items-center justify-center bg-todo-blue-20 text-h4_medium text-white;
+    }
+  }
+}
