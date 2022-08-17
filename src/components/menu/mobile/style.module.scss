@@ -7,7 +7,7 @@
     @apply border-t border-gray-900;
   }
   .topbar-menu-mobile {
-    @apply z-50 flex h-10 items-center bg-abc-dark-blue/[0.6] text-xs text-white;
+    @apply z-50 flex h-10 items-center bg-todo-blue-20/[0.6] text-xs text-white;
     .container {
       @apply flex items-center justify-between;
     }
@@ -30,7 +30,7 @@
       @apply relative block border-b border-gray-900 py-4 text-white no-underline transition-all duration-300;
     }
     .project-list {
-      @apply ml-6 mr-2 text-caption lg:mr-0 lg:ml-0;
+      @apply text-caption ml-6 mr-2 lg:mr-0 lg:ml-0;
       a {
         @apply bg-transparent py-2;
       }

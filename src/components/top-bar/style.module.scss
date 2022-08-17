@@ -1,5 +1,5 @@
 .topbar :global {
-  @apply absolute top-0 z-[9999] hidden h-10 w-full items-center bg-abc-dark-blue/[0.7] text-xs text-white lg:flex;
+  @apply todo-blue-20/[0.7] absolute top-0 z-[9999] hidden h-10 w-full items-center text-xs text-white lg:flex;
   .container {
     @apply flex items-center justify-between;
   }

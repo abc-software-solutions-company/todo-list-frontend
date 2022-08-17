@@ -1,10 +1,10 @@
 .menu-desktop :global {
-  @apply sticky top-0 right-0 left-0 z-50 w-full bg-abc-dark/[0.7] lg:mt-10;
+  @apply bg-abc-dark/[0.7] sticky top-0 right-0 left-0 z-50 w-full lg:mt-10;
   .inner {
     @apply flex items-center justify-between text-white;
   }
   .logo-iki {
-    @apply text-center text-caption text-white hover:no-underline;
+    @apply text-caption text-center text-white hover:no-underline;
     h1 {
       @apply relative top-[1px];
     }
@@ -16,7 +16,7 @@
       &.hover,
       &.active {
         > a span {
-          @apply text-abc-dark-blue;
+          @apply text-todo-blue-20;
         }
       }
       a {
@@ -37,7 +37,7 @@
       }
     }
     > ul > li a.active {
-      @apply text-abc-dark-blue;
+      @apply text-todo-blue-20;
     }
     > ul > li:last-child > a {
       @apply pr-0;

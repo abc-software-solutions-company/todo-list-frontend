@@ -1,6 +1,6 @@
 .form-input {
   @apply w-full bg-[#D9D9D9] p-[7px] placeholder:text-base placeholder:font-medium placeholder:text-black;
   &.error {
-    @apply border-abc-dark-blue;
+    @apply border-todo-blue-20;
   }
 }
