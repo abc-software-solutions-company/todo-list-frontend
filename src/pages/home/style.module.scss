@@ -1,0 +1,16 @@
+.section-todo-list :global {
+  @apply mx-auto max-w-7xl bg-abc-light;
+  .container {
+    @apply mx-auto max-w-xs p-0 pt-20 pb-20 md:max-w-xl;
+  }
+  .inner {
+    @apply text-center;
+  }
+  .logo-wrapper {
+    @apply flex justify-center;
+  }
+
+  .copyright {
+    @apply mt-40 text-base md:text-h5;
+  }
+}

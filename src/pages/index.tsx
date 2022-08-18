@@ -5,6 +5,7 @@ import {getStaticProps} from '@/data/ssr/home.ssr';
 import LayoutDefault from '@/layouts/default';
 
 import CreateList from './create-list';
+import HomePage from './home';
 
 export {getStaticProps};
 
@@ -12,6 +13,7 @@ export default function PageHome({}: InferGetStaticPropsType<typeof getStaticPro
   return (
     <>
       <CreateList />
+      <HomePage />
     </>
   );
 }
