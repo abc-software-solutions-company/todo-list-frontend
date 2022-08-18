@@ -6,10 +6,10 @@
     @apply bg-stone-900;
   }
   &::-webkit-scrollbar-thumb {
-    @apply bg-todo-blue-20;
+    @apply bg-abc-blue;
   }
   &::-webkit-scrollbar-thumb:hover {
-    @apply bg-todo-blue-20;
+    @apply bg-abc-blue;
   }
   &.scrolling-touch {
     -webkit-overflow-scrolling: touch;
