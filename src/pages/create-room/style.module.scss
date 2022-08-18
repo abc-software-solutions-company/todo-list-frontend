@@ -1,6 +1,6 @@
 .create-room :global {
   .container {
-    @apply mx-auto justify-center pt-[268px] pr-[366px] pb-[347px]  pl-[348px];
+    @apply  pt-[280px] pr-[366px] pb-[347px]  pl-[343px];
   }
   .title-room {
     @apply text-center  text-abc-blue;
@@ -8,22 +8,22 @@
       @apply text-hero;
     }
     .description-todo {
-      @apply mt-[60px] text-h1;
+      @apply mt-[68px] text-h1;
     }
   }
   .btn {
     @apply flex h-[60px] w-[342px] justify-center bg-abc-blue;
     .title-btn {
-      @apply text-center text-h4 font-normal text-white;
+      @apply text-center text-h4  text-white;
     }
   }
   .section-btn {
-    @apply mt-[29px]  flex;
+    @apply mt-8  flex;
   }
   .input-group-room {
-    @apply ml-[20px] flex;
+    @apply ml-5 flex;
     .form-control-room {
-      @apply h-[60px] w-[270px] font-normal;
+      @apply h-[60px] w-[270px] text-h4;
     }
     .input-group-text {
       @apply grid h-[60px] w-[72px] items-center justify-center bg-abc-blue text-h4 font-medium text-white;
