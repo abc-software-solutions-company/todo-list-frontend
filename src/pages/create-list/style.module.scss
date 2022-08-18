@@ -1,35 +1,43 @@
 .create-list :global {
+  hr {
+    @apply mt-[29px] border-slate-700;
+  }
   .container {
-    @apply pt-[79px] pr-[113px] pb-[496px] pl-[112px];
+    @apply pt-20 pr-[113px] pb-[488px] pl-[113px];
   }
-  .list-left {
-    @apply flex;
-  }
-  .title-left {
-    @apply ml-[16px] text-h3_semibold;
-  }
-  .title-right {
-    @apply text-h5_regular;
-  }
+
   .list-content {
     @apply flex justify-between;
+
+    .divided {
+      @apply ml-[10px] mr-[10px];
+    }
+    .list-left {
+      @apply flex;
+    }
     .title-left {
-      @apply ml-[16px] flex;
-      .divided {
-        @apply ml-[10px] mr-[10px];
+      @apply ml-4 flex justify-between text-h3 font-semibold;
+    }
+    .list-right {
+      @apply flex justify-between;
+      .title-right {
+        @apply ml-[18px] text-h5;
       }
     }
   }
-  .list-right {
-    @apply flex justify-between;
-    .content-share {
-      @apply flex items-center  justify-between;
+  .list-group {
+    @apply mt-8;
+    .text-group {
+      @apply mb-5 flex h-[60px] w-full max-w-[1214px] items-center justify-between bg-white px-4;
     }
-    .title-right {
-      @apply ml-[18px];
+    .title-group {
+      @apply text-h4;
     }
-    .content-create {
-      @apply ml-[58px] flex items-center justify-between;
+    .icon-group {
+      @apply flex gap-7;
+    }
+    .btn-hover-hand {
+      @apply cursor-pointer;
     }
   }
 }

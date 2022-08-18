@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import IconAdd from '@/assets/images/icon-add.svg';
+import IconArrowRight from '@/assets/images/icon-arow-right.svg';
 import IconArrowLeft from '@/assets/images/icon-arrow-left.svg';
 import IconShare from '@/assets/images/icon-share.svg';
 
@@ -25,26 +26,51 @@ const CreateList = () => {
                 </div>
               </div>
               <div className="list-right">
-                <div className="content-share">
-                  <div className="icon-share">
-                    <Image src={IconShare} alt="Share" width={18} height={14} />
-                  </div>
-                  <div className="title-right">Share</div>
+                <div className="icon-add">
+                  <Image src={IconAdd} alt="Add" width={22} height={22} />
                 </div>
-                <div className="content-create">
-                  <div className="icon-add">
-                    <Image src={IconAdd} alt="Add" width={29} height={29} />
-                  </div>
-                  <div className="title-right">Create new List</div>
-                </div>
+                <div className="title-right">Create new List</div>
               </div>
             </div>
           </div>
           <hr />
-          <div className="list-input-group">
-            <input type="text" name="" id="" /> <br />
-            <input type="text" name="" id="" /> <br />
-            <input type="text" name="" id="" />
+          <div className="list-group">
+            <div className="text-group">
+              <p className="title-group">Shopping</p>
+              <div className="icon-group">
+                <button className="btn-hover-hand">
+                  {' '}
+                  <Image src={IconShare} alt="Add" width={22} height={22} />
+                </button>
+                <button className="btn-hover-hand" width={20} height={10}>
+                  <Image src={IconArrowRight} alt="Add" />
+                </button>
+              </div>
+            </div>
+            <div className="text-group">
+              <p className="title-group">Study</p>
+              <div className="icon-group">
+                <button className="btn-hover-hand">
+                  {' '}
+                  <Image src={IconShare} alt="Add" width={22} height={22} />
+                </button>
+                <button className="btn-hover-hand" width={20} height={10}>
+                  <Image src={IconArrowRight} alt="Add" />
+                </button>
+              </div>
+            </div>
+            <div className="text-group">
+              <p className="title-group">Relax</p>
+              <div className="icon-group">
+                <button className="btn-hover-hand">
+                  {' '}
+                  <Image src={IconShare} alt="Add" width={22} height={22} />
+                </button>
+                <button className="btn-hover-hand" width={20} height={10}>
+                  <Image src={IconArrowRight} alt="Add" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
