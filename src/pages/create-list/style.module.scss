@@ -3,7 +3,16 @@
     @apply mt-[29px] border-slate-700;
   }
   .container {
-    @apply pt-20 pr-[113px] pb-[488px] pl-[113px];
+    @apply pt-[79px] pr-[113px] pb-[496px] pl-[112px];
+  }
+  .list-left {
+    @apply flex;
+  }
+  .title-left {
+    @apply ml-[16px] text-h3 font-semibold;
+  }
+  .title-right {
+    @apply text-h5;
   }
 
   .list-content {
