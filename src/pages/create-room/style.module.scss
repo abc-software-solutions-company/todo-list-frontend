@@ -3,18 +3,18 @@
     @apply mx-auto justify-center pt-[268px] pr-[366px] pb-[347px]  pl-[348px];
   }
   .title-room {
-    @apply text-center  text-todo-blue-20;
+    @apply text-center  text-abc-blue;
     .title-todo {
-      @apply text-hero font-extrabold;
+      @apply text-hero;
     }
     .description-todo {
-      @apply mt-[60px] text-h1_medium font-medium;
+      @apply mt-[60px] text-h1;
     }
   }
   .btn {
-    @apply flex h-[60px] w-[342px] justify-center bg-todo-blue-20;
+    @apply flex h-[60px] w-[342px] justify-center bg-abc-blue;
     .title-btn {
-      @apply text-center text-h4_regular text-white font-normal;
+      @apply text-center text-h4 font-normal text-white;
     }
   }
   .section-btn {
@@ -26,7 +26,7 @@
       @apply h-[60px] w-[270px] font-normal;
     }
     .input-group-text {
-      @apply grid h-[60px] w-[72px] items-center justify-center bg-todo-blue-20 text-h4_medium text-white;
+      @apply grid h-[60px] w-[72px] items-center justify-center bg-abc-blue text-h4 font-medium text-white;
     }
   }
 }

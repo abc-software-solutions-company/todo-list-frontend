@@ -6,10 +6,10 @@
     @apply flex;
   }
   .title-left {
-    @apply ml-[16px] text-h3_semibold;
+    @apply ml-[16px] text-h3 font-semibold;
   }
   .title-right {
-    @apply text-h5_regular;
+    @apply text-h5;
   }
   .list-content {
     @apply flex justify-between;
