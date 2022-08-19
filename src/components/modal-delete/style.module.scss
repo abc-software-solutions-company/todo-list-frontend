@@ -1,0 +1,35 @@
+.section-modal-delete :global {
+  @apply relative z-10;
+
+  .backdrop {
+    @apply fixed inset-0 bg-black bg-opacity-25;
+  }
+
+  .panel {
+    @apply w-full max-w-[784px];
+
+    .panel-wrapper {
+      @apply bg-abc-light p-4 sm:p-10;
+    }
+
+    .heading {
+      @apply sm:text-h3;
+    }
+
+    .button-wrapper {
+      @apply mt-4 flex justify-between gap-3 sm:mt-6 sm:gap-5;
+
+      .btn {
+        @apply w-full py-5 font-medium sm:text-h4;
+      }
+
+      .btn-cancel {
+        @apply bg-white text-abc-blue;
+      }
+
+      .btn-create {
+        @apply bg-abc-blue text-white;
+      }
+    }
+  }
+}
