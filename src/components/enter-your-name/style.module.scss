@@ -1,13 +1,13 @@
 .com-enter-your-name :global {
-  @apply mt-10 border border-black/20 bg-white p-10 md:p-16;
+  @apply mt-10 border border-black/20 bg-white p-9 md:py-16 md:px-20;
 
   .heading {
-    @apply text-2xl font-normal md:text-h2;
+    @apply text-2xl text-h2 font-normal;
   }
   .input {
-    @apply mt-4 w-full border-black/20 py-3 text-base md:mt-14 md:placeholder:text-h5;
+    @apply mt-4 w-full border-black/20 py-3 text-base placeholder:text-h6 placeholder:font-normal md:mt-14 md:placeholder:text-h5;
   }
   .btn-enter {
-    @apply mt-8 w-full bg-abc-blue py-3 text-base md:text-h5 md:font-normal;
+    @apply mt-5 w-full bg-abc-blue py-3 text-base sm:mt-8 md:text-h5 md:font-normal;
   }
 }
