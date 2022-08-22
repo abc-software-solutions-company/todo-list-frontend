@@ -5,25 +5,25 @@
   .title-room {
     @apply text-center  text-abc-blue;
     .title-todo {
-      @apply text-hero;
+      @apply text-hero font-extrabold;
     }
     .description-todo {
-      @apply mt-[60px] text-h1;
+      @apply mt-[60px] text-h1 font-medium;
     }
   }
   .btn {
     @apply flex h-[60px] w-[342px] justify-center bg-abc-blue;
     .title-btn {
-      @apply text-center text-h4 font-normal text-white;
+      @apply text-center  text-h4 font-normal text-white;
     }
   }
   .section-btn {
     @apply mt-[29px]  flex;
   }
   .input-group-room {
-    @apply ml-[20px] flex;
+    @apply ml-5 flex;
     .form-control-room {
-      @apply h-[60px] w-[270px] font-normal;
+      @apply h-[60px] w-[270px] text-h4 font-normal;
     }
     .input-group-text {
       @apply grid h-[60px] w-[72px] items-center justify-center bg-abc-blue text-h4 font-medium text-white;

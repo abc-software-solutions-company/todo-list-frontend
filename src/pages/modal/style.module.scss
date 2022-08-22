@@ -1,0 +1,30 @@
+.create-modal-share :global {
+  @apply relative z-10 m-auto;
+  .title-modal {
+    @apply text-center text-h3;
+  }
+  .modal-form {
+    @apply h-[309px] w-[784px] bg-abc-light;
+  }
+  .icon-close {
+    @apply mt-4 mr-1 text-right;
+  }
+  .input-group-link {
+    @apply px-7 text-left text-h5 font-normal;
+  }
+  .input-group-ID {
+    @apply mt-4 px-7 text-left text-h5 font-normal;
+  }
+  .form-control-modal {
+    @apply h-16 w-[627px];
+    ::placeholder {
+      @apply text-h4 font-normal;
+    }
+  }
+  .input-group-modal {
+    @apply flex justify-center px-7;
+  }
+  .input-group-copy {
+    @apply grid h-16 w-20 cursor-pointer items-center bg-abc-blue text-h4 font-medium text-white;
+  }
+}

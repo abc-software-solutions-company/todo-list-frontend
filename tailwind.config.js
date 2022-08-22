@@ -36,7 +36,7 @@ module.exports = {
         h3: ['1.5rem', {lineHeight: '1.8125rem', letterSpacing: '0'}],
         h4: ['1.25rem', {lineHeight: '1.5rem', letterSpacing: '0'}],
         h5: ['1.125rem', {lineHeight: '1.375rem', letterSpacing: '0'}],
-        h6: ['1rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
+        h6: ['1rem', {lineHeight: '1.25rem', letterSpacing: '0'}],
         display1: ['5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
         display2: ['4.5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
         display3: ['4rem', {lineHeight: '3.5rem', letterSpacing: '0'}],

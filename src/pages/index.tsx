@@ -3,6 +3,7 @@ import React from 'react';
 
 import {getStaticProps} from '@/data/ssr/home.ssr';
 import LayoutDefault from '@/layouts/default';
+
 import HomePage from './home';
 
 export {getStaticProps};
