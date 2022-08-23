@@ -64,7 +64,8 @@ module.exports = {
         'abc-deep-green': '#00A57E',
         'abc-orange': '#EF7622',
         'abc-dark': '#151313',
-        'abc-light': '#EDF2F7' //Màu được thay đổi
+        'abc-light': '#EDF2F7',
+        'abc-red': '#D14F4F' //Màu được thay đổi
       },
       backgroundImage: {
         'gradient-45deg': 'linear-gradient(45deg, var(--tw-gradient-stops))'

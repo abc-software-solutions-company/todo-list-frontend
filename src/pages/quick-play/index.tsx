@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import React, {useEffect, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {useRouter} from 'next/router';
@@ -9,18 +10,19 @@ import TodoListLogo from '@/components/icons/todolist-logo';
 import Button from '@/core-ui/button';
 
 import styles from './style.module.scss';
+import useMediaQuery from '@/hooks/useMediaQuery';
 
 interface IFormData {
   user_name: string;
 }
 
-const schema = yup.object({
+const Schema = yup.object({
   user_name: yup
     .string()
-    .required('This field is required!')
-    .max(20, 'Should smaller than 20 charaters!')
-    .min(2, 'Shuold bigger than 2 charaters!')
-    .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field ')
+    .required('This field is required.')
+    .max(20, 'Should smaller than 20 charaters.')
+    .min(2, 'Shuold bigger than 2 charaters.')
+    .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field.')
 });
 
 const QuickPlay: React.FC = () => {
@@ -29,41 +31,38 @@ const QuickPlay: React.FC = () => {
     register,
     handleSubmit,
     watch,
-    formState: {errors}
+    formState: {errors, isSubmitted, isValid}
   } = useForm<IFormData>({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(Schema)
   });
 
   const onSubmit: SubmitHandler<FormData> = data => {
-    API.createUser(data);
-    localStorage.setItem('user_name', data.user_name);
-    router.push('/action');
+    // API.createUser(data);
+    // localStorage.setItem('user_name', data.user_name);
+    // router.push('/action');
   };
 
-  // #region scale width SVG
-  const [windowWidth, setWindowWidth] = useState(0);
+  const matches = useMediaQuery('(min-width:640px)');
 
-  const update = () => {
-    setWindowWidth(window.innerWidth);
-  };
+  // Set state for form
+  let stateForm = true;
 
-  useEffect(() => {
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
-  // #endregion
+  if (isSubmitted == true && isValid == false) {
+    stateForm = false;
+  }
+
   return (
-    <div className={styles['section-todo-list']}>
+    <div className={cn(styles['section-todo-list'], stateForm ? '' : styles['validation'])}>
       <div className="container">
         <div className="inner">
           <div className="logo-wrapper">
-            <TodoListLogo width={windowWidth <= 640 ? 175 : 249} />
+            <TodoListLogo width={matches ? 249 : 175} />
           </div>
           <div className="enter-your-name">
             <h2 className="heading">Let's start !</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
               <input {...register('user_name')} className="input" placeholder="Enter your name" type="text" />
-              <span>{errors.user_name?.message}</span>
+              <span className="validation">{errors.user_name?.message}</span>
               <Button className="btn-enter" text="Enter" type="submit" />
             </form>
           </div>

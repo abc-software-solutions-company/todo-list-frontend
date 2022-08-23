@@ -28,3 +28,19 @@
     @apply mt-40 text-base md:text-h5;
   }
 }
+
+// Modifiers
+.section-todo-list.validation :global {
+  .validation {
+    @apply float-left mt-1 text-abc-red;
+  }
+  .validation::after {
+    @apply clear-both block content-[''];
+  }
+  .input {
+    @apply border-abc-red placeholder:text-abc-red;
+  }
+  .btn-enter {
+    @apply mt-3;
+  }
+}
