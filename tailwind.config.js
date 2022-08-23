@@ -3,6 +3,9 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   content: ['./src/**/*.{html,njk,js,jsx,ts,tsx}'],
+  corePlugins: {
+    preflight: false
+  },
   theme: {
     container: {
       // Dùng để giới hạn nội dung hiển thị của website
@@ -161,8 +164,8 @@ module.exports = {
     screens: Object.fromEntries(Object.entries(defaultTheme.screens).filter(([key, value]) => key !== '2xl'))
   },
   plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/forms'),
+    // require('@tailwindcss/typography'),
+    // require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/line-clamp'),
     plugin(function ({addUtilities, theme, e}) {

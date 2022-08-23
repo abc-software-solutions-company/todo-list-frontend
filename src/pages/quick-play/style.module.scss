@@ -18,9 +18,7 @@
   .heading {
     @apply text-2xl font-normal md:text-h2;
   }
-  .input {
-    @apply mt-4 w-full border-black/20 py-3 text-base md:mt-14 md:placeholder:text-h5;
-  }
+
   .btn-enter {
     @apply mt-8 w-full bg-abc-blue py-3 text-base md:text-h5 md:font-normal;
   }

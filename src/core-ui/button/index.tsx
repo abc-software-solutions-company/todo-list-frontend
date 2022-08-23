@@ -1,6 +1,5 @@
 import React, {ReactNode} from 'react';
 import cn from 'classnames';
-
 import styles from './style.module.scss';
 import {IPropsButtonBase} from '@/types';
 
