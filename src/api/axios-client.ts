@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-  baseURL: 'http://192.168.1.26:3000',
-  timeout: 10000,
+  baseURL: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json'
   }

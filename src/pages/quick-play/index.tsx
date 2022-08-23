@@ -1,20 +1,46 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {SubmitHandler, useForm} from 'react-hook-form';
 import {useRouter} from 'next/router';
-import API from '@/api/network/user';
+import {yupResolver} from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
-import styles from './style.module.scss';
+import API from '@/api/network/user';
 import TodoListLogo from '@/components/icons/todolist-logo';
 import Button from '@/core-ui/button';
+
+import styles from './style.module.scss';
 
 interface IFormData {
   user_name: string;
 }
 
-const DEFAULT_VALUES = {user_name: ''};
+const schema = yup.object({
+  user_name: yup
+    .string()
+    .required('This field is required!')
+    .max(20, 'Should smaller than 20 charaters!')
+    .min(2, 'Shuold bigger than 2 charaters!')
+    .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field ')
+});
 
 const QuickPlay: React.FC = () => {
   const router = useRouter();
-  const [formData, setFormData] = useState<IFormData>(DEFAULT_VALUES);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: {errors}
+  } = useForm<IFormData>({
+    resolver: yupResolver(schema)
+  });
+
+  const onSubmit: SubmitHandler<FormData> = data => {
+    API.createUser(data);
+    localStorage.setItem('user_name', data.user_name);
+    router.push('/action');
+  };
+
+  // #region scale width SVG
   const [windowWidth, setWindowWidth] = useState(0);
 
   const update = () => {
@@ -25,45 +51,7 @@ const QuickPlay: React.FC = () => {
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
   }, []);
-
-  const handleSubmit = event => {
-    const user_name = formData.user_name;
-    const length = user_name.length;
-    const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-
-    if (user_name === '') {
-      alert('Please enter your user name!');
-      location.reload();
-    }
-
-    if (length >= 20) {
-      alert('Your user name should small than 20 charaters!');
-      location.reload();
-    }
-
-    if (format.test(user_name)) {
-      alert('Special characters not allowed!');
-      location.reload();
-    }
-
-    console.log(formData.user_name);
-
-    // API.createUser(formData).then(resp => {
-    //   setFormData(DEFAULT_VALUES);
-    // });
-    // router.push('/action');
-    event.preventDefault();
-  };
-
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    let newFormData: IFormData = {...formData};
-    newFormData[name] = value;
-    setFormData(newFormData);
-  };
-
+  // #endregion
   return (
     <div className={styles['section-todo-list']}>
       <div className="container">
@@ -73,15 +61,9 @@ const QuickPlay: React.FC = () => {
           </div>
           <div className="enter-your-name">
             <h2 className="heading">Let's start !</h2>
-            <form onSubmit={handleSubmit}>
-              <input
-                className="input"
-                name="user_name"
-                value={formData.user_name}
-                onChange={handleChange}
-                type="text"
-                placeholder="Enter your name"
-              />
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input {...register('user_name')} className="input" placeholder="Enter your name" type="text" />
+              <span>{errors.user_name?.message}</span>
               <Button className="btn-enter" text="Enter" type="submit" />
             </form>
           </div>

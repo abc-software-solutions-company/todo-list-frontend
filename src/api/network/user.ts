@@ -1,11 +1,11 @@
 import * as HttpRequest from '@/api/http-request';
 
-export interface IUsername {
+export interface IUser {
   user_name?: string;
 }
 
-const getAllUsers = (): Promise<IUsername[]> => HttpRequest.get<IUsername[]>('/user/get-all');
-const createUser = (data: IUsername): Promise<IUsername> => HttpRequest.post<IUsername>('/user/create', data);
+const getAllUsers = (): Promise<IUser[]> => HttpRequest.get<IUser[]>('/user/get-all');
+const createUser = (data: IUser): Promise<IUser> => HttpRequest.post<IUser>('/user/create', data);
 
 export default {
   getAllUsers,
