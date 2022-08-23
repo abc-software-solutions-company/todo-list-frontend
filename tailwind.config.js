@@ -11,7 +11,8 @@ module.exports = {
       // Trường hợp bạn muốn thay đổi giá trị này thì cần điều chỉnh như sau: (Tham khảo dòng 21 đến 23 -> thay đổi giá trị của 2xl = 1440px);
       center: true,
       padding: {
-        sm: '0.938rem' // Ở màn hình mobile thì container sẽ cách lề trái và lề phải 15px
+        DEFAULT: '0.938rem', // Ở màn hình mobile thì container sẽ cách lề trái và lề phải 15px
+        md: '0'
       }
     },
     fontFamily: {
@@ -26,7 +27,7 @@ module.exports = {
       // Tailwind cung cấp sẵn cho bạn khá nhiều thứ nhưng không có nghĩa là chỉ dùng những cái nó cung cấp sẵn là đủ.
       // Do đó Tailwind cung cấp tính năng mở rộng để tạo thêm cấu hình một cách dễ dàng.
       screens: {
-        '2xl': '1440px'
+        xl: '1214px'
       },
       fontSize: {
         none: ['0', '0'],
@@ -156,7 +157,7 @@ module.exports = {
         }
       })
     },
-    screens: Object.fromEntries(Object.entries(defaultTheme.screens).filter(([key, value]) => key !== '3xl'))
+    screens: Object.fromEntries(Object.entries(defaultTheme.screens).filter(([key, value]) => key !== '2xl'))
   },
   plugins: [
     require('@tailwindcss/typography'),

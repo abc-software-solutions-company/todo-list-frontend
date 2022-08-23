@@ -1,0 +1,59 @@
+.section-create-list :global {
+  @apply py-11 sm:py-20;
+  .container {
+    @apply m-auto;
+  }
+  .list-content {
+    @apply flex justify-between border-b border-black pb-8;
+  }
+  .list-left {
+    @apply flex justify-between;
+  }
+  .icon-arrow-left {
+    @apply h-5 w-5 items-center sm:h-7 sm:w-7;
+  }
+  .title-left {
+    @apply flex;
+  }
+  .title-todo {
+    @apply px-2 text-base font-semibold sm:px-3 sm:text-h3;
+  }
+  .title-todo:first-child {
+    @apply border-r-2 border-black;
+  }
+  .list-right {
+    @apply flex items-center justify-between;
+    .title-right {
+      @apply ml-4 text-h5 font-normal;
+    }
+    .icon-add {
+      @apply h-5 w-5 bg-transparent p-0 sm:h-6 sm:w-6;
+    }
+  }
+  .title-right {
+    @apply ml-4 text-h5 font-normal;
+  }
+  //-----------------------------------------
+
+  .list-group {
+    @apply pt-8;
+    .text-group {
+      @apply mb-5 flex h-[60px] w-full max-w-[1214px] items-center justify-between bg-white px-4;
+    }
+    .title-group {
+      @apply my-5 text-h4 font-normal;
+    }
+    .icon-group {
+      @apply flex gap-5;
+    }
+    .btn-hover-hand {
+      @apply cursor-pointer bg-transparent p-0;
+    }
+    .text-group {
+      @apply mb-5 flex h-[60px] w-full max-w-[1214px] items-center justify-between bg-white px-4;
+    }
+    .title-group {
+      @apply my-5 text-h4 font-normal;
+    }
+  }
+}

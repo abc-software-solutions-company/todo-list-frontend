@@ -1,0 +1,30 @@
+.create-room :global {
+  .container {
+    @apply mx-auto justify-center py-60 md:py-80;
+  }
+  .title-room {
+    @apply text-center  text-abc-blue;
+    .title-todo {
+      @apply text-5xl font-extrabold md:text-hero;
+    }
+    .description-todo {
+      @apply mt-16 text-3xl font-medium md:text-h1;
+    }
+  }
+
+  .section-btn {
+    @apply mx-auto block max-w-xl px-10 pt-10 sm:flex sm:justify-center sm:px-0 sm:pt-8;
+  }
+  .title-btn {
+    @apply w-full text-base font-normal sm:w-full md:text-h4;
+  }
+  .input-group-room {
+    @apply m-0 flex w-full cursor-pointer pt-5 text-base font-normal sm:ml-5 sm:w-full sm:p-0 md:text-h4;
+  }
+  .form-control-room {
+    @apply w-3/4;
+  }
+  .input-group-text {
+    @apply w-1/4 text-center;
+  }
+}

@@ -7,7 +7,7 @@ import ModalCreateTask from '@/components/modal-create-task';
 import ModalDeleteList from '@/components/modal-delete-list';
 import ModalUpdateTask from '@/components/modal-update-task';
 import ModalDeleteTask from '@/components/modal-delete-task';
-
+import ModalShare from '@/components/modal-share';
 export default function PageHome() {
   const router = useRouter();
 
@@ -16,6 +16,7 @@ export default function PageHome() {
   const [createTaskOpen, setCreateTaskOpen] = useState<boolean>(false);
   const [updateTaskOpen, setUpdateTaskOpen] = useState<boolean>(false);
   const [deleteTaskOpen, setDeleteTaskOpen] = useState<boolean>(false);
+  const [shareOpen, setShareOpen] = useState<boolean>(false);
 
   const handleCloseCreateListOpen = () => {
     setCreateListOpen(false);
@@ -32,6 +33,9 @@ export default function PageHome() {
   const handleDeleteTaskOpen = () => {
     setDeleteTaskOpen(false);
   };
+  const handleShare = () => {
+    setShareOpen(false);
+  };
 
   return (
     <>
@@ -46,12 +50,15 @@ export default function PageHome() {
       <Button text="Update Task" onClick={() => setUpdateTaskOpen(true)} />
       <br />
       <Button text="Delete Task" onClick={() => setDeleteTaskOpen(true)} />
+      <br />
+      <Button text="Input" onClick={() => setShareOpen(true)} />
 
       <ModalCreateList open={createListOpen} onClose={handleCloseCreateListOpen} />
       <ModalDeleteList open={deleteListOpen} onClose={handleCloseDeleteListOpen} />
       <ModalCreateTask open={createTaskOpen} onClose={handleCreateTaskListOpen} />
       <ModalUpdateTask open={updateTaskOpen} onClose={handleUpdateTaskOpen} />
       <ModalDeleteTask open={deleteTaskOpen} onClose={handleDeleteTaskOpen} />
+      <ModalShare open={shareOpen} onClose={handleShare} />
     </>
   );
 }
