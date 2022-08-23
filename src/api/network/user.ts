@@ -4,10 +4,8 @@ export interface IUser {
   user_name?: string;
 }
 
-const getAllUsers = (): Promise<IUser[]> => HttpRequest.get<IUser[]>('/user/get-all');
-const createUser = (data: IUser): Promise<IUser> => HttpRequest.post<IUser>('/user/create', data);
+type Users = IAxiosResponse<IUser[]>;
+const getUsers = () => HttpRequest.get<Users>('/posts');
+const createUser = (data: IUser) => HttpRequest.post<IUser>('/posts', data);
 
-export default {
-  getAllUsers,
-  createUser
-};
+export default {getUsers, createUser};

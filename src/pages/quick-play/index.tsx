@@ -7,12 +7,13 @@ import React from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
+import API from '@/api/network/user';
 import TodoListLogo from '@/components/icons/todolist-logo';
 import useMediaQuery from '@/hooks/useMediaQuery';
 
 import styles from './style.module.scss';
 
-interface IFormData {
+interface IFormInputs {
   user_name: string;
 }
 
@@ -21,7 +22,7 @@ const Schema = yup.object({
     .string()
     .required('This field is required.')
     .max(20, 'Should smaller than 20 charaters.')
-    .min(2, 'Shuold bigger than 2 charaters.')
+    .min(2, 'Should bigger than 2 charaters.')
     .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field.')
 });
 
@@ -31,11 +32,11 @@ const QuickPlay: React.FC = () => {
     register,
     handleSubmit,
     formState: {errors, isSubmitted, isValid}
-  } = useForm<IFormData>({
+  } = useForm<IFormInputs>({
     resolver: yupResolver(Schema)
   });
 
-  const onSubmit: SubmitHandler<IFormData> = data => {
+  const onSubmit: SubmitHandler<IFormInputs> = data => {
     API.createUser(data);
     localStorage.setItem('user_name', data.user_name);
     router.push('/action');

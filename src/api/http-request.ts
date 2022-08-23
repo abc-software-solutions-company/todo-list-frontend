@@ -2,7 +2,7 @@ import {AxiosResponse} from 'axios';
 
 import axiosClient from './axios-client';
 
-const responseBody = (response: AxiosResponse) => response.data;
+const responseBody = (response: AxiosResponse) => response;
 
 export function get<T>(url: string) {
   return axiosClient.get<T>(url).then(responseBody);
