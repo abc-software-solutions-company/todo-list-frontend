@@ -1,7 +1,7 @@
 .section-todo-list :global {
   @apply mx-auto max-w-7xl bg-abc-light;
   .container {
-    @apply mx-auto max-w-xs p-0 pt-20 pb-20 md:max-w-xl;
+    @apply mx-auto max-w-xs p-0 pt-20 pb-20 sm:max-w-xl;
   }
   .inner {
     @apply text-center;
@@ -9,20 +9,21 @@
   .logo-wrapper {
     @apply flex justify-center;
   }
+  .todolist-logo {
+    @apply w-28;
+  }
   .enter-your-name {
     @apply mt-10 border border-black/20 bg-white p-10 md:p-16;
-
-    .heading {
-      @apply text-2xl font-normal md:text-h2;
-    }
-    .input {
-      @apply mt-4 w-full border-black/20 py-3 text-base md:mt-14 md:placeholder:text-h5;
-    }
-    .btn-enter {
-      @apply mt-8 w-full bg-abc-blue py-3 text-base md:text-h5 md:font-normal;
-    }
   }
-
+  .heading {
+    @apply text-2xl font-normal md:text-h2;
+  }
+  .input {
+    @apply mt-4 w-full border-black/20 py-3 text-base md:mt-14 md:placeholder:text-h5;
+  }
+  .btn-enter {
+    @apply mt-8 w-full bg-abc-blue py-3 text-base md:text-h5 md:font-normal;
+  }
   .copyright {
     @apply mt-40 text-base md:text-h5;
   }
