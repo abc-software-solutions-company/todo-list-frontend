@@ -15,7 +15,6 @@ import QueryProvider from '@/contexts/query.provider';
 const Noop: React.FC = ({children}: React.PropsWithChildren<any>) => <>{children}</>;
 
 const theme = createTheme({
-  shadows: 'none',
   shape: {
     borderRadius: 2
   },
