@@ -8,7 +8,6 @@ import ModalDeleteList from '@/components/modal-delete-list';
 import ModalUpdateTask from '@/components/modal-update-task';
 import ModalDeleteTask from '@/components/modal-delete-task';
 import ModalShare from '@/components/modal-share';
-import useMediaQuery from '@/hooks/useMediaQuery';
 export default function PageHome() {
   const router = useRouter();
 
@@ -38,8 +37,6 @@ export default function PageHome() {
     setShareOpen(false);
   };
 
-  const matches = useMediaQuery('(min-width:600px)');
-
   return (
     <>
       <Button text="Quick Play" onClick={() => router.push('/quick-play')} />
@@ -62,8 +59,6 @@ export default function PageHome() {
       <ModalUpdateTask open={updateTaskOpen} onClose={handleUpdateTaskOpen} />
       <ModalDeleteTask open={deleteTaskOpen} onClose={handleDeleteTaskOpen} />
       <ModalShare open={shareOpen} onClose={handleShare} />
-
-      <span>{`${matches}`}</span>
     </>
   );
 }
