@@ -14,11 +14,11 @@ import useMediaQuery from '@/hooks/useMediaQuery';
 import styles from './style.module.scss';
 
 interface IFormInputs {
-  user_name: string;
+  userName: string;
 }
 
-const Schema = yup.object({
-  user_name: yup
+const Schema = yup.object().shape({
+  userName: yup
     .string()
     .required('This field is required.')
     .max(20, 'Should smaller than 20 charaters.')
@@ -31,28 +31,25 @@ const QuickPlay: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: {errors, isSubmitted, isValid}
+    formState: {errors}
   } = useForm<IFormInputs>({
     resolver: yupResolver(Schema)
   });
 
   const onSubmit: SubmitHandler<IFormInputs> = data => {
-    API.createUser(data);
-    localStorage.setItem('user_name', data.user_name);
-    router.push('/action');
+    console.log(data);
+    API.createUser(data).then(res => {
+      if (res.status === 201) {
+        localStorage.setItem('userName', data.userName);
+        router.push('/action');
+      }
+    });
   };
 
   const matches = useMediaQuery('(min-width:640px)');
 
-  // Set state for form
-  let stateForm = true;
-
-  if (isSubmitted == true && isValid == false) {
-    stateForm = false;
-  }
-
   return (
-    <div className={cn(styles['section-todo-list'], stateForm ? '' : styles.validation)}>
+    <div className={cn(styles['section-todo-list'])}>
       <div className="container">
         <div className="inner">
           <div className="logo-wrapper">
@@ -62,14 +59,13 @@ const QuickPlay: React.FC = () => {
             <h2 className="heading">Let&apos;s start !</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
               <TextField
-                {...register('user_name')}
                 className="w-full"
-                id="outlined-basic"
-                label="Enter your name"
+                placeholder="Enter your name"
                 variant="outlined"
+                {...register('userName')}
               />
-              <span>{errors.user_name?.message}</span>
-              <Button className="btn-enter" variant="contained">
+              {errors.userName && <p>{errors.userName.message}</p>}
+              <Button className="btn-enter" type="submit" variant="contained">
                 Enter
               </Button>
             </form>

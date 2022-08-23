@@ -1,11 +1,12 @@
 import * as HttpRequest from '@/api/http-request';
+import {IAxiosResponse} from '@/types';
 
 export interface IUser {
-  user_name?: string;
+  userName: string;
 }
 
 type Users = IAxiosResponse<IUser[]>;
-const getUsers = () => HttpRequest.get<Users>('/posts');
-const createUser = (data: IUser) => HttpRequest.post<IUser>('/posts', data);
+const getUsers = () => HttpRequest.get<Users>('/users');
+const createUser = (data: IUser) => HttpRequest.post<IUser>('/users', data);
 
 export default {getUsers, createUser};

@@ -54,7 +54,7 @@ interface IError {
   details: IAnyObj;
 }
 
-export interface IBaseApiResponse<T> {
+export interface IAxiosResponse<T> {
   data: T;
   meta: IMeta | IAnyObj;
   error: IError;
@@ -191,16 +191,16 @@ export interface ISettingAttributes extends IBastAttributes {
   email: string;
   socials: JSON;
 }
-export type ICategoriesResponse = IBaseApiResponse<IData<ICategoryAttributes>[]>;
+export type ICategoriesResponse = IAxiosResponse<IData<ICategoryAttributes>[]>;
 export type ICategoryResponse = ICategoriesResponse; // Strapi always return an array instead object
 
-export type IProjectsResponse = IBaseApiResponse<IData<IProjectAttributes>[]>;
+export type IProjectsResponse = IAxiosResponse<IData<IProjectAttributes>[]>;
 export type IProjectResponse = IProjectsResponse; // Strapi always return an array instead object
 
-export type IPostsResponse = IBaseApiResponse<IData<IPostAttributes>[]>;
+export type IPostsResponse = IAxiosResponse<IData<IPostAttributes>[]>;
 export type IPostResponse = IPostsResponse; // Strapi always return an array instead object
 
-export type ISectionResponse = IBaseApiResponse<IData<ISectionAttributes>>;
-export type ISectionsResponse = IBaseApiResponse<IData<ISectionAttributes>[]>;
+export type ISectionResponse = IAxiosResponse<IData<ISectionAttributes>>;
+export type ISectionsResponse = IAxiosResponse<IData<ISectionAttributes>[]>;
 
-export type ISettingResponse = IBaseApiResponse<IData<ISettingAttributes>>;
+export type ISettingResponse = IAxiosResponse<IData<ISettingAttributes>>;
