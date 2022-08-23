@@ -2,7 +2,6 @@ import '@/vendors/tailwindcss/style.scss';
 import '@/vendors/menu/style.scss';
 
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import shadows, {Shadows} from '@mui/material/styles/shadows';
 import type {AppProps} from 'next/app';
 import {useRouter} from 'next/router';
 import {appWithTranslation} from 'next-i18next';
@@ -16,7 +15,7 @@ import QueryProvider from '@/contexts/query.provider';
 const Noop: React.FC = ({children}: React.PropsWithChildren<any>) => <>{children}</>;
 
 const theme = createTheme({
-  shadows: shadows.map(() => 'none') as Shadows,
+  shadows: 'none',
   shape: {
     borderRadius: 2
   },
