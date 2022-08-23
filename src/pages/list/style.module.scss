@@ -35,7 +35,7 @@
   .list-group {
     @apply pt-8;
     .text-group {
-      @apply mb-5 flex w-full items-center justify-between bg-white px-4 sm:mb-5 sm:h-[60px] sm:max-w-[1214px];
+      @apply mb-5 flex w-full items-center justify-between bg-white px-4 sm:mb-5 sm:h-12 sm:max-w-7xl;
     }
     .title-group {
       @apply my-3.5 text-base font-normal sm:my-5 sm:text-h4;
@@ -45,9 +45,6 @@
     }
     .btn-hover-hand {
       @apply cursor-pointer bg-transparent p-0;
-    }
-    .text-group {
-      @apply mb-5 flex h-[60px] w-full max-w-[1214px] items-center justify-between bg-white px-4;
     }
   }
 }

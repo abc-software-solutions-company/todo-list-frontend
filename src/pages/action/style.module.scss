@@ -25,6 +25,6 @@
     @apply w-3/4;
   }
   .input-group-text {
-    @apply w-1/4 text-center;
+    @apply w-1/4 text-center sm:p-0;
   }
 }
