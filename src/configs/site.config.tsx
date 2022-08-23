@@ -46,7 +46,7 @@ const schemaJsonLdWebSiteDefault = {
 };
 
 export const siteSettings = {
-  name: 'IKI Design',
+  name: 'ToDo List',
   description: 'Simple solutions for complex problems',
   defaultLanguage: 'vi',
   phoneNumber: '0987654321',
@@ -55,13 +55,13 @@ export const siteSettings = {
   linkedInUrl: '#',
   email: 'hello@abcsoftwarecompany.com',
   author: {
-    name: 'IKI Design',
+    name: 'ToDo List',
     websiteUrl: 'https://www.abcsoftwarecompany.com',
     address: ''
   },
   logo: {
     url: 'https://www.abcsoftwarecompany.com',
-    alt: 'IKI Design',
+    alt: 'ToDo List',
     href: '/',
     width: 128,
     height: 30

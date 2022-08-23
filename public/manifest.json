@@ -1,6 +1,6 @@
 {
-  "name": "IKI Design",
-  "short_name": "IKI Design",
+  "name": "ToDo List",
+  "short_name": "ToDo List",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "fullscreen",
@@ -9,13 +9,13 @@
   "start_url": "/",
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
+      "src": "/todolist.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-        "src": "/android-chrome-256x256.png",
+        "src": "/todolist.png",
         "sizes": "256x256",
         "type": "image/png",
         "purpose": "maskable any"
