@@ -1,7 +1,7 @@
 .section-create-list :global {
-  @apply py-11 sm:py-20;
+  @apply scroll-m-0 py-20;
   .container {
-    @apply m-auto;
+    @apply mx-auto;
   }
   .list-content {
     @apply flex justify-between border-b border-black pb-8;

@@ -19,7 +19,7 @@
     @apply text-2xl font-normal md:text-h2;
   }
   .btn-enter {
-    @apply mt-8 w-full bg-abc-blue py-3 text-base md:text-h5 md:font-normal;
+    @apply mt-8 w-full bg-abc-blue py-3 text-base capitalize md:text-h5 md:font-normal;
   }
   .copyright {
     @apply mt-40 text-base md:text-h5;

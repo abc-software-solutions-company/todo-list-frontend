@@ -24,6 +24,6 @@
     @apply mt-1 flex justify-center;
   }
   .text-copy {
-    @apply grid h-16 w-20 cursor-pointer items-center bg-abc-blue p-0 text-center text-h4 font-medium text-white;
+    @apply grid h-16 w-20 cursor-pointer items-center bg-abc-blue p-0 text-center text-h4 font-medium capitalize text-white;
   }
 }

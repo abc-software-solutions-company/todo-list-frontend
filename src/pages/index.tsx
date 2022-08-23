@@ -57,7 +57,8 @@ export default function PageHome() {
       <Button text="Delete Task" onClick={() => setDeleteTaskOpen(true)} />
       <br />
       <Button text="Input" onClick={() => setShareOpen(true)} />
-
+      <br />
+      <Button text="ModalShare" onClick={() => setShareOpen(true)} />
       <ModalCreateList open={createListOpen} onClose={handleCloseCreateListOpen} />
       <ModalDeleteList open={deleteListOpen} onClose={handleCloseDeleteListOpen} />
       <ModalCreateTask open={createTaskOpen} onClose={handleCreateTaskListOpen} />

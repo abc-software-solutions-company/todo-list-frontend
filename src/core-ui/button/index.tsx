@@ -1,7 +1,9 @@
-import React, {ReactNode} from 'react';
 import cn from 'classnames';
-import styles from './style.module.scss';
+import React, {ReactNode} from 'react';
+
 import {IPropsButtonBase} from '@/types';
+
+import styles from './style.module.scss';
 
 interface IProps extends IPropsButtonBase {
   text?: string;
@@ -11,7 +13,7 @@ interface IProps extends IPropsButtonBase {
 }
 
 const Button: React.FC<IProps> = ({text, onClick, className, children, type = 'button', theme = 'blue'}) => {
-  let content = children ? children : text;
+  const content = children ? children : text;
   return (
     <>
       <button type={type} onClick={onClick} className={cn(styles['com-button'], className, styles[theme + ''])}>

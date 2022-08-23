@@ -1,7 +1,8 @@
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import {useRouter} from 'next/router';
+
 import styles from './style.module.scss';
-import Button from '@/core-ui/button';
-import Input from '@/core-ui/input';
 
 const Action: React.FC = () => {
   const router = useRouter();
@@ -12,25 +13,31 @@ const Action: React.FC = () => {
           <div className="section-room">
             <div className="title-room">
               <p className="title-todo">TO DO LIST</p>
-              <p className="description-todo">Organize your work and life, finally.</p>
             </div>
-            <div className="section-btn">
-              <Button
-                text=" Create New List"
-                className="title-btn"
-                onClick={() => {
-                  router.push('/list');
-                }}
-              />
-              <div className="input-group-room  ">
-                <Input type="text" className="form-control-room" placeholder="Enter link or ID" />
+            <div className="section-content">
+              <p className="description-todo">Organize your work and life, finally.</p>
+              <div className="section-btn">
                 <Button
-                  text="Join"
-                  className="input-group-text "
+                  variant="contained"
+                  className="title-btn"
                   onClick={() => {
                     router.push('/list');
                   }}
-                />
+                >
+                  Create New List
+                </Button>
+                <div className="input-group-room ">
+                  <TextField className="form-control-room" placeholder="Enter ID" />
+                  <Button
+                    variant="contained"
+                    className="input-group-text "
+                    onClick={() => {
+                      router.push('/list');
+                    }}
+                  >
+                    Join
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
