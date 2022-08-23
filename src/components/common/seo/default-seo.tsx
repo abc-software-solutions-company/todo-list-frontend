@@ -16,7 +16,7 @@ const DefaultSeo: React.FC = () => {
         description: siteSettings.description,
         images: [
           {
-            url: '/og-abc.jpg',
+            url: '/todolist.jpg',
             width: 1200,
             height: 630,
             alt: 'ABC Software Solutions Company'
@@ -101,25 +101,25 @@ const DefaultSeo: React.FC = () => {
           rel: 'icon',
           sizes: '16x16',
           type: 'image/png',
-          href: '/favicon-16x16.png'
+          href: '/todolist.png'
         },
         {
           rel: 'icon',
           sizes: '32x32',
           type: 'image/png',
-          href: '/favicon-32x32.png'
+          href: '/todolist.png'
         },
 
         // apple icon
         {
-          rel: 'apple-touch-icon',
+          rel: 'todolist',
           sizes: '180x180',
-          href: '/apple-touch-icon.png'
+          href: '/todolist.png'
         },
         {
           rel: 'mask-icon',
           color: '#5bbad5',
-          href: '/safari-pinned-tab.svg'
+          href: '/todolist.svg'
         }
       ]}
     />
