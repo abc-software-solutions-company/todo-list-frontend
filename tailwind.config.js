@@ -12,7 +12,7 @@ module.exports = {
       center: true,
       padding: {
         DEFAULT: '0.938rem', // Ở màn hình mobile thì container sẽ cách lề trái và lề phải 15px
-        md: '0'
+        xl: '0'
       }
     },
     fontFamily: {
