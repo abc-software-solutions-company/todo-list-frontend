@@ -15,6 +15,17 @@ import QueryProvider from '@/contexts/query.provider';
 const Noop: React.FC = ({children}: React.PropsWithChildren<any>) => <>{children}</>;
 
 const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'Montserrat',
+      'system-ui',
+      '-apple-system',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'sans-serif'
+    ].join(',')
+  },
   shape: {
     borderRadius: 2
   },

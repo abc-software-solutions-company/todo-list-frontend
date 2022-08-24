@@ -21,9 +21,9 @@
     }
   }
   .input-group-modal {
-    @apply mt-1 flex justify-center;
+    @apply mt-1 flex;
   }
   .text-copy {
-    @apply grid h-16 w-20 cursor-pointer items-center bg-abc-blue p-0 text-center text-h4 font-medium capitalize text-white;
+    @apply grid h-16 w-20 cursor-pointer items-center p-0 text-center text-h4 font-medium capitalize text-white;
   }
 }
