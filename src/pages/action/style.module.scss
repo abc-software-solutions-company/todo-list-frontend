@@ -15,18 +15,6 @@
     @apply mt-16 text-center text-3xl font-medium text-abc-blue md:text-h1;
   }
   .section-btn {
-    @apply mx-auto block max-w-full  px-10 pt-10 sm:flex sm:justify-center sm:px-0 sm:pt-8;
-  }
-  .title-btn {
-    @apply w-full p-4 text-base font-normal capitalize sm:w-full md:text-h4;
-  }
-  .input-group-room {
-    @apply m-0 flex w-full cursor-pointer pt-5 text-base font-normal sm:ml-5 sm:w-full sm:p-0 md:text-h4;
-  }
-  .form-control-room {
-    @apply w-3/4;
-  }
-  .input-group-text {
-    @apply w-1/4 text-center text-base font-normal capitalize sm:p-0 md:text-h4;
+    @apply mt-8 grid grid-cols-2 gap-x-5;
   }
 }

@@ -1,7 +1,7 @@
-import {FormGroup} from '@mui/material';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import {useRouter} from 'next/router';
+
+import Button from '@/core-ui/button';
+import Input from '@/core-ui/input';
 
 import styles from './style.module.scss';
 
@@ -20,26 +20,15 @@ const Action: React.FC = () => {
               <div className="section-btn">
                 <Button
                   variant="contained"
-                  className="title-btn"
                   onClick={() => {
                     router.push('/list');
                   }}
                 >
                   Create New List
                 </Button>
-                <div className="input-group-room ">
-                  <FormGroup row>
-                    <TextField className="form-control-room" placeholder="Enter ID" />
-                    <Button
-                      variant="contained"
-                      className="input-group-text "
-                      onClick={() => {
-                        router.push('/list');
-                      }}
-                    >
-                      Join
-                    </Button>
-                  </FormGroup>
+                <div className="input-group">
+                  <Input placeholder="Enter ID" />
+                  <Button className="input-group-text">Join</Button>
                 </div>
               </div>
             </div>
