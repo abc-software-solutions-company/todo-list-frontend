@@ -177,9 +177,10 @@ module.exports = {
       );
       addUtilities({
         '.invalid': {
-          fontSize: theme('fontSize.xs'),
+          fontSize: theme('fontSize.sm'),
           color: theme('colors.abc-dark-red'),
-          fontStyle: 'italic'
+          fontStyle: 'italic',
+          marginTop: theme('spacing.1')
         },
         '.overflow-initial': {
           overflow: 'initial'

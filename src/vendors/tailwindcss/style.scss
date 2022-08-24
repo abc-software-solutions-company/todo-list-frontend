@@ -8,6 +8,7 @@
 @tailwind components;
 @layer components {
   @import './components/button';
+  // @import './components/error';
   @import './components/link';
   @import './components/scrollbar';
   @import './components/input';

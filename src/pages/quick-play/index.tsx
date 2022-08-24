@@ -21,7 +21,7 @@ interface IFormInputs {
 const Schema = yup.object().shape({
   userName: yup
     .string()
-    .required('Please enter username.')
+    .required('Please fill all the required fields.')
     .max(20, 'Should smaller than 20 charaters.')
     .min(2, 'Username must be at least 2 characters.')
 });
@@ -55,8 +55,8 @@ const QuickPlay: React.FC = () => {
           <div className="enter-your-name">
             <h2>Let&apos;s start !</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Input placeholder="Enter your name" {...register('userName')} />
-              {errors.userName && <p>{errors.userName.message}</p>}
+              <Input className={errors.userName && 'error'} placeholder="Enter your name" {...register('userName')} />
+              {errors.userName && <p className="invalid">{errors.userName.message}</p>}
               <Button className="btn-submit" type="submit" variant="contained">
                 Enter
               </Button>

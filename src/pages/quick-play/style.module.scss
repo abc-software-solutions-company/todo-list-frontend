@@ -1,6 +1,6 @@
 .com-action :global {
   .inner {
-    @apply mx-auto text-center md:max-w-xl;
+    @apply mx-auto md:max-w-xl;
   }
   .logo-wrapper {
     @apply flex justify-center;
@@ -10,6 +10,9 @@
   }
   .enter-your-name {
     @apply mt-3 border border-black/20 bg-white p-10 md:p-16;
+    h2 {
+      @apply text-center;
+    }
   }
   .heading {
     @apply text-2xl font-normal md:text-h2;
@@ -21,6 +24,6 @@
     @apply mt-8 w-full;
   }
   .copyright {
-    @apply mt-3 text-base md:text-h5;
+    @apply mt-3 text-center text-base md:text-h5;
   }
 }
