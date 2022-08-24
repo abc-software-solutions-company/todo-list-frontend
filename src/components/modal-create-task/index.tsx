@@ -1,17 +1,18 @@
-import Button from "../../core-ui/button";
-import Modal from "../../core-ui/modal";
-import React from "react";
+import React from 'react';
 
-import styles from "./style.module.scss";
+import Button from '@/core-ui/button';
+
+import Modal from '../../core-ui/modal';
+import styles from './style.module.scss';
 
 interface IProps {
   open: boolean;
   onClose?: () => void;
 }
 
-const ModalCreateTask: React.FC<IProps> = ({ open, onClose }) => {
+const ModalCreateTask: React.FC<IProps> = ({open, onClose}) => {
   return (
-    <div className={styles["com-modal-create-task"]}>
+    <div className={styles['com-modal-create-task']}>
       <Modal open={open} onClose={onClose}>
         <Modal.Header>
           <h3 className="heading">Create New task</h3>

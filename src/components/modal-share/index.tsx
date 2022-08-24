@@ -1,11 +1,10 @@
-import {FormGroup} from '@mui/material';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import cn from 'classnames';
 import Image from 'next/image';
-import React, {useState} from 'react';
+import React from 'react';
 
 import IconClose from '@/assets/images/icon-close.svg';
+import Button from '@/core-ui/button';
+import Input from '@/core-ui/input';
 
 import Modal from '../../core-ui/modal';
 import styles from './style.module.scss';
@@ -33,12 +32,10 @@ const ModalShare: React.FC<IProps> = ({open, onClose}) => {
               </label>
             </div>
             <div className="input-group-modal ">
-              <FormGroup row>
-                <TextField placeholder="https://to-do-list/board/#8f677ssf" className="input-control" />
-                <Button variant="contained" className="text-copy">
-                  Copy
-                </Button>
-              </FormGroup>
+              <Input placeholder="https://to-do-list/board/#8f677ssf" className="input-control" />
+              <Button variant="contained" className="text-copy">
+                Copy
+              </Button>
             </div>
             <div className="input-group-ID">
               <label className="title-label" htmlFor="">
@@ -46,12 +43,10 @@ const ModalShare: React.FC<IProps> = ({open, onClose}) => {
               </label>
             </div>
             <div className="input-group-modal ">
-              <FormGroup row>
-                <TextField placeholder="A0001" className="input-control" />
-                <Button className="text-copy" variant="contained">
-                  Copy
-                </Button>
-              </FormGroup>
+              <Input placeholder="A0001" className="input-control" />
+              <Button className="text-copy" variant="contained">
+                Copy
+              </Button>
             </div>
           </div>
         </div>
