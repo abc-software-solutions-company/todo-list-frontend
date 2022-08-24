@@ -19,7 +19,7 @@ export default class CustomDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body className="scrollbar bg-abc-light font-sans">
+        <body className="scrollbar m-0 bg-abc-light p-0 font-sans">
           <Main />
           <NextScript />
           <div className="transform-gpu"></div>

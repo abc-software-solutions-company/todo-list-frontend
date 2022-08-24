@@ -1,14 +1,17 @@
-import {useRouter} from 'next/router';
 import Image from 'next/image';
+import {useRouter} from 'next/router';
 import React, {useState} from 'react';
+
 import IconAdd from '@/assets/images/icon-add.svg';
 import IconArrowRight from '@/assets/images/icon-arow-right.svg';
 import IconArrowLeft from '@/assets/images/icon-arrow-left.svg';
 import IconShare from '@/assets/images/icon-share.svg';
-import styles from './style.module.scss';
-import Button from '@/core-ui/button';
 import ModalCreateList from '@/components/modal-create-list';
 import ModalShare from '@/components/modal-share';
+import Button from '@/core-ui/button';
+
+import styles from './style.module.scss';
+
 const List: React.FC = () => {
   const router = useRouter();
   const [createListOpen, setCreateListOpen] = useState<boolean>(false);
@@ -23,7 +26,7 @@ const List: React.FC = () => {
   };
   return (
     <>
-      <div className={styles['section-create-list']}>
+      <div className={styles['create-list-section']}>
         <div className="container">
           <div className="banner-list">
             <div className="list-content">
@@ -34,7 +37,7 @@ const List: React.FC = () => {
                     router.push('/action');
                   }}
                 >
-                  <Image src={IconArrowLeft} alt="Arrow left" z />
+                  <Image src={IconArrowLeft} alt="Arrow left" />
                 </div>
 
                 <div className="title-left">
