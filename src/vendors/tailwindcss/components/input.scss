@@ -1,5 +1,5 @@
 .form-input {
-  @apply w-full bg-abc-light p-2 placeholder:text-base placeholder:font-medium placeholder:text-black;
+  @apply w-full border-black/[0.2] p-3 text-h4 placeholder:text-black/[0.2];
   &.error {
     @apply border-abc-blue;
   }

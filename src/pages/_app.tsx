@@ -30,9 +30,23 @@ const theme = createTheme({
     borderRadius: 2
   },
   components: {
-    MuiButtonBase: {
-      defaultProps: {
-        disableRipple: true
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          '&.MuiInputBase-input': {
+            backgroundColor: '#000',
+            color: '#fff'
+          }
+        }
+      }
+    },
+    MuiButton: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          fontSize: '44rem'
+        }
       }
     }
   }

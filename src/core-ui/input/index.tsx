@@ -1,17 +1,26 @@
-import React, {ReactNode} from 'react';
-import cn from 'classnames';
+import React, {FC, forwardRef, InputHTMLAttributes, Ref} from 'react';
 
-import styles from './style.module.scss';
-
-interface IProps {
+interface IProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   placeholder?: string;
-  type?: 'text' | 'button' | 'checkbox' | 'date' | 'file' | 'submit' | 'email';
+  type?: 'text' | 'radio' | 'checkbox' | 'date' | 'file' | 'email';
   onClick?: () => void;
 }
 
-const Input: React.FC<IProps> = ({className, placeholder, type, onClick}) => {
-  return <input className={cn(styles['com-input'], className)}  onClick={onClick} type={type} placeholder={placeholder} />;
-};
+const Input: FC<IProps> = forwardRef(
+  ({className, onClick, placeholder, type = 'text', ...rest}, ref: Ref<HTMLInputElement>) => {
+    return (
+      <input
+        className={['form-input', className?.toString()].join(' ')}
+        onClick={onClick}
+        type={type}
+        placeholder={placeholder}
+        ref={ref}
+        {...rest}
+      />
+    );
+  }
+);
+Input.displayName = 'Input';
 
 export default Input;

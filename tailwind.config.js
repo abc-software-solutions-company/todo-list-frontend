@@ -4,7 +4,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 module.exports = {
   content: ['./src/**/*.{html,njk,js,jsx,ts,tsx}'],
   corePlugins: {
-    preflight: false
+    preflight: true
   },
   theme: {
     container: {
@@ -27,16 +27,14 @@ module.exports = {
       handwriting: ['"Dancing Script"']
     },
     extend: {
+      // https://nekocalc.com/px-to-rem-converter
       // Tailwind cung cấp sẵn cho bạn khá nhiều thứ nhưng không có nghĩa là chỉ dùng những cái nó cung cấp sẵn là đủ.
       // Do đó Tailwind cung cấp tính năng mở rộng để tạo thêm cấu hình một cách dễ dàng.
-      screens: {
-        xl: '1214px'
-      },
       fontSize: {
         none: ['0', '0'],
         hero: ['3.5rem', {lineHeight: '4.25rem', letterSpacing: '0'}],
         h1: ['2.5rem', {lineHeight: '3.0625rem', letterSpacing: '0'}],
-        h2: ['1.75rem', {lineHeight: '2.125rem', letterSpacing: '0'}],
+        h2: ['1.75rem', {lineHeight: '2.125rem', letterSpacing: '0'}], // 28/34
         h3: ['1.5rem', {lineHeight: '1.8125rem', letterSpacing: '0'}],
         h4: ['1.25rem', {lineHeight: '1.5rem', letterSpacing: '0'}],
         h5: ['1.125rem', {lineHeight: '1.375rem', letterSpacing: '0'}],
@@ -164,8 +162,8 @@ module.exports = {
     screens: Object.fromEntries(Object.entries(defaultTheme.screens).filter(([key, value]) => key !== '2xl'))
   },
   plugins: [
-    // require('@tailwindcss/typography'),
-    // require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/line-clamp'),
     plugin(function ({addUtilities, theme, e}) {

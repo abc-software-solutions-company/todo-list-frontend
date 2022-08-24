@@ -3,25 +3,25 @@
 }
 h1,
 .h1 {
-  @apply text-2xl font-medium md:text-3xl lg:text-4xl 2xl:text-h1;
+  @apply text-2xl font-medium md:text-3xl lg:text-4xl;
 }
 h2,
 .h2 {
-  @apply font-normal md:text-2xl lg:text-3xl 2xl:text-h2;
+  @apply font-normal lg:text-h2;
 }
 h3,
 .h3 {
-  @apply font-medium md:text-lg lg:text-2xl 2xl:text-h3;
+  @apply font-medium md:text-lg lg:text-2xl;
 }
 h4,
 .h4 {
-  @apply font-normal md:text-lg lg:text-2xl 2xl:text-h4;
+  @apply font-normal md:text-lg lg:text-2xl;
 }
 h5,
 .h5 {
-  @apply font-normal md:text-lg lg:text-2xl 2xl:text-h5;
+  @apply font-normal md:text-lg lg:text-2xl;
 }
 h6,
 .h6 {
-  @apply font-bold md:text-lg lg:text-2xl 2xl:text-h6;
+  @apply font-bold md:text-lg lg:text-2xl;
 }

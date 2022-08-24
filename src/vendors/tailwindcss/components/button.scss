@@ -1,14 +1,13 @@
 .btn {
-  @apply items-center p-3 font-semibold;
+  @apply items-center p-3 text-h4;
   @apply transition-all duration-300 ease-in-out;
-
-  &.btn-fill {
-    @apply bg-abc-blue text-black;
-  }
-  &.btn-outline {
-    @apply border-2 border-abc-dark text-abc-blue hover:bg-abc-blue hover:text-white;
-  }
   &:not([disabled]):hover {
     @apply bg-blue-500;
+  }
+  &.contained {
+    @apply bg-[#4B9AE8] text-white;
+  }
+  &.outlined {
+    @apply bg-white text-[#4B9AE8] hover:bg-gray-50;
   }
 }

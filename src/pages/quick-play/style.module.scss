@@ -1,10 +1,6 @@
-.section-todo-list :global {
-  @apply mx-auto max-w-7xl bg-abc-light;
-  .container {
-    @apply mx-auto max-w-full p-0 pt-20 pb-20 md:max-w-xl;
-  }
+.com-action :global {
   .inner {
-    @apply text-center;
+    @apply mx-auto text-center md:max-w-xl;
   }
   .logo-wrapper {
     @apply flex justify-center;
@@ -13,31 +9,18 @@
     @apply w-28;
   }
   .enter-your-name {
-    @apply mt-10 border border-black/20 bg-white p-10 md:p-16;
+    @apply mt-3 border border-black/20 bg-white p-10 md:p-16;
   }
   .heading {
     @apply text-2xl font-normal md:text-h2;
   }
-  .btn-enter {
-    @apply mt-8 w-full bg-abc-blue py-3 text-base capitalize md:text-h5 md:font-normal;
+  form {
+    @apply mt-14;
+  }
+  .btn-submit {
+    @apply mt-8 w-full;
   }
   .copyright {
-    @apply mt-40 text-base md:text-h5;
-  }
-}
-
-// Modifiers
-.section-todo-list.validation :global {
-  .validation {
-    @apply float-left mt-1 text-abc-red;
-  }
-  .validation::after {
-    @apply clear-both block content-[''];
-  }
-  .input {
-    @apply border-abc-red placeholder:text-abc-red;
-  }
-  .btn-enter {
-    @apply mt-3;
+    @apply mt-3 text-base md:text-h5;
   }
 }
