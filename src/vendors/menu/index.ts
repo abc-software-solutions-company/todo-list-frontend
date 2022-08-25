@@ -27,8 +27,6 @@ export default class Menu implements IMenu {
   private itemHasActiveClass: HTMLElement[] = [];
 
   constructor(menu: HTMLElement, options?: IMenuOptions) {
-    console.log('[Site] - Init Script Menu');
-
     this.configs = {
       ...this.configs,
       ...options

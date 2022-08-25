@@ -14,8 +14,6 @@ interface IProps {
   onClose?: () => void;
 }
 const ModalShare: React.FC<IProps> = ({open, onClose}) => {
-  console.log(open);
-
   return (
     <div className={cn(styles['com-modal-share'])}>
       <Modal open={open} onClose={onClose}>
