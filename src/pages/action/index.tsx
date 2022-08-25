@@ -51,7 +51,10 @@ const Action: React.FC = () => {
                   </Button>
                 </form>
               </div>
-              {errors.ID && <p className="text-end invalid ">{errors.ID.message}</p>}
+              <div className="section-error">
+                <div></div>
+                {errors.ID && <p className=" invalid">{errors.ID.message}</p>}
+              </div>
             </div>
           </div>
         </div>
