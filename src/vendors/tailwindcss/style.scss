@@ -9,10 +9,13 @@
 @layer components {
   @import './components/button';
   // @import './components/error';
+
   @import './components/link';
   @import './components/scrollbar';
   @import './components/input';
   @import './components/wysiwyg';
+  @import './components/checkbox';
+
   @import './components/input-group';
 }
 @tailwind utilities;

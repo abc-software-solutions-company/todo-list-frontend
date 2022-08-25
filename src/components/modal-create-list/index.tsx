@@ -29,7 +29,6 @@ interface IProps {
 const ModalCreateList: React.FC<IProps> = ({open, onClose}) => {
   // Use React Hook Form.
   const {
-    control,
     register,
     handleSubmit,
     formState: {errors}

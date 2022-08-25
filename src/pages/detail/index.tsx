@@ -12,6 +12,8 @@ import ModalDeleteTask from '@/components/modal-delete-task';
 import ModalShare from '@/components/modal-share';
 import ModalUpdateTask from '@/components/modal-update-task';
 import Button from '@/core-ui/button';
+import Checkbox from '@/core-ui/checkbox';
+import Input from '@/core-ui/input';
 
 import styles from './style.module.scss';
 
@@ -83,95 +85,11 @@ const Detail: React.FC = () => {
           </div>
           <div className="detail-group">
             <div className="detail-list">
-              <p className="title-group">Shopping</p>
-              <div className="icon-group">
-                <Button className="btn-hover-hand" onClick={() => setEditdetail(true)}>
-                  <Image src={IconEdit} alt="Edit" width={20} height={16} />
-                </Button>
-                <Button className="btn-hover-hand" width={11} height={19} onClick={() => setDeletedetail(true)}>
-                  <Image src={IconDelete} alt="Delete" />
-                </Button>
+              <div className="flex items-center justify-between gap-3 ">
+                <Checkbox />
+                <p className="title-group">Shopping</p>
               </div>
-            </div>
-            <div className="detail-list">
-              <p className="title-group">Shopping</p>
-              <div className="icon-group">
-                <Button className="btn-hover-hand" onClick={() => setEditdetail(true)}>
-                  <Image src={IconEdit} alt="Edit" width={20} height={16} />
-                </Button>
-                <Button className="btn-hover-hand" width={11} height={19} onClick={() => setDeletedetail(true)}>
-                  <Image src={IconDelete} alt="Delete" />
-                </Button>
-              </div>
-            </div>
-            <div className="detail-list">
-              <p className="title-group">Shopping</p>
-              <div className="icon-group">
-                <Button className="btn-hover-hand" onClick={() => setEditdetail(true)}>
-                  <Image src={IconEdit} alt="Edit" width={20} height={16} />
-                </Button>
-                <Button className="btn-hover-hand" width={11} height={19} onClick={() => setDeletedetail(true)}>
-                  <Image src={IconDelete} alt="Delete" />
-                </Button>
-              </div>
-            </div>
-            <div className="detail-list">
-              <p className="title-group">Shopping</p>
-              <div className="icon-group">
-                <Button className="btn-hover-hand" onClick={() => setEditdetail(true)}>
-                  <Image src={IconEdit} alt="Edit" width={20} height={16} />
-                </Button>
-                <Button className="btn-hover-hand" width={11} height={19} onClick={() => setDeletedetail(true)}>
-                  <Image src={IconDelete} alt="Delete" />
-                </Button>
-              </div>
-            </div>
-            <div className="detail-list">
-              <p className="title-group">Shopping</p>
-              <div className="icon-group">
-                <Button className="btn-hover-hand" onClick={() => setEditdetail(true)}>
-                  <Image src={IconEdit} alt="Edit" width={20} height={16} />
-                </Button>
-                <Button className="btn-hover-hand" width={11} height={19} onClick={() => setDeletedetail(true)}>
-                  <Image src={IconDelete} alt="Delete" />
-                </Button>
-              </div>
-            </div>
-            <div className="detail-list">
-              <p className="title-group">Shopping</p>
-              <div className="icon-group">
-                <Button className="btn-hover-hand" onClick={() => setEditdetail(true)}>
-                  <Image src={IconEdit} alt="Edit" width={20} height={16} />
-                </Button>
-                <Button className="btn-hover-hand" width={11} height={19} onClick={() => setDeletedetail(true)}>
-                  <Image src={IconDelete} alt="Delete" />
-                </Button>
-              </div>
-            </div>
-            <div className="detail-list">
-              <p className="title-group">Shopping</p>
-              <div className="icon-group">
-                <Button className="btn-hover-hand" onClick={() => setEditdetail(true)}>
-                  <Image src={IconEdit} alt="Edit" width={20} height={16} />
-                </Button>
-                <Button className="btn-hover-hand" width={11} height={19} onClick={() => setDeletedetail(true)}>
-                  <Image src={IconDelete} alt="Delete" />
-                </Button>
-              </div>
-            </div>
-            <div className="detail-list">
-              <p className="title-group">Shopping</p>
-              <div className="icon-group">
-                <Button className="btn-hover-hand" onClick={() => setEditdetail(true)}>
-                  <Image src={IconEdit} alt="Edit" width={20} height={16} />
-                </Button>
-                <Button className="btn-hover-hand" width={11} height={19} onClick={() => setDeletedetail(true)}>
-                  <Image src={IconDelete} alt="Delete" />
-                </Button>
-              </div>
-            </div>
-            <div className="detail-list">
-              <p className="title-group">Shopping</p>
+
               <div className="icon-group">
                 <Button className="btn-hover-hand" onClick={() => setEditdetail(true)}>
                   <Image src={IconEdit} alt="Edit" width={20} height={16} />
