@@ -30,12 +30,11 @@ const ModalDeleteTask: React.FC<IProps> = ({taskId, taskName, open, onClose}) =>
         <Modal.Header>
           <h3 className="heading">Are you sure you want to delete task: {taskName}</h3>
         </Modal.Header>
-        <form onSubmit={() => handleDelete(taskId)}>
-          <Modal.Footer>
-            <Button className="btn" text="No" onClick={onClose} theme="white" />
-            <Button className="btn" text="Yes" type="submit" />
-          </Modal.Footer>
-        </form>
+
+        <Modal.Footer>
+          <Button className="btn" text="No" onClick={onClose} theme="white" />
+          <Button className="btn" text="Yes" onClick={() => handleDelete(taskId)} />
+        </Modal.Footer>
       </Modal>
     </div>
   );

@@ -58,7 +58,7 @@ const ModalUpdateList: React.FC<IProps> = ({taskId, taskName, open, onClose}) =>
             {errors.taskName && <p>{errors.taskName.message}</p>}
           </Modal.Body>
           <Modal.Footer>
-            <Button className="btn" text="Close" theme="white" onClick={onClose} />
+            <Button className="btn" text="Close" theme="white" type="reset" onClick={onClose} />
             <Button className="btn" text="Save" type="submit" />
           </Modal.Footer>
         </form>

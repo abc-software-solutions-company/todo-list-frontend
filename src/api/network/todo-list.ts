@@ -8,9 +8,12 @@ export interface ITodoList {
   updatedDate?: string;
 }
 
+type List = IAxiosResponse<ITodoList>;
 type Lists = IAxiosResponse<ITodoList[]>;
 
 const getTodoLists = () => HttpRequest.get<Lists>('/todo-lists');
 const createTodoList = (data: ITodoList) => HttpRequest.post<ITodoList>('/todo-lists', data);
+const deleteTodoList = (id: number) => HttpRequest.destroy<ITodoList>(`todo-lists/${id}`);
+const readTodoList = (id: number) => HttpRequest.get<List>(`/todo-lists/${id}`);
 
-export default {getTodoLists, createTodoList};
+export default {getTodoLists, createTodoList, deleteTodoList, readTodoList};

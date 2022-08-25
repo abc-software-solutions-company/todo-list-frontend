@@ -10,17 +10,25 @@ import ModalDeleteTask from '@/components/modal-delete-task';
 import ModalShare from '@/components/modal-share';
 import ModalUpdateTask from '@/components/modal-update-task';
 import Button from '@/core-ui/button';
-import API from '@/api/network/task';
+import TaskAPI from '@/api/network/task';
+import ListAPI from '@/api/network/todo-list';
 import {ITask} from '@/api/network/task';
+import {IList} from '@/api/network/todo-list';
 import styles from './style.module.scss';
 import ModalCreateTask from '@/components/modal-create-task';
 import {IUser} from '@/api/network/user';
+import ModalDeleteList from '@/components/modal-delete-list';
 
 const Detail: React.FC = () => {
   const router = useRouter();
   const {id} = router.query;
 
   const [createTaskOpen, setCreateTaskOpen] = useState<boolean>(false);
+  const [editDetail, setEditdetail] = useState<boolean>(false);
+  const [deleteDetail, setDeletedetail] = useState<boolean>(false);
+  const [deleteListOpen, setDeleteListOpen] = useState<boolean>(false);
+  const [list, setList] = useState<boolean>(false);
+  const [shareOpen, setShareOpen] = useState<boolean>(false);
   const [task, setTask] = useState<ITask[] | null>(null);
   const [taskId, setTaskId] = useState<string>('');
   const [taskName, setTaskName] = useState<string>('');
@@ -30,19 +38,13 @@ const Detail: React.FC = () => {
     setCreateTaskOpen(false);
   };
 
-  const [shareOpen, setShareOpen] = useState<boolean>(false);
-
   const handleShare = () => {
     setShareOpen(false);
   };
 
-  const [editDetail, setEditdetail] = useState<boolean>(false);
-
   const handleEdit = () => {
     setEditdetail(false);
   };
-
-  const [deleteDetail, setDeletedetail] = useState<boolean>(false);
 
   const handleDelete = () => {
     setDeletedetail(false);
@@ -50,8 +52,9 @@ const Detail: React.FC = () => {
 
   // Fetch data.
   const fetchData = async (id: string) => {
-    await API.getTasks(id.toString()).then(res => {
-      setTask(res.data);
+    await Promise.all([ListAPI.readTodoList(Number(id)), TaskAPI.getTasks(id.toString())]).then(([list, task]) => {
+      setList(list.data);
+      setTask(task.data);
     });
   };
 
@@ -66,20 +69,26 @@ const Detail: React.FC = () => {
     setUser(object);
   }, []);
 
-  // Handle delete open.
+  // Handle delete task open.
   const handleDeleteOpen = (taskId: string, taskName: string) => {
     setDeletedetail(true);
     setTaskId(taskId);
     setTaskName(taskName);
   };
 
-  // Handle edit open.
+  // Handle edit task open.
   const handleEditOpen = (taskId: string, taskName: string) => {
     setEditdetail(true);
     setTaskId(taskId);
     setTaskName(taskName);
   };
 
+  // Handle delete list close.
+  const handleDeleteListClose = () => {
+    setDeleteListOpen(false);
+  };
+
+  if (!list) return null;
   if (!task) return null;
   if (!user) return null;
 
@@ -93,19 +102,19 @@ const Detail: React.FC = () => {
                 <div
                   className="icon-arrow-left"
                   onClick={() => {
-                    router.push('/action');
+                    router.push('/list');
                   }}
                 >
                   <Image src={IconArrowLeft} alt="Arrow left" />
                 </div>
 
                 <div className="title-left">
-                  <h3 className="title-todo">Shopping</h3>
+                  <h3 className="title-todo">{list.listName}</h3>
                 </div>
               </div>
               <div className="detail-right">
                 <div className="detail-items">
-                  <Button className="items" onClick={() => setDeletedetail(true)}>
+                  <Button className="items" onClick={() => setDeleteListOpen(true)}>
                     <Image src={IconDelete} alt="Delete" width={22} height={22} />
                   </Button>
                   <div className="title-right">Delete</div>
@@ -144,18 +153,24 @@ const Detail: React.FC = () => {
                     </Button>
                   </div>
                 </div>
-                <ModalCreateTask
-                  todolistId={id?.toString()}
-                  userId={user.id}
-                  open={createTaskOpen}
-                  onClose={handleCloseCreateTaskOpen}
-                />
                 <ModalDeleteTask taskId={taskId} taskName={taskName} open={deleteDetail} onClose={handleDelete} />
                 <ModalUpdateTask taskId={taskId} taskName={taskName} open={editDetail} onClose={handleEdit} />
                 <ModalShare open={shareOpen} onClose={handleShare} />
               </>
             ))}
           </div>
+          <ModalCreateTask
+            todolistId={id?.toString()}
+            userId={user.id}
+            open={createTaskOpen}
+            onClose={handleCloseCreateTaskOpen}
+          />
+          <ModalDeleteList
+            listID={list.id}
+            listName={list.listName}
+            open={deleteListOpen}
+            onClose={handleDeleteListClose}
+          />
         </div>
       </div>
     </>
