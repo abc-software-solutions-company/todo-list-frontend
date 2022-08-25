@@ -4,11 +4,11 @@ import React, {useEffect, useState} from 'react';
 import API, {ITodoList} from '@/api/network/todo-list';
 import ModalCreateList from '@/components/modal-create-list';
 import ModalShare from '@/components/modal-share';
+import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 
 import styles from './style.module.scss';
-import {ROUTES} from '@/configs/routes.config';
 
 const List: React.FC = () => {
   const router = useRouter();
@@ -63,7 +63,7 @@ const List: React.FC = () => {
                     router.push('/action');
                   }}
                 >
-                  <Icon size={29} className="abc-arrow-left-circle" />
+                  <Icon size={24} className="abc-arrow-left-circle  size-24" />
                 </div>
 
                 <div className="title-left">
@@ -72,7 +72,7 @@ const List: React.FC = () => {
                 </div>
               </div>
               <Button className="list-right" onClick={() => setCreateListOpen(true)}>
-                <Icon size={22} className="abc-plus-circle" />
+                <Icon size className="abc-plus-circle size-24" />
                 <div className="title-right">New List</div>
               </Button>
             </div>
@@ -89,7 +89,7 @@ const List: React.FC = () => {
                       setCurrentListID(item.id);
                     }}
                   >
-                    <Icon size={22} className="abc-share" />
+                    <Icon className="abc-share" />
                   </Button>
                   <Button
                     className="btn-hover-hand"
@@ -97,7 +97,7 @@ const List: React.FC = () => {
                       router.push(`/list/${item.id}`);
                     }}
                   >
-                    <Icon size={22} className="abc-arrow-right" />
+                    <Icon className="abc-arrow-right" />
                   </Button>
                 </div>
               </div>
