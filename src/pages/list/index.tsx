@@ -83,7 +83,7 @@ const List: React.FC = () => {
                     width={11}
                     height={19}
                     onClick={() => {
-                      router.push('/detail');
+                      router.push(`/list/${item.id}`);
                     }}
                   >
                     <Image src={IconArrowRight} alt="Arrow right" />

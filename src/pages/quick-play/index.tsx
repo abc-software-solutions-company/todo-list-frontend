@@ -37,7 +37,7 @@ const QuickPlay: React.FC = () => {
   const onSubmit: SubmitHandler<IFormInputs> = data => {
     API.createUser(data).then(res => {
       if (res.status === 201) {
-        localStorage.setItem('userName', data.userName);
+        localStorage.setItem('user', JSON.stringify(res.data, null, 2));
         router.push(ROUTES.ACTION);
       }
     });
