@@ -23,7 +23,7 @@ const Schema = yup.object().shape({
     .string()
     .required('Please fill all the required fields.')
     .max(20, 'Should smaller than 20 charaters.')
-    .min(2, 'Username must be at least 2 characters.')
+    .min(2, 'Should bigger than 2 charaters.')
 });
 
 const QuickPlay: React.FC = () => {

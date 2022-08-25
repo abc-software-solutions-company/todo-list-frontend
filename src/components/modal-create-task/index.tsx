@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Button from '../../core-ui/button';
+import Button from '@/core-ui/button';
+
 import Modal from '../../core-ui/modal';
 import styles from './style.module.scss';
 

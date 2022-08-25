@@ -1,4 +1,3 @@
-import Checkbox from '@mui/material/Checkbox';
 import {useRouter} from 'next/router';
 import React, {useState} from 'react';
 
@@ -10,8 +9,6 @@ import ModalShare from '@/components/modal-share';
 import ModalUpdateTask from '@/components/modal-update-task';
 import Button from '@/core-ui/button';
 import LayoutDefault from '@/layouts/default';
-
-const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
 export default function PageHome() {
   const router = useRouter();
@@ -65,10 +62,6 @@ export default function PageHome() {
       <ModalUpdateTask open={updateTaskOpen} onClose={handleUpdateTaskOpen} />
       <ModalDeleteTask open={deleteTaskOpen} onClose={handleDeleteTaskOpen} />
       <ModalShare open={shareOpen} onClose={handleShare} />
-      <Checkbox {...label} defaultChecked />
-      <Checkbox {...label} />
-      <Checkbox {...label} disabled />
-      <Checkbox {...label} disabled checked />
     </>
   );
 }
