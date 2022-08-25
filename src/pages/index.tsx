@@ -8,6 +8,7 @@ import ModalDeleteTask from '@/components/modal-delete-task';
 import ModalShare from '@/components/modal-share';
 import ModalUpdateTask from '@/components/modal-update-task';
 import Button from '@/core-ui/button';
+import Icon from '@/core-ui/icon';
 import LayoutDefault from '@/layouts/default';
 
 export default function PageHome() {
@@ -41,21 +42,27 @@ export default function PageHome() {
 
   return (
     <>
-      <Button text="Quick Play" onClick={() => router.push('/quick-play')} />
+      <Button variant="contained" text="Quick Play" onClick={() => router.push('/quick-play')} />
       <br />
-      <Button text="Create New List" onClick={() => setCreateListOpen(true)} />
+      <Button variant="contained" text="Create New List" onClick={() => setCreateListOpen(true)} />
       <br />
-      <Button text="Delete List" onClick={() => setDeleteListOpen(true)} />
+      <Button variant="contained" text="Delete List" onClick={() => setDeleteListOpen(true)} />
       <br />
-      <Button text="Create New Task" onClick={() => setCreateTaskOpen(true)} />
+      <Button variant="contained" text="Create New Task" onClick={() => setCreateTaskOpen(true)} />
       <br />
-      <Button text="Update Task" onClick={() => setUpdateTaskOpen(true)} />
+      <Button variant="contained" text="Update Task" onClick={() => setUpdateTaskOpen(true)} />
       <br />
-      <Button text="Delete Task" onClick={() => setDeleteTaskOpen(true)} />
+      <Button variant="contained" text="Delete Task" onClick={() => setDeleteTaskOpen(true)} />
       <br />
-      <Button text="Input" onClick={() => setShareOpen(true)} />
+      <Button variant="contained" text="Input" onClick={() => setShareOpen(true)} />
       <br />
-      <Button text="ModalShare" onClick={() => setShareOpen(true)} />
+      <Button variant="contained" text="ModalShare" onClick={() => setShareOpen(true)} />
+      <Icon size={16} className="arrow-left-circle" />
+      <Icon className="x-circle" />
+      <Icon size={24} className="edit" />
+      <Icon size={32} className="plus-circle" />
+      <Icon size={48} className="share" />
+      <Icon size={48} className="trash" />
       <ModalCreateList open={createListOpen} onClose={handleCloseCreateListOpen} />
       <ModalDeleteList open={deleteListOpen} onClose={handleCloseDeleteListOpen} />
       <ModalCreateTask open={createTaskOpen} onClose={handleCreateTaskListOpen} />

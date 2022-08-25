@@ -1,5 +1,6 @@
 import '@/vendors/tailwindcss/style.scss';
 import '@/vendors/menu/style.scss';
+import '@/vendors/abc-icons/dist/abc.scss';
 
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import type {AppProps} from 'next/app';
