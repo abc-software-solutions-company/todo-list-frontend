@@ -62,24 +62,18 @@ const Detail: React.FC = () => {
                 </div>
               </div>
               <div className="detail-right">
-                <div className="detail-items">
-                  <Button className="items" onClick={() => setDeletedetail(true)}>
-                    <Image src={IconDelete} alt="Delete" width={22} height={22} />
-                  </Button>
+                <Button className="detail-items" onClick={() => setDeletedetail(true)}>
+                  <Image className="items" src={IconDelete} alt="Delete" width={22} height={22} />
                   <div className="title-right">Delete</div>
-                </div>
-                <div className="detail-items items-share">
-                  <Button className="items" onClick={() => setShareOpen(true)}>
-                    <Image src={IconShare} alt="Share" width={20} height={16} />
-                  </Button>
+                </Button>
+                <Button className="detail-items" onClick={() => setShareOpen(true)}>
+                  <Image className="items" src={IconShare} alt="Share" width={20} height={16} />
                   <div className="title-right">Share</div>
-                </div>
-                <div className="detail-items">
-                  <Button className="items" onClick={() => setCreateListOpen(true)}>
-                    <Image src={IconAdd} alt="Add" width={22} height={22} />
-                  </Button>
+                </Button>
+                <Button className=" detail-items" onClick={() => setCreateListOpen(true)}>
+                  <Image className="items" src={IconAdd} alt="Add" width={22} height={22} />
                   <div className="title-right">Add To-Do</div>
-                </div>
+                </Button>
               </div>
             </div>
           </div>

@@ -18,18 +18,15 @@
   }
 
   .detail-right {
-    @apply flex justify-between;
+    @apply flex gap-8;
     .detail-items {
-      @apply flex cursor-pointer items-center;
-    }
-    .items-share {
-      @apply px-12;
+      @apply flex cursor-pointer items-center bg-transparent text-black;
     }
     .title-right {
-      @apply ml-4 text-base font-normal sm:ml-4 sm:text-h5;
+      @apply ml-3 text-base font-normal sm:ml-4 sm:text-h5;
     }
     .items {
-      @apply h-5 w-5 bg-transparent p-0 sm:h-6 sm:w-6;
+      @apply h-5 w-5 p-0 sm:h-6 sm:w-6;
     }
   }
   //-----------------------------------------

@@ -1,23 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {useRouter} from 'next/router';
 import Image from 'next/image';
+import {useRouter} from 'next/router';
+import React, {useEffect, useState} from 'react';
+
+import API, {ITodoList} from '@/api/network/todo-list';
 import IconAdd from '@/assets/images/icon-add.svg';
 import IconArrowRight from '@/assets/images/icon-arow-right.svg';
 import IconArrowLeft from '@/assets/images/icon-arrow-left.svg';
 import IconShare from '@/assets/images/icon-share.svg';
-
-import Button from '@/core-ui/button';
 import ModalCreateList from '@/components/modal-create-list';
 import ModalShare from '@/components/modal-share';
-
-import API from '@/api/network/todo-list';
-import {ITodoList} from '@/api/network/todo-list';
+import Button from '@/core-ui/button';
 
 import styles from './style.module.scss';
 
 const List: React.FC = () => {
   const router = useRouter();
-  const [createListOpen, setCreateListOpen] = useState<boolean>(false);
+  const [createListOpen, setCreateListOpen] = useState<boolean>(true);
   const handleCloseCreateListOpen = () => {
     setCreateListOpen(false);
   };
@@ -66,12 +64,10 @@ const List: React.FC = () => {
                   <h3 className="title-todo">YOUR LIST</h3>
                 </div>
               </div>
-              <div className="list-right">
-                <Button className="icon-add" onClick={() => setCreateListOpen(true)}>
-                  <Image src={IconAdd} alt="Add" width={22} height={22} />
-                </Button>
+              <Button className="list-right" onClick={() => setCreateListOpen(true)}>
+                <Image className="icon-add" src={IconAdd} alt="Add" width={22} height={22} />
                 <div className="title-right">New List</div>
-              </div>
+              </Button>
             </div>
           </div>
           <div className="list-group">
