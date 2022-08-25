@@ -14,6 +14,10 @@ interface IProps {
   onClose?: () => void;
 }
 const ModalShare: React.FC<IProps> = ({open, onClose}) => {
+  const linkToDoList = window.location.href;
+  const array = linkToDoList.split('/');
+  const id = array[array.length - 1];
+
   return (
     <div className={cn(styles['com-modal-share'])}>
       <Modal open={open} onClose={onClose}>
@@ -30,8 +34,12 @@ const ModalShare: React.FC<IProps> = ({open, onClose}) => {
               </label>
             </div>
             <div className="input-group-modal ">
-              <Input placeholder="https://to-do-list/board/#8f677ssf" className="input-control" />
-              <Button variant="contained" className="text-copy">
+              <Input value={linkToDoList} className="input-control" />
+              <Button
+                variant="contained"
+                className="text-copy"
+                onClick={() => navigator.clipboard.writeText(linkToDoList)}
+              >
                 Copy
               </Button>
             </div>
@@ -41,8 +49,8 @@ const ModalShare: React.FC<IProps> = ({open, onClose}) => {
               </label>
             </div>
             <div className="input-group-modal ">
-              <Input placeholder="A0001" className="input-control" />
-              <Button className="text-copy" variant="contained">
+              <Input value={id} className="input-control" />
+              <Button className="text-copy" variant="contained" onClick={() => navigator.clipboard.writeText(id)}>
                 Copy
               </Button>
             </div>
