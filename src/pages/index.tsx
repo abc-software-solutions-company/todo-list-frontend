@@ -68,7 +68,7 @@ export default function PageHome() {
       <ModalCreateTask open={createTaskOpen} onClose={handleCreateTaskListOpen} />
       <ModalUpdateTask open={updateTaskOpen} onClose={handleUpdateTaskOpen} />
       <ModalDeleteTask open={deleteTaskOpen} onClose={handleDeleteTaskOpen} />
-      <ModalShare open={shareOpen} onClose={handleShare} />
+      {/* <ModalShare open={shareOpen} onClose={handleShare} /> */}
     </>
   );
 }
