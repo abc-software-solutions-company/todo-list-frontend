@@ -13,7 +13,6 @@
     @apply flex;
   }
   .title-todo {
-    // @apply px-2 text-base font-semibold sm:px-3 sm:text-h3;
     @apply px-2 text-base font-semibold sm:px-3 sm:text-h3;
   }
   .title-todo:first-child {
@@ -28,8 +27,6 @@
       @apply h-5 w-5  p-0 sm:h-6 sm:w-6;
     }
   }
-  //-----------------------------------------
-
   .list-group {
     @apply pt-8;
     .text-group {
@@ -38,8 +35,8 @@
     .title-group {
       @apply my-3.5 pl-4 text-base font-normal sm:my-5 sm:text-h4;
     }
-    .icon-group {
-      @apply flex gap-5 pr-4;
+    .actions {
+      @apply flex gap-3 pr-4;
     }
     .btn-hover-hand {
       @apply cursor-pointer bg-transparent p-0;

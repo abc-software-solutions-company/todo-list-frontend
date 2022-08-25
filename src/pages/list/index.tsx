@@ -6,6 +6,7 @@ import ModalCreateList from '@/components/modal-create-list';
 import ModalShare from '@/components/modal-share';
 import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
+import IconButton from '@/core-ui/ico-button';
 import Icon from '@/core-ui/icon';
 
 import styles from './style.module.scss';
@@ -63,7 +64,7 @@ const List: React.FC = () => {
                     router.push('/action');
                   }}
                 >
-                  <Icon size={24} className="abc-arrow-left-circle  size-24" />
+                  <Icon size={28} name="abc-arrow-left-circle" />
                 </div>
 
                 <div className="title-left">
@@ -71,8 +72,8 @@ const List: React.FC = () => {
                   <h3 className="title-todo">YOUR LIST</h3>
                 </div>
               </div>
-              <Button className="list-right" onClick={() => setCreateListOpen(true)}>
-                <Icon size className="abc-plus-circle size-24" />
+              <Button variant="contained" className="list-right" onClick={() => setCreateListOpen(true)}>
+                <Icon name="abc-plus-circle" />
                 <div className="title-right">New List</div>
               </Button>
             </div>
@@ -81,24 +82,9 @@ const List: React.FC = () => {
             {list.map(item => (
               <div className="text-group" key={item.id}>
                 <p className="title-group">{item.listName}</p>
-                <div className="icon-group">
-                  <Button
-                    className="btn-hover-hand"
-                    onClick={() => {
-                      setShareOpen(true);
-                      setCurrentListID(item.id);
-                    }}
-                  >
-                    <Icon className="abc-share" />
-                  </Button>
-                  <Button
-                    className="btn-hover-hand"
-                    onClick={() => {
-                      router.push(`/list/${item.id}`);
-                    }}
-                  >
-                    <Icon className="abc-arrow-right" />
-                  </Button>
+                <div className="actions">
+                  <IconButton icon="abc-share" onClick={() => setShareOpen(true)} />
+                  <IconButton icon="abc-arrow-right" onClick={() => router.push(`/list/${item.id}`)} />
                 </div>
               </div>
             ))}

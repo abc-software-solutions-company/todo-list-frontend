@@ -1,15 +1,18 @@
-import React, {InputHTMLAttributes} from 'react';
+import React from 'react';
 
-interface IProps extends InputHTMLAttributes<HTMLElement> {
-  size?: 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48;
+import {IIconSizeProps} from '../types';
+
+interface IProps extends IIconSizeProps {
+  className?: string;
+  name: string;
 }
 
-const Button: React.FC<IProps> = ({className, size = 24}) => {
+const Icon: React.FC<IProps> = ({className, name, size = 24}) => {
   return (
     <>
-      <i className={['abc-icon', className, `size-${size}`].join(' ')}></i>
+      <i className={['abc-icon', className, name, `size-${size}`].join(' ')}></i>
     </>
   );
 };
 
-export default Button;
+export default Icon;

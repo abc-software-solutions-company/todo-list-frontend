@@ -1,31 +1,30 @@
 .abc-icon {
-  color: #666;
-  &.size-16 {
-    @apply before:text-[16px];
+  @apply leading-none text-black;
+  &.size-16:before {
+    @apply text-[16px];
   }
-  &.size-20 {
-    @apply before:text-[20px];
+  &.size-20:before {
+    @apply text-[20px];
   }
-  &.size-24 {
-    @apply before:text-[24px];
+  &.size-24:before {
+    @apply text-[24px];
   }
-  &.size-28 {
-    @apply before:text-[28px];
+  &.size-28:before {
+    @apply text-[28px];
   }
-  &.size-32 {
-    @apply before:text-[32px];
+  &.size-32:before {
+    @apply text-[32px];
   }
-  &.size-36 {
-    @apply before:text-[36px];
+  &.size-36:before {
+    @apply text-[36px];
   }
-  &.size-40 {
-    @apply before:text-[40px];
+  &.size-40:before {
+    @apply text-[40px];
   }
-  &.size-44 {
-    @apply before:text-[44px];
+  &.size-44:before {
+    @apply text-[44px];
   }
-  &.size-48 {
-    @apply before:text-[48px];
+  &.size-48:before {
+    @apply text-[48px];
   }
 }
-//16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48
