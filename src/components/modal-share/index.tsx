@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import cn from 'classnames';
 import Image from 'next/image';
-import React, {useState} from 'react';
+import React from 'react';
 
 import IconClose from '@/assets/images/icon-close.svg';
 
