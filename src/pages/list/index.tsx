@@ -77,7 +77,7 @@ const List: React.FC = () => {
                   <Button
                     className="btn-hover-hand"
                     onClick={() => {
-                      router.push('/detail');
+                      router.push(`/list/${item.id}`);
                     }}
                   >
                     <Icon size={22} className="abc-arrow-right" />

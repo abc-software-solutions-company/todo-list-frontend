@@ -1,12 +1,10 @@
-import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-
 import API from '@/api/network/todo-list';
 import Button from '@/core-ui/button';
 import Modal from '@/core-ui/modal';
-
 import styles from './style.module.scss';
 
 const Schema = yup.object().shape({

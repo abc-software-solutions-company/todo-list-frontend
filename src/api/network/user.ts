@@ -2,6 +2,7 @@ import * as HttpRequest from '@/api/http-request';
 import {IAxiosResponse} from '@/types';
 
 export interface IUser {
+  id?: string;
   userName: string;
 }
 
