@@ -8,9 +8,17 @@ import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 
 import styles from './style.module.scss';
+import {ROUTES} from '@/configs/routes.config';
 
 const List: React.FC = () => {
   const router = useRouter();
+  // Check local storage.
+  useEffect(() => {
+    const checkLocal = localStorage.getItem('user');
+    if (!checkLocal) {
+      router.push(ROUTES.QUICKPLAY);
+    }
+  }, []);
   const [createListOpen, setCreateListOpen] = useState<boolean>(true);
   const handleCloseCreateListOpen = () => {
     setCreateListOpen(false);

@@ -8,11 +8,7 @@ import * as yup from 'yup';
 import styles from './style.module.scss';
 
 const Schema = yup.object().shape({
-  taskName: yup
-    .string()
-    .required('Please enter your task name.')
-    .max(100, 'Task name should be less than 100 characters.')
-    .min(5, 'Task name must be at least 5 characters.')
+  taskName: yup.string().required('Please enter your task name.')
 });
 
 interface IFormInputs {

@@ -9,6 +9,7 @@ import Input from '@/core-ui/input';
 
 import styles from './style.module.scss';
 import {useEffect} from 'react';
+import {ROUTES} from '@/configs/routes.config';
 
 interface IFormInputs {
   ID: string;
@@ -19,6 +20,14 @@ const Schema = yup.object().shape({
 });
 const Action: React.FC = () => {
   const router = useRouter();
+  // Check local storage.
+  useEffect(() => {
+    const checkLocal = localStorage.getItem('user');
+    if (!checkLocal) {
+      router.push(ROUTES.QUICKPLAY);
+    }
+  }, []);
+
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
     mode: 'onChange',
     resolver: yupResolver(Schema)

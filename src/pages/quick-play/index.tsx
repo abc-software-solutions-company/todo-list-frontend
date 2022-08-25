@@ -19,11 +19,7 @@ interface IFormInputs {
 }
 
 const Schema = yup.object().shape({
-  userName: yup
-    .string()
-    .required('Please fill all the required fields.')
-    .max(20, 'Should smaller than 20 charaters.')
-    .min(2, 'Should bigger than 2 charaters.')
+  userName: yup.string().required('Please fill all the required fields.')
 });
 
 const QuickPlay: React.FC = () => {

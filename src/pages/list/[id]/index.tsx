@@ -18,9 +18,17 @@ import ModalUpdateTask from '@/components/modal-update-task';
 import Button from '@/core-ui/button';
 
 import styles from './style.module.scss';
+import {ROUTES} from '@/configs/routes.config';
 
 const Detail: React.FC = () => {
   const router = useRouter();
+  // Check local storage.
+  useEffect(() => {
+    const checkLocal = localStorage.getItem('user');
+    if (!checkLocal) {
+      router.push(ROUTES.QUICKPLAY);
+    }
+  }, []);
   const {id} = router.query;
 
   const [createTaskOpen, setCreateTaskOpen] = useState<boolean>(false);
@@ -50,9 +58,23 @@ const Detail: React.FC = () => {
     setDeletedetail(false);
   };
 
+  // Get userId.
+  useEffect(() => {
+    const json = localStorage.getItem('user')?.toString();
+
+    if (json) {
+      const object = JSON.parse(json);
+      setUser(object);
+    }
+  }, []);
+
   // Fetch data.
   const fetchData = async (id: string) => {
     await Promise.all([ListAPI.readTodoList(Number(id)), TaskAPI.getTasks(id.toString())]).then(([list, task]) => {
+      if (user && task.data.length == 0) {
+        alert('This your list is empty!');
+      }
+
       setList(list.data);
       setTask(task.data);
     });
@@ -61,13 +83,6 @@ const Detail: React.FC = () => {
   useEffect(() => {
     if (id) fetchData(id.toString());
   }, [id]);
-
-  // Get userId.
-  useEffect(() => {
-    const json = localStorage.getItem('user')?.toString();
-    const object = JSON.parse(json);
-    setUser(object);
-  }, []);
 
   // Handle delete task open.
   const handleDeleteOpen = (taskId: string, taskName: string) => {
@@ -155,7 +170,6 @@ const Detail: React.FC = () => {
                 </div>
                 <ModalDeleteTask taskId={taskId} taskName={taskName} open={deleteDetail} onClose={handleDelete} />
                 <ModalUpdateTask taskId={taskId} taskName={taskName} open={editDetail} onClose={handleEdit} />
-                <ModalShare open={shareOpen} onClose={handleShare} id={id} />
               </>
             ))}
           </div>
@@ -171,6 +185,7 @@ const Detail: React.FC = () => {
             open={deleteListOpen}
             onClose={handleDeleteListClose}
           />
+          <ModalShare open={shareOpen} onClose={handleShare} id={id} />
         </div>
       </div>
     </>

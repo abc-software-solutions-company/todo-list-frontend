@@ -8,11 +8,7 @@ import Modal from '@/core-ui/modal';
 import styles from './style.module.scss';
 
 const Schema = yup.object().shape({
-  listName: yup
-    .string()
-    .required('Please enter your list name.')
-    .max(50, 'Task name should be less than 50 characters.')
-    .min(5, 'Task name must be at least 5 characters.')
+  listName: yup.string().required('Please enter your list name.')
 });
 
 interface IFormInputs {
