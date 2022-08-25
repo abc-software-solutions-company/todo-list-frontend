@@ -1,15 +1,11 @@
-import Image from 'next/image';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 
 import API, {ITodoList} from '@/api/network/todo-list';
-import IconAdd from '@/assets/images/icon-add.svg';
-import IconArrowRight from '@/assets/images/icon-arow-right.svg';
-import IconArrowLeft from '@/assets/images/icon-arrow-left.svg';
-import IconShare from '@/assets/images/icon-share.svg';
 import ModalCreateList from '@/components/modal-create-list';
 import ModalShare from '@/components/modal-share';
 import Button from '@/core-ui/button';
+import Icon from '@/core-ui/icon';
 
 import styles from './style.module.scss';
 
@@ -56,7 +52,7 @@ const List: React.FC = () => {
                     router.push('/action');
                   }}
                 >
-                  <Image src={IconArrowLeft} alt="Arrow left" />
+                  <Icon size={29} className="abc-arrow-left-circle" />
                 </div>
 
                 <div className="title-left">
@@ -65,28 +61,26 @@ const List: React.FC = () => {
                 </div>
               </div>
               <Button className="list-right" onClick={() => setCreateListOpen(true)}>
-                <Image className="icon-add" src={IconAdd} alt="Add" width={22} height={22} />
+                <Icon size={22} className="abc-plus-circle" />
                 <div className="title-right">New List</div>
               </Button>
             </div>
           </div>
           <div className="list-group">
             {list.map(item => (
-              <div className="text-group">
+              <div className="text-group" key={item.id}>
                 <p className="title-group">{item.listName}</p>
                 <div className="icon-group">
                   <Button className="btn-hover-hand" onClick={() => setShareOpen(true)}>
-                    <Image src={IconShare} alt="Share" width={20} height={16} />
+                    <Icon size={22} className="abc-share" />
                   </Button>
                   <Button
                     className="btn-hover-hand"
-                    width={11}
-                    height={19}
                     onClick={() => {
                       router.push('/detail');
                     }}
                   >
-                    <Image src={IconArrowRight} alt="Arrow right" />
+                    <Icon size={22} className="abc-arrow-right" />
                   </Button>
                 </div>
               </div>

@@ -1,19 +1,13 @@
-import Image from 'next/image';
 import {useRouter} from 'next/router';
 import React, {useState} from 'react';
 
-import IconAdd from '@/assets/images/icon-add.svg';
-import IconArrowLeft from '@/assets/images/icon-arrow-left.svg';
-import IconDelete from '@/assets/images/icon-delete.svg';
-import IconEdit from '@/assets/images/icon-edit.svg';
-import IconShare from '@/assets/images/icon-share.svg';
 import ModalCreateList from '@/components/modal-create-list';
 import ModalDeleteTask from '@/components/modal-delete-task';
 import ModalShare from '@/components/modal-share';
 import ModalUpdateTask from '@/components/modal-update-task';
 import Button from '@/core-ui/button';
 import Checkbox from '@/core-ui/checkbox';
-import Input from '@/core-ui/input';
+import Icon from '@/core-ui/icon';
 
 import styles from './style.module.scss';
 
@@ -54,24 +48,21 @@ const Detail: React.FC = () => {
                     router.push('/action');
                   }}
                 >
-                  <Image src={IconArrowLeft} alt="Arrow left" />
+                  <Icon size={29} className="abc-arrow-left-circle" />
                 </div>
-
-                <div className="title-left">
-                  <h3 className="title-todo">Shopping</h3>
-                </div>
+                <h3 className="title-todo">Shopping</h3>
               </div>
               <div className="detail-right">
                 <Button className="detail-items" onClick={() => setDeletedetail(true)}>
-                  <Image className="items" src={IconDelete} alt="Delete" width={22} height={22} />
+                  <Icon size={22} className="abc-trash" />
                   <div className="title-right">Delete</div>
                 </Button>
                 <Button className="detail-items" onClick={() => setShareOpen(true)}>
-                  <Image className="items" src={IconShare} alt="Share" width={20} height={16} />
+                  <Icon size={22} className="abc-share" />
                   <div className="title-right">Share</div>
                 </Button>
                 <Button className=" detail-items" onClick={() => setCreateListOpen(true)}>
-                  <Image className="items" src={IconAdd} alt="Add" width={22} height={22} />
+                  <Icon size={22} className="abc-plus-circle" />
                   <div className="title-right">Add To-Do</div>
                 </Button>
               </div>
@@ -86,10 +77,10 @@ const Detail: React.FC = () => {
 
               <div className="icon-group">
                 <Button className="btn-hover-hand" onClick={() => setEditdetail(true)}>
-                  <Image src={IconEdit} alt="Edit" width={20} height={16} />
+                  <Icon size={24} className="abc-edit" />
                 </Button>
-                <Button className="btn-hover-hand" width={11} height={19} onClick={() => setDeletedetail(true)}>
-                  <Image src={IconDelete} alt="Delete" />
+                <Button className="btn-hover-hand" onClick={() => setDeletedetail(true)}>
+                  <Icon size={24} className="abc-trash" />
                 </Button>
               </div>
             </div>

@@ -57,12 +57,12 @@ export default function PageHome() {
       <Button variant="contained" text="Input" onClick={() => setShareOpen(true)} />
       <br />
       <Button variant="contained" text="ModalShare" onClick={() => setShareOpen(true)} />
-      <Icon size={16} className="arrow-left-circle" />
-      <Icon className="x-circle" />
-      <Icon size={24} className="edit" />
-      <Icon size={32} className="plus-circle" />
-      <Icon size={48} className="share" />
-      <Icon size={48} className="trash" />
+      <Icon size={16} className="abc-arrow-left-circle" />
+      <Icon className="abc-x-circle" />
+      <Icon size={24} className="abc-edit text-abc-blue" />
+      <Icon size={32} className="abc-plus-circle" />
+      <Icon size={48} className="abc-share" />
+      <Icon size={48} className="abc-trash" />
       <ModalCreateList open={createListOpen} onClose={handleCloseCreateListOpen} />
       <ModalDeleteList open={deleteListOpen} onClose={handleCloseDeleteListOpen} />
       <ModalCreateTask open={createTaskOpen} onClose={handleCreateTaskListOpen} />
