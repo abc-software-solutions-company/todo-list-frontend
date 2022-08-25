@@ -29,18 +29,23 @@ const Schema = yup.object().shape({
 const QuickPlay: React.FC = () => {
   const router = useRouter();
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
+    mode: 'onChange',
     resolver: yupResolver(Schema)
   });
 
   const {errors} = formState;
 
   const onSubmit: SubmitHandler<IFormInputs> = data => {
-    API.createUser(data).then(res => {
-      if (res.status === 201) {
-        localStorage.setItem('user', JSON.stringify(res.data, null, 2));
-        router.push(ROUTES.ACTION);
-      }
-    });
+    API.createUser(data)
+      .then(res => {
+        if (res.status === 201) {
+          localStorage.setItem('user', JSON.stringify(res.data, null, 2));
+          router.push(ROUTES.ACTION);
+        }
+      })
+      .catch(error => {
+        alert(error.response.data.message);
+      });
   };
 
   const matches = useMediaQuery('(min-width:640px)');

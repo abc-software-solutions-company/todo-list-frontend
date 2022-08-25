@@ -8,7 +8,11 @@ import * as yup from 'yup';
 import styles from './style.module.scss';
 
 const Schema = yup.object().shape({
-  taskName: yup.string().required('Please enter your task name!')
+  taskName: yup
+    .string()
+    .required('Please enter your task name.')
+    .max(100, 'Task name should be less than 100 characters.')
+    .min(5, 'Task name must be at least 5 characters.')
 });
 
 interface IFormInputs {
@@ -42,6 +46,7 @@ const ModalCreateTask: React.FC<IProps> = ({userId, todolistId, open, onClose}) 
     formState: {errors}
   } = useForm<IFormInputs>({
     defaultValues: FORM_DEFAULT_VALUES,
+    mode: 'onChange',
     resolver: yupResolver(Schema)
   });
 
@@ -50,11 +55,15 @@ const ModalCreateTask: React.FC<IProps> = ({userId, todolistId, open, onClose}) 
     data.todolistId = Number(todolistId);
 
     // Create task.
-    API.createTask(data).then(res => {
-      if (res.status === 201) {
-        window.location.reload();
-      }
-    });
+    API.createTask(data)
+      .then(res => {
+        if (res.status === 201) {
+          window.location.reload();
+        }
+      })
+      .catch(error => {
+        alert(error.response.data.message);
+      });
   };
 
   return (

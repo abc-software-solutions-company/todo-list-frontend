@@ -8,7 +8,11 @@ import Modal from '@/core-ui/modal';
 import styles from './style.module.scss';
 
 const Schema = yup.object().shape({
-  listName: yup.string().required('Please enter your list name!')
+  listName: yup
+    .string()
+    .required('Please enter your list name.')
+    .max(50, 'Task name should be less than 50 characters.')
+    .min(5, 'Task name must be at least 5 characters.')
 });
 
 interface IFormInputs {
@@ -32,16 +36,21 @@ const ModalCreateList: React.FC<IProps> = ({open, onClose}) => {
     formState: {errors}
   } = useForm<IFormInputs>({
     defaultValues: FORM_DEFAULT_VALUES,
+    mode: 'onChange',
     resolver: yupResolver(Schema)
   });
 
   const onSubmit: SubmitHandler<IFormInputs> = data => {
-    API.createTodoList(data).then(res => {
-      if (res.status === 201) {
-        localStorage.setItem('listName', data.listName);
-        window.location.reload();
-      }
-    });
+    API.createTodoList(data)
+      .then(res => {
+        if (res.status === 201) {
+          localStorage.setItem('listName', data.listName);
+          window.location.reload();
+        }
+      })
+      .catch(error => {
+        alert(error.response.data.message);
+      });
   };
 
   return (

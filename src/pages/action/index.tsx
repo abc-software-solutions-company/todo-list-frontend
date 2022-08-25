@@ -3,10 +3,12 @@ import {useRouter} from 'next/router';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
+import API from '@/api/network/todo-list';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 
 import styles from './style.module.scss';
+import {useEffect} from 'react';
 
 interface IFormInputs {
   ID: string;
@@ -18,12 +20,25 @@ const Schema = yup.object().shape({
 const Action: React.FC = () => {
   const router = useRouter();
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
+    mode: 'onChange',
     resolver: yupResolver(Schema)
   });
 
   const {errors} = formState;
 
-  const onSubmit: SubmitHandler<IFormInputs> = data => alert(JSON.stringify(data, null, 2));
+  useEffect(() => {});
+
+  const onSubmit: SubmitHandler<IFormInputs> = data => {
+    API.readTodoList(Number(data.ID))
+      .then(res => {
+        if (res.status == 200) {
+          router.push(`/list/${data.ID}`);
+        }
+      })
+      .catch(error => {
+        alert(error.response.data.message);
+      });
+  };
   return (
     <>
       <div className={styles['create-room']}>
