@@ -39,3 +39,13 @@ sw.js
 # Reports
 coverage
 junit.xml
+
+#Public
+public/fonts/*
+!public/fonts/abc.eot
+!public/fonts/abc.ttf
+!public/fonts/abc.woff
+!public/fonts/abc.woff2
+!public/fonts/abc.svg
+
+src/vendors/abc-icons/dist
