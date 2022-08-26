@@ -9,7 +9,7 @@
   .icon-arrow-left {
     @apply flex cursor-pointer items-center justify-between;
     .abc-icon::before {
-      @apply text-xl md:text-2xl;
+      @apply text-xl md:text-[28px];
     }
   }
 

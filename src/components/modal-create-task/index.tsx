@@ -1,5 +1,5 @@
 import {yupResolver} from '@hookform/resolvers/yup';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -41,8 +41,9 @@ const ModalCreateTask: React.FC<IProps> = ({userId, todolistId, open, onClose}) 
   const {
     control,
     register,
+    reset,
     handleSubmit,
-    formState: {errors}
+    formState: {errors, isSubmitSuccessful, isValid}
   } = useForm<IFormInputs>({
     defaultValues: FORM_DEFAULT_VALUES,
     mode: 'onChange',
@@ -57,13 +58,17 @@ const ModalCreateTask: React.FC<IProps> = ({userId, todolistId, open, onClose}) 
     API.createTask(data)
       .then(res => {
         if (res.status === 201) {
-          window.location.reload();
+          console.log('Successful!');
         }
       })
       .catch(error => {
         alert(error.response.data.message);
       });
   };
+
+  useEffect(() => {
+    reset();
+  }, [isSubmitSuccessful]);
 
   return (
     <div className={styles['com-modal-create-task']}>
@@ -82,7 +87,7 @@ const ModalCreateTask: React.FC<IProps> = ({userId, todolistId, open, onClose}) 
           </Modal.Body>
           <Modal.Footer>
             <Button className="btn" text="Cancel" theme="white" onClick={onClose} />
-            <Button className="btn" text="Create" type="submit" />
+            <Button className="btn" text="Create" type="submit" onClick={isValid ? onClose : () => {}} />
           </Modal.Footer>
         </form>
       </Modal>

@@ -15,7 +15,7 @@ const useList = () => {
     };
 
     fetchData();
-  }, []);
+  }, [list]);
 
   return {list};
 };

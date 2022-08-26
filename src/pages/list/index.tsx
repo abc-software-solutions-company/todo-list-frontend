@@ -1,5 +1,5 @@
 import {useRouter} from 'next/router';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import ModalCreateList from '@/components/modal-create-list';
 import ModalShare from '@/components/modal-share';
@@ -14,7 +14,6 @@ import styles from './style.module.scss';
 const List: React.FC = () => {
   const router = useRouter();
   const {list} = useList();
-
   useCheckUserLocalStorage();
 
   const [createListOpen, setCreateListOpen] = useState<boolean>(true);
@@ -28,6 +27,13 @@ const List: React.FC = () => {
   const handleShare = () => {
     setShareOpen(false);
   };
+
+  useEffect(() => {
+    const open = localStorage.getItem('modalCreateList');
+    if (open === 'open') {
+      setCreateListOpen(false);
+    }
+  }, []);
 
   if (!list) return null;
 

@@ -20,7 +20,8 @@ const ModalDeleteList: React.FC<IProps> = ({listID, listName, open, onClose}) =>
   const handleDeleteList = () => {
     API.deleteTodoList(Number(listID)).then(res => {
       if (res.status == 200) {
-        alert(`You have deleted ${listName}`);
+        console.log(`You have deleted ${listName}`);
+        localStorage.setItem('modalCreateList', 'open');
         router.push(ROUTES.LIST);
       }
     });
