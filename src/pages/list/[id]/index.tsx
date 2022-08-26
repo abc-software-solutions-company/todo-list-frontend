@@ -1,9 +1,6 @@
 import {useRouter} from 'next/router';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
-import TaskAPI, {ITask} from '@/api/network/task';
-import ListAPI from '@/api/network/todo-list';
-import {IUser} from '@/api/network/user';
 import ModalCreateTask from '@/components/modal-create-task';
 import ModalDeleteList from '@/components/modal-delete-list';
 import ModalDeleteTask from '@/components/modal-delete-task';
@@ -16,20 +13,22 @@ import Icon from '@/core-ui/icon';
 import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
 
 import styles from './style.module.scss';
+import useTask from '@/hooks/useTask';
+import useList from '@/hooks/useList';
 
 const Detail: React.FC = () => {
   const router = useRouter();
   const {id} = router.query;
 
+  const {list} = useList();
   const {user} = useCheckUserLocalStorage();
+  const {task} = useTask(id ? id.toString() : '');
 
   const [createTaskOpen, setCreateTaskOpen] = useState<boolean>(false);
   const [editDetail, setEditdetail] = useState<boolean>(false);
   const [deleteDetail, setDeletedetail] = useState<boolean>(false);
   const [deleteListOpen, setDeleteListOpen] = useState<boolean>(false);
-  const [list, setList] = useState<boolean>(false);
   const [shareOpen, setShareOpen] = useState<boolean>(false);
-  const [task, setTask] = useState<ITask[] | null>(null);
   const [taskId, setTaskId] = useState<string>('');
   const [taskName, setTaskName] = useState<string>('');
 
@@ -48,21 +47,6 @@ const Detail: React.FC = () => {
   const handleDelete = () => {
     setDeletedetail(false);
   };
-
-  // Fetch data.
-  useEffect(() => {
-    const fetchData = async (id: string) => {
-      await Promise.all([ListAPI.readTodoList(Number(id)), TaskAPI.getTasks(id.toString())]).then(([list, task]) => {
-        if (user && task.data.length == 0) {
-          alert('This your list is empty!');
-        }
-
-        setList(list.data);
-        setTask(task.data);
-      });
-    };
-    if (id) fetchData(id.toString());
-  }, [id]);
 
   // Handle delete task open.
   const handleDeleteOpen = (taskId: string, taskName: string) => {
@@ -84,8 +68,8 @@ const Detail: React.FC = () => {
   };
 
   if (!list) return null;
-  if (!task) return null;
   if (!user) return null;
+  if (!task) return null;
 
   return (
     <>
@@ -146,7 +130,7 @@ const Detail: React.FC = () => {
                   </div>
                 </div>
                 <ModalDeleteTask taskId={taskId} taskName={taskName} open={deleteDetail} onClose={handleDelete} />
-                <ModalUpdateTask taskId={taskId} taskName={taskName} open={editDetail} onClose={handleEdit} />
+                <ModalUpdateTask taskId={taskId} oldTaskName={taskName} open={editDetail} onClose={handleEdit} />
               </>
             ))}
           </div>

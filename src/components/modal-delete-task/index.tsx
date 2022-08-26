@@ -13,13 +13,13 @@ interface IProps {
 }
 
 const ModalDeleteTask: React.FC<IProps> = ({taskId, taskName, open, onClose}) => {
-  const handleDelete = (taskId: string) => {
+  const handleDelete = (taskId: string, event: React.FormEvent<HTMLFormElement>) => {
     API.deleteTask(taskId).then(res => {
       if (res.status == 200) {
-        alert(`You have deleted ${taskName}`);
-        window.location.reload();
+        console.log(`You have deleted ${taskName}`);
       }
     });
+    event.preventDefault();
   };
 
   if (!taskId) return null;
@@ -31,10 +31,12 @@ const ModalDeleteTask: React.FC<IProps> = ({taskId, taskName, open, onClose}) =>
           <h3 className="heading">Are you sure you want to delete task: {taskName}</h3>
         </Modal.Header>
 
-        <Modal.Footer>
-          <Button className="btn" text="No" onClick={onClose} theme="white" />
-          <Button className="btn" text="Yes" onClick={() => handleDelete(taskId)} />
-        </Modal.Footer>
+        <form onSubmit={event => handleDelete(taskId, event)}>
+          <Modal.Footer>
+            <Button className="btn" text="No" onClick={onClose} />
+            <Button className="btn" text="Yes" type="submit" onClick={onClose} />
+          </Modal.Footer>
+        </form>
       </Modal>
     </div>
   );
