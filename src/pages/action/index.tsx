@@ -21,12 +21,12 @@ const Schema = yup.object().shape({
 const Action: React.FC = () => {
   const router = useRouter();
   // Check local storage.
-  useEffect(() => {
-    const checkLocal = localStorage.getItem('user');
-    if (!checkLocal) {
-      router.push(ROUTES.QUICKPLAY);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const checkLocal = localStorage.getItem('user');
+  //   if (!checkLocal) {
+  //     router.push(ROUTES.QUICKPLAY);
+  //   }
+  // }, []);
 
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
     mode: 'onChange',
