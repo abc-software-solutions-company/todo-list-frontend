@@ -6,16 +6,16 @@ import * as yup from 'yup';
 import API from '@/api/network/todo-list';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
+import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
 
 import styles from './style.module.scss';
-import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
 
 interface IFormInputs {
   ID: string;
 }
 
 const Schema = yup.object().shape({
-  ID: yup.string().required('Please fill all the required fields.')
+  ID: yup.string().required('Please fill ID.')
 });
 const Action: React.FC = () => {
   const router = useRouter();

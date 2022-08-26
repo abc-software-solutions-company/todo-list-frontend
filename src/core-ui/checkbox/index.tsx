@@ -5,14 +5,14 @@ interface IProps extends InputHTMLAttributes<HTMLInputElement> {
   onClick?: () => void;
 }
 
-const Checkbox: FC<IProps> = forwardRef(({className, ...rest}, ref: Ref<HTMLInputElement>) => {
+const Checkbox: FC<IProps> = forwardRef(({className, ...rest}, onClick, ref: Ref<HTMLInputElement>) => {
   return (
     <input
       className={['form-checkbox', className?.toString()].join(' ')}
       type="checkbox"
       ref={ref}
       {...rest}
-      onClick={e => console.log(e.target)}
+      onClick={onClick}
     />
   );
 });

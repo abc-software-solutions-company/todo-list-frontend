@@ -13,9 +13,9 @@ import Button from '@/core-ui/button';
 import Checkbox from '@/core-ui/checkbox';
 import IconButton from '@/core-ui/ico-button';
 import Icon from '@/core-ui/icon';
+import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
 
 import styles from './style.module.scss';
-import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
 
 const Detail: React.FC = () => {
   const router = useRouter();
@@ -100,7 +100,7 @@ const Detail: React.FC = () => {
                     router.push('/list');
                   }}
                 >
-                  <Icon size={28} name="abc-arrow-left-circle" />
+                  <Icon name="abc-arrow-left-circle" />
                 </div>
 
                 <div className="title-left">
@@ -129,8 +129,8 @@ const Detail: React.FC = () => {
               <>
                 <div className="detail-list">
                   <div className="list-group">
-                    <Checkbox />
-                    <p className="title-group">{item.taskName}</p>
+                    <Checkbox className="list-box " />
+                    <p className="title-group checked">{item.taskName}</p>
                   </div>
                   <div className="actions">
                     <IconButton

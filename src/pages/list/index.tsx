@@ -1,14 +1,15 @@
+import {useRouter} from 'next/router';
 import React, {useState} from 'react';
-import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
+
 import ModalCreateList from '@/components/modal-create-list';
 import ModalShare from '@/components/modal-share';
 import Button from '@/core-ui/button';
-import {useRouter} from 'next/router';
 import IconButton from '@/core-ui/ico-button';
 import Icon from '@/core-ui/icon';
+import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
+import useList from '@/hooks/useList';
 
 import styles from './style.module.scss';
-import useList from '@/hooks/useList';
 
 const List: React.FC = () => {
   const router = useRouter();
@@ -35,6 +36,10 @@ const List: React.FC = () => {
       <div className={styles['create-list-section']}>
         <div className="container">
           <div className="banner-list">
+            <div className="list-user">
+              <Icon name="abc-user" />
+              <h4 className="title-user">Lam Minh Thien</h4>
+            </div>
             <div className="list-content">
               <div className="list-left">
                 <div

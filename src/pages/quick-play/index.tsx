@@ -19,7 +19,7 @@ interface IFormInputs {
 }
 
 const Schema = yup.object().shape({
-  userName: yup.string().required('Please fill all the required fields.')
+  userName: yup.string().required('Please fill your name.')
 });
 
 const QuickPlay: React.FC = () => {
@@ -55,7 +55,7 @@ const QuickPlay: React.FC = () => {
             <TodoListLogo width={matches ? 249 : 175} />
           </div>
           <div className="enter-your-name">
-            <h2>Let&apos;s start !</h2>
+            <h2>Let&apos;s start!</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Input className={errors.userName && 'error'} placeholder="Enter your name" {...register('userName')} />
               {errors.userName && <p className="invalid">{errors.userName.message}</p>}
