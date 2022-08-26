@@ -1,3 +1,4 @@
+import API from '@/api/network/user';
 import {ROUTES} from '@/configs/routes.config';
 import {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
@@ -16,7 +17,15 @@ const useCheckUserLocalStorage = () => {
 
       if (json) {
         const object = JSON.parse(json);
-        setUser(object);
+        API.checkUserLogin(object.id)
+          .then(res => {
+            if (res.status == 200) {
+              setUser(object);
+            }
+          })
+          .catch(() => {
+            router.push(ROUTES.QUICKPLAY);
+          });
       }
     }
   }, []);

@@ -6,8 +6,11 @@ export interface IUser {
   userName: string;
 }
 
+type User = IAxiosResponse<IUser>;
 type Users = IAxiosResponse<IUser[]>;
+
 const getUsers = () => HttpRequest.get<Users>('/users');
+const checkUserLogin = (id: string) => HttpRequest.get<User>(`/users/${id}`);
 const createUser = (data: IUser) => HttpRequest.post<IUser>('/users', data);
 
-export default {getUsers, createUser};
+export default {getUsers, checkUserLogin, createUser};
