@@ -1,5 +1,5 @@
 import {yupResolver} from '@hookform/resolvers/yup';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -31,8 +31,9 @@ const ModalCreateList: React.FC<IProps> = ({open, onClose}) => {
   // Use React Hook Form.
   const {
     register,
+    reset,
     handleSubmit,
-    formState: {errors}
+    formState: {errors, isSubmitSuccessful, isValid}
   } = useForm<IFormInputs>({
     defaultValues: FORM_DEFAULT_VALUES,
     mode: 'onChange',
@@ -43,14 +44,17 @@ const ModalCreateList: React.FC<IProps> = ({open, onClose}) => {
     API.createTodoList(data)
       .then(res => {
         if (res.status === 201) {
-          localStorage.setItem('listName', data.listName);
-          window.location.reload();
+          console.log('Successful!');
         }
       })
       .catch(error => {
         alert(error.response.data.message);
       });
   };
+
+  useEffect(() => {
+    reset();
+  }, [isSubmitSuccessful]);
 
   return (
     <div className={styles['com-modal-create-list']}>
@@ -68,8 +72,8 @@ const ModalCreateList: React.FC<IProps> = ({open, onClose}) => {
             {errors.listName && <p className="invalid">{errors.listName.message}</p>}
           </Modal.Body>
           <Modal.Footer>
-            <Button className="btn" text="Cancel" theme="white" onClick={onClose} />
-            <Button className="btn" text="Create" type="submit" />
+            <Button className="btn" text="Cancel" onClick={onClose} />
+            <Button className="btn" text="Create" type="submit" onClick={isValid ? onClose : () => {}} />
           </Modal.Footer>
         </form>
       </Modal>

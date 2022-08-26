@@ -1,5 +1,5 @@
 import {yupResolver} from '@hookform/resolvers/yup';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -23,15 +23,15 @@ interface IProps {
   open: boolean;
   onClose?: () => void;
   taskId?: string;
-  taskName?: string;
+  oldTaskName: string;
 }
 
-const ModalUpdateList: React.FC<IProps> = ({taskId, taskName, open, onClose}) => {
+const ModalUpdateList: React.FC<IProps> = ({taskId, oldTaskName, open, onClose}) => {
   const {
-    control,
-    register,
     handleSubmit,
-    formState: {errors}
+    formState: {errors, isValid},
+    register,
+    setValue
   } = useForm<IFormInputs>({
     mode: 'onChange',
     resolver: yupResolver(Schema)
@@ -43,12 +43,15 @@ const ModalUpdateList: React.FC<IProps> = ({taskId, taskName, open, onClose}) =>
     if (data.taskID) {
       API.updateTask(data.taskID, data).then(res => {
         if (res.status === 200) {
-          window.location.reload();
+          console.log('Successful!');
         }
       });
     }
   };
 
+  useEffect(() => {
+    setValue('taskName', oldTaskName);
+  }, [oldTaskName]);
   return (
     <div className={styles['com-modal-update-task']}>
       <Modal open={open} onClose={onClose}>
@@ -57,17 +60,12 @@ const ModalUpdateList: React.FC<IProps> = ({taskId, taskName, open, onClose}) =>
         </Modal.Header>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Modal.Body>
-            <Input className="hidden" {...register('taskID')} />
-            <Input
-              className={`input ${errors.taskName && 'error'}`}
-              placeholder={taskName}
-              {...register('taskName', {required: true})}
-            />
+            <Input className={`input ${errors.taskName && 'error'}`} {...register('taskName', {required: true})} />
             {errors.taskName && <p className="invalid">{errors.taskName.message}</p>}
           </Modal.Body>
           <Modal.Footer>
-            <Button className="btn" text="Close" theme="white" type="reset" onClick={onClose} />
-            <Button className="btn" text="Save" type="submit" />
+            <Button className="btn" text="Close" onClick={onClose} />
+            <Button className="btn" text="Create" type="submit" onClick={isValid ? onClose : () => {}} />
           </Modal.Footer>
         </form>
       </Modal>
