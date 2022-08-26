@@ -5,7 +5,7 @@ import ModalCreateList from '@/components/modal-create-list';
 import ModalCreateTask from '@/components/modal-create-task';
 import ModalDeleteList from '@/components/modal-delete-list';
 import ModalDeleteTask from '@/components/modal-delete-task';
-import ModalShare from '@/components/modal-share';
+// import ModalShare from '@/components/modal-share';
 import ModalUpdateTask from '@/components/modal-update-task';
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
@@ -19,7 +19,7 @@ export default function PageHome() {
   const [createTaskOpen, setCreateTaskOpen] = useState<boolean>(false);
   const [updateTaskOpen, setUpdateTaskOpen] = useState<boolean>(false);
   const [deleteTaskOpen, setDeleteTaskOpen] = useState<boolean>(false);
-  const [shareOpen, setShareOpen] = useState<boolean>(false);
+  // const [shareOpen, setShareOpen] = useState<boolean>(false);
 
   const handleCloseCreateListOpen = () => {
     setCreateListOpen(false);
@@ -36,9 +36,9 @@ export default function PageHome() {
   const handleDeleteTaskOpen = () => {
     setDeleteTaskOpen(false);
   };
-  const handleShare = () => {
-    setShareOpen(false);
-  };
+  // const handleShare = () => {
+  //   setShareOpen(false);
+  // };
 
   return (
     <>

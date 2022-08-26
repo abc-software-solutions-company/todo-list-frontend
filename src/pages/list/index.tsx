@@ -36,7 +36,6 @@ const List: React.FC = () => {
 
   // Fetch data
   const [list, setList] = useState<ITodoList[] | null>(null);
-
   useEffect(() => {
     const fetchData = async () => {
       await API.getTodoLists().then(res => {
@@ -66,7 +65,6 @@ const List: React.FC = () => {
                 >
                   <Icon size={28} name="abc-arrow-left-circle" />
                 </div>
-
                 <div className="title-left">
                   <h3 className="title-todo">TO DO</h3>
                   <h3 className="title-todo">YOUR LIST</h3>

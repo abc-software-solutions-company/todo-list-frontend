@@ -1,24 +1,19 @@
-import Image from 'next/image';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 
 import TaskAPI, {ITask} from '@/api/network/task';
 import ListAPI, {IList} from '@/api/network/todo-list';
 import {IUser} from '@/api/network/user';
-import IconAdd from '@/assets/images/icon-add.svg';
-import IconArrowLeft from '@/assets/images/icon-arrow-left.svg';
-import IconDelete from '@/assets/images/icon-delete.svg';
-import IconEdit from '@/assets/images/icon-edit.svg';
-import IconShare from '@/assets/images/icon-share.svg';
 import ModalCreateTask from '@/components/modal-create-task';
 import ModalDeleteList from '@/components/modal-delete-list';
 import ModalDeleteTask from '@/components/modal-delete-task';
 import ModalShare from '@/components/modal-share';
 import ModalUpdateTask from '@/components/modal-update-task';
 import Button from '@/core-ui/button';
+import IconButton from '@/core-ui/ico-button';
+import Icon from '@/core-ui/icon';
 
 import styles from './style.module.scss';
-import {ROUTES} from '@/configs/routes.config';
 
 const Detail: React.FC = () => {
   const router = useRouter();
@@ -120,32 +115,27 @@ const Detail: React.FC = () => {
                     router.push('/list');
                   }}
                 >
-                  <Image src={IconArrowLeft} alt="Arrow left" />
+                  <Icon size={28} name="abc-arrow-left-circle" />
                 </div>
 
                 <div className="title-left">
                   <h3 className="title-todo">{list.listName}</h3>
                 </div>
               </div>
+
               <div className="detail-right">
-                <div className="detail-items">
-                  <Button className="items" onClick={() => setDeleteListOpen(true)}>
-                    <Image src={IconDelete} alt="Delete" width={22} height={22} />
-                  </Button>
+                <Button variant="contained" className="items" onClick={() => setDeleteListOpen(true)}>
+                  <Icon name="abc-trash" />
                   <div className="title-right">Delete</div>
-                </div>
-                <div className="detail-items items-share">
-                  <Button className="items" onClick={() => setShareOpen(true)}>
-                    <Image src={IconShare} alt="Share" width={20} height={16} />
-                  </Button>
+                </Button>
+                <Button variant="contained" className="items" onClick={() => setShareOpen(true)}>
+                  <Icon name="abc-share" />
                   <div className="title-right">Share</div>
-                </div>
-                <div className="detail-items">
-                  <Button className="items" onClick={() => setCreateTaskOpen(true)}>
-                    <Image src={IconAdd} alt="Add" width={22} height={22} />
-                  </Button>
+                </Button>
+                <Button variant="contained" className="items" onClick={() => setCreateTaskOpen(true)}>
+                  <Icon name="abc-plus-circle" />
                   <div className="title-right">Add To-Do</div>
-                </div>
+                </Button>
               </div>
             </div>
           </div>
@@ -154,18 +144,17 @@ const Detail: React.FC = () => {
               <>
                 <div className="detail-list">
                   <p className="title-group">{item.taskName}</p>
-                  <div className="icon-group">
-                    <Button className="btn-hover-hand" onClick={() => handleEditOpen(item.id, item.taskName)}>
-                      <Image src={IconEdit} alt="Edit" width={20} height={16} />
-                    </Button>
-                    <Button
+                  <div className="actions">
+                    <IconButton
                       className="btn-hover-hand"
-                      width={11}
-                      height={19}
+                      icon="abc-edit"
+                      onClick={() => handleEditOpen(item.id, item.taskName)}
+                    />
+                    <IconButton
+                      className="btn-hover-hand"
+                      icon="abc-trash"
                       onClick={() => handleDeleteOpen(item.id, item.taskName)}
-                    >
-                      <Image src={IconDelete} alt="Delete" />
-                    </Button>
+                    />
                   </div>
                 </div>
                 <ModalDeleteTask taskId={taskId} taskName={taskName} open={deleteDetail} onClose={handleDelete} />

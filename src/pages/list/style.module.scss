@@ -1,7 +1,7 @@
 .create-list-section :global {
   @apply py-20;
   .list-content {
-    @apply flex justify-between  border-b-2 border-black pb-8;
+    @apply flex justify-between  border-b-2 border-black pb-4;
   }
   .list-left {
     @apply flex items-center justify-between;
