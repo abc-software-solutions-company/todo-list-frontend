@@ -1,5 +1,5 @@
 import {useRouter} from 'next/router';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import ModalCreateTask from '@/components/modal-create-task';
 import ModalDeleteList from '@/components/modal-delete-list';
@@ -11,6 +11,8 @@ import Checkbox from '@/core-ui/checkbox';
 import IconButton from '@/core-ui/ico-button';
 import Icon from '@/core-ui/icon';
 import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
+
+import API, {ITodoList} from '@/api/network/todo-list';
 
 import styles from './style.module.scss';
 import useTask from '@/hooks/useTask';
@@ -24,6 +26,7 @@ const Detail: React.FC = () => {
   const {user} = useCheckUserLocalStorage();
   const {task} = useTask(id ? id.toString() : '');
 
+  const [aList, setAList] = useState<ITodoList | null>(null);
   const [createTaskOpen, setCreateTaskOpen] = useState<boolean>(false);
   const [editDetail, setEditdetail] = useState<boolean>(false);
   const [deleteDetail, setDeletedetail] = useState<boolean>(false);
@@ -67,6 +70,19 @@ const Detail: React.FC = () => {
     setDeleteListOpen(false);
   };
 
+  // Get list name.
+  useEffect(() => {
+    const fetch = async () => {
+      await API.readTodoList(Number(id)).then(res => {
+        setAList(res.data);
+      });
+    };
+
+    fetch();
+  }, [id]);
+
+  if (!id) return null;
+
   if (!list) return null;
   if (!user) return null;
   if (!task) return null;
@@ -88,7 +104,7 @@ const Detail: React.FC = () => {
                 </div>
 
                 <div className="title-left">
-                  <h3 className="title-todo">{list.listName}</h3>
+                  <h3 className="title-todo">{aList ? aList.listName : ''}</h3>
                 </div>
               </div>
 
@@ -141,8 +157,8 @@ const Detail: React.FC = () => {
             onClose={handleCloseCreateTaskOpen}
           />
           <ModalDeleteList
-            listID={list.id}
-            listName={list.listName}
+            listID={aList?.id}
+            listName={aList?.listName}
             open={deleteListOpen}
             onClose={handleDeleteListClose}
           />
