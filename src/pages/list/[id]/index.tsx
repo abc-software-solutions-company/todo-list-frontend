@@ -13,9 +13,9 @@ import Button from '@/core-ui/button';
 import Checkbox from '@/core-ui/checkbox';
 import IconButton from '@/core-ui/ico-button';
 import Icon from '@/core-ui/icon';
+import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
 
 import styles from './style.module.scss';
-import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
 
 const Detail: React.FC = () => {
   const router = useRouter();
