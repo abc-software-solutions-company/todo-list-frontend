@@ -1,52 +1,32 @@
-import {useRouter} from 'next/router';
-import React, {useEffect, useState} from 'react';
-
-import API, {ITodoList} from '@/api/network/todo-list';
+import React, {useState} from 'react';
+import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
 import ModalCreateList from '@/components/modal-create-list';
 import ModalShare from '@/components/modal-share';
-import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
+import {useRouter} from 'next/router';
 import IconButton from '@/core-ui/ico-button';
 import Icon from '@/core-ui/icon';
 
 import styles from './style.module.scss';
+import useList from '@/hooks/useList';
 
 const List: React.FC = () => {
   const router = useRouter();
-  // Check local storage.
-  useEffect(() => {
-    const checkLocal = localStorage.getItem('user');
-    if (!checkLocal) {
-      router.push(ROUTES.QUICKPLAY);
-    }
-  }, []);
+  const {list} = useList();
+
+  useCheckUserLocalStorage();
+
   const [createListOpen, setCreateListOpen] = useState<boolean>(true);
+  const [currentListID, setCurrentListID] = useState<string>('');
+  const [shareOpen, setShareOpen] = useState<boolean>(false);
+
   const handleCloseCreateListOpen = () => {
     setCreateListOpen(false);
   };
 
-  const [shareOpen, setShareOpen] = useState<boolean>(false);
-
-  // Get id of list which clicked share button
-  const [currentListID, setCurrentListID] = useState<string>('');
-
   const handleShare = () => {
     setShareOpen(false);
   };
-
-  // Fetch data
-  const [list, setList] = useState<ITodoList[] | null>(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      await API.getTodoLists().then(res => {
-        if (res.status == 200) {
-          setList(res.data);
-        }
-      });
-    };
-
-    fetchData();
-  }, []);
 
   if (!list) return null;
 

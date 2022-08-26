@@ -2,7 +2,7 @@ import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 
 import TaskAPI, {ITask} from '@/api/network/task';
-import ListAPI, {IList} from '@/api/network/todo-list';
+import ListAPI from '@/api/network/todo-list';
 import {IUser} from '@/api/network/user';
 import ModalCreateTask from '@/components/modal-create-task';
 import ModalDeleteList from '@/components/modal-delete-list';
@@ -15,17 +15,13 @@ import IconButton from '@/core-ui/ico-button';
 import Icon from '@/core-ui/icon';
 
 import styles from './style.module.scss';
+import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
 
 const Detail: React.FC = () => {
   const router = useRouter();
-  // Check local storage.
-  useEffect(() => {
-    const checkLocal = localStorage.getItem('user');
-    if (!checkLocal) {
-      router.push(ROUTES.QUICKPLAY);
-    }
-  }, []);
   const {id} = router.query;
+
+  const {user} = useCheckUserLocalStorage();
 
   const [createTaskOpen, setCreateTaskOpen] = useState<boolean>(false);
   const [editDetail, setEditdetail] = useState<boolean>(false);
@@ -36,7 +32,6 @@ const Detail: React.FC = () => {
   const [task, setTask] = useState<ITask[] | null>(null);
   const [taskId, setTaskId] = useState<string>('');
   const [taskName, setTaskName] = useState<string>('');
-  const [user, setUser] = useState<IUser | null>(null);
 
   const handleCloseCreateTaskOpen = () => {
     setCreateTaskOpen(false);
@@ -54,29 +49,18 @@ const Detail: React.FC = () => {
     setDeletedetail(false);
   };
 
-  // Get userId.
-  useEffect(() => {
-    const json = localStorage.getItem('user')?.toString();
-
-    if (json) {
-      const object = JSON.parse(json);
-      setUser(object);
-    }
-  }, []);
-
   // Fetch data.
-  const fetchData = async (id: string) => {
-    await Promise.all([ListAPI.readTodoList(Number(id)), TaskAPI.getTasks(id.toString())]).then(([list, task]) => {
-      if (user && task.data.length == 0) {
-        alert('This your list is empty!');
-      }
-
-      setList(list.data);
-      setTask(task.data);
-    });
-  };
-
   useEffect(() => {
+    const fetchData = async (id: string) => {
+      await Promise.all([ListAPI.readTodoList(Number(id)), TaskAPI.getTasks(id.toString())]).then(([list, task]) => {
+        if (user && task.data.length == 0) {
+          alert('This your list is empty!');
+        }
+
+        setList(list.data);
+        setTask(task.data);
+      });
+    };
     if (id) fetchData(id.toString());
   }, [id]);
 

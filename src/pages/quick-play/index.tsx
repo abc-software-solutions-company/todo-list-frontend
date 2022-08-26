@@ -24,6 +24,7 @@ const Schema = yup.object().shape({
 
 const QuickPlay: React.FC = () => {
   const router = useRouter();
+
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
     mode: 'onChange',
     resolver: yupResolver(Schema)
