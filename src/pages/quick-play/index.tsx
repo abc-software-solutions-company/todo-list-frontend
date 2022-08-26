@@ -37,6 +37,7 @@ const QuickPlay: React.FC = () => {
       .then(res => {
         if (res.status === 201) {
           localStorage.setItem('user', JSON.stringify(res.data, null, 2));
+          localStorage.setItem('modalCreateList', 'close');
           router.push(ROUTES.ACTION);
         }
       })

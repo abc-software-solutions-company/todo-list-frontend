@@ -27,6 +27,13 @@ const List: React.FC = () => {
     setShareOpen(false);
   };
 
+  useEffect(() => {
+    const open = localStorage.getItem('modalCreateList');
+    if (open === 'open') {
+      setCreateListOpen(false);
+    }
+  }, []);
+
   if (!list) return null;
 
   return (
