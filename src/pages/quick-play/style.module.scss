@@ -3,20 +3,18 @@
     @apply mx-auto md:max-w-xl;
   }
   .logo-wrapper {
-    @apply flex justify-center;
+    @apply mt-32 flex justify-center md:mt-44 lg:mt-32;
   }
   .todolist-logo {
     @apply w-28;
   }
   .enter-your-name {
-    @apply mt-3 border border-black/20 bg-white p-10 md:p-16;
+    @apply mt-7 border border-black/20 bg-white p-10 md:p-16 lg:mt-14;
     h2 {
-      @apply text-center;
+      @apply text-center text-h2;
     }
   }
-  .heading {
-    @apply pb-14 text-2xl font-normal md:text-h2;
-  }
+
   form {
     @apply mt-14;
   }
@@ -24,6 +22,6 @@
     @apply mt-8 w-full;
   }
   .copyright {
-    @apply mt-3 text-center text-base md:text-h5;
+    @apply mt-24 text-center text-base md:mt-32 md:text-h5 lg:mt-40;
   }
 }
