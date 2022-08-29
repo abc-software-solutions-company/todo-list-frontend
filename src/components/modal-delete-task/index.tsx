@@ -4,6 +4,7 @@ import Button from '@/core-ui/button';
 import Modal from '@/core-ui/modal';
 
 import styles from './style.module.scss';
+import useToast from '@/core-ui/toast';
 
 interface IProps {
   open: boolean;
@@ -13,10 +14,12 @@ interface IProps {
 }
 
 const ModalDeleteTask: React.FC<IProps> = ({taskId, taskName, open, onClose}) => {
+  const toast = useToast();
+
   const handleDelete = (taskId: string, event: React.FormEvent<HTMLFormElement>) => {
     API.deleteTask(taskId).then(res => {
       if (res.status == 200) {
-        console.log(`You have deleted ${taskName}`);
+        toast.show({type: 'success', title: '', content: `You have deleted ${taskName}`, lifeTime: 7000});
       }
     });
     event.preventDefault();
