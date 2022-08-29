@@ -10,15 +10,24 @@ import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
 import useList from '@/hooks/useList';
 
 import styles from './style.module.scss';
+import useToast from '@/core-ui/toast';
 
 const List: React.FC = () => {
   const router = useRouter();
+  const toast = useToast();
   const {list} = useList();
-  useCheckUserLocalStorage();
+  const {user} = useCheckUserLocalStorage();
 
   const [createListOpen, setCreateListOpen] = useState<boolean>(true);
   const [currentListID, setCurrentListID] = useState<string>('');
   const [shareOpen, setShareOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!user && localStorage.getItem('toast') == 'close') {
+      toast.show({type: 'danger', title: '', content: 'You must login!', lifeTime: 3000});
+      localStorage.setItem('toast', 'open');
+    }
+  }, []);
 
   const handleCloseCreateListOpen = () => {
     setCreateListOpen(false);
