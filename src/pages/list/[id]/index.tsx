@@ -16,6 +16,7 @@ import useList from '@/hooks/useList';
 import useTask from '@/hooks/useTask';
 
 import styles from './style.module.scss';
+import useToast from '@/core-ui/toast';
 
 const Detail: React.FC = () => {
   const router = useRouter();
@@ -24,6 +25,7 @@ const Detail: React.FC = () => {
   const {list} = useList();
   const {user} = useCheckUserLocalStorage();
   const {task} = useTask(id ? id.toString() : '');
+  const toast = useToast();
 
   const [aList, setAList] = useState<ITodoList | null>(null);
   const [createTaskOpen, setCreateTaskOpen] = useState<boolean>(false);
@@ -33,6 +35,13 @@ const Detail: React.FC = () => {
   const [shareOpen, setShareOpen] = useState<boolean>(false);
   const [taskId, setTaskId] = useState<string>('');
   const [taskName, setTaskName] = useState<string>('');
+
+  useEffect(() => {
+    if (!user && localStorage.getItem('toast') == 'close') {
+      toast.show({type: 'danger', title: '', content: 'You must login!', lifeTime: 3000});
+      localStorage.setItem('toast', 'open');
+    }
+  }, []);
 
   const handleCloseCreateTaskOpen = () => {
     setCreateTaskOpen(false);

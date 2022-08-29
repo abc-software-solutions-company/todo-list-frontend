@@ -1,7 +1,7 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import cn from 'classnames';
 import {useRouter} from 'next/router';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -32,12 +32,17 @@ const QuickPlay: React.FC = () => {
 
   const {errors} = formState;
 
+  useEffect(() => {
+    localStorage.setItem('toast', 'close');
+  });
+
   const onSubmit: SubmitHandler<IFormInputs> = data => {
     API.createUser(data)
       .then(res => {
         if (res.status === 201) {
           localStorage.setItem('user', JSON.stringify(res.data, null, 2));
           localStorage.setItem('modalCreateList', 'close');
+          localStorage.setItem('toast', 'close');
           router.push(ROUTES.ACTION);
         }
       })
