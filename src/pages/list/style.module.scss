@@ -3,7 +3,7 @@
   .list-user {
     @apply flex items-center justify-end gap-3;
     .title-user {
-      @apply text-h4;
+      @apply text-h5 md:text-h4;
     }
   }
   .list-content {
