@@ -9,6 +9,7 @@ import Input from '@/core-ui/input';
 import Modal from '@/core-ui/modal';
 
 import styles from './style.module.scss';
+import useToast from '@/core-ui/toast';
 
 const Schema = yup.object().shape({
   taskName: yup.string().required('Please enter your task name.')
@@ -37,6 +38,7 @@ interface IProps {
 }
 
 const ModalCreateTask: React.FC<IProps> = ({userId, todolistId, open, onClose}) => {
+  const toast = useToast();
   // Use React Hook Form.
   const {
     control,
@@ -58,7 +60,7 @@ const ModalCreateTask: React.FC<IProps> = ({userId, todolistId, open, onClose}) 
     API.createTask(data)
       .then(res => {
         if (res.status === 201) {
-          console.log('Successful!');
+          toast.show({type: 'info', title: '', content: `You have add task: ${data.taskName}!`, lifeTime: 5000});
         }
       })
       .catch(error => {

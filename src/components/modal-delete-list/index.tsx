@@ -6,6 +6,7 @@ import API from '@/api/network/todo-list';
 import styles from './style.module.scss';
 import {useRouter} from 'next/router';
 import {ROUTES} from '@/configs/routes.config';
+import useToast from '@/core-ui/toast';
 
 interface IProps {
   open: boolean;
@@ -16,11 +17,12 @@ interface IProps {
 
 const ModalDeleteList: React.FC<IProps> = ({listID, listName, open, onClose}) => {
   const router = useRouter();
+  const toast = useToast();
 
   const handleDeleteList = () => {
     API.deleteTodoList(Number(listID)).then(res => {
       if (res.status == 200) {
-        console.log(`You have deleted ${listName}`);
+        toast.show({type: 'danger', title: '', content: `You have deleted list: ${listName}!`, lifeTime: 5000});
         localStorage.setItem('modalCreateList', 'open');
         router.push(ROUTES.LIST);
       }

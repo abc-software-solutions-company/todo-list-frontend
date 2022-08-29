@@ -44,6 +44,7 @@ const QuickPlay: React.FC = () => {
           localStorage.setItem('modalCreateList', 'close');
           localStorage.setItem('toast', 'close');
           router.push(ROUTES.ACTION);
+          window.location.reload();
         }
       })
       .catch(error => {
