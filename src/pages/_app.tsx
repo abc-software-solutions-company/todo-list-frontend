@@ -7,11 +7,13 @@ import type {AppProps} from 'next/app';
 import {useRouter} from 'next/router';
 import {appWithTranslation} from 'next-i18next';
 import NextNProgress from 'nextjs-progressbar';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import DefaultSeo from '@/components/common/seo/default-seo';
 import GoogleTagManager from '@/components/common/third-party/google-analytics/gtag';
 import QueryProvider from '@/contexts/query.provider';
+import Auth from './auth';
+import {IUser} from '@/api/network/user';
 
 const Noop: React.FC = ({children}: React.PropsWithChildren<any>) => <>{children}</>;
 
@@ -64,9 +66,11 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
       <NextNProgress color="#3D99D3" />
       <GoogleTagManager />
       <ThemeProvider theme={theme}>
+        {/* <Auth> */}
         <Layout pageProps={pageProps}>
           <Component {...pageProps} key={router.route} />
         </Layout>
+        {/* </Auth> */}
       </ThemeProvider>
     </QueryProvider>
   );

@@ -17,6 +17,7 @@ import useTask from '@/hooks/useTask';
 
 import styles from './style.module.scss';
 import useToast from '@/core-ui/toast';
+import Auth from '@/pages/auth';
 
 const Detail: React.FC = () => {
   const router = useRouter();
@@ -25,7 +26,6 @@ const Detail: React.FC = () => {
   const {list} = useList();
   const {user} = useCheckUserLocalStorage();
   const {task} = useTask(id ? id.toString() : '');
-  const toast = useToast();
 
   const [aList, setAList] = useState<ITodoList | null>(null);
   const [createTaskOpen, setCreateTaskOpen] = useState<boolean>(false);
@@ -35,13 +35,6 @@ const Detail: React.FC = () => {
   const [shareOpen, setShareOpen] = useState<boolean>(false);
   const [taskId, setTaskId] = useState<string>('');
   const [taskName, setTaskName] = useState<string>('');
-
-  useEffect(() => {
-    if (!user && localStorage.getItem('toast') == 'close') {
-      toast.show({type: 'danger', title: '', content: 'You must login!', lifeTime: 3000});
-      localStorage.setItem('toast', 'open');
-    }
-  }, []);
 
   const handleCloseCreateTaskOpen = () => {
     setCreateTaskOpen(false);
@@ -96,7 +89,7 @@ const Detail: React.FC = () => {
   if (!task) return null;
 
   return (
-    <>
+    <Auth>
       <div className={styles['create-detail-section']}>
         <div className="container">
           <div className="banner-detail">
@@ -110,12 +103,10 @@ const Detail: React.FC = () => {
                 >
                   <Icon name="abc-arrow-left-circle" />
                 </div>
-
                 <div className="title-left">
                   <h3 className="title-todo">{aList ? aList.listName : ''}</h3>
                 </div>
               </div>
-
               <div className="detail-right">
                 <Button variant="contained" className="items" onClick={() => setDeleteListOpen(true)}>
                   <Icon name="abc-trash" />
@@ -173,7 +164,7 @@ const Detail: React.FC = () => {
           <ModalShare open={shareOpen} onClose={handleShare} id={id} />
         </div>
       </div>
-    </>
+    </Auth>
   );
 };
 
