@@ -19,7 +19,7 @@ interface IFormInputs {
 }
 
 const Schema = yup.object().shape({
-  userName: yup.string().required('Please fill all the required fields.')
+  userName: yup.string().required('Please fill your name.')
 });
 
 const QuickPlay: React.FC = () => {
