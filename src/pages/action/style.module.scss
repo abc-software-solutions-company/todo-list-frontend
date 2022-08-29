@@ -1,6 +1,6 @@
 .create-room :global {
   .container {
-    @apply mx-auto justify-center py-60;
+    @apply mx-auto justify-center bg-blue-200 py-60 md:bg-amber-200 lg:bg-teal-200;
   }
   .title-room {
     @apply text-center  text-abc-blue;
@@ -15,7 +15,19 @@
     @apply mt-16 text-center text-3xl font-medium text-abc-blue md:text-h1;
   }
   .section-btn {
-    @apply mt-8 grid grid-cols-2 gap-x-5;
+    @apply mt-8 grid-cols-2 gap-x-5 lg:grid;
+    .title-btn {
+      @apply w-full;
+    }
+    .input-group {
+      @apply mt-6  lg:mt-0;
+      .form-input {
+        @apply border-0;
+      }
+      .input-group-text {
+        @apply bg-abc-blue text-white;
+      }
+    }
   }
   .section-error {
     @apply mt-1 grid grid-cols-2 gap-x-5;

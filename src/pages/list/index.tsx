@@ -6,12 +6,12 @@ import ModalShare from '@/components/modal-share';
 import Button from '@/core-ui/button';
 import IconButton from '@/core-ui/ico-button';
 import Icon from '@/core-ui/icon';
+import useToast from '@/core-ui/toast';
 import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
 import useList from '@/hooks/useList';
 
-import styles from './style.module.scss';
-import useToast from '@/core-ui/toast';
 import Auth from '../auth';
+import styles from './style.module.scss';
 
 const List: React.FC = () => {
   const router = useRouter();
@@ -70,7 +70,7 @@ const List: React.FC = () => {
                 }}
               >
                 <Icon name="abc-plus-circle" />
-                <div className="title-right">New List</div>
+                <h3 className="title-right">New List</h3>
               </Button>
             </div>
           </div>
