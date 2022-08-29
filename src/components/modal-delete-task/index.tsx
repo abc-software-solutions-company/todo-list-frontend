@@ -19,7 +19,7 @@ const ModalDeleteTask: React.FC<IProps> = ({taskId, taskName, open, onClose}) =>
   const handleDelete = (taskId: string, event: React.FormEvent<HTMLFormElement>) => {
     API.deleteTask(taskId).then(res => {
       if (res.status == 200) {
-        toast.show({type: 'success', title: '', content: `You have deleted ${taskName}`, lifeTime: 7000});
+        toast.show({type: 'danger', title: '', content: `You have deleted task: ${taskName}!`, lifeTime: 5000});
       }
     });
     event.preventDefault();

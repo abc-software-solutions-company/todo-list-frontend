@@ -9,6 +9,7 @@ import Input from '@/core-ui/input';
 import Modal from '@/core-ui/modal';
 
 import styles from './style.module.scss';
+import useToast from '@/core-ui/toast';
 
 const Schema = yup.object().shape({
   taskName: yup.string().required('Please enter your task name.')
@@ -27,6 +28,8 @@ interface IProps {
 }
 
 const ModalUpdateList: React.FC<IProps> = ({taskId, oldTaskName, open, onClose}) => {
+  const toast = useToast();
+
   const {
     handleSubmit,
     formState: {errors, isValid},
@@ -43,7 +46,7 @@ const ModalUpdateList: React.FC<IProps> = ({taskId, oldTaskName, open, onClose})
     if (data.taskID) {
       API.updateTask(data.taskID, data).then(res => {
         if (res.status === 200) {
-          console.log('Successful!');
+          toast.show({type: 'warning', title: '', content: `You have updated sucessful!`, lifeTime: 5000});
         }
       });
     }
@@ -65,7 +68,7 @@ const ModalUpdateList: React.FC<IProps> = ({taskId, oldTaskName, open, onClose})
           </Modal.Body>
           <Modal.Footer>
             <Button className="btn" text="Close" onClick={onClose} />
-            <Button className="btn" text="Create" type="submit" onClick={isValid ? onClose : () => {}} />
+            <Button className="btn" text="Save" type="submit" onClick={isValid ? onClose : () => {}} />
           </Modal.Footer>
         </form>
       </Modal>

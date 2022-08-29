@@ -9,6 +9,7 @@ import Input from '@/core-ui/input';
 import Modal from '@/core-ui/modal';
 
 import styles from './style.module.scss';
+import useToast from '@/core-ui/toast';
 
 const Schema = yup.object().shape({
   listName: yup.string().required('Please enter your list name.')
@@ -28,6 +29,7 @@ interface IProps {
 }
 
 const ModalCreateList: React.FC<IProps> = ({open, onClose}) => {
+  const toast = useToast();
   // Use React Hook Form.
   const {
     register,
@@ -44,7 +46,7 @@ const ModalCreateList: React.FC<IProps> = ({open, onClose}) => {
     API.createTodoList(data)
       .then(res => {
         if (res.status === 201) {
-          console.log('Successful!');
+          toast.show({type: 'info', title: '', content: `You have add list: ${data.listName}!`, lifeTime: 5000});
         }
       })
       .catch(error => {

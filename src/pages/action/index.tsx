@@ -11,6 +11,7 @@ import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
 import styles from './style.module.scss';
 import {useEffect} from 'react';
 import useToast from '@/core-ui/toast';
+import Auth from '../auth';
 
 interface IFormInputs {
   ID: string;
@@ -21,16 +22,6 @@ const Schema = yup.object().shape({
 });
 const Action: React.FC = () => {
   const router = useRouter();
-  const toast = useToast();
-
-  const {user} = useCheckUserLocalStorage();
-
-  useEffect(() => {
-    if (!user && localStorage.getItem('toast') == 'close') {
-      toast.show({type: 'danger', title: '', content: 'You must login!', lifeTime: 3000});
-      localStorage.setItem('toast', 'open');
-    }
-  }, []);
 
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
     mode: 'onChange',
@@ -51,7 +42,7 @@ const Action: React.FC = () => {
       });
   };
   return (
-    <>
+    <Auth>
       <div className={styles['create-room']}>
         <div className="container">
           <div className="section-room">
@@ -85,7 +76,7 @@ const Action: React.FC = () => {
           </div>
         </div>
       </div>
-    </>
+    </Auth>
   );
 };
 

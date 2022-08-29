@@ -66,11 +66,11 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
       <NextNProgress color="#3D99D3" />
       <GoogleTagManager />
       <ThemeProvider theme={theme}>
-        <Auth>
-          <Layout pageProps={pageProps}>
-            <Component {...pageProps} key={router.route} />
-          </Layout>
-        </Auth>
+        {/* <Auth> */}
+        <Layout pageProps={pageProps}>
+          <Component {...pageProps} key={router.route} />
+        </Layout>
+        {/* </Auth> */}
       </ThemeProvider>
     </QueryProvider>
   );
