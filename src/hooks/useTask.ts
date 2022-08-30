@@ -4,20 +4,18 @@ import {useEffect, useState} from 'react';
 
 const useTask = (listId: string) => {
   const [task, setTask] = useState<ITask[] | null>(null);
-
+  const fetchData = async () => {
+    await API.getTasks(listId).then(res => {
+      if (res.status == 200) {
+        setTask(res.data.reverse());
+      }
+    });
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      await API.getTasks(listId).then(res => {
-        if (res.status == 200) {
-          setTask(res.data.reverse());
-        }
-      });
-    };
-
     fetchData();
-  }, [listId, task]);
+  }, [listId]);
 
-  return {task};
+  return {task, fetchData};
 };
 
 export default useTask;

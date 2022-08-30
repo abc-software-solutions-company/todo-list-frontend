@@ -1,6 +1,6 @@
 .create-room :global {
   .container {
-    @apply mx-auto justify-center bg-blue-200 py-60 md:bg-amber-200 lg:bg-teal-200;
+    @apply mx-auto justify-center py-60;
   }
   .title-room {
     @apply text-center  text-abc-blue;

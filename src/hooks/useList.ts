@@ -4,20 +4,18 @@ import {useEffect, useState} from 'react';
 
 const useList = () => {
   const [list, setList] = useState<ITodoList[] | null>(null);
-
+  const fetchData = async () => {
+    await API.getTodoLists().then(res => {
+      if (res.status == 200) {
+        setList(res.data);
+      }
+    });
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      await API.getTodoLists().then(res => {
-        if (res.status == 200) {
-          setList(res.data);
-        }
-      });
-    };
-
     fetchData();
-  }, [list]);
+  }, []);
 
-  return {list};
+  return {list, fetchData};
 };
 
 export default useList;

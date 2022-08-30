@@ -26,9 +26,10 @@ const FORM_DEFAULT_VALUES: IFormInputs = {
 interface IProps {
   open: boolean;
   onClose?: () => void;
+  fetchData?: () => void;
 }
 
-const ModalCreateList: React.FC<IProps> = ({open, onClose}) => {
+const ModalCreateList: React.FC<IProps> = ({fetchData, open, onClose}) => {
   const toast = useToast();
   // Use React Hook Form.
   const {
@@ -47,10 +48,11 @@ const ModalCreateList: React.FC<IProps> = ({open, onClose}) => {
       .then(res => {
         if (res.status === 201) {
           toast.show({type: 'info', title: '', content: `You have add list: ${data.listName}!`, lifeTime: 5000});
+          fetchData?.();
         }
       })
       .catch(error => {
-        alert(error.response.data.message);
+        toast.show({type: 'danger', title: '', content: error.response.data.message, lifeTime: 5000});
       });
   };
 

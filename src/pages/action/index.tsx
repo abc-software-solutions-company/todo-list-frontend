@@ -22,6 +22,7 @@ const Schema = yup.object().shape({
 });
 const Action: React.FC = () => {
   const router = useRouter();
+  const toast = useToast();
 
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
     mode: 'onChange',
@@ -38,7 +39,7 @@ const Action: React.FC = () => {
         }
       })
       .catch(error => {
-        alert(error.response.data.message);
+        toast.show({type: 'danger', title: 'Xin chào!', content: error.response.data.message, lifeTime: 3000});
       });
   };
   return (
