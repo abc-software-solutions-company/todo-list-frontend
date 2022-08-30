@@ -2,6 +2,7 @@ import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 
 import API, {ITodoList} from '@/api/network/todo-list';
+import TaskAPI from '@/api/network/task';
 import ModalCreateTask from '@/components/modal-create-task';
 import ModalDeleteList from '@/components/modal-delete-list';
 import ModalDeleteTask from '@/components/modal-delete-task';
@@ -16,7 +17,6 @@ import useList from '@/hooks/useList';
 import useTask from '@/hooks/useTask';
 
 import styles from './style.module.scss';
-import useToast from '@/core-ui/toast';
 import Auth from '@/pages/auth';
 
 const Detail: React.FC = () => {
@@ -25,7 +25,7 @@ const Detail: React.FC = () => {
 
   const {list} = useList();
   const {user} = useCheckUserLocalStorage();
-  const {task} = useTask(id ? id.toString() : '');
+  const {task, fetchData} = useTask(id ? id.toString() : '');
 
   const [aList, setAList] = useState<ITodoList | null>(null);
   const [createTaskOpen, setCreateTaskOpen] = useState<boolean>(false);
@@ -71,6 +71,11 @@ const Detail: React.FC = () => {
     setDeleteListOpen(false);
   };
 
+  // Handle checkbox.
+  const handleOnChange = (id: string) => {
+    TaskAPI.updateActive(id).then(res => console.log(res));
+  };
+
   // Get list name.
   useEffect(() => {
     const fetch = async () => {
@@ -83,7 +88,6 @@ const Detail: React.FC = () => {
   }, [id]);
 
   if (!id) return null;
-
   if (!list) return null;
   if (!user) return null;
   if (!task) return null;
@@ -99,6 +103,7 @@ const Detail: React.FC = () => {
                   className="icon-arrow-left"
                   onClick={() => {
                     router.push('/list');
+                    localStorage.setItem('modalCreateList', 'open');
                   }}
                 >
                   <Icon name="abc-arrow-left-circle" />
@@ -128,8 +133,16 @@ const Detail: React.FC = () => {
               <>
                 <div className="detail-list">
                   <div className="list-group">
-                    <Checkbox className="list-box " />
-                    <p className="title-group checked">{item.taskName}</p>
+                    {/* <Checkbox className="list-box" onChange={event => handleCheckbox(event)} /> */}
+                    {/* <p className="title-group checked">{item.taskName}</p> */}
+                    {/* FIXME: checkbox */}
+                    <Checkbox
+                      type="checkbox"
+                      checked={item.isDone}
+                      className="list-box"
+                      onChange={() => handleOnChange(item.id ? item.id : '')}
+                    />
+                    <p className={`title-group ${item.isDone ? 'checked' : ''}`}>{item.taskName}</p>
                   </div>
                   <div className="actions">
                     <IconButton
@@ -144,8 +157,20 @@ const Detail: React.FC = () => {
                     />
                   </div>
                 </div>
-                <ModalDeleteTask taskId={taskId} taskName={taskName} open={deleteDetail} onClose={handleDelete} />
-                <ModalUpdateTask taskId={taskId} oldTaskName={taskName} open={editDetail} onClose={handleEdit} />
+                <ModalDeleteTask
+                  taskId={taskId}
+                  taskName={taskName}
+                  open={deleteDetail}
+                  onClose={handleDelete}
+                  fetchData={fetchData}
+                />
+                <ModalUpdateTask
+                  taskId={taskId}
+                  oldTaskName={taskName}
+                  open={editDetail}
+                  onClose={handleEdit}
+                  fetchData={fetchData}
+                />
               </>
             ))}
           </div>
@@ -154,6 +179,7 @@ const Detail: React.FC = () => {
             userId={user.id}
             open={createTaskOpen}
             onClose={handleCloseCreateTaskOpen}
+            fetchData={fetchData}
           />
           <ModalDeleteList
             listID={aList?.id}

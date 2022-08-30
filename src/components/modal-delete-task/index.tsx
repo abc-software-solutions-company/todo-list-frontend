@@ -11,15 +11,17 @@ interface IProps {
   onClose?: () => void;
   taskId?: string;
   taskName?: string;
+  fetchData?: () => void;
 }
 
-const ModalDeleteTask: React.FC<IProps> = ({taskId, taskName, open, onClose}) => {
+const ModalDeleteTask: React.FC<IProps> = ({taskId, taskName, open, onClose, fetchData}) => {
   const toast = useToast();
 
   const handleDelete = (taskId: string, event: React.FormEvent<HTMLFormElement>) => {
     API.deleteTask(taskId).then(res => {
       if (res.status == 200) {
         toast.show({type: 'danger', title: '', content: `You have deleted task: ${taskName}!`, lifeTime: 5000});
+        fetchData?.();
       }
     });
     event.preventDefault();

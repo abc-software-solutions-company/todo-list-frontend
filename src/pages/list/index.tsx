@@ -1,20 +1,21 @@
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 
-import {IUser} from '@/api/network/user';
 import ModalCreateList from '@/components/modal-create-list';
 import ModalShare from '@/components/modal-share';
 import Button from '@/core-ui/button';
 import IconButton from '@/core-ui/ico-button';
 import Icon from '@/core-ui/icon';
+
 import useList from '@/hooks/useList';
 
 import Auth from '../auth';
 import styles from './style.module.scss';
+import {IUser} from '@/api/network/user';
 
 const List: React.FC = () => {
   const router = useRouter();
-  const {list} = useList();
+  const {list, fetchData} = useList();
 
   const [createListOpen, setCreateListOpen] = useState<boolean>(true);
   const [currentListID, setCurrentListID] = useState<string>('');
@@ -105,7 +106,7 @@ const List: React.FC = () => {
           </div>
         </div>
       </div>
-      <ModalCreateList open={createListOpen} onClose={handleCloseCreateListOpen} />
+      <ModalCreateList open={createListOpen} onClose={handleCloseCreateListOpen} fetchData={fetchData} />
       <ModalShare open={shareOpen} onClose={handleShare} id={currentListID} />
     </Auth>
   );

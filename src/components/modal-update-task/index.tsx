@@ -25,9 +25,10 @@ interface IProps {
   onClose?: () => void;
   taskId?: string;
   oldTaskName: string;
+  fetchData?: () => void;
 }
 
-const ModalUpdateList: React.FC<IProps> = ({taskId, oldTaskName, open, onClose}) => {
+const ModalUpdateList: React.FC<IProps> = ({taskId, oldTaskName, open, onClose, fetchData}) => {
   const toast = useToast();
 
   const {
@@ -47,6 +48,7 @@ const ModalUpdateList: React.FC<IProps> = ({taskId, oldTaskName, open, onClose})
       API.updateTask(data.taskID, data).then(res => {
         if (res.status === 200) {
           toast.show({type: 'warning', title: '', content: `You have updated sucessful!`, lifeTime: 5000});
+          fetchData?.();
         }
       });
     }

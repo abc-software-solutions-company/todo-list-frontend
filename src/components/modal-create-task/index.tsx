@@ -35,9 +35,10 @@ interface IProps {
   onClose?: () => void;
   userId?: string;
   todolistId?: number;
+  fetchData?: () => void;
 }
 
-const ModalCreateTask: React.FC<IProps> = ({userId, todolistId, open, onClose}) => {
+const ModalCreateTask: React.FC<IProps> = ({userId, todolistId, open, onClose, fetchData}) => {
   const toast = useToast();
   // Use React Hook Form.
   const {
@@ -61,10 +62,11 @@ const ModalCreateTask: React.FC<IProps> = ({userId, todolistId, open, onClose}) 
       .then(res => {
         if (res.status === 201) {
           toast.show({type: 'info', title: '', content: `You have add task: ${data.taskName}!`, lifeTime: 5000});
+          fetchData?.();
         }
       })
       .catch(error => {
-        alert(error.response.data.message);
+        toast.show({type: 'danger', title: '', content: error.response.data.message, lifeTime: 5000});
       });
   };
 

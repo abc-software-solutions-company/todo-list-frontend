@@ -1,5 +1,5 @@
 import {useRouter} from 'next/router';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import ModalCreateList from '@/components/modal-create-list';
 import ModalCreateTask from '@/components/modal-create-task';
@@ -11,6 +11,7 @@ import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
 import LayoutDefault from '@/layouts/default';
+import TaskAPI from '@/api/network/task';
 
 export default function PageHome() {
   const router = useRouter();
@@ -22,6 +23,10 @@ export default function PageHome() {
   const [updateTaskOpen, setUpdateTaskOpen] = useState<boolean>(false);
   const [deleteTaskOpen, setDeleteTaskOpen] = useState<boolean>(false);
   // const [shareOpen, setShareOpen] = useState<boolean>(false);
+
+  // useEffect(() => {
+  //   TaskAPI.updateActive('d83039ca-0703-4e3c-b9fb-b3ed78a6096e').then(res => console.log(res));
+  // }, []);
 
   const handleCloseCreateListOpen = () => {
     setCreateListOpen(false);
