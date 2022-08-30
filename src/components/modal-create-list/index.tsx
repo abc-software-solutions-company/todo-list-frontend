@@ -6,10 +6,10 @@ import * as yup from 'yup';
 import API from '@/api/network/todo-list';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
-import Modal from '@/core-ui/modal';
+import {Modal} from '@/core-ui/modal';
+import useToast from '@/core-ui/toast';
 
 import styles from './style.module.scss';
-import useToast from '@/core-ui/toast';
 
 const Schema = yup.object().shape({
   listName: yup.string().required('Please enter your list name.')
@@ -25,11 +25,10 @@ const FORM_DEFAULT_VALUES: IFormInputs = {
 
 interface IProps {
   open: boolean;
-  onClose?: () => void;
-  fetchData?: () => void;
+  onClose: () => void;
 }
 
-const ModalCreateList: React.FC<IProps> = ({fetchData, open, onClose}) => {
+const ModalCreateList: React.FC<IProps> = ({open, onClose}) => {
   const toast = useToast();
   // Use React Hook Form.
   const {
@@ -48,11 +47,10 @@ const ModalCreateList: React.FC<IProps> = ({fetchData, open, onClose}) => {
       .then(res => {
         if (res.status === 201) {
           toast.show({type: 'info', title: '', content: `You have add list: ${data.listName}!`, lifeTime: 5000});
-          fetchData?.();
         }
       })
       .catch(error => {
-        toast.show({type: 'danger', title: '', content: error.response.data.message, lifeTime: 5000});
+        alert(error.response.data.message);
       });
   };
 

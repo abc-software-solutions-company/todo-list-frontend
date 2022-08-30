@@ -1,14 +1,15 @@
 import React from 'react';
+
 import API from '@/api/network/task';
 import Button from '@/core-ui/button';
-import Modal from '@/core-ui/modal';
+import {Modal} from '@/core-ui/modal';
+import useToast from '@/core-ui/toast';
 
 import styles from './style.module.scss';
-import useToast from '@/core-ui/toast';
 
 interface IProps {
   open: boolean;
-  onClose?: () => void;
+  onClose: () => void;
   taskId?: string;
   taskName?: string;
   fetchData?: () => void;

@@ -1,0 +1,6 @@
+.layout-default :global {
+  @apply flex h-screen flex-col justify-between;
+  main {
+    @apply h-full;
+  }
+}

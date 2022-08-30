@@ -1,22 +1,75 @@
-import React, {InputHTMLAttributes, ReactNode} from 'react';
+import cls from 'classnames';
+import React, {FC, MouseEventHandler, ReactNode} from 'react';
 
-interface IProps extends InputHTMLAttributes<HTMLInputElement> {
+import Loading from '../loading';
+import {Color, Size, Variant, XPosition} from '../types';
+
+interface IButtonProps {
+  className?: string;
+  href?: string;
   text?: string;
+  loading?: boolean;
+  endIcon?: ReactNode;
+  startIcon?: ReactNode;
+  disabled?: boolean;
   children?: ReactNode;
-  onClick?: () => void;
   type?: 'button' | 'submit' | 'reset';
-  variant: 'contained' | 'outlined';
+  color?: Color;
+  size?: Size;
+  loadingPosition?: XPosition;
+  variant?: Variant;
+  onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
 }
 
-const Button: React.FC<IProps> = ({text, onClick, className, children, type = 'button', variant = 'contained'}) => {
-  const content = children ? children : text;
+const Button: FC<IButtonProps> = ({
+  className,
+  children,
+  text,
+  href,
+  startIcon,
+  endIcon,
+  color,
+  size,
+  type = 'button',
+  variant,
+  loadingPosition,
+  onClick,
+  disabled = false,
+  loading = false,
+  ...rest
+}) => {
+  const props: IButtonProps = {};
+
+  const Tag = href ? 'a' : 'button';
+  const content = text || children;
+
+  if (Tag === 'button') {
+    props.disabled = disabled;
+    props.type = type;
+  }
+
+  props.onClick = onClick;
+  props.className = cls(
+    'abc-btn',
+    className,
+    variant,
+    size,
+    color,
+    loading && 'loading',
+    disabled && Tag === 'a' && 'disabled'
+  );
+
   return (
-    <>
-      <button type={type} onClick={onClick} className={['btn', className?.toString(), variant].join(' ')}>
-        {content}
-      </button>
-    </>
+    <Tag {...props} {...rest}>
+      {loading && loadingPosition === 'start' && <Loading className="loading mr-2" />}
+      {startIcon && <span className="icon mr-2">{startIcon}</span>}
+      <span>{content}</span>
+      {endIcon && <span className="icon ml-2">{endIcon}</span>}
+      {loading && loadingPosition === 'end' && <Loading className="loading ml-2" />}
+    </Tag>
   );
 };
+
+Button.displayName = 'AIButton';
 
 export default Button;

@@ -32,20 +32,20 @@ module.exports = {
       // Do đó Tailwind cung cấp tính năng mở rộng để tạo thêm cấu hình một cách dễ dàng.
       fontSize: {
         none: ['0', '0'],
-        hero: ['3.5rem', { lineHeight: '4.25rem', letterSpacing: '0' }],
-        h1: ['2.5rem', { lineHeight: '3.0625rem', letterSpacing: '0' }],
-        h2: ['1.75rem', { lineHeight: '2.125rem', letterSpacing: '0' }], // 28/34
-        h3: ['1.5rem', { lineHeight: '1.8125rem', letterSpacing: '0' }],
-        h4: ['1.25rem', { lineHeight: '1.5rem', letterSpacing: '0' }],
-        h5: ['1.125rem', { lineHeight: '1.375rem', letterSpacing: '0' }],
-        h6: ['1rem', { lineHeight: '3.5rem', letterSpacing: '0' }],
-        display1: ['5rem', { lineHeight: '3.5rem', letterSpacing: '0' }],
-        display2: ['4.5rem', { lineHeight: '3.5rem', letterSpacing: '0' }],
-        display3: ['4rem', { lineHeight: '3.5rem', letterSpacing: '0' }],
-        display4: ['3.5rem', { lineHeight: '3.5rem', letterSpacing: '0' }],
-        display5: ['3rem', { lineHeight: '3.5rem', letterSpacing: '0' }],
-        display6: ['2.5rem', { lineHeight: '3.5rem', letterSpacing: '0' }],
-        figure: ['0.688rem', { lineHeight: '3.5rem', letterSpacing: '0' }]
+        hero: ['3.5rem', {lineHeight: '4.25rem', letterSpacing: '0'}],
+        h1: ['2.5rem', {lineHeight: '3.0625rem', letterSpacing: '0'}],
+        h2: ['1.75rem', {lineHeight: '2.125rem', letterSpacing: '0'}], // 28/34
+        h3: ['1.5rem', {lineHeight: '1.8125rem', letterSpacing: '0'}],
+        h4: ['1.25rem', {lineHeight: '1.5rem', letterSpacing: '0'}],
+        h5: ['1.125rem', {lineHeight: '1.375rem', letterSpacing: '0'}],
+        h6: ['1rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
+        display1: ['5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
+        display2: ['4.5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
+        display3: ['4rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
+        display4: ['3.5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
+        display5: ['3rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
+        display6: ['2.5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
+        figure: ['0.688rem', {lineHeight: '3.5rem', letterSpacing: '0'}]
       },
       letterSpacing: {
         4: '0.04em', // -4%
@@ -79,9 +79,9 @@ module.exports = {
         dropdown: '1000',
         sticky: '1020',
         fixed: '1030',
-        draweroverlay: '1040',
+        drawerbackdrop: '1040',
         drawer: '1045',
-        modaloverlay: '1050',
+        modalbackdrop: '1050',
         modal: '1055',
         popover: '1070',
         tooltip: '1080',
@@ -118,16 +118,16 @@ module.exports = {
       },
       keyframes: {
         hLine: {
-          '0%': { width: '0px' },
-          '100%': { width: '100%' }
+          '0%': {width: '0px'},
+          '100%': {width: '100%'}
         },
         zoomIn: {
-          '0%': { transform: 'translateY(0) scale(1, 1)' },
-          '100%': { transform: 'translateY(-20px) scale(1.3, 1.3)' }
+          '0%': {transform: 'translateY(0) scale(1, 1)'},
+          '100%': {transform: 'translateY(-20px) scale(1.3, 1.3)'}
         },
         zoomOut: {
-          '0%': { transform: 'translateY(-20px) scale(1.3, 1.3)' },
-          '100%': { transform: 'translateY(0) scale(1, 1)' }
+          '0%': {transform: 'translateY(-20px) scale(1.3, 1.3)'},
+          '100%': {transform: 'translateY(0) scale(1, 1)'}
         }
       },
       typography: theme => ({
@@ -158,20 +158,19 @@ module.exports = {
           }
         }
       })
-    },
-    screens: Object.fromEntries(Object.entries(defaultTheme.screens).filter(([key, value]) => key !== '2xl'))
+    }
   },
   plugins: [
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/line-clamp'),
-    plugin(function ({ addUtilities, theme, e }) {
+    plugin(function ({addUtilities, theme, e}) {
       const animationDelayValues = theme('animationDelay');
       addUtilities(
         Object.entries(animationDelayValues).map(([key, value]) => {
           return {
-            [`.${e(`animate-delay-${key}`)}`]: { animationDelay: `${value}` }
+            [`.${e(`animate-delay-${key}`)}`]: {animationDelay: `${value}`}
           };
         })
       );

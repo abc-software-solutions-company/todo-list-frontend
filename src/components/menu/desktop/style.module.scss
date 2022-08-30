@@ -1,5 +1,5 @@
 .menu-desktop :global {
-  @apply sticky top-0 right-0 left-0 z-50 w-full bg-abc-dark/[0.7] lg:mt-10;
+  @apply bg-blue-dark/[0.7] sticky top-0 right-0 left-0 z-50 w-full lg:mt-10;
   .inner {
     @apply flex items-center justify-between text-white;
   }
@@ -16,7 +16,7 @@
       &.hover,
       &.active {
         > a span {
-          @apply text-abc-blue;
+          @apply text-blue-500;
         }
       }
       a {
@@ -37,7 +37,7 @@
       }
     }
     > ul > li a.active {
-      @apply text-abc-blue;
+      @apply text-blue-500;
     }
     > ul > li:last-child > a {
       @apply pr-0;

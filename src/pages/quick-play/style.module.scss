@@ -1,9 +1,9 @@
-.com-action :global {
+.com-quick-play :global {
   .inner {
     @apply mx-auto md:max-w-xl;
   }
   .logo-wrapper {
-    @apply mt-32 flex justify-center md:mt-44 lg:mt-32;
+    @apply flex justify-center md:mt-6 2xl:mt-16;
   }
   .todolist-logo {
     @apply w-28;
@@ -20,8 +20,5 @@
   }
   .btn-submit {
     @apply mt-8 w-full;
-  }
-  .copyright {
-    @apply mt-24 text-center text-base md:mt-32 md:text-h5 lg:mt-40;
   }
 }

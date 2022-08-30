@@ -1,0 +1,7 @@
+.abc-backdrop {
+  @apply invisible fixed top-0 left-0 z-drawerbackdrop h-screen w-screen bg-black/[0.2];
+  @apply opacity-0 transition-all duration-300;
+  &.show {
+    @apply visible opacity-100;
+  }
+}

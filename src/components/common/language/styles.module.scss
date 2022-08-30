@@ -1,5 +1,5 @@
 .languages :global {
-  @apply flex items-center border-l border-abc-blue;
+  @apply border-blue-blue flex items-center border-l;
   .inner {
     @apply relative flex items-center border-b-2;
     .text {
@@ -10,7 +10,7 @@
 .language-topbar :global {
   @apply ml-2.5;
   .inner {
-    @apply ml-4 h-9 text-caption;
+    @apply text-caption ml-4 h-9;
   }
 }
 .language-menu :global {

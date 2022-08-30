@@ -1,15 +1,15 @@
 .scrollbar {
   &::-webkit-scrollbar {
-    @apply h-[6px] w-[6px];
+    @apply h-2 w-2;
   }
   &::-webkit-scrollbar-track {
-    @apply bg-stone-900;
+    @apply bg-blue-100;
   }
   &::-webkit-scrollbar-thumb {
-    @apply bg-abc-blue;
+    @apply bg-blue-500;
   }
   &::-webkit-scrollbar-thumb:hover {
-    @apply bg-abc-blue;
+    @apply bg-blue-600;
   }
   &.scrolling-touch {
     -webkit-overflow-scrolling: touch;

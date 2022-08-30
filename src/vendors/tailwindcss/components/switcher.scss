@@ -1,0 +1,85 @@
+.abc-switcher {
+  @apply inline-flex items-center justify-center align-middle leading-none;
+  .layer1 {
+    @apply pointer-events-auto h-6 w-10 rounded-full p-1 ring-1 ring-inset transition duration-200 ease-in-out;
+  }
+  .layer2 {
+    @apply h-4 w-4 rounded-full bg-white ring-1 ring-slate-700/10 transition duration-200 ease-in-out;
+  }
+  &.checked .layer1 {
+    @apply bg-blue-500 ring-black/20;
+  }
+  &.unchecked .layer1 {
+    @apply bg-slate-900/10 ring-slate-900/5;
+  }
+  &.checked .layer2 {
+    @apply translate-x-4;
+  }
+  &.primary {
+    &.checked .layer1 {
+      @apply bg-blue-500 ring-blue-600;
+    }
+  }
+  &.secondary {
+    &.checked .layer1 {
+      @apply bg-slate-500 ring-slate-600;
+    }
+  }
+  &.danger {
+    &.checked .layer1 {
+      @apply bg-red-500 ring-red-600;
+    }
+  }
+  &.warning {
+    &.checked .layer1 {
+      @apply bg-amber-500 ring-amber-600;
+    }
+  }
+  &.success {
+    &.checked .layer1 {
+      @apply bg-emerald-500 ring-emerald-600;
+    }
+  }
+  &.info {
+    &.checked .layer1 {
+      @apply bg-sky-500 ring-sky-600;
+    }
+  }
+  &.error {
+    &.checked .layer1 {
+      @apply bg-red-500 ring-red-600;
+    }
+  }
+  &.disabled {
+    &.primary {
+      &.checked .layer1 {
+        @apply bg-blue-100 ring-blue-200;
+      }
+    }
+    &.secondary {
+      &.checked .layer1 {
+        @apply bg-slate-100 ring-slate-200;
+      }
+    }
+    &.danger {
+      &.checked .layer1 {
+        @apply bg-red-100 ring-red-200;
+      }
+    }
+    &.warning {
+      &.checked .layer1 {
+        @apply bg-amber-100 ring-amber-200;
+      }
+    }
+    &.success {
+      &.checked .layer1 {
+        @apply bg-emerald-100 ring-emerald-200;
+      }
+    }
+    &.info {
+      &.checked .layer1 {
+        @apply bg-sky-100 ring-sky-200;
+      }
+    }
+  }
+}

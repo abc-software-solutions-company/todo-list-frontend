@@ -20,9 +20,10 @@ export default class CustomDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body className="scrollbar m-0 bg-abc-light p-0 font-sans">
+        <body className="scrollbar bg-blue-50">
           <Main />
           <NextScript />
+          <div id="react-modal-root"></div>
           <div className="transform-gpu"></div>
         </body>
       </Html>

@@ -2,7 +2,6 @@ import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 
 import API, {ITodoList} from '@/api/network/todo-list';
-import TaskAPI from '@/api/network/task';
 import ModalCreateTask from '@/components/modal-create-task';
 import ModalDeleteList from '@/components/modal-delete-list';
 import ModalDeleteTask from '@/components/modal-delete-task';
@@ -15,9 +14,9 @@ import Icon from '@/core-ui/icon';
 import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
 import useList from '@/hooks/useList';
 import useTask from '@/hooks/useTask';
+import Auth from '@/pages/auth';
 
 import styles from './style.module.scss';
-import Auth from '@/pages/auth';
 
 const Detail: React.FC = () => {
   const router = useRouter();
@@ -25,7 +24,7 @@ const Detail: React.FC = () => {
 
   const {list} = useList();
   const {user} = useCheckUserLocalStorage();
-  const {task, fetchData} = useTask(id ? id.toString() : '');
+  const {task} = useTask(id ? id.toString() : '');
 
   const [aList, setAList] = useState<ITodoList | null>(null);
   const [createTaskOpen, setCreateTaskOpen] = useState<boolean>(false);
@@ -71,11 +70,6 @@ const Detail: React.FC = () => {
     setDeleteListOpen(false);
   };
 
-  // Handle checkbox.
-  const handleOnChange = (id: string) => {
-    TaskAPI.updateActive(id).then(res => console.log(res));
-  };
-
   // Get list name.
   useEffect(() => {
     const fetch = async () => {
@@ -88,6 +82,7 @@ const Detail: React.FC = () => {
   }, [id]);
 
   if (!id) return null;
+
   if (!list) return null;
   if (!user) return null;
   if (!task) return null;
@@ -103,26 +98,25 @@ const Detail: React.FC = () => {
                   className="icon-arrow-left"
                   onClick={() => {
                     router.push('/list');
-                    localStorage.setItem('modalCreateList', 'open');
                   }}
                 >
-                  <Icon name="abc-arrow-left-circle" />
+                  <Icon name="ico-arrow-left-circle" />
                 </div>
                 <div className="title-left">
                   <h3 className="title-todo">{aList ? aList.listName : ''}</h3>
                 </div>
               </div>
               <div className="detail-right">
-                <Button variant="contained" className="items" onClick={() => setDeleteListOpen(true)}>
-                  <Icon name="abc-trash" />
+                <Button variant="contained" color="primary" className="items" onClick={() => setDeleteListOpen(true)}>
+                  <Icon name="ico-trash" />
                   <div className="title-right">Delete</div>
                 </Button>
-                <Button variant="contained" className="items" onClick={() => setShareOpen(true)}>
-                  <Icon name="abc-share" />
+                <Button variant="contained" color="primary" className="items" onClick={() => setShareOpen(true)}>
+                  <Icon name="ico-share" />
                   <div className="title-right">Share</div>
                 </Button>
-                <Button variant="contained" className="items" onClick={() => setCreateTaskOpen(true)}>
-                  <Icon name="abc-plus-circle" />
+                <Button variant="contained" color="primary" className="items" onClick={() => setCreateTaskOpen(true)}>
+                  <Icon name="ico-plus-circle" />
                   <div className="title-right">Add To-Do</div>
                 </Button>
               </div>
@@ -133,44 +127,24 @@ const Detail: React.FC = () => {
               <>
                 <div className="detail-list">
                   <div className="list-group">
-                    {/* <Checkbox className="list-box" onChange={event => handleCheckbox(event)} /> */}
-                    {/* <p className="title-group checked">{item.taskName}</p> */}
-                    {/* FIXME: checkbox */}
-                    <Checkbox
-                      type="checkbox"
-                      checked={item.isDone}
-                      className="list-box"
-                      onChange={() => handleOnChange(item.id ? item.id : '')}
-                    />
-                    <p className={`title-group ${item.isDone ? 'checked' : ''}`}>{item.taskName}</p>
+                    <Checkbox className="list-box " />
+                    <p className="title-group checked">{item.taskName}</p>
                   </div>
                   <div className="actions">
                     <IconButton
                       className="btn-hover-hand"
-                      icon="abc-edit"
+                      icon="ico-edit"
                       onClick={() => handleEditOpen(item.id, item.taskName)}
                     />
                     <IconButton
                       className="btn-hover-hand"
-                      icon="abc-trash"
+                      icon="ico-trash"
                       onClick={() => handleDeleteOpen(item.id, item.taskName)}
                     />
                   </div>
                 </div>
-                <ModalDeleteTask
-                  taskId={taskId}
-                  taskName={taskName}
-                  open={deleteDetail}
-                  onClose={handleDelete}
-                  fetchData={fetchData}
-                />
-                <ModalUpdateTask
-                  taskId={taskId}
-                  oldTaskName={taskName}
-                  open={editDetail}
-                  onClose={handleEdit}
-                  fetchData={fetchData}
-                />
+                <ModalDeleteTask taskId={taskId} taskName={taskName} open={deleteDetail} onClose={handleDelete} />
+                <ModalUpdateTask taskId={taskId} oldTaskName={taskName} open={editDetail} onClose={handleEdit} />
               </>
             ))}
           </div>
@@ -179,7 +153,6 @@ const Detail: React.FC = () => {
             userId={user.id}
             open={createTaskOpen}
             onClose={handleCloseCreateTaskOpen}
-            fetchData={fetchData}
           />
           <ModalDeleteList
             listID={aList?.id}

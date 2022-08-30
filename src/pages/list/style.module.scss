@@ -32,9 +32,6 @@
     .title-right {
       @apply ml-2 text-h6 font-normal leading-4  md:ml-4 md:text-h3;
     }
-    .abc-icon::before {
-      @apply text-xl md:text-2xl;
-    }
   }
   .list-group {
     @apply pt-8;

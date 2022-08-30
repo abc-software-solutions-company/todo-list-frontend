@@ -5,12 +5,12 @@ import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import Input from '@/core-ui/input';
 
-import Modal from '../../core-ui/modal';
+import {Modal} from '../../core-ui/modal';
 import styles from './style.module.scss';
 
 interface IProps {
   open: boolean;
-  onClose?: () => void;
+  onClose: () => void;
   id?: string;
 }
 const ModalShare: React.FC<IProps> = ({open, onClose, id}) => {
@@ -22,7 +22,7 @@ const ModalShare: React.FC<IProps> = ({open, onClose, id}) => {
     <div className={cn(styles['com-modal-share'])}>
       <Modal open={open} onClose={onClose}>
         <div className="icon-close" onClick={onClose}>
-          <Icon name="abc-x-circle" />
+          <Icon name="ico-x-circle" />
         </div>
         <div className="modal-share">
           <div className="content-modal">

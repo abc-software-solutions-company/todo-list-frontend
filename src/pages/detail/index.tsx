@@ -48,21 +48,21 @@ const Detail: React.FC = () => {
                     router.push('/action');
                   }}
                 >
-                  <Icon size={29} className="abc-arrow-left-circle" />
+                  <Icon size={28} name="ico-arrow-left-circle" />
                 </div>
                 <h3 className="title-todo">Shopping</h3>
               </div>
               <div className="detail-right">
                 <Button className="detail-items" onClick={() => setDeletedetail(true)}>
-                  <Icon size={22} className="abc-trash" />
+                  <Icon size={24} name="ico-trash" />
                   <div className="title-right">Delete</div>
                 </Button>
                 <Button className="detail-items" onClick={() => setShareOpen(true)}>
-                  <Icon size={22} className="abc-share" />
+                  <Icon size={24} name="ico-share" />
                   <div className="title-right">Share</div>
                 </Button>
                 <Button className=" detail-items" onClick={() => setCreateListOpen(true)}>
-                  <Icon size={22} className="abc-plus-circle" />
+                  <Icon size={24} name="ico-plus-circle" />
                   <div className="title-right">Add To-Do</div>
                 </Button>
               </div>
@@ -77,10 +77,10 @@ const Detail: React.FC = () => {
 
               <div className="icon-group">
                 <Button className="btn-hover-hand" onClick={() => setEditdetail(true)}>
-                  <Icon size={24} className="abc-edit" />
+                  <Icon size={24} name="ico-edit" />
                 </Button>
                 <Button className="btn-hover-hand" onClick={() => setDeletedetail(true)}>
-                  <Icon size={24} className="abc-trash" />
+                  <Icon size={24} name="ico-trash" />
                 </Button>
               </div>
             </div>
@@ -90,7 +90,7 @@ const Detail: React.FC = () => {
       <ModalCreateList open={createListOpen} onClose={handleCloseCreateListOpen} />
       <ModalShare open={shareOpen} onClose={handleShare} />
       <ModalDeleteTask open={deleteDetail} onClose={handleDelete} />
-      <ModalUpdateTask open={editDetail} onClose={handleEdit} />
+      <ModalUpdateTask oldTaskName="" open={editDetail} onClose={handleEdit} />
     </>
   );
 };

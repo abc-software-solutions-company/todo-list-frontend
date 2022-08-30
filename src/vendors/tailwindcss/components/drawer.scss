@@ -1,0 +1,31 @@
+.drawer-root {
+  @apply fixed left-0 top-0 h-full w-full;
+}
+.drawer-menu {
+  @apply fixed z-drawer h-screen w-screen bg-sky-600;
+  @apply transition-all duration-300 ease-in-out;
+  &.top {
+    @apply left-0 -top-[320px] max-h-[320px];
+    &.show {
+      @apply top-0;
+    }
+  }
+  &.right {
+    @apply top-0 -right-[320px] max-w-[320px];
+    &.show {
+      @apply right-0;
+    }
+  }
+  &.bottom {
+    @apply left-0 -bottom-[320px] max-h-[320px];
+    &.show {
+      @apply bottom-0;
+    }
+  }
+  &.left {
+    @apply top-0 -left-[320px] max-w-[320px];
+    &.show {
+      @apply left-0;
+    }
+  }
+}

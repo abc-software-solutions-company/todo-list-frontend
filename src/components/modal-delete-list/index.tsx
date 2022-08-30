@@ -1,16 +1,17 @@
+import {useRouter} from 'next/router';
 import React from 'react';
 
-import Button from '@/core-ui/button';
-import Modal from '@/core-ui/modal';
 import API from '@/api/network/todo-list';
-import styles from './style.module.scss';
-import {useRouter} from 'next/router';
 import {ROUTES} from '@/configs/routes.config';
+import Button from '@/core-ui/button';
+import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
+
+import styles from './style.module.scss';
 
 interface IProps {
   open: boolean;
-  onClose?: () => void;
+  onClose: () => void;
   listID?: string;
   listName?: string;
 }

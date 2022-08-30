@@ -11,6 +11,7 @@ import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import useMediaQuery from '@/hooks/useMediaQuery';
+import LayoutDefault from '@/layouts/default';
 
 import styles from './style.module.scss';
 
@@ -22,7 +23,7 @@ const Schema = yup.object().shape({
   userName: yup.string().required('Please fill your name.')
 });
 
-const QuickPlay: React.FC = () => {
+export default function QuickPlay() {
   const router = useRouter();
 
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
@@ -49,15 +50,13 @@ const QuickPlay: React.FC = () => {
       })
       .catch(error => {
         console.log(error);
-
-        // alert(error.response.data.message);
       });
   };
 
   const matches = useMediaQuery('(min-width:640px)');
 
   return (
-    <div className={cn(styles['com-action'])}>
+    <div className={cn(styles['com-quick-play'])}>
       <div className="container">
         <div className="inner">
           <div className="logo-wrapper">
@@ -68,16 +67,15 @@ const QuickPlay: React.FC = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <Input className={errors.userName && 'error'} placeholder="Enter your name" {...register('userName')} />
               {errors.userName && <p className="invalid">{errors.userName.message}</p>}
-              <Button className="btn-submit" type="submit" variant="contained">
+              <Button className="btn-submit" variant="contained" color="primary" type="submit">
                 Enter
               </Button>
             </form>
           </div>
-          <div className="copyright">Copyright © 2022 By ABC Software Solutions Company.</div>
         </div>
       </div>
     </div>
   );
-};
+}
 
-export default QuickPlay;
+QuickPlay.Layout = LayoutDefault;

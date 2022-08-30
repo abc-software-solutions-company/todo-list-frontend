@@ -6,12 +6,10 @@ import * as yup from 'yup';
 import API from '@/api/network/todo-list';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
-import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
+import LayoutDefault from '@/layouts/default';
 
-import styles from './style.module.scss';
-import {useEffect} from 'react';
-import useToast from '@/core-ui/toast';
 import Auth from '../auth';
+import styles from './style.module.scss';
 
 interface IFormInputs {
   ID: string;
@@ -20,7 +18,8 @@ interface IFormInputs {
 const Schema = yup.object().shape({
   ID: yup.string().required('Please fill ID.')
 });
-const Action: React.FC = () => {
+
+function Action() {
   const router = useRouter();
   const toast = useToast();
 
@@ -46,31 +45,29 @@ const Action: React.FC = () => {
     <Auth>
       <div className={styles['create-room']}>
         <div className="container">
-          <div className="section-room">
-            <div className="title-room">
-              <p className="title-todo">TO DO LIST</p>
-            </div>
-            <div className="section-content">
-              <p className="description-todo">Organize your work and life, finally.</p>
-              <div className="section-btn">
+          <div className="inner">
+            <p className="title">TO DO LIST</p>
+            <p className="headline">Organize your work and life, finally.</p>
+            <div className="actions">
+              <div className="item">
                 <Button
                   variant="contained"
-                  className="title-btn"
+                  className="w-full"
+                  color="primary"
                   onClick={() => {
                     router.push('/list');
                   }}
                 >
                   Create New List
                 </Button>
+              </div>
+              <div className="item">
                 <form className="input-group" onSubmit={handleSubmit(onSubmit)}>
                   <Input className={errors.ID && 'error'} placeholder="Enter ID" {...register('ID')} />
-                  <Button variant="outlined" className="input-group-text" type="submit">
+                  <Button variant="contained" className="input-group-text" color="primary" type="submit">
                     Join
                   </Button>
                 </form>
-              </div>
-              <div className="section-error">
-                <div></div>
                 {errors.ID && <p className=" invalid">{errors.ID.message}</p>}
               </div>
             </div>
@@ -79,6 +76,8 @@ const Action: React.FC = () => {
       </div>
     </Auth>
   );
-};
+}
+
+Action.Layout = LayoutDefault;
 
 export default Action;

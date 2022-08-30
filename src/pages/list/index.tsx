@@ -52,7 +52,7 @@ const List: React.FC = () => {
         <div className="container">
           <div className="banner-list">
             <div className="list-user">
-              <Icon name="abc-user" />
+              <Icon name="ico-user" />
               <h4 className="title-user">{user?.userName}</h4>
             </div>
             <div className="list-content">
@@ -63,7 +63,7 @@ const List: React.FC = () => {
                     router.push('/action');
                   }}
                 >
-                  <Icon size={28} name="abc-arrow-left-circle" />
+                  <Icon size={28} name="ico-arrow-left-circle" />
                 </div>
                 <div className="title-left">
                   <h3 className="title-todo">TO DO</h3>
@@ -72,12 +72,13 @@ const List: React.FC = () => {
               </div>
               <Button
                 variant="contained"
+                color="primary"
                 className="list-right"
+                startIcon={<Icon name="ico-plus-circle" />}
                 onClick={() => {
                   setCreateListOpen(true);
                 }}
               >
-                <Icon name="abc-plus-circle" />
                 <h3 className="title-right">New List</h3>
               </Button>
             </div>
@@ -88,14 +89,14 @@ const List: React.FC = () => {
                 <p className="title-group">{item.listName}</p>
                 <div className="actions">
                   <IconButton
-                    icon="abc-share"
+                    icon="ico-share"
                     onClick={() => {
                       setShareOpen(true);
                       setCurrentListID(item.id);
                     }}
                   />
                   <IconButton
-                    icon="abc-arrow-right"
+                    icon="ico-arrow-right"
                     onClick={() => {
                       router.push(`/list/${item.id}`);
                     }}

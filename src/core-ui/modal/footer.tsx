@@ -1,10 +1,10 @@
-import React, { ReactNode } from "react";
+import React, {FC, ReactNode} from 'react';
 
-interface IProps {
+export interface IModalFooterProps {
   children?: ReactNode;
 }
 
-const Footer: React.FC<IProps> = ({ children }) => {
+const Footer: FC<IModalFooterProps> = ({children}) => {
   return <div className="modal-footer">{children}</div>;
 };
 
