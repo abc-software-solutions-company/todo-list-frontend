@@ -19,13 +19,15 @@ interface IModalProps {
   children?: ReactNode;
   open: boolean;
   backdrop?: boolean;
-  onClose: () => void;
+  onClose?: () => void;
 }
+
+const noop = () => {};
 
 const ModalContext = createContext<IModalContext | undefined>(undefined);
 
 export const Modal: FC<IModalProps> & IModalComposition = ({children, backdrop = true, open, onClose}) => {
-  const memoizedContextValue = useMemo(() => ({open, onClose}), [open, onClose]);
+  const memoizedContextValue = useMemo(() => ({open, onClose: onClose || noop}), [open, onClose]);
 
   if (!open) return null;
 
