@@ -1,4 +1,4 @@
-import {useLayoutEffect, useRef} from 'react';
+import {useEffect, useRef} from 'react';
 
 import Toast, {IToast, IToastItem} from './toast';
 
@@ -9,7 +9,7 @@ const useToast = () => {
     toastRef.current?.show({type, title, content, icon, lifeTime});
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     toastRef.current = Toast.getInstance();
   }, []);
 

@@ -6,10 +6,10 @@ import * as yup from 'yup';
 import API from '@/api/network/task';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
-import Modal from '@/core-ui/modal';
+import {Modal} from '@/core-ui/modal';
+import useToast from '@/core-ui/toast';
 
 import styles from './style.module.scss';
-import useToast from '@/core-ui/toast';
 
 const Schema = yup.object().shape({
   taskName: yup.string().required('Please enter your task name.')
@@ -27,12 +27,7 @@ const FORM_DEFAULT_VALUES: IFormInputs = {
 
 interface IProps {
   open: boolean;
-  onClose?: () => void;
-}
-
-interface IProps {
-  open: boolean;
-  onClose?: () => void;
+  onClose: () => void;
   userId?: string;
   todolistId?: number;
   fetchData?: () => void;
@@ -42,7 +37,6 @@ const ModalCreateTask: React.FC<IProps> = ({userId, todolistId, open, onClose, f
   const toast = useToast();
   // Use React Hook Form.
   const {
-    control,
     register,
     reset,
     handleSubmit,
@@ -90,8 +84,15 @@ const ModalCreateTask: React.FC<IProps> = ({userId, todolistId, open, onClose, f
             {errors.taskName && <p className="invalid">{errors.taskName.message}</p>}
           </Modal.Body>
           <Modal.Footer>
-            <Button className="btn" text="Cancel" theme="white" onClick={onClose} />
-            <Button className="btn" text="Create" type="submit" onClick={isValid ? onClose : () => {}} />
+            <Button className="btn" text="Cancel" variant="contained" color="primary" onClick={onClose} />
+            <Button
+              className="btn"
+              text="Create"
+              variant="contained"
+              color="primary"
+              type="submit"
+              onClick={isValid ? onClose : () => {}}
+            />
           </Modal.Footer>
         </form>
       </Modal>

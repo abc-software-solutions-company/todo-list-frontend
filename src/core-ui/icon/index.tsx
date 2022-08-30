@@ -1,18 +1,15 @@
 import React from 'react';
 
-import {IIconSizeProps} from '../types';
+import {IconSize} from '../types';
 
-interface IProps extends IIconSizeProps {
+interface IProps {
   className?: string;
   name: string;
+  size?: IconSize;
 }
 
-const Icon: React.FC<IProps> = ({className, name, size = 24}) => {
-  return (
-    <>
-      <i className={['abc-icon', className, name, `size-${size}`].join(' ')}></i>
-    </>
-  );
+const Icon: React.FC<IProps> = ({className, name, size = 20}) => {
+  return <i className={['abc-icon', className, name, `size-${size}`].filter(x => !!x).join(' ')}></i>;
 };
 
 export default Icon;

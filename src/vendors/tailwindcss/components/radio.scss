@@ -1,0 +1,68 @@
+.form-radio {
+  @apply h-5 w-5;
+  @apply pointer-events-auto cursor-pointer;
+  @apply border-transparent border-blue-500;
+  @apply focus:outline-none focus:ring-1 focus:ring-offset-0;
+}
+.abc-radio {
+  @apply inline-flex items-center justify-center align-middle leading-none;
+  &.primary {
+    input {
+      @apply border-blue-500 focus:ring-blue-600;
+      @apply checked:bg-blue-500 disabled:border-blue-300 disabled:bg-blue-300;
+    }
+  }
+  &.secondary {
+    input {
+      @apply border-slate-500 focus:ring-slate-600;
+      @apply checked:bg-slate-500 disabled:border-slate-300 disabled:bg-slate-300;
+    }
+  }
+  &.danger {
+    input {
+      @apply border-red-500 focus:ring-red-600;
+      @apply checked:bg-red-500 disabled:border-red-300 disabled:bg-red-300;
+    }
+  }
+  &.warning {
+    input {
+      @apply border-amber-500 focus:ring-amber-600;
+      @apply checked:bg-amber-500 disabled:border-amber-300 disabled:bg-amber-300;
+    }
+  }
+  &.success {
+    input {
+      @apply border-emerald-500 focus:ring-emerald-600;
+      @apply checked:bg-emerald-500 disabled:border-emerald-300 disabled:bg-emerald-300;
+    }
+  }
+  &.info {
+    input {
+      @apply border-sky-500 focus:ring-sky-600;
+      @apply checked:bg-sky-500 disabled:border-sky-300 disabled:bg-sky-300;
+    }
+  }
+  &.error {
+    label {
+      @apply text-red-500;
+    }
+    input {
+      @apply border-red-500 checked:bg-red-500 focus:ring-red-600;
+    }
+  }
+  &.disabled {
+    @apply pointer-events-none;
+    label {
+      @apply text-black/[0.3];
+    }
+    label,
+    input:disabled {
+      @apply cursor-default;
+    }
+  }
+  label {
+    @apply flex items-center justify-center align-middle;
+    @apply font-medium leading-none no-underline;
+    @apply cursor-pointer select-none;
+  }
+}

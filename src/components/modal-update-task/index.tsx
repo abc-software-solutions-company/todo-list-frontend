@@ -1,15 +1,15 @@
 import {yupResolver} from '@hookform/resolvers/yup';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
 import API from '@/api/network/task';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
-import Modal from '@/core-ui/modal';
+import {Modal} from '@/core-ui/modal';
+import useToast from '@/core-ui/toast';
 
 import styles from './style.module.scss';
-import useToast from '@/core-ui/toast';
 
 const Schema = yup.object().shape({
   taskName: yup.string().required('Please enter your task name.')
@@ -22,7 +22,7 @@ interface IFormInputs {
 
 interface IProps {
   open: boolean;
-  onClose?: () => void;
+  onClose: () => void;
   taskId?: string;
   oldTaskName: string;
   fetchData?: () => void;

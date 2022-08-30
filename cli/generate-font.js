@@ -9,6 +9,7 @@ const options = {
   css: {
     cssPath: '/fonts/'
   },
+  classNamePrefix: 'ico',
   startUnicode: 0xea01,
   svgicons2svgfont: {
     fontHeight: 1000,

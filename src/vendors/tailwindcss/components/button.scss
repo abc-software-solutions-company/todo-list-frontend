@@ -1,13 +1,180 @@
-.btn {
-  @apply items-center p-3 text-h4;
-  @apply transition-all duration-300 ease-in-out;
-  &:not([disabled]):hover {
-    @apply bg-blue-500;
+.abc-btn {
+  @apply inline-flex items-center justify-center align-middle;
+  @apply font-medium no-underline;
+  @apply transition-all duration-300;
+  @apply pointer-events-auto cursor-pointer select-none;
+  @apply min-w-[4rem] rounded-none p-3;
+  @apply appearance-none;
+  @apply hover:no-underline;
+
+  &.danger {
+    &.contained {
+      @apply border-red-500;
+    }
+    &.outlined {
+      @apply text-red-500 ring-red-300;
+    }
   }
+  // Variants
   &.contained {
-    @apply bg-[#4B9AE8] text-white;
+    @apply text-white;
+    &.primary {
+      @apply bg-blue-500;
+    }
+    &.secondary {
+      @apply bg-slate-500;
+    }
+    &.danger {
+      @apply bg-red-500;
+    }
+    &.warning {
+      @apply bg-amber-500;
+    }
+    &.success {
+      @apply bg-emerald-500;
+    }
+    &.info {
+      @apply bg-sky-500;
+    }
+    &:not(:disabled, .disabled):hover {
+      &.primary {
+        @apply bg-blue-700;
+      }
+      &.secondary {
+        @apply bg-slate-600;
+      }
+      &.danger {
+        @apply bg-red-600;
+      }
+      &.warning {
+        @apply bg-amber-600;
+      }
+      &.success {
+        @apply bg-emerald-600;
+      }
+      &.info {
+        @apply bg-sky-600;
+      }
+    }
+    &:disabled,
+    &.disabled {
+      &.primary {
+        @apply bg-blue-300;
+      }
+      &.secondary {
+        @apply bg-slate-300;
+      }
+      &.danger {
+        @apply bg-red-300;
+      }
+      &.warning {
+        @apply bg-amber-300;
+      }
+      &.success {
+        @apply bg-emerald-300;
+      }
+      &.info {
+        @apply bg-sky-300;
+      }
+    }
   }
   &.outlined {
-    @apply bg-white text-[#4B9AE8] hover:bg-gray-50;
+    @apply ring-1;
+    &.primary {
+      @apply text-blue-500 ring-blue-300;
+      .loading {
+        @apply border-blue-200 border-l-blue-400;
+      }
+    }
+    &.secondary {
+      @apply text-slate-500 ring-slate-300;
+      .loading {
+        @apply border-slate-200 border-l-slate-400;
+      }
+    }
+    &.danger {
+      @apply text-red-500 ring-red-300;
+      .loading {
+        @apply border-red-200 border-l-red-400;
+      }
+    }
+    &.warning {
+      @apply text-amber-500 ring-amber-300;
+      .loading {
+        @apply border-amber-200 border-l-amber-400;
+      }
+    }
+    &.success {
+      @apply text-emerald-500 ring-emerald-300;
+      .loading {
+        @apply border-emerald-200 border-l-emerald-400;
+      }
+    }
+    &.info {
+      @apply text-sky-500 ring-sky-300;
+      .loading {
+        @apply border-sky-200 border-l-sky-400;
+      }
+    }
+    &:not(:disabled, .disabled):hover {
+      &.primary {
+        @apply bg-blue-100;
+      }
+      &.secondary {
+        @apply bg-slate-100;
+      }
+      &.danger {
+        @apply bg-red-100;
+      }
+      &.warning {
+        @apply bg-amber-100;
+      }
+      &.success {
+        @apply bg-emerald-100;
+      }
+      &.info {
+        @apply bg-sky-100;
+      }
+    }
+    &:disabled,
+    &.disabled {
+      &.primary {
+        @apply text-blue-300 ring-blue-200;
+      }
+      &.secondary {
+        @apply text-slate-300 ring-slate-200;
+      }
+      &.danger {
+        @apply text-red-300 ring-red-200;
+      }
+      &.warning {
+        @apply text-amber-300 ring-amber-200;
+      }
+      &.success {
+        @apply text-emerald-300 ring-emerald-200;
+      }
+      &.info {
+        @apply text-sky-300 ring-sky-200;
+      }
+    }
+  }
+  // Sizes
+  &.sm {
+    @apply py-1 px-2;
+  }
+  &.lg {
+    @apply p-3;
+  }
+  // States
+  &:disabled,
+  &.disabled {
+    @apply pointer-events-none cursor-default;
+  }
+  // Icons
+  .icon {
+    @apply leading-0;
+    i {
+      @apply leading-none;
+    }
   }
 }

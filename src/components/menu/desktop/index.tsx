@@ -24,7 +24,7 @@ const MenuDesktop: React.FC<IProps> = ({className, hamburgerActive, onClick}) =>
               <h1>Software Solutions</h1>
             </a>
           </Link>
-          <MainNav className="abc-menu" />
+          <MainNav classname="ico-menu" />
           <Hamburger active={hamburgerActive} onClick={onClick} />
         </div>
       </div>

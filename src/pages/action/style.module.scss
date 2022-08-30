@@ -1,35 +1,18 @@
 .create-room :global {
+  @apply h-full;
   .container {
-    @apply mx-auto justify-center bg-blue-200 py-60 md:bg-amber-200 lg:bg-teal-200;
+    @apply h-full;
   }
-  .title-room {
-    @apply text-center  text-abc-blue;
-    .title-todo {
-      @apply text-5xl font-extrabold md:text-hero;
-    }
+  .inner {
+    @apply mx-auto flex h-full max-w-[708px] flex-col items-center justify-center;
   }
-  .section-content {
-    @apply mx-auto max-w-[708px];
+  .title {
+    @apply text-center text-5xl font-extrabold text-blue-500 md:text-hero;
   }
-  .description-todo {
-    @apply mt-16 text-center text-3xl font-medium text-abc-blue md:text-h1;
+  .headline {
+    @apply mt-16 text-center text-3xl font-medium text-blue-500 md:text-h1;
   }
-  .section-btn {
-    @apply mt-8 grid-cols-2 gap-x-5 lg:grid;
-    .title-btn {
-      @apply w-full;
-    }
-    .input-group {
-      @apply mt-6  lg:mt-0;
-      .form-input {
-        @apply border-0;
-      }
-      .input-group-text {
-        @apply bg-abc-blue text-white;
-      }
-    }
-  }
-  .section-error {
-    @apply mt-1 grid grid-cols-2 gap-x-5;
+  .actions {
+    @apply mt-4 grid grid-cols-2 gap-x-3;
   }
 }

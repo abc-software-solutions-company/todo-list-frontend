@@ -1,0 +1,15 @@
+.abc-loading,
+.abc-loading:after {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+.abc-loading {
+  font-size: 3px;
+  position: relative;
+  text-indent: -9999em;
+  border: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-left: 1.1em solid #fff;
+  transform: translateZ(0);
+  animation: spinner 1.1s infinite linear;
+}
