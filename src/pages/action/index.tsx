@@ -1,16 +1,14 @@
-import {yupResolver} from '@hookform/resolvers/yup';
-import {useRouter} from 'next/router';
-import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
-
 import API from '@/api/network/todo-list';
-import Button from '@/core-ui/button';
-import Input from '@/core-ui/input';
-import useToast from '@/core-ui/toast';
-import LayoutDefault from '@/layouts/default';
-
 import Auth from '../auth';
+import Button from '@/core-ui/button';
+import LayoutDefault from '@/layouts/default';
+import Input from '@/core-ui/input';
 import styles from './style.module.scss';
+import useToast from '@/core-ui/toast';
+import {SubmitHandler, useForm} from 'react-hook-form';
+import {useRouter} from 'next/router';
+import {yupResolver} from '@hookform/resolvers/yup';
 
 interface IFormInputs {
   ID: string;

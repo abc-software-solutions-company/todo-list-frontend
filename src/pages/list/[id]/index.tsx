@@ -1,80 +1,73 @@
-import {useRouter} from 'next/router';
-import React, {useEffect, useState} from 'react';
-
-import API, {ITodoList} from '@/api/network/todo-list';
-import ModalCreateTask from '@/components/modal-create-task';
-import ModalDeleteList from '@/components/modal-delete-list';
-import ModalDeleteTask from '@/components/modal-delete-task';
-import ModalShare from '@/components/modal-share';
-import ModalUpdateTask from '@/components/modal-update-task';
+import Auth from '@/pages/auth';
 import Button from '@/core-ui/button';
 import Checkbox from '@/core-ui/checkbox';
-import IconButton from '@/core-ui/ico-button';
 import Icon from '@/core-ui/icon';
+import IconButton from '@/core-ui/ico-button';
+import ModalCreateEditTask from '@/components/modal-task-add-edit';
+import ModalShare from '@/components/modal-share';
 import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
-import useList from '@/hooks/useList';
-import useTask from '@/hooks/useTask';
-import Auth from '@/pages/auth';
+import {useRouter} from 'next/router';
+import API, {ITodo} from '@/api/network/todo-list';
+import TaskAPI, {ITask} from '@/api/network/task';
+import React, {ChangeEvent, ChangeEventHandler, useEffect, useState} from 'react';
 
 import styles from './style.module.scss';
+import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
+import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
+
+interface IAction {
+  type: string;
+  payload: any;
+}
 
 const Detail: React.FC = () => {
   const router = useRouter();
   const {id} = router.query;
 
-  const {list} = useList();
   const {user} = useCheckUserLocalStorage();
-  const {task} = useTask(id ? id.toString() : '');
-
-  const [aList, setAList] = useState<ITodoList | null>(null);
-  const [createTaskOpen, setCreateTaskOpen] = useState<boolean>(false);
-  const [editDetail, setEditdetail] = useState<boolean>(false);
-  const [deleteDetail, setDeletedetail] = useState<boolean>(false);
-  const [deleteListOpen, setDeleteListOpen] = useState<boolean>(false);
+  const [list, setList] = useState<ITodo | null>(null);
   const [shareOpen, setShareOpen] = useState<boolean>(false);
-  const [taskId, setTaskId] = useState<string>('');
-  const [taskName, setTaskName] = useState<string>('');
+  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [action, setAction] = useState<IAction>({type: '', payload: null});
+  const [actionList, setActionList] = useState<IAction>({type: '', payload: null});
 
-  const handleCloseCreateTaskOpen = () => {
-    setCreateTaskOpen(false);
+  // Get tasks.
+  const getTasks = () => TaskAPI.getTasks(id ? id.toString() : '').then(res => setTasks(res.data));
+
+  // Reset action.
+  const resetAction = () => {
+    setAction({type: '', payload: null});
+  };
+
+  const resetActionList = () => {
+    setActionList({type: '', payload: null});
+  };
+
+  const reset = () => {
+    getTasks();
+    resetAction();
+  };
+
+  useEffect(() => {
+    getTasks();
+  }, [id]);
+
+  // Handle checkbox.
+  const handleCheckBox = (event: ChangeEvent<HTMLInputElement>, id: string) => {
+    TaskAPI.updateActive(id).then(() => {
+      getTasks();
+    });
   };
 
   const handleShare = () => {
     setShareOpen(false);
   };
 
-  const handleEdit = () => {
-    setEditdetail(false);
-  };
-
-  const handleDelete = () => {
-    setDeletedetail(false);
-  };
-
-  // Handle delete task open.
-  const handleDeleteOpen = (taskId: string, taskName: string) => {
-    setDeletedetail(true);
-    setTaskId(taskId);
-    setTaskName(taskName);
-  };
-
-  // Handle edit task open.
-  const handleEditOpen = (taskId: string, taskName: string) => {
-    setEditdetail(true);
-    setTaskId(taskId);
-    setTaskName(taskName);
-  };
-
-  // Handle delete list close.
-  const handleDeleteListClose = () => {
-    setDeleteListOpen(false);
-  };
-
   // Get list name.
   useEffect(() => {
     const fetch = async () => {
       await API.readTodoList(Number(id)).then(res => {
-        setAList(res.data);
+        setList(res.data);
       });
     };
 
@@ -82,10 +75,8 @@ const Detail: React.FC = () => {
   }, [id]);
 
   if (!id) return null;
-
-  if (!list) return null;
   if (!user) return null;
-  if (!task) return null;
+  if (!tasks) return null;
 
   return (
     <Auth>
@@ -103,11 +94,16 @@ const Detail: React.FC = () => {
                   <Icon name="ico-arrow-left-circle" />
                 </div>
                 <div className="title-left">
-                  <h3 className="title-todo">{aList ? aList.listName : ''}</h3>
+                  <h3 className="title-todo">{list ? list.listName : ''}</h3>
                 </div>
               </div>
               <div className="detail-right">
-                <Button variant="contained" color="primary" className="items" onClick={() => setDeleteListOpen(true)}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="items"
+                  onClick={() => setActionList({type: 'delete', payload: list})}
+                >
                   <Icon name="ico-trash" />
                   <div className="title-right">Delete</div>
                 </Button>
@@ -115,7 +111,12 @@ const Detail: React.FC = () => {
                   <Icon name="ico-share" />
                   <div className="title-right">Share</div>
                 </Button>
-                <Button variant="contained" color="primary" className="items" onClick={() => setCreateTaskOpen(true)}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="items"
+                  onClick={() => setAction({type: 'add', payload: null})}
+                >
                   <Icon name="ico-plus-circle" />
                   <div className="title-right">Add To-Do</div>
                 </Button>
@@ -123,43 +124,56 @@ const Detail: React.FC = () => {
             </div>
           </div>
           <div className="detail-group">
-            {task.map(item => (
+            {tasks.map(task => (
               <>
                 <div className="detail-list">
                   <div className="list-group">
-                    <Checkbox className="list-box " />
-                    <p className="title-group checked">{item.taskName}</p>
+                    <Checkbox
+                      className="list-box"
+                      checked={task.isDone}
+                      onChange={event => handleCheckBox(event, task.id ? task.id : '')}
+                    />
+
+                    <p className={`title-group ${task.isDone ? 'checked' : ''}`}>{task.taskName}</p>
                   </div>
                   <div className="actions">
                     <IconButton
                       className="btn-hover-hand"
                       icon="ico-edit"
-                      onClick={() => handleEditOpen(item.id, item.taskName)}
+                      onClick={() => setAction({type: 'edit', payload: task})}
                     />
+
                     <IconButton
                       className="btn-hover-hand"
                       icon="ico-trash"
-                      onClick={() => handleDeleteOpen(item.id, item.taskName)}
+                      onClick={() => setAction({type: 'delete', payload: task})}
                     />
                   </div>
                 </div>
-                <ModalDeleteTask taskId={taskId} taskName={taskName} open={deleteDetail} onClose={handleDelete} />
-                <ModalUpdateTask taskId={taskId} oldTaskName={taskName} open={editDetail} onClose={handleEdit} />
               </>
             ))}
           </div>
-          <ModalCreateTask
-            todolistId={id?.toString()}
-            userId={user.id}
-            open={createTaskOpen}
-            onClose={handleCloseCreateTaskOpen}
-          />
-          <ModalDeleteList
-            listID={aList?.id}
-            listName={aList?.listName}
-            open={deleteListOpen}
-            onClose={handleDeleteListClose}
-          />
+          {['add', 'edit'].includes(action.type) && (
+            <ModalCreateEditTask
+              open={true}
+              data={action.payload}
+              onSave={reset}
+              todolistId={Number(id)}
+              userId={user.id}
+            />
+          )}
+          {['delete'].includes(action.type) && (
+            <ModalTaskConfirmDelete data={action.payload} open={true} onCancel={resetAction} onConfirm={reset} />
+          )}
+          {['delete'].includes(actionList.type) && (
+            <ModalTodoConfirmDelete
+              open={true}
+              data={actionList.payload}
+              page={'detail'}
+              onCancel={resetActionList}
+              onConfirm={() => reset()}
+            />
+          )}
           <ModalShare open={shareOpen} onClose={handleShare} id={id} />
         </div>
       </div>

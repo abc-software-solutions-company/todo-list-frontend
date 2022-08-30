@@ -1,0 +1,24 @@
+.com-modal-todo-add-edit :global {
+  .modal-content {
+    @apply bg-abc-light;
+  }
+  .modal-body {
+    @apply py-4;
+  }
+  .modal-footer {
+    @apply flex-nowrap gap-5 pt-1;
+  }
+  .title {
+    @apply text-h4 font-medium;
+  }
+  .form-input {
+    @apply text-h6 font-normal leading-4 sm:text-h4;
+  }
+
+  .btn {
+    @apply w-full text-h4 font-medium;
+  }
+  .btn-cancel {
+    @apply bg-white py-3;
+  }
+}
