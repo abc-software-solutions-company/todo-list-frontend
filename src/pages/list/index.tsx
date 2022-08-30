@@ -1,13 +1,12 @@
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 
+import {IUser} from '@/api/network/user';
 import ModalCreateList from '@/components/modal-create-list';
 import ModalShare from '@/components/modal-share';
 import Button from '@/core-ui/button';
 import IconButton from '@/core-ui/ico-button';
 import Icon from '@/core-ui/icon';
-import useToast from '@/core-ui/toast';
-import useCheckUserLocalStorage from '@/hooks/useCheckUserLocalStorage';
 import useList from '@/hooks/useList';
 
 import Auth from '../auth';
@@ -20,6 +19,7 @@ const List: React.FC = () => {
   const [createListOpen, setCreateListOpen] = useState<boolean>(true);
   const [currentListID, setCurrentListID] = useState<string>('');
   const [shareOpen, setShareOpen] = useState<boolean>(false);
+  const [user, setUser] = useState<IUser | null>(null);
 
   const handleCloseCreateListOpen = () => {
     setCreateListOpen(false);
@@ -28,6 +28,13 @@ const List: React.FC = () => {
   const handleShare = () => {
     setShareOpen(false);
   };
+
+  useEffect(() => {
+    const checkLocal = localStorage.getItem('user');
+    const object = checkLocal ? JSON.parse(checkLocal) : null;
+
+    setUser(object);
+  }, []);
 
   useEffect(() => {
     const open = localStorage.getItem('modalCreateList');
@@ -45,7 +52,7 @@ const List: React.FC = () => {
           <div className="banner-list">
             <div className="list-user">
               <Icon name="abc-user" />
-              <h4 className="title-user">Lam Minh Thien</h4>
+              <h4 className="title-user">{user?.userName}</h4>
             </div>
             <div className="list-content">
               <div className="list-left">

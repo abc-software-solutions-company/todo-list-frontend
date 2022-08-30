@@ -38,12 +38,12 @@ const QuickPlay: React.FC = () => {
 
   const onSubmit: SubmitHandler<IFormInputs> = data => {
     API.createUser(data)
-      .then(res => {
+      .then(async res => {
         if (res.status === 201) {
           localStorage.setItem('user', JSON.stringify(res.data, null, 2));
           localStorage.setItem('modalCreateList', 'close');
           localStorage.setItem('toast', 'close');
-          router.push(ROUTES.ACTION);
+          await router.push(ROUTES.ACTION);
           window.location.reload();
         }
       })
