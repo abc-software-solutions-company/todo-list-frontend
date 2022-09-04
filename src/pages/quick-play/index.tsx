@@ -2,7 +2,6 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import cn from 'classnames';
 import {GetStaticProps} from 'next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
-import Link from 'next/link';
 import {useRouter} from 'next/router';
 import React from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
@@ -55,14 +54,11 @@ export default function QuickPlay() {
         <div className="inner">
           <div className="logo-wrapper">
             <TodoListLogo width={matches ? 249 : 175} />
-            <Link href="/action">
-              <a>Action</a>
-            </Link>
           </div>
           <div className="enter-your-name">
             <h2>Let&apos;s start!</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Input className={errors.userName && 'error'} placeholder="Enter your name" {...register('userName')} />
+              <Input placeholder="Enter your name" {...register('userName')} error={errors.userName?.message} />
               {errors.userName && <p className="invalid">{errors.userName.message}</p>}
               <Button className="btn-submit" variant="contained" color="primary" type="submit">
                 Enter

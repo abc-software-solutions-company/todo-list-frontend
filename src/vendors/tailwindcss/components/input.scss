@@ -21,6 +21,8 @@
     @apply mb-1 inline-block;
   }
   &.error {
+    @apply border-red-500 text-red-500 placeholder:text-red-300 focus:ring-red-500;
+
     .label {
       @apply text-red-500;
     }

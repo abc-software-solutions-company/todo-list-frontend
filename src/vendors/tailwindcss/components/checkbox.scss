@@ -1,7 +1,7 @@
 .form-checkbox {
-  @apply h-5 w-5;
+  @apply h-6 w-6;
   @apply pointer-events-auto cursor-pointer;
-  @apply rounded border-transparent border-blue-500;
+  @apply border-2 border-transparent border-blue-500;
   @apply focus:outline-none focus:ring-1 focus:ring-offset-0;
 }
 .abc-checkbox {

@@ -57,7 +57,7 @@ export default function Detail() {
             <div className="detail-right">
               <Button className="items">
                 <Icon name="ico-trash" />
-                <div className="title-right">Delete</div>
+                <div className="title-right">Delete list</div>
               </Button>
               <Button className="items">
                 <Icon name="ico-share" />
