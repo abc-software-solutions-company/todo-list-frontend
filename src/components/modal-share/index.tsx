@@ -19,45 +19,42 @@ const ModalShare: React.FC<IProps> = ({open, onClose, id}) => {
   const linkToDoList = [href[0], href[1], href[2], 'list', id].join('/');
 
   return (
-    <div className={cn(styles['com-modal-share'])}>
-      <Modal open={open} onClose={onClose}>
-        <div className="icon-close" onClick={onClose}>
-          <Icon name="ico-x-circle" />
-        </div>
-        <div className="modal-share">
-          <div className="content-modal">
-            <h3 className="title-modal">Share this list to a teammate</h3>
-
-            <div className="input-group-link">
-              <label className="title-label" htmlFor="">
-                Link:
-              </label>
-            </div>
-            <div className="input-group-modal ">
-              <Input value={linkToDoList} className="input-control" />
-              <Button
-                variant="contained"
-                className="text-copy"
-                onClick={() => navigator.clipboard.writeText(linkToDoList)}
-              >
-                Copy
-              </Button>
-            </div>
-            <div className="input-group-ID">
-              <label className="title-label" htmlFor="">
-                ID List:
-              </label>
-            </div>
-            <div className="input-group-modal ">
-              <Input value={id} className="input-control" />
-              <Button className="text-copy" variant="contained" onClick={() => navigator.clipboard.writeText(id)}>
-                Copy
-              </Button>
-            </div>
+    <Modal className={cn(styles['com-modal-share'])} open={open} onClose={onClose}>
+      <div className="icon-close" onClick={onClose}>
+        <Icon name="ico-x-circle" />
+      </div>
+      <div className="modal-share">
+        <div className="content-modal">
+          <h3 className="modal-title">Share this list to a teammate</h3>
+          <div className="input-group-link">
+            <label className="title-label" htmlFor="">
+              Link:
+            </label>
+          </div>
+          <div className="input-group-modal ">
+            <Input value={linkToDoList} className="input-control" />
+            <Button
+              variant="contained"
+              className="text-copy"
+              onClick={() => navigator.clipboard.writeText(linkToDoList)}
+            >
+              Copy
+            </Button>
+          </div>
+          <div className="input-group-ID">
+            <label className="title-label" htmlFor="">
+              ID List:
+            </label>
+          </div>
+          <div className="input-group-modal ">
+            <Input value={id} className="input-control" />
+            <Button className="text-copy" variant="contained" onClick={() => navigator.clipboard.writeText(id)}>
+              Copy
+            </Button>
           </div>
         </div>
-      </Modal>
-    </div>
+      </div>
+    </Modal>
   );
 };
 

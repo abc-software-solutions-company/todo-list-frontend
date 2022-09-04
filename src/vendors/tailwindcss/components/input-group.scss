@@ -10,15 +10,11 @@
     }
   }
 }
-.input-group > :first-child {
-  @apply rounded-tl-md rounded-bl-md;
-}
+
 .input-group > :not(:first-child) {
   @apply -ml-[1px] rounded-tl-none rounded-bl-none;
 }
-.input-group > :last-child {
-  @apply rounded-tr-md rounded-br-md;
-}
+
 .input-group > :not(:last-child) {
   @apply rounded-tr-none rounded-br-none;
 }

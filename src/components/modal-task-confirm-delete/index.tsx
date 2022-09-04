@@ -21,18 +21,32 @@ const ModalTaskConfirmDelete: FC<IProps> = ({data, open, onCancel, onConfirm}) =
   if (!data) return null;
 
   return (
-    <div className={styles['com-modal-task-confirm-delete']}>
-      <Modal open={open} variant="center" onClose={() => onCancel?.()}>
-        <Modal.Header>Delete task</Modal.Header>
-        <Modal.Body>
-          <h3 className="title">Are you sure you want to delete task {data.name}</h3>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="outlined" color="secondary" text="Cancel" onClick={onCancel} />
-          <Button variant="contained" color="primary" text="Delete" onClick={deletePost} />
-        </Modal.Footer>
-      </Modal>
-    </div>
+    <Modal className={styles['com-modal-task-confirm-delete']} variant="center" open={open} onClose={() => onCancel?.()}>
+      <Modal.Header>
+        <h3 className="title">Are you sure you want to delete task: {data.name}</h3>
+      </Modal.Header>
+
+      <Modal.Footer>
+        <div className="flex w-full gap-x-3 md:gap-x-5">
+          <Button
+            className="btn btn-cancel"
+            // variant="outlined"
+            // color="secondary"
+            text="No"
+            onClick={() => onCancel?.()}
+            type="button"
+          />
+          <Button
+            className="btn btn-create"
+            variant="contained"
+            // color="primary"
+            text="Yes"
+            type="submit"
+            onClick={() => deletePost()}
+          />
+        </div>
+      </Modal.Footer>
+    </Modal>
   );
 };
 

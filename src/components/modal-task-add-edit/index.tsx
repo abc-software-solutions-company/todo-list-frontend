@@ -8,6 +8,7 @@ import Button from '@/core-ui/button';
 import {Modal} from '@/core-ui/modal';
 
 import styles from './style.module.scss';
+import Input from '@/core-ui/input';
 
 interface IProps {
   data: ITask;
@@ -55,22 +56,34 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, onSave, onCancel}) => {
   }, [data]);
 
   return (
-    <Modal variant="center" onClose={() => onSave?.()} open={open}>
-      <div className={styles['com-modal-task-add-edit']}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Modal.Header>
-            <h3 className="title">{data?.id ? 'Update task' : 'Add New To-Do'}</h3>
-          </Modal.Header>
-          <Modal.Body>
-            <input className="form-input" placeholder="Enter your task" type="text" {...register('name')} />
-            {errors.name && <p>{errors.name.message}</p>}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="outlined" color="secondary" text="Cancel" onClick={onCancel} />
-            <Button variant="contained" color="primary" text="Save" type="submit" />
-          </Modal.Footer>
-        </form>
-      </div>
+    <Modal className={styles['com-modal-task-add-edit']} variant="center" open={open} onClose={() => onCancel?.()}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Modal.Header>
+          <h3 className="title">{data?.id ? 'Update list' : 'Create New Task'}</h3>
+        </Modal.Header>
+        <Modal.Body>
+          <Input error={errors.name?.message} {...register('name')} placeholder="Enter your task" />
+        </Modal.Body>
+        <Modal.Footer>
+          <div className="flex w-full gap-x-3 md:gap-x-5">
+            <Button
+              className="btn btn-cancel"
+              // variant="outlined"
+              // color="secondary"
+              text="Cancel"
+              onClick={() => onCancel?.()}
+              type="button"
+            />
+            <Button
+              className="btn btn-create"
+              variant="contained"
+              // color="primary"
+              text="Create"
+              type="submit"
+            />
+          </div>
+        </Modal.Footer>
+      </form>
     </Modal>
   );
 };

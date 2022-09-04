@@ -58,22 +58,35 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
   if (!open) return null;
 
   return (
-    <div className={styles['com-modal-todo-add-edit']}>
-      <Modal variant="center" open={open} onClose={() => onCancel?.()}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Modal.Header>
-            <h3 className="title">{data?.id ? 'Update list' : 'Create New List'}</h3>
-          </Modal.Header>
-          <Modal.Body>
-            <Input error={errors.name?.message} {...register('name')} placeholder="Enter your list" />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="outlined" color="secondary" text="Cancel" onClick={() => onCancel?.()} type="button" />
-            <Button variant="contained" color="primary" text="Save" type="submit" />
-          </Modal.Footer>
-        </form>
-      </Modal>
-    </div>
+    <Modal className={styles['com-modal-todo-add-edit']} variant="center" open={open} onClose={() => onCancel?.()}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Modal.Header>
+          <h3 className="title">{data?.id ? 'Update list' : 'Create New List'}</h3>
+        </Modal.Header>
+        <Modal.Body>
+          <Input error={errors.name?.message} {...register('name')} placeholder="Enter your list" />
+        </Modal.Body>
+        <Modal.Footer>
+          <div className="flex w-full gap-x-3 md:gap-x-5">
+            <Button
+              className="btn btn-cancel"
+              // variant="outlined"
+              // color="secondary"
+              text="Cancel"
+              onClick={() => onCancel?.()}
+              type="button"
+            />
+            <Button
+              className="btn btn-create"
+              variant="contained"
+              // color="primary"
+              text="Create"
+              type="submit"
+            />
+          </div>
+        </Modal.Footer>
+      </form>
+    </Modal>
   );
 };
 
