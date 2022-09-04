@@ -13,19 +13,22 @@ import styles from './style.module.scss';
 interface IProps {
   data: ITask;
   open: boolean;
+  listId?: string;
   onSave?: () => void;
   onCancel?: () => void;
 }
 
 interface IFormInputs {
   name: string;
+  todolistId?: number;
+  userId?: string;
 }
 
 const Schema = yup.object().shape({
   name: yup.string().required('Please enter your task name.')
 });
 
-const ModalTaskAddEdit: FC<IProps> = ({data, open, onSave, onCancel}) => {
+const ModalTaskAddEdit: FC<IProps> = ({data, open, listId, onSave, onCancel}) => {
   const {register, handleSubmit, setValue, formState} = useForm<IFormInputs>({
     defaultValues: {
       name: ''
@@ -43,6 +46,12 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, onSave, onCancel}) => {
   };
 
   const onSubmit: SubmitHandler<IFormInputs> = formData => {
+    const userObject = JSON.parse(localStorage.getItem('user'));
+    const userId = userObject.id;
+
+    formData.todolistId = Number(listId);
+    formData.userId = userId;
+
     if (data?.id) {
       API.updateTask(data.id, formData).then(() => onSave?.());
     } else {

@@ -19,6 +19,7 @@ interface IProps {
 
 interface IFormInputs {
   name: string;
+  userId?: string | null;
 }
 
 const Schema = yup.object().shape({
@@ -43,9 +44,13 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
   };
 
   const onSubmit: SubmitHandler<IFormInputs> = formData => {
+    const userObject = JSON.parse(localStorage.getItem('user'));
+    const userId = userObject.id;
+
     if (data?.id) {
       API.updateTodo(data.id, formData).then(() => onSave?.());
     } else {
+      formData.userId = userId;
       API.createTodo(formData).then(() => onSave?.());
     }
   };

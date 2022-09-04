@@ -1,5 +1,5 @@
 import {useRouter} from 'next/router';
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 
 import API, {ITask} from '@/api/network/task';
 import TodoAPI, {ITodo} from '@/api/network/todo';
@@ -26,8 +26,14 @@ export default function Detail() {
   const {id} = router.query;
   const page = 'detail';
 
-  const getTasks = () => API.getTasks().then(res => setTasks(res.data));
+  const getTasks = () => API.getTasks(Number(id)).then(res => setTasks(res.data));
   const getTodo = () => TodoAPI.getTodo(id ? id.toString() : '').then(res => setTodo(res.data));
+
+  const handleCheck = (taskid: string, e: ChangeEvent<HTMLInputElement>) => {
+    API.updateStatusTask(taskid).then(res => {
+      getTasks();
+    });
+  };
 
   const resetAction = () => setAction({type: '', payload: null});
   const resetActionTodo = () => setActionTodo({type: '', payload: null});
@@ -85,7 +91,7 @@ export default function Detail() {
           {tasks.map(task => (
             <div className="detail-list" key={task.id}>
               <div className="list-group">
-                <Checkbox className="list-box" checked={task.isDone} />
+                <Checkbox className="list-box" checked={task.isDone} onChange={e => handleCheck(task.id, e)} />
                 <p className={`title-group ${task.isDone ? 'checked' : ''}`}>{task.name}</p>
               </div>
               <div className="actions">
@@ -97,7 +103,13 @@ export default function Detail() {
         </div>
       </div>
       {['add', 'edit'].includes(action.type) && (
-        <ModalTaskAddEdit data={action.payload} open={true} onSave={() => reset()} onCancel={() => resetAction()} />
+        <ModalTaskAddEdit
+          data={action.payload}
+          listId={id.toString()}
+          open={true}
+          onSave={() => reset()}
+          onCancel={() => resetAction()}
+        />
       )}
       {['delete'].includes(action.type) && (
         <ModalTaskConfirmDelete
