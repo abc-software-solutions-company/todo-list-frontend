@@ -75,14 +75,6 @@
   ],
   "todos": [
     {
-      "name": "sdafdsadsfa",
-      "id": 3
-    },
-    {
-      "name": "sdafdsadsfaad",
-      "id": 4
-    },
-    {
       "name": "sdafdsadsfaadDSA",
       "id": 5
     },
@@ -92,15 +84,7 @@
     },
     {
       "name": "sdafdsadsfaadDSA",
-      "id": 7
-    },
-    {
-      "name": "sdafdsadsfaadDSA",
       "id": 8
-    },
-    {
-      "name": "sdafdsadsfaadDSA",
-      "id": 9
     }
   ],
   "tasks": []
