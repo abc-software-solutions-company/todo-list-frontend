@@ -5,10 +5,10 @@ import * as yup from 'yup';
 
 import API, {ITask} from '@/api/network/task';
 import Button from '@/core-ui/button';
+import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 
 import styles from './style.module.scss';
-import Input from '@/core-ui/input';
 
 interface IProps {
   data: ITask;

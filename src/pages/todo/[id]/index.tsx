@@ -2,8 +2,10 @@ import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 
 import API, {ITask} from '@/api/network/task';
+import TodoAPI, {ITodo} from '@/api/network/todo';
 import ModalTaskAddEdit from '@/components/modal-task-add-edit';
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
+import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
 import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import Checkbox from '@/core-ui/checkbox';
@@ -17,24 +19,32 @@ import styles from './style.module.scss';
 export default function Detail() {
   const router = useRouter();
   const [tasks, setTasks] = useState<ITask[]>([]);
+  const [todo, setTodo] = useState<ITodo>();
   const [action, setAction] = useState<IAction>({type: '', payload: null});
+  const [actionTodo, setActionTodo] = useState<IAction>({type: '', payload: null});
 
   const {id} = router.query;
+  const page = 'detail';
 
   const getTasks = () => API.getTasks().then(res => setTasks(res.data));
+  const getTodo = () => TodoAPI.getTodo(id ? id.toString() : '').then(res => setTodo(res.data));
 
   const resetAction = () => setAction({type: '', payload: null});
+  const resetActionTodo = () => setActionTodo({type: '', payload: null});
 
   const reset = () => {
     getTasks();
     resetAction();
+    resetActionTodo();
   };
 
   useEffect(() => {
     getTasks();
+    getTodo();
   }, [id]);
 
   if (!tasks) return null;
+  if (!id) return null;
 
   return (
     <div className={styles['create-detail-section']}>
@@ -51,11 +61,11 @@ export default function Detail() {
                 <Icon name="ico-arrow-left-circle" />
               </div>
               <div className="title-left">
-                <h3 className="title-todo">List</h3>
+                <h3 className="title-todo">{todo?.name}</h3>
               </div>
             </div>
             <div className="detail-right">
-              <Button className="items">
+              <Button className="items" onClick={() => setActionTodo({type: 'delete', payload: todo})}>
                 <Icon name="ico-trash" />
                 <div className="title-right">Delete list</div>
               </Button>
@@ -97,6 +107,13 @@ export default function Detail() {
           onCancel={() => resetAction()}
         />
       )}
+      <ModalTodoConfirmDelete
+        open={['delete'].includes(actionTodo.type)}
+        data={actionTodo.payload}
+        page={page}
+        onConfirm={reset}
+        onCancel={resetAction}
+      />
     </div>
   );
 }

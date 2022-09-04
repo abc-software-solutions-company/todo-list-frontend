@@ -4,6 +4,7 @@ import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 
 import API, {ITodo} from '@/api/network/todo';
+import ModalShare from '@/components/modal-share';
 import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
 import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
 import {ROUTES} from '@/configs/routes.config';
@@ -14,7 +15,6 @@ import LayoutDefault from '@/layouts/default';
 import {IAction} from '@/types';
 
 import styles from './style.module.scss';
-import ModalShare from '@/components/modal-share';
 
 export default function List() {
   const router = useRouter();
