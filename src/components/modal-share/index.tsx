@@ -35,6 +35,7 @@ const ModalShare: React.FC<IProps> = ({open, onClose, id}) => {
             <Input value={linkToDoList} className="input-control" />
             <Button
               variant="contained"
+              color="primary"
               className="text-copy"
               onClick={() => navigator.clipboard.writeText(linkToDoList)}
             >
@@ -48,7 +49,12 @@ const ModalShare: React.FC<IProps> = ({open, onClose, id}) => {
           </div>
           <div className="input-group-modal ">
             <Input value={id} className="input-control" />
-            <Button className="text-copy" variant="contained" onClick={() => navigator.clipboard.writeText(id)}>
+            <Button
+              className="text-copy"
+              variant="contained"
+              color="primary"
+              onClick={() => navigator.clipboard.writeText(id)}
+            >
               Copy
             </Button>
           </div>

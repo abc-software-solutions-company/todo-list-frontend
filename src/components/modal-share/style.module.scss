@@ -16,19 +16,24 @@
   .input-group-modal {
     @apply flex;
   }
+  .abc-input {
+    @apply w-[90%];
+  }
+  .abc-btn {
+    @apply w-[10%];
+  }
 
   .input-control {
     @apply w-full;
-  }
-
-  .text-copy {
-    @apply grid h-16 w-20 cursor-pointer items-center p-0 text-center text-h4 font-medium capitalize text-white;
   }
   .modal-content {
     @apply pt-4;
   }
   .icon-close {
     @apply mt-1.5 cursor-pointer p-0 text-right;
+  }
+  .ico-x-circle {
+    @apply text-2xl;
   }
   .title-modal {
     @apply -mt-1 text-center text-h3 font-medium;
@@ -38,5 +43,9 @@
   }
   .input-group-ID {
     @apply mt-4  text-left text-h5 font-normal;
+  }
+
+  .text-copy {
+    @apply grid cursor-pointer items-center p-0 text-center text-h4 font-medium capitalize text-white;
   }
 }
