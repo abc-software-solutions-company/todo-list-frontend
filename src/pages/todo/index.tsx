@@ -14,15 +14,21 @@ import LayoutDefault from '@/layouts/default';
 import {IAction} from '@/types';
 
 import styles from './style.module.scss';
+import ModalShare from '@/components/modal-share';
 
 export default function List() {
   const router = useRouter();
   const [todos, setTodos] = useState<ITodo[]>([]);
   const [action, setAction] = useState<IAction>({type: '', payload: null});
+  const [shareOpen, setShareOpen] = useState(false);
 
   const getTodos = () => API.getTodos().then(res => setTodos(res.data));
 
   const resetAction = () => setAction({type: '', payload: null});
+
+  const handleShare = () => {
+    setShareOpen(true);
+  };
 
   const reset = () => {
     getTodos();
@@ -71,7 +77,7 @@ export default function List() {
               <div className="actions">
                 <IconButton name="ico-edit" onClick={() => setAction({type: 'edit', payload: item})} />
                 <IconButton name="ico-trash" onClick={() => setAction({type: 'delete', payload: item})} />
-                <IconButton name="ico-share" onClick={() => {}} />
+                <IconButton name="ico-share" onClick={handleShare} />
                 <IconButton name="ico-arrow-right" onClick={() => router.push(`${ROUTES.TODO}/${item.id}`)} />
               </div>
             </div>
@@ -92,6 +98,7 @@ export default function List() {
         onConfirm={reset}
         onCancel={resetAction}
       />
+      <ModalShare open={shareOpen} onClose={() => setShareOpen(false)} />
     </div>
   );
 }

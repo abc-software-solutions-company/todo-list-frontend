@@ -1,9 +1,39 @@
 .com-modal-share :global {
+  .abc-modal-content {
+    @apply mx-auto max-w-[343px] p-4;
+    @apply md:max-w-[784px];
+  }
+
+  .modal-title {
+    @apply text-center text-h5 font-medium;
+    @apply md:text-h3;
+  }
+
+  .title-label {
+    @apply text-h6 font-normal;
+  }
+
+  .input-group-modal {
+    @apply flex;
+  }
+  .abc-input {
+    @apply w-[90%];
+  }
+  .abc-btn {
+    @apply w-[10%];
+  }
+
+  .input-control {
+    @apply w-full;
+  }
   .modal-content {
     @apply pt-4;
   }
   .icon-close {
     @apply mt-1.5 cursor-pointer p-0 text-right;
+  }
+  .ico-x-circle {
+    @apply text-2xl;
   }
   .title-modal {
     @apply -mt-1 text-center text-h3 font-medium;
@@ -14,16 +44,8 @@
   .input-group-ID {
     @apply mt-4  text-left text-h5 font-normal;
   }
-  .input-control {
-    @apply w-full;
-    ::placeholder {
-      @apply text-h4 font-normal;
-    }
-  }
-  .input-group-modal {
-    @apply mt-1 flex;
-  }
+
   .text-copy {
-    @apply grid h-16 w-20 cursor-pointer items-center p-0 text-center text-h4 font-medium capitalize text-white;
+    @apply grid cursor-pointer items-center p-0 text-center text-h4 font-medium capitalize text-white;
   }
 }

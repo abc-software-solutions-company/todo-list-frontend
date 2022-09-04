@@ -1,26 +1,38 @@
 .com-modal-task-add-edit :global {
-  .modal-content {
-    @apply bg-abc-light;
+  @apply md:px-3;
+  .abc-modal-content {
+    @apply mx-auto max-w-[343px] p-4 md:max-w-[784px] md:p-10;
+    @apply font-medium md:text-h3;
   }
-  .modal-body {
-    @apply py-4;
+  .abc-modal-header {
+    @apply p-0 pb-4 md:pb-6;
   }
-  .modal-footer {
-    @apply flex-nowrap gap-5 pt-1;
+  .abc-modal-body {
+    @apply px-0 py-0;
+  }
+  .abc-modal-footer {
+    @apply px-0 pb-0 pt-2;
+    @apply md:pt-4;
+  }
+  .form-input {
+    @apply leading-5;
+    @apply p-3 placeholder:text-h6 placeholder:font-normal placeholder:text-black/80;
+    @apply md:placeholder:text-h4 md:placeholder:font-normal;
   }
   .title {
     @apply text-h4 font-medium;
-  }
-  .form-input {
-    @apply text-h6 font-normal leading-4 sm:text-h4;
+    @apply md:text-h3;
   }
   .btn {
-    @apply w-full py-3 text-h4 font-medium;
+    @apply w-full;
+    @apply text-h6 font-medium leading-5;
+    @apply md:text-h4;
   }
   .btn-cancel {
-    @apply bg-white text-abc-blue;
+    @apply bg-white text-[#4B9AE8];
   }
-  .btn-submit {
-    @apply bg-abc-blue text-white;
+  .btn-create {
+    @apply bg-abc-blue text-h6 font-normal leading-5 text-white;
+    @apply md:text-h4;
   }
 }
