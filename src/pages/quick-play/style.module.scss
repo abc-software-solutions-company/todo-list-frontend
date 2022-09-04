@@ -1,24 +1,33 @@
 .com-quick-play :global {
   .inner {
-    @apply mx-auto md:max-w-xl;
+    @apply mx-auto md:max-w-xl mt-16 lg:mt-14;
   }
   .logo-wrapper {
     @apply flex justify-center md:mt-6;
+  }
+  svg {
+    @apply w-[175px] lg:w-[243px];
   }
   .todolist-logo {
     @apply w-28;
   }
   .enter-your-name {
-    @apply mt-7 border border-black/20 bg-white p-10 md:p-16 lg:mt-14;
+    @apply mt-2 border border-black/20 bg-white py-9 px-4 lg:py-16 lg:px-20 lg:mt-12;
+    .input {
+      @apply p-3 md:pl-4;
+    }
     h2 {
       @apply text-center text-h2;
     }
   }
 
   form {
-    @apply mt-14;
+    @apply relative mt-8;
+    .invalid {
+      @apply absolute top-14 lg:top-12 left-0 text-xs ;
+    }
   }
   .btn-submit {
-    @apply mt-8 w-full;
+    @apply mt-5 lg:mt-8 w-full p-3 font-normal text-h6 md:text-h4;
   }
 }

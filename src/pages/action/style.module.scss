@@ -7,12 +7,18 @@
     @apply mx-auto flex h-full max-w-[708px] flex-col items-center justify-center;
   }
   .title {
-    @apply text-center text-5xl font-extrabold text-blue-500 md:text-hero;
+    @apply text-center text-5xl font-extrabold text-abc-blue md:text-hero;
   }
   .headline {
-    @apply mt-16 text-center text-3xl font-medium text-blue-500 md:text-h1;
+    @apply mt-16 text-center text-3xl lg:font-medium text-abc-blue md:text-h1;
   }
   .actions {
-    @apply mt-4 grid grid-cols-2 gap-x-3;
+    @apply w-full mt-10 grid md:grid-cols-2 gap-x-5 gap-y-5;
+  }
+  button {
+    @apply md:py-5 bg-red-500;
+  }
+  .input-group-text {
+    @apply px-5 lg:px-4;
   }
 }

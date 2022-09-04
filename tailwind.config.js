@@ -39,7 +39,7 @@ module.exports = {
         h3: ['1.5rem', {lineHeight: '1.8125rem', letterSpacing: '0'}],
         h4: ['1.25rem', {lineHeight: '1.5rem', letterSpacing: '0'}],
         h5: ['1.125rem', {lineHeight: '1.375rem', letterSpacing: '0'}],
-        h6: ['1rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
+        h6: ['1rem', {lineHeight: '1.5rem', letterSpacing: '0'}],
         display1: ['5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
         display2: ['4.5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
         display3: ['4rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
@@ -67,7 +67,8 @@ module.exports = {
         'abc-orange': '#EF7622',
         'abc-dark': '#151313',
         'abc-light': '#EDF2F7',
-        'abc-red': '#D14F4F' //Màu được thay đổi
+        'abc-red': '#D14F4F', //Màu được thay đổi
+        'abc-grey': '#77797B'
       },
       backgroundImage: {
         'gradient-45deg': 'linear-gradient(45deg, var(--tw-gradient-stops))'

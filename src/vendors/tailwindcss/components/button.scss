@@ -1,9 +1,9 @@
 .abc-btn {
   @apply inline-flex items-center justify-center align-middle;
-  @apply font-medium no-underline;
+  @apply text-h6 md:text-h4 font-normal no-underline;
   @apply transition-all duration-300;
   @apply pointer-events-auto cursor-pointer select-none;
-  @apply min-w-[3rem] rounded-md py-2 px-3;
+  @apply min-w-[3rem] py-4 px-4;
   @apply appearance-none;
   @apply hover:no-underline;
 
@@ -19,7 +19,7 @@
   &.contained {
     @apply text-white;
     &.primary {
-      @apply bg-blue-500;
+      @apply bg-abc-blue;
     }
     &.secondary {
       @apply bg-slate-500;

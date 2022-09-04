@@ -4,18 +4,18 @@
     .title-user {
       @apply text-h5 md:text-h4;
     }
+    .ico-user {
+      @apply text-xl;
+    }
   }
   .list-content {
-    @apply mt-1 flex justify-between border-b-2 border-black  md:mt-10 md:pb-4;
+    @apply mt-1 flex justify-between border-b-2 border-abc-grey  md:mt-7 md:pb-2;
   }
   .list-left {
     @apply flex items-center justify-between;
   }
   .icon-arrow-left {
     @apply flex cursor-pointer items-center justify-between;
-    .abc-icon::before {
-      @apply text-xl md:text-[28px];
-    }
   }
   .title-left {
     @apply flex;
@@ -35,16 +35,23 @@
   .list-group {
     @apply pt-8;
     .text-group {
-      @apply px-4 mb-5 flex h-12 w-full items-center justify-between bg-white sm:mb-5 sm:max-w-7xl;
+      @apply mb-3 flex h-12 w-full items-center justify-between bg-white px-4 sm:max-w-7xl border;
     }
     .title-group {
       @apply my-3.5 text-h6 font-normal md:my-3 md:text-h4;
     }
     .actions {
       @apply flex gap-x-1;
-      .abc-icon::before {
-        @apply text-xl md:text-2xl;
-      }
     }
+  }
+  .ico-arrow-left-circle {
+    @apply text-2xl md:text-3xl;
+  }
+  .ico-plus-circle,
+  .ico-edit,
+  .ico-share,
+  .ico-trash,
+  .ico-arrow-right {
+    @apply text-xl md:text-2xl;
   }
 }

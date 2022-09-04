@@ -1,16 +1,13 @@
 .create-detail-section :global {
-  @apply py-20;
+  @apply py-10;
   .detail-content {
-    @apply flex justify-between  border-b-2 border-black pb-2 md:pb-4;
+    @apply mt-1 flex justify-between border-b-2 border-abc-grey  md:mt-7 md:pb-2;
   }
   .detail-left {
     @apply flex items-center justify-between;
   }
   .icon-arrow-left {
     @apply flex cursor-pointer items-center justify-between;
-    .abc-icon::before {
-      @apply text-xl md:text-[28px];
-    }
   }
 
   .title-todo {
@@ -18,12 +15,9 @@
   }
 
   .detail-right {
-    @apply flex items-center justify-between sm:gap-4 md:gap-8;
+    @apply flex items-center justify-between gap-2 md:gap-12;
     .items {
-      @apply flex cursor-pointer items-center justify-between bg-transparent text-black hover:bg-transparent;
-      .abc-icon::before {
-        @apply text-xl md:text-2xl;
-      }
+      @apply flex cursor-pointer items-center justify-between bg-transparent text-black hover:bg-transparent p-0;
     }
     .title-right {
       @apply hidden sm:ml-4 md:block md:text-h5 md:font-normal;
@@ -34,7 +28,7 @@
   .detail-group {
     @apply pt-5;
     .detail-list {
-      @apply px-4 mb-5 flex h-12 w-full items-center justify-between bg-white sm:mb-5 sm:max-w-7xl;
+      @apply mb-3 flex h-12 w-full items-center justify-between bg-white px-4 sm:max-w-7xl border;
     }
     .list-group {
       @apply flex items-center justify-between;
@@ -49,9 +43,16 @@
 
     .actions {
       @apply flex gap-x-1;
-      .abc-icon::before {
-        @apply text-xl md:text-2xl;
-      }
     }
+  }
+  .ico-arrow-left-circle {
+    @apply text-2xl md:text-3xl;
+  }
+  .ico-plus-circle,
+  .ico-edit,
+  .ico-share,
+  .ico-trash,
+  .ico-arrow-right {
+    @apply text-xl md:text-2xl;
   }
 }

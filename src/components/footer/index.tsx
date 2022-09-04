@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
       <div className="container">
         <div className="copyright">
           Copyright © 2022 by{' '}
-          <a className="text-black" href="https://www.abcsoftwarecompany.com/" target="_blank" rel="noreferrer">
+          <a className="text-abc-grey" href="https://www.abcsoftwarecompany.com/" target="_blank" rel="noreferrer">
             ABC Software Solutions Company
           </a>
           .

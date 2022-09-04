@@ -1,6 +1,6 @@
 .footer :global {
-  @apply py-5 mt-auto;
+  @apply py-14 md:py-10 mt-auto;
   .copyright {
-    @apply text-center text-base md:text-h5;
+    @apply text-center text-base md:text-h5 text-abc-grey;
   }
 }

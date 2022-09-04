@@ -1,7 +1,7 @@
 .input-group {
   @apply relative flex w-full flex-wrap items-stretch;
   > .form-input {
-    @apply relative w-[1%] min-w-0 flex-auto;
+    @apply relative w-[1%] min-w-0 flex-auto placeholder:text-h6 p-4 lg:py-3 lg:px-4 ;
   }
   .input-group-text {
     @apply inline-flex items-center whitespace-nowrap text-center;
@@ -10,15 +10,12 @@
     }
   }
 }
-.input-group > :first-child {
-  @apply rounded-tl-md rounded-bl-md;
-}
 .input-group > :not(:first-child) {
   @apply -ml-[1px] rounded-tl-none rounded-bl-none;
 }
-.input-group > :last-child {
-  @apply rounded-tr-md rounded-br-md;
-}
+// .input-group > :last-child {
+//   @apply rounded-tr-md rounded-br-md;
+// }
 .input-group > :not(:last-child) {
   @apply rounded-tr-none rounded-br-none;
 }
