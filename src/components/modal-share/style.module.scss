@@ -26,6 +26,10 @@
   .input-control {
     @apply w-full;
   }
+
+  .text-copy {
+    @apply grid h-16 w-20 cursor-pointer items-center p-0 text-center text-h4 font-medium capitalize text-white;
+  }
   .modal-content {
     @apply pt-4;
   }
