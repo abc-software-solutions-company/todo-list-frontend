@@ -3,6 +3,7 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 
 import API, {ITask} from '@/api/network/task';
 import TodoAPI, {ITodo} from '@/api/network/todo';
+import ModalShare from '@/components/modal-share';
 import ModalTaskAddEdit from '@/components/modal-task-add-edit';
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
 import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
@@ -22,12 +23,17 @@ export default function Detail() {
   const [todo, setTodo] = useState<ITodo>();
   const [action, setAction] = useState<IAction>({type: '', payload: null});
   const [actionTodo, setActionTodo] = useState<IAction>({type: '', payload: null});
+  const [shareOpen, setShareOpen] = useState(false);
 
   const {id} = router.query;
   const page = 'detail';
 
   const getTasks = () => API.getTasks(Number(id)).then(res => setTasks(res.data));
   const getTodo = () => TodoAPI.getTodo(id ? id.toString() : '').then(res => setTodo(res.data));
+
+  const handleShare = () => {
+    setShareOpen(true);
+  };
 
   const handleCheck = (taskid: string, e: ChangeEvent<HTMLInputElement>) => {
     API.updateStatusTask(taskid).then(res => {
@@ -75,7 +81,7 @@ export default function Detail() {
                 <Icon name="ico-trash" />
                 <div className="title-right">Delete list</div>
               </Button>
-              <Button className="items">
+              <Button className="items" onClick={handleShare}>
                 <Icon name="ico-share" />
                 <div className="title-right">Share</div>
               </Button>
@@ -126,6 +132,7 @@ export default function Detail() {
         onConfirm={reset}
         onCancel={resetAction}
       />
+      <ModalShare open={shareOpen} onClose={() => setShareOpen(false)} id={id} />
     </div>
   );
 }
