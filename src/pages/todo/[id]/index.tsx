@@ -132,7 +132,7 @@ export default function Detail() {
         onConfirm={reset}
         onCancel={resetAction}
       />
-      <ModalShare open={shareOpen} onClose={() => setShareOpen(false)} id={id[0]} />
+      <ModalShare open={shareOpen} onClose={() => setShareOpen(false)} id={id} />
     </div>
   );
 }
