@@ -13,7 +13,7 @@
   }
   .enter-your-name {
     @apply mt-2 border border-black/20 bg-white py-9 px-4 lg:py-16 lg:px-20 lg:mt-12;
-    .input {
+    .name-input {
       @apply p-3 md:pl-4;
     }
     h2 {
@@ -22,7 +22,7 @@
   }
 
   form {
-    @apply relative mt-8;
+    @apply relative mt-8 lg:mt-12;
     .invalid {
       @apply absolute top-14 lg:top-12 left-0 text-xs ;
     }

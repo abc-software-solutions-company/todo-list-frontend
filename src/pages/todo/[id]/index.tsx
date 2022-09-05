@@ -85,7 +85,7 @@ export default function Detail() {
                 <Icon name="ico-share" />
                 <div className="title-right">Share</div>
               </Button>
-              <Button onClick={() => setAction({type: 'add', payload: null})}>
+              <Button className="items" onClick={() => setAction({type: 'add', payload: null})}>
                 <Icon name="ico-plus-circle" />
                 <div className="title-right">Add To-Do</div>
               </Button>

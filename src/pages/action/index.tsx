@@ -19,7 +19,7 @@ interface IFormInputs {
 }
 
 const Schema = yup.object().shape({
-  todoId: yup.string().required('Please enter room ID.')
+  todoId: yup.string().required('Please enter Link or ID.')
 });
 
 export default function Action() {

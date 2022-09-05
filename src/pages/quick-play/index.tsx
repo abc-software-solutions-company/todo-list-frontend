@@ -58,7 +58,12 @@ export default function QuickPlay() {
           <div className="enter-your-name">
             <h2>Let&apos;s start!</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Input placeholder="Enter your name" {...register('userName')} error={errors.userName?.message} />
+              <Input
+                placeholder="Enter your name"
+                className="name-input"
+                {...register('userName')}
+                error={errors.userName?.message}
+              />
               {errors.userName && <p className="invalid">{errors.userName.message}</p>}
               <Button className="btn-submit" variant="contained" color="primary" type="submit">
                 Enter
