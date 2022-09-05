@@ -18,6 +18,9 @@
   button {
     @apply md:py-5 bg-red-500;
   }
+  .form-input {
+    @apply text-h6 md:text-h4 p-3 md:p-4;
+  }
   .input-group-text {
     @apply px-5 lg:px-4;
   }

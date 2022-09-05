@@ -22,6 +22,13 @@ export default function List() {
   const [action, setAction] = useState<IAction>({type: '', payload: null});
   const [shareOpen, setShareOpen] = useState(false);
   const [id, setId] = useState('0');
+  const [userName, setUserName] = useState('');
+
+  const getUserName = () => {
+    const userObject = JSON.parse(localStorage.getItem('user'));
+    const userName = userObject.userName;
+    setUserName(userName);
+  };
 
   const getTodos = () => API.getTodos().then(res => setTodos(res.data));
 
@@ -39,6 +46,7 @@ export default function List() {
 
   useEffect(() => {
     getTodos();
+    getUserName();
   }, []);
 
   if (!todos) return null;
@@ -49,7 +57,7 @@ export default function List() {
         <div className="banner-list">
           <div className="list-user">
             <Icon name="ico-user" />
-            <h4 className="title-user">{'Tin'}</h4>
+            <h4 className="title-user">{userName}</h4>
           </div>
           <div className="list-content">
             <div className="list-left">
@@ -77,8 +85,8 @@ export default function List() {
             <div className="text-group" key={item.id}>
               <p className="title-group">{item.name}</p>
               <div className="actions">
-                <IconButton name="ico-edit" onClick={() => setAction({type: 'edit', payload: item})} />
                 <IconButton name="ico-trash" onClick={() => setAction({type: 'delete', payload: item})} />
+                <IconButton name="ico-edit" onClick={() => setAction({type: 'edit', payload: item})} />
                 <IconButton name="ico-share" onClick={() => handleShare(item.id)} />
                 <IconButton name="ico-arrow-right" onClick={() => router.push(`${ROUTES.TODO}/${item.id}`)} />
               </div>

@@ -9,10 +9,13 @@
     }
   }
   .list-content {
-    @apply mt-1 flex justify-between border-b-2 border-abc-grey  md:mt-7 md:pb-2;
+    @apply mt-1 flex justify-between border-b-2 border-abc-grey  md:mt-7 pb-2;
   }
   .list-left {
     @apply flex items-center justify-between;
+    .abc-icon {
+      @apply text-2xl md:text-3xl;
+    }
   }
   .icon-arrow-left {
     @apply flex cursor-pointer items-center justify-between;
@@ -44,14 +47,7 @@
       @apply flex gap-x-1;
     }
   }
-  .ico-arrow-left-circle {
-    @apply text-2xl md:text-3xl;
-  }
-  .ico-plus-circle,
-  .ico-edit,
-  .ico-share,
-  .ico-trash,
-  .ico-arrow-right {
+  .abc-icon {
     @apply text-xl md:text-2xl;
   }
 }
