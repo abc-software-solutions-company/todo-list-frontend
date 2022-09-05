@@ -130,7 +130,7 @@ export default function Detail() {
         data={actionTodo.payload}
         page={page}
         onConfirm={reset}
-        onCancel={resetAction}
+        onCancel={resetActionTodo}
       />
       <ModalShare open={shareOpen} onClose={() => setShareOpen(false)} id={id} />
     </div>
