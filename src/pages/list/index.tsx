@@ -45,7 +45,7 @@ export default function List() {
   if (!todoList) return null;
 
   return (
-    <div className={styles['create-list-section']}>
+    <div className={styles['page-list']}>
       <div className="container">
         <Topbar />
         <div className="toolbar">

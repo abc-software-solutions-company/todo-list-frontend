@@ -1,3 +1,4 @@
+import cls from 'classnames';
 import {useRouter} from 'next/router';
 import React, {FC} from 'react';
 
@@ -34,29 +35,29 @@ const ModalTodoConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
 
   return (
     <Modal
-      className={styles['com-modal-todo-confirm-delete']}
+      className={cls(styles['com-modal-todo-confirm-delete'], 'max-w-3xl')}
       variant="center"
       open={open}
       onClose={() => onCancel?.()}
     >
       <Modal.Header>
-        <h3 className="title">Are you sure you want to delete task: {data.name}</h3>
+        <h3 className="title">Are you sure you want to delete list: {data.name}</h3>
       </Modal.Header>
 
       <Modal.Footer>
         <div className="flex w-full gap-x-3 md:gap-x-5">
           <Button
-            className="btn btn-cancel"
-            // variant="outlined"
-            // color="secondary"
+            className="w-full"
+            variant="outlined"
+            color="primary"
             text="No"
             onClick={() => onCancel?.()}
             type="button"
           />
           <Button
-            className="btn btn-create"
+            className="w-full"
             variant="contained"
-            // color="primary"
+            color="primary"
             text="Yes"
             type="submit"
             onClick={() => deletePost()}

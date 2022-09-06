@@ -1,31 +1,5 @@
 .com-modal-todo-confirm-delete :global {
-  @apply md:px-3;
-  .abc-modal-content {
-    @apply mx-auto max-w-[343px] p-4 md:max-w-[784px] md:p-10;
-    @apply font-medium md:text-h3;
-  }
-  .abc-modal-header {
-    @apply p-0 pb-4 md:pb-6;
-  }
-
-  .abc-modal-footer {
-    @apply px-0 pb-0 pt-2;
-    @apply md:pt-4;
-  }
-  .title {
-    @apply text-h4 font-medium;
-    @apply md:text-h3;
-  }
-  .btn {
-    @apply w-full;
-    @apply text-h6 font-medium leading-5;
-    @apply md:text-h4;
-  }
-  .btn-cancel {
-    @apply bg-white text-[#4B9AE8];
-  }
-  .btn-create {
-    @apply bg-blue-500 text-h6 font-normal leading-5 text-white;
-    @apply md:text-h4;
+  .abc-modal-body {
+    @apply pb-0;
   }
 }

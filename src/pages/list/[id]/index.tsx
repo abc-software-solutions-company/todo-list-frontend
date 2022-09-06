@@ -8,6 +8,7 @@ import ModalShare from '@/components/modal-share';
 import ModalTaskAddEdit from '@/components/modal-task-add-edit';
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
 import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
+import Topbar from '@/components/topbar';
 import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import Checkbox from '@/core-ui/checkbox';
@@ -56,53 +57,51 @@ export default function Detail() {
   if (!todoList || !id) return null;
 
   return (
-    <div className={styles['create-detail-section']}>
+    <div className={styles['page-detail']}>
       <div className="container">
-        <div className="banner-detail">
-          <div className="detail-content">
-            <div className="detail-left">
-              <div
-                className="icon-arrow-left"
-                onClick={() => {
-                  router.push(ROUTES.TODO_LIST);
-                }}
-              >
-                <Icon name="ico-arrow-left-circle" />
-              </div>
-              <div className="title-left">
-                <h3 className="title-todo">{todoList.name}</h3>
-              </div>
-            </div>
-            <div className="detail-right">
-              <Button className="items" onClick={() => setActionTodo({type: 'delete', payload: todoList})}>
-                <Icon name="ico-trash" />
-                <div className="title-right">Delete list</div>
-              </Button>
-              <Button className="items" onClick={handleShare}>
-                <Icon name="ico-share" />
-                <div className="title-right">Share</div>
-              </Button>
-              <Button className="items" onClick={() => setAction({type: 'add', payload: null})}>
-                <Icon name="ico-plus-circle" />
-                <div className="title-right">Add To-Do</div>
-              </Button>
-            </div>
+        <Topbar />
+        <div className="toolbar">
+          <div className="left">
+            <IconButton name="ico-arrow-left-circle" size={32} onClick={() => router.push(ROUTES.TODO_LIST)} />
+            <h3 className="title">{todoList.name}</h3>
+          </div>
+          <div className="right">
+            <Button
+              className="btn-delete"
+              startIcon={<Icon name="ico-trash-2" />}
+              onClick={() => setAction({type: 'delete', payload: todoList})}
+            >
+              <span className="text-h5 font-medium">Delete List</span>
+            </Button>
+
+            <Button className="btn-share" startIcon={<Icon name="ico-share-2" />} onClick={handleShare}>
+              <span className="text-h5 font-medium">Share</span>
+            </Button>
+            <Button
+              className="btn-create-new"
+              startIcon={<Icon name="ico-plus-circle" />}
+              onClick={() => setAction({type: 'add', payload: null})}
+            >
+              <span className="text-h5 font-medium">Add To-Do</span>
+            </Button>
           </div>
         </div>
-        <div className="detail-group">
-          {!todoList.tasks.length && <span>Empty list</span>}
-          {todoList.tasks.map(task => (
-            <div className="detail-list" key={task.id}>
-              <div className="list-group">
-                <Checkbox className="list-box" checked={task.isDone} onChange={() => setDone(task.id, !task.isDone)} />
-                <p className={`title-group ${task.isDone ? 'checked' : ''}`}>{task.name}</p>
+
+        <div className="tasks">
+          {!todoList?.tasks.length && <span>Empty list</span>}
+          {todoList.tasks &&
+            todoList.tasks.map(task => (
+              <div className="item" key={task.id}>
+                <div className="checkbox-task">
+                  <Checkbox className="mr-3" checked={task.isDone} onChange={() => setDone(task.id, !task.isDone)} />
+                  <p className={`title ${task.isDone ? 'checked' : ''}`}>{task.name}</p>
+                </div>
+                <div className="actions">
+                  <IconButton name="ico-trash-2" onClick={() => setAction({type: 'delete', payload: task})} />
+                  <IconButton name="ico-edit" onClick={() => setAction({type: 'edit', payload: task})} />
+                </div>
               </div>
-              <div className="actions">
-                <IconButton name="ico-edit" onClick={() => setAction({type: 'edit', payload: task})} />
-                <IconButton name="ico-trash" onClick={() => setAction({type: 'delete', payload: task})} />
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
       {['add', 'edit'].includes(action.type) && (

@@ -1,4 +1,5 @@
 import {yupResolver} from '@hookform/resolvers/yup';
+import cls from 'classnames';
 import React, {FC, useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
@@ -7,6 +8,7 @@ import API, {ITodo} from '@/api/network/todo';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
+import useToast from '@/core-ui/toast';
 
 import styles from './style.module.scss';
 
@@ -27,6 +29,8 @@ const Schema = yup.object().shape({
 });
 
 const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
+  const toast = useToast();
+
   const FORM_DEFAULT_VALUES = {
     name: ''
   };
@@ -51,9 +55,13 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
 
     if (data?.id) {
       API.updateTodo(data.id, formData).then(() => onSave?.());
+      toast.show({type: 'success', title: 'Update', content: 'Update successful!'});
     } else {
       formData.userId = userId;
-      API.createTodo(formData).then(() => onSave?.());
+      API.createTodo(formData).then(() => {
+        onSave?.();
+        toast.show({type: 'success', title: 'Create', content: 'Create successful!'});
+      });
     }
   };
 
@@ -69,7 +77,12 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
   if (!open) return null;
 
   return (
-    <Modal className={styles['com-modal-todo-add-edit']} variant="center" open={open} onClose={() => onCancel?.()}>
+    <Modal
+      className={cls(styles['com-modal-todo-add-edit'], 'max-w-3xl')}
+      variant="center"
+      open={open}
+      onClose={() => onCancel?.()}
+    >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header>
           <h3 className="title">{data?.id ? 'Update List' : 'Create New List'}</h3>
@@ -79,10 +92,18 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
         </Modal.Body>
         <Modal.Footer>
           <div className="flex w-full gap-x-3 md:gap-x-5">
-            <Button className="btn btn-cancel" text="Cancel" onClick={() => onCancel?.()} type="button" />
             <Button
-              className="btn btn-create"
+              className="w-full"
+              variant="outlined"
+              color="primary"
+              text="Cancel"
+              onClick={() => onCancel?.()}
+              type="button"
+            />
+            <Button
+              className="w-full"
               variant="contained"
+              color="primary"
               text={data?.id ? 'Update' : 'Create'}
               type="submit"
             />

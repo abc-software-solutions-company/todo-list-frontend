@@ -1,4 +1,5 @@
 import {yupResolver} from '@hookform/resolvers/yup';
+import cls from 'classnames';
 import {FC, useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
@@ -65,31 +66,30 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, listId, onSave, onCancel}) =>
   }, [data]);
 
   return (
-    <Modal className={styles['com-modal-task-add-edit']} variant="center" open={open} onClose={() => onCancel?.()}>
+    <Modal
+      className={cls(styles['com-modal-task-add-edit'], 'max-w-3xl')}
+      variant="center"
+      open={open}
+      onClose={() => onCancel?.()}
+    >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header>
-          <h3 className="title">{data?.id ? 'Update list' : 'Create New Task'}</h3>
+          <h3 className="title">{data?.id ? 'Update To-Do' : 'Add New To-Do'}</h3>
         </Modal.Header>
         <Modal.Body>
-          <Input error={errors.name?.message} {...register('name')} placeholder="Enter your task" />
+          <Input error={errors.name?.message} {...register('name')} placeholder="Enter your to-do" />
         </Modal.Body>
         <Modal.Footer>
-          <div className="flex w-full gap-x-3 md:gap-x-5">
+          <div className="flex w-full gap-x-3">
             <Button
-              className="btn btn-cancel"
-              // variant="outlined"
-              // color="secondary"
+              className="w-full"
+              variant="outlined"
+              color="primary"
               text="Cancel"
               onClick={() => onCancel?.()}
               type="button"
             />
-            <Button
-              className="btn btn-create"
-              variant="contained"
-              // color="primary"
-              text="Create"
-              type="submit"
-            />
+            <Button className="w-full" variant="contained" color="primary" text="Create" type="submit" />
           </div>
         </Modal.Footer>
       </form>
