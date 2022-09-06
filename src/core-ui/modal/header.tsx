@@ -1,5 +1,6 @@
 import React, {FC, ReactNode} from 'react';
 
+import Icon from '../icon';
 import {useModal} from './modal';
 
 export interface IModalHeaderProps {
@@ -22,7 +23,7 @@ const Header: FC<IModalHeaderProps> = ({text, children}) => {
           onClose(false);
         }}
       >
-        &times;
+        <Icon name="ico-x-circle" />
       </button>
     </div>
   );

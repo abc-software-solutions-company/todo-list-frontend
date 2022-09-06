@@ -34,7 +34,7 @@
     }
   }
   .abc-modal-close {
-    @apply absolute top-1 right-4 -mr-2 p-2 text-[30px] leading-none text-black/[0.3];
+    @apply absolute top-1 right-4 -mr-2 p-2 leading-none;
   }
   .abc-modal-footer {
     @apply flex shrink-0 flex-wrap items-center justify-end gap-x-2 p-5;

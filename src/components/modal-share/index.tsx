@@ -20,12 +20,12 @@ const ModalShare: React.FC<IProps> = ({open, onClose, id}) => {
 
   return (
     <Modal className={cn(styles['com-modal-share'])} open={open} onClose={onClose}>
-      <div className="icon-close" onClick={onClose}>
-        <Icon name="ico-x-circle" />
-      </div>
+      <Modal.Header>
+        <h3 className="title">Share this list to a teammate</h3>
+      </Modal.Header>
+
       <div className="modal-share">
         <div className="content-modal">
-          <h3 className="modal-title">Share this list to a teammate</h3>
           <div className="input-group-link">
             <label className="title-label" htmlFor="">
               Link:

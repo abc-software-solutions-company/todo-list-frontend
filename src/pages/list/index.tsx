@@ -47,48 +47,47 @@ export default function List() {
   useEffect(() => {
     getTodos();
     getUserName();
+    setAction({type: 'add', payload: null});
   }, []);
 
   if (!todos) return null;
 
   return (
-    <div className={styles['create-list-section']}>
+    <div className={styles['page-list']}>
       <div className="container">
-        <div className="banner-list">
-          <div className="list-user">
-            <Icon name="ico-user" />
-            <h4 className="title-user">{userName}</h4>
-          </div>
-          <div className="list-content">
-            <div className="list-left">
-              <div className="icon-arrow-left" onClick={() => router.push(ROUTES.ACTION)}>
-                <Icon size={28} name="ico-arrow-left-circle" />
-              </div>
-              <div className="title-left">
-                <h3 className="title-todo">TO DO</h3>
-                <h3 className="title-todo">YOUR LIST</h3>
-              </div>
-            </div>
-            <Button
-              variant="contained"
-              className="list-right"
-              startIcon={<Icon name="ico-plus-circle" size={28} />}
-              onClick={() => setAction({type: 'add', payload: null})}
-            >
-              <h3 className="title-right">New List</h3>
-            </Button>
-          </div>
+        <div className="section-username">
+          <Icon name="ico-user" />
+          <h4 className="username">{userName}</h4>
         </div>
-        <div className="list-group">
+        <div className="section-nav">
+          <div className="icon-arrow-left" onClick={() => router.push(ROUTES.ACTION)}>
+            <Icon size={28} name="ico-arrow-left-circle" />
+          </div>
+          <ul className="content">
+            <li className="text">TO DO</li>
+            <li className="text">YOUR LIST</li>
+          </ul>
+          <Button
+            className="new-list"
+            startIcon={<Icon name="ico-plus-circle" size={28} />}
+            onClick={() => setAction({type: 'add', payload: null})}
+          >
+            <h3 className="text">New List</h3>
+          </Button>
+        </div>
+
+        <div className="section-list-group">
           {!todos.length && <span>Empty list</span>}
           {todos.map(item => (
-            <div className="text-group" key={item.id}>
-              <p className="title-group">{item.name}</p>
+            <div className="list-item" key={item.id}>
+              <Button className="btn" onClick={() => router.push(`list/${item.id}`)}>
+                <p className="list-name">{item.name}</p>
+              </Button>
               <div className="actions">
                 <IconButton name="ico-trash" onClick={() => setAction({type: 'delete', payload: item})} />
                 <IconButton name="ico-edit" onClick={() => setAction({type: 'edit', payload: item})} />
                 <IconButton name="ico-share" onClick={() => handleShare(item.id)} />
-                <IconButton name="ico-arrow-right" onClick={() => router.push(`${ROUTES.TODO}/${item.id}`)} />
+                <IconButton name="ico-arrow-right" onClick={() => router.push(`${ROUTES.LIST}/${item.id}`)} />
               </div>
             </div>
           ))}

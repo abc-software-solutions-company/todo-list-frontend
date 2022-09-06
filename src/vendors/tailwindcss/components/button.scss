@@ -1,11 +1,15 @@
 .abc-btn {
   @apply inline-flex items-center justify-center align-middle;
-  @apply text-h6 md:text-h4 font-normal no-underline;
+  @apply text-h6 font-normal no-underline md:text-h4;
   @apply transition-all duration-300;
   @apply pointer-events-auto cursor-pointer select-none;
   @apply min-w-[3rem] p-3;
   @apply appearance-none;
   @apply hover:no-underline;
+  @apply w-full p-3;
+  @apply text-h6 font-medium leading-5;
+  @apply md:text-h4;
+  @apply rounded;
 
   &.danger {
     &.contained {
@@ -36,6 +40,12 @@
     &.info {
       @apply bg-sky-500;
     }
+    &.white {
+      @apply bg-blue-700 text-slate-50;
+    }
+    &.blue {
+      @apply bg-slate-50 text-blue-700;
+    }
     &:not(:disabled, .disabled):hover {
       &.primary {
         @apply bg-blue-700;
@@ -54,6 +64,12 @@
       }
       &.info {
         @apply bg-sky-600;
+      }
+      &.white {
+        @apply bg-slate-50 text-blue-700;
+      }
+      &.blue {
+        @apply bg-blue-700 text-slate-50;
       }
     }
     &:disabled,
@@ -116,9 +132,10 @@
         @apply border-sky-200 border-l-sky-400;
       }
     }
+
     &:not(:disabled, .disabled):hover {
       &.primary {
-        @apply bg-blue-100;
+        @apply bg-blue-500 text-slate-50;
       }
       &.secondary {
         @apply bg-slate-100;

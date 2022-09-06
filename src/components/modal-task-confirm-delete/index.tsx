@@ -47,8 +47,8 @@ const ModalTaskConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
         <div className="flex w-full gap-x-3 md:gap-x-5">
           <Button
             className="btn btn-cancel"
-            // variant="outlined"
-            // color="secondary"
+            variant="contained"
+            color="blue"
             text="No"
             onClick={() => onCancel?.()}
             type="button"
@@ -56,7 +56,7 @@ const ModalTaskConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
           <Button
             className="btn btn-create"
             variant="contained"
-            // color="primary"
+            color="white"
             text="Yes"
             type="submit"
             onClick={() => deletePost()}

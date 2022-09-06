@@ -59,46 +59,48 @@ export default function Detail() {
   if (!id) return null;
 
   return (
-    <div className={styles['create-detail-section']}>
+    <div className={styles['page-detail']}>
       <div className="container">
-        <div className="banner-detail">
-          <div className="detail-content">
-            <div className="detail-left">
-              <div
-                className="icon-arrow-left"
-                onClick={() => {
-                  router.push(ROUTES.TODO);
-                }}
-              >
-                <Icon name="ico-arrow-left-circle" />
-              </div>
-              <div className="title-left">
-                <h3 className="title-todo">{todo?.name}</h3>
-              </div>
-            </div>
-            <div className="detail-right">
-              <Button className="items" onClick={() => setActionTodo({type: 'delete', payload: todo})}>
-                <Icon name="ico-trash" />
-                <div className="title-right">Delete list</div>
-              </Button>
-              <Button className="items" onClick={handleShare}>
-                <Icon name="ico-share" />
-                <div className="title-right">Share</div>
-              </Button>
-              <Button className="items" onClick={() => setAction({type: 'add', payload: null})}>
-                <Icon name="ico-plus-circle" />
-                <div className="title-right">Add To-Do</div>
-              </Button>
-            </div>
+        <div className="section-username ">
+          <Icon name="ico-user" />
+          <h4 className="username">Thien</h4>
+        </div>
+        <div className="section-nav">
+          <div className="icon-arrow-left" onClick={() => router.push(ROUTES.ACTION)}>
+            <Icon name="ico-arrow-left-circle" />
+          </div>
+          <h3 className="text">{todo?.name}</h3>
+          <div className="action">
+            <Button
+              className="action-item"
+              startIcon={<Icon name="ico-trash" />}
+              onClick={() => setAction({type: 'delete', payload: null})}
+            >
+              <h3 className="text">Delete list</h3>
+            </Button>
+            <Button
+              className="action-item"
+              startIcon={<Icon name="ico-share" />}
+              onClick={() => setAction({type: 'delete', payload: null})}
+            >
+              <h3 className="text">Share</h3>
+            </Button>
+            <Button
+              className="action-item"
+              startIcon={<Icon name="ico-plus-circle" size={28} />}
+              onClick={() => setAction({type: 'add', payload: null})}
+            >
+              <h3 className="text">Add To-Do</h3>
+            </Button>
           </div>
         </div>
-        <div className="detail-group">
-          {!tasks.length && <span>Empty list</span>}
+        <div className="section-task-group">
+          {!tasks.length && <p className="mt-2">Empty task</p>}
           {tasks.map(task => (
-            <div className="detail-list" key={task.id}>
-              <div className="list-group">
-                <Checkbox className="list-box" checked={task.isDone} onChange={e => handleCheck(task.id, e)} />
-                <p className={`title-group ${task.isDone ? 'checked' : ''}`}>{task.name}</p>
+            <div className="task-list" key={task.id}>
+              <div className="task-group">
+                <Checkbox className="task-checkbox" checked={task.isDone} onChange={e => handleCheck(task.id, e)} />
+                <p className={`task-name ${task.isDone ? 'checked' : ''}`}>{task.name}</p>
               </div>
               <div className="actions">
                 <IconButton name="ico-edit" onClick={() => setAction({type: 'edit', payload: task})} />

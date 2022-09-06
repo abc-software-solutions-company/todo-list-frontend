@@ -21,7 +21,7 @@ module.exports = {
     screens: Object.fromEntries(Object.entries(defaultTheme.screens).filter(([key]) => key !== '2xl')),
     fontFamily: {
       // Khai báo các font chữ được sử dụng trong website. Mặc định Tailwind sẽ sử dụng font họ "sans". Có nghĩa là font được sử dụng trong website hiện tại là "Quicksand".
-      sans: ['Montserrat', 'system-ui', '-apple-system', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'sans-serif'],
+      sans: ['Mulish', 'system-ui', '-apple-system', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'sans-serif'],
       serif: ['Merriweather', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
       mono: ['"Roboto Mono"', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
       display: ['"Sansita Swashed"'],
@@ -39,7 +39,7 @@ module.exports = {
         h3: ['1.5rem', {lineHeight: '1.8125rem', letterSpacing: '0'}],
         h4: ['1.25rem', {lineHeight: '1.5rem', letterSpacing: '0'}],
         h5: ['1.125rem', {lineHeight: '1.375rem', letterSpacing: '0'}],
-        h6: ['1rem', {lineHeight: '1.5rem', letterSpacing: '0'}],
+        h6: ['1rem', {lineHeight: '1.25rem', letterSpacing: '0'}],      // 16/20
         display1: ['5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
         display2: ['4.5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
         display3: ['4rem', {lineHeight: '3.5rem', letterSpacing: '0'}],

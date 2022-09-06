@@ -40,27 +40,13 @@ const ModalTodoConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
       onClose={() => onCancel?.()}
     >
       <Modal.Header>
-        <h3 className="title">Are you sure you want to delete task: {data.name}</h3>
+        <h3 className="title">Are you sure you want to delete list: {data.name}</h3>
       </Modal.Header>
 
       <Modal.Footer>
         <div className="flex w-full gap-x-3 md:gap-x-5">
-          <Button
-            className="btn btn-cancel"
-            // variant="outlined"
-            // color="secondary"
-            text="No"
-            onClick={() => onCancel?.()}
-            type="button"
-          />
-          <Button
-            className="btn btn-create"
-            variant="contained"
-            // color="primary"
-            text="Yes"
-            type="submit"
-            onClick={() => deletePost()}
-          />
+          <Button variant="contained" color="blue" text="No" onClick={() => onCancel?.()} type="button" />
+          <Button variant="contained" color="white" text="Yes" type="submit" onClick={() => deletePost()} />
         </div>
       </Modal.Footer>
     </Modal>

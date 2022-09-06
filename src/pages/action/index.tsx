@@ -42,6 +42,10 @@ export default function Action() {
       });
   };
 
+  const routerList = () => {
+    router.push(ROUTES.LIST);
+  };
+
   return (
     <div className={styles['create-room']}>
       <div className="container">
@@ -50,7 +54,7 @@ export default function Action() {
           <p className="headline">Organize your work and life, finally.</p>
           <div className="actions">
             <div className="item">
-              <Button variant="contained" className="w-full" color="primary" onClick={() => router.push(ROUTES.TODO)}>
+              <Button variant="contained" className="w-full" color="primary" onClick={routerList}>
                 Create New List
               </Button>
             </div>
@@ -59,7 +63,7 @@ export default function Action() {
                 <Input
                   groupEnd={
                     <Button
-                      className="input-group-text"
+                      className="input-group-button"
                       color="primary"
                       variant="contained"
                       text="Join"

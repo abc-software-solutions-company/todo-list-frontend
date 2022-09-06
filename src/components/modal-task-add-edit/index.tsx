@@ -68,7 +68,7 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, listId, onSave, onCancel}) =>
     <Modal className={styles['com-modal-task-add-edit']} variant="center" open={open} onClose={() => onCancel?.()}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header>
-          <h3 className="title">{data?.id ? 'Update list' : 'Create New Task'}</h3>
+          <h3 className="title">{data?.id ? 'Update To-Do' : 'Add New To-Do'}</h3>
         </Modal.Header>
         <Modal.Body>
           <Input error={errors.name?.message} {...register('name')} placeholder="Enter your task" />
@@ -77,8 +77,8 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, listId, onSave, onCancel}) =>
           <div className="flex w-full gap-x-3 md:gap-x-5">
             <Button
               className="btn btn-cancel"
-              // variant="outlined"
-              // color="secondary"
+              variant="contained"
+              color="blue"
               text="Cancel"
               onClick={() => onCancel?.()}
               type="button"
@@ -86,8 +86,8 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, listId, onSave, onCancel}) =>
             <Button
               className="btn btn-create"
               variant="contained"
-              // color="primary"
-              text="Create"
+              color="white"
+              text={data?.id ? 'Save' : 'Add New'}
               type="submit"
             />
           </div>

@@ -73,21 +73,8 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
         </Modal.Body>
         <Modal.Footer>
           <div className="flex w-full gap-x-3 md:gap-x-5">
-            <Button
-              className="btn btn-cancel"
-              // variant="outlined"
-              // color="secondary"
-              text="Cancel"
-              onClick={() => onCancel?.()}
-              type="button"
-            />
-            <Button
-              className="btn btn-create"
-              variant="contained"
-              // color="primary"
-              text="Create"
-              type="submit"
-            />
+            <Button variant="contained" color="blue" text="Cancel" onClick={() => onCancel?.()} type="button" />
+            <Button variant="contained" color="white" text="Create" type="submit" />
           </div>
         </Modal.Footer>
       </form>
