@@ -1,5 +1,6 @@
 import {useRouter} from 'next/router';
 import React, {ChangeEvent, useEffect, useState} from 'react';
+import io from 'socket.io-client';
 
 import API, {ITask} from '@/api/network/task';
 import TodoAPI, {ITodo} from '@/api/network/todo';
@@ -17,6 +18,8 @@ import {IAction} from '@/types';
 
 import styles from './style.module.scss';
 
+const socket = io('http://localhost:3100');
+
 export default function Detail() {
   const router = useRouter();
   const [tasks, setTasks] = useState<ITask[]>([]);
@@ -30,6 +33,7 @@ export default function Detail() {
 
   const getTasks = () => API.getTasks(Number(id)).then(res => setTasks(res.data));
   const getTodo = () => TodoAPI.getTodo(id ? id.toString() : '').then(res => setTodo(res.data));
+  const socketMsgToServer = () => socket.emit('msgToServer');
 
   const handleShare = () => {
     setShareOpen(true);
@@ -38,19 +42,27 @@ export default function Detail() {
   const handleCheck = (taskid: string, e: ChangeEvent<HTMLInputElement>) => {
     API.updateStatusTask(taskid).then(res => {
       getTasks();
+      socketMsgToServer();
     });
   };
 
   const resetAction = () => setAction({type: '', payload: null});
   const resetActionTodo = () => setActionTodo({type: '', payload: null});
+  const socketMsgToClient = () => {
+    socket.on('msgToClient', () => {
+      getTasks();
+    });
+  };
 
   const reset = () => {
     getTasks();
     resetAction();
     resetActionTodo();
+    socketMsgToServer();
   };
 
   useEffect(() => {
+    socketMsgToClient();
     getTasks();
     getTodo();
   }, [id]);
@@ -85,7 +97,12 @@ export default function Detail() {
                 <Icon name="ico-share" />
                 <div className="title-right">Share</div>
               </Button>
-              <Button className="items" onClick={() => setAction({type: 'add', payload: null})}>
+              <Button
+                className="items"
+                onClick={() => {
+                  setAction({type: 'add', payload: null});
+                }}
+              >
                 <Icon name="ico-plus-circle" />
                 <div className="title-right">Add To-Do</div>
               </Button>
