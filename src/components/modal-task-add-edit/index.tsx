@@ -14,14 +14,14 @@ import styles from './style.module.scss';
 interface IProps {
   data: ITask;
   open: boolean;
-  listId?: string;
+  todoListId?: string;
   onSave?: () => void;
   onCancel?: () => void;
 }
 
 interface IFormInputs {
   name: string;
-  listId?: number;
+  todoListId?: number;
   userId?: string;
 }
 
@@ -29,7 +29,7 @@ const Schema = yup.object().shape({
   name: yup.string().required('Please enter your task name.')
 });
 
-const ModalTaskAddEdit: FC<IProps> = ({data, open, listId, onSave, onCancel}) => {
+const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}) => {
   const {register, handleSubmit, setValue, formState} = useForm<IFormInputs>({
     defaultValues: {
       name: ''
@@ -50,7 +50,7 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, listId, onSave, onCancel}) =>
     const userObject = JSON.parse(localStorage.getItem('user') || '{}');
     const userId = userObject.id;
 
-    formData.listId = Number(listId);
+    formData.todoListId = Number(todoListId);
     formData.userId = userId;
 
     if (data?.id) {

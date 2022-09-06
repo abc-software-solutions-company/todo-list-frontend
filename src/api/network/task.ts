@@ -7,14 +7,14 @@ export interface ITask {
   isDone?: boolean;
   createdAt?: string;
   updatedAt?: string;
-  listId?: number;
+  todoListId?: number;
 }
 
 type Task = IAxiosResponse<ITask>;
 type Tasks = IAxiosResponse<ITask[]>;
 
-const getListTasks = (listId: string) => HttpRequest.get<Tasks>(`/lists/${listId}?_embed=tasks`);
-const getTasks = (listId: string) => HttpRequest.get<Tasks>(`/list/${listId}`);
+const getListTasks = (todoListId: string) => HttpRequest.get<Tasks>(`/lists/${todoListId}?_embed=tasks`);
+const getTasks = (todoListId: string) => HttpRequest.get<Tasks>(`/list/${todoListId}`);
 const getTask = (id: string) => HttpRequest.get<Task>(`/tasks/single/${id}`);
 const createTask = (data: ITask) => HttpRequest.post<ITask>('/tasks', data);
 const deleteTask = (id: string) => HttpRequest.destroy<ITask>(`/tasks/${id}`);

@@ -28,9 +28,9 @@ export default function List() {
 
   const resetAction = () => setAction({type: '', payload: null});
 
-  const handleShare = (listId: string) => {
+  const handleShare = (todoListId: string) => {
     setShareOpen(true);
-    setId(listId);
+    setId(todoListId);
   };
 
   const reset = () => {

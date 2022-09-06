@@ -71,85 +71,47 @@
     {
       "userName": "534twe",
       "id": 18
+    },
+    {
+      "userName": "thien1234",
+      "id": 19
     }
   ],
   "lists": [
     {
-      "name": "Shopping",
-      "id": 5
-    },
-    {
-      "name": "sdafdsadsfaadDSA",
-      "id": 6
-    },
-    {
-      "name": "sdafdsadsfaadDSA",
-      "id": 8
-    },
-    {
-      "name": "dsfad",
+      "name": "rwqrqw",
       "userId": 19,
-      "id": 9
-    },
-    {
-      "name": "dfsfa",
-      "userId": 19,
-      "id": 10
-    },
-    {
-      "name": "dfsfasdfasdf",
-      "userId": 19,
-      "id": 11
-    },
-    {
-      "name": "sdfsadfasdf",
-      "userId": 19,
-      "id": 12
-    },
-    {
-      "name": "sdfsadfasdfdfadfads",
-      "userId": 19,
-      "id": 13
-    },
-    {
-      "name": "sdfsadfasdfdfadfads",
-      "userId": 19,
-      "id": 14
-    },
-    {
-      "name": "dfasdfasf",
-      "userId": 19,
-      "id": 15
-    },
-    {
-      "name": "Go to Nha Trang",
-      "userId": "b158579f-8893-444b-8622-a0e5bef5cac7",
-      "id": 16
-    },
-    {
-      "name": "Go to Phu Yen",
-      "userId": "b158579f-8893-444b-8622-a0e5bef5cac7",
-      "id": 17
-    },
-    {
-      "name": "Hi",
-      "userId": "b158579f-8893-444b-8622-a0e5bef5cac7",
-      "id": 18
+      "id": 1
     }
   ],
   "tasks": [
     {
-      "name": "dgfdgd",
-      "listId": 5,
-      "userId": "b158579f-8893-444b-8622-a0e5bef5cac7",
+      "name": "fsafassa",
+      "todoListId": 1,
+      "userId": 19,
       "id": 1,
-      "isDone": false
+      "isDone": true
     },
     {
-      "name": "ffff",
-      "listId": 5,
-      "userId": "705ae224-38e5-48e4-a745-03a04534d6c9",
-      "id": 2
+      "name": "ghsdgs",
+      "todoListId": 1,
+      "userId": 19,
+      "id": 2,
+      "isDone": true
+    },
+    {
+      "name": "hdhdsh",
+      "todoListId": 1,
+      "userId": 19,
+      "id": 3,
+      "isDone": true
+    },
+    {
+      "name": "hdshdshdshs",
+      "todoListId": 1,
+      "userId": 19,
+      "id": 4,
+      "isDone": true
     }
   ],
   "posts": [

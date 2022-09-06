@@ -1,5 +1,6 @@
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
+import io from 'socket.io-client';
 
 import API, {ITask} from '@/api/network/task';
 // import TodoAPI, {ITodo} from '@/api/network/todo';
@@ -19,6 +20,8 @@ import {IAction} from '@/types';
 
 import styles from './style.module.scss';
 
+const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
+
 export default function Detail() {
   const router = useRouter();
   const [todoList, setTodoList] = useState<ITodo>();
@@ -29,29 +32,42 @@ export default function Detail() {
   const {id} = router.query;
   const page = 'detail';
 
-  const getListTasks = (listId: string) => API.getListTasks(listId).then(res => setTodoList(res.data));
+  const socketMsgToServer = () => socket.emit('msgToServer');
+  const getListTasks = (todoListId: string) => API.getListTasks(todoListId).then(res => setTodoList(res.data));
   // const getTodo = () => TodoAPI.getTodo(id ? id.toString() : '').then(res => setTodo(res.data));
 
   const handleShare = () => {
     setShareOpen(true);
   };
 
-  const setDone = (taskId: string, value: boolean) => {
+  const setDone = (taskId: string) => {
     if (!taskId) return;
-    API.updateTask(taskId, {isDone: value} as ITask).then(() => getListTasks(id));
+    API.updateStatusTask(taskId).then(() => {
+      getListTasks(id);
+      socketMsgToServer();
+    });
   };
 
   const resetAction = () => setAction({type: '', payload: null});
   const resetActionTodo = () => setActionTodo({type: '', payload: null});
+  const socketMsgToClient = () => {
+    socket.on('msgToClient', () => {
+      getListTasks(id);
+    });
+  };
 
   const reset = () => {
     getListTasks(id);
     resetAction();
     resetActionTodo();
+    socketMsgToServer();
   };
 
   useEffect(() => {
-    if (id) getListTasks(id);
+    if (id) {
+      getListTasks(id);
+      socketMsgToClient();
+    }
   }, [id]);
 
   if (!todoList || !id) return null;
@@ -107,7 +123,7 @@ export default function Detail() {
       {['add', 'edit'].includes(action.type) && (
         <ModalTaskAddEdit
           data={action.payload}
-          listId={id.toString()}
+          todoListId={id.toString()}
           open={true}
           onSave={() => reset()}
           onCancel={() => resetAction()}
