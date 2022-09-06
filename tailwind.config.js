@@ -21,7 +21,7 @@ module.exports = {
     screens: Object.fromEntries(Object.entries(defaultTheme.screens).filter(([key]) => key !== '2xl')),
     fontFamily: {
       // Khai báo các font chữ được sử dụng trong website. Mặc định Tailwind sẽ sử dụng font họ "sans". Có nghĩa là font được sử dụng trong website hiện tại là "Quicksand".
-      sans: ['Montserrat', 'system-ui', '-apple-system', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'sans-serif'],
+      sans: ['Mulish', 'system-ui', '-apple-system', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'sans-serif'],
       serif: ['Merriweather', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
       mono: ['"Roboto Mono"', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
       display: ['"Sansita Swashed"'],
@@ -36,8 +36,8 @@ module.exports = {
         hero: ['3.5rem', {lineHeight: '4.25rem', letterSpacing: '0'}],
         h1: ['2.5rem', {lineHeight: '3.0625rem', letterSpacing: '0'}],
         h2: ['1.75rem', {lineHeight: '2.125rem', letterSpacing: '0'}], // 28/34
-        h3: ['1.5rem', {lineHeight: '1.8125rem', letterSpacing: '0'}],
-        h4: ['1.25rem', {lineHeight: '1.5rem', letterSpacing: '0'}],
+        h3: ['1.5rem', {lineHeight: '2rem', letterSpacing: '0'}],
+        h4: ['1.25rem', {lineHeight: '1.75rem', letterSpacing: '0'}],
         h5: ['1.125rem', {lineHeight: '1.375rem', letterSpacing: '0'}],
         h6: ['1rem', {lineHeight: '1.5rem', letterSpacing: '0'}],
         display1: ['5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
@@ -58,17 +58,18 @@ module.exports = {
         0: '0'
       },
       colors: {
-        'abc-blue': '#4B9AE8', //Màu được thay đổi
-        'abc-dark-blue': '#3D99D3',
-        'abc-deep-blue': '#3D91CE',
-        'abc-dark-red': '#DB5136',
-        'abc-yellow': '#DBA936',
-        'abc-deep-green': '#00A57E',
-        'abc-orange': '#EF7622',
-        'abc-dark': '#151313',
-        'abc-light': '#EDF2F7',
-        'abc-red': '#D14F4F', //Màu được thay đổi
-        'abc-grey': '#77797B'
+        blue: {
+          '50': '#f6fafe',
+          '100': '#edf5fd',
+          '200': '#d2e6f9',
+          '300': '#b7d7f6',
+          '400': '#81b8ef',
+          '500': '#4b9ae8',
+          '600': '#448bd1',
+          '700': '#3874ae',
+          '800': '#2d5c8b',
+          '900': '#254b72'
+        }
       },
       backgroundImage: {
         'gradient-45deg': 'linear-gradient(45deg, var(--tw-gradient-stops))'

@@ -25,7 +25,7 @@ const ModalTodoConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
         onConfirm?.();
 
         if (page == 'detail') {
-          router.push(ROUTES.TODO);
+          router.push(ROUTES.TODO_LIST);
         }
       });
   };

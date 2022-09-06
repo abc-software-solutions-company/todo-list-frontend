@@ -1,4 +1,4 @@
-.create-room :global {
+.page-action :global {
   @apply h-full;
   .container {
     @apply h-full;
@@ -7,21 +7,21 @@
     @apply mx-auto flex h-full max-w-[708px] flex-col items-center justify-center;
   }
   .title {
-    @apply text-center text-5xl font-extrabold text-abc-blue md:text-hero;
+    @apply text-center text-5xl font-extrabold text-blue-500 md:text-hero;
   }
   .headline {
-    @apply mt-16 text-center text-3xl lg:font-medium text-abc-blue md:text-h1;
+    @apply mt-16 text-center text-3xl text-blue-500 md:text-h1 lg:font-medium;
   }
   .actions {
-    @apply w-full mt-10 grid md:grid-cols-2 gap-x-5 gap-y-5;
+    @apply mt-10 grid w-full gap-x-5 gap-y-5 md:grid-cols-2;
   }
-  button {
-    @apply md:py-5 bg-red-500;
+  .btn-join {
+    @apply px-5 #{!important};
   }
-  .form-input {
-    @apply text-h6 md:text-h4 p-3 md:p-4;
-  }
-  .input-group-text {
-    @apply px-5 lg:px-4;
+  .abc-input.error {
+    @apply relative;
+    .message {
+      @apply absolute left-0;
+    }
   }
 }

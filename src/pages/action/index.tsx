@@ -2,6 +2,7 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import {GetStaticProps} from 'next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {useRouter} from 'next/router';
+import {useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -19,7 +20,7 @@ interface IFormInputs {
 }
 
 const Schema = yup.object().shape({
-  todoId: yup.string().required('Please enter Link or ID.')
+  todoId: yup.string().required(' ')
 });
 
 export default function Action() {
@@ -35,22 +36,34 @@ export default function Action() {
   const onSubmit: SubmitHandler<IFormInputs> = data => {
     API.getTodo(data.todoId)
       .then(res => {
-        if (res.status == 200) router.push(`${ROUTES.TODO}/${data.todoId}`);
+        if (res.status == 200) router.push(`${ROUTES.TODO_LIST}/${data.todoId}`);
       })
       .catch(() => {
         toast.show({type: 'danger', title: 'Error!', content: 'Room not found.', lifeTime: 3000});
       });
   };
 
+  useEffect(() => {
+    if (errors.todoId?.message) {
+      toast.show({type: 'danger', title: 'Error!', content: 'Please enter Link or ID.', lifeTime: 3000});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [errors]);
+
   return (
-    <div className={styles['create-room']}>
+    <div className={styles['page-action']}>
       <div className="container">
         <div className="inner">
           <p className="title">TO DO LIST</p>
           <p className="headline">Organize your work and life, finally.</p>
           <div className="actions">
             <div className="item">
-              <Button variant="contained" className="w-full" color="primary" onClick={() => router.push(ROUTES.TODO)}>
+              <Button
+                variant="contained"
+                className="w-full"
+                color="primary"
+                onClick={() => router.push(ROUTES.TODO_LIST)}
+              >
                 Create New List
               </Button>
             </div>
@@ -59,7 +72,7 @@ export default function Action() {
                 <Input
                   groupEnd={
                     <Button
-                      className="input-group-text"
+                      className="btn-join input-group-text"
                       color="primary"
                       variant="contained"
                       text="Join"

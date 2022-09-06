@@ -20,7 +20,7 @@ interface IProps {
 
 interface IFormInputs {
   name: string;
-  todolistId?: number;
+  listId?: number;
   userId?: string;
 }
 
@@ -46,10 +46,10 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, listId, onSave, onCancel}) =>
   };
 
   const onSubmit: SubmitHandler<IFormInputs> = formData => {
-    const userObject = JSON.parse(localStorage.getItem('user'));
+    const userObject = JSON.parse(localStorage.getItem('user') || '{}');
     const userId = userObject.id;
 
-    formData.todolistId = Number(listId);
+    formData.listId = Number(listId);
     formData.userId = userId;
 
     if (data?.id) {

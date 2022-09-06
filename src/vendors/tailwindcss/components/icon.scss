@@ -1,5 +1,5 @@
 .abc-icon {
-  @apply leading-none text-black;
+  @apply leading-none;
   &.size-16:before {
     @apply text-[16px];
   }

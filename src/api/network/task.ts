@@ -13,11 +13,12 @@ export interface ITask {
 type Task = IAxiosResponse<ITask>;
 type Tasks = IAxiosResponse<ITask[]>;
 
-const getTasks = (listId: number) => HttpRequest.get<Tasks>(`/tasks/${listId}`);
+const getListTasks = (listId: string) => HttpRequest.get<Tasks>(`/lists/${listId}?_embed=tasks`);
+const getTasks = (listId: string) => HttpRequest.get<Tasks>(`/list/${listId}`);
 const getTask = (id: string) => HttpRequest.get<Task>(`/tasks/single/${id}`);
 const createTask = (data: ITask) => HttpRequest.post<ITask>('/tasks', data);
 const deleteTask = (id: string) => HttpRequest.destroy<ITask>(`/tasks/${id}`);
 const updateTask = (id: string, data: ITask) => HttpRequest.patch<ITask>(`/tasks/${id}`, data);
 const updateStatusTask = (id: string) => HttpRequest.put(`/tasks/${id}`, {});
 
-export default {getTasks, getTask, createTask, deleteTask, updateTask, updateStatusTask};
+export default {getTasks, getListTasks, getTask, createTask, deleteTask, updateTask, updateStatusTask};

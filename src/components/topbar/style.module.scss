@@ -1,0 +1,9 @@
+  .topbar :global {
+    @apply flex items-center justify-end gap-3 mt-4;
+    .title-user {
+      @apply text-h5 md:text-h4;
+    }
+    .ico-user {
+      @apply text-xl;
+    }
+  }

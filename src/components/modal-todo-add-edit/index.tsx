@@ -27,10 +27,12 @@ const Schema = yup.object().shape({
 });
 
 const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
-  const {register, handleSubmit, setValue, formState} = useForm<IFormInputs>({
-    defaultValues: {
-      name: ''
-    },
+  const FORM_DEFAULT_VALUES = {
+    name: ''
+  };
+
+  const {register, handleSubmit, setValue, reset, formState} = useForm<IFormInputs>({
+    defaultValues: FORM_DEFAULT_VALUES,
     resolver: yupResolver(Schema)
   });
 
@@ -44,7 +46,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
   };
 
   const onSubmit: SubmitHandler<IFormInputs> = formData => {
-    const userObject = JSON.parse(localStorage.getItem('user'));
+    const userObject = JSON.parse(localStorage.getItem('user') || '{}');
     const userId = userObject.id;
 
     if (data?.id) {
@@ -56,7 +58,11 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
   };
 
   useEffect(() => {
-    if (data?.id) getTodo(data.id);
+    if (data?.id) {
+      getTodo(data.id);
+    } else {
+      reset(FORM_DEFAULT_VALUES);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
@@ -66,26 +72,18 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
     <Modal className={styles['com-modal-todo-add-edit']} variant="center" open={open} onClose={() => onCancel?.()}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header>
-          <h3 className="title">{data?.id ? 'Update list' : 'Create New List'}</h3>
+          <h3 className="title">{data?.id ? 'Update List' : 'Create New List'}</h3>
         </Modal.Header>
         <Modal.Body>
-          <Input error={errors.name?.message} {...register('name')} placeholder="Enter your list" />
+          <Input error={errors.name?.message} {...register('name')} placeholder="Enter your list name" />
         </Modal.Body>
         <Modal.Footer>
           <div className="flex w-full gap-x-3 md:gap-x-5">
-            <Button
-              className="btn btn-cancel"
-              // variant="outlined"
-              // color="secondary"
-              text="Cancel"
-              onClick={() => onCancel?.()}
-              type="button"
-            />
+            <Button className="btn btn-cancel" text="Cancel" onClick={() => onCancel?.()} type="button" />
             <Button
               className="btn btn-create"
               variant="contained"
-              // color="primary"
-              text="Create"
+              text={data?.id ? 'Update' : 'Create'}
               type="submit"
             />
           </div>

@@ -73,9 +73,9 @@
       "id": 18
     }
   ],
-  "todos": [
+  "lists": [
     {
-      "name": "sdafdsadsfaadDSA",
+      "name": "sdafdsadsfaadDSA fasf asdf adsfds fasdfadsf asdfasdf asdf asdf asdfasdf",
       "id": 5
     },
     {
@@ -85,7 +85,71 @@
     {
       "name": "sdafdsadsfaadDSA",
       "id": 8
+    },
+    {
+      "name": "dsfad",
+      "userId": 19,
+      "id": 9
+    },
+    {
+      "name": "dfsfa",
+      "userId": 19,
+      "id": 10
+    },
+    {
+      "name": "dfsfasdfasdf",
+      "userId": 19,
+      "id": 11
+    },
+    {
+      "name": "sdfsadfasdf",
+      "userId": 19,
+      "id": 12
+    },
+    {
+      "name": "sdfsadfasdfdfadfads",
+      "userId": 19,
+      "id": 13
+    },
+    {
+      "name": "sdfsadfasdfdfadfads",
+      "userId": 19,
+      "id": 14
+    },
+    {
+      "name": "dfasdfasf",
+      "userId": 19,
+      "id": 15
     }
   ],
-  "tasks": []
+  "tasks": [],
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "id": 2,
+      "body": "some comment 1",
+      "postId": 1
+    },
+    {
+      "id": 3,
+      "body": "some comment 2",
+      "postId": 1
+    },
+    {
+      "id": 4,
+      "body": "some comment 4",
+      "postId": 1
+    }
+  ]
 }

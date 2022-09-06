@@ -1,6 +1,6 @@
 export const ROUTES = {
   HOME: '/',
   ACTION: '/action',
-  TODO: '/todo',
+  TODO_LIST: '/list',
   QUICKPLAY: '/quick-play'
 };
