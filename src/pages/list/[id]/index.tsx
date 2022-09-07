@@ -83,22 +83,22 @@ export default function Detail() {
           </div>
           <div className="right">
             <Button
-              className="btn-delete"
+              className="bnt btn-delete"
               startIcon={<Icon name="ico-trash-2" />}
-              onClick={() => setAction({type: 'delete', payload: todoList})}
+              onClick={() => setActionTodo({type: 'delete', payload: todoList})}
             >
-              <span className="text-h5 font-medium">Delete List</span>
+              <span className="title text-h5 font-medium">Delete List</span>
             </Button>
 
-            <Button className="btn-share" startIcon={<Icon name="ico-share-2" />} onClick={handleShare}>
-              <span className="text-h5 font-medium">Share</span>
+            <Button className="btn btn-share" startIcon={<Icon name="ico-share-2" />} onClick={handleShare}>
+              <span className="title text-h5 font-medium">Share</span>
             </Button>
             <Button
-              className="btn-create-new"
+              className="btn btn-create-new"
               startIcon={<Icon name="ico-plus-circle" />}
               onClick={() => setAction({type: 'add', payload: null})}
             >
-              <span className="text-h5 font-medium">Add To-Do</span>
+              <span className="title text-h5 font-medium">Add To-Do</span>
             </Button>
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function Detail() {
           {!todoList?.tasks.length && <span>Empty list</span>}
           {todoList.tasks &&
             todoList.tasks.map(task => (
-              <div className="item" key={task.id}>
+              <div className="item cursor-pointer" key={task.id} onClick={() => setDone(task.id, !task.isDone)}>
                 <div className="checkbox-task">
                   <Checkbox className="mr-3" checked={task.isDone} onChange={() => setDone(task.id, !task.isDone)} />
                   <p className={`title ${task.isDone ? 'checked' : ''}`}>{task.name}</p>

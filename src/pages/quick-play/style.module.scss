@@ -1,6 +1,6 @@
 .com-quick-play :global {
   .inner {
-    @apply mx-auto md:max-w-xl mt-16 lg:mt-14;
+    @apply mx-auto mt-16 md:max-w-xl lg:mt-14;
   }
   .logo-wrapper {
     @apply flex justify-center md:mt-6;
@@ -12,7 +12,7 @@
     @apply w-28;
   }
   .enter-your-name {
-    @apply mt-2 border border-black/20 bg-white py-9 px-4 lg:py-16 lg:px-20 lg:mt-12;
+    @apply mt-2 border border-black/20 bg-white py-9 px-4 lg:mt-12 lg:py-16 lg:px-20;
     .name-input {
       @apply p-3 md:pl-4;
     }
@@ -24,10 +24,10 @@
   form {
     @apply relative mt-8 lg:mt-12;
     .invalid {
-      @apply absolute top-14 lg:top-12 left-0 text-xs ;
+      @apply absolute  left-0 top-12 text-xs;
     }
   }
   .btn-submit {
-    @apply mt-5 lg:mt-8 w-full p-3 font-normal text-h6 md:text-h4;
+    @apply mt-6 w-full p-3 text-h6 font-normal md:text-h4 lg:mt-8;
   }
 }

@@ -1,36 +1,39 @@
 .page-detail :global {
-  .toolbar{
-    @apply flex justify-between mt-4;
+  .toolbar {
+    @apply mt-4 flex justify-between;
     .left {
-      @apply flex items-center;
+      @apply flex w-full items-center;
     }
     .title {
-      @apply flex items-center;
+      @apply w-1/2 items-center truncate md:w-full;
     }
-    .btn-create-new{
+    .btn-create-new {
       @apply px-0;
     }
-    .right{
-      @apply flex gap-8
+    .right {
+      @apply flex gap-2 md:gap-8;
+      .title {
+        @apply hidden lg:block;
+      }
     }
   }
   .tasks {
     @apply mt-4;
     .item {
-      @apply flex items-center justify-between bg-white border;
-      @apply border-t-0 first:border-t px-4;
+      @apply flex items-center justify-between border bg-white;
+      @apply border-t-0 px-4 first:border-t;
       @apply first:rounded-t-lg last:rounded-b-lg;
       @apply transition-all duration-100;
       @apply hover:bg-blue-100;
     }
-    .checkbox-task{
+    .checkbox-task {
       @apply flex;
     }
-    .checked{
+    .checked {
       @apply line-through;
     }
     .title {
-      @apply py-3 cursor-pointer w-full truncate;
+      @apply w-full cursor-pointer truncate py-3;
     }
     .actions {
       @apply flex gap-x-1;
