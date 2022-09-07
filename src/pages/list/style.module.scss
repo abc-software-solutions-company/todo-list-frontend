@@ -1,33 +1,43 @@
 .page-list :global {
-  .toolbar{
-    @apply flex justify-between mt-4;
+  .toolbar {
+    @apply mt-4 flex justify-between;
     .left {
       @apply flex items-center;
     }
-    .sep{
-      @apply h-4 w-[1px] inline-flex mx-3 bg-cyan-800;
+    .sep {
+      @apply mx-3 inline-flex h-4 w-[1px] bg-cyan-800;
     }
     .title {
       @apply flex items-center;
     }
-    .btn-create-new{
+    .btn-create-new {
       @apply px-0;
     }
+    .right {
+      @apply hidden md:block;
+    }
   }
+
   .list {
     @apply mt-4;
     .item {
-      @apply flex items-center justify-between bg-white border;
-      @apply border-t-0 first:border-t px-4;
+      @apply flex items-center justify-between border bg-white;
+      @apply border-t-0 px-4 first:border-t;
       @apply first:rounded-t-lg last:rounded-b-lg;
       @apply transition-all duration-100;
       @apply hover:bg-blue-100;
     }
     .title {
-      @apply py-3 cursor-pointer w-full truncate;
+      @apply w-full cursor-pointer truncate py-3;
     }
     .actions {
-      @apply flex gap-x-1;
+      @apply -mr-4 flex gap-x-1;
     }
+  }
+  .abc-btn.menu-footer {
+    @apply relative w-full cursor-pointer;
+  }
+  .abc-btn.btn-create {
+    @apply absolute bottom-20 block flex w-full justify-end md:bottom-10 md:hidden;
   }
 }

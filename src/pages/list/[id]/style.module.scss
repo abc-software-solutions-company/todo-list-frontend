@@ -3,22 +3,31 @@
     @apply mt-4 flex justify-between;
     .left {
       @apply flex w-full items-center;
-    }
-    .title {
-      @apply w-1/2 items-center truncate md:w-full;
-    }
-    .btn-create-new {
-      @apply px-0;
+      .title {
+        @apply w-1/2 items-center break-all md:w-full md:flex-nowrap;
+      }
+      .btn-create-new {
+        @apply px-0;
+      }
     }
     .right {
-      @apply flex gap-2 md:gap-8;
-      .title {
-        @apply hidden lg:block;
+      @apply flex w-full justify-end gap-2 md:gap-6 lg:gap-8;
+      .btn-create-new {
+        @apply hidden md:block lg:flex;
+      }
+      .title-icon {
+        @apply m-auto flex hidden items-center lg:block;
+      }
+      .abc-btn.btn {
+        @apply -mr-4 flex p-0;
+      }
+      .abc-btn {
+        @apply p-0 md:p-3;
       }
     }
   }
   .tasks {
-    @apply mt-4;
+    @apply mt-4 ml-2.5;
     .item {
       @apply flex items-center justify-between border bg-white;
       @apply border-t-0 px-4 first:border-t;
@@ -33,10 +42,16 @@
       @apply line-through;
     }
     .title {
-      @apply w-full cursor-pointer truncate py-3;
+      @apply w-full cursor-pointer truncate py-3 transition-all duration-100;
     }
     .actions {
-      @apply flex gap-x-1;
+      @apply -mr-3 flex gap-x-1;
     }
+  }
+  .abc-btn.menu-footer {
+    @apply relative w-full cursor-pointer;
+  }
+  .abc-btn.btn-create {
+    @apply absolute bottom-20 block flex w-full justify-end md:bottom-10 md:hidden;
   }
 }

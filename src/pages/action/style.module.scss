@@ -10,13 +10,16 @@
     @apply text-center text-5xl font-extrabold text-blue-500 md:text-hero;
   }
   .headline {
-    @apply mt-16 text-center text-3xl text-blue-500 md:text-h1 lg:font-medium;
+    @apply mt-6 text-center text-3xl text-blue-500 md:mt-16 md:text-h1 lg:font-medium;
   }
   .actions {
-    @apply mt-10 grid w-full gap-x-5 gap-y-5 lg:grid-cols-2;
+    @apply mt-8 grid w-full gap-x-5 gap-y-5 md:mt-10 lg:grid-cols-2;
   }
   .btn-join {
     @apply px-5 #{!important};
+  }
+  .form-input {
+    @apply p-0 px-4;
   }
   .abc-input.error {
     @apply relative;

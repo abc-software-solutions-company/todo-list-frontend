@@ -1,4 +1,9 @@
 .com-modal-todo-confirm-delete :global {
+  .abc-modal-header {
+    .title {
+      @apply break-all;
+    }
+  }
   .abc-modal-body {
     @apply pb-0;
   }

@@ -103,7 +103,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
               className="w-full"
               variant="contained"
               color="primary"
-              text={data?.id ? 'Update' : 'Create'}
+              text={data?.id ? 'Save' : 'Create'}
               type="submit"
             />
           </div>

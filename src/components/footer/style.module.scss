@@ -1,9 +1,9 @@
 .footer :global {
-  @apply py-3 mt-auto;
+  @apply mt-auto py-10 md:py-3;
   .copyright {
-    @apply text-center;
+    @apply text-center md:flex md:items-center md:justify-center md:gap-1;
   }
-  a{
+  a {
     @apply text-slate-700 hover:text-blue-500;
   }
 }

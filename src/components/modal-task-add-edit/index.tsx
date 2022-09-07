@@ -100,7 +100,13 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
               onClick={() => onCancel?.()}
               type="button"
             />
-            <Button className="w-full" variant="contained" color="primary" text="Create" type="submit" />
+            <Button
+              className="w-full"
+              variant="contained"
+              color="primary"
+              text={data?.id ? 'Save' : 'Create'}
+              type="submit"
+            />
           </div>
         </Modal.Footer>
       </form>

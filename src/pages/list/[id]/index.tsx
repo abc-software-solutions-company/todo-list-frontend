@@ -77,6 +77,7 @@ export default function Detail() {
   return (
     <>
       <Seo title={`${siteSettings.name} | ${todoList.name}`} description={siteSettings.description} />
+
       <div className={styles['page-detail']}>
         <div className="container">
           <Topbar />
@@ -87,22 +88,22 @@ export default function Detail() {
             </div>
             <div className="right">
               <Button
-                className="bnt btn-delete"
+                className="btn btn-delete"
                 startIcon={<Icon name="ico-trash-2" />}
                 onClick={() => setActionTodo({type: 'delete', payload: todoList})}
               >
-                <span className="title text-h5 font-medium">Delete List</span>
+                <span className="title-icon text-h5 font-medium">Delete List</span>
               </Button>
 
               <Button className="btn btn-share" startIcon={<Icon name="ico-share-2" />} onClick={handleShare}>
-                <span className="title text-h5 font-medium">Share</span>
+                <span className="title-icon text-h5 font-medium">Share</span>
               </Button>
               <Button
                 className="btn btn-create-new"
                 startIcon={<Icon name="ico-plus-circle" />}
                 onClick={() => setAction({type: 'add', payload: null})}
               >
-                <span className="title text-h5 font-medium">Add To-Do</span>
+                <span className="title-icon text-h5 font-medium">Add To-Do</span>
               </Button>
             </div>
           </div>
@@ -114,7 +115,12 @@ export default function Detail() {
                 <div className="item" key={task.id}>
                   <div className="checkbox-task">
                     <Checkbox className="mr-3" checked={task.isDone} onChange={() => setDone(task.id, !task.isDone)} />
-                    <p className={`title ${task.isDone ? 'checked' : ''}`}>{task.name}</p>
+                    <p
+                      onClick={() => setDone(task.id, !task.isDone)}
+                      className={`title ${task.isDone ? 'checked' : ''}`}
+                    >
+                      {task.name}
+                    </p>
                   </div>
                   <div className="actions">
                     <IconButton name="ico-trash-2" onClick={() => setAction({type: 'delete', payload: task})} />
@@ -123,6 +129,13 @@ export default function Detail() {
                 </div>
               ))}
           </div>
+        </div>
+        <div className="menu-footer">
+          <Button
+            className="btn-create"
+            startIcon={<Icon name="ico-plus-circle" size={28} />}
+            onClick={() => setAction({type: 'add', payload: null})}
+          />
         </div>
         {['add', 'edit'].includes(action.type) && (
           <ModalTaskAddEdit
