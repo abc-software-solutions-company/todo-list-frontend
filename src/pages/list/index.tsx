@@ -23,8 +23,10 @@ export default function List() {
   const [action, setAction] = useState<IAction>({type: '', payload: null});
   const [shareOpen, setShareOpen] = useState(false);
   const [id, setId] = useState<string>('');
+  const userObject = JSON.parse(localStorage.getItem('user') || '{}');
+  const userId = userObject.id;
 
-  const getTodoList = () => API.getTodos().then(res => setTodoList(res.data));
+  const getTodoList = () => API.getTodos(userId).then(res => setTodoList(res.data));
 
   const resetAction = () => setAction({type: '', payload: null});
 
