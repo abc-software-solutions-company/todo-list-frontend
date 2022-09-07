@@ -9,7 +9,9 @@ import * as yup from 'yup';
 
 import API from '@/api/network/user';
 import TodoListLogo from '@/components/icons/todolist-logo';
+import Seo from '@/components/seo/seo';
 import {ROUTES} from '@/configs/routes.config';
+import {siteSettings} from '@/configs/site.config';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
@@ -49,30 +51,33 @@ export default function QuickPlay() {
   const {errors} = formState;
 
   return (
-    <div className={cn(styles['com-quick-play'])}>
-      <div className="container">
-        <div className="inner">
-          <div className="logo-wrapper">
-            <TodoListLogo width={matches ? 249 : 175} />
-          </div>
-          <div className="enter-your-name">
-            <h2>Let&apos;s start!</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Input
-                placeholder="Enter your name"
-                className="name-input"
-                {...register('userName')}
-                error={errors.userName?.message}
-              />
-              {errors.userName && <p className="invalid">{errors.userName.message}</p>}
-              <Button className="btn-submit" variant="contained" color="primary" type="submit">
-                Enter
-              </Button>
-            </form>
+    <>
+      <Seo title={`${siteSettings.name} | Quick Play`} description={siteSettings.description} />
+      <div className={cn(styles['com-quick-play'])}>
+        <div className="container">
+          <div className="inner">
+            <div className="logo-wrapper">
+              <TodoListLogo width={matches ? 249 : 175} />
+            </div>
+            <div className="enter-your-name">
+              <h2>Let&apos;s start!</h2>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <Input
+                  placeholder="Enter your name"
+                  className="name-input"
+                  {...register('userName')}
+                  error={errors.userName?.message}
+                />
+                {errors.userName && <p className="invalid">{errors.userName.message}</p>}
+                <Button className="btn-submit" variant="contained" color="primary" type="submit">
+                  Enter
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

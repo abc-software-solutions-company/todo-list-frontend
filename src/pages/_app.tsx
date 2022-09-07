@@ -5,9 +5,9 @@ import '@/vendors/abc-icons/dist/abc.scss';
 import {appWithTranslation} from 'next-i18next';
 import type {AppProps} from 'next/app';
 import {useRouter} from 'next/router';
+import NextNProgress from 'nextjs-progressbar';
 import React, {useEffect, useState} from 'react';
 
-import DefaultSeo from '@/components/seo/default-seo';
 import {ROUTES} from '@/configs/routes.config';
 import QueryProvider from '@/contexts/query.provider';
 import {CoreUIProvider, defaultTheme} from '@/core-ui/contexts/index';
@@ -53,7 +53,7 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
   return (
     <QueryProvider pageProps={pageProps}>
       <CoreUIProvider theme={defaultTheme}>
-        <DefaultSeo />
+        <NextNProgress color="#448BD1" />
         <Layout pageProps={pageProps}>{visible && <Component {...pageProps} key={router.route} />}</Layout>
       </CoreUIProvider>
     </QueryProvider>

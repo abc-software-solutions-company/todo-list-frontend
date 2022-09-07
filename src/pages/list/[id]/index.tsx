@@ -9,8 +9,10 @@ import ModalShare from '@/components/modal-share';
 import ModalTaskAddEdit from '@/components/modal-task-add-edit';
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
 import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
+import Seo from '@/components/seo/seo';
 import Topbar from '@/components/topbar';
 import {ROUTES} from '@/configs/routes.config';
+import {siteSettings} from '@/configs/site.config';
 import Button from '@/core-ui/button';
 import Checkbox from '@/core-ui/checkbox';
 import Icon from '@/core-ui/icon';
@@ -73,80 +75,83 @@ export default function Detail() {
   if (!todoList || !id) return null;
 
   return (
-    <div className={styles['page-detail']}>
-      <div className="container">
-        <Topbar />
-        <div className="toolbar">
-          <div className="left">
-            <IconButton name="ico-arrow-left-circle" size={32} onClick={() => router.push(ROUTES.TODO_LIST)} />
-            <h3 className="title">{todoList.name}</h3>
-          </div>
-          <div className="right">
-            <Button
-              className="bnt btn-delete"
-              startIcon={<Icon name="ico-trash-2" />}
-              onClick={() => setActionTodo({type: 'delete', payload: todoList})}
-            >
-              <span className="title text-h5 font-medium">Delete List</span>
-            </Button>
+    <>
+      <Seo title={`${siteSettings.name} | ${todoList.name}`} description={siteSettings.description} />
+      <div className={styles['page-detail']}>
+        <div className="container">
+          <Topbar />
+          <div className="toolbar">
+            <div className="left">
+              <IconButton name="ico-arrow-left-circle" size={32} onClick={() => router.push(ROUTES.TODO_LIST)} />
+              <h3 className="title">{todoList.name}</h3>
+            </div>
+            <div className="right">
+              <Button
+                className="bnt btn-delete"
+                startIcon={<Icon name="ico-trash-2" />}
+                onClick={() => setActionTodo({type: 'delete', payload: todoList})}
+              >
+                <span className="title text-h5 font-medium">Delete List</span>
+              </Button>
 
-            <Button className="btn btn-share" startIcon={<Icon name="ico-share-2" />} onClick={handleShare}>
-              <span className="title text-h5 font-medium">Share</span>
-            </Button>
-            <Button
-              className="btn btn-create-new"
-              startIcon={<Icon name="ico-plus-circle" />}
-              onClick={() => setAction({type: 'add', payload: null})}
-            >
-              <span className="title text-h5 font-medium">Add To-Do</span>
-            </Button>
+              <Button className="btn btn-share" startIcon={<Icon name="ico-share-2" />} onClick={handleShare}>
+                <span className="title text-h5 font-medium">Share</span>
+              </Button>
+              <Button
+                className="btn btn-create-new"
+                startIcon={<Icon name="ico-plus-circle" />}
+                onClick={() => setAction({type: 'add', payload: null})}
+              >
+                <span className="title text-h5 font-medium">Add To-Do</span>
+              </Button>
+            </div>
+          </div>
+
+          <div className="tasks">
+            {!todoList?.tasks.length && <span>Empty list</span>}
+            {todoList.tasks &&
+              todoList.tasks.map(task => (
+                <div className="item" key={task.id}>
+                  <div className="checkbox-task">
+                    <Checkbox className="mr-3" checked={task.isDone} onChange={() => setDone(task.id, !task.isDone)} />
+                    <p className={`title ${task.isDone ? 'checked' : ''}`}>{task.name}</p>
+                  </div>
+                  <div className="actions">
+                    <IconButton name="ico-trash-2" onClick={() => setAction({type: 'delete', payload: task})} />
+                    <IconButton name="ico-edit" onClick={() => setAction({type: 'edit', payload: task})} />
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
-
-        <div className="tasks">
-          {!todoList?.tasks.length && <span>Empty list</span>}
-          {todoList.tasks &&
-            todoList.tasks.map(task => (
-              <div className="item" key={task.id}>
-                <div className="checkbox-task">
-                  <Checkbox className="mr-3" checked={task.isDone} onChange={() => setDone(task.id, !task.isDone)} />
-                  <p className={`title ${task.isDone ? 'checked' : ''}`}>{task.name}</p>
-                </div>
-                <div className="actions">
-                  <IconButton name="ico-trash-2" onClick={() => setAction({type: 'delete', payload: task})} />
-                  <IconButton name="ico-edit" onClick={() => setAction({type: 'edit', payload: task})} />
-                </div>
-              </div>
-            ))}
-        </div>
+        {['add', 'edit'].includes(action.type) && (
+          <ModalTaskAddEdit
+            data={action.payload}
+            todoListId={id.toString()}
+            open={true}
+            onSave={() => reset()}
+            onCancel={() => resetAction()}
+          />
+        )}
+        {['delete'].includes(action.type) && (
+          <ModalTaskConfirmDelete
+            data={action.payload}
+            open={true}
+            onConfirm={() => reset()}
+            onCancel={() => resetAction()}
+          />
+        )}
+        <ModalTodoConfirmDelete
+          open={['delete'].includes(actionTodo.type)}
+          data={actionTodo.payload}
+          page={page}
+          onConfirm={reset}
+          onCancel={resetActionTodo}
+        />
+        <ModalShare open={shareOpen} onClose={() => setShareOpen(false)} id={id} />
       </div>
-      {['add', 'edit'].includes(action.type) && (
-        <ModalTaskAddEdit
-          data={action.payload}
-          todoListId={id.toString()}
-          open={true}
-          onSave={() => reset()}
-          onCancel={() => resetAction()}
-        />
-      )}
-      {['delete'].includes(action.type) && (
-        <ModalTaskConfirmDelete
-          data={action.payload}
-          open={true}
-          onConfirm={() => reset()}
-          onCancel={() => resetAction()}
-        />
-      )}
-      <ModalTodoConfirmDelete
-        open={['delete'].includes(actionTodo.type)}
-        data={actionTodo.payload}
-        page={page}
-        onConfirm={reset}
-        onCancel={resetActionTodo}
-      />
-      <ModalShare open={shareOpen} onClose={() => setShareOpen(false)} id={id} />
-    </div>
+    </>
   );
 }
 
-Detail.Layout = LayoutDefault;
+// Detail.Layout = LayoutDefault;
