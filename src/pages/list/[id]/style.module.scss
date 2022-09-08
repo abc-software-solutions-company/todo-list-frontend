@@ -36,7 +36,7 @@
       @apply hover:bg-blue-100;
     }
     .checkbox-task {
-      @apply flex;
+      @apply flex flex-grow;
     }
     .checked {
       @apply line-through;
