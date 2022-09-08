@@ -15,6 +15,7 @@ import {ROUTES} from '@/configs/routes.config';
 import {siteSettings} from '@/configs/site.config';
 import Button from '@/core-ui/button';
 import Checkbox from '@/core-ui/checkbox';
+import FloatIcon from '@/core-ui/float-icon';
 import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
 import LayoutDefault from '@/layouts/default';
@@ -130,13 +131,7 @@ export default function Detail() {
               ))}
           </div>
         </div>
-        <div className="menu-footer">
-          <Button
-            className="btn-create"
-            startIcon={<Icon name="ico-plus-circle" size={28} />}
-            onClick={() => setAction({type: 'add', payload: null})}
-          />
-        </div>
+        <FloatIcon className="float-icon" onClick={() => setAction({type: 'add', payload: null})} />
         {['add', 'edit'].includes(action.type) && (
           <ModalTaskAddEdit
             data={action.payload}

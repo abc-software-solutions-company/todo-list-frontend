@@ -48,10 +48,7 @@
       @apply -mr-3 flex gap-x-1;
     }
   }
-  .abc-btn.menu-footer {
-    @apply relative w-full cursor-pointer;
-  }
-  .abc-btn.btn-create {
-    @apply absolute bottom-20 block flex w-full justify-end md:bottom-10 md:hidden;
+  .float-icon {
+    @apply bottom-10 flex cursor-pointer md:hidden;
   }
 }

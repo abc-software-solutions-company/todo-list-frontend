@@ -19,7 +19,7 @@
   }
 
   .list {
-    @apply mt-4;
+    @apply mt-4 ml-2.5;
     .item {
       @apply flex items-center justify-between border bg-white;
       @apply border-t-0 px-4 first:border-t;
@@ -34,10 +34,7 @@
       @apply -mr-4 flex gap-x-1;
     }
   }
-  .abc-btn.menu-footer {
-    @apply relative w-full cursor-pointer;
-  }
-  .abc-btn.btn-create {
-    @apply absolute bottom-20 block flex w-full justify-end md:bottom-10 md:hidden;
+  .float-icon {
+    @apply flex cursor-pointer md:hidden;
   }
 }

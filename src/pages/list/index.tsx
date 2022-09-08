@@ -12,6 +12,7 @@ import Topbar from '@/components/topbar';
 import {ROUTES} from '@/configs/routes.config';
 import {siteSettings} from '@/configs/site.config';
 import Button from '@/core-ui/button';
+import FloatIcon from '@/core-ui/float-icon';
 import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
 import LayoutDefault from '@/layouts/default';
@@ -109,7 +110,7 @@ export default function List() {
         onSave={reset}
         onCancel={resetAction}
       /> */}
-
+        <FloatIcon className="float-icon" onClick={() => setAction({type: 'add', payload: null})} />
         {['add', 'edit'].includes(action.type) && (
           <ModalTodoAddEdit data={action.payload} open={true} onSave={() => reset()} onCancel={() => resetAction()} />
         )}
