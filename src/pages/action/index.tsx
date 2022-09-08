@@ -46,6 +46,10 @@ export default function Action() {
   };
 
   useEffect(() => {
+    if (localStorage.getItem('listID')) {
+      localStorage.removeItem('listID');
+    }
+
     if (errors.todoId?.message) {
       toast.show({type: 'danger', title: 'Error!', content: 'Please enter Link or ID.', lifeTime: 3000});
     }

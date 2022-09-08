@@ -162,4 +162,4 @@ export default function Detail() {
   );
 }
 
-// Detail.Layout = LayoutDefault;
+Detail.Layout = LayoutDefault;

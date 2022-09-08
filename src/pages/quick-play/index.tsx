@@ -40,7 +40,9 @@ export default function QuickPlay() {
       .then(res => {
         if (res.status === 201) {
           localStorage.setItem('user', JSON.stringify(res.data));
-          router.push(ROUTES.ACTION);
+          if (localStorage.getItem('listID')) {
+            router.push(`${ROUTES.TODO_LIST}/${localStorage.getItem('listID')}`);
+          } else router.push(ROUTES.ACTION);
         }
       })
       .catch(() => {

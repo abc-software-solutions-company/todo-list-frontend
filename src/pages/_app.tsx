@@ -2,6 +2,7 @@ import '@/vendors/tailwindcss/style.scss';
 import '@/vendors/menu/style.scss';
 import '@/vendors/abc-icons/dist/abc.scss';
 
+import {isString} from 'lodash-es';
 import {appWithTranslation} from 'next-i18next';
 import type {AppProps} from 'next/app';
 import {useRouter} from 'next/router';
@@ -24,10 +25,17 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
     const user = JSON.parse(userJson || '{}');
 
     const currentPath = url.split('?')[0];
+    const listIDDetect = url.split('/')[2];
+
+    if (isString(listIDDetect)) {
+      setVisible(true);
+      const listID = parseInt(window.location.href.split('/')[4]);
+      localStorage.setItem('listID', JSON.stringify(listID));
+    }
 
     if (!user.id && !['/', '/quick-play'].includes(currentPath)) {
       setVisible(true);
-      router.push({pathname: ROUTES.HOME});
+      router.push({pathname: ROUTES.QUICKPLAY});
     } else if (user.id && ['/quick-play'].includes(currentPath)) {
       setVisible(true);
       router.push({pathname: ROUTES.ACTION});
