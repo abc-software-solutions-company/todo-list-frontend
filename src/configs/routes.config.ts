@@ -3,5 +3,6 @@ export const ROUTES = {
   ACTION: '/action',
   TODO_LIST: '/list',
   QUICKPLAY: '/quick-play',
-  NOTFOUND: '/not-found'
+  NOTFOUND: '/not-found',
+  WAITING: '/waiting'
 };

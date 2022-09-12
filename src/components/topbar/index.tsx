@@ -1,7 +1,7 @@
-import {FC} from 'react';
+import {FC, useContext} from 'react';
 
 import Icon from '@/core-ui/icon';
-import useAuth from '@/hooks/useAuth';
+import {ThemeContext} from '@/hooks/useAuthContext';
 
 import styles from './style.module.scss';
 
@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const Topbar: FC<IProps> = () => {
-  const user = useAuth();
+  const user = useContext(ThemeContext);
 
   return (
     <div className={styles.topbar}>
