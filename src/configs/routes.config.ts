@@ -2,5 +2,6 @@ export const ROUTES = {
   HOME: '/',
   ACTION: '/action',
   TODO_LIST: '/list',
-  QUICKPLAY: '/quick-play'
+  QUICKPLAY: '/quick-play',
+  NOTFOUND: '/not-found'
 };

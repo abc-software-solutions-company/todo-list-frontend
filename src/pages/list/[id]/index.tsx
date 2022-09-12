@@ -36,7 +36,10 @@ export default function Detail() {
   const page = 'detail';
 
   const socketMsgToServer = () => socket.emit('msgToServer');
-  const getListTasks = (todoListId: string) => API.getListTasks(todoListId).then(res => setTodoList(res.data));
+  const getListTasks = (todoListId: string) =>
+    API.getListTasks(todoListId)
+      .then(res => setTodoList(res.data))
+      .catch(() => router.push(ROUTES.NOTFOUND));
   // const getTodo = () => TodoAPI.getTodo(id ? id.toString() : '').then(res => setTodo(res.data));
 
   const handleShare = () => {

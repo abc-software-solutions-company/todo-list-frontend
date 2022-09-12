@@ -1,7 +1,7 @@
 .page-not-found :global {
   @apply grid min-h-screen place-items-center p-4 text-white sm:p-8;
   .container {
-    @apply text-center;
+    @apply text-center text-blue-500;
   }
   .heading {
     @apply mb-4 text-sm uppercase tracking-widest sm:mb-5;
