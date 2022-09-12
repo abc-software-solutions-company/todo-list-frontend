@@ -1,13 +1,16 @@
 .page-detail :global {
+  .h2 {
+    @apply mx-auto w-full break-words text-center text-h4 font-semibold md:text-h2;
+  }
   .toolbar {
     @apply mt-4 flex justify-between;
     .left {
       @apply flex items-center truncate;
-      .title {
-        @apply w-full truncate text-lg font-semibold md:text-h3;
+      .h3 {
+        @apply m-0 flex items-center;
       }
       .icon-btn {
-        @apply pl-0 pr-3;
+        @apply pl-0 pr-2;
         .abc-icon {
           @apply text-2xl md:text-3xl;
         }
@@ -42,7 +45,7 @@
       @apply ml-3 w-full cursor-pointer truncate py-3;
     }
     .checked {
-      @apply line-through;
+      @apply line-through opacity-50;
     }
     .actions {
       @apply -mr-4 flex gap-x-1;

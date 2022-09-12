@@ -6,8 +6,14 @@
   .inner {
     @apply mx-auto flex h-full max-w-[708px] flex-col items-center justify-center;
   }
+  .user {
+    @apply ml-auto mt-7 mr-5 flex items-center;
+    .sep {
+      @apply mx-2 inline-flex h-4 w-[1px] bg-cyan-800;
+    }
+  }
   .title {
-    @apply text-center text-5xl font-extrabold text-blue-500 md:text-hero;
+    @apply mt-20 text-center text-5xl font-extrabold text-blue-500 md:text-hero;
   }
   .h1 {
     @apply mt-6 text-center font-medium text-blue-500 md:mt-16;

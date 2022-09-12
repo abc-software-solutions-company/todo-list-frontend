@@ -6,6 +6,7 @@ import TaskAPI, {ITask} from '@/api/network/task';
 import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import {Modal} from '@/core-ui/modal';
+import useToast from '@/core-ui/toast';
 
 import styles from './style.module.scss';
 
@@ -19,12 +20,12 @@ interface IProps {
 
 const ModalTaskConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfirm}) => {
   const router = useRouter();
-
+  const toast = useToast();
   const deletePost = () => {
     if (data?.id)
       TaskAPI.deleteTask(data?.id).then(() => {
         onConfirm?.();
-
+        toast.show({type: 'success', title: 'Delete task', content: 'Successful!'});
         if (page === 'detail') {
           router.push(ROUTES.TODO_LIST);
         }
@@ -41,8 +42,11 @@ const ModalTaskConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
       onClose={() => onCancel?.()}
     >
       <Modal.Header>
-        <h3 className="title">Are you sure you want to delete task:</h3>
-        <h3 className="title">{data.name}</h3>
+        <h3 className="title-des">
+          Are you sure you want to delete task:&nbsp;<i>{data.name}</i>{' '}
+        </h3>
+        <h3 className="title-mob">Are you sure you want to delete list: </h3>
+        <h3 className="title-mob">{data.name}</h3>
       </Modal.Header>
       <Modal.Footer>
         <div className="flex w-full gap-x-3 md:gap-x-4 ">

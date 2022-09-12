@@ -1,6 +1,6 @@
 import React, {FC, ReactNode} from 'react';
 
-import Icon from '../icon';
+import IconButton from '../icon-button';
 import {useModal} from './modal';
 
 export interface IModalHeaderProps {
@@ -15,7 +15,7 @@ const Header: FC<IModalHeaderProps> = ({text, children}) => {
 
   return (
     <div className="abc-modal-header">
-      <Icon className="ml-auto cursor-pointer" name="ico-x-circle" onClick={() => onClose(false)} />
+      <IconButton className="ml-auto" name="ico-x-circle" onClick={() => onClose(false)} />
       {content}
     </div>
   );

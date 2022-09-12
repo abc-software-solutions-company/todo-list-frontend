@@ -60,6 +60,11 @@ export default function Action() {
       <div className={styles['page-action']}>
         <div className="container">
           <div className="inner">
+            <div className="user">
+              <span className="h5">Thiện</span>
+              <span className="sep"></span>
+              <span className="h5">My List</span>
+            </div>
             <p className="title">TO-DO LIST</p>
             <p className="h1">Organize your work and life, finally.</p>
             <div className="actions">

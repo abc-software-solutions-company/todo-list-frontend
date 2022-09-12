@@ -82,10 +82,11 @@ export default function Detail() {
       <div className={styles['page-detail']}>
         <div className="container">
           <Topbar />
+          <h2 className="h2">{todoList.name}</h2>
           <div className="toolbar">
             <div className="left">
               <IconButton name="ico-arrow-left-circle" size={32} onClick={() => router.push(ROUTES.TODO_LIST)} />
-              <h3 className="h3">{todoList.name}</h3>
+              <h3 className="h3">Back</h3>
             </div>
             <div className="right">
               <Button
