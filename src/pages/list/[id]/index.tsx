@@ -10,7 +10,6 @@ import ModalTaskAddEdit from '@/components/modal-task-add-edit';
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
 import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
 import Seo from '@/components/seo/seo';
-import Topbar from '@/components/topbar';
 import {ROUTES} from '@/configs/routes.config';
 import {siteSettings} from '@/configs/site.config';
 import Button from '@/core-ui/button';
@@ -87,13 +86,7 @@ export default function Detail() {
 
         <div className={styles['page-detail']}>
           <div className="container">
-            <div className="inner">
-              <h2 className="h2">{todoList.name}</h2>
-              <div className="nav">
-                {' '}
-                <Topbar />
-              </div>
-            </div>
+            <h2 className="h2">{todoList.name}</h2>
             <div className="toolbar">
               <div className="left">
                 <IconButton name="ico-arrow-left-circle" size={32} onClick={() => router.push(ROUTES.TODO_LIST)} />

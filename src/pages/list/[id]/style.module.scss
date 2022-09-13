@@ -1,12 +1,6 @@
 .page-detail :global {
-  .inner {
-    @apply flex;
-    .nav {
-      @apply w-full;
-    }
-  }
   .h2 {
-    @apply mx-auto mt-6 w-full break-words text-h4 font-semibold md:text-h2;
+    @apply mx-auto -mt-10 w-full break-words text-h4 font-semibold md:text-h2;
   }
   .toolbar {
     @apply mt-4 flex justify-between;

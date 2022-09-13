@@ -14,10 +14,12 @@ const Topbar: FC<IProps> = () => {
 
   return (
     <div className={styles.topbar}>
-      <Icon name="ico-user" />
-      <span className="h5">Thiện</span>
-      <span className="sep"></span>
-      <span className="h5">My List</span>
+      <div className="container">
+        <Icon name="ico-user ml-auto" />
+        <span className="h5">Thiện</span>
+        <span className="sep"></span>
+        <span className="h5">My List</span>
+      </div>
     </div>
   );
 };

@@ -1,14 +1,13 @@
 import {GetStaticProps} from 'next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {useRouter} from 'next/router';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 
 import API, {ITodo} from '@/api/network/todo';
 import ModalShare from '@/components/modal-share';
 import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
 import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
 import Seo from '@/components/seo/seo';
-import Topbar from '@/components/topbar';
 import {ROUTES} from '@/configs/routes.config';
 import {siteSettings} from '@/configs/site.config';
 import Button from '@/core-ui/button';
@@ -43,16 +42,16 @@ export default function List() {
     resetAction();
   };
 
-  useEffect(() => {
-    if (userObject.id === '') {
-      router.push(ROUTES.QUICKPLAY);
-    }
-    if (localStorage.getItem('createNewList')) {
-      setAction({type: 'add', payload: null});
-      localStorage.removeItem('createNewList');
-    }
-    getTodoList();
-  }, [userObject]);
+  // useEffect(() => {
+  //   if (userObject.id === '') {
+  //     router.push(ROUTES.QUICKPLAY);
+  //   }
+  //   if (localStorage.getItem('createNewList')) {
+  //     setAction({type: 'add', payload: null});
+  //     localStorage.removeItem('createNewList');
+  //   }
+  //   getTodoList();
+  // }, [userObject]);
 
   if (!todoList) return null;
 
