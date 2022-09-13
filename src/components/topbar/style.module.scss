@@ -1,7 +1,10 @@
 .topbar :global {
-  @apply mt-4 flex items-center justify-end gap-2;
+  @apply mt-4;
+  .authenticated {
+    @apply flex w-full items-center;
+  }
   .ico-user {
-    @apply text-xl;
+    @apply ml-auto mr-2 text-xl;
   }
   .sep {
     @apply mx-2 h-4 w-[1px] bg-cyan-800;

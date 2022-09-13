@@ -1,7 +1,8 @@
+import Link from 'next/link';
 import {FC} from 'react';
 
+import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
-// import {ThemeContext} from '@/hooks/useAuthContext';
 
 import styles from './style.module.scss';
 
@@ -10,15 +11,17 @@ interface IProps {
 }
 
 const Topbar: FC<IProps> = () => {
-  // const user = useContext(ThemeContext);
-
   return (
     <div className={styles.topbar}>
       <div className="container">
-        <Icon name="ico-user ml-auto" />
-        <span className="h5">Thiện</span>
-        <span className="sep"></span>
-        <span className="h5">My List</span>
+        <div className="authenticated">
+          <Icon name="ico-user" />
+          <span className="h5">Thiện</span>
+          <span className="sep"></span>
+          <Link href={ROUTES.TODO_LIST}>
+            <a className="h5">My List</a>
+          </Link>
+        </div>
       </div>
     </div>
   );
