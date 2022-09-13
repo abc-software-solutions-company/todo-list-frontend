@@ -2,6 +2,7 @@ import cls from 'classnames';
 import React, {useEffect, useState} from 'react';
 
 import Button from '@/core-ui/button';
+import Icon from '@/core-ui/icon';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
 
@@ -34,7 +35,11 @@ const ModalShare: React.FC<IProps> = ({id, open, onClose}) => {
         <div className="item">
           <Input
             label="Link:"
-            groupEnd={<Button variant="contained" color="primary" text="Copy" onClick={() => copy('link', link)} />}
+            groupEnd={
+              <Button variant="contained" color="primary" onClick={() => copy('link', link)}>
+                <Icon name="ico-copy" />
+              </Button>
+            }
             value={link}
             readOnly
           />
@@ -42,7 +47,11 @@ const ModalShare: React.FC<IProps> = ({id, open, onClose}) => {
         <div className="item mt-3">
           <Input
             label="ID List:"
-            groupEnd={<Button variant="contained" color="primary" text="Copy" onClick={() => copy('id', id)} />}
+            groupEnd={
+              <Button variant="contained" color="primary" onClick={() => copy('id', id)}>
+                <Icon name="ico-copy" />
+              </Button>
+            }
             value={id}
             readOnly
           />
