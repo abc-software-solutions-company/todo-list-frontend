@@ -1,7 +1,7 @@
-import {FC, useContext} from 'react';
+import {FC} from 'react';
 
 import Icon from '@/core-ui/icon';
-import {ThemeContext} from '@/hooks/useAuthContext';
+// import {ThemeContext} from '@/hooks/useAuthContext';
 
 import styles from './style.module.scss';
 
@@ -10,12 +10,14 @@ interface IProps {
 }
 
 const Topbar: FC<IProps> = () => {
-  const user = useContext(ThemeContext);
+  // const user = useContext(ThemeContext);
 
   return (
     <div className={styles.topbar}>
       <Icon name="ico-user" />
-      <h4 className="h5">{user.userName}</h4>
+      <span className="h5">Thiện</span>
+      <span className="sep"></span>
+      <span className="h5">My List</span>
     </div>
   );
 };

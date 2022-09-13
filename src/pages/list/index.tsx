@@ -62,7 +62,6 @@ export default function List() {
         <Seo title={`${siteSettings.name} | Your List`} description={siteSettings.description} />
         <div className={styles['page-list']}>
           <div className="container">
-            <Topbar />
             <div className="toolbar">
               <div className="left">
                 <IconButton name="ico-arrow-left-circle" size={32} onClick={() => router.push(ROUTES.ACTION)} />
