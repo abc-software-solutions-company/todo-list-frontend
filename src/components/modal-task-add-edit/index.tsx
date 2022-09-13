@@ -57,15 +57,23 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
     formData.userId = userId;
 
     if (data?.id) {
-      API.updateTask(data.id, formData).then(() => {
-        onSave?.();
-        toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
-      });
+      API.updateTask(data.id, formData)
+        .then(() => {
+          onSave?.();
+          toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
+        })
+        .catch(() => {
+          toast.show({type: 'danger', title: 'Update To-Do', content: 'Error, too much character'});
+        });
     } else {
-      API.createTask(formData).then(() => {
-        onSave?.();
-        toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
-      });
+      API.createTask(formData)
+        .then(() => {
+          onSave?.();
+          toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
+        })
+        .catch(() => {
+          toast.show({type: 'danger', title: 'Create To-Do', content: 'Error, too much character'});
+        });
     }
   };
 
