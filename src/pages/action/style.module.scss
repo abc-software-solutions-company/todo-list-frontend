@@ -7,7 +7,7 @@
     @apply mx-auto flex h-full max-w-[708px] flex-col items-center justify-center;
   }
   .title {
-    @apply mt-20 text-center text-5xl font-extrabold text-blue-500 md:text-hero;
+    @apply text-center text-5xl font-extrabold text-blue-500 md:text-hero;
   }
   .h1 {
     @apply mt-6 text-center font-medium text-blue-500 md:mt-16;
