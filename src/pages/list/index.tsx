@@ -44,14 +44,13 @@ export default function List() {
   };
 
   useEffect(() => {
+    if (userObject.id === '') {
+      router.push(ROUTES.QUICKPLAY);
+    }
     if (localStorage.getItem('createNewList')) {
       setAction({type: 'add', payload: null});
       localStorage.removeItem('createNewList');
     }
-    if (userObject.id === '') {
-      router.push(ROUTES.QUICKPLAY);
-    }
-
     getTodoList();
   }, [userObject]);
 
@@ -103,25 +102,7 @@ export default function List() {
               ))}
             </div>
           </div>
-          {/* <pre>{JSON.stringify(action)}</pre> */}
-          {/* <pre>{['add', 'edit'].includes(action.type).toString()}</pre> */}
-          {/* <ModalTodoAddEdit
-      </div>
-      <div className="menu-footer">
-        <Button
-          className="btn-create"
-          startIcon={<Icon name="ico-plus-circle" size={28} />}
-          onClick={() => setAction({type: 'add', payload: null})}
-        />
-      </div>
-      {/* <pre>{JSON.stringify(action)}</pre> */}
-          {/* <pre>{['add', 'edit'].includes(action.type).toString()}</pre> */}
-          {/* <ModalTodoAddEdit
-        data={action.payload}
-        open={['add', 'edit'].includes(action.type)}
-        onSave={reset}
-        onCancel={resetAction}
-      /> */}
+
           <FloatIcon className="float-icon" onClick={() => setAction({type: 'add', payload: null})} />
           {['add', 'edit'].includes(action.type) && (
             <ModalTodoAddEdit data={action.payload} open={true} onSave={() => reset()} onCancel={() => resetAction()} />

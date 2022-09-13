@@ -38,8 +38,8 @@ export default function Detail() {
   const page = 'detail';
 
   const socketMsgToServer = () => socket.emit('msgToServer');
+
   const getListTasks = (todoListId: string) => API.getListTasks(todoListId).then(res => setTodoList(res.data));
-  // const getTodo = () => TodoAPI.getTodo(id ? id.toString() : '').then(res => setTodo(res.data));
 
   const handleShare = () => {
     setShareOpen(true);
@@ -69,6 +69,9 @@ export default function Detail() {
   };
 
   useEffect(() => {
+    if (userObject.id === '') {
+      router.push(ROUTES.QUICKPLAY);
+    }
     if (id) {
       getListTasks(id);
       socketMsgToClient();

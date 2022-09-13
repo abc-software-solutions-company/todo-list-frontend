@@ -19,24 +19,40 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
   const router = useRouter();
   const [user, setUser] = useState<GlobalContext>({userName: '', createdDate: '', id: ''});
   const Layout = (Component as any).Layout || Noop;
+  const [resoulved, setResolved] = useState(false);
+
+  const checkShareLink = () => {
+    const listIDDetect = router.asPath.split('/')[2];
+    if (isString(listIDDetect)) {
+      const listID = window.location.href.split('/')[4];
+      localStorage.setItem('listID', listID);
+    }
+  };
 
   useEffect(() => {
     const userIdSaved = localStorage.getItem('userIdSaved');
-    API.checkUserLogin(userIdSaved).then(res => setUser(res.data));
+    API.checkUserLogin(userIdSaved)
+      .then(res => {
+        setUser(res.data);
+        setResolved(true);
+      })
+      .catch(() => setResolved(true));
+    checkShareLink();
   }, []);
 
-  return (
-    <QueryProvider pageProps={pageProps}>
-      <CoreUIProvider theme={defaultTheme}>
-        <NextNProgress color="#448BD1" />
-        <Layout pageProps={pageProps}>
-          <ThemeContext.Provider value={user}>
-            {true && <Component {...pageProps} key={router.route} />}
-          </ThemeContext.Provider>
-        </Layout>
-      </CoreUIProvider>
-    </QueryProvider>
-  );
+  if (resoulved)
+    return (
+      <QueryProvider pageProps={pageProps}>
+        <CoreUIProvider theme={defaultTheme}>
+          <NextNProgress color="#448BD1" />
+          <Layout pageProps={pageProps}>
+            <ThemeContext.Provider value={user}>
+              {true && <Component {...pageProps} key={router.route} />}
+            </ThemeContext.Provider>
+          </Layout>
+        </CoreUIProvider>
+      </QueryProvider>
+    );
 };
 
 export default appWithTranslation(CustomApp);
