@@ -3,8 +3,14 @@
     .abc-icon {
       @apply text-xl;
     }
-    .title {
-      @apply -mt-3 mb-4 px-5 md:px-0;
+    .title-des {
+      @apply hidden overflow-x-hidden px-0 pt-4 md:block md:pt-2 md:text-center;
+    }
+    .title-mob {
+      @apply flex justify-center px-0 pt-4 md:hidden md:pt-2;
+    }
+    .title-mob:last-child {
+      @apply mb-4 break-words p-0 italic md:m-0;
     }
   }
   .abc-modal-footer {

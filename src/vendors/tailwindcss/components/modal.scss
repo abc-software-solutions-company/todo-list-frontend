@@ -35,9 +35,12 @@
     .abc-icon {
       @apply -mr-2 -mt-2 md:-mr-7 md:-mt-7;
     }
+    .icon-btn {
+      @apply absolute top-1 right-2 leading-none md:top-2 md:right-8;
+    }
   }
   .abc-modal-close {
-    @apply absolute top-1 right-4 -mr-2 p-2 text-[30px] leading-none text-black/[0.3];
+    @apply absolute top-1 right-4 -mr-2 p-2  leading-none;
   }
   .abc-modal-footer {
     @apply my-4 flex shrink-0 flex-wrap items-center justify-end gap-x-2 p-4 md:mx-5 md:my-3;
