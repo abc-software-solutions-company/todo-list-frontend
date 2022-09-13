@@ -1,6 +1,6 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import cls from 'classnames';
-import React, {FC, useEffect} from 'react';
+import React, {FC, useContext, useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -9,6 +9,7 @@ import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
+import {ThemeContext} from '@/hooks/useAuthContext';
 
 import styles from './style.module.scss';
 
@@ -21,25 +22,23 @@ interface IProps {
 
 interface IFormInputs {
   name: string;
-  userId?: string | null;
+  userId?: string;
 }
 
 const Schema = yup.object().shape({
   name: yup.string().required('Please enter your list name.')
 });
+const FORM_DEFAULT_VALUES = {
+  name: ''
+};
 
 const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
-  const toast = useToast();
-
-  const FORM_DEFAULT_VALUES = {
-    name: ''
-  };
-
   const {register, handleSubmit, setValue, reset, formState} = useForm<IFormInputs>({
     defaultValues: FORM_DEFAULT_VALUES,
     resolver: yupResolver(Schema)
   });
-
+  const toast = useToast();
+  const userObject = useContext(ThemeContext);
   const {errors} = formState;
 
   const getTodo = (id: string) => {
@@ -50,8 +49,9 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
   };
 
   const onSubmit: SubmitHandler<IFormInputs> = formData => {
-    const userObject = JSON.parse(localStorage.getItem('user') || '{}');
     const userId = userObject.id;
+
+    formData.userId = userId;
 
     if (data?.id) {
       API.updateTodo(data.id, formData).then(() => onSave?.());
@@ -72,8 +72,6 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
-
-  if (!open) return null;
 
   return (
     <Modal

@@ -1,7 +1,7 @@
 {
-  "404-heading": "Lỗi: 404",
-  "404-sub-heading": "Xin lỗi bạn về sự bất tiện này, trang này hiện không tồn tại.",
-  "404-back-home": "Về trang chủ",
+  "404-heading": "Error: 404",
+  "404-sub-heading": "Sory for your convenience, this page is not available.\nPlease try again or go to another page.",
+  "404-back-home": "Take me home",
 
   "menu-home":"Trang chủ",
   "menu-blog":"Bài viết",

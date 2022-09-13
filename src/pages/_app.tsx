@@ -9,63 +9,50 @@ import {useRouter} from 'next/router';
 import NextNProgress from 'nextjs-progressbar';
 import React, {useEffect, useState} from 'react';
 
-import {ROUTES} from '@/configs/routes.config';
+import API from '@/api/network/user';
 import QueryProvider from '@/contexts/query.provider';
 import {CoreUIProvider, defaultTheme} from '@/core-ui/contexts/index';
 import Noop from '@/core-ui/noop';
+import {GlobalContext, ThemeContext} from '@/hooks/useAuthContext';
 
 const CustomApp = ({Component, pageProps}: AppProps) => {
   const router = useRouter();
-  const [visible, setVisible] = useState(false);
-
+  const [user, setUser] = useState<GlobalContext>({userName: '', createdDate: '', id: ''});
   const Layout = (Component as any).Layout || Noop;
+  const [resolved, setResolved] = useState(false);
 
-  function authCheck(url: string) {
-    const userJson = localStorage.getItem('user');
-    const user = JSON.parse(userJson || '{}');
-
-    const currentPath = url.split('?')[0];
-    const listIDDetect = url.split('/')[2];
-
+  const checkShareLink = () => {
+    const listIDDetect = router.asPath.split('/')[2];
     if (isString(listIDDetect)) {
-      setVisible(true);
       const listID = window.location.href.split('/')[4];
       localStorage.setItem('listID', listID);
     }
-
-    if (!user.id && !['/', '/quick-play'].includes(currentPath)) {
-      setVisible(true);
-      router.push({pathname: ROUTES.QUICKPLAY});
-    } else if (user.id && ['/quick-play'].includes(currentPath)) {
-      setVisible(true);
-      router.push({pathname: ROUTES.ACTION});
-    } else {
-      setVisible(true);
-    }
-  }
+  };
 
   useEffect(() => {
-    authCheck(router.asPath);
-
-    const hideContent = () => setVisible(false);
-
-    router.events.on('routeChangeStart', hideContent);
-    router.events.on('routeChangeComplete', authCheck);
-    return () => {
-      router.events.off('routeChangeStart', hideContent);
-      router.events.off('routeChangeComplete', authCheck);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const userIdSaved = localStorage.getItem('userIdSaved');
+    API.checkUserLogin(userIdSaved)
+      .then(res => {
+        setUser(res.data);
+        setResolved(true);
+      })
+      .catch(() => setResolved(true));
+    checkShareLink();
   }, []);
 
-  return (
-    <QueryProvider pageProps={pageProps}>
-      <CoreUIProvider theme={defaultTheme}>
-        <NextNProgress color="#448BD1" />
-        <Layout pageProps={pageProps}>{visible && <Component {...pageProps} key={router.route} />}</Layout>
-      </CoreUIProvider>
-    </QueryProvider>
-  );
+  if (resolved)
+    return (
+      <QueryProvider pageProps={pageProps}>
+        <CoreUIProvider theme={defaultTheme}>
+          <NextNProgress color="#448BD1" />
+          <Layout pageProps={pageProps}>
+            <ThemeContext.Provider value={user}>
+              {true && <Component {...pageProps} key={router.route} />}
+            </ThemeContext.Provider>
+          </Layout>
+        </CoreUIProvider>
+      </QueryProvider>
+    );
 };
 
 export default appWithTranslation(CustomApp);

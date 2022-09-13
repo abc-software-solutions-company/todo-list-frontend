@@ -3,7 +3,7 @@ import cn from 'classnames';
 import {GetStaticProps} from 'next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {useRouter} from 'next/router';
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -15,6 +15,7 @@ import {siteSettings} from '@/configs/site.config';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
+import {ThemeContext} from '@/hooks/useAuthContext';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import LayoutDefault from '@/layouts/default';
 
@@ -29,6 +30,8 @@ const Schema = yup.object().shape({
 });
 
 export default function QuickPlay() {
+  const userObject = useContext(ThemeContext);
+
   const router = useRouter();
   const toast = useToast();
   const matches = useMediaQuery('(min-width:640px)');
@@ -39,16 +42,20 @@ export default function QuickPlay() {
     API.createUser(data)
       .then(res => {
         if (res.status === 201) {
-          localStorage.setItem('user', JSON.stringify(res.data));
+          localStorage.setItem('userIdSaved', res.data.id);
           if (localStorage.getItem('listID')) {
             router.push(`${ROUTES.TODO_LIST}/${localStorage.getItem('listID')}`);
-          } else router.push(ROUTES.ACTION);
+          } else router.push(ROUTES.WAITING);
         }
       })
       .catch(() => {
         toast.show({type: 'danger', title: 'Error', content: 'Can&lsquo;t create user.'});
       });
   };
+
+  useEffect(() => {
+    if (userObject.id !== '' && !localStorage.getItem('listID')) router.push(ROUTES.ACTION);
+  }, [userObject.id]);
 
   const {errors} = formState;
 

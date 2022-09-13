@@ -1,6 +1,6 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import cls from 'classnames';
-import {FC, useEffect} from 'react';
+import {FC, useContext, useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -9,6 +9,7 @@ import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
+import {ThemeContext} from '@/hooks/useAuthContext';
 
 import styles from './style.module.scss';
 
@@ -39,6 +40,7 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
     resolver: yupResolver(Schema)
   });
   const toast = useToast();
+  const userObject = useContext(ThemeContext);
   const {errors} = formState;
 
   const getTask = (id: string) => {
@@ -49,7 +51,6 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
   };
 
   const onSubmit: SubmitHandler<IFormInputs> = formData => {
-    const userObject = JSON.parse(localStorage.getItem('user') || '{}');
     const userId = userObject.id;
 
     formData.todoListId = todoListId;
