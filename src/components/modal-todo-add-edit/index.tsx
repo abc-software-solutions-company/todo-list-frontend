@@ -54,14 +54,24 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
     formData.userId = userId;
 
     if (data?.id) {
-      API.updateTodo(data.id, formData).then(() => onSave?.());
-      toast.show({type: 'success', title: 'Update', content: 'Update successful!'});
+      API.updateTodo(data.id, formData)
+        .then(() => {
+          onSave?.();
+          toast.show({type: 'success', title: 'Update List', content: 'Update successful!'});
+        })
+        .catch(() => {
+          toast.show({type: 'danger', title: 'Update List', content: 'Error, too much character'});
+        });
     } else {
       formData.userId = userId;
-      API.createTodo(formData).then(() => {
-        onSave?.();
-        toast.show({type: 'success', title: 'Create', content: 'Create successful!'});
-      });
+      API.createTodo(formData)
+        .then(() => {
+          onSave?.();
+          toast.show({type: 'success', title: 'Create List', content: 'Create successful!'});
+        })
+        .catch(() => {
+          toast.show({type: 'danger', title: 'Create List', content: 'Error, too much character'});
+        });
     }
   };
   useEffect(() => {
