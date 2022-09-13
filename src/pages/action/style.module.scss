@@ -1,16 +1,10 @@
 .page-action :global {
   @apply h-full;
   .container {
-    @apply h-full;
-  }
-  .user {
-    @apply mr-20 mt-6 flex items-center justify-end;
-    .sep {
-      @apply mx-2 inline-flex h-4 w-[1px] bg-cyan-800;
-    }
+    @apply flex h-full items-center;
   }
   .inner {
-    @apply mx-auto flex h-full max-w-[708px] flex-col items-center justify-center;
+    @apply mx-auto  w-full md:max-w-[708px];
   }
   .title {
     @apply text-center text-5xl font-extrabold text-blue-500 md:text-hero;

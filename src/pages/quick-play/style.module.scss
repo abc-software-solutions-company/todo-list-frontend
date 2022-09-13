@@ -4,7 +4,7 @@
     @apply flex h-full items-center;
   }
   .inner {
-    @apply mx-auto;
+    @apply mx-auto  w-full md:max-w-xl;
   }
   .logo-wrapper {
     @apply flex justify-center md:mt-6;

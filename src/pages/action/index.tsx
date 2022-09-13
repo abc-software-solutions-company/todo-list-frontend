@@ -63,11 +63,6 @@ export default function Action() {
       <>
         <Seo title={`${siteSettings.name} | Action Page`} description={siteSettings.description} />
         <div className={styles['page-action']}>
-          <div className="user sticky-top">
-            <span className="h5">{userObject.userName}</span>
-            <span className="sep"></span>
-            <span className="h5">My List</span>
-          </div>
           <div className="container">
             <div className="inner">
               <p className="title">TO-DO LIST</p>
