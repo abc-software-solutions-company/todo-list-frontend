@@ -19,7 +19,7 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
   const router = useRouter();
   const [user, setUser] = useState<GlobalContext>({userName: '', createdDate: '', id: ''});
   const Layout = (Component as any).Layout || Noop;
-  const [resoulved, setResolved] = useState(false);
+  const [resolved, setResolved] = useState(false);
 
   const checkShareLink = () => {
     const listIDDetect = router.asPath.split('/')[2];
@@ -40,7 +40,7 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
     checkShareLink();
   }, []);
 
-  if (resoulved)
+  if (resolved)
     return (
       <QueryProvider pageProps={pageProps}>
         <CoreUIProvider theme={defaultTheme}>

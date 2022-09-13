@@ -73,7 +73,7 @@ export default function Detail() {
       router.push(ROUTES.QUICKPLAY);
     }
     if (id) {
-      getListTasks(id);
+      getListTasks(id).catch(() => router.push(ROUTES.TODO_LIST));
       socketMsgToClient();
     }
   }, [id]);
