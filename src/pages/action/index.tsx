@@ -66,7 +66,7 @@ export default function Action() {
           <div className="container">
             <div className="inner">
               <div className="user">
-                <span className="h5">Thiện</span>
+                <span className="h5">{userObject.userName}</span>
                 <span className="sep"></span>
                 <span className="h5">My List</span>
               </div>
