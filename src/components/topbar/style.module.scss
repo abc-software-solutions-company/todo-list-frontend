@@ -1,5 +1,11 @@
 .topbar :global {
   @apply mt-4;
+  .container {
+    @apply flex;
+  }
+  h2 {
+    @apply mr-auto break-words text-h4 font-semibold md:text-h2;
+  }
   .authenticated {
     @apply flex w-full items-center;
   }
