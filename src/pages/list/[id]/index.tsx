@@ -36,7 +36,7 @@ export default function Detail() {
   const {id} = router.query;
   const page = 'detail';
 
-  const socketMsgToServer = () => socket.emit('msgToServer');
+  const socketMsgToServer = () => socket.emit('msgToServer', {roomId: id});
 
   const getListTasks = (todoListId: string) => API.getListTasks(todoListId).then(res => setTodoList(res.data));
 
@@ -55,7 +55,7 @@ export default function Detail() {
   const resetAction = () => setAction({type: '', payload: null});
   const resetActionTodo = () => setActionTodo({type: '', payload: null});
   const socketMsgToClient = () => {
-    socket.on('msgToClient', () => {
+    socket.on(`msgToClient_${id}`, () => {
       getListTasks(id);
     });
   };
