@@ -2,11 +2,12 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import {GetStaticProps} from 'next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {useRouter} from 'next/router';
-import {useContext, useEffect} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
 import API from '@/api/network/todo';
+import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
 import Seo from '@/components/seo/seo';
 import {ROUTES} from '@/configs/routes.config';
 import {siteSettings} from '@/configs/site.config';
@@ -15,6 +16,7 @@ import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
 import {ThemeContext} from '@/hooks/useAuthContext';
 import LayoutDefault from '@/layouts/default';
+import {IAction} from '@/types';
 
 import styles from './style.module.scss';
 
@@ -30,6 +32,9 @@ export default function Action() {
   const router = useRouter();
   const toast = useToast();
   const userObject = useContext(ThemeContext);
+  const [action, setAction] = useState<IAction>({type: '', payload: null});
+
+  const resetAction = () => setAction({type: '', payload: null});
 
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
     resolver: yupResolver(Schema)
@@ -73,9 +78,7 @@ export default function Action() {
                     variant="contained"
                     className="w-full font-medium"
                     color="primary"
-                    onClick={() => {
-                      router.push(ROUTES.TODO_LIST);
-                    }}
+                    onClick={() => setAction({type: 'add', payload: null})}
                   >
                     Create New List
                   </Button>
@@ -102,6 +105,14 @@ export default function Action() {
             </div>
           </div>
         </div>
+        {['add'].includes(action.type) && (
+          <ModalTodoAddEdit
+            data={action.payload}
+            open={true}
+            onSave={() => router.push(ROUTES.TODO_LIST)}
+            onCancel={() => resetAction()}
+          />
+        )}
       </>
     );
 }
