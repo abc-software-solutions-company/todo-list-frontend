@@ -56,7 +56,7 @@ export default function Detail() {
   const resetActionTodo = () => setActionTodo({type: '', payload: null});
   const socketMsgToClient = () => {
     socket.on(`msgToClient_${id}`, () => {
-      getListTasks(id);
+      getListTasks(id).catch(() => router.push(ROUTES.TODO_LIST));
     });
   };
 
