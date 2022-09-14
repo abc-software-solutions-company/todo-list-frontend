@@ -10,6 +10,7 @@ import NextNProgress from 'nextjs-progressbar';
 import React, {useEffect, useState} from 'react';
 
 import API from '@/api/network/user';
+import {ROUTES} from '@/configs/routes.config';
 import QueryProvider from '@/contexts/query.provider';
 import {CoreUIProvider, defaultTheme} from '@/core-ui/contexts/index';
 import Noop from '@/core-ui/noop';
@@ -17,6 +18,7 @@ import {GlobalContext, ThemeContext} from '@/hooks/useAuthContext';
 
 const CustomApp = ({Component, pageProps}: AppProps) => {
   const router = useRouter();
+  const [visible, setVisible] = useState(false);
   const [user, setUser] = useState<GlobalContext>({userName: '', createdDate: '', id: ''});
   const Layout = (Component as any).Layout || Noop;
   const [resolved, setResolved] = useState(false);
@@ -29,7 +31,7 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
     }
   };
 
-  useEffect(() => {
+  function authCheck(url: string) {
     const userIdSaved = localStorage.getItem('userIdSaved');
     API.checkUserLogin(userIdSaved)
       .then(res => {
@@ -38,6 +40,29 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
       })
       .catch(() => setResolved(true));
     checkShareLink();
+
+    if (resolved) {
+      const currentPath = url.split('?')[0];
+      if (user.id === undefined && !['/', '/quick-play'].includes(currentPath)) {
+        setVisible(true);
+        router.push({pathname: ROUTES.QUICKPLAY});
+      } else if (user.id !== undefined && ['/quick-play'].includes(currentPath)) {
+        setVisible(true);
+        router.push({pathname: ROUTES.ACTION});
+      } else {
+        setVisible(true);
+      }
+    }
+  }
+  useEffect(() => {
+    authCheck(router.asPath);
+    const hideContent = () => setVisible(false);
+    router.events.on('routeChangeStart', hideContent);
+    router.events.on('routeChangeComplete', authCheck);
+    return () => {
+      router.events.off('routeChangeStart', hideContent);
+      router.events.off('hashChangeComplete', authCheck);
+    };
   }, []);
 
   if (resolved)
@@ -46,6 +71,7 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
         <CoreUIProvider theme={defaultTheme}>
           <NextNProgress color="#448BD1" />
           <Layout pageProps={pageProps}>
+            {visible && <Component {...pageProps} key={router.route} />}
             <ThemeContext.Provider value={user}>
               {true && <Component {...pageProps} key={router.route} />}
             </ThemeContext.Provider>

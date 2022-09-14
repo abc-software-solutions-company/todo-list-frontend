@@ -1,7 +1,7 @@
 import {GetStaticProps} from 'next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {useRouter} from 'next/router';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import API, {ITodo} from '@/api/network/todo';
 import ModalShare from '@/components/modal-share';
@@ -42,16 +42,16 @@ export default function List() {
     resetAction();
   };
 
-  // useEffect(() => {
-  //   if (userObject.id === '') {
-  //     router.push(ROUTES.QUICKPLAY);
-  //   }
-  //   if (localStorage.getItem('createNewList')) {
-  //     setAction({type: 'add', payload: null});
-  //     localStorage.removeItem('createNewList');
-  //   }
-  //   getTodoList();
-  // }, [userObject]);
+  useEffect(() => {
+    if (userObject.id === '') {
+      router.push(ROUTES.QUICKPLAY);
+    }
+    if (localStorage.getItem('createNewList')) {
+      setAction({type: 'add', payload: null});
+      localStorage.removeItem('createNewList');
+    }
+    getTodoList();
+  }, [userObject]);
 
   if (!todoList) return null;
 

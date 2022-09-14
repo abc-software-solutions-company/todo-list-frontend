@@ -1,6 +1,10 @@
 .com-quick-play :global {
+  @apply h-full;
+  .container {
+    @apply flex h-full items-center;
+  }
   .inner {
-    @apply mx-auto mt-16 md:max-w-xl lg:mt-14;
+    @apply mx-auto  w-full md:max-w-xl;
   }
   .logo-wrapper {
     @apply flex justify-center md:mt-6;
