@@ -6,8 +6,9 @@ import {isString} from 'lodash-es';
 import {appWithTranslation} from 'next-i18next';
 import type {AppProps} from 'next/app';
 import {useRouter} from 'next/router';
-import NextNProgress from 'nextjs-progressbar';
+import NProgress from 'nprogress';
 import React, {useEffect, useState} from 'react';
+import 'nprogress/nprogress.css';
 
 import API from '@/api/network/user';
 import {ROUTES} from '@/configs/routes.config';
@@ -53,10 +54,15 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
         setVisible(true);
       }
     }
+    NProgress.done();
   }
+
   useEffect(() => {
     authCheck(router.asPath);
-    const hideContent = () => setVisible(false);
+    const hideContent = () => {
+      setVisible(false);
+      NProgress.start();
+    };
     router.events.on('routeChangeStart', hideContent);
     router.events.on('routeChangeComplete', authCheck);
     return () => {
@@ -67,17 +73,16 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
 
   if (resolved)
     return (
-      <QueryProvider pageProps={pageProps}>
-        <CoreUIProvider theme={defaultTheme}>
-          <NextNProgress color="#448BD1" />
-          <ThemeContext.Provider value={user}>
+      <ThemeContext.Provider value={user}>
+        <QueryProvider pageProps={pageProps}>
+          <CoreUIProvider theme={defaultTheme}>
             <Layout pageProps={pageProps}>
               {visible && <Component {...pageProps} key={router.route} />}
               {true && <Component {...pageProps} key={router.route} />}
             </Layout>
-          </ThemeContext.Provider>
-        </CoreUIProvider>
-      </QueryProvider>
+          </CoreUIProvider>
+        </QueryProvider>
+      </ThemeContext.Provider>
     );
 };
 
