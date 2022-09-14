@@ -23,12 +23,12 @@
   }
 
   form {
-    @apply relative mt-6 md:mt-12;
+    @apply relative mt-6 md:mt-14;
     .invalid {
       @apply absolute left-0;
     }
   }
   .btn-submit {
-    @apply mt-8 w-full p-3 md:mt-8 md:leading-6;
+    @apply mt-4 w-full p-3 md:mt-8 md:leading-6;
   }
 }
