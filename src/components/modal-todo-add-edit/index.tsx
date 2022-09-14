@@ -102,7 +102,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
             placeholder="Enter your list name"
             onKeyPress={e => {
               if (e.key === 'Enter') {
-                onSubmit(e.target.value);
+                console.log(e.target);
               }
             }}
           />
