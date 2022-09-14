@@ -100,6 +100,11 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
             error={errors.name?.message}
             {...register('name')}
             placeholder="Enter your list name"
+            onKeyPress={e => {
+              if (e.key === 'Enter') {
+                onSubmit(e.target.value);
+              }
+            }}
           />
         </Modal.Body>
         <Modal.Footer>
