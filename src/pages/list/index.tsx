@@ -46,10 +46,6 @@ export default function List() {
     if (userObject.id === '') {
       router.push(ROUTES.QUICKPLAY);
     }
-    if (localStorage.getItem('createNewList')) {
-      setAction({type: 'add', payload: null});
-      localStorage.removeItem('createNewList');
-    }
     getTodoList();
   }, [userObject]);
 

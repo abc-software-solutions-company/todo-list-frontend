@@ -74,7 +74,6 @@ export default function Action() {
                     className="w-full font-medium"
                     color="primary"
                     onClick={() => {
-                      localStorage.setItem('createNewList', '1');
                       router.push(ROUTES.TODO_LIST);
                     }}
                   >

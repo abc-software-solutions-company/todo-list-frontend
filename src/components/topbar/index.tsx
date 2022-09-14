@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import {FC} from 'react';
+import {FC, useContext} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
+import {ThemeContext} from '@/hooks/useAuthContext';
 
 import styles from './style.module.scss';
 
@@ -11,20 +12,22 @@ interface IProps {
 }
 
 const Topbar: FC<IProps> = () => {
-  return (
-    <div className={styles.topbar}>
-      <div className="container">
-        <div className="authenticated">
-          <Icon name="ico-user" />
-          <span className="h5">Thiện</span>
-          <span className="sep"></span>
-          <Link href={ROUTES.TODO_LIST}>
-            <a className="h5">My List</a>
-          </Link>
+  const userObject = useContext(ThemeContext);
+  if (userObject.id !== '')
+    return (
+      <div className={styles.topbar}>
+        <div className="container">
+          <div className="authenticated">
+            <Icon name="ico-user" />
+            <span className="h2">{userObject.userName}</span>
+            <span className="sep"></span>
+            <Link href={ROUTES.TODO_LIST}>
+              <a className="h2">My List</a>
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default Topbar;

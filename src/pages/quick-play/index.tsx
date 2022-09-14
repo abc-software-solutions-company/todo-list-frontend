@@ -69,7 +69,7 @@ export default function QuickPlay() {
               <TodoListLogo width={matches ? 249 : 175} />
             </div>
             <div className="enter-your-name">
-              <h2 className="h2 text-center">Let&apos;s start!</h2>
+              <h2 className="text-center">Let&apos;s start!</h2>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
                   placeholder="Enter your name"

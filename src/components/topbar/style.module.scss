@@ -1,5 +1,8 @@
 .topbar :global {
   @apply mt-4;
+  .h2 {
+    @apply text-h4 md:text-h2;
+  }
   .authenticated {
     @apply flex w-full items-center;
   }

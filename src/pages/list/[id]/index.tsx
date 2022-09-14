@@ -56,7 +56,7 @@ export default function Detail() {
   const resetActionTodo = () => setActionTodo({type: '', payload: null});
   const socketMsgToClient = () => {
     socket.on(`msgToClient_${id}`, () => {
-      getListTasks(id);
+      getListTasks(id).catch(() => router.push(ROUTES.TODO_LIST));
     });
   };
 
@@ -86,11 +86,11 @@ export default function Detail() {
 
         <div className={styles['page-detail']}>
           <div className="container">
-            <h2 className="h2">{todoList.name}</h2>
+            <h2>{todoList.name}</h2>
             <div className="toolbar">
               <div className="left">
                 <IconButton name="ico-arrow-left-circle" size={32} onClick={() => router.push(ROUTES.TODO_LIST)} />
-                <h3 className="h3">Back</h3>
+                <h3>Back</h3>
               </div>
               <div className="right">
                 <Button
