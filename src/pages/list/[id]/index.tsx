@@ -36,7 +36,7 @@ export default function Detail() {
   const {id} = router.query;
   const page = 'detail';
 
-  const socketMsgToServer = () => socket.emit('msgToServer');
+  const socketMsgToServer = () => socket.emit('msgToServer', {roomId: id});
 
   const getListTasks = (todoListId: string) => API.getListTasks(todoListId).then(res => setTodoList(res.data));
 
@@ -55,7 +55,7 @@ export default function Detail() {
   const resetAction = () => setAction({type: '', payload: null});
   const resetActionTodo = () => setActionTodo({type: '', payload: null});
   const socketMsgToClient = () => {
-    socket.on('msgToClient', () => {
+    socket.on(`msgToClient_${id}`, () => {
       getListTasks(id);
     });
   };
@@ -86,7 +86,7 @@ export default function Detail() {
 
         <div className={styles['page-detail']}>
           <div className="container">
-            {/* <h2>{todoList.name}</h2> */}
+            <h2>{todoList.name}</h2>
             <div className="toolbar">
               <div className="left">
                 <IconButton name="ico-arrow-left-circle" size={32} onClick={() => router.push(ROUTES.TODO_LIST)} />
