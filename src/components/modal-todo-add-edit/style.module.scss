@@ -1,22 +1,22 @@
 .com-modal-todo-add-edit :global {
   .abc-modal-header {
     .abc-icon {
-      @apply text-xl;
+      @apply text-xl leading-none;
     }
     .title {
-      @apply mb-4 pt-4;
+      @apply mb-4 leading-none md:mb-6;
     }
   }
   .abc-modal-footer {
-    @apply mx-0 mt-2 mb-0 px-0 pb-0 md:pb-0.5;
+    @apply m-0 px-0 pt-4 md:pt-6;
   }
   .abc-input {
     @apply relative;
     .message {
-      @apply absolute left-0;
+      @apply absolute left-0 mt-0 md:mt-1;
     }
     .name-enter {
-      @apply p-3;
+      @apply py-3 px-4;
     }
   }
 }

@@ -25,7 +25,7 @@ const ModalTaskConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
     if (data?.id)
       TaskAPI.deleteTask(data?.id).then(() => {
         onConfirm?.();
-        toast.show({type: 'success', title: 'Delete task', content: 'Successful!'});
+        toast.show({type: 'success', title: 'Delete To-Do', content: 'Successful!'});
         if (page === 'detail') {
           router.push(ROUTES.TODO_LIST);
         }

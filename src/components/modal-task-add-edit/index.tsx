@@ -28,7 +28,7 @@ interface IFormInputs {
 }
 
 const Schema = yup.object().shape({
-  name: yup.string().required('Please enter your task name.')
+  name: yup.string().required('Please enter your To-Do name.')
 });
 const FORM_DEFAULT_VALUES = {
   name: ''
@@ -101,7 +101,7 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
             className="name-enter"
             error={errors.name?.message}
             {...register('name')}
-            placeholder="Enter your to-do"
+            placeholder="Enter your To-Do"
           />
         </Modal.Body>
         <Modal.Footer>

@@ -23,7 +23,7 @@ interface IFormInputs {
 }
 
 const Schema = yup.object().shape({
-  todoId: yup.string().required('Please enter your room id')
+  todoId: yup.string().required('Please enter Link or ID')
 });
 
 export default function Action() {
@@ -45,7 +45,7 @@ export default function Action() {
         if (res.status == 200) router.push(`${ROUTES.TODO_LIST}/${todoId}`);
       })
       .catch(() => {
-        toast.show({type: 'danger', title: 'Error!', content: 'Room not found.', lifeTime: 3000});
+        toast.show({type: 'danger', title: 'Error!', content: 'List not found.', lifeTime: 3000});
       });
   };
 

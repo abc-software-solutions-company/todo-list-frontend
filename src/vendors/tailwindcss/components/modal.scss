@@ -25,7 +25,7 @@
     @apply pointer-events-none relative z-modal mx-4 md:mx-auto;
   }
   .abc-modal-content {
-    @apply pointer-events-auto relative flex w-full flex-col rounded-lg bg-blue-50 p-4 md:p-10;
+    @apply pointer-events-auto relative flex w-full flex-col rounded-lg bg-blue-50 p-4 md:p-6;
   }
   .abc-modal-header {
     @apply flex flex-col items-center justify-between;
@@ -33,20 +33,20 @@
       @apply w-full flex-grow text-center text-h4 font-normal leading-none md:text-h3;
     }
     .abc-icon {
-      @apply -mr-2 -mt-2 md:-mr-7 md:-mt-7;
+      @apply -mr-2 -mt-2 md:-mr-4 md:-mt-4;
     }
     .icon-btn {
-      @apply absolute top-1 right-2 leading-none md:top-2 md:right-8;
+      @apply absolute top-1 right-2 leading-none md:top-3 md:right-6;
     }
   }
   .abc-modal-close {
     @apply absolute top-1 right-4 -mr-2 p-2  leading-none;
   }
   .abc-modal-footer {
-    @apply my-4 flex shrink-0 flex-wrap items-center justify-end gap-x-2 p-4 md:mx-5 md:my-3;
+    @apply flex shrink-0 flex-wrap items-center justify-end gap-x-2;
   }
   .abc-modal-body {
-    @apply relative mt-2;
+    @apply relative;
   }
   // Variant
   .abc-modal-center {
