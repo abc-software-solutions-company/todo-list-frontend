@@ -4,13 +4,13 @@
       @apply text-xl leading-none;
     }
     .title-des {
-      @apply hidden overflow-x-hidden px-0 md:block md:text-center;
+      @apply hidden break-all px-0 md:block md:px-5 md:text-center;
     }
     .title-mob {
-      @apply flex justify-center px-0 md:hidden;
+      @apply flex justify-center px-3 md:hidden md:px-0;
     }
     .title-mob:last-child {
-      @apply break-words p-0 italic;
+      @apply break-all p-0 italic;
     }
   }
   .abc-modal-footer {
