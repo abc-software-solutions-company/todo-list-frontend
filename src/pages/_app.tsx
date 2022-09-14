@@ -70,12 +70,12 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
       <QueryProvider pageProps={pageProps}>
         <CoreUIProvider theme={defaultTheme}>
           <NextNProgress color="#448BD1" />
-          <Layout pageProps={pageProps}>
-            {visible && <Component {...pageProps} key={router.route} />}
-            <ThemeContext.Provider value={user}>
+          <ThemeContext.Provider value={user}>
+            <Layout pageProps={pageProps}>
+              {visible && <Component {...pageProps} key={router.route} />}
               {true && <Component {...pageProps} key={router.route} />}
-            </ThemeContext.Provider>
-          </Layout>
+            </Layout>
+          </ThemeContext.Provider>
         </CoreUIProvider>
       </QueryProvider>
     );
