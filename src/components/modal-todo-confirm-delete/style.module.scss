@@ -7,7 +7,7 @@
       @apply hidden break-all px-0 md:block md:px-5 md:text-center;
     }
     .title-mob {
-      @apply flex justify-center px-3 md:hidden md:px-0;
+      @apply flex justify-center px-2 text-base md:hidden md:px-0 md:text-h3;
     }
     .title-mob:last-child {
       @apply break-all p-0 italic;

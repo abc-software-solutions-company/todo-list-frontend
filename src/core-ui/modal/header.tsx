@@ -15,7 +15,7 @@ const Header: FC<IModalHeaderProps> = ({text, children}) => {
 
   return (
     <div className="abc-modal-header">
-      <IconButton className="ml-auto" name="ico-x-circle" onClick={() => onClose(false)} />
+      <IconButton className="ml-auto" name="ico-x-circle" size={20} onClick={() => onClose(false)} />
       {content}
     </div>
   );
