@@ -52,7 +52,7 @@ const ModalShare: React.FC<IProps> = ({id, open, onClose}) => {
                 <Icon name="ico-copy" />
               </Button>
             }
-            value={id}
+            value={id.toUpperCase()}
             readOnly
           />
         </div>
