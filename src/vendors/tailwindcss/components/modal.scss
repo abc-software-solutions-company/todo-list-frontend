@@ -32,11 +32,8 @@
     h3 {
       @apply w-full flex-grow text-center text-h4 font-normal leading-none md:text-h3;
     }
-    .abc-icon {
-      @apply -mr-2 -mt-2 md:-mr-4 md:-mt-4;
-    }
     .icon-btn {
-      @apply absolute top-1 right-2 leading-none md:top-3 md:right-6;
+      @apply absolute top-2 right-2 p-0 leading-none md:top-4 md:right-4;
     }
   }
   .abc-modal-close {
