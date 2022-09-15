@@ -102,6 +102,11 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
             error={errors.name?.message}
             {...register('name')}
             placeholder="Enter your To-Do"
+            onKeyPress={e => {
+              if (e.key === 'Enter') {
+                e.target.parentNode.parentNode.parentNode.parentNode.querySelector('[type="submit"]').click();
+              }
+            }}
           />
         </Modal.Body>
         <Modal.Footer>

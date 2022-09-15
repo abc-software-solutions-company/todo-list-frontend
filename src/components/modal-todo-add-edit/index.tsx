@@ -102,9 +102,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
             placeholder="Enter your list name"
             onKeyPress={e => {
               if (e.key === 'Enter') {
-                console.log(
-                  e.target.parentNode.parentNode.parentNode.parentNode.querySelector('[type="submit"]').click()
-                );
+                e.target.parentNode.parentNode.parentNode.parentNode.querySelector('[type="submit"]').click();
               }
             }}
           />
