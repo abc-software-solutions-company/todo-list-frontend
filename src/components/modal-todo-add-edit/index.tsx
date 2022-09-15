@@ -108,7 +108,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
           />
         </Modal.Body>
         <Modal.Footer>
-          <div className="flex w-full gap-x-3 md:gap-x-5">
+          <div className="flex w-full gap-x-3 pt-2 md:gap-x-5">
             <Button
               className="w-full"
               variant="outlined"

@@ -110,7 +110,7 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
           />
         </Modal.Body>
         <Modal.Footer>
-          <div className="flex w-full gap-x-3">
+          <div className="flex w-full gap-x-3 pt-2">
             <Button
               className="w-full"
               variant="outlined"
