@@ -1,23 +1,23 @@
 .page-detail :global {
   h2 {
-    @apply mr-auto -mt-8 w-[45%] break-words text-h4 font-semibold  sm:w-[60%] md:w-3/4 md:text-h2 md:leading-none;
+    @apply mr-auto break-all text-h4 font-semibold  md:text-h2 md:leading-none;
   }
   .toolbar {
-    @apply mt-4 flex justify-between;
+    @apply mt-7 flex justify-between;
     .left {
       @apply flex items-center truncate;
       h3 {
         @apply m-0 flex items-center;
       }
       .icon-btn {
-        @apply pl-0 pr-2;
+        @apply pl-0 pr-[9.6px];
         .abc-icon {
           @apply text-2xl md:text-3xl;
         }
       }
     }
     .right {
-      @apply flex justify-end gap-2 md:gap-6 lg:gap-8;
+      @apply flex justify-end gap-2 p-0 md:gap-6 lg:gap-8;
       .btn-create-new {
         @apply hidden md:flex;
       }
@@ -34,6 +34,9 @@
   }
   .tasks {
     @apply mt-5;
+    .empty {
+      @apply flex justify-center;
+    }
     .item {
       @apply flex items-center justify-between border bg-white;
       @apply border-t-0 px-4 first:border-t;

@@ -3,6 +3,7 @@ import {FC, useContext} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
+import IconButton from '@/core-ui/icon-button';
 import {ThemeContext} from '@/hooks/useAuthContext';
 
 import styles from './style.module.scss';

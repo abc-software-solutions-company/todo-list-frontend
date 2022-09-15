@@ -59,7 +59,6 @@ export default function List() {
           <div className="container">
             <div className="toolbar">
               <div className="left">
-                <IconButton name="ico-arrow-left-circle" size={32} onClick={() => router.push(ROUTES.ACTION)} />
                 <div className="title">
                   <span className="h3">TO DO</span>
                   <span className="sep"></span>
@@ -77,7 +76,7 @@ export default function List() {
               </div>
             </div>
             <div className="list">
-              {!todoList.length && <span>Empty list</span>}
+              {!todoList.length && <span className="empty">Empty list</span>}
               {todoList.map(item => (
                 <div className="item" key={item.id}>
                   <p className="title" onClick={() => router.push(`${ROUTES.TODO_LIST}/${item.id}`)}>

@@ -1,5 +1,8 @@
 .topbar :global {
-  @apply mt-12;
+  @apply mt-7 md:mt-12;
+  .container {
+    @apply flex justify-between;
+  }
   .h2 {
     @apply text-h4;
   }

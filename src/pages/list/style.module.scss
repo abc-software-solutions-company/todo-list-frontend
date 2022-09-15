@@ -29,6 +29,9 @@
 
   .list {
     @apply mt-5;
+    .empty {
+      @apply flex justify-center;
+    }
     .item {
       @apply flex items-center justify-between border bg-white;
       @apply border-t-0 px-4 first:border-t;

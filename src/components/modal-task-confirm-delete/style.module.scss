@@ -1,2 +1,5 @@
 .com-modal-task-confirm-delete :global {
+  .title {
+    @apply break-all;
+  }
 }

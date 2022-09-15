@@ -26,7 +26,7 @@ interface IFormInputs {
 }
 
 const Schema = yup.object().shape({
-  userName: yup.string().required('Please fill your name.')
+  userName: yup.string().required('Please fill in your name.')
 });
 
 export default function QuickPlay() {
@@ -81,7 +81,6 @@ export default function QuickPlay() {
                     {...register('userName')}
                     error={errors.userName?.message}
                   />
-                  {errors.userName && <p className="invalid">{errors.userName.message}</p>}
                   <Button className="btn-submit" variant="contained" color="primary" type="submit">
                     Enter
                   </Button>

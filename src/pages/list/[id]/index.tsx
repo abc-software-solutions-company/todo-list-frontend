@@ -86,12 +86,9 @@ export default function Detail() {
 
         <div className={styles['page-detail']}>
           <div className="container">
-            <h2>{todoList.name}</h2>
             <div className="toolbar">
-              <div className="left">
-                <IconButton name="ico-arrow-left-circle" size={32} onClick={() => router.push(ROUTES.TODO_LIST)} />
-                <h3>Back</h3>
-              </div>
+              <h2>{todoList.name}</h2>
+              <div className="left"></div>
               <div className="right">
                 <Button
                   className="btn btn-delete"
@@ -114,7 +111,7 @@ export default function Detail() {
               </div>
             </div>
             <div className="tasks">
-              {!todoList?.tasks.length && <span>Empty list</span>}
+              {!todoList?.tasks.length && <span className="empty">Empty list</span>}
               {todoList.tasks &&
                 todoList.tasks.map(task => (
                   <div className="item" key={task.id}>
