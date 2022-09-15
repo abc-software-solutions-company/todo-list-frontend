@@ -39,8 +39,9 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
         setUser(res.data);
         setResolved(true);
       })
-      .catch(() => setResolved(true));
-    checkShareLink();
+      .catch(() => {
+        setResolved(true);
+      });
 
     if (resolved) {
       const currentPath = url.split('?')[0];
@@ -58,6 +59,7 @@ const CustomApp = ({Component, pageProps}: AppProps) => {
   }
 
   useEffect(() => {
+    checkShareLink();
     authCheck(router.asPath);
     const hideContent = () => {
       setVisible(false);
