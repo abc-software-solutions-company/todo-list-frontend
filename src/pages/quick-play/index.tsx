@@ -54,40 +54,44 @@ export default function QuickPlay() {
   };
 
   useEffect(() => {
+    if (userObject.id === '') {
+      router.push(ROUTES.QUICKPLAY);
+    }
     if (userObject.id !== '' && !localStorage.getItem('listID')) router.push(ROUTES.ACTION);
   }, [userObject.id]);
 
   const {errors} = formState;
 
-  return (
-    <>
-      <Seo title={`${siteSettings.name} | Quick Play`} description={siteSettings.description} />
-      <div className={cn(styles['com-quick-play'])}>
-        <div className="container">
-          <div className="inner">
-            <div className="logo-wrapper">
-              <TodoListLogo width={matches ? 249 : 175} />
-            </div>
-            <div className="enter-your-name">
-              <h2 className="text-center">Let&apos;s start!</h2>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <Input
-                  placeholder="Enter your name"
-                  className="name-input h6"
-                  {...register('userName')}
-                  error={errors.userName?.message}
-                />
-                {errors.userName && <p className="invalid">{errors.userName.message}</p>}
-                <Button className="btn-submit" variant="contained" color="primary" type="submit">
-                  Enter
-                </Button>
-              </form>
+  if (userObject.id === '')
+    return (
+      <>
+        <Seo title={`${siteSettings.name} | Quick Play`} description={siteSettings.description} />
+        <div className={cn(styles['com-quick-play'])}>
+          <div className="container">
+            <div className="inner">
+              <div className="logo-wrapper">
+                <TodoListLogo width={matches ? 249 : 175} />
+              </div>
+              <div className="enter-your-name">
+                <h2 className="text-center">Let&apos;s start!</h2>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <Input
+                    placeholder="Enter your name"
+                    className="name-input h6"
+                    {...register('userName')}
+                    error={errors.userName?.message}
+                  />
+                  {errors.userName && <p className="invalid">{errors.userName.message}</p>}
+                  <Button className="btn-submit" variant="contained" color="primary" type="submit">
+                    Enter
+                  </Button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
 }
 
 QuickPlay.Layout = LayoutDefault;
