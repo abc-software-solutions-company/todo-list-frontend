@@ -1,6 +1,6 @@
 .page-detail :global {
   h2 {
-    @apply mr-auto break-all text-h4 font-semibold  md:text-h2 md:leading-none;
+    @apply -mt-1 break-all text-h4 font-semibold leading-none md:-mt-3 md:text-h2;
   }
   .toolbar {
     @apply mt-7 flex justify-between;
@@ -17,7 +17,7 @@
       }
     }
     .right {
-      @apply flex justify-end gap-2 p-0 md:gap-6 lg:gap-8;
+      @apply flex items-start justify-end gap-2 p-0 md:gap-6 lg:gap-8;
       .btn-create-new {
         @apply hidden md:flex;
       }

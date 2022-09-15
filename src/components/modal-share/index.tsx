@@ -36,7 +36,7 @@ const ModalShare: React.FC<IProps> = ({id, open, onClose}) => {
           <Input
             label="Link:"
             groupEnd={
-              <Button variant="contained" color="primary" onClick={() => copy('link', link)}>
+              <Button variant="contained" color="primary" onClick={() => copy('Link', link)}>
                 <Icon name="ico-copy" />
               </Button>
             }
@@ -48,7 +48,7 @@ const ModalShare: React.FC<IProps> = ({id, open, onClose}) => {
           <Input
             label="ID List:"
             groupEnd={
-              <Button variant="contained" color="primary" onClick={() => copy('id', id)}>
+              <Button variant="contained" color="primary" onClick={() => copy('ID List', id)}>
                 <Icon name="ico-copy" />
               </Button>
             }
