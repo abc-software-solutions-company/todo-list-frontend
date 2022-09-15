@@ -13,7 +13,7 @@ interface IProps {
 
 const IconButton: FC<IProps> = ({className, name, size = 24, onClick}) => {
   return (
-    <button className={cls('icon-btn', className)} onClick={onClick}>
+    <button className={cls('icon-btn', className)} onClick={onClick} type="button">
       <Icon name={name} size={size} />
     </button>
   );

@@ -1,7 +1,7 @@
 .input-group {
   @apply relative flex w-full flex-wrap items-stretch;
   > .form-input {
-    @apply relative w-[1%] min-w-0 flex-auto p-4 placeholder:text-h6 lg:py-3 lg:px-4;
+    @apply relative w-[1%] flex-auto;
   }
   .input-group-text {
     @apply inline-flex items-center whitespace-nowrap text-center;

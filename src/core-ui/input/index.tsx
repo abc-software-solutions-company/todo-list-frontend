@@ -6,7 +6,6 @@ import React, {
   FC,
   ReactElement,
   ReactNode,
-  Ref,
   forwardRef,
   useEffect,
   useState
@@ -47,7 +46,7 @@ interface IInputProps extends ComponentPropsWithRef<'input'> {
 const Input: FC<IInputProps> = forwardRef(
   (
     {className, variant, label, labelRequire, error, type, value = '', groupStart, groupEnd, onChange, ...rest},
-    ref: Ref<HTMLInputElement>
+    ref
   ) => {
     const [val, setVal] = useState(value);
 
@@ -63,7 +62,7 @@ const Input: FC<IInputProps> = forwardRef(
     const requireText = typeof labelRequire === 'boolean' ? '*' : labelRequire;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      const target = event.target as HTMLInputElement;
+      const target = event.target;
       setVal(target.value);
       onChange?.(event);
     };
@@ -82,7 +81,7 @@ const Input: FC<IInputProps> = forwardRef(
         )}
         <div {...inputGroupProps}>
           {groupStart && <>{groupStart}</>}
-          <input ref={ref} onChange={handleChange} value={val} {...inputProps} />
+          <input value={val} onChange={handleChange} {...inputProps} ref={ref} />
           {groupEnd && <>{groupEnd}</>}
         </div>
         {typeof error === 'string' && error && <p className="message invalid">{error}</p>}

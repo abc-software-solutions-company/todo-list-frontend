@@ -1,7 +1,7 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import cls from 'classnames';
-import {FC, useContext, useEffect} from 'react';
-import {SubmitHandler, useForm} from 'react-hook-form';
+import {FC, useCallback, useContext, useEffect} from 'react';
+import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
 import API, {ITask} from '@/api/network/task';
@@ -35,7 +35,10 @@ const FORM_DEFAULT_VALUES = {
 };
 
 const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}) => {
-  const {register, handleSubmit, reset, setValue, formState} = useForm<IFormInputs>({
+  const inputRef = useCallback((node: HTMLInputElement) => {
+    if (node) node.focus();
+  }, []);
+  const {handleSubmit, reset, setValue, control, formState} = useForm<IFormInputs>({
     defaultValues: FORM_DEFAULT_VALUES,
     resolver: yupResolver(Schema)
   });
@@ -97,20 +100,24 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
           <h3 className="title">{data?.id ? 'Update To-Do' : 'Add New To-Do'}</h3>
         </Modal.Header>
         <Modal.Body>
-          <Input
-            className="name-enter"
-            error={errors.name?.message}
-            {...register('name')}
-            placeholder="Enter your To-Do"
-            onKeyPress={e => {
-              if (e.key === 'Enter') {
-                e.target.parentNode.parentNode.parentNode.parentNode.querySelector('[type="submit"]').click();
-              }
-            }}
+          <Controller
+            name="name"
+            control={control}
+            rules={{required: true}}
+            render={({field}) => (
+              <Input
+                {...field}
+                error={errors.name?.message}
+                ref={inputRef}
+                onKeyPress={e => {
+                  if (e.key === 'Enter') handleSubmit(onSubmit);
+                }}
+              />
+            )}
           />
         </Modal.Body>
         <Modal.Footer>
-          <div className="flex w-full gap-x-3 pt-2">
+          <div className="flex w-full gap-x-3">
             <Button
               className="w-full"
               variant="outlined"
