@@ -15,4 +15,7 @@
   .sep {
     @apply mx-2 h-4 w-[1px] bg-cyan-800;
   }
+  a:hover {
+    @apply no-underline;
+  }
 }

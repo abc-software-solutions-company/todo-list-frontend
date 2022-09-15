@@ -23,7 +23,7 @@ const Topbar: FC<IProps> = () => {
             <span className="h2">{userObject.userName}</span>
             <span className="sep"></span>
             <Link href={ROUTES.TODO_LIST}>
-              <a className="h2">My List</a>
+              <a className="h2 no-underline">My List</a>
             </Link>
           </div>
         </div>
