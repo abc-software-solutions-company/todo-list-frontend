@@ -15,17 +15,20 @@
   .todolist-logo {
     @apply w-28;
   }
-  .enter-your-name {
-    @apply mt-10 rounded-lg border border-slate-100 bg-white px-4 py-9 md:mt-16 md:py-16 md:px-20;
-    .name-input {
-      @apply p-3 md:pl-4;
+  form {
+    h2 {
+      @apply mb-6 md:mb-14;
+    }
+    @apply mt-8 rounded-lg border bg-white px-4 py-9 md:mt-16 md:py-16 md:px-20;
+  }
+  .abc-input.error {
+    @apply relative;
+    @apply mb-1 md:mb-0;
+    .message {
+      @apply absolute left-0 mt-0 text-xs;
     }
   }
-
-  form {
-    @apply mt-6 md:mt-14;
-  }
   .btn-submit {
-    @apply mt-4 w-full md:mt-8;
+    @apply mt-4 w-full md:mt-6;
   }
 }

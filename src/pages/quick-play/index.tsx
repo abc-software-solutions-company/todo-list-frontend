@@ -72,20 +72,18 @@ export default function QuickPlay() {
               <div className="logo-wrapper">
                 <TodoListLogo width={matches ? 249 : 175} />
               </div>
-              <div className="enter-your-name">
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <h2 className="text-center">Let&apos;s start!</h2>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <Input
-                    placeholder="Enter your name"
-                    className="name-input h6"
-                    {...register('userName')}
-                    error={errors.userName?.message}
-                  />
-                  <Button className="btn-submit" variant="contained" color="primary" type="submit">
-                    Enter
-                  </Button>
-                </form>
-              </div>
+                <Input
+                  placeholder="Enter your name"
+                  className="name-input h6"
+                  {...register('userName')}
+                  error={errors.userName?.message}
+                />
+                <Button className="btn-submit" variant="contained" color="primary" type="submit">
+                  Enter
+                </Button>
+              </form>
             </div>
           </div>
         </div>

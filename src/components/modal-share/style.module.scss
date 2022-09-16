@@ -1,5 +1,13 @@
 .com-modal-share :global {
+  .abc-modal-header {
+    .abc-modal-close {
+      @apply top-3 md:top-4;
+    }
+  }
   .abc-modal-body {
     @apply pt-0;
+  }
+  .abc-icon {
+    @apply flex items-center leading-0;
   }
 }

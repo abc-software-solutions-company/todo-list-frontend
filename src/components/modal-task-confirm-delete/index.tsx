@@ -36,7 +36,7 @@ const ModalTaskConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
 
   return (
     <Modal
-      className={cls(styles['com-modal-task-confirm-delete'], 'max-w-3xl')}
+      className={cls(styles['com-modal-task-confirm-delete'], 'max-w-xl')}
       variant="center"
       open={open}
       onClose={() => onCancel?.()}

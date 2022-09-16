@@ -88,7 +88,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
 
   return (
     <Modal
-      className={cls(styles['com-modal-todo-add-edit'], 'max-w-3xl')}
+      className={cls(styles['com-modal-todo-add-edit'], 'max-w-xl')}
       variant="center"
       open={open}
       onClose={() => onCancel?.()}
@@ -116,7 +116,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
           />
         </Modal.Body>
         <Modal.Footer>
-          <div className="flex w-full gap-x-3">
+          <div className="flex w-full gap-x-3 md:gap-x-4">
             <Button
               className="w-full"
               variant="outlined"
