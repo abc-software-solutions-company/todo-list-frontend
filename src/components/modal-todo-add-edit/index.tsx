@@ -60,7 +60,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
       API.updateTodo(data.id, formData)
         .then(() => {
           onSave?.();
-          toast.show({type: 'success', title: 'Update List', content: 'Update successful!'});
+          toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
         })
         .catch(() => {
           toast.show({type: 'danger', title: 'Update List', content: 'Error, too much character'});
@@ -70,7 +70,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
       API.createTodo(formData)
         .then(() => {
           onSave?.();
-          toast.show({type: 'success', title: 'Create List', content: 'Create successful!'});
+          toast.show({type: 'success', title: 'Create List', content: 'Successful!'});
         })
         .catch(() => {
           toast.show({type: 'danger', title: 'Create List', content: 'Error, too much character'});

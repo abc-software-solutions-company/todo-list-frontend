@@ -79,28 +79,25 @@ export default function Action() {
                     className="w-full font-medium"
                     color="primary"
                     onClick={() => setAction({type: 'add', payload: null})}
-                  >
-                    Create New List
-                  </Button>
+                    text=" Create New List"
+                  />
                 </div>
-                <div className="item">
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    <Input
-                      groupEnd={
-                        <Button
-                          className="px-5 font-medium "
-                          color="primary"
-                          variant="contained"
-                          text="Join"
-                          type="submit"
-                        />
-                      }
-                      placeholder="Enter Link or ID"
-                      error={errors.todoId?.message}
-                      {...register('todoId')}
-                    />
-                  </form>
-                </div>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <Input
+                    groupEnd={
+                      <Button
+                        className="px-5 font-medium "
+                        color="primary"
+                        variant="contained"
+                        text="Join"
+                        type="submit"
+                      />
+                    }
+                    placeholder="Enter Link or ID"
+                    error={errors.todoId?.message}
+                    {...register('todoId')}
+                  />
+                </form>
               </div>
             </div>
           </div>

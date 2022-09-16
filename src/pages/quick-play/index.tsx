@@ -80,9 +80,7 @@ export default function QuickPlay() {
                   {...register('userName')}
                   error={errors.userName?.message}
                 />
-                <Button className="btn-submit" variant="contained" color="primary" type="submit">
-                  Enter
-                </Button>
+                <Button className="btn-submit" variant="contained" color="primary" type="submit" text="Enter" />
               </form>
             </div>
           </div>
