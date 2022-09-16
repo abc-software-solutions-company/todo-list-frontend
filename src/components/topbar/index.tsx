@@ -36,11 +36,13 @@ const Topbar: FC<IProps> = ({className}) => {
       <div className="container">
         <Back visibleOn={['/list', '/list/[id]']} currentPage={currentPage} onClick={() => returnTo(currentPage)} />
         <div className="authenticated">
-          <Icon name="ico-user" />
+          <Icon name="ico-user" className="user" />
           <span className="h2">{userObject.userName ?? ''}</span>
           <span className="sep"></span>
           <Link href={ROUTES.TODO_LIST}>
-            <a className="h2">My List</a>
+            <a>
+              <h2>My List</h2>
+            </a>
           </Link>
         </div>
       </div>
