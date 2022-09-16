@@ -108,6 +108,7 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
               <Input
                 {...field}
                 error={errors.name?.message}
+                placeholder="Enter your to-do"
                 ref={inputRef}
                 onKeyPress={e => {
                   if (e.key === 'Enter') handleSubmit(onSubmit);

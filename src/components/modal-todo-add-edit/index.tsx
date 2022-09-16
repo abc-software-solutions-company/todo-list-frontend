@@ -1,7 +1,7 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import cls from 'classnames';
-import React, {FC, useContext, useEffect} from 'react';
-import {SubmitHandler, useForm} from 'react-hook-form';
+import React, {FC, useCallback, useContext, useEffect} from 'react';
+import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
 import API, {ITodo} from '@/api/network/todo';
@@ -33,7 +33,10 @@ const FORM_DEFAULT_VALUES = {
 };
 
 const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
-  const {register, handleSubmit, setValue, reset, formState} = useForm<IFormInputs>({
+  const inputRef = useCallback((node: HTMLInputElement) => {
+    if (node) node.focus();
+  }, []);
+  const {handleSubmit, setValue, reset, control, formState} = useForm<IFormInputs>({
     defaultValues: FORM_DEFAULT_VALUES,
     resolver: yupResolver(Schema)
   });
@@ -95,16 +98,21 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
           <h3 className="title">{data?.id ? 'Update List' : 'Create New List'}</h3>
         </Modal.Header>
         <Modal.Body>
-          <Input
-            className="name-enter"
-            error={errors.name?.message}
-            {...register('name')}
-            placeholder="Enter your list name"
-            onKeyPress={e => {
-              if (e.key === 'Enter') {
-                console.log('enter');
-              }
-            }}
+          <Controller
+            name="name"
+            control={control}
+            rules={{required: true}}
+            render={({field}) => (
+              <Input
+                {...field}
+                placeholder="Enter your list name"
+                error={errors.name?.message}
+                ref={inputRef}
+                onKeyPress={e => {
+                  if (e.key === 'Enter') handleSubmit(onSubmit);
+                }}
+              />
+            )}
           />
         </Modal.Body>
         <Modal.Footer>
