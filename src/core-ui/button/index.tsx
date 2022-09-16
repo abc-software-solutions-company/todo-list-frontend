@@ -62,9 +62,9 @@ const Button: FC<IButtonProps> = ({
   return (
     <Tag {...props} {...rest}>
       {loading && loadingPosition === 'start' && <Loading className="loading mr-2" />}
-      {startIcon && <span className="icon mr-2">{startIcon}</span>}
-      {content}
-      {endIcon && <span className="icon ml-2">{endIcon}</span>}
+      {startIcon && <span className="icon">{startIcon}</span>}
+      {content && <p className={cls(startIcon && 'ml-2', endIcon && 'mr-2')}>{content}</p>}
+      {endIcon && <span className="icon">{endIcon}</span>}
       {loading && loadingPosition === 'end' && <Loading className="loading ml-2" />}
     </Tag>
   );

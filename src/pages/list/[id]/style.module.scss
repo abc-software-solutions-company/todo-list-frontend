@@ -1,34 +1,33 @@
 .page-detail :global {
-  h2 {
-    @apply -mt-1 break-all text-h4 font-semibold leading-none md:-mt-3 md:text-h2;
-  }
   .toolbar {
-    @apply mt-7 flex justify-between;
+    @apply mt-5 flex items-start justify-between;
     .left {
-      @apply flex items-center truncate;
-      h3 {
-        @apply m-0 flex items-center;
-      }
+      @apply flex items-center;
       .icon-btn {
-        @apply pl-0 pr-[9.6px];
+        @apply pl-0 pr-3;
         .abc-icon {
           @apply text-2xl md:text-3xl;
         }
       }
     }
+    .sep {
+      @apply mx-2 inline-flex h-4 w-[1px] bg-cyan-800;
+    }
+    .title {
+      @apply mt-2.5 md:mt-2;
+    }
     .right {
-      @apply flex items-start justify-end gap-2 p-0 md:gap-6 lg:gap-8;
-      .btn-create-new {
-        @apply hidden md:flex;
+      @apply flex;
+      button {
+        span.h5 {
+          @apply hidden whitespace-nowrap md:inline;
+        }
+        p {
+          @apply hidden md:inline;
+        }
       }
-      .h5 {
-        @apply m-auto hidden items-center md:flex md:whitespace-nowrap;
-      }
-      .btn {
-        @apply -mr-4 whitespace-nowrap p-0 md:mr-0;
-      }
-      .abc-btn {
-        @apply p-0;
+      .btn-add-todo {
+        @apply min-w-0 pr-0;
       }
     }
   }
@@ -51,7 +50,7 @@
       @apply line-through opacity-50;
     }
     .actions {
-      @apply -mr-4 flex gap-x-1;
+      @apply -mr-3 flex gap-x-1;
     }
   }
   .float-icon {

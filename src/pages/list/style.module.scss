@@ -16,17 +16,13 @@
     .title {
       @apply flex items-center;
     }
-    .btn-create-new {
-      @apply px-0;
-    }
     .right {
-      @apply hidden md:block;
-      .icon {
-        @apply mr-3;
+      @apply hidden md:flex;
+      button {
+        @apply pr-0;
       }
     }
   }
-
   .list {
     @apply mt-5;
     .empty {
