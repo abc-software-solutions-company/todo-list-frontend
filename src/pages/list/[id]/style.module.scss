@@ -1,6 +1,6 @@
 .page-detail :global {
   .toolbar {
-    @apply mt-5 flex items-start justify-between;
+    @apply mt-3 flex items-start justify-between md:mt-5;
     h2 {
       @apply mr-auto break-all text-h4 font-semibold  leading-none md:text-h2;
     }
@@ -38,7 +38,7 @@
     }
   }
   .tasks {
-    @apply mt-5;
+    @apply mt-3 md:mt-5;
     .empty {
       @apply flex justify-center;
     }

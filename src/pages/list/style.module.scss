@@ -1,6 +1,6 @@
 .page-list :global {
   .toolbar {
-    @apply mt-5 flex justify-between;
+    @apply mt-3 flex justify-between md:mt-5;
     .left {
       @apply flex items-center;
       .icon-btn {
@@ -24,7 +24,7 @@
     }
   }
   .list {
-    @apply mt-5;
+    @apply mt-3 md:mt-5;
     .empty {
       @apply flex justify-center;
     }

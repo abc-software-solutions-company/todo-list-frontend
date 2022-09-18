@@ -43,8 +43,8 @@ const ModalTaskConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
     >
       <Modal.Header>
         <h3 className="title">
-          <span className="block text-center md:inline">Are you sure you want to delete to-do:</span>
-          <i className="block text-center md:inline">{data.name}</i>
+          <span className="block text-center">Are you sure you want to delete to-do:</span>
+          <i className="block text-center">{data.name}</i>
         </h3>
       </Modal.Header>
       <Modal.Footer>
