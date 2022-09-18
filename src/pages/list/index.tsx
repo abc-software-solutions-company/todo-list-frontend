@@ -31,6 +31,7 @@ export default function List() {
   const [id, setId] = useState<string>('');
   const auth = useStateAuth();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getTodoList = (userId: string | any) => API.getTodos(userId).then(res => setTodoList(res.data));
 
   const resetAction = () => setAction({type: '', payload: null});

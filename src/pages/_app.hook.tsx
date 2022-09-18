@@ -1,8 +1,6 @@
 import {useRouter} from 'next/router';
 import React, {FC, ReactNode, useEffect} from 'react';
 
-// import {ROUTES} from '@/configs/routes.config';
-// import {useStateAuth} from '@/contexts/auth/context';
 import {GlobalActions} from '@/contexts/global';
 import {useStateGlobal} from '@/contexts/global/context';
 
@@ -13,10 +11,8 @@ interface IProps {
 const PageWrap: FC<IProps> = ({children}) => {
   const router = useRouter();
   const global = useStateGlobal();
-  // const auth = useStateAuth();
 
-  function authCheck(url: string) {
-    console.log('page', url);
+  function authCheck() {
     GlobalActions.setMenuOpen(!global.isMenuOpen);
   }
 

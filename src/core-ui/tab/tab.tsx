@@ -1,7 +1,7 @@
 import cls from 'classnames';
-import React, { FC, ReactNode } from 'react';
+import React, {FC, ReactNode} from 'react';
 
-import { useTabs } from './tabs';
+import {useTabs} from './tabs';
 
 export interface ITabProps {
   className?: string;
@@ -12,8 +12,8 @@ export interface ITabProps {
   disabled?: boolean;
 }
 
-export const Tab: FC<ITabProps> = ({ className, label, disabled, startIcon, endIcon, children }) => {
-  const { activeTab, setActiveTab } = useTabs();
+export const Tab: FC<ITabProps> = ({className, label, disabled, startIcon, endIcon, children}) => {
+  const {activeTab, setActiveTab} = useTabs();
 
   return (
     <div className={cls('tab-item', className, activeTab === label && 'active')}>

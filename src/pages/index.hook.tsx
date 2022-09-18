@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useRouter} from 'next/router';
 import {useEffect} from 'react';

@@ -49,23 +49,23 @@ class Toast implements IToast {
   }
 
   info(data: IToastItem) {
-    this.showItem({ ...data, type: 'info' });
+    this.showItem({...data, type: 'info'});
   }
 
   success(data: IToastItem) {
-    this.showItem({ ...data, type: 'success' });
+    this.showItem({...data, type: 'success'});
   }
 
   danger(data: IToastItem) {
-    this.showItem({ ...data, type: 'danger' });
+    this.showItem({...data, type: 'danger'});
   }
 
   error(data: IToastItem) {
-    this.showItem({ ...data, type: 'danger' });
+    this.showItem({...data, type: 'danger'});
   }
 
   warning(data: IToastItem) {
-    this.showItem({ ...data, type: 'warning' });
+    this.showItem({...data, type: 'warning'});
   }
 
   clear() {

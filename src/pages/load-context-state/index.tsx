@@ -9,13 +9,13 @@ export default function Waiting() {
   const {readPreviousLink} = useLocalStorage();
 
   useEffect(() => {
-    // router.push(ROUTES.ACTION);
     const previousPage = readPreviousLink();
     if (previousPage) {
       router.push(previousPage);
     } else {
       router.push(ROUTES.ACTION);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return <></>;
 }

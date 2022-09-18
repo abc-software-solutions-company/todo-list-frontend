@@ -18,6 +18,7 @@ import PageWrap from './_app.hook';
 
 const CustomApp = ({Component, pageProps}: AppProps) => {
   const router = useRouter();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const Layout = (Component as any).Layout || Noop;
 
   return (

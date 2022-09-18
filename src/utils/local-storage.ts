@@ -3,6 +3,7 @@ export default function useLocalStorage() {
     return localStorage.getItem(key);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const set = (key: string, value: any) => {
     return localStorage.setItem(key, JSON.stringify(value));
   };

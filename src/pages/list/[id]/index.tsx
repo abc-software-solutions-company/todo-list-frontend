@@ -77,6 +77,7 @@ export default function Detail() {
       socketMsgToClient();
       removePreviousLink();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   if (!todoList || !id) return null;

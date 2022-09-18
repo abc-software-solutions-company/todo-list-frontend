@@ -21,8 +21,6 @@ axiosClient.interceptors.request.use(
     config.headers = {...config.headers};
     if (typeof window !== 'undefined') {
       const accessToken = readToken();
-      console.log(accessToken);
-
       if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
@@ -41,7 +39,6 @@ axiosClient.interceptors.response.use(
         window.location.href = ROUTES.HOME;
       }
     }
-    console.log(err.response);
     return err;
   }
 );
