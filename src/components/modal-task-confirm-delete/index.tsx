@@ -2,7 +2,8 @@ import cls from 'classnames';
 import {useRouter} from 'next/router';
 import {FC} from 'react';
 
-import TaskAPI, {ITask} from '@/api/network/task';
+import TaskAPI from '@/api/network/task';
+import {ITask} from '@/api/types/task.type';
 import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import {Modal} from '@/core-ui/modal';

@@ -17,6 +17,7 @@ import Checkbox from '@/core-ui/checkbox';
 import FloatIcon from '@/core-ui/float-icon';
 import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
+import useQueryTypeScript from '@/hooks/useQueryTypeScript';
 import LayoutDefault from '@/layouts/default';
 import {IAction} from '@/types';
 import checkUnAuthorized from '@/utils/check-unauthorized';
@@ -36,7 +37,7 @@ export default function Detail() {
   const auth = useStateAuth();
   const {removePreviousLink} = useLocalStorage();
 
-  const {id} = router.query;
+  const id = useQueryTypeScript();
   const page = 'detail';
 
   const socketMsgToServer = () => socket.emit('msgToServer', {roomId: id});
@@ -112,12 +113,12 @@ export default function Detail() {
               </div>
             </div>
             <div className="tasks">
-              {!todoList?.tasks.length && <span className="empty">Empty list</span>}
+              {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
               {todoList.tasks &&
                 todoList.tasks.map(task => (
                   <div className="item" key={task.id}>
-                    <Checkbox checked={task.isDone} onChange={() => setDone(task.id, !task.isDone)} />
-                    <p onClick={() => setDone(task.id, !task.isDone)} className={`h6 ${task.isDone ? 'checked' : ''}`}>
+                    <Checkbox checked={task.isDone} onChange={() => setDone(task.id!)} />
+                    <p onClick={() => setDone(task.id!)} className={`h6 ${task.isDone ? 'checked' : ''}`}>
                       {task.name}
                     </p>
                     <div className="actions">
