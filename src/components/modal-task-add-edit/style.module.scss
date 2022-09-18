@@ -2,4 +2,14 @@
   .abc-modal-body {
     @apply pt-0;
   }
+  .title {
+    @apply break-all md:text-h3;
+  }
+  .abc-input.error {
+    @apply relative;
+    @apply mb-1 md:mb-0;
+    .message {
+      @apply absolute left-0 mt-0 text-xs;
+    }
+  }
 }

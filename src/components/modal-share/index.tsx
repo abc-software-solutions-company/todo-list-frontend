@@ -18,8 +18,8 @@ const ModalShare: React.FC<IProps> = ({id, open, onClose}) => {
   const toast = useToast();
   const [link, setLink] = useState<string>('');
 
-  const copy = (type: string, text: string) => {
-    toast.show({type: 'success', title: 'Copy', content: `${type} copied`});
+  const copy = (text: string, title: string) => {
+    toast.show({type: 'success', title: title, content: 'Successful!'});
     navigator.clipboard.writeText(text);
   };
 
@@ -29,14 +29,14 @@ const ModalShare: React.FC<IProps> = ({id, open, onClose}) => {
   }, [id]);
 
   return (
-    <Modal variant="center" className={cls(styles['com-modal-share'], 'max-w-3xl')} open={open} onClose={onClose}>
+    <Modal variant="center" className={cls(styles['com-modal-share'], 'max-w-xl')} open={open} onClose={onClose}>
       <Modal.Header text="Share this list to a teammate" />
       <Modal.Body className="inputs">
         <div className="item">
           <Input
             label="Link:"
             groupEnd={
-              <Button variant="contained" color="primary" onClick={() => copy('Link', link)}>
+              <Button className="btn-text" variant="contained" color="primary" onClick={() => copy(link, 'Link copy')}>
                 <Icon name="ico-copy" />
               </Button>
             }
@@ -48,7 +48,7 @@ const ModalShare: React.FC<IProps> = ({id, open, onClose}) => {
           <Input
             label="ID List:"
             groupEnd={
-              <Button variant="contained" color="primary" onClick={() => copy('ID List', id)}>
+              <Button className="btn-text" variant="contained" color="primary" onClick={() => copy(id, 'ID list copy')}>
                 <Icon name="ico-copy" />
               </Button>
             }

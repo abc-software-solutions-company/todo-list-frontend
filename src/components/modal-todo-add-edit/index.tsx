@@ -55,7 +55,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
       API.updateTodo(data.id, formData)
         .then(() => {
           onSave?.();
-          toast.show({type: 'success', title: 'Update List', content: 'Update successful!'});
+          toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
         })
         .catch(() => {
           toast.show({type: 'danger', title: 'Update List', content: 'Error, too much character'});
@@ -64,7 +64,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
       API.createTodo(formData)
         .then(() => {
           onSave?.();
-          toast.show({type: 'success', title: 'Create List', content: 'Create successful!'});
+          toast.show({type: 'success', title: 'Create List', content: 'Successful!'});
         })
         .catch(() => {
           toast.show({type: 'danger', title: 'Create List', content: 'Error, too much character'});
@@ -82,7 +82,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
 
   return (
     <Modal
-      className={cls(styles['com-modal-todo-add-edit'], 'max-w-3xl')}
+      className={cls(styles['com-modal-todo-add-edit'], 'max-w-xl')}
       variant="center"
       open={open}
       onClose={() => onCancel?.()}
@@ -110,7 +110,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
           />
         </Modal.Body>
         <Modal.Footer>
-          <div className="flex w-full gap-x-3">
+          <div className="flex w-full gap-x-3 md:gap-x-4">
             <Button
               className="w-full"
               variant="outlined"

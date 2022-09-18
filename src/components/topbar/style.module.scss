@@ -1,21 +1,26 @@
 .topbar :global {
-  @apply mt-3 md:mt-12;
+  @apply mt-3 sm:mt-3 md:mt-12;
   .container {
-    @apply flex justify-between;
+    @apply flex items-center justify-between;
   }
   .h2 {
-    @apply text-h4;
+    @apply break-all text-h4 leading-none;
   }
   .authenticated {
-    @apply flex w-full items-center;
+    @apply flex w-full items-start;
   }
   .ico-user {
-    @apply ml-auto mr-2 text-xl;
+    @apply ml-auto mr-2;
   }
   .sep {
-    @apply mx-2 h-4 w-[1px] bg-cyan-800;
+    @apply mx-2 mt-[3px] h-4 w-[1px] items-center bg-cyan-800;
   }
   a:hover {
     @apply no-underline;
+  }
+  a {
+    h2 {
+      @apply w-full whitespace-nowrap text-h4 leading-none;
+    }
   }
 }

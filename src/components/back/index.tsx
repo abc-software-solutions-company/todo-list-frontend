@@ -14,7 +14,7 @@ const Back: FC<IProps> = ({className, currentPage, visibleOn, onClick}) => {
   if (!visibleOn?.includes(currentPage)) return null;
   return (
     <div className={cls('return-to', className)}>
-      <IconButton className="px-0" name="ico-arrow-left-circle" size={32} onClick={onClick} />
+      <IconButton className="px-0" name="ico-arrow-left-circle" size={28} onClick={onClick} />
     </div>
   );
 };

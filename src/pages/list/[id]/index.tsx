@@ -89,7 +89,7 @@ export default function Detail() {
             <div className="toolbar">
               <div className="left">
                 <div className="title">
-                  <h3>{todoList.name}</h3>
+                  <h2>{todoList.name}</h2>
                 </div>
               </div>
               <div className="right">
@@ -99,7 +99,7 @@ export default function Detail() {
                 >
                   <span className="h5 font-medium">Delete List</span>
                 </Button>
-                <Button startIcon={<Icon name="ico-share-2" />} onClick={handleShare}>
+                <Button className="btn-share" startIcon={<Icon name="ico-share-2" />} onClick={handleShare}>
                   <span className="h5 font-medium">Share</span>
                 </Button>
                 <Button

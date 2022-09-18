@@ -22,7 +22,7 @@
     }
   }
   .abc-modal-dialog {
-    @apply pointer-events-none relative z-modal mx-4 md:mx-auto;
+    @apply pointer-events-none relative z-modal mx-4 sm:mx-auto;
   }
   .abc-modal-content {
     @apply pointer-events-auto relative flex w-full flex-col rounded-lg bg-blue-50;
