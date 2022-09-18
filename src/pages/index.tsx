@@ -1,27 +1,83 @@
+import {yupResolver} from '@hookform/resolvers/yup';
+import cn from 'classnames';
 import {GetStaticProps} from 'next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
-import Link from 'next/link';
+import {useRouter} from 'next/router';
+import React from 'react';
+import {SubmitHandler, useForm} from 'react-hook-form';
+import * as yup from 'yup';
 
+import API from '@/api/network/user';
+import TodoListLogo from '@/components/icons/todolist-logo';
 import Seo from '@/components/seo/seo';
 import {ROUTES} from '@/configs/routes.config';
 import {siteSettings} from '@/configs/site.config';
 import Button from '@/core-ui/button';
+import Input from '@/core-ui/input';
+import useToast from '@/core-ui/toast';
+import useMediaQuery from '@/hooks/useMediaQuery';
 import LayoutDefault from '@/layouts/default';
 
-export default function PageHome() {
+import styles from './style.module.scss';
+
+interface IFormInputs {
+  userName: string;
+}
+
+const Schema = yup.object().shape({
+  userName: yup.string().required('Please fill in your name.')
+});
+
+export default function QuickPlay() {
+  const toast = useToast();
+  const router = useRouter();
+  const matches = useMediaQuery('(min-width:640px)');
+  const {register, handleSubmit, formState} = useForm<IFormInputs>({
+    resolver: yupResolver(Schema)
+  });
+
+  const onSubmit: SubmitHandler<IFormInputs> = data => {
+    API.createUser(data)
+      .then(res => {
+        if (res.status === 201) {
+          localStorage.setItem('user', JSON.stringify(res.data));
+          router.push(ROUTES.ACTION);
+        }
+      })
+      .catch(() => {
+        toast.show({type: 'danger', title: 'Error', content: 'Can&apos;t create user.'});
+      });
+  };
+
+  const {errors} = formState;
+
   return (
     <>
-      <Seo title={`${siteSettings.name} | Home Page`} description={siteSettings.description} />
-      <Button>
-        <Link href={ROUTES.QUICKPLAY}>
-          <a>Quick play</a>
-        </Link>
-      </Button>
+      <Seo title={`${siteSettings.name} | Quick Play`} description={siteSettings.description} />
+      <div className={cn(styles['com-quick-play'])}>
+        <div className="container">
+          <div className="inner">
+            <div className="logo-wrapper">
+              <TodoListLogo width={matches ? 249 : 175} />
+            </div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <h2 className="text-center">Let&apos;s start!</h2>
+              <Input
+                placeholder="Enter your name"
+                className="name-input"
+                {...register('userName')}
+                error={errors.userName?.message}
+              />
+              <Button className="btn-submit" variant="contained" color="primary" type="submit" text="Enter" />
+            </form>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
 
-PageHome.Layout = LayoutDefault;
+QuickPlay.Layout = LayoutDefault;
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   return {

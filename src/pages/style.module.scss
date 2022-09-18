@@ -1,0 +1,34 @@
+.com-quick-play :global {
+  @apply h-full;
+  .container {
+    @apply flex h-full items-center;
+  }
+  .inner {
+    @apply mx-auto w-full md:max-w-xl;
+  }
+  .logo-wrapper {
+    @apply flex justify-center md:mt-6;
+  }
+  svg {
+    @apply w-[175px] lg:w-[243px];
+  }
+  .todolist-logo {
+    @apply w-28;
+  }
+  form {
+    // @apply mt-6 md:mt-14;
+    @apply mt-10 rounded-lg bg-white px-4 py-9 md:mt-16 md:py-16 md:px-20;
+    h2 {
+      @apply mb-14;
+    }
+    .abc-input.error {
+      @apply relative;
+      .message {
+        @apply absolute left-0;
+      }
+    }
+  }
+  .btn-submit {
+    @apply mt-6 w-full;
+  }
+}

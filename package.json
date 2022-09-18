@@ -7,7 +7,7 @@
     "url": "git+https://github.com/abc-software-solutions-company/abc-website.git"
   },
   "scripts": {
-    "dev": "yarn genfont && next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "start-dev": "docker-compose up && yarn dev",

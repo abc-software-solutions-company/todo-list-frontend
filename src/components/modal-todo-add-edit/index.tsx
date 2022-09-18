@@ -9,7 +9,6 @@ import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
-import {ThemeContext} from '@/hooks/useAuthContext';
 
 import styles from './style.module.scss';
 
@@ -41,7 +40,6 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
     resolver: yupResolver(Schema)
   });
   const toast = useToast();
-  const userObject = useContext(ThemeContext);
   const {errors} = formState;
 
   const getTodo = (id: string) => {
@@ -52,7 +50,8 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
   };
 
   const onSubmit: SubmitHandler<IFormInputs> = formData => {
-    const userId = userObject.id;
+    // FIXME
+    const userId = '1';
 
     formData.userId = userId;
 

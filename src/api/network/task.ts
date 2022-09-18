@@ -21,4 +21,5 @@ const deleteTask = (id: string) => HttpRequest.destroy<ITask>(`/tasks/${id}`);
 const updateTask = (id: string, data: ITask) => HttpRequest.patch<ITask>(`/tasks/${id}`, data);
 const updateStatusTask = (id: string) => HttpRequest.put(`/tasks/${id}`, {});
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {getTasks, getListTasks, getTask, createTask, deleteTask, updateTask, updateStatusTask};

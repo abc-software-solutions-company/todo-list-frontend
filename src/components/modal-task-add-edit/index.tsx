@@ -9,7 +9,6 @@ import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
-import {ThemeContext} from '@/hooks/useAuthContext';
 
 import styles from './style.module.scss';
 
@@ -43,7 +42,6 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
     resolver: yupResolver(Schema)
   });
   const toast = useToast();
-  const userObject = useContext(ThemeContext);
   const {errors} = formState;
 
   const getTask = (id: string) => {
@@ -54,7 +52,8 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
   };
 
   const onSubmit: SubmitHandler<IFormInputs> = formData => {
-    const userId = userObject.id;
+    // FIXME
+    const userId = 1;
 
     formData.todoListId = todoListId;
     formData.userId = userId;
