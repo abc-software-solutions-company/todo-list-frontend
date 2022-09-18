@@ -1,17 +1,12 @@
 import * as HttpRequest from '@/api/http-request';
 import {IAxiosResponse} from '@/types';
 
-export interface IUser {
-  id?: string;
-  userName: string;
-}
+import {IUser} from '../types/user.type';
 
 type User = IAxiosResponse<IUser>;
-type Users = IAxiosResponse<IUser[]>;
 
-const getUsers = () => HttpRequest.get<Users>('/users');
-const checkUserLogin = (id: string) => HttpRequest.get<User>(`/users/${id}`);
+const getUserProfile = () => HttpRequest.get<User>('/users/');
 const createUser = (data: IUser) => HttpRequest.post<IUser>('/users', data);
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default {getUsers, checkUserLogin, createUser};
+export default {getUserProfile, createUser};

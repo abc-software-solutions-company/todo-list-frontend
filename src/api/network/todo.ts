@@ -1,15 +1,7 @@
 import * as HttpRequest from '@/api/http-request';
 import {IAxiosResponse} from '@/types';
 
-import {ITask} from './task';
-
-export interface ITodo {
-  id?: string;
-  name: string;
-  createdAt?: string;
-  updatedAt?: string;
-  tasks?: ITask[];
-}
+import {ITodo} from '../types/todo.type';
 
 type List = IAxiosResponse<ITodo>;
 type Lists = IAxiosResponse<ITodo[]>;

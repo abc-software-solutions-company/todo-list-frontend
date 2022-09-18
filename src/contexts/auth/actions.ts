@@ -1,4 +1,4 @@
-import {IUser} from '@/api/network/user';
+import {IUser} from '@/api/types/user.type';
 
 import * as types from './types';
 

@@ -33,9 +33,9 @@ const Topbar: FC<IProps> = ({className}) => {
 
   return (
     <div className={cls(styles.topbar, className)}>
-      <div className="container">
-        <Back visibleOn={['/list', '/list/[id]']} currentPage={currentPage} onClick={() => returnTo(currentPage)} />
-        {auth.user && (
+      {auth.user && (
+        <div className="container">
+          <Back visibleOn={['/list', '/list/[id]']} currentPage={currentPage} onClick={() => returnTo(currentPage)} />
           <div className="authenticated">
             <Icon name="ico-user" />
             <span className="h2">{auth.user?.userName}</span>
@@ -44,8 +44,8 @@ const Topbar: FC<IProps> = ({className}) => {
               <a className="h2">My List</a>
             </Link>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

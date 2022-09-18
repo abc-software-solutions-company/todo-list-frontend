@@ -1,55 +1,20 @@
-import {yupResolver} from '@hookform/resolvers/yup';
 import cn from 'classnames';
 import {GetStaticProps} from 'next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
-import {useRouter} from 'next/router';
 import React from 'react';
-import {SubmitHandler, useForm} from 'react-hook-form';
-import * as yup from 'yup';
 
-import API from '@/api/network/user';
 import TodoListLogo from '@/components/icons/todolist-logo';
 import Seo from '@/components/seo/seo';
-import {ROUTES} from '@/configs/routes.config';
 import {siteSettings} from '@/configs/site.config';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
-import useToast from '@/core-ui/toast';
-import useMediaQuery from '@/hooks/useMediaQuery';
 import LayoutDefault from '@/layouts/default';
 
+import useIndexHook from './index.hook';
 import styles from './style.module.scss';
 
-interface IFormInputs {
-  userName: string;
-}
-
-const Schema = yup.object().shape({
-  userName: yup.string().required('Please fill in your name.')
-});
-
 export default function QuickPlay() {
-  const toast = useToast();
-  const router = useRouter();
-  const matches = useMediaQuery('(min-width:640px)');
-  const {register, handleSubmit, formState} = useForm<IFormInputs>({
-    resolver: yupResolver(Schema)
-  });
-
-  const onSubmit: SubmitHandler<IFormInputs> = data => {
-    API.createUser(data)
-      .then(res => {
-        if (res.status === 201) {
-          localStorage.setItem('user', JSON.stringify(res.data));
-          router.push(ROUTES.ACTION);
-        }
-      })
-      .catch(() => {
-        toast.show({type: 'danger', title: 'Error', content: 'Can&apos;t create user.'});
-      });
-  };
-
-  const {errors} = formState;
+  const {onSubmit, matches, register, handleSubmit, errors} = useIndexHook();
 
   return (
     <>

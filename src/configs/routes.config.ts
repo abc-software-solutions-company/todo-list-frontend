@@ -2,7 +2,6 @@ export const ROUTES = {
   HOME: '/',
   ACTION: '/action',
   TODO_LIST: '/list',
-  QUICKPLAY: '/quick-play',
   NOTFOUND: '/not-found',
-  WAITING: '/waiting'
+  LOAD_CONTEXT_STATE: '/load-context-state'
 };

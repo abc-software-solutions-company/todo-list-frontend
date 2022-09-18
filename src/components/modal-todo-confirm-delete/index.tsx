@@ -2,7 +2,8 @@ import cls from 'classnames';
 import {useRouter} from 'next/router';
 import React, {FC} from 'react';
 
-import API, {ITodo} from '@/api/network/todo';
+import API from '@/api/network/todo';
+import {ITodo} from '@/api/types/todo.type';
 import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import {Modal} from '@/core-ui/modal';

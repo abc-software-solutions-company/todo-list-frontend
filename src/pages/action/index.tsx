@@ -11,11 +11,13 @@ import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
 import Seo from '@/components/seo/seo';
 import {ROUTES} from '@/configs/routes.config';
 import {siteSettings} from '@/configs/site.config';
+import {useStateAuth} from '@/contexts/auth/context';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
 import LayoutDefault from '@/layouts/default';
 import {IAction} from '@/types';
+import checkUnAuthorized from '@/utils/check-unauthorized';
 
 import styles from './style.module.scss';
 
@@ -26,11 +28,13 @@ interface IFormInputs {
 const Schema = yup.object().shape({
   todoId: yup.string().required('Please enter Link or ID')
 });
+checkUnAuthorized();
 
 export default function Action() {
   const router = useRouter();
   const toast = useToast();
   const [action, setAction] = useState<IAction>({type: '', payload: null});
+  const auth = useStateAuth();
 
   const resetAction = () => setAction({type: '', payload: null});
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
@@ -52,44 +56,46 @@ export default function Action() {
   return (
     <>
       <Seo title={`${siteSettings.name} | Action Page`} description={siteSettings.description} />
-      <div className={styles['page-action']}>
-        <div className="container">
-          <div className="inner">
-            <p className="title">TO-DO LIST</p>
-            <p className="h1">Organize your work and life, finally.</p>
-            <div className="actions">
-              <div className="item">
-                <Button
-                  variant="contained"
-                  className="w-full font-medium"
-                  color="primary"
-                  onClick={() => setAction({type: 'add', payload: null})}
-                >
-                  Create New List
-                </Button>
-              </div>
-              <div className="item">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <Input
-                    groupEnd={
-                      <Button
-                        className="px-5 font-medium "
-                        color="primary"
-                        variant="contained"
-                        text="Join"
-                        type="submit"
-                      />
-                    }
-                    placeholder="Enter Link or ID"
-                    error={errors.todoId?.message}
-                    {...register('todoId')}
-                  />
-                </form>
+      {auth.user && (
+        <div className={styles['page-action']}>
+          <div className="container">
+            <div className="inner">
+              <p className="title">TO-DO LIST</p>
+              <p className="h1">Organize your work and life, finally.</p>
+              <div className="actions">
+                <div className="item">
+                  <Button
+                    variant="contained"
+                    className="w-full font-medium"
+                    color="primary"
+                    onClick={() => setAction({type: 'add', payload: null})}
+                  >
+                    Create New List
+                  </Button>
+                </div>
+                <div className="item">
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <Input
+                      groupEnd={
+                        <Button
+                          className="px-5 font-medium "
+                          color="primary"
+                          variant="contained"
+                          text="Join"
+                          type="submit"
+                        />
+                      }
+                      placeholder="Enter Link or ID"
+                      error={errors.todoId?.message}
+                      {...register('todoId')}
+                    />
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
       {['add'].includes(action.type) && (
         <ModalTodoAddEdit
           data={action.payload}

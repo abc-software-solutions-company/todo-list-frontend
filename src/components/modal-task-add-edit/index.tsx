@@ -1,10 +1,11 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import cls from 'classnames';
-import {FC, useCallback, useContext, useEffect} from 'react';
+import {FC, useCallback, useEffect} from 'react';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
-import API, {ITask} from '@/api/network/task';
+import API from '@/api/network/task';
+import {ITask} from '@/api/types/task.type';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
@@ -23,7 +24,6 @@ interface IProps {
 interface IFormInputs {
   name: string;
   todoListId?: string;
-  userId?: string;
 }
 
 const Schema = yup.object().shape({
@@ -52,11 +52,7 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
   };
 
   const onSubmit: SubmitHandler<IFormInputs> = formData => {
-    // FIXME
-    const userId = 1;
-
     formData.todoListId = todoListId;
-    formData.userId = userId;
 
     if (data?.id) {
       API.updateTask(data.id, formData)

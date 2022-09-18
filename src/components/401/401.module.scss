@@ -1,0 +1,15 @@
+.page-unauthorized :global {
+  @apply grid min-h-screen place-items-center p-4 text-white sm:p-8;
+  .container {
+    @apply text-center text-blue-500;
+  }
+  .heading {
+    @apply mb-4 text-sm uppercase tracking-widest sm:mb-5;
+  }
+  .image {
+    @apply mb-11 flex justify-center;
+  }
+  .sub-heading {
+    @apply mb-5 whitespace-pre-line text-2xl font-bold sm:text-3xl;
+  }
+}

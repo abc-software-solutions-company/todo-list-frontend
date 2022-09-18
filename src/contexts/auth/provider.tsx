@@ -1,6 +1,6 @@
 import React, {FC, ReactNode, useEffect, useReducer, useState} from 'react';
 
-import {IUser} from '@/api/network/user';
+import {IUser} from '@/api/types/user.type';
 
 import {Context, DispatchContext} from './context';
 import reducer from './reducer';
