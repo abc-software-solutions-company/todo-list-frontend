@@ -2,6 +2,7 @@ import cn from 'classnames';
 import {GetStaticProps} from 'next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import React from 'react';
+import * as yup from 'yup';
 
 import TodoListLogo from '@/components/icons/todolist-logo';
 import Seo from '@/components/seo/seo';
@@ -15,7 +16,6 @@ import styles from './style.module.scss';
 
 export default function QuickPlay() {
   const {onSubmit, matches, register, handleSubmit, errors} = useIndexHook();
-
   return (
     <>
       <Seo title={`${siteSettings.name} | Quick Play`} description={siteSettings.description} />

@@ -27,7 +27,7 @@ interface IFormInputs {
 }
 
 const Schema = yup.object().shape({
-  name: yup.string().required('Please enter your To-Do name.')
+  name: yup.string().required('Please enter your To-Do name.').max(30, 'Username must be at least 30 characters')
 });
 const FORM_DEFAULT_VALUES = {
   name: ''
