@@ -41,7 +41,7 @@ const Topbar: FC<IProps> = ({className}) => {
             <span className="h2">{auth.user?.userName}</span>
             <span className="sep"></span>
             <Link href={ROUTES.TODO_LIST}>
-              <a className="h2">My List</a>
+              <a className="h2 text">My List</a>
             </Link>
           </div>
         </div>
