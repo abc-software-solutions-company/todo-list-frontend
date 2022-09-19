@@ -20,11 +20,11 @@ const Authentication: FC<IProps> = ({children}) => {
   const router = useRouter();
   const asPath = router.asPath;
   const authDispatch = useDispatchAuth();
+  if (!asPath.includes(ROUTES.LOGIN)) {
+    if (typeof window !== 'undefined') LocalStorage.previousPage.set(asPath);
+  }
 
   useEffect(() => {
-    if (!asPath.includes(ROUTES.LOGIN)) {
-      LocalStorage.previousPage.set(asPath);
-    }
     const accessToken = LocalStorage.accessToken.get();
     if (!accessToken) {
       if (!asPath.includes(ROUTES.LOGIN)) router.push(ROUTES.LOGIN);
