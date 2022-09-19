@@ -1,7 +1,7 @@
 .footer :global {
   @apply mt-auto py-4;
   .container {
-    @apply p-4 md:p-0;
+    @apply p-4;
   }
   .copyright {
     @apply text-center md:flex md:items-center md:justify-center md:gap-1;

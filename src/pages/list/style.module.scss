@@ -1,9 +1,9 @@
 .page-list :global {
   .container {
-    @apply p-4 md:p-0;
+    @apply px-4 md:p-0;
   }
   .toolbar {
-    @apply mt-3 flex justify-between md:mt-5;
+    @apply mt-3 flex justify-between lg:mt-5;
     .left {
       @apply flex items-center;
       .icon-btn {
@@ -27,7 +27,7 @@
     }
   }
   .list {
-    @apply mt-3 md:mt-5;
+    @apply mt-3 lg:mt-5;
     .empty {
       @apply flex justify-center;
     }

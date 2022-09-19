@@ -1,11 +1,11 @@
 .page-detail :global {
   .container {
-    @apply p-4 md:p-0;
+    @apply px-4 md:p-0;
   }
   .toolbar {
-    @apply mt-3 flex items-start justify-between md:mt-5;
+    @apply mt-3 flex items-start justify-between lg:mt-5;
     h2 {
-      @apply mr-auto break-all text-h4 font-semibold  leading-none md:text-h2;
+      @apply mr-auto break-all text-h4 font-semibold leading-none md:text-h2;
     }
     .left {
       @apply flex items-center;
@@ -20,7 +20,7 @@
       @apply mx-2 inline-flex h-4 w-[1px] bg-cyan-800;
     }
     .title {
-      @apply mt-2.5 md:mt-2;
+      @apply mt-2.5 lg:mt-2;
     }
     .right {
       @apply flex;
@@ -41,7 +41,7 @@
     }
   }
   .tasks {
-    @apply mt-3 md:mt-5;
+    @apply mt-3 lg:mt-5;
     .empty {
       @apply flex justify-center;
     }
