@@ -10,6 +10,7 @@ import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
+import {HTTP_STATUS_CODE} from '@/utils/http-status-code';
 
 import styles from './style.module.scss';
 
@@ -54,20 +55,60 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
     if (data?.id) {
       API.updateTodo(data.id, formData)
         .then(res => {
-          onSave?.();
-          if (res.status == 200) toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
+          switch (res.status) {
+            case HTTP_STATUS_CODE.OK:
+              toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
+              onSave?.();
+              break;
+            default:
+              break;
+          }
         })
-        .catch(() => {
-          toast.show({type: 'danger', title: 'Update List', content: 'Error, too much character'});
+        .catch(err => {
+          const statusCode = err.response.data.statusCode;
+          switch (statusCode) {
+            case HTTP_STATUS_CODE.NOT_ACCEPTABLE:
+              toast.show({
+                type: 'danger',
+                title: 'Update List',
+                content: 'Error, Name must have at least 1 alphabetic or 1 number'
+              });
+              break;
+            case HTTP_STATUS_CODE.BAD_REQUEST:
+              toast.show({type: 'danger', title: 'Update List', content: 'Error, too much character'});
+              break;
+            default:
+              break;
+          }
         });
     } else {
       API.createTodo(formData)
-        .then(() => {
-          onSave?.();
-          toast.show({type: 'success', title: 'Create List', content: 'Successful!'});
+        .then(res => {
+          switch (res.status) {
+            case HTTP_STATUS_CODE.CREATED:
+              toast.show({type: 'success', title: 'Create List', content: 'Successful!'});
+              onSave?.();
+              break;
+            default:
+              break;
+          }
         })
-        .catch(() => {
-          toast.show({type: 'danger', title: 'Create List', content: 'Error, too much character'});
+        .catch(err => {
+          const statusCode = err.response.data.statusCode;
+          switch (statusCode) {
+            case HTTP_STATUS_CODE.NOT_ACCEPTABLE:
+              toast.show({
+                type: 'danger',
+                title: 'Create List',
+                content: 'Error, Name must have at least 1 alphabetic or 1 number'
+              });
+              break;
+            case HTTP_STATUS_CODE.BAD_REQUEST:
+              toast.show({type: 'danger', title: 'Create List', content: 'Error, too much character'});
+              break;
+            default:
+              break;
+          }
         });
     }
   };

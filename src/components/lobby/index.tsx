@@ -16,6 +16,7 @@ import LayoutDefault from '@/layouts/default';
 import {IAction} from '@/types';
 import checkUnAuthorized from '@/utils/check-unauthorized';
 import detectIdOrLink from '@/utils/detect-id-or-link';
+import {HTTP_STATUS_CODE} from '@/utils/http-status-code';
 
 import styles from './style.module.scss';
 
@@ -41,16 +42,21 @@ export default function Lobby() {
 
   const onSubmit: SubmitHandler<IFormInputs> = data => {
     const todoId = detectIdOrLink(data.todoId);
-    console.log('🚀 ~ file: index.tsx ~ line 48 ~ Lobby ~ todoId', todoId);
 
-    API.getTodo(todoId).then(res => {
-      if (res.status == 200) {
-        toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
-        router.push(`${ROUTES.LIST}/${todoId}`);
-      } else {
-        toast.show({type: 'danger', title: 'Error!', content: 'List not found.', lifeTime: 3000});
-      }
-    });
+    API.getTodo(todoId)
+      .then(res => {
+        switch (res.status) {
+          case HTTP_STATUS_CODE.OK:
+            toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
+            router.push(`${ROUTES.LIST}/${todoId}`);
+            break;
+          default:
+            break;
+        }
+      })
+      .catch(() => {
+        toast.show({type: 'danger', title: 'Error!', content: 'List not found', lifeTime: 3000});
+      });
   };
 
   return (

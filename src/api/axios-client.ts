@@ -37,7 +37,7 @@ axiosClient.interceptors.response.use(
         window.location.href = ROUTES.LOGIN;
       }
     }
-    return err;
+    return Promise.reject(err);
   }
 );
 

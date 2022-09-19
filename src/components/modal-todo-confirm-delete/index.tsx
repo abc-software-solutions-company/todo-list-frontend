@@ -25,13 +25,21 @@ const ModalTodoConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
 
   const deletePost = () => {
     if (data?.id)
-      API.deleteTodo(data?.id).then(() => {
-        onConfirm?.();
-        toast.show({type: 'success', title: 'Delete list', content: 'Successful!'});
-        if (page == 'detail') {
-          router.push(ROUTES.LIST);
-        }
-      });
+      API.deleteTodo(data?.id)
+        .then(() => {
+          onConfirm?.();
+          toast.show({type: 'success', title: 'Delete list', content: 'Successful!'});
+          if (page == 'detail') {
+            router.push(ROUTES.LIST);
+          }
+        })
+        .catch(() => {
+          toast.show({
+            type: 'danger',
+            title: 'Delete list',
+            content: 'Error!, your todo list is not available or something error'
+          });
+        });
   };
 
   if (!data) return null;

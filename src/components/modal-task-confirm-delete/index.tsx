@@ -8,6 +8,7 @@ import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
+import {HTTP_STATUS_CODE} from '@/utils/http-status-code';
 
 import styles from './style.module.scss';
 
@@ -24,13 +25,22 @@ const ModalTaskConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
   const toast = useToast();
   const deletePost = () => {
     if (data?.id)
-      TaskAPI.deleteTask(data?.id).then(() => {
-        onConfirm?.();
-        toast.show({type: 'success', title: 'Delete To-Do', content: 'Successful!'});
-        if (page === 'detail') {
-          router.push(ROUTES.LIST);
-        }
-      });
+      TaskAPI.deleteTask(data?.id)
+        .then(res => {
+          onConfirm?.();
+          if (res.status == HTTP_STATUS_CODE.OK)
+            toast.show({type: 'success', title: 'Delete To-Do', content: 'Successful!'});
+          if (page === 'detail') {
+            router.push(ROUTES.LIST);
+          }
+        })
+        .catch(() => {
+          toast.show({
+            type: 'danger',
+            title: 'Delete To-Do',
+            content: 'Error!, your task is not available or something error '
+          });
+        });
   };
 
   if (!data) return null;

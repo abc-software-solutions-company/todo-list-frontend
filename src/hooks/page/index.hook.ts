@@ -31,20 +31,22 @@ export default function useIndexHook() {
     resolver: yupResolver(Schema)
   });
   const onSubmit: SubmitHandler<IFormInputs> = data => {
-    API.createUser(data).then(res => {
-      if (res.status === 201) {
-        LocalStorage.accessToken.set(res.data.accessToken);
-        dispatchAuth(AuthActions.login(res.data.user));
-        const previousPage = LocalStorage.previousPage.get();
-        if (previousPage) {
-          router.push(previousPage);
-        } else {
-          router.push(ROUTES.HOME);
+    API.createUser(data)
+      .then(res => {
+        if (res.status === 201) {
+          LocalStorage.accessToken.set(res.data.accessToken);
+          dispatchAuth(AuthActions.login(res.data.user));
+          const previousPage = LocalStorage.previousPage.get();
+          if (previousPage) {
+            router.push(previousPage);
+          } else {
+            router.push(ROUTES.HOME);
+          }
         }
-      } else {
+      })
+      .catch(() => {
         toast.show({type: 'danger', title: 'Error', content: 'Can&apos;t create user.'});
-      }
-    });
+      });
   };
 
   useEffect(() => {

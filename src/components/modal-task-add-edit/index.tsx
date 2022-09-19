@@ -10,6 +10,7 @@ import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
+import {HTTP_STATUS_CODE} from '@/utils/http-status-code';
 
 import styles from './style.module.scss';
 
@@ -55,22 +56,71 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
     formData.todoListId = todoListId;
 
     if (data?.id) {
-      API.updateTask(data.id, formData).then(res => {
-        if (res.status >= 200) {
-          onSave();
-          toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
-        } else {
-          toast.show({type: 'danger', title: 'Update To-Do', content: 'Error, too much character'});
-        }
-      });
+      API.updateTask(data.id, formData)
+        .then(res => {
+          switch (res.status) {
+            case HTTP_STATUS_CODE.OK:
+              toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
+              onSave?.();
+              break;
+            default:
+              break;
+          }
+        })
+        .catch(err => {
+          const statusCode = err.response.data.statusCode;
+          switch (statusCode) {
+            case HTTP_STATUS_CODE.NOT_ACCEPTABLE:
+              toast.show({
+                type: 'danger',
+                title: 'Update To-Do',
+                content: 'Error, Name must have at least 1 alphabetic or 1 number'
+              });
+              break;
+            case HTTP_STATUS_CODE.BAD_REQUEST:
+              toast.show({
+                type: 'danger',
+                title: 'Update To-Do',
+                content: 'Error, Too much character!, Please type lesser'
+              });
+              break;
+            default:
+              break;
+          }
+        });
     } else {
-      API.createTask(formData).then(res => {
-        onSave();
-        if (res.status >= 200) toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
-        else {
-          toast.show({type: 'danger', title: 'Create To-Do', content: 'Error, too much character'});
-        }
-      });
+      API.createTask(formData)
+        .then(res => {
+          switch (res.status) {
+            case HTTP_STATUS_CODE.CREATED:
+              toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
+              onSave();
+              break;
+            default:
+              break;
+          }
+        })
+        .catch(err => {
+          const statusCode = err.response.data.statusCode;
+          switch (statusCode) {
+            case HTTP_STATUS_CODE.NOT_ACCEPTABLE:
+              toast.show({
+                type: 'danger',
+                title: 'Create To-Do',
+                content: 'Error, Name must have at least 1 alphabetic or 1 number'
+              });
+              break;
+            case HTTP_STATUS_CODE.BAD_REQUEST:
+              toast.show({
+                type: 'danger',
+                title: 'Create To-Do',
+                content: 'Error, Too much character!, Please type lesser'
+              });
+              break;
+            default:
+              break;
+          }
+        });
     }
   };
 
