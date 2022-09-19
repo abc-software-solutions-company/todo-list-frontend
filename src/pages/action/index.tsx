@@ -18,6 +18,7 @@ import useToast from '@/core-ui/toast';
 import LayoutDefault from '@/layouts/default';
 import {IAction} from '@/types';
 import checkUnAuthorized from '@/utils/check-unauthorized';
+import detectIdOrLink from '@/utils/detect-id-or-link';
 
 import styles from './style.module.scss';
 
@@ -41,8 +42,10 @@ export default function Action() {
     resolver: yupResolver(Schema)
   });
   const {errors} = formState;
+
   const onSubmit: SubmitHandler<IFormInputs> = data => {
-    const todoId = data.todoId.toLowerCase();
+    const todoId = detectIdOrLink(data.todoId);
+
     API.getTodo(todoId)
       .then(res => {
         toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
