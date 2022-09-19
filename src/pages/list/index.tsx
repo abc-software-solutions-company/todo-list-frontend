@@ -52,7 +52,7 @@ export default function List() {
 
   useEffect(() => {
     getTodoList(getUserId());
-  });
+  }, []);
 
   if (!todoList) return null;
 
