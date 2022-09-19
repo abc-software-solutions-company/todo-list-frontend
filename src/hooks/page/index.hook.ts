@@ -28,6 +28,8 @@ export default function useIndexHook() {
 
   const matches = useMediaQuery('(min-width:640px)');
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     resolver: yupResolver(Schema)
   });
   const onSubmit: SubmitHandler<IFormInputs> = data => {

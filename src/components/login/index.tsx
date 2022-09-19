@@ -27,7 +27,8 @@ export default function Login() {
               <Input
                 placeholder="Enter your name"
                 className="name-input"
-                maxLength={32}
+                maxLength={33}
+                // Explain: Don't worry about 33 character Because IUse max length 33 to trigger yup validation 32 character message
                 {...register('userName')}
                 error={errors.userName?.message}
               />
