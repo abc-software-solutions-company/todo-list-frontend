@@ -28,7 +28,7 @@ const ModalTaskConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
         onConfirm?.();
         toast.show({type: 'success', title: 'Delete To-Do', content: 'Successful!'});
         if (page === 'detail') {
-          router.push(ROUTES.TODO_LIST);
+          router.push(ROUTES.LIST);
         }
       });
   };

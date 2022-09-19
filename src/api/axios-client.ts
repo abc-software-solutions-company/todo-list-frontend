@@ -1,15 +1,14 @@
 import axios from 'axios';
 
 import {ROUTES} from '@/configs/routes.config';
-import useLocalStorage from '@/utils/local-storage';
+import LocalStorage from '@/utils/local-storage';
 
 import {setupInterceptorsTo} from './interceptors';
 
 // eslint-disable-next-line react-hooks/rules-of-hooks
-const {readToken} = useLocalStorage();
 
 const axiosClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3100/',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json'
@@ -20,7 +19,7 @@ axiosClient.interceptors.request.use(
   config => {
     config.headers = {...config.headers};
     if (typeof window !== 'undefined') {
-      const accessToken = readToken();
+      const accessToken = LocalStorage.accessToken.get();
       if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
@@ -35,8 +34,7 @@ axiosClient.interceptors.response.use(
   err => {
     if (err?.response?.status === 401) {
       if (typeof window !== 'undefined') {
-        localStorage.setItem('previousPage', window.location.href);
-        window.location.href = ROUTES.HOME;
+        window.location.href = ROUTES.LOGIN;
       }
     }
     return err;

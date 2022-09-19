@@ -29,7 +29,7 @@ const ModalTodoConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
         onConfirm?.();
         toast.show({type: 'success', title: 'Delete list', content: 'Successful!'});
         if (page == 'detail') {
-          router.push(ROUTES.TODO_LIST);
+          router.push(ROUTES.LIST);
         }
       });
   };

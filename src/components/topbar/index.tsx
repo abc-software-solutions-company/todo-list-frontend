@@ -23,10 +23,10 @@ const Topbar: FC<IProps> = ({className}) => {
   const returnTo = (curPage: string) => {
     switch (curPage) {
       case '/list':
-        router.push(ROUTES.ACTION);
+        router.push(ROUTES.HOME);
         break;
       case '/list/[id]':
-        router.push(ROUTES.TODO_LIST);
+        router.push(ROUTES.LIST);
         break;
     }
   };
@@ -40,7 +40,7 @@ const Topbar: FC<IProps> = ({className}) => {
             <Icon name="ico-user" />
             <span className="h2">{auth.user?.userName}</span>
             <span className="sep"></span>
-            <Link href={ROUTES.TODO_LIST}>
+            <Link href={ROUTES.LIST}>
               <a className="h2">My List</a>
             </Link>
           </div>

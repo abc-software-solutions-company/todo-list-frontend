@@ -14,7 +14,7 @@ import QueryProvider from '@/contexts/query.provider';
 import {CoreUIProvider, defaultTheme} from '@/core-ui/contexts/index';
 import Noop from '@/core-ui/noop';
 
-import PageWrap from './_app.hook';
+import PageWrap from '../hooks/page/_app.hook';
 
 const CustomApp = ({Component, pageProps}: AppProps) => {
   const router = useRouter();

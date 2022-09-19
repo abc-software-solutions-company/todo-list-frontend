@@ -5,7 +5,7 @@ import {IUser} from '../types/user.type';
 
 type User = IAxiosResponse<IUser>;
 
-const getUserProfile = () => HttpRequest.get<User>('/users/');
+const getUserProfile = () => HttpRequest.get<User>('/auth/login');
 const createUser = (data: IUser) => HttpRequest.post<IUser>('/users', data);
 
 // eslint-disable-next-line import/no-anonymous-default-export

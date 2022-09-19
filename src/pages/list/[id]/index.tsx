@@ -21,7 +21,7 @@ import useQueryTypeScript from '@/hooks/useQueryTypeScript';
 import LayoutDefault from '@/layouts/default';
 import {IAction} from '@/types';
 import checkUnAuthorized from '@/utils/check-unauthorized';
-import useLocalStorage from '@/utils/local-storage';
+import LocalStorage from '@/utils/local-storage';
 
 import styles from './style.module.scss';
 
@@ -35,7 +35,7 @@ export default function Detail() {
   const [actionTodo, setActionTodo] = useState<IAction>({type: '', payload: null});
   const [shareOpen, setShareOpen] = useState(false);
   const auth = useStateAuth();
-  const {removePreviousLink} = useLocalStorage();
+  const {removePreviousLink} = LocalStorage();
 
   const id = useQueryTypeScript();
   const page = 'detail';
@@ -60,7 +60,7 @@ export default function Detail() {
   const resetActionTodo = () => setActionTodo({type: '', payload: null});
   const socketMsgToClient = () => {
     socket.on(`msgToClient_${id}`, () => {
-      getListTasks(id).catch(() => router.push(ROUTES.TODO_LIST));
+      getListTasks(id).catch(() => router.push(ROUTES.LIST));
     });
   };
 
@@ -73,7 +73,7 @@ export default function Detail() {
 
   useEffect(() => {
     if (id) {
-      getListTasks(id).catch(() => router.push(ROUTES.TODO_LIST));
+      getListTasks(id).catch(() => router.push(ROUTES.LIST));
       socketMsgToClient();
       removePreviousLink();
     }

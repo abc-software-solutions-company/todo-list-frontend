@@ -11,7 +11,7 @@ import {AuthActions} from '@/contexts/auth';
 import {useDispatchAuth} from '@/contexts/auth/context';
 import useToast from '@/core-ui/toast';
 import useMediaQuery from '@/hooks/useMediaQuery';
-import useLocalStorage from '@/utils/local-storage';
+import LocalStorage from '@/utils/local-storage';
 
 interface IFormInputs {
   userName: string;
@@ -26,7 +26,7 @@ export default function useIndexHook() {
   const router = useRouter();
   const dispatchAuth = useDispatchAuth();
   const {saveToken, saveUserProfile, removeUserProfile, removeToken, readPreviousLink, removePreviousLink} =
-    useLocalStorage();
+    LocalStorage();
 
   const matches = useMediaQuery('(min-width:640px)');
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
@@ -43,7 +43,7 @@ export default function useIndexHook() {
           if (previousPage) {
             router.push(previousPage);
           } else {
-            router.push(ROUTES.LOAD_CONTEXT_STATE);
+            router.push(ROUTES.HOME);
           }
         } else {
           toast.show({type: 'danger', title: 'Error', content: 'Can&apos;t create user.'});

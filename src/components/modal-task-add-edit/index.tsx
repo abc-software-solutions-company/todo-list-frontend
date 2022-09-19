@@ -17,7 +17,7 @@ interface IProps {
   data: ITask;
   open: boolean;
   todoListId?: string;
-  onSave?: () => void;
+  onSave: () => void;
   onCancel?: () => void;
 }
 
@@ -56,9 +56,11 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
 
     if (data?.id) {
       API.updateTask(data.id, formData)
-        .then(() => {
-          onSave?.();
-          toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
+        .then(res => {
+          if (res.status == 200) {
+            onSave();
+            toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
+          }
         })
         .catch(() => {
           toast.show({type: 'danger', title: 'Update To-Do', content: 'Error, too much character'});
@@ -66,7 +68,7 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
     } else {
       API.createTask(formData)
         .then(() => {
-          onSave?.();
+          onSave();
           toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
         })
         .catch(() => {

@@ -1,6 +1,4 @@
 import {yupResolver} from '@hookform/resolvers/yup';
-import {GetStaticProps} from 'next';
-import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {useRouter} from 'next/router';
 import {useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
@@ -31,7 +29,7 @@ const Schema = yup.object().shape({
 });
 checkUnAuthorized();
 
-export default function Action() {
+export default function Lobby() {
   const router = useRouter();
   const toast = useToast();
   const [action, setAction] = useState<IAction>({type: '', payload: null});
@@ -44,23 +42,22 @@ export default function Action() {
   const {errors} = formState;
 
   const onSubmit: SubmitHandler<IFormInputs> = data => {
-    const todoId = data.todoId.toLowerCase();
+    const todoId = detectIdOrLink(data.todoId);
+    console.log('🚀 ~ file: index.tsx ~ line 48 ~ Lobby ~ todoId', todoId);
 
-    API.getTodo(todoId)
-      .then(res => {
-        if (res.status !== 200)
-          toast.show({type: 'danger', title: 'Error!', content: 'List not found.', lifeTime: 3000});
-        else toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
-        if (res.status == 200) router.push(`${ROUTES.TODO_LIST}/${todoId}`);
-      })
-      .catch(() => {
+    API.getTodo(todoId).then(res => {
+      if (res.status == 200) {
+        toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
+        router.push(`${ROUTES.LIST}/${todoId}`);
+      } else {
         toast.show({type: 'danger', title: 'Error!', content: 'List not found.', lifeTime: 3000});
-      });
+      }
+    });
   };
 
   return (
     <>
-      <Seo title={`${siteSettings.name} | Action Page`} description={siteSettings.description} />
+      <Seo title={`${siteSettings.name} | Lobby Page`} description={siteSettings.description} />
       {auth.user && (
         <div className={styles['page-action']}>
           <div className="container">
@@ -102,7 +99,7 @@ export default function Action() {
         <ModalTodoAddEdit
           data={action.payload}
           open={true}
-          onSave={() => router.push(ROUTES.TODO_LIST)}
+          onSave={() => router.push(ROUTES.LIST)}
           onCancel={resetAction}
         />
       )}
@@ -110,14 +107,4 @@ export default function Action() {
   );
 }
 
-Action.Layout = LayoutDefault;
-
-export const getStaticProps: GetStaticProps = async ({locale}) => {
-  const translate = await serverSideTranslations(locale!, ['common']);
-
-  return {
-    props: {
-      ...translate
-    }
-  };
-};
+Lobby.Layout = LayoutDefault;

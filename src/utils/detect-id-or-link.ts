@@ -2,12 +2,16 @@ import {ROUTES} from '@/configs/routes.config';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (idOrLink: string) {
+  console.log('🚀 ~ file: detect-id-or-link.ts ~ line 5 ~ idOrLink', idOrLink);
   let id;
-  if (!idOrLink.includes(window.location.origin + ROUTES.TODO_LIST)) {
+  const detectStr = window.location.origin + ROUTES.LIST + '/';
+  if (!idOrLink.includes(detectStr)) {
     id = idOrLink;
   } else {
-    const arr = idOrLink.split(window.location.origin + ROUTES.TODO_LIST);
+    const arr = idOrLink.split(detectStr);
     id = arr[arr.length - 1];
   }
-  return id.toLowerCase().replace('/', '');
+  console.log(id.toLowerCase());
+
+  return id.toLowerCase();
 }

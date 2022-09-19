@@ -14,7 +14,7 @@ const ErrorUnAuthorized: React.FC = () => {
       <div className="container">
         <p className="heading">You are not login</p>
         <h1 className="sub-heading">Press link below to go back homepage and register a name. Thanks</h1>
-        <Link href={ROUTES.HOME}>{t('404-back-home')}</Link>
+        <Link href={ROUTES.LOGIN}>{t('404-back-home')}</Link>
       </div>
     </div>
   );
