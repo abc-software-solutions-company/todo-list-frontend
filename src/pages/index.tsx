@@ -30,6 +30,7 @@ export default function QuickPlay() {
               <Input
                 placeholder="Enter your name"
                 className="name-input"
+                maxLength={32}
                 {...register('userName')}
                 error={errors.userName?.message}
               />
