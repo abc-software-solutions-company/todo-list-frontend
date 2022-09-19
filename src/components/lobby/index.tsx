@@ -14,6 +14,7 @@ import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
 import LayoutDefault from '@/layouts/default';
 import {IAction} from '@/types';
+import checkUnAuthorized from '@/utils/check-unauthorized';
 import detectIdOrLink from '@/utils/detect-id-or-link';
 
 import styles from './style.module.scss';
@@ -25,6 +26,7 @@ interface IFormInputs {
 const Schema = yup.object().shape({
   todoId: yup.string().required('Please enter Link or ID')
 });
+checkUnAuthorized();
 
 export default function Lobby() {
   const router = useRouter();

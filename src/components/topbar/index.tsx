@@ -33,12 +33,12 @@ const Topbar: FC<IProps> = ({className}) => {
 
   return (
     <div className={cls(styles.topbar, className)}>
-      {auth?.user && (
+      {auth?.userName && (
         <div className="container">
           <Back visibleOn={['/list', '/list/[id]']} currentPage={currentPage} onClick={() => returnTo(currentPage)} />
           <div className="authenticated">
             <Icon name="ico-user" />
-            <span className="h2">{auth && auth.user.userName}</span>
+            <span className="h2">{auth && auth.userName}</span>
             <span className="sep"></span>
             <Link href={ROUTES.LIST}>
               <a className="h2">My List</a>
