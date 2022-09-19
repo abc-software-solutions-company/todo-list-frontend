@@ -1,13 +1,14 @@
 .topbar :global {
   @apply mt-3 lg:mt-12;
   .container {
-    @apply flex items-center justify-between px-4 md:p-0;
+    @apply flex w-full items-center justify-between px-4 md:p-0;
   }
-  .h2 {
-    @apply break-all text-h4 leading-none;
-  }
+
   .authenticated {
-    @apply flex w-full items-center;
+    @apply flex w-full items-center justify-end;
+    .h2 {
+      @apply flex items-center break-all text-h4 leading-none;
+    }
   }
   .ico-user {
     @apply ml-auto mr-2;
@@ -18,9 +19,7 @@
   a:hover {
     @apply no-underline;
   }
-  a {
-    h2 {
-      @apply w-full whitespace-nowrap text-h4 leading-none;
-    }
+  .text {
+    @apply flex items-end whitespace-nowrap text-h4 leading-none;
   }
 }
