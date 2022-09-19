@@ -55,25 +55,22 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
     formData.todoListId = todoListId;
 
     if (data?.id) {
-      API.updateTask(data.id, formData)
-        .then(res => {
-          if (res.status == 200) {
-            onSave();
-            toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
-          }
-        })
-        .catch(() => {
-          toast.show({type: 'danger', title: 'Update To-Do', content: 'Error, too much character'});
-        });
-    } else {
-      API.createTask(formData)
-        .then(() => {
+      API.updateTask(data.id, formData).then(res => {
+        if (res.status == 200) {
           onSave();
-          toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
-        })
-        .catch(() => {
+          toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
+        } else {
+          toast.show({type: 'danger', title: 'Update To-Do', content: 'Error, too much character'});
+        }
+      });
+    } else {
+      API.createTask(formData).then(res => {
+        onSave();
+        if (res.status == 200) toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
+        else {
           toast.show({type: 'danger', title: 'Create To-Do', content: 'Error, too much character'});
-        });
+        }
+      });
     }
   };
 
