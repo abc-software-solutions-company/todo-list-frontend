@@ -17,6 +17,7 @@ interface IProps {
 
 const Authentication: FC<IProps> = ({children}) => {
   const auth = useStateAuth();
+
   const router = useRouter();
   const asPath = router.asPath;
   const authDispatch = useDispatchAuth();
@@ -30,18 +31,15 @@ const Authentication: FC<IProps> = ({children}) => {
       if (!asPath.includes(ROUTES.LOGIN)) router.push(ROUTES.LOGIN);
     } else {
       if (!auth) {
-        api
-          .getUserProfile()
-          .then(res => {
-            if (res.status === 200) authDispatch(AuthActions.login(res.data));
-          })
-          .catch(() => {
-            if (!asPath.includes(ROUTES.LOGIN)) router.push(ROUTES.LOGIN);
-          });
+        api.getUserProfile().then(res => {
+          if (res.status === 200) authDispatch(AuthActions.login(res.data));
+          else if (!asPath.includes(ROUTES.LOGIN)) router.push(ROUTES.LOGIN);
+        });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log('🚀 ~ file: provider.tsx ~ line 20 ~ auth', auth);
 
   if (!asPath.includes(ROUTES.LOGIN) && !auth) return null;
 

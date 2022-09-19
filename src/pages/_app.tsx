@@ -3,52 +3,26 @@ import '@/vendors/menu/style.scss';
 import '@/vendors/abc-icons/dist/abc.scss';
 
 import {appWithTranslation} from 'next-i18next';
+import {DefaultSeo} from 'next-seo';
 import type {AppProps} from 'next/app';
 import {useRouter} from 'next/router';
-import NextNProgress from 'nextjs-progressbar';
 import React from 'react';
 
 import AuthProvider from '@/contexts/auth/provider';
-import {GlobalProvider} from '@/contexts/global';
-import {useStateGlobal} from '@/contexts/global/context';
-import QueryProvider from '@/contexts/query.provider';
-import {CoreUIProvider, defaultTheme} from '@/core-ui/contexts/index';
 import Noop from '@/core-ui/noop';
-
-import PageWrap from '../hooks/page/_app.hook';
 
 const CustomApp = ({Component, pageProps}: AppProps) => {
   const router = useRouter();
-  const global = useStateGlobal();
-
-  function authCheck() {
-    GlobalActions.setMenuOpen(!global.isMenuOpen);
-  }
-
-  useEffect(() => {
-    router.events.on('routeChangeComplete', authCheck);
-
-    return () => {
-      router.events.off('hashChangeComplete', authCheck);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const Layout = (Component as any).Layout || Noop;
 
   return (
     <AuthProvider>
-      <QueryProvider pageProps={pageProps}>
-        <GlobalProvider>
-          <CoreUIProvider theme={defaultTheme}>
-            <NextNProgress color="#4b9ae8" />
-            <PageWrap>
-              <Layout pageProps={pageProps}>{<Component {...pageProps} key={router.route} />}</Layout>
-            </PageWrap>
-          </CoreUIProvider>
-        </GlobalProvider>
-      </QueryProvider>
+      <DefaultSeo />
+      <Layout pageProps={pageProps}>
+        <Component {...pageProps} key={router.route} />
+      </Layout>
     </AuthProvider>
   );
 };

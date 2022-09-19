@@ -33,7 +33,6 @@ export default function Lobby() {
   const router = useRouter();
   const toast = useToast();
   const [action, setAction] = useState<IAction>({type: '', payload: null});
-  const auth = useStateAuth();
 
   const resetAction = () => setAction({type: '', payload: null});
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
