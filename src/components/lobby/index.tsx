@@ -14,9 +14,7 @@ import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
 import LayoutDefault from '@/layouts/default';
 import {IAction} from '@/types';
-import checkUnAuthorized from '@/utils/check-unauthorized';
 import detectIdOrLink from '@/utils/detect-id-or-link';
-import {HTTP_STATUS_CODE} from '@/utils/http-status-code';
 
 import styles from './style.module.scss';
 
@@ -27,7 +25,6 @@ interface IFormInputs {
 const Schema = yup.object().shape({
   todoId: yup.string().required('Please enter Link or ID')
 });
-checkUnAuthorized();
 
 export default function Lobby() {
   const router = useRouter();
@@ -42,15 +39,19 @@ export default function Lobby() {
 
   const onSubmit: SubmitHandler<IFormInputs> = data => {
     const todoId = detectIdOrLink(data.todoId);
-
-    API.getTodo(todoId)
-      .then(() => {
-        toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
-        router.push(`${ROUTES.LIST}/${todoId}`);
-      })
-      .catch(() => {
-        toast.show({type: 'danger', title: 'Error!', content: 'List not found', lifeTime: 3000});
-      });
+    // Check if it contain space character only
+    if (todoId.trim().length == 0) {
+      toast.show({type: 'danger', title: 'Error!', content: 'List not found', lifeTime: 3000});
+    } else {
+      API.getTodo(todoId.trim())
+        .then(() => {
+          toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
+          router.push(`${ROUTES.LIST}/${todoId}`);
+        })
+        .catch(() => {
+          toast.show({type: 'danger', title: 'Error!', content: 'List not found', lifeTime: 3000});
+        });
+    }
   };
 
   return (

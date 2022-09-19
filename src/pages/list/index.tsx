@@ -4,9 +4,6 @@ import React from 'react';
 
 import List from '@/components/list';
 import LayoutDefault from '@/layouts/default';
-import checkUnAuthorized from '@/utils/check-unauthorized';
-
-checkUnAuthorized();
 
 export default function ListPage() {
   return <List />;

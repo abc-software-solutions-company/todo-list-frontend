@@ -8,7 +8,6 @@ import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
-import {HTTP_STATUS_CODE} from '@/utils/http-status-code';
 
 import styles from './style.module.scss';
 
@@ -28,8 +27,7 @@ const ModalTaskConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
       TaskAPI.deleteTask(data?.id)
         .then(res => {
           onConfirm?.();
-          if (res.status == HTTP_STATUS_CODE.OK)
-            toast.show({type: 'success', title: 'Delete To-Do', content: 'Successful!'});
+          if (res.status == 200) toast.show({type: 'success', title: 'Delete To-Do', content: 'Successful!'});
           if (page === 'detail') {
             router.push(ROUTES.LIST);
           }

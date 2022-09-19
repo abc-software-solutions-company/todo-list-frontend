@@ -10,7 +10,6 @@ import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
-import {HTTP_STATUS_CODE} from '@/utils/http-status-code';
 
 import styles from './style.module.scss';
 
@@ -58,22 +57,8 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
           toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
           onSave?.();
         })
-        .catch(err => {
-          const statusCode = err.response.data.statusCode;
-          switch (statusCode) {
-            case HTTP_STATUS_CODE.NOT_ACCEPTABLE:
-              toast.show({
-                type: 'danger',
-                title: 'Update List',
-                content: 'Error, Name must have at least 1 alphabetic or 1 number'
-              });
-              break;
-            case HTTP_STATUS_CODE.BAD_REQUEST:
-              toast.show({type: 'danger', title: 'Update List', content: 'Error, too much character'});
-              break;
-            default:
-              break;
-          }
+        .catch(() => {
+          toast.show({type: 'danger', title: 'Update List', content: 'Error, Cannot update List'});
         });
     } else {
       API.createTodo(formData)
@@ -81,22 +66,8 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
           toast.show({type: 'success', title: 'Create List', content: 'Successful!'});
           onSave?.();
         })
-        .catch(err => {
-          const statusCode = err.response.data.statusCode;
-          switch (statusCode) {
-            case HTTP_STATUS_CODE.NOT_ACCEPTABLE:
-              toast.show({
-                type: 'danger',
-                title: 'Create List',
-                content: 'Error, Name must have at least 1 alphabetic or 1 number'
-              });
-              break;
-            case HTTP_STATUS_CODE.BAD_REQUEST:
-              toast.show({type: 'danger', title: 'Create List', content: 'Error, too much character'});
-              break;
-            default:
-              break;
-          }
+        .catch(() => {
+          toast.show({type: 'danger', title: 'Create List', content: 'Error, Cannot create List'});
         });
     }
   };

@@ -10,7 +10,6 @@ import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
-import {HTTP_STATUS_CODE} from '@/utils/http-status-code';
 
 import styles from './style.module.scss';
 
@@ -61,26 +60,12 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
           toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
           onSave?.();
         })
-        .catch(err => {
-          const statusCode = err.response.data.statusCode;
-          switch (statusCode) {
-            case HTTP_STATUS_CODE.NOT_ACCEPTABLE:
-              toast.show({
-                type: 'danger',
-                title: 'Update To-Do',
-                content: 'Error, Name must have at least 1 alphabetic or 1 number'
-              });
-              break;
-            case HTTP_STATUS_CODE.BAD_REQUEST:
-              toast.show({
-                type: 'danger',
-                title: 'Update To-Do',
-                content: 'Error, Too much character!, Please type lesser'
-              });
-              break;
-            default:
-              break;
-          }
+        .catch(() => {
+          toast.show({
+            type: 'danger',
+            title: 'Update To-Do',
+            content: 'Error, Cannot update todo'
+          });
         });
     } else {
       API.createTask(formData)
@@ -88,26 +73,12 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
           toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
           onSave();
         })
-        .catch(err => {
-          const statusCode = err.response.data.statusCode;
-          switch (statusCode) {
-            case HTTP_STATUS_CODE.NOT_ACCEPTABLE:
-              toast.show({
-                type: 'danger',
-                title: 'Create To-Do',
-                content: 'Error, Name must have at least 1 alphabetic or 1 number'
-              });
-              break;
-            case HTTP_STATUS_CODE.BAD_REQUEST:
-              toast.show({
-                type: 'danger',
-                title: 'Create To-Do',
-                content: 'Error, Too much character!, Please type lesser'
-              });
-              break;
-            default:
-              break;
-          }
+        .catch(() => {
+          toast.show({
+            type: 'danger',
+            title: 'Create To-Do',
+            content: 'Error, Cannot create Todo'
+          });
         });
     }
   };
