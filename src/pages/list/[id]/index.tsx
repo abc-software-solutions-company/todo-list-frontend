@@ -11,13 +11,11 @@ import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
 import Seo from '@/components/seo/seo';
 import {ROUTES} from '@/configs/routes.config';
 import {siteSettings} from '@/configs/site.config';
-import {useStateAuth} from '@/contexts/auth/context';
 import Button from '@/core-ui/button';
 import Checkbox from '@/core-ui/checkbox';
 import FloatIcon from '@/core-ui/float-icon';
 import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
-import useQueryTypeScript from '@/hooks/useQueryTypeScript';
 import LayoutDefault from '@/layouts/default';
 import {IAction} from '@/types';
 import checkUnAuthorized from '@/utils/check-unauthorized';
@@ -34,9 +32,8 @@ export default function Detail() {
   const [action, setAction] = useState<IAction>({type: '', payload: null});
   const [actionTodo, setActionTodo] = useState<IAction>({type: '', payload: null});
   const [shareOpen, setShareOpen] = useState(false);
-  const auth = useStateAuth();
 
-  const id = useQueryTypeScript();
+  const {id} = router.query;
   const page = 'detail';
 
   const socketMsgToServer = () => socket.emit('msgToServer', {roomId: id});
@@ -50,7 +47,7 @@ export default function Detail() {
   const setDone = (taskId: string) => {
     if (!taskId) return;
     API.updateStatusTask(taskId).then(() => {
-      getListTasks(id);
+      getListTasks(String(id) || '');
       socketMsgToServer();
     });
   };
@@ -59,12 +56,12 @@ export default function Detail() {
   const resetActionTodo = () => setActionTodo({type: '', payload: null});
   const socketMsgToClient = () => {
     socket.on(`msgToClient_${id}`, () => {
-      getListTasks(id).catch(() => router.push(ROUTES.LIST));
+      getListTasks(String(id) || '').catch(() => router.push(ROUTES.LIST));
     });
   };
 
   const reset = () => {
-    getListTasks(id);
+    getListTasks(String(id) || '');
     resetAction();
     resetActionTodo();
     socketMsgToServer();
@@ -72,7 +69,7 @@ export default function Detail() {
 
   useEffect(() => {
     if (id) {
-      getListTasks(id).catch(() => router.push(ROUTES.LIST));
+      getListTasks(String(id) || '').catch(() => router.push(ROUTES.LIST));
       socketMsgToClient();
       LocalStorage.previousPage.remove();
     }
@@ -153,7 +150,7 @@ export default function Detail() {
           onConfirm={reset}
           onCancel={resetActionTodo}
         />
-        <ModalShare open={shareOpen} onClose={() => setShareOpen(false)} id={id} />
+        <ModalShare open={shareOpen} onClose={() => setShareOpen(false)} id={String(id) || ''} />
       </div>
     </>
   );
