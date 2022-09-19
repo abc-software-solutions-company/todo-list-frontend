@@ -1,4 +1,7 @@
 .page-detail :global {
+  .container {
+    @apply p-4 md:p-0;
+  }
   .toolbar {
     @apply mt-3 flex items-start justify-between md:mt-5;
     h2 {

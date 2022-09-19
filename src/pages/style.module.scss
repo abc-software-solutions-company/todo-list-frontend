@@ -1,7 +1,7 @@
 .com-quick-play :global {
   @apply h-full;
   .container {
-    @apply flex h-full items-center;
+    @apply flex h-full items-center p-4 md:p-0;
   }
   .inner {
     @apply mx-auto w-full md:max-w-xl;
