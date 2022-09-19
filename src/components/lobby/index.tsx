@@ -9,7 +9,6 @@ import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
 import Seo from '@/components/seo/seo';
 import {ROUTES} from '@/configs/routes.config';
 import {siteSettings} from '@/configs/site.config';
-import {useStateAuth} from '@/contexts/auth/context';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
