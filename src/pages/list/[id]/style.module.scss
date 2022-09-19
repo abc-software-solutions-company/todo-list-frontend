@@ -46,14 +46,14 @@
       @apply -mt-1 flex justify-center;
     }
     .item {
-      @apply flex items-center justify-between border bg-white;
+      @apply flex w-full  justify-between border bg-white;
       @apply border-t-0 px-4 first:border-t;
       @apply first:rounded-t-lg last:rounded-b-lg;
       @apply transition-all duration-100;
       @apply hover:bg-blue-100;
     }
     .h6 {
-      @apply ml-3 w-full cursor-pointer truncate py-3;
+      @apply ml-3 flex w-full cursor-pointer items-start break-all py-3 leading-none;
     }
     .checked {
       @apply line-through opacity-50;

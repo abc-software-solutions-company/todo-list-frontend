@@ -26,7 +26,7 @@ interface IFormInputs {
 }
 
 const Schema = yup.object().shape({
-  name: yup.string().required('Please enter your list name.').max(32, 'List name must be at least 32 characters')
+  name: yup.string().required('Please enter your list name.')
 });
 const FORM_DEFAULT_VALUES = {
   name: ''
