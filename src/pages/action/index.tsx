@@ -44,11 +44,13 @@ export default function Action() {
   const {errors} = formState;
 
   const onSubmit: SubmitHandler<IFormInputs> = data => {
-    const todoId = detectIdOrLink(data.todoId);
+    const todoId = data.todoId.toLowerCase();
 
     API.getTodo(todoId)
       .then(res => {
-        toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
+        if (res.status !== 200)
+          toast.show({type: 'danger', title: 'Error!', content: 'List not found.', lifeTime: 3000});
+        else toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
         if (res.status == 200) router.push(`${ROUTES.TODO_LIST}/${todoId}`);
       })
       .catch(() => {

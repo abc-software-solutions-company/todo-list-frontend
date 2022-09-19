@@ -45,6 +45,8 @@ export default function useIndexHook() {
           } else {
             router.push(ROUTES.LOAD_CONTEXT_STATE);
           }
+        } else {
+          toast.show({type: 'danger', title: 'Error', content: 'Can&apos;t create user.'});
         }
       })
       .catch(() => {
