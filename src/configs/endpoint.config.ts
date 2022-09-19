@@ -1,9 +1,7 @@
-const PREFIX = 'api';
+const PREFIX = '';
 
 export const API_ENDPOINTS = {
-  SECTION: `${PREFIX}/sections`,
-  CATEGORY: `${PREFIX}/categories`,
-  POST: `${PREFIX}/posts`,
-  PROJECT: `${PREFIX}/projects`,
-  SETTING: `${PREFIX}/setting`
+  USER: `${PREFIX}/auth`,
+  TASK: `${PREFIX}/tasks`,
+  TODO: `${PREFIX}/lists`
 };

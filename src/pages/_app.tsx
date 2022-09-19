@@ -10,6 +10,7 @@ import React from 'react';
 
 import AuthProvider from '@/contexts/auth/provider';
 import {GlobalProvider} from '@/contexts/global';
+import {useStateGlobal} from '@/contexts/global/context';
 import QueryProvider from '@/contexts/query.provider';
 import {CoreUIProvider, defaultTheme} from '@/core-ui/contexts/index';
 import Noop from '@/core-ui/noop';
@@ -18,6 +19,21 @@ import PageWrap from '../hooks/page/_app.hook';
 
 const CustomApp = ({Component, pageProps}: AppProps) => {
   const router = useRouter();
+  const global = useStateGlobal();
+
+  function authCheck() {
+    GlobalActions.setMenuOpen(!global.isMenuOpen);
+  }
+
+  useEffect(() => {
+    router.events.on('routeChangeComplete', authCheck);
+
+    return () => {
+      router.events.off('hashChangeComplete', authCheck);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const Layout = (Component as any).Layout || Noop;
 

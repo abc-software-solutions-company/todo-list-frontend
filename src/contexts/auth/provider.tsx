@@ -1,7 +1,7 @@
 import {useRouter} from 'next/router';
-import React, {FC, ReactNode, useEffect, useReducer, useState} from 'react';
+import React, {FC, ReactNode, useEffect, useReducer} from 'react';
 
-import {IUser} from '@/api/types/user.type';
+import api from '@/api/network/user';
 import {ROUTES} from '@/configs/routes.config';
 import LocalStorage from '@/utils/local-storage';
 
@@ -30,8 +30,8 @@ const Authentication: FC<IProps> = ({children}) => {
       if (!asPath.includes(ROUTES.LOGIN)) router.push(ROUTES.LOGIN);
     } else {
       if (!auth) {
-        api.auth
-          .verify()
+        api
+          .getUserProfile()
           .then(res => {
             if (res.status === 200) authDispatch(AuthActions.login(res.data));
           })
@@ -50,19 +50,12 @@ const Authentication: FC<IProps> = ({children}) => {
 
 const AuthProvider: FC<IProps> = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [user, setUser] = useState<IUser>();
-
-  useEffect(() => {
-    const userJson = localStorage.getItem('user');
-    if (userJson) {
-      const userData = JSON.parse(userJson) as IUser;
-      setUser(userData);
-    }
-  }, []);
 
   return (
     <DispatchContext.Provider value={dispatch}>
-      <Context.Provider value={{...state, user}}>{children}</Context.Provider>
+      <Context.Provider value={state}>
+        <Authentication>{children}</Authentication>
+      </Context.Provider>
     </DispatchContext.Provider>
   );
 };

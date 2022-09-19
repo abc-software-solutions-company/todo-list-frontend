@@ -1,16 +1,11 @@
-import {IUser} from '@/api/types/user.type';
-
+import {IState} from './state';
 import * as types from './types';
 
-interface IActionSetUser {
-  type: typeof types.SET_USER;
-  payload: {
-    user: IUser;
-  };
+export interface IAction {
+  type: typeof types.LOGIN;
+  payload: IState;
 }
-
-export const setUser = (user: IUser): IActionSetUser => {
-  return {type: types.SET_USER, payload: {user}};
+export const login = (payload: IState): IAction => {
+  // eslint-disable-next-line import/namespace
+  return {type: types.LOGIN, payload};
 };
-
-export type IAction = IActionSetUser;

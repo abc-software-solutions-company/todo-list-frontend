@@ -58,43 +58,43 @@ export default function Lobby() {
   return (
     <>
       <Seo title={`${siteSettings.name} | Lobby Page`} description={siteSettings.description} />
-      {auth.user && (
-        <div className={styles['page-action']}>
-          <div className="container">
-            <div className="inner">
-              <p className="title">TO-DO LIST</p>
-              <p className="h1">Organize your work and life, finally.</p>
-              <div className="actions">
-                <div className="item">
-                  <Button
-                    variant="contained"
-                    className="w-full font-medium"
-                    color="primary"
-                    onClick={() => setAction({type: 'add', payload: null})}
-                    text=" Create New List"
-                  />
-                </div>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <Input
-                    groupEnd={
-                      <Button
-                        className="px-5 font-medium "
-                        color="primary"
-                        variant="contained"
-                        text="Join"
-                        type="submit"
-                      />
-                    }
-                    placeholder="Enter Link or ID"
-                    error={errors.todoId?.message}
-                    {...register('todoId')}
-                  />
-                </form>
+
+      <div className={styles['page-action']}>
+        <div className="container">
+          <div className="inner">
+            <p className="title">TO-DO LIST</p>
+            <p className="h1">Organize your work and life, finally.</p>
+            <div className="actions">
+              <div className="item">
+                <Button
+                  variant="contained"
+                  className="w-full font-medium"
+                  color="primary"
+                  onClick={() => setAction({type: 'add', payload: null})}
+                  text=" Create New List"
+                />
               </div>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <Input
+                  groupEnd={
+                    <Button
+                      className="px-5 font-medium "
+                      color="primary"
+                      variant="contained"
+                      text="Join"
+                      type="submit"
+                    />
+                  }
+                  placeholder="Enter Link or ID"
+                  error={errors.todoId?.message}
+                  {...register('todoId')}
+                />
+              </form>
             </div>
           </div>
         </div>
-      )}
+      </div>
+
       {['add'].includes(action.type) && (
         <ModalTodoAddEdit
           data={action.payload}

@@ -1,9 +1,5 @@
-import {IUser} from '@/api/types/user.type';
+export type IState = {id: string; userName: string} | undefined;
 
-export interface IState {
-  user?: IUser;
-}
-
-const initialState: IState = {};
+const initialState: IState = undefined;
 
 export default initialState;
