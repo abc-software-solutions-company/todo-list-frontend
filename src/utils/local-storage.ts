@@ -38,6 +38,7 @@ export default function useLocalStorage() {
   };
 
   const savePreviousLink = (data: string) => {
+    // if (!data.endsWith('/list/') || !data.endsWith('/list/')) return set('previousPage', data);
     return set('previousPage', data);
   };
 
