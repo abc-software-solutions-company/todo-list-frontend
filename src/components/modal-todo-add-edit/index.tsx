@@ -53,9 +53,9 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
   const onSubmit: SubmitHandler<IFormInputs> = formData => {
     if (data?.id) {
       API.updateTodo(data.id, formData)
-        .then(() => {
+        .then(res => {
           onSave?.();
-          toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
+          if (res.status == 200) toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
         })
         .catch(() => {
           toast.show({type: 'danger', title: 'Update List', content: 'Error, too much character'});
