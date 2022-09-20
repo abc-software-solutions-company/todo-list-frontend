@@ -32,6 +32,9 @@
           @apply hidden md:inline;
         }
       }
+      .btn-edit {
+        @apply min-w-0 pr-0 md:pr-3;
+      }
       .btn-share {
         @apply min-w-0 px-0 md:px-3;
       }

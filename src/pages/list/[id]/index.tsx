@@ -3,6 +3,7 @@ import React from 'react';
 import ModalShare from '@/components/modal-share';
 import ModalTaskAddEdit from '@/components/modal-task-add-edit';
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
+import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
 import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
 import Seo from '@/components/seo/seo';
 import {siteSettings} from '@/configs/site.config';
@@ -47,6 +48,13 @@ export default function Detail() {
               </div>
             </div>
             <div className="right">
+              <Button
+                className="btn-edit"
+                startIcon={<Icon name="ico-edit" />}
+                onClick={() => setActionTodo({type: 'edit', payload: todoList})}
+              >
+                <span className="h5 font-medium">Edit List</span>
+              </Button>
               <Button
                 startIcon={<Icon name="ico-trash-2" />}
                 onClick={() => setActionTodo({type: 'delete', payload: todoList})}
@@ -98,6 +106,15 @@ export default function Detail() {
             open={true}
             onConfirm={() => reset()}
             onCancel={() => resetAction()}
+          />
+        )}
+        <FloatIcon className="float-icon" onClick={() => setAction({type: 'add', payload: null})} />
+        {['add', 'edit'].includes(actionTodo.type) && (
+          <ModalTodoAddEdit
+            data={actionTodo.payload}
+            open={true}
+            onSave={() => reset()}
+            onCancel={() => resetActionTodo()}
           />
         )}
         <ModalTodoConfirmDelete
