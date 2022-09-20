@@ -10,7 +10,6 @@ import {useRouter} from 'next/router';
 import nProgress from 'nprogress';
 import {useEffect} from 'react';
 
-import DefaultSeo from '@/components/seo/default-seo';
 import {AuthProvider} from '@/contexts/auth';
 
 const Noop: React.FC = ({children}: React.PropsWithChildren<any>) => <>{children}</>;
@@ -45,7 +44,6 @@ const CustomApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) =>
   }, []);
   return (
     <AuthProvider>
-      <DefaultSeo />
       <Layout pageProps={pageProps}>
         <Component {...pageProps} key={router.route} />
       </Layout>

@@ -37,6 +37,13 @@ export default function Lobby() {
   });
   const {errors} = formState;
 
+  const getTodoCreated = () => {
+    API.getLastTodo().then(res => {
+      const id = res.data.id;
+      router.push(`${ROUTES.LIST}/${id}`);
+    });
+  };
+
   const onSubmit: SubmitHandler<IFormInputs> = data => {
     const todoId = detectIdOrLink(data.todoId);
     // Check if it contain space character only
@@ -95,12 +102,7 @@ export default function Lobby() {
       </div>
 
       {['add'].includes(action.type) && (
-        <ModalTodoAddEdit
-          data={action.payload}
-          open={true}
-          onSave={() => router.push(ROUTES.LIST)}
-          onCancel={resetAction}
-        />
+        <ModalTodoAddEdit data={action.payload} open={true} onSave={() => getTodoCreated()} onCancel={resetAction} />
       )}
     </>
   );
