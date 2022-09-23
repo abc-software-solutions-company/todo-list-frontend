@@ -15,7 +15,7 @@ export default function Login() {
   const {onSubmit, matches, register, handleSubmit, errors} = useIndexHook();
   return (
     <>
-      <Seo title={`${siteSettings.name} | Quick Play`} description={siteSettings.description} />
+      <Seo title={`${siteSettings.name} | Login`} description={siteSettings.description} />
       <div className={cn(styles['com-quick-play'])}>
         <div className="container">
           <div className="inner">

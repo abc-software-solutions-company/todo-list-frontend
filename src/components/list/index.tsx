@@ -19,7 +19,7 @@ export default function List() {
 
   return (
     <>
-      <Seo title={`${siteSettings.name} | Your List`} description={siteSettings.description} />
+      <Seo title={`${siteSettings.name} | My List`} description={siteSettings.description} />
       <div className={styles['page-list']}>
         <div className="container">
           <div className="toolbar">

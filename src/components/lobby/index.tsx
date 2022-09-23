@@ -63,7 +63,7 @@ export default function Lobby() {
 
   return (
     <>
-      <Seo title={`${siteSettings.name} | Lobby Page`} description={siteSettings.description} />
+      <Seo title={`${siteSettings.name} | Lobby`} description={siteSettings.description} />
 
       <div className={styles['page-action']}>
         <div className="container">
