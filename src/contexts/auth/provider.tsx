@@ -22,10 +22,11 @@ const Authentication: FC<IProps> = ({children}) => {
   const authDispatch = useDispatchAuth();
   if (!asPath.includes(ROUTES.LOGIN)) {
     if (typeof window !== 'undefined') {
-      //FIXME Anh Tin và Huy support em chỗ này nhan, em dùng tạm window.location.href
-      const rawURL = window.location.href;
-      const id = rawURL.slice(-10);
-      LocalStorage.previousPage.set(id);
+      //FIXME: This is temporary method to fix id not recognize in production mode
+      if (asPath.includes(`${ROUTES.LIST}/[id]`)) LocalStorage.previousPage.set(window.location.href.slice(-10));
+      else {
+        LocalStorage.previousPage.set(asPath);
+      }
     }
   }
 
