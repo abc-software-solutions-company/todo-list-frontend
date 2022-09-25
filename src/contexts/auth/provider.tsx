@@ -21,7 +21,12 @@ const Authentication: FC<IProps> = ({children}) => {
   const asPath = router.asPath;
   const authDispatch = useDispatchAuth();
   if (!asPath.includes(ROUTES.LOGIN)) {
-    if (typeof window !== 'undefined') LocalStorage.previousPage.set(asPath);
+    if (typeof window !== 'undefined') {
+      //FIXME Anh Tin và Huy support em chỗ này nhan, em dùng tạm window.location.href
+      const rawURL = window.location.href;
+      const id = rawURL.slice(-10);
+      LocalStorage.previousPage.set(id);
+    }
   }
 
   useEffect(() => {
