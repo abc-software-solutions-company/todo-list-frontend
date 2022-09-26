@@ -39,7 +39,7 @@ export default function Detail() {
   return (
     <>
       <Seo
-        title={`${siteSettings.name} | ${todoList.name}`}
+        title={`${todoList.name}`}
         description={siteSettings.description}
         images={[
           {

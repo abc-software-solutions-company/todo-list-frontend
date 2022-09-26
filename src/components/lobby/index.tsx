@@ -64,7 +64,7 @@ export default function Lobby() {
   return (
     <>
       <Seo
-        title={`${siteSettings.name} | Lobby`}
+        title={'Lobby'}
         description={siteSettings.description}
         images={[
           {
