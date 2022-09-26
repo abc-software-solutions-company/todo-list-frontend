@@ -11,10 +11,13 @@ import nProgress from 'nprogress';
 import {useEffect} from 'react';
 
 import {AuthProvider} from '@/contexts/auth';
+import {initFirebase} from '@/lib/firebase/initFirebase';
 
 const Noop: React.FC = ({children}: React.PropsWithChildren<any>) => <>{children}</>;
 
 const CustomApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) => {
+  initFirebase();
+
   const router = useRouter();
 
   const Layout = (Component as any).Layout || Noop;

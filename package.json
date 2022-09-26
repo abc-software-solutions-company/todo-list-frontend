@@ -43,6 +43,7 @@
     "classnames": "^2.3.1",
     "dayjs": "^1.11.3",
     "firebase": "^9.10.0",
+    "firebase-admin": "^11.0.1",
     "is-url-http": "^2.3.2",
     "jsonp": "^0.2.1",
     "lodash-es": "^4.17.21",
