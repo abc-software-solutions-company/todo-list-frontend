@@ -136,6 +136,7 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
               color="primary"
               text={data?.id ? 'Save' : 'Create'}
               type="submit"
+              disabled={formState.isSubmitted}
             />
           </div>
         </Modal.Footer>
