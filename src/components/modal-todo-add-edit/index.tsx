@@ -50,7 +50,9 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
     });
   };
 
-  const onSubmit: SubmitHandler<IFormInputs> = formData => {
+  const onSubmit: SubmitHandler<IFormInputs> = (formData, e) => {
+    console.log(e);
+
     if (data?.id) {
       API.updateTodo(data.id, formData)
         .then(() => {
@@ -87,7 +89,11 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
       open={open}
       onClose={() => onCancel?.()}
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={e => {
+          handleSubmit(onSubmit)(e);
+        }}
+      >
         <Modal.Header>
           <h3 className="title">{data?.id ? 'Update List' : 'Create New List'}</h3>
         </Modal.Header>
