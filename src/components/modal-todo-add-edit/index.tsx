@@ -51,6 +51,8 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
   };
 
   const onSubmit: SubmitHandler<IFormInputs> = formData => {
+    if (formState.isSubmitting) return;
+
     if (data?.id) {
       API.updateTodo(data.id, formData)
         .then(() => {
@@ -71,6 +73,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
         });
     }
   };
+
   useEffect(() => {
     if (data?.id) {
       getTodo(data.id);
@@ -102,7 +105,9 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
                 placeholder="Enter your list name"
                 error={errors.name?.message}
                 ref={inputRef}
+                disabled={formState.isSubmitting}
                 onKeyPress={e => {
+                  if (formState.isSubmitting) return;
                   if (e.key === 'Enter') handleSubmit(onSubmit);
                 }}
               />
@@ -125,9 +130,8 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
               color="primary"
               text={data?.id ? 'Save' : 'Create'}
               type="submit"
-              loading={true}
-              loadingPosition={'start'}
-              disabled={formState.isSubmitSuccessful}
+              loading={formState.isSubmitting}
+              disabled={formState.isSubmitting}
             />
           </div>
         </Modal.Footer>

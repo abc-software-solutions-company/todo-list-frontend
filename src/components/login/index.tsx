@@ -28,9 +28,9 @@ export default function Login() {
                 placeholder="Enter your name"
                 className="name-input"
                 maxLength={33}
-                // Explain: Don't worry about 33 character Because IUse max length 33 to trigger yup validation 32 character message
-                {...register('userName')}
+                disabled={formState.isSubmitting}
                 error={errors.userName?.message}
+                {...register('userName')}
               />
               <Button
                 className="btn-submit"
@@ -38,7 +38,8 @@ export default function Login() {
                 color="primary"
                 type="submit"
                 text="Enter"
-                disabled={formState.isSubmitSuccessful}
+                loading={formState.isSubmitting}
+                disabled={formState.isSubmitting}
               />
             </form>
           </div>
