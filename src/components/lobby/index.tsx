@@ -89,7 +89,7 @@ export default function Lobby() {
                       variant="contained"
                       text="Join"
                       type="submit"
-                      disabled={formState.isSubmitted}
+                      disabled={formState.isSubmitSuccessful}
                     />
                   }
                   placeholder="Enter Link or ID"

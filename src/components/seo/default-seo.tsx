@@ -16,10 +16,10 @@ const DefaultSeo: React.FC = () => {
         description: siteSettings.description,
         images: [
           {
-            url: '/todolist.png',
+            url: '/todolist.jpg',
             width: 1200,
             height: 630,
-            alt: 'ABC Software Solutions Company'
+            alt: 'To-Do List'
           }
         ]
       }}
@@ -30,10 +30,6 @@ const DefaultSeo: React.FC = () => {
       }}
       additionalMetaTags={[
         {
-          httpEquiv: 'x-ua-compatible',
-          content: 'IE=edge'
-        },
-        {
           name: 'viewport',
           content: 'width=device-width, initial-scale=1 maximum-scale=1'
         },
@@ -43,11 +39,11 @@ const DefaultSeo: React.FC = () => {
         },
         {
           name: 'MobileOptimized',
-          content: '360'
+          content: '375'
         },
         {
           name: 'keywords',
-          content: 'CMS, CRM, ERP, Microsite, AR, AI, Machine Learning'
+          content: 'To-Do List, Share To-Do List, Free To-Do List, ABC Software Company Solution'
         },
         {
           name: 'application-name',
@@ -101,25 +97,25 @@ const DefaultSeo: React.FC = () => {
           rel: 'icon',
           sizes: '16x16',
           type: 'image/png',
-          href: '/todolist.png'
+          href: '/favicon-16x16.png'
         },
         {
           rel: 'icon',
           sizes: '32x32',
           type: 'image/png',
-          href: '/todolist.png'
+          href: '/favicon-32x32.png'
         },
 
         // apple icon
         {
-          rel: 'todolist',
+          rel: 'apple-touch-icon',
           sizes: '180x180',
-          href: '/todolist.png'
+          href: '/apple-touch-icon.png'
         },
         {
           rel: 'mask-icon',
           color: '#5bbad5',
-          href: '/todolist.svg'
+          href: '/safari-pinned-tab.svg'
         }
       ]}
     />

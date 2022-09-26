@@ -38,7 +38,7 @@ export default function Login() {
                 color="primary"
                 type="submit"
                 text="Enter"
-                disabled={formState.isSubmitted}
+                disabled={formState.isSubmitSuccessful}
               />
             </form>
           </div>
