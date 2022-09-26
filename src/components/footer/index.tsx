@@ -7,10 +7,12 @@ const Footer: React.FC = () => {
     <footer className={styles.footer}>
       <div className="container">
         <div className="copyright">
-          <h6>Copyright © 2022 </h6>
-          <a className="text-abc-grey  " href="https://www.abcsoftwarecompany.com/" target="_blank" rel="noreferrer">
-            by ABC Software Solutions Company
-          </a>
+          <p>
+            Create by{' '}
+            <a className="text-abc-grey  " href="https://www.abcsoftwarecompany.com/" target="_blank" rel="noreferrer">
+              ABC Software Solutions Company
+            </a>
+          </p>
         </div>
       </div>
     </footer>
