@@ -125,6 +125,8 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
               color="primary"
               text={data?.id ? 'Save' : 'Create'}
               type="submit"
+              loading={true}
+              loadingPosition={'start'}
               disabled={formState.isSubmitSuccessful}
             />
           </div>
