@@ -38,7 +38,18 @@ export default function Detail() {
 
   return (
     <>
-      <Seo title={`${siteSettings.name} | ${todoList.name}`} description={siteSettings.description} />
+      <Seo
+        title={`${siteSettings.name} | ${todoList.name}`}
+        description={siteSettings.description}
+        images={[
+          {
+            url: '/todolist.jpg',
+            width: 1200,
+            height: 630,
+            alt: `To-Do List | ${todoList.name}`
+          }
+        ]}
+      />
       <div className={styles['page-detail']}>
         <div className="container">
           <div className="toolbar">

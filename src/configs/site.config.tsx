@@ -56,7 +56,7 @@ export const siteSettings = {
   linkedInUrl: '#',
   email: 'hello@abcsoftwarecompany.com',
   author: {
-    name: 'ToDo List',
+    name: 'ABC Software Company',
     websiteUrl: 'https://www.abcsoftwarecompany.com',
     address: ''
   },

@@ -63,7 +63,18 @@ export default function Lobby() {
 
   return (
     <>
-      <Seo title={`${siteSettings.name} | Lobby`} description={siteSettings.description} />
+      <Seo
+        title={`${siteSettings.name} | Lobby`}
+        description={siteSettings.description}
+        images={[
+          {
+            url: '/todolist.jpg',
+            width: 1200,
+            height: 630,
+            alt: 'To-Do List | Lobby'
+          }
+        ]}
+      />
 
       <div className={styles['page-action']}>
         <div className="container">

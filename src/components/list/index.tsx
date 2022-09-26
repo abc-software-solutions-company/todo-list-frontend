@@ -19,7 +19,18 @@ export default function List() {
 
   return (
     <>
-      <Seo title={`${siteSettings.name} | My List`} description={siteSettings.description} />
+      <Seo
+        title={`${siteSettings.name} | My List`}
+        description={siteSettings.description}
+        images={[
+          {
+            url: '/todolist.jpg',
+            width: 1200,
+            height: 630,
+            alt: 'To-Do List | My List'
+          }
+        ]}
+      />
       <div className={styles['page-list']}>
         <div className="container">
           <div className="toolbar">
