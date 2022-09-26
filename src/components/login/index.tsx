@@ -12,10 +12,10 @@ import LayoutDefault from '@/layouts/default';
 import styles from './style.module.scss';
 
 export default function Login() {
-  const {onSubmit, matches, register, handleSubmit, errors} = useIndexHook();
+  const {formState, onSubmit, matches, register, handleSubmit, errors} = useIndexHook();
   return (
     <>
-      <Seo title={`${siteSettings.name} | Login`} description={siteSettings.description} />
+      <Seo title={'Login'} description={siteSettings.description} />
       <div className={cn(styles['com-quick-play'])}>
         <div className="container">
           <div className="inner">
@@ -28,11 +28,19 @@ export default function Login() {
                 placeholder="Enter your name"
                 className="name-input"
                 maxLength={33}
-                // Explain: Don't worry about 33 character Because IUse max length 33 to trigger yup validation 32 character message
-                {...register('userName')}
+                disabled={formState.isSubmitting}
                 error={errors.userName?.message}
+                {...register('userName')}
               />
-              <Button className="btn-submit" variant="contained" color="primary" type="submit" text="Enter" />
+              <Button
+                className="btn-submit"
+                variant="contained"
+                color="primary"
+                type="submit"
+                text="Enter"
+                loading={formState.isSubmitting}
+                disabled={formState.isSubmitting}
+              />
             </form>
           </div>
         </div>

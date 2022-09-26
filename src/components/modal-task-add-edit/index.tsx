@@ -51,11 +51,12 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
     });
   };
 
-  const onSubmit: SubmitHandler<IFormInputs> = formData => {
+  const onSubmit: SubmitHandler<IFormInputs> = async formData => {
+    if (formState.isSubmitting) return;
     formData.todoListId = todoListId;
 
     if (data?.id) {
-      API.updateTask(data.id, formData)
+      await API.updateTask(data.id, formData)
         .then(() => {
           toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
           onSave?.();
@@ -68,7 +69,7 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
           });
         });
     } else {
-      API.createTask(formData)
+      await API.createTask(formData)
         .then(() => {
           toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
           onSave();
@@ -136,6 +137,8 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
               color="primary"
               text={data?.id ? 'Save' : 'Create'}
               type="submit"
+              loading={formState.isSubmitting}
+              disabled={formState.isSubmitting}
             />
           </div>
         </Modal.Footer>

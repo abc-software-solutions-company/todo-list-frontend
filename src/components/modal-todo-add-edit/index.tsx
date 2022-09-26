@@ -50,9 +50,11 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
     });
   };
 
-  const onSubmit: SubmitHandler<IFormInputs> = formData => {
+  const onSubmit: SubmitHandler<IFormInputs> = async formData => {
+    if (formState.isSubmitting) return;
+
     if (data?.id) {
-      API.updateTodo(data.id, formData)
+      await API.updateTodo(data.id, formData)
         .then(() => {
           toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
           onSave?.();
@@ -61,7 +63,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
           toast.show({type: 'danger', title: 'Update List', content: 'Error, Cannot update List'});
         });
     } else {
-      API.createTodo(formData)
+      await API.createTodo(formData)
         .then(() => {
           toast.show({type: 'success', title: 'Create List', content: 'Successful!'});
           onSave?.();
@@ -71,6 +73,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
         });
     }
   };
+
   useEffect(() => {
     if (data?.id) {
       getTodo(data.id);
@@ -102,7 +105,9 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
                 placeholder="Enter your list name"
                 error={errors.name?.message}
                 ref={inputRef}
+                disabled={formState.isSubmitting}
                 onKeyPress={e => {
+                  if (formState.isSubmitting) return;
                   if (e.key === 'Enter') handleSubmit(onSubmit);
                 }}
               />
@@ -125,6 +130,8 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
               color="primary"
               text={data?.id ? 'Save' : 'Create'}
               type="submit"
+              loading={formState.isSubmitting}
+              disabled={formState.isSubmitting}
             />
           </div>
         </Modal.Footer>

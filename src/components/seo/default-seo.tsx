@@ -16,7 +16,7 @@ const DefaultSeo: React.FC = () => {
         description: siteSettings.description,
         images: [
           {
-            url: '/todolist.jpg',
+            url: '/todolist.png',
             width: 1200,
             height: 630,
             alt: 'To-Do List'

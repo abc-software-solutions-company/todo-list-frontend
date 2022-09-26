@@ -38,7 +38,7 @@ export default function Detail() {
 
   return (
     <>
-      <Seo title={`${siteSettings.name} | ${todoList.name}`} description={siteSettings.description} />
+      <Seo title={`${todoList.name}`} description={siteSettings.description} />
       <div className={styles['page-detail']}>
         <div className="container">
           <div className="toolbar">

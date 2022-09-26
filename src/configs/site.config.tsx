@@ -46,7 +46,7 @@ const schemaJsonLdWebSiteDefault = {
 };
 
 export const siteSettings = {
-  name: 'ToDo List',
+  name: 'To-Do List',
   description:
     'ABC Todo List is an advanced Todo List Web Application that can help you to make helpful work list and share for other people with realtime list',
   defaultLanguage: 'vi',
@@ -56,7 +56,7 @@ export const siteSettings = {
   linkedInUrl: '#',
   email: 'hello@abcsoftwarecompany.com',
   author: {
-    name: 'ToDo List',
+    name: 'ABC Software Company',
     websiteUrl: 'https://www.abcsoftwarecompany.com',
     address: ''
   },

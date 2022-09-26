@@ -63,7 +63,7 @@ export default function Lobby() {
 
   return (
     <>
-      <Seo title={`${siteSettings.name} | Lobby`} description={siteSettings.description} />
+      <Seo title={'Lobby'} description={siteSettings.description} />
 
       <div className={styles['page-action']}>
         <div className="container">
@@ -89,6 +89,7 @@ export default function Lobby() {
                       variant="contained"
                       text="Join"
                       type="submit"
+                      disabled={formState.isSubmitSuccessful}
                     />
                   }
                   placeholder="Enter Link or ID"
