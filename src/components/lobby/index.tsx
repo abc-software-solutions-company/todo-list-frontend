@@ -42,6 +42,11 @@ export default function Lobby() {
     });
   };
 
+  const reset = () => {
+    getTodoCreated();
+    resetAction();
+  };
+
   const onSubmit: SubmitHandler<IFormInputs> = data => {
     const todoId = detectIdOrLink(data.todoId);
     // Check if it contain space character only
@@ -85,7 +90,7 @@ export default function Lobby() {
                       variant="contained"
                       text="Join"
                       type="submit"
-                      disabled={formState.isSubmitSuccessful}
+                      disabled={formState.isSubmitting}
                     />
                   }
                   placeholder="Enter Link or ID"
@@ -99,7 +104,7 @@ export default function Lobby() {
       </div>
 
       {['add'].includes(action.type) && (
-        <ModalTodoAddEdit data={action.payload} open={true} onSave={() => getTodoCreated()} onCancel={resetAction} />
+        <ModalTodoAddEdit data={action.payload} open={true} onSave={() => reset()} onCancel={resetAction} />
       )}
     </>
   );

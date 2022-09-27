@@ -106,9 +106,9 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
                 error={errors.name?.message}
                 ref={inputRef}
                 disabled={formState.isSubmitting}
-                onKeyPress={e => {
+                onKeyPress={async e => {
                   if (formState.isSubmitting) return;
-                  if (e.key === 'Enter') handleSubmit(onSubmit);
+                  if (e.key === 'Enter') await handleSubmit(onSubmit);
                 }}
               />
             )}
