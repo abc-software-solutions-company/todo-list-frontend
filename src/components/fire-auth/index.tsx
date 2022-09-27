@@ -1,12 +1,8 @@
-import {GoogleAuthProvider, getAuth, signInWithPopup} from 'firebase/auth';
-import {ReactElement, useEffect, useState} from 'react';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import {GoogleAuthProvider, getAuth, signInWithPopup, signOut} from 'firebase/auth';
 
 import Button from '@/core-ui/button';
 import {initFirebase} from '@/lib/firebase/initFirebase';
 import LocalStorage from '@/utils/local-storage';
-
-import {firebaseAuthConfig} from './auth-config';
 
 initFirebase(); // initialize firebase
 
@@ -21,21 +17,18 @@ const signInWithGoogle = () => {
     .catch(err => console.log(`🥲🥲🥲 ${JSON.stringify(err)} `));
 };
 
+const signOutOfGoogle = () => {
+  signOut(auth)
+    .then(() => {
+      console.log('🤨 SignOut of Google Success');
+    })
+    .catch(err => console.log(`🥲🥲🥲 ${JSON.stringify(err)} `));
+};
+
 const FirebaseAuth = () => {
-  const [widget, setWidget] = useState<ReactElement>(<></>);
-  // Do not SSR FirebaseUI, because it is not supported.
-  //FIXME: Don't disable React Strict Mode
-  // https://github.com/firebase/firebaseui-web/issues/213
-  const [renderAuth, setRenderAuth] = useState(false);
   auth.onAuthStateChanged(user => {
     LocalStorage.firebaseAuthData.set(JSON.stringify(user));
   });
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setRenderAuth(true);
-      setWidget(<StyledFirebaseAuth uiConfig={firebaseAuthConfig} firebaseAuth={auth} />);
-    }
-  }, []);
   return (
     <>
       {/* <div>{renderAuth ? widget : <></>}</div> */}{' '}
@@ -44,8 +37,16 @@ const FirebaseAuth = () => {
         variant="contained"
         color="primary"
         type="submit"
-        text="Enter"
+        text="Login Google"
         onClick={() => signInWithGoogle()}
+      />
+      <Button
+        className="btn-submit"
+        variant="contained"
+        color="primary"
+        type="submit"
+        text="Logout Google"
+        onClick={() => signOutOfGoogle()}
       />
     </>
   );
