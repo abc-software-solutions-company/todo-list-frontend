@@ -6,9 +6,7 @@ import * as yup from 'yup';
 
 import API from '@/api/network/todo';
 import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
-import Seo from '@/components/seo/seo';
 import {ROUTES} from '@/configs/routes.config';
-import {siteSettings} from '@/configs/site.config';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
@@ -44,6 +42,11 @@ export default function Lobby() {
     });
   };
 
+  const reset = () => {
+    getTodoCreated();
+    resetAction();
+  };
+
   const onSubmit: SubmitHandler<IFormInputs> = data => {
     const todoId = detectIdOrLink(data.todoId);
     // Check if it contain space character only
@@ -63,8 +66,6 @@ export default function Lobby() {
 
   return (
     <>
-      <Seo title={'Lobby'} description={siteSettings.description} />
-
       <div className={styles['page-action']}>
         <div className="container">
           <div className="inner">
@@ -89,7 +90,7 @@ export default function Lobby() {
                       variant="contained"
                       text="Join"
                       type="submit"
-                      disabled={formState.isSubmitSuccessful}
+                      disabled={formState.isSubmitting}
                     />
                   }
                   placeholder="Enter Link or ID"
@@ -103,7 +104,7 @@ export default function Lobby() {
       </div>
 
       {['add'].includes(action.type) && (
-        <ModalTodoAddEdit data={action.payload} open={true} onSave={() => getTodoCreated()} onCancel={resetAction} />
+        <ModalTodoAddEdit data={action.payload} open={true} onSave={() => reset()} onCancel={resetAction} />
       )}
     </>
   );

@@ -1,12 +1,27 @@
 import {DefaultSeo as NextDefaultSeo} from 'next-seo';
+import {useRouter} from 'next/router';
 
 import {siteSettings} from '@/configs/site.config';
 
 const DefaultSeo: React.FC = () => {
+  const router = useRouter();
+  const asPath = router.asPath.split('/')[1];
+  let subTitle;
+  switch (asPath) {
+    case '':
+      subTitle = '| Lobby';
+      break;
+    case 'login':
+      subTitle = '| Login';
+      break;
+    case 'list':
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      subTitle = '| My List';
+  }
   return (
     <NextDefaultSeo
       title={siteSettings.name}
-      titleTemplate={`${siteSettings.name} | %s`}
+      titleTemplate={`${siteSettings.name}  ${subTitle}`}
       defaultTitle={siteSettings.name}
       description={siteSettings.description}
       openGraph={{

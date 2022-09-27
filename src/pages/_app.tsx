@@ -47,12 +47,14 @@ const CustomApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) =>
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <AuthProvider>
+    <>
       <DefaultSeo />
-      <Layout pageProps={pageProps}>
-        <Component {...pageProps} key={router.route} />
-      </Layout>
-    </AuthProvider>
+      <AuthProvider>
+        <Layout pageProps={pageProps}>
+          <Component {...pageProps} key={router.route} />
+        </Layout>
+      </AuthProvider>
+    </>
   );
 };
 

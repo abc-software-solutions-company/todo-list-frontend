@@ -1,5 +1,4 @@
 import {ROUTES} from '@/configs/routes.config';
-import {siteSettings} from '@/configs/site.config';
 import Button from '@/core-ui/button';
 import FloatIcon from '@/core-ui/float-icon';
 import Icon from '@/core-ui/icon';
@@ -8,7 +7,6 @@ import IconButton from '@/core-ui/icon-button';
 import ModalShare from '../modal-share';
 import ModalTodoAddEdit from '../modal-todo-add-edit';
 import ModalTodoConfirmDelete from '../modal-todo-confirm-delete';
-import Seo from '../seo/seo';
 import useList from './hook';
 import styles from './style.module.scss';
 
@@ -19,7 +17,6 @@ export default function List() {
 
   return (
     <>
-      <Seo title={'My List'} description={siteSettings.description} />
       <div className={styles['page-list']}>
         <div className="container">
           <div className="toolbar">
