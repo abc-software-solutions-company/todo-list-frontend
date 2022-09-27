@@ -53,6 +53,7 @@ export default function useIndexHook() {
 
   useEffect(() => {
     LocalStorage.accessToken.remove();
+    LocalStorage.firebaseAuthData.remove();
   }, []);
 
   const {errors} = formState;
