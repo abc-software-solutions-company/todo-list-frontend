@@ -2,8 +2,6 @@ import cn from 'classnames';
 import React from 'react';
 
 import TodoListLogo from '@/components/icons/todolist-logo';
-import Seo from '@/components/seo/seo';
-import {siteSettings} from '@/configs/site.config';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import useIndexHook from '@/hooks/page/index.hook';
@@ -15,7 +13,6 @@ export default function Login() {
   const {formState, onSubmit, matches, register, handleSubmit, errors} = useIndexHook();
   return (
     <>
-      <Seo title={'Login'} description={siteSettings.description} />
       <div className={cn(styles['com-quick-play'])}>
         <div className="container">
           <div className="inner">

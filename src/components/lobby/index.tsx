@@ -6,9 +6,7 @@ import * as yup from 'yup';
 
 import API from '@/api/network/todo';
 import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
-import Seo from '@/components/seo/seo';
 import {ROUTES} from '@/configs/routes.config';
-import {siteSettings} from '@/configs/site.config';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
@@ -63,8 +61,6 @@ export default function Lobby() {
 
   return (
     <>
-      <Seo title={'Lobby'} description={siteSettings.description} />
-
       <div className={styles['page-action']}>
         <div className="container">
           <div className="inner">
