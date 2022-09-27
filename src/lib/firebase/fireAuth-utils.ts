@@ -7,9 +7,15 @@ initFirebase(); // initialize firebase
 const auth = getAuth();
 
 export class FireAuthUtils {
+  attachEmailToUser = (email: string | null | undefined) => {
+    console.log('🏘️📧 Your Email is registered successfully');
+    console.log(`🤩Will be save email ${email} to user record in postgres lately`);
+  };
+
   saveAuthProfile = () => {
     auth.onAuthStateChanged(user => {
       LocalStorage.firebaseAuthData.set(JSON.stringify(user));
+      this.attachEmailToUser(user?.email);
     });
   };
 
