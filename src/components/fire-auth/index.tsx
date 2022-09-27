@@ -2,6 +2,7 @@ import {GoogleAuthProvider, getAuth, signInWithPopup} from 'firebase/auth';
 import {ReactElement, useEffect, useState} from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
+import Button from '@/core-ui/button';
 import {initFirebase} from '@/lib/firebase/initFirebase';
 import LocalStorage from '@/utils/local-storage';
 
@@ -37,7 +38,15 @@ const FirebaseAuth = () => {
   }, []);
   return (
     <>
-      <div>{renderAuth ? widget : <></>}</div>
+      {/* <div>{renderAuth ? widget : <></>}</div> */}{' '}
+      <Button
+        className="btn-submit"
+        variant="contained"
+        color="primary"
+        type="submit"
+        text="Enter"
+        onClick={() => signInWithGoogle()}
+      />
     </>
   );
 };
