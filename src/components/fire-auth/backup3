@@ -1,0 +1,40 @@
+import {EmailAuthProvider, GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth} from 'firebase/auth';
+import {useEffect} from 'react';
+import {useImmerReducer} from 'use-immer';
+
+import {mapUserData} from '@/lib/firebase/mapUserData';
+import {setUserCookie} from '@/lib/firebase/userCookies';
+
+const uiConfig = () => {
+  const [state, dispatch] = useImmerReducer(null);
+
+  const uiConfig = {
+    signInFlow: 'popup',
+    // Auth providers
+    // https://github.com/firebase/firebaseui-web#configure-oauth-providers
+    signInOptions: [
+      {
+        provider: EmailAuthProvider.PROVIDER_ID,
+        requireDisplayName: true
+      },
+      // add additional auth flows below
+      GoogleAuthProvider.PROVIDER_ID,
+      TwitterAuthProvider.PROVIDER_ID,
+      GithubAuthProvider.PROVIDER_ID
+    ],
+    tosUrl: '/terms-of-service',
+    privacyPolicyUrl: '/privacy-policy',
+    signInSuccessUrl: '/',
+    credentialHelper: 'none',
+    callbacks: {
+      signInSuccessWithAuthResult: async ({user}, redirectUrl) => {
+        const userData = mapUserData(user);
+        setUserCookie(userData);
+      }
+    }
+  };
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    dispatch({type: 'config', config: uiConfig});
+  }, []);
+};
