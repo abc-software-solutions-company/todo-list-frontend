@@ -3,8 +3,8 @@ import {ReactElement, useEffect, useState} from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 import {initFirebase} from '@/lib/firebase/initFirebase';
-import {mapUserData} from '@/lib/firebase/mapUserData';
-import {setUserCookie} from '@/lib/firebase/userCookies';
+import {IAuth} from '@/lib/firebase/mapUserData';
+import LocalStorage from '@/utils/local-storage';
 
 initFirebase(); // initialize firebase
 
@@ -29,9 +29,8 @@ const firebaseAuthConfig = {
   signInSuccessUrl: '/',
   credentialHelper: 'none',
   callbacks: {
-    signInSuccessWithAuthResult: async ({user}, redirectUrl) => {
-      const userData = mapUserData(user);
-      setUserCookie(userData);
+    signInSuccessWithAuthResult: async (user: IAuth) => {
+      LocalStorage.firebaseAuthData.set(JSON.stringify(user));
     }
   }
 };
@@ -39,6 +38,7 @@ const firebaseAuthConfig = {
 const FirebaseAuth = () => {
   const [widget, setWidget] = useState<ReactElement>(<></>);
   // Do not SSR FirebaseUI, because it is not supported.
+  //FIXME: Don't disable React Strict Mode
   // https://github.com/firebase/firebaseui-web/issues/213
   const [renderAuth, setRenderAuth] = useState(false);
   useEffect(() => {
