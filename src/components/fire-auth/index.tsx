@@ -1,4 +1,4 @@
-import {getAuth} from 'firebase/auth';
+import {GoogleAuthProvider, getAuth, signInWithPopup} from 'firebase/auth';
 import {ReactElement, useEffect, useState} from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
@@ -10,6 +10,15 @@ import {firebaseAuthConfig} from './auth-config';
 initFirebase(); // initialize firebase
 
 const auth = getAuth();
+
+const signInWithGoogle = () => {
+  const googleProvider = new GoogleAuthProvider();
+  signInWithPopup(auth, googleProvider)
+    .then(() => {
+      console.log('😁😁😁Hello Google');
+    })
+    .catch(err => console.log(`🥲🥲🥲 ${JSON.stringify(err)} `));
+};
 
 const FirebaseAuth = () => {
   const [widget, setWidget] = useState<ReactElement>(<></>);
