@@ -1,36 +1,15 @@
-import {EmailAuthProvider, GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth} from 'firebase/auth';
+import {getAuth} from 'firebase/auth';
 import {ReactElement, useEffect, useState} from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 import {initFirebase} from '@/lib/firebase/initFirebase';
 import LocalStorage from '@/utils/local-storage';
 
+import {firebaseAuthConfig} from './auth-config';
+
 initFirebase(); // initialize firebase
 
 const auth = getAuth();
-
-const firebaseAuthConfig = {
-  signInFlow: 'popup',
-  // Auth providers
-  // https://github.com/firebase/firebaseui-web#configure-oauth-providers
-  signInOptions: [
-    {
-      provider: EmailAuthProvider.PROVIDER_ID,
-      requireDisplayName: true
-    },
-    // add additional auth flows below
-    GoogleAuthProvider.PROVIDER_ID,
-    TwitterAuthProvider.PROVIDER_ID,
-    GithubAuthProvider.PROVIDER_ID
-  ],
-  tosUrl: '/terms-of-service',
-  privacyPolicyUrl: '/privacy-policy',
-  signInSuccessUrl: '/',
-  credentialHelper: 'none',
-  callbacks: {
-    signInSuccessWithAuthResult: () => false
-  }
-};
 
 const FirebaseAuth = () => {
   const [widget, setWidget] = useState<ReactElement>(<></>);
