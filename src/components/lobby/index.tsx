@@ -8,6 +8,7 @@ import API from '@/api/network/todo';
 import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
 import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
+import Icon from '@/core-ui/icon';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
 import LayoutDefault from '@/layouts/default';
@@ -102,7 +103,6 @@ export default function Lobby() {
           </div>
         </div>
       </div>
-
       {['add'].includes(action.type) && (
         <ModalTodoAddEdit data={action.payload} open={true} onSave={() => reset()} onCancel={resetAction} />
       )}
