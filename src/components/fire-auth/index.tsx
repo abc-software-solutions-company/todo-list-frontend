@@ -1,44 +1,18 @@
-import {GoogleAuthProvider, getAuth, signInWithPopup, signOut} from 'firebase/auth';
-
 import Button from '@/core-ui/button';
-import {initFirebase} from '@/lib/firebase/initFirebase';
-import LocalStorage from '@/utils/local-storage';
+import {FireAuthUtils} from '@/lib/firebase/fireAuth-utils';
 
-initFirebase(); // initialize firebase
-
-const auth = getAuth();
-
-const signInWithGoogle = () => {
-  const googleProvider = new GoogleAuthProvider();
-  signInWithPopup(auth, googleProvider)
-    .then(() => {
-      console.log('😁😁😁Hello Google');
-    })
-    .catch(err => console.log(`🥲🥲🥲 ${JSON.stringify(err)} `));
-};
-
-const signOutOfGoogle = () => {
-  signOut(auth)
-    .then(() => {
-      console.log('🤨 SignOut of Google Success');
-    })
-    .catch(err => console.log(`🥲🥲🥲 ${JSON.stringify(err)} `));
-};
+const fireAuthUtils = new FireAuthUtils();
 
 const FirebaseAuth = () => {
-  auth.onAuthStateChanged(user => {
-    LocalStorage.firebaseAuthData.set(JSON.stringify(user));
-  });
   return (
     <>
-      {/* <div>{renderAuth ? widget : <></>}</div> */}{' '}
       <Button
         className="btn-submit"
         variant="contained"
         color="primary"
         type="submit"
         text="Login Google"
-        onClick={() => signInWithGoogle()}
+        onClick={() => fireAuthUtils.signInWithGoogle()}
       />
       <Button
         className="btn-submit"
@@ -46,7 +20,7 @@ const FirebaseAuth = () => {
         color="primary"
         type="submit"
         text="Logout Google"
-        onClick={() => signOutOfGoogle()}
+        onClick={() => fireAuthUtils.signOutOfGoogle()}
       />
     </>
   );

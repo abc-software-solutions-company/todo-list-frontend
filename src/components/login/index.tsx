@@ -38,6 +38,15 @@ export default function Login() {
                 loading={formState.isSubmitting}
                 disabled={formState.isSubmitting}
               />
+              <Button
+                className="btn-submit"
+                variant="contained"
+                color="primary"
+                type="button"
+                text="Login To Existing Account"
+                loading={formState.isSubmitting}
+                disabled={formState.isSubmitting}
+              />
             </form>
           </div>
         </div>
