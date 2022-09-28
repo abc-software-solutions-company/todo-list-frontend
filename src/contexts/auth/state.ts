@@ -1,4 +1,4 @@
-export type IState = {id: string; userName: string} | undefined;
+export type IState = {id: string; userName: string; email?: string} | undefined;
 
 const initialState: IState = undefined;
 

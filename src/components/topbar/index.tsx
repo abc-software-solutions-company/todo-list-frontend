@@ -34,6 +34,7 @@ const Topbar: FC<IProps> = ({className}) => {
         break;
     }
   };
+  console.log(auth?.email);
 
   return (
     <div className={cls(styles.topbar, className)}>
@@ -43,9 +44,12 @@ const Topbar: FC<IProps> = ({className}) => {
           <div className="authenticated">
             <Icon name="ico-user" />
             <span className="h2">{auth && auth.userName}</span>
-            <span className="text-base2 ml-1 cursor-pointer text-red-500" onClick={() => handleSocial()}>
-              (Unverified)
-            </span>
+            {auth?.email == null && (
+              <span className="text-base2 ml-1 cursor-pointer text-red-500" onClick={() => handleSocial()}>
+                (Unverified)
+              </span>
+            )}
+
             <span className="sep"></span>
             <Link href={ROUTES.LIST}>
               <a className="h2 text">My List</a>

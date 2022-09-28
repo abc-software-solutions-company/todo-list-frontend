@@ -10,15 +10,9 @@ const auth = getAuth();
 
 export class FireAuthUtils {
   attachEmailToUser = async (email: IEmail) => {
-    console.log('🏘️📧 Your Email is registered successfully');
-    console.log(`🤩Will be save email ${email} to user record in postgres lately`);
     await API.attachEmail(email)
-      .then(() => {
-        console.log('🤩🤩🤩🤩 Bind to Gmail Successfull');
-      })
-      .catch(() => {
-        console.log('😓😓Cannot get Gmail');
-      });
+      .then(() => {})
+      .catch(() => {});
   };
 
   saveAuthProfile = () => {
