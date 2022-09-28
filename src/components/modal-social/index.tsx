@@ -12,8 +12,9 @@ interface IProps {
   onClose: () => void;
 }
 const fireAuthUtils = new FireAuthUtils();
-const openGooglePopUp = () => {
-  fireAuthUtils.signInWithGoogle();
+const openGooglePopUp = async () => {
+  const status = await fireAuthUtils.signInWithGoogle();
+  console.log(status);
 };
 
 const ModalSocial: React.FC<IProps> = ({open, onClose}) => {

@@ -31,13 +31,21 @@ export class FireAuthUtils {
   signInWithGoogle = () => {
     const googleProvider = new GoogleAuthProvider();
     signInWithPopup(auth, googleProvider)
-      .then(() => this.saveAuthProfile())
-      .catch(err => console.log(`🥲🥲🥲 ${JSON.stringify(err)} `));
+      .then(() => {
+        this.saveAuthProfile();
+        return '😁😁😁😁😁😁🏘️🏘️🏘️Logined SuccessFully';
+      })
+      .catch(() => {
+        return '🤦‍♂️🤦‍♂️🤦‍♂️🤦‍♂️🤦‍♂️Logined SuccessFully';
+      });
   };
 
   signOutOfGoogle = () => {
     signOut(auth)
-      .then(() => this.removeAuthProfile())
+      .then(() => {
+        this.removeAuthProfile();
+        LocalStorage.accessToken.remove();
+      })
       .catch(err => console.log(`🥲🥲🥲 ${JSON.stringify(err)} `));
   };
 }

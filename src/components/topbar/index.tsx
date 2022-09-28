@@ -6,6 +6,7 @@ import {FC, useState} from 'react';
 import {ROUTES} from '@/configs/routes.config';
 import {useStateAuth} from '@/contexts/auth/context';
 import Icon from '@/core-ui/icon';
+import {FireAuthUtils} from '@/lib/firebase/fireAuth-utils';
 
 import Back from '../back';
 import ModalSocial from '../modal-social';
@@ -14,6 +15,8 @@ import styles from './style.module.scss';
 interface IProps {
   className?: string;
 }
+
+const fireAuthUtils = new FireAuthUtils();
 
 const Topbar: FC<IProps> = ({className}) => {
   const router = useRouter();
@@ -34,7 +37,6 @@ const Topbar: FC<IProps> = ({className}) => {
         break;
     }
   };
-  console.log(auth?.email);
 
   return (
     <div className={cls(styles.topbar, className)}>
@@ -44,9 +46,16 @@ const Topbar: FC<IProps> = ({className}) => {
           <div className="authenticated">
             <Icon name="ico-user" />
             <span className="h2">{auth && auth.userName}</span>
-            {auth?.email == null && (
+            {auth?.email == null ? (
               <span className="text-base2 ml-1 cursor-pointer text-red-500" onClick={() => handleSocial()}>
                 (Unverified)
+              </span>
+            ) : (
+              <span
+                className="text-base2 ml-1 cursor-pointer text-red-500"
+                onClick={() => fireAuthUtils.signOutOfGoogle()}
+              >
+                (Log Out)
               </span>
             )}
 
