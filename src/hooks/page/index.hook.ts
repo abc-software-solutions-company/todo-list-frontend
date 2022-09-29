@@ -23,7 +23,6 @@ const Schema = yup.object().shape({
 
 export default function useIndexHook() {
   const [socialOpen, setSocialOpen] = useState(false);
-
   const handleSocial = () => setSocialOpen(true);
 
   const toast = useToast();
@@ -43,16 +42,11 @@ export default function useIndexHook() {
           LocalStorage.accessToken.set(res.data.accessToken);
           dispatchAuth(AuthActions.login(res.data.user));
           const previousPage = LocalStorage.previousPage.get();
-          if (previousPage) {
-            router.push(previousPage);
-          } else {
-            router.push(ROUTES.HOME);
-          }
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+          previousPage ? router.push(previousPage) : router.push(ROUTES.HOME);
         }
       })
-      .catch(() => {
-        toast.show({type: 'danger', title: 'Error', content: 'Can&apos;t create user.'});
-      });
+      .catch(() => toast.show({type: 'danger', title: 'Error', content: 'Can&apos;t create user.'}));
   };
 
   useEffect(() => {
