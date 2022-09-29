@@ -22,9 +22,7 @@ const Topbar: FC<IProps> = ({className}) => {
   const router = useRouter();
   const auth = useStateAuth();
   const [socialOpen, setSocialOpen] = useState(false);
-  const handleSocial = () => {
-    setSocialOpen(true);
-  };
+  const handleSocial = () => setSocialOpen(true);
   const currentPage = router.pathname;
 
   const returnTo = (curPage: string) => {
