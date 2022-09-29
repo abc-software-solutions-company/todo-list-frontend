@@ -1,17 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {yupResolver} from '@hookform/resolvers/yup';
-import {useRouter} from 'next/router';
 import {useEffect, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
 import API from '@/api/network/user';
-import {ROUTES} from '@/configs/routes.config';
-import {AuthActions} from '@/contexts/auth';
-import {useDispatchAuth} from '@/contexts/auth/context';
-import useToast from '@/core-ui/toast';
 import useMediaQuery from '@/hooks/useMediaQuery';
-import LocalStorage from '@/utils/local-storage';
+
+import useLoginHandler from './login-handler';
+import LogOutHandler from './logout-handler';
 
 interface IFormInputs {
   userName: string;
@@ -25,9 +22,7 @@ export default function useIndexHook() {
   const [socialOpen, setSocialOpen] = useState(false);
   const handleSocial = () => setSocialOpen(true);
 
-  const toast = useToast();
-  const router = useRouter();
-  const dispatchAuth = useDispatchAuth();
+  const {loginSuccess, loginFailed} = useLoginHandler();
 
   const matches = useMediaQuery('(min-width:640px)');
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
@@ -39,19 +34,14 @@ export default function useIndexHook() {
     API.createUser(data)
       .then(res => {
         if (res.status === 201) {
-          LocalStorage.accessToken.set(res.data.accessToken);
-          dispatchAuth(AuthActions.login(res.data.user));
-          const previousPage = LocalStorage.previousPage.get();
-          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-          previousPage ? router.push(previousPage) : router.push(ROUTES.HOME);
+          loginSuccess(res);
         }
       })
-      .catch(() => toast.show({type: 'danger', title: 'Error', content: 'Can&apos;t create user.'}));
+      .catch(() => loginFailed());
   };
 
   useEffect(() => {
-    LocalStorage.accessToken.remove();
-    LocalStorage.firebaseAuthData.remove();
+    LogOutHandler();
   }, []);
 
   const {errors} = formState;
