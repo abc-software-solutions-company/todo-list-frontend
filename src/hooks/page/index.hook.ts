@@ -24,9 +24,7 @@ const Schema = yup.object().shape({
 export default function useIndexHook() {
   const [socialOpen, setSocialOpen] = useState(false);
 
-  const handleSocial = () => {
-    setSocialOpen(true);
-  };
+  const handleSocial = () => setSocialOpen(true);
 
   const toast = useToast();
   const router = useRouter();

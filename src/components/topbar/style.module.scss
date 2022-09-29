@@ -22,4 +22,8 @@
   .text {
     @apply flex items-end whitespace-nowrap text-h4 leading-none;
   }
+  .unverified,
+  .logout {
+    @apply ml-1 cursor-pointer text-base text-red-500;
+  }
 }

@@ -45,12 +45,12 @@ const Topbar: FC<IProps> = ({className}) => {
             <Icon name="ico-user" />
             <span className="h2">{auth && auth.userName}</span>
             {auth?.email == null ? (
-              <span className="text-base2 ml-1 cursor-pointer text-red-500" onClick={() => handleSocial()}>
+              <span className="unverified" onClick={() => handleSocial()}>
                 (Unverified)
               </span>
             ) : (
               <span
-                className="text-base2 ml-1 cursor-pointer text-red-500"
+                className="logout"
                 onClick={() => {
                   fireAuthUtils.signOutOfGoogle();
                   router.reload();
