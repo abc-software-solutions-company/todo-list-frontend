@@ -10,6 +10,7 @@ type User = IAxiosResponse<IUser>;
 const getUserProfile = () => HttpRequest.get<User>(`${API_ENDPOINTS.USER}/verify`);
 const createUser = (data: IUser) => HttpRequest.post<IUser>(`${API_ENDPOINTS.USER}/login`, data);
 const attachEmail = (data: IEmail) => HttpRequest.post<IEmail>(`${API_ENDPOINTS.USER}/attach_email`, data);
+const loginWithEmail = (data: IEmail) => HttpRequest.post<IEmail>(`${API_ENDPOINTS.USER}/gmail-login`, data);
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default {getUserProfile, createUser, attachEmail};
+export default {getUserProfile, createUser, attachEmail, loginWithEmail};

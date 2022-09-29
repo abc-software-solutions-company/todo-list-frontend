@@ -7,10 +7,12 @@ import Input from '@/core-ui/input';
 import useIndexHook from '@/hooks/page/index.hook';
 import LayoutDefault from '@/layouts/default';
 
+import ModalSocial from '../modal-social';
 import styles from './style.module.scss';
 
 export default function Login() {
-  const {formState, onSubmit, matches, register, handleSubmit, errors} = useIndexHook();
+  const {formState, onSubmit, matches, register, handleSubmit, errors, handleSocial, socialOpen, setSocialOpen} =
+    useIndexHook();
   return (
     <>
       <div className={cn(styles['com-quick-play'])}>
@@ -44,6 +46,7 @@ export default function Login() {
                 color="primary"
                 type="button"
                 text="Login To Existing Account"
+                onClick={() => handleSocial()}
                 loading={formState.isSubmitting}
                 disabled={formState.isSubmitting}
               />
@@ -51,6 +54,7 @@ export default function Login() {
           </div>
         </div>
       </div>
+      <ModalSocial open={socialOpen} onClose={() => setSocialOpen(false)} />
     </>
   );
 }

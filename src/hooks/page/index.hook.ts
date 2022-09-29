@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useRouter} from 'next/router';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -22,6 +22,12 @@ const Schema = yup.object().shape({
 });
 
 export default function useIndexHook() {
+  const [socialOpen, setSocialOpen] = useState(false);
+
+  const handleSocial = () => {
+    setSocialOpen(true);
+  };
+
   const toast = useToast();
   const router = useRouter();
   const dispatchAuth = useDispatchAuth();
@@ -58,5 +64,5 @@ export default function useIndexHook() {
 
   const {errors} = formState;
 
-  return {onSubmit, matches, register, handleSubmit, formState, errors};
+  return {onSubmit, matches, register, handleSubmit, formState, errors, handleSocial, socialOpen, setSocialOpen};
 }
