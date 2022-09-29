@@ -53,7 +53,10 @@ const Topbar: FC<IProps> = ({className}) => {
             ) : (
               <span
                 className="text-base2 ml-1 cursor-pointer text-red-500"
-                onClick={() => fireAuthUtils.signOutOfGoogle()}
+                onClick={() => {
+                  fireAuthUtils.signOutOfGoogle();
+                  router.reload();
+                }}
               >
                 (Log Out)
               </span>

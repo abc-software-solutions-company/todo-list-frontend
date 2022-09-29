@@ -1,13 +1,12 @@
 import cls from 'classnames';
-import {GoogleAuthProvider, getAuth, signInWithPopup, signOut} from 'firebase/auth';
+import {GoogleAuthProvider, getAuth, signInWithPopup} from 'firebase/auth';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 
 import API from '@/api/network/user';
 import {IEmail} from '@/api/types/email.type';
 import Button from '@/core-ui/button';
-import useToast from '@/core-ui/toast';
-import Toast from '@/core-ui/toast/toast';
+import {FireAuthUtils} from '@/lib/firebase/fireAuth-utils';
 import LocalStorage from '@/utils/local-storage';
 
 import {Modal} from '../../core-ui/modal';
@@ -17,45 +16,34 @@ interface IProps {
   open: boolean;
   onClose: () => void;
 }
+const fireAuthUtils = new FireAuthUtils();
 const auth = getAuth();
 
 const ModalSocial: React.FC<IProps> = ({open, onClose}) => {
   const [reload, setReload] = useState(false);
   const router = useRouter();
-  const toast = useToast();
-  const googleProvider = new GoogleAuthProvider();
 
   const signInWithGoogle = () => {
-    signInWithPopup(auth, googleProvider);
-  };
-
-  const signOutOfGoogle = () => {
-    signOut(auth);
+    const googleProvider = new GoogleAuthProvider();
+    signInWithPopup(auth, googleProvider)
+      .then(() => {})
+      .catch(() => {});
   };
 
   const attachEmailToUser = async (email: IEmail) => {
-    await API.attachEmail(email);
+    await API.attachEmail(email)
+      .then(() => {})
+      .catch(() => {});
   };
 
   const openGooglePopUp = async () => {
     await signInWithGoogle();
     auth.onAuthStateChanged(user => {
+      LocalStorage.firebaseAuthData.set(JSON.stringify(user));
       if (user?.email) {
-        attachEmailToUser({email: user?.email})
-          .then(() => {
-            // eslint-disable-next-line no-self-assign
-            router.reload();
-          })
-          .catch(async () => {
-            await signOutOfGoogle();
-            toast.show({
-              type: 'danger',
-              title: 'Error!',
-              content: 'This Gmail already have binded to other account',
-              lifeTime: 3000
-            });
-          });
+        attachEmailToUser({email: user?.email});
       }
+      router.push(router.asPath);
     });
   };
   useEffect(() => {
