@@ -1,4 +1,3 @@
-import {Router, useRouter} from 'next/router';
 import React from 'react';
 
 import ModalShare from '@/components/modal-share';
@@ -33,10 +32,6 @@ export default function Detail() {
     actionTodo,
     resetActionTodo
   } = useListDetail();
-
-  const router = useRouter();
-  console.log(router.asPath);
-
   if (!todoList || !id) return null;
 
   return (
