@@ -43,7 +43,11 @@ export default function useLoginGoogle() {
         // eslint-disable-next-line no-self-assign
         router.reload();
       })
-      .catch(() => loginWithGmail(email));
+      .catch(() => {
+        loginWithGmail(email);
+        const element: HTMLElement = document.getElementsByClassName('abc-modal-close')[0] as HTMLElement;
+        element.click();
+      });
   };
 
   const openGooglePopUp = async () => {
