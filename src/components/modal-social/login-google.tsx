@@ -4,8 +4,6 @@ import {useRouter} from 'next/router';
 import API from '@/api/network/user';
 import {IEmail} from '@/api/types/email.type';
 import {ROUTES} from '@/configs/routes.config';
-import {AuthActions} from '@/contexts/auth';
-import {useDispatchAuth} from '@/contexts/auth/context';
 import useToast from '@/core-ui/toast';
 import LocalStorage from '@/utils/local-storage';
 
@@ -14,7 +12,6 @@ const auth = getAuth();
 export default function useLoginGoogle() {
   const router = useRouter();
   const toast = useToast();
-  const dispatchAuth = useDispatchAuth();
 
   const googleProvider = new GoogleAuthProvider();
   const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
@@ -25,16 +22,14 @@ export default function useLoginGoogle() {
       .then(res => {
         LocalStorage.accessToken.set(res.data.accessToken);
         toast.show({type: 'success', title: 'Successful', content: 'Login Successfully', lifeTime: 3000});
-        dispatchAuth(AuthActions.login(res.data.user));
         const previousPage = LocalStorage.previousPage.get();
-        // // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        // previousPage ? router.push(previousPage) : router.push(ROUTES.HOME);
-        console.log(`✅✅✅✅✅ ${router.asPath == ROUTES.LOGIN}`);
         if (router.asPath != ROUTES.LOGIN) {
           router.reload();
         } else {
-          // router.push(ROUTES.HOME);
           if (previousPage?.includes(ROUTES.LIST)) router.push(previousPage);
+          else {
+            router.reload();
+          }
         }
       })
       .catch(() => {
