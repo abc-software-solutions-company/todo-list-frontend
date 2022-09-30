@@ -32,6 +32,8 @@ export default function useLoginGoogle() {
         console.log(`✅✅✅✅✅ ${router.asPath == ROUTES.LOGIN}`);
         if (router.asPath != ROUTES.LOGIN) {
           router.reload();
+        } else {
+          router.push(ROUTES.HOME);
         }
       })
       .catch(() => {
