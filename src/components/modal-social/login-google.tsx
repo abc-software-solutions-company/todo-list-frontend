@@ -1,4 +1,4 @@
-import {GoogleAuthProvider, getAuth, signInWithPopup, signOut} from 'firebase/auth';
+import {GoogleAuthProvider, getAuth, signInWithPopup} from 'firebase/auth';
 import {useRouter} from 'next/router';
 
 import API from '@/api/network/user';
@@ -21,32 +21,9 @@ export default function useLoginGoogle() {
     signInWithPopup(auth, googleProvider);
   };
 
-  const signOutOfGoogle = () => {
-    signOut(auth);
-  };
-
-  const attachEmailToUser = async (email: IEmail) => {
-    await API.attachEmail(email)
-      .then(() => {
-        toast.show({
-          type: 'success',
-          title: 'Successful',
-          content: 'Your Gmail is binded to this guest account',
-          lifeTime: 3000
-        });
-        // eslint-disable-next-line no-self-assign
-        router.reload();
-      })
-      .catch(async () => {
-        await signOutOfGoogle();
-        toast.show({
-          type: 'danger',
-          title: 'Error!',
-          content: 'This Gmail already have binded to other account',
-          lifeTime: 3000
-        });
-      });
-  };
+  // const signOutOfGoogle = () => {
+  //   signOut(auth);
+  // };
 
   const loginWithGmail = async (email: IEmail) => {
     await API.loginWithEmail(email)
@@ -75,6 +52,24 @@ export default function useLoginGoogle() {
         });
       });
   };
+
+  const attachEmailToUser = async (email: IEmail) => {
+    await API.attachEmail(email)
+      .then(() => {
+        toast.show({
+          type: 'success',
+          title: 'Successful',
+          content: 'Your Gmail is binded to this guest account',
+          lifeTime: 3000
+        });
+        // eslint-disable-next-line no-self-assign
+        router.reload();
+      })
+      .catch(() => {
+        loginWithGmail(email);
+      });
+  };
+
   const openGooglePopUp = async () => {
     await signInWithGoogle();
     auth.onAuthStateChanged(user => {
