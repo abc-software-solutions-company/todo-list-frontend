@@ -15,8 +15,11 @@ const DefaultSeo: React.FC = () => {
       subTitle = '| Login';
       break;
     case 'list':
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       subTitle = '| My List';
+    // eslint-disable-next-line no-fallthrough
+    case 'lists':
+      subTitle = '| List Detail';
+      break;
   }
   return (
     <NextDefaultSeo
