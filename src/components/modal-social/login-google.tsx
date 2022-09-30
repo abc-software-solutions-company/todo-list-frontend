@@ -26,9 +26,13 @@ export default function useLoginGoogle() {
         LocalStorage.accessToken.set(res.data.accessToken);
         toast.show({type: 'success', title: 'Successful', content: 'Login Successfully', lifeTime: 3000});
         dispatchAuth(AuthActions.login(res.data.user));
-        const previousPage = LocalStorage.previousPage.get();
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        previousPage ? router.push(previousPage) : router.push(ROUTES.HOME);
+        // const previousPage = LocalStorage.previousPage.get();
+        // // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        // previousPage ? router.push(previousPage) : router.push(ROUTES.HOME);
+        console.log(`✅✅✅✅✅ ${router.asPath == ROUTES.LOGIN}`);
+        if (router.asPath != ROUTES.LOGIN) {
+          router.reload();
+        }
       })
       .catch(() => {
         signOutOfGoogle();
