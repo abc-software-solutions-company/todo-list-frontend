@@ -30,7 +30,7 @@ const ModalTodoConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
           onConfirm?.();
           toast.show({type: 'success', title: 'Delete list', content: 'Successful!'});
           if (page == 'detail') {
-            router.push(ROUTES.LIST);
+            router.push(ROUTES.MY_LIST);
           }
         })
         .catch(() => {

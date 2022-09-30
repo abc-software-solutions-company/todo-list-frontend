@@ -23,7 +23,7 @@ const Authentication: FC<IProps> = ({children}) => {
   if (!asPath.includes(ROUTES.LOGIN)) {
     if (typeof window !== 'undefined') {
       //FIXME: This is temporary method to fix id not recognize in production mode
-      if (asPath.includes(`${ROUTES.LIST}/[id]`)) LocalStorage.previousPage.set(window.location.href.slice(-10));
+      if (asPath.includes(`${ROUTES.LIST_DETAIL}/[id]`)) LocalStorage.previousPage.set(window.location.href.slice(-10));
       else {
         LocalStorage.previousPage.set(asPath);
       }
@@ -33,7 +33,7 @@ const Authentication: FC<IProps> = ({children}) => {
   useEffect(() => {
     const accessToken = LocalStorage.accessToken.get();
     if (!accessToken) {
-      if (!asPath.includes(ROUTES.LOGIN)) router.push(ROUTES.LOGIN);
+      if (!asPath.includes(ROUTES.LOGIN) && !asPath.includes(ROUTES.LIST_DETAIL)) router.push(ROUTES.LOGIN);
     } else {
       if (!auth) {
         api
@@ -49,7 +49,7 @@ const Authentication: FC<IProps> = ({children}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!asPath.includes(ROUTES.LOGIN) && !auth) return null;
+  if (!asPath.includes(ROUTES.LOGIN) && !asPath.includes(ROUTES.LIST_DETAIL) && !auth) return null;
 
   return <>{children}</>;
 };

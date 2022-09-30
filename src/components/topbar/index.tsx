@@ -31,7 +31,7 @@ const Topbar: FC<IProps> = ({className}) => {
         router.push(ROUTES.HOME);
         break;
       case '/list/[id]':
-        router.push(ROUTES.LIST);
+        router.push(ROUTES.MY_LIST);
         break;
     }
   };
@@ -61,7 +61,7 @@ const Topbar: FC<IProps> = ({className}) => {
             )}
 
             <span className="sep"></span>
-            <Link href={ROUTES.LIST}>
+            <Link href={ROUTES.MY_LIST}>
               <a className="h2 text">My List</a>
             </Link>
           </div>

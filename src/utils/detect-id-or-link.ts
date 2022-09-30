@@ -3,7 +3,7 @@ import {ROUTES} from '@/configs/routes.config';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (idOrLink: string) {
   let id;
-  const detectStr = window.location.origin + ROUTES.LIST + '/';
+  const detectStr = window.location.origin + ROUTES.MY_LIST + '/';
   if (!idOrLink.includes(detectStr)) {
     id = idOrLink;
   } else {

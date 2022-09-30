@@ -38,7 +38,7 @@ export default function Lobby() {
   const getTodoCreated = () => {
     API.getLastTodo().then(res => {
       const id = res.data.id;
-      router.push(`${ROUTES.LIST}/${id}`);
+      router.push(`${ROUTES.LIST_DETAIL}/${id}`);
     });
   };
 
@@ -56,7 +56,7 @@ export default function Lobby() {
       API.getTodo(todoId.trim())
         .then(() => {
           toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
-          router.push(`${ROUTES.LIST}/${todoId}`);
+          router.push(`${ROUTES.LIST_DETAIL}/${todoId}`);
         })
         .catch(() => {
           toast.show({type: 'danger', title: 'Error!', content: 'List not found', lifeTime: 3000});
