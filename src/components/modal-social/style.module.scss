@@ -1,12 +1,12 @@
 .com-modal-social :global {
   @apply mx-auto px-4 sm:p-0;
   .abc-modal-body {
-    @apply mx-auto p-14 pt-7 text-base font-normal;
+    @apply mx-auto p-10 pt-4 text-base font-normal md:p-14 md:pt-5;
   }
   .abc-btn {
-    @apply -ml-2 h-12 w-64 shadow-lg sm:ml-1;
+    @apply flex h-12 w-full shadow-lg;
     p {
-      @apply flex gap-2 p-3;
+      @apply flex w-full gap-2 p-3;
     }
   }
 }
