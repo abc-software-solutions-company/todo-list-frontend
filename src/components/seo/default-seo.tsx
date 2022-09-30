@@ -14,10 +14,11 @@ const DefaultSeo: React.FC = () => {
     case 'login':
       subTitle = '| Login';
       break;
-    case 'list':
-      subTitle = '| My List';
-    // eslint-disable-next-line no-fallthrough
     case 'lists':
+      subTitle = '| My List';
+      break;
+    // eslint-disable-next-line no-fallthrough
+    case 'list':
       subTitle = '| List Detail';
       break;
   }

@@ -26,9 +26,7 @@ export default function useListDetail() {
       .then(res => {
         if (res.status >= 200) setTodoList(res.data);
       })
-      .catch(() => {
-        router.push(ROUTES.MY_LIST);
-      });
+      .catch(() => router.push(ROUTES.MY_LIST));
 
   const handleShare = () => {
     setShareOpen(true);
