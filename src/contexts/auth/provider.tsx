@@ -32,25 +32,15 @@ const Authentication: FC<IProps> = ({children}) => {
 
   useEffect(() => {
     const accessToken = LocalStorage.accessToken.get();
-    if (!accessToken) {
-      if (!asPath.includes(ROUTES.LOGIN)) router.push(ROUTES.LOGIN);
-    } else {
-      if (!auth) {
-        api
-          .getUserProfile()
-          .then(res => {
-            if (res.status === 200) authDispatch(AuthActions.login(res.data));
-            if (asPath.includes(ROUTES.LOGIN)) router.push(ROUTES.HOME);
-          })
-          .catch(() => {
-            if (!asPath.includes(ROUTES.LOGIN)) router.push(ROUTES.LOGIN);
-          });
-      }
+    console.log('🚀 ~ file: provider.tsx ~ line 35 ~ useEffect ~ accessToken', accessToken);
+
+    if (accessToken && !auth) {
+      api.getUserProfile().then(res => {
+        if (res.status === 200) authDispatch(AuthActions.login(res.data));
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  if (!asPath.includes(ROUTES.LOGIN) && !auth) return null;
 
   return <>{children}</>;
 };

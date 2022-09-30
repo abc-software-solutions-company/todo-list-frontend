@@ -4,6 +4,8 @@ import {useRouter} from 'next/router';
 import API from '@/api/network/user';
 import {IEmail} from '@/api/types/email.type';
 import {ROUTES} from '@/configs/routes.config';
+import {AuthActions} from '@/contexts/auth';
+import {useDispatchAuth} from '@/contexts/auth/context';
 import useToast from '@/core-ui/toast';
 import LocalStorage from '@/utils/local-storage';
 
@@ -12,6 +14,7 @@ const auth = getAuth();
 export default function useLoginGoogle() {
   const router = useRouter();
   const toast = useToast();
+  const authDispatch = useDispatchAuth();
 
   const googleProvider = new GoogleAuthProvider();
   const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
@@ -23,14 +26,16 @@ export default function useLoginGoogle() {
         LocalStorage.accessToken.set(res.data.accessToken);
         toast.show({type: 'success', title: 'Successful', content: 'Login Successfully', lifeTime: 3000});
         const previousPage = LocalStorage.previousPage.get();
-        if (router.asPath != ROUTES.LOGIN) {
-          router.reload();
-        }
-        if (previousPage?.includes(ROUTES.LIST)) {
-          router.push(previousPage);
-        } else {
-          router.reload();
-        }
+        authDispatch(AuthActions.login(res.data));
+        router.push(previousPage || `${ROUTES.HOME}`);
+        // if (router.asPath != ROUTES.LOGIN) {
+        //   router.reload();
+        // }
+        // if (previousPage?.includes(ROUTES.LIST)) {
+        //   router.push(previousPage);
+        // } else {
+        //   router.reload();
+        // }
       })
       .catch(() => {
         signOutOfGoogle();
