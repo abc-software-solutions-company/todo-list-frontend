@@ -37,7 +37,7 @@ const ModalTodoConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
           toast.show({
             type: 'danger',
             title: 'Delete list',
-            content: 'Error!, your todo list is not available or something error'
+            content: 'Error!, Only List Owner have permission to delete'
           });
         });
   };
