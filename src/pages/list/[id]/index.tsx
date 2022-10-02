@@ -9,6 +9,7 @@ import ModalTaskAddEdit from '@/components/modal-task-add-edit';
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
 import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
 import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
+import Seo from '@/components/seo/seo';
 import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import Checkbox from '@/core-ui/checkbox';
@@ -20,7 +21,6 @@ import {IAction} from '@/types';
 import LocalStorage from '@/utils/local-storage';
 
 import styles from './style.module.scss';
-import Seo from '@/components/seo/seo';
 
 const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
 

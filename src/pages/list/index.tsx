@@ -3,8 +3,8 @@ import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
 import List from '@/components/list';
-import LayoutDefault from '@/layouts/default';
 import Seo from '@/components/seo/seo';
+import LayoutDefault from '@/layouts/default';
 
 export default function ListPage() {
   return (
