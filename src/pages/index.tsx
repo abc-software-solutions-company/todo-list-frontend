@@ -5,6 +5,7 @@ import React from 'react';
 import Lobby from '@/components/lobby';
 import Seo from '@/components/seo/seo';
 import LayoutDefault from '@/layouts/default';
+import Seo from '@/components/seo/seo';
 
 export default function PageHome() {
   return (

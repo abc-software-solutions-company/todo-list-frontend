@@ -5,6 +5,7 @@ import React from 'react';
 import List from '@/components/list';
 import Seo from '@/components/seo/seo';
 import LayoutDefault from '@/layouts/default';
+import Seo from '@/components/seo/seo';
 
 export default function ListPage() {
   return (

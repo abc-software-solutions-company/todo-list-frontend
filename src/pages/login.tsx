@@ -5,6 +5,7 @@ import React from 'react';
 import Login from '@/components/login';
 import Seo from '@/components/seo/seo';
 import LayoutDefault from '@/layouts/default';
+import Seo from '@/components/seo/seo';
 
 export default function PageLogin() {
   return (

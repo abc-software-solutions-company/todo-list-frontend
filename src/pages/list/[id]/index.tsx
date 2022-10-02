@@ -21,6 +21,7 @@ import {IAction} from '@/types';
 import LocalStorage from '@/utils/local-storage';
 
 import styles from './style.module.scss';
+import Seo from '@/components/seo/seo';
 
 const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
 
