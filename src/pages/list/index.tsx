@@ -4,9 +4,15 @@ import React from 'react';
 
 import List from '@/components/list';
 import LayoutDefault from '@/layouts/default';
+import Seo from '@/components/seo/seo';
 
 export default function ListPage() {
-  return <List />;
+  return (
+    <>
+      <Seo title="My List" />
+      <List />
+    </>
+  );
 }
 
 ListPage.Layout = LayoutDefault;

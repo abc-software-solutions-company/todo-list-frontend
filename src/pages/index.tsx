@@ -4,9 +4,15 @@ import React from 'react';
 
 import Lobby from '@/components/lobby';
 import LayoutDefault from '@/layouts/default';
+import Seo from '@/components/seo/seo';
 
 export default function PageHome() {
-  return <Lobby />;
+  return (
+    <>
+      <Seo title="Lobby" />
+      <Lobby />
+    </>
+  );
 }
 
 PageHome.Layout = LayoutDefault;

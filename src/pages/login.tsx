@@ -4,9 +4,15 @@ import React from 'react';
 
 import Login from '@/components/login';
 import LayoutDefault from '@/layouts/default';
+import Seo from '@/components/seo/seo';
 
 export default function PageLogin() {
-  return <Login />;
+  return (
+    <>
+      <Seo title="Login" />
+      <Login />;
+    </>
+  );
 }
 
 PageLogin.Layout = LayoutDefault;
