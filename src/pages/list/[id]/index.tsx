@@ -1,3 +1,4 @@
+import {InferGetStaticPropsType} from 'next';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 import io from 'socket.io-client';
@@ -16,6 +17,7 @@ import Checkbox from '@/core-ui/checkbox';
 import FloatIcon from '@/core-ui/float-icon';
 import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
+import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
 import LayoutDefault from '@/layouts/default';
 import {IAction} from '@/types';
 import LocalStorage from '@/utils/local-storage';
@@ -24,7 +26,9 @@ import styles from './style.module.scss';
 
 const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
 
-export default function Detail() {
+export {getStaticPaths, getStaticProps};
+
+export default function Detail({roomId}: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
   const [todoList, setTodoList] = useState<ITodo>();
   const [action, setAction] = useState<IAction>({type: '', payload: null});
@@ -85,7 +89,7 @@ export default function Detail() {
 
   return (
     <>
-      <Seo title="List Detail" />
+      <Seo title={roomId} />
       <div className={styles['page-detail']}>
         <div className="container">
           <div className="toolbar">
