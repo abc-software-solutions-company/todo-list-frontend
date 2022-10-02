@@ -46,7 +46,11 @@ const Authentication: FC<IProps> = ({children}) => {
   }, []);
 
   if (isLoginPage || auth) showPage = true;
-  return <div className={showPage ? '' : 'invisible'}>{children}</div>;
+  return (
+    <div style={{height: 'inherit'}} className={showPage ? '' : 'invisible'}>
+      {children}
+    </div>
+  );
 };
 
 const Provider: FC<IProps> = ({children}) => {
