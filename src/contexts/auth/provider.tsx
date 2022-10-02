@@ -33,11 +33,17 @@ const Authentication: FC<IProps> = ({children}) => {
       }
     }
     if (!auth && !isLoginPage) {
-      api.getUserProfile().then(res => {
-        if (res.status === 200) {
-          authDispatch(AuthActions.login(res.data));
-        }
-      });
+      api
+        .getUserProfile()
+        .then(res => {
+          if (res.status === 200) {
+            authDispatch(AuthActions.login(res.data));
+          }
+        })
+        // Must remove urgly accessToken to prevent future error
+        .catch(() => {
+          LocalStorage.accessToken.remove();
+        });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
