@@ -34,9 +34,7 @@ const Authentication: FC<IProps> = ({children}) => {
     }
     if (!auth && !isLoginPage) {
       api.getUserProfile().then(res => {
-        if (res.status === 200) {
-          authDispatch(AuthActions.login(res.data));
-        }
+        if (res.status === 200) authDispatch(AuthActions.login(res.data));
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
