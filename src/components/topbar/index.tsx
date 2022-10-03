@@ -31,7 +31,7 @@ const Topbar: FC<IProps> = ({className}) => {
         router.push(ROUTES.HOME);
         break;
       case '/list/[id]':
-        router.push(ROUTES.LIST);
+        router.push(ROUTES.MY_LIST);
         break;
     }
   };
@@ -42,7 +42,7 @@ const Topbar: FC<IProps> = ({className}) => {
         <div className="container">
           <Back visibleOn={['/list', '/list/[id]']} currentPage={currentPage} onClick={() => returnTo(currentPage)} />
           <div className="authenticated">
-            <Link href={ROUTES.LIST}>
+            <Link href={ROUTES.MY_LIST}>
               <a className="h2 text">My List</a>
             </Link>
             {/* Seperator line */}

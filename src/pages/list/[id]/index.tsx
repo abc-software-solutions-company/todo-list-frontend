@@ -46,7 +46,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
         if (res.status >= 200) setTodoList(res.data);
       })
       .catch(() => {
-        router.push(ROUTES.LIST);
+        router.push(ROUTES.MY_LIST);
       });
 
   const handleShare = () => {
@@ -78,7 +78,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
 
   useEffect(() => {
     if (id) {
-      getListTasks(String(id) || '').catch(() => router.push(ROUTES.LIST));
+      getListTasks(String(id) || '').catch(() => router.push(ROUTES.MY_LIST));
       socketMsgToClient();
       LocalStorage.previousPage.remove();
     }
