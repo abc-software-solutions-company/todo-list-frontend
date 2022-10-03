@@ -34,7 +34,8 @@ axiosClient.interceptors.response.use(
   err => {
     if (err?.response?.status === 401) {
       if (typeof window !== 'undefined') {
-        window.location.href = ROUTES.LOGIN;
+        // window.location.href = ROUTES.LOGIN;
+        console.log('Create Anonymous user');
       }
     }
     return Promise.reject(err);
