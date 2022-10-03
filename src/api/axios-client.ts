@@ -35,6 +35,7 @@ axiosClient.interceptors.response.use(
     if (err?.response?.status === 401) {
       if (typeof window !== 'undefined') {
         window.location.href = ROUTES.LOGIN;
+        LocalStorage.accessToken.remove();
       }
     }
     return Promise.reject(err);
