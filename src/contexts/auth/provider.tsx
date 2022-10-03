@@ -1,4 +1,5 @@
 import {useRouter} from 'next/router';
+import randomName from 'random-name';
 import React, {FC, ReactNode, useEffect, useReducer} from 'react';
 
 import api from '@/api/network/user';
@@ -30,9 +31,7 @@ const Authentication: FC<IProps> = ({children}) => {
       if (typeof window !== 'undefined') {
         //FIXME: This is temporary method to fix id not recognize in production mode
         if (asPath.includes(`${ROUTES.LIST}/[id]`)) LocalStorage.previousPage.set(window.location.href.slice(-10));
-        else {
-          LocalStorage.previousPage.set(asPath);
-        }
+        else LocalStorage.previousPage.set(asPath);
       }
     }
     if (!auth && !isLoginPage) {
@@ -44,7 +43,7 @@ const Authentication: FC<IProps> = ({children}) => {
           }
         })
         .catch(() => {
-          api.createUser({userName: 'anonymous'}).then(userRes => {
+          api.createUser({userName: `${randomName.first()} (Anonymous)`}).then(userRes => {
             loginSuccess(userRes);
           });
         });
