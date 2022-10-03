@@ -45,7 +45,7 @@ export default function Login() {
                 variant="contained"
                 color="primary"
                 type="button"
-                text="Login To Existing Account"
+                text="Login By Email"
                 onClick={() => handleSocial()}
                 loading={formState.isSubmitting}
                 disabled={formState.isSubmitting}
