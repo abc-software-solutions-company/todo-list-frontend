@@ -33,6 +33,7 @@
     "db": "json-server --watch src/api/fixture/db.json --port 3100"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.0.5",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@headlessui/react": "^1.6.4",
