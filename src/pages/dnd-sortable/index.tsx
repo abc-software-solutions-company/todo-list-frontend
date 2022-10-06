@@ -3,10 +3,11 @@ import {DndContext, KeyboardSensor, PointerSensor, closestCenter, useSensor, use
 import {SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import React, {useState} from 'react';
 
+import {dataTest} from './data-test';
 import SortableItem from './SortableItem';
 
 export default function App() {
-  const [items, setItems] = useState(Array.from(Array(90).keys()));
+  const [items, setItems] = useState(dataTest);
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -18,8 +19,8 @@ export default function App() {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
       <SortableContext items={items} strategy={verticalListSortingStrategy}>
-        {items.map(id => (
-          <SortableItem key={id} id={id} />
+        {items.map(item => (
+          <SortableItem key={item.id} id={item.id} />
         ))}
       </SortableContext>
     </DndContext>
