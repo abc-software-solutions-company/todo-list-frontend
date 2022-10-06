@@ -5,7 +5,7 @@ name: TodoList Frontend Pipeline
 
 on:
   push:
-    branches: ["main-2"]
+    branches: ["main"]
   # This instruction can only be used on test.workflow.yml for CI Stage in the future
   # pull_request:
   #   branches: ["main"]
