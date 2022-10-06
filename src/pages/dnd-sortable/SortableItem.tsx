@@ -13,6 +13,7 @@ export default function SortableItem({id, title, content}: any) {
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <p>{title}</p>
+      <h1>{content}</h1>
     </div>
   );
 }
