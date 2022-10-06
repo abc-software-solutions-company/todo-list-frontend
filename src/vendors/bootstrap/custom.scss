@@ -4,4 +4,5 @@ $grid-breakpoints: ();
 $enable-important-utilities: false;
 
 @import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/maps';
 @import '~bootstrap/scss/mixins';

@@ -1,8 +1,6 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import React, {useEffect, useState} from 'react';
-import {DragDropContext, Draggable, Droppable, DropResult} from 'react-beautiful-dnd';
-import NoSSR from 'react-no-ssr';
-import { resetServerContext } from "react-beautiful-dnd";
-import { GetServerSideProps } from 'next';
+import {DragDropContext, Draggable, DropResult, Droppable} from 'react-beautiful-dnd';
 
 const listItems = [
   {
@@ -90,43 +88,33 @@ export default function App() {
     }
   };
 
-
   useEffect(() => {
     setIsBrowser(process.browser);
   }, []);
   return (
-    <NoSSR>
-      <div className='App'>
-        <h1>Drag and Drop</h1>
-        {isBrowser ? (
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId='todo'>
-              {provided => (
-                <div className='todo' {...provided.droppableProps} ref={provided.innerRef}>
-                  {todo.map(({id, name}, index) => {
-                    return (
-                      <Draggable key={id.toString()} draggableId={id.toString()} index={index}>
-                        {(provided, snapshot) => (
-                          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                            {name}
-                          </div>
-                        )}
-                      </Draggable>
-                    );
-                  })}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-        ) : null}
-      </div>
-    </NoSSR>
+    <div className="App">
+      <h1>Drag and Drop</h1>
+      {isBrowser ? (
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="todo" direction="vertical">
+            {provided => (
+              <div className="todo" {...provided.droppableProps} ref={provided.innerRef}>
+                {todo.map(({id, name}, index) => {
+                  return (
+                    <Draggable key={id} draggableId={id.toString()} index={index}>
+                      {provided => (
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                          {name}
+                        </div>
+                      )}
+                    </Draggable>
+                  );
+                })}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      ) : null}
+    </div>
   );
-	
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-	resetServerContext();
-	return { props: {} };
-};
-
