@@ -1,17 +1,5 @@
 export const dataTest = [
   {
-    id: 'e592eade-e102-49a3-8d48-74e8b8aec3dc',
-    name: 'Build ok',
-    createdDate: '2022-10-06T04:35:44.725Z',
-    updatedDate: '2022-10-06T04:47:52.597Z',
-    isDone: true,
-    isActive: true,
-    status: 0,
-    todoListId: 'z858z',
-    userId: '3ff5a821-7c3a-4f75-b9ac-1598fd282059',
-    index: 345000
-  },
-  {
     id: '87902f97-3ef6-432c-98f3-63c27f7521df',
     name: 'SSR Use OK',
     createdDate: '2022-10-06T04:47:42.620Z',
