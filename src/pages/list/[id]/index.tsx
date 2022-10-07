@@ -123,7 +123,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
               editTodo={() => setActionTodo({type: 'edit', payload: todoList})}
               deleteTodo={() => setActionTodo({type: 'delete', payload: todoList})}
               shareTodo={handleShare}
-              addTodo={() => setActionTodo({type: 'add', payload: null})}
+              addTodo={() => setAction({type: 'add', payload: null})}
             />
           )}
           <div className="tasks">
