@@ -35,7 +35,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        delay: 300,
+        delay: 1,
         tolerance: 1
       }
     })
