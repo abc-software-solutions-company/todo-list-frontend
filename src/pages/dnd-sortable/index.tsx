@@ -21,11 +21,32 @@ export default function App() {
       id: '2',
       title: 'item 3',
       content: 'content 3'
+    },
+    {
+      id: '3',
+      title: 'item 4',
+      content: 'content 4'
+    },
+    {
+      id: '4',
+      title: 'item 5',
+      content: 'content 5'
     }
   ]);
 
   function handleDragEnd(event: any) {
     const {active, over} = event;
+    // console.log('🤩 Đây là item đang kéo');
+    // console.log(active); // Active là item mình muốn drag sang vị trí khác
+    // console.log('😎 Đây là item bị đè lên vị trí kéo');
+    // console.log(over);
+
+    // Index của item trên
+    console.log(`Index của item trên là ${parseInt(over.id) - 1}`);
+    // Index của item dưới
+    console.log(`Index của item dưới là ${parseInt(over.id) + 1}`);
+    // Index của item đang drag
+    console.log(`Index của item đang drag là ${parseInt(active.id)}`);
 
     if (active.id === over.id) {
       return;
