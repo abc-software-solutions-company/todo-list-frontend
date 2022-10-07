@@ -7,6 +7,7 @@ import io from 'socket.io-client';
 
 import API from '@/api/network/task';
 import {ITodo} from '@/api/types/todo.type';
+import ListTask from '@/components/list-task';
 import ModalShare from '@/components/modal-share';
 import ModalTaskAddEdit from '@/components/modal-task-add-edit';
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
@@ -155,6 +156,8 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
                     ))}
                 </SortableContext>
               )}
+              <p>This is area of task list</p>
+              {todoList.tasks?.length && <ListTask list={todoList.tasks} listID={id.toString()} />}
             </div>
           </DndContext>
         </div>

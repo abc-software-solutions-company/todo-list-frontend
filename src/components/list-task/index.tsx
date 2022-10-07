@@ -3,6 +3,7 @@ import Checkbox from '@/core-ui/checkbox';
 
 interface IProp {
   list: ITask[];
+  listID: string;
   // setDone: (taskId: string) => void;
   // editTask: () => void;
   // deleteTask: () => void;
