@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import {DndContext, KeyboardSensor, MouseSensor, PointerSensor, useSensor, useSensors} from '@dnd-kit/core';
-import {SortableContext, arrayMove, sortableKeyboardCoordinates} from '@dnd-kit/sortable';
+import {DndContext, MouseSensor, useSensor, useSensors} from '@dnd-kit/core';
+import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
+import {SortableContext, arrayMove, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {InferGetStaticPropsType} from 'next';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
@@ -21,7 +22,6 @@ import {ROUTES} from '@/configs/routes.config';
 import FloatIcon from '@/core-ui/float-icon';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
 import LayoutDefault from '@/layouts/default';
-import SortableItem from '@/pages/dnd-sortable/SortableItem';
 import {IAction} from '@/types';
 import LocalStorage from '@/utils/local-storage';
 
@@ -32,6 +32,15 @@ const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
 export {getStaticPaths, getStaticProps};
 
 export default function Detail({roomId}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        delay: 300,
+        tolerance: 5
+      }
+    })
+  );
+
   const router = useRouter();
   const [todoList, setTodoList] = useState<ITodo>();
   const [action, setAction] = useState<IAction>({type: '', payload: null});
@@ -113,14 +122,6 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
     // console.log(todoList);
   }
 
-  // const sensors = useSensors(
-  //   useSensor(MouseSensor, {
-  //     activationConstraint: {
-  //       delay: 500
-  //     }
-  //   })
-  // );
-
   return (
     <>
       <Seo title={roomId} />
@@ -147,11 +148,11 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
             )}
           </div>
           <p>This below is dnd context area</p>
-          <DndContext onDragEnd={handleDragEnd}>
+          <DndContext onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
             <div className="tasks">
               {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
               {todoList.tasks?.length && (
-                <SortableContext items={todoList.tasks}>
+                <SortableContext items={todoList.tasks} strategy={verticalListSortingStrategy}>
                   {todoList.tasks &&
                     todoList.tasks.map(task => (
                       <div key={task.id}>

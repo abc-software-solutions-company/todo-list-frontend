@@ -1,5 +1,14 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import {DndContext} from '@dnd-kit/core';
+import {
+  DndContext,
+  KeyboardSensor,
+  MouseSensor,
+  PointerActivationConstraint,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+  useSensors
+} from '@dnd-kit/core';
 import {SortableContext, arrayMove, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import React, {useState} from 'react';
 
@@ -34,6 +43,14 @@ export default function App() {
     }
   ]);
 
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        delay: 1000
+      }
+    })
+  );
+
   function handleDragEnd(event: any) {
     const {active, over} = event;
     // console.log('🤩 Đây là item đang kéo');
@@ -63,12 +80,14 @@ export default function App() {
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    <DndContext onDragEnd={handleDragEnd}>
-      <SortableContext items={items.map(item => item.id)} strategy={verticalListSortingStrategy}>
-        {items.map(item => (
-          <SortableItem key={item.id} id={item.id} title={item.title} content={item.content} />
-        ))}
-      </SortableContext>
-    </DndContext>
+    <>
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext items={items.map(item => item.id)} strategy={verticalListSortingStrategy}>
+          {items.map(item => (
+            <SortableItem key={item.id} id={item.id} title={item.title} content={item.content} />
+          ))}
+        </SortableContext>
+      </DndContext>
+    </>
   );
 }

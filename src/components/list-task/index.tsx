@@ -11,7 +11,7 @@ interface IProp {
   // deleteTask: () => void;
 }
 
-export default function ListTask({list, listID, refreshList, msgToServer}: IProp) {
+export default function ListTask({list, refreshList, msgToServer}: IProp) {
   const setDone = (id: string) => {
     if (!id) return;
     API.updateStatusTask(id).then(() => {
