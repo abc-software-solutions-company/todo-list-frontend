@@ -23,7 +23,6 @@ export default function ListTask({list, listID, refreshList, msgToServer}: IProp
 
   return (
     <>
-      <p>{`Your list id is ${listID}`}</p>
       {list.map(task => (
         <div className="item" key={task.id}>
           <Checkbox checked={task.isDone} />

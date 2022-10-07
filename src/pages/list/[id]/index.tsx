@@ -129,19 +129,14 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
           )}
           <div className="tasks">
             {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
-            {todoList.tasks &&
-              todoList.tasks.map(task => (
-                <div className="item" key={task.id}>
-                  <Checkbox checked={task.isDone} onChange={() => setDone(task.id!)} />
-                  <p onClick={() => setDone(task.id!)} className={`h6 ${task.isDone ? 'checked' : ''}`}>
-                    {task.name}
-                  </p>
-                  <div className="actions">
-                    <IconButton name="ico-edit" onClick={() => setAction({type: 'edit', payload: task})} />
-                    <IconButton name="ico-trash-2" onClick={() => setAction({type: 'delete', payload: task})} />
-                  </div>
-                </div>
-              ))}
+            {todoList.tasks?.length && (
+              <ListTask
+                list={todoList.tasks}
+                listID={id.toString()}
+                msgToServer={socketMsgToServer}
+                refreshList={() => getListTasks(String(id) || '')}
+              />
+            )}
           </div>
           <DndContext onDragEnd={handleDragEnd}>
             <div className="tasks">
@@ -155,15 +150,6 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
                       </div>
                     ))}
                 </SortableContext>
-              )}
-              <p>This is area of task list</p>
-              {todoList.tasks?.length && (
-                <ListTask
-                  list={todoList.tasks}
-                  listID={id.toString()}
-                  msgToServer={socketMsgToServer}
-                  refreshList={() => getListTasks(String(id) || '')}
-                />
               )}
             </div>
           </DndContext>
