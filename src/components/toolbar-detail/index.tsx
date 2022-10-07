@@ -5,14 +5,14 @@ import Icon from '@/core-ui/icon';
 import styles from './style.module.scss';
 
 interface IProp {
-  todoList: ITodo;
+  nameTodo: string;
   editTodo: () => void;
   deleteTodo: () => void;
   shareTodo: () => void;
   addTodo: () => void;
 }
 
-export default function ToolbarDetail({todoList, editTodo, deleteTodo, shareTodo, addTodo}: IProp) {
+export default function ToolbarDetail({nameTodo, editTodo, deleteTodo, shareTodo, addTodo}: IProp) {
   return (
     <>
       <div className={styles['toolbar-detail']}>
@@ -20,7 +20,7 @@ export default function ToolbarDetail({todoList, editTodo, deleteTodo, shareTodo
           <div className="left">
             {/* List Title */}
             <div className="title">
-              <p>{todoList.name}</p>
+              <p>{nameTodo}</p>
             </div>
           </div>
         </div>

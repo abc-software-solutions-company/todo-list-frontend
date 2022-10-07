@@ -117,13 +117,15 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
       <Seo title={roomId} />
       <div className={styles['page-detail']}>
         <div className="container">
-          <ToolbarDetail
-            todoList={todoList}
-            editTodo={() => setActionTodo({type: 'edit', payload: todoList})}
-            deleteTodo={() => setActionTodo({type: 'delete', payload: todoList})}
-            shareTodo={handleShare}
-            addTodo={() => setActionTodo({type: 'add', payload: null})}
-          />
+          {todoList.name && (
+            <ToolbarDetail
+              nameTodo={todoList.name || ''}
+              editTodo={() => setActionTodo({type: 'edit', payload: todoList})}
+              deleteTodo={() => setActionTodo({type: 'delete', payload: todoList})}
+              shareTodo={handleShare}
+              addTodo={() => setActionTodo({type: 'add', payload: null})}
+            />
+          )}
           <div className="tasks">
             {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
             {todoList.tasks &&
