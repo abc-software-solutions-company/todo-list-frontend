@@ -13,6 +13,7 @@ import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
 import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
 import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
 import Seo from '@/components/seo/seo';
+import ToolbarDetail from '@/components/toolbar-detail';
 import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import Checkbox from '@/core-ui/checkbox';
@@ -97,18 +98,6 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
 
   function handleDragEnd(event: any) {
     const {active, over} = event;
-    // console.log('🤩 Đây là item đang kéo');
-    // console.log(active); // Active là item mình muốn drag sang vị trí khác
-    // console.log('😎 Đây là item bị đè lên vị trí kéo');
-    // console.log(over);
-
-    // // Index của item trên
-    // console.log(`Index của item trên là ${parseInt(over.id) - 1}`);
-    // // Index của item dưới
-    // console.log(`Index của item dưới là ${parseInt(over.id) + 1}`);
-    // // Index của item đang drag
-    // console.log(`Index của item đang drag là ${parseInt(active.id)}`);
-
     if (!over) {
       return;
     }
@@ -127,6 +116,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
 
   return (
     <>
+      <ToolbarDetail todoList={todoList} />
       <Seo title={roomId} />
       <div className={styles['page-detail']}>
         <div className="container">
@@ -194,6 +184,8 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
             </div>
           </DndContext>
         </div>
+
+        {/* Modal Components Area */}
         <FloatIcon className="float-icon" onClick={() => setAction({type: 'add', payload: null})} />
         {['add', 'edit'].includes(action.type) && (
           <ModalTaskAddEdit
