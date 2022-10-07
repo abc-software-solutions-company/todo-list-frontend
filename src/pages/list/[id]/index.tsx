@@ -109,7 +109,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
     // // Index của item đang drag
     // console.log(`Index của item đang drag là ${parseInt(active.id)}`);
 
-    if (active.id === over.id) {
+    if (!over) {
       return;
     }
 
@@ -120,14 +120,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
       const arrangeTask = arrayMove(todoList?.tasks, oldIndex, newIndex);
       // console.log(arrangeTask);
 
-      setTodoList({
-        name: todoList?.name,
-        createdAt: todoList?.createdAt,
-        updatedAt: todoList?.updatedAt,
-        id: todoList?.id,
-        userId: todoList?.userId,
-        tasks: arrangeTask
-      });
+      setTodoList({...todoList, tasks: arrangeTask});
     }
     // console.log(todoList);
   }
