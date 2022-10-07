@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import {DndContext, MouseSensor, useSensor, useSensors} from '@dnd-kit/core';
+import {DndContext, MouseSensor, PointerSensor, useSensor, useSensors} from '@dnd-kit/core';
 import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {SortableContext, arrayMove, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {InferGetStaticPropsType} from 'next';
@@ -33,10 +33,10 @@ export {getStaticPaths, getStaticProps};
 
 export default function Detail({roomId}: InferGetStaticPropsType<typeof getStaticProps>) {
   const sensors = useSensors(
-    useSensor(MouseSensor, {
+    useSensor(PointerSensor, {
       activationConstraint: {
         delay: 300,
-        tolerance: 5
+        tolerance: 1
       }
     })
   );
@@ -148,7 +148,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
             )}
           </div>
           <p>This below is dnd context area</p>
-          <DndContext onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
+          <DndContext sensors={sensors} onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
             <div className="tasks">
               {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
               {todoList.tasks?.length && (
