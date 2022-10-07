@@ -7,7 +7,6 @@ interface IProp {
   listID: string;
   msgToServer: () => void;
   refreshList: () => Promise<void>;
-  // setDone: (taskId: string) => void;
   // editTask: () => void;
   // deleteTask: () => void;
 }
@@ -26,7 +25,7 @@ export default function ListTask({list, listID, refreshList, msgToServer}: IProp
       {list.map(task => (
         <div className="item" key={task.id}>
           <Checkbox checked={task.isDone} />
-          <p className={`h6 ${task.isDone ? 'checked' : ''}`} onClick={() => setDone(task.id)}>
+          <p className={`h6 ${task.isDone ? 'checked' : ''}`} onClick={() => setDone(task.id!)}>
             {task.name}
           </p>
         </div>

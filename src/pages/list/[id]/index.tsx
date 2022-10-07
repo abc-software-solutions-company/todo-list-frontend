@@ -1,5 +1,6 @@
-import {DndContext} from '@dnd-kit/core';
-import {SortableContext, arrayMove} from '@dnd-kit/sortable';
+/* eslint-disable react-hooks/rules-of-hooks */
+import {DndContext, KeyboardSensor, MouseSensor, PointerSensor, useSensor, useSensors} from '@dnd-kit/core';
+import {SortableContext, arrayMove, sortableKeyboardCoordinates} from '@dnd-kit/sortable';
 import {InferGetStaticPropsType} from 'next';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
@@ -14,11 +15,10 @@ import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
 import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
 import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
 import Seo from '@/components/seo/seo';
+import TaskItem from '@/components/task-item';
 import ToolbarDetail from '@/components/toolbar-detail';
 import {ROUTES} from '@/configs/routes.config';
-import Checkbox from '@/core-ui/checkbox';
 import FloatIcon from '@/core-ui/float-icon';
-import IconButton from '@/core-ui/icon-button';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
 import LayoutDefault from '@/layouts/default';
 import SortableItem from '@/pages/dnd-sortable/SortableItem';
@@ -113,6 +113,14 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
     // console.log(todoList);
   }
 
+  // const sensors = useSensors(
+  //   useSensor(MouseSensor, {
+  //     activationConstraint: {
+  //       delay: 500
+  //     }
+  //   })
+  // );
+
   return (
     <>
       <Seo title={roomId} />
@@ -138,6 +146,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
               />
             )}
           </div>
+          <p>This below is dnd context area</p>
           <DndContext onDragEnd={handleDragEnd}>
             <div className="tasks">
               {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
@@ -145,8 +154,13 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
                 <SortableContext items={todoList.tasks}>
                   {todoList.tasks &&
                     todoList.tasks.map(task => (
-                      <div className="item" key={task.id}>
-                        <SortableItem key={task.id} id={task.id} title={task.name} content={task.name} />
+                      <div key={task.id}>
+                        {/* <SortableItem key={task.id} id={task.id} title={task.name} content={task.name} /> */}
+                        <TaskItem
+                          task={task}
+                          msgToServer={socketMsgToServer}
+                          refreshList={() => getListTasks(String(id) || '')}
+                        />
                       </div>
                     ))}
                 </SortableContext>
