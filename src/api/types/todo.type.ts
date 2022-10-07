@@ -5,5 +5,5 @@ export interface ITodo {
   name: string;
   createdAt?: string;
   updatedAt?: string;
-  tasks?: ITask[];
+  tasks: ITask[];
 }

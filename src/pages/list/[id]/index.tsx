@@ -1,3 +1,5 @@
+import {DndContext} from '@dnd-kit/core';
+import {SortableContext} from '@dnd-kit/sortable';
 import {InferGetStaticPropsType} from 'next';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
@@ -145,6 +147,16 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
                 </div>
               ))}
           </div>
+          <DndContext>
+            <div className="tasks">
+              {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
+              {todoList.tasks?.length && (
+                <SortableContext items={todoList.tasks}>
+                  {todoList.tasks && todoList.tasks.map(task => <div className="item" key={task.id}></div>)}
+                </SortableContext>
+              )}
+            </div>
+          </DndContext>
         </div>
         <FloatIcon className="float-icon" onClick={() => setAction({type: 'add', payload: null})} />
         {['add', 'edit'].includes(action.type) && (

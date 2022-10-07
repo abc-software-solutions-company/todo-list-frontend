@@ -8,27 +8,27 @@ import SortableItem from './SortableItem';
 export default function App() {
   const [items, setItems] = useState([
     {
-      id: '0',
+      id: 'a',
       title: 'item 1',
       content: 'content 1'
     },
     {
-      id: '1',
+      id: 'b',
       title: 'item 2',
       content: 'content 2'
     },
     {
-      id: '2',
+      id: 'c',
       title: 'item 3',
       content: 'content 3'
     },
     {
-      id: '3',
+      id: 'd',
       title: 'item 4',
       content: 'content 4'
     },
     {
-      id: '4',
+      id: 'e',
       title: 'item 5',
       content: 'content 5'
     }
