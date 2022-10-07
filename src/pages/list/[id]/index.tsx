@@ -1,5 +1,5 @@
 import {DndContext} from '@dnd-kit/core';
-import {SortableContext} from '@dnd-kit/sortable';
+import {SortableContext, arrayMove} from '@dnd-kit/sortable';
 import {InferGetStaticPropsType} from 'next';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
@@ -21,6 +21,7 @@ import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
 import LayoutDefault from '@/layouts/default';
+import SortableItem from '@/pages/dnd-sortable/SortableItem';
 import {IAction} from '@/types';
 import LocalStorage from '@/utils/local-storage';
 
@@ -94,6 +95,43 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
       </>
     );
 
+  function handleDragEnd(event: any) {
+    const {active, over} = event;
+    // console.log('🤩 Đây là item đang kéo');
+    // console.log(active); // Active là item mình muốn drag sang vị trí khác
+    // console.log('😎 Đây là item bị đè lên vị trí kéo');
+    // console.log(over);
+
+    // // Index của item trên
+    // console.log(`Index của item trên là ${parseInt(over.id) - 1}`);
+    // // Index của item dưới
+    // console.log(`Index của item dưới là ${parseInt(over.id) + 1}`);
+    // // Index của item đang drag
+    // console.log(`Index của item đang drag là ${parseInt(active.id)}`);
+
+    if (active.id === over.id) {
+      return;
+    }
+
+    if (active.id !== over.id) {
+      const oldIndex = todoList?.tasks?.findIndex(item => active.id === item.id);
+      const newIndex = todoList?.tasks?.findIndex(item => over.id === item.id);
+
+      const arrangeTask = arrayMove(todoList?.tasks, oldIndex, newIndex);
+      // console.log(arrangeTask);
+
+      setTodoList({
+        name: todoList?.name,
+        createdAt: todoList?.createdAt,
+        updatedAt: todoList?.updatedAt,
+        id: todoList?.id,
+        userId: todoList?.userId,
+        tasks: arrangeTask
+      });
+    }
+    // console.log(todoList);
+  }
+
   return (
     <>
       <Seo title={roomId} />
@@ -147,12 +185,17 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
                 </div>
               ))}
           </div>
-          <DndContext>
+          <DndContext onDragEnd={handleDragEnd}>
             <div className="tasks">
               {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
               {todoList.tasks?.length && (
                 <SortableContext items={todoList.tasks}>
-                  {todoList.tasks && todoList.tasks.map(task => <div className="item" key={task.id}></div>)}
+                  {todoList.tasks &&
+                    todoList.tasks.map(task => (
+                      <div className="item" key={task.id}>
+                        <SortableItem key={task.id} id={task.id} title={task.name} content={task.name} />
+                      </div>
+                    ))}
                 </SortableContext>
               )}
             </div>

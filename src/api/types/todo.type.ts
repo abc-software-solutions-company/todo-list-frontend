@@ -2,8 +2,9 @@ import {ITask} from './task.type';
 
 export interface ITodo {
   id?: string | undefined;
-  name: string;
+  name?: string | undefined;
   createdAt?: string;
   updatedAt?: string;
-  tasks: ITask[];
+  tasks?: ITask[];
+  userId?: string;
 }
