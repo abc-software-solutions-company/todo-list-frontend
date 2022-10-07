@@ -116,42 +116,16 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
 
   return (
     <>
-      <ToolbarDetail todoList={todoList} editTodo={() => setActionTodo({type: 'edit', payload: todoList})} />
       <Seo title={roomId} />
       <div className={styles['page-detail']}>
         <div className="container">
-          <div className="toolbar">
-            <div className="left">
-              <div className="title">
-                <h2>{todoList.name}</h2>
-              </div>
-            </div>
-            <div className="right">
-              <Button
-                className="btn-edit"
-                startIcon={<Icon name="ico-edit" />}
-                onClick={() => setActionTodo({type: 'edit', payload: todoList})}
-              >
-                <span className="h5 font-medium">Edit</span>
-              </Button>
-              <Button
-                startIcon={<Icon name="ico-trash-2" />}
-                onClick={() => setActionTodo({type: 'delete', payload: todoList})}
-              >
-                <span className="h5 font-medium">Delete List</span>
-              </Button>
-              <Button className="btn-share" startIcon={<Icon name="ico-share-2" />} onClick={handleShare}>
-                <span className="h5 font-medium">Share</span>
-              </Button>
-              <Button
-                className="btn-add-todo"
-                startIcon={<Icon name="ico-plus-circle" />}
-                onClick={() => setAction({type: 'add', payload: null})}
-              >
-                <span className="h5 font-medium">Add To-Do</span>
-              </Button>
-            </div>
-          </div>
+          <ToolbarDetail
+            todoList={todoList}
+            editTodo={() => setActionTodo({type: 'edit', payload: todoList})}
+            deleteTodo={() => setActionTodo({type: 'delete', payload: todoList})}
+            shareTodo={handleShare}
+            addTodo={() => setActionTodo({type: 'add', payload: null})}
+          />
           <div className="tasks">
             {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
             {todoList.tasks &&
