@@ -116,7 +116,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
 
   return (
     <>
-      <ToolbarDetail todoList={todoList} />
+      <ToolbarDetail todoList={todoList} editTodo={() => setActionTodo({type: 'edit', payload: todoList})} />
       <Seo title={roomId} />
       <div className={styles['page-detail']}>
         <div className="container">
