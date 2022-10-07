@@ -157,7 +157,14 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
                 </SortableContext>
               )}
               <p>This is area of task list</p>
-              {todoList.tasks?.length && <ListTask list={todoList.tasks} listID={id.toString()} />}
+              {todoList.tasks?.length && (
+                <ListTask
+                  list={todoList.tasks}
+                  listID={id.toString()}
+                  msgToServer={socketMsgToServer}
+                  refreshList={() => getListTasks(String(id) || '')}
+                />
+              )}
             </div>
           </DndContext>
         </div>
