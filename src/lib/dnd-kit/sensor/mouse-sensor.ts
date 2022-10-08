@@ -1,7 +1,7 @@
 import {MouseSensor, useSensor, useSensors} from '@dnd-kit/core';
 
 export const useMouseSensor = () => {
-  const sensors = useSensors(
+  return useSensors(
     useSensor(MouseSensor, {
       activationConstraint: {
         distance: 10
@@ -10,5 +10,4 @@ export const useMouseSensor = () => {
       }
     })
   );
-  return sensors;
 };

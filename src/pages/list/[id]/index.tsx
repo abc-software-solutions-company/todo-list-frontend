@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import {DndContext} from '@dnd-kit/core';
 import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
-import {SortableContext, arrayMove, verticalListSortingStrategy} from '@dnd-kit/sortable';
+import {SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {InferGetStaticPropsType} from 'next';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
@@ -21,7 +21,8 @@ import {ROUTES} from '@/configs/routes.config';
 import FloatIcon from '@/core-ui/float-icon';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
 import LayoutDefault from '@/layouts/default';
-import {useMouseSensor} from '@/lib/dnd-kit/mouse-sensor';
+import {useMouseSensor} from '@/lib/dnd-kit/sensor/mouse-sensor';
+import {TaskDND} from '@/lib/dnd-kit/task-dnd';
 import {IAction} from '@/types';
 import LocalStorage from '@/utils/local-storage';
 
@@ -32,6 +33,8 @@ const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
 export {getStaticPaths, getStaticProps};
 
 export default function Detail({roomId}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const sensor = useMouseSensor();
+
   const router = useRouter();
   const [todoList, setTodoList] = useState<ITodo>();
   const [action, setAction] = useState<IAction>({type: '', payload: null});
@@ -69,6 +72,8 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
     socketMsgToServer();
   };
 
+  const handleDragEnd = (event: any) => setTodoList(TaskDND(event, todoList!));
+
   useEffect(() => {
     if (id) {
       getListTasks(String(id) || '').catch(() => router.push(ROUTES.LIST));
@@ -79,19 +84,6 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
   }, [id]);
 
   if (!todoList || !id) return <Seo title={roomId} />;
-
-  function handleDragEnd(event: any) {
-    const {active, over} = event;
-    if (!over) return;
-
-    if (active.id !== over.id) {
-      const oldIndex = todoList?.tasks?.findIndex(item => active.id === item.id);
-      const newIndex = todoList?.tasks?.findIndex(item => over.id === item.id);
-
-      const arrangeTask = arrayMove(todoList!.tasks!, oldIndex!, newIndex!);
-      setTodoList({...todoList, tasks: arrangeTask});
-    }
-  }
 
   return (
     <>
@@ -107,7 +99,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
               addTodo={() => setAction({type: 'add', payload: null})}
             />
           )}
-          <DndContext sensors={useMouseSensor()} onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
+          <DndContext sensors={sensor} onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
             <div className="tasks">
               {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
               {todoList.tasks?.length && (
@@ -115,7 +107,6 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
                   {todoList.tasks &&
                     todoList.tasks.map(task => (
                       <div key={task.id}>
-                        {/* <SortableItem key={task.id} id={task.id} title={task.name} content={task.name} /> */}
                         <TaskItem
                           task={task}
                           msgToServer={socketMsgToServer}
