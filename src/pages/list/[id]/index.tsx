@@ -33,10 +33,11 @@ export {getStaticPaths, getStaticProps};
 
 export default function Detail({roomId}: InferGetStaticPropsType<typeof getStaticProps>) {
   const sensors = useSensors(
-    useSensor(PointerSensor, {
+    useSensor(MouseSensor, {
       activationConstraint: {
-        delay: 1,
-        tolerance: 1
+        distance: 10
+        // delay: 7,
+        // tolerance: 1
       }
     })
   );
