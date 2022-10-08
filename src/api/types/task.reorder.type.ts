@@ -1,5 +1,5 @@
 export interface ITaskReorder {
-  taskFirstID?: number | undefined;
-  taskSecondID?: number | undefined;
-  taskReorderID?: number | undefined;
+  taskFirstID?: string | undefined;
+  taskSecondID?: string | undefined;
+  taskReorderID?: string | undefined;
 }

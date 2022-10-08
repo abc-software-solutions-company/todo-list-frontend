@@ -79,11 +79,14 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
       const oldIndex = taskList?.findIndex(item => active.id === item.id);
       const newIndex = taskList?.findIndex(item => over.id === item.id);
       const arrangeTask = arrayMove(todoList!.tasks!, oldIndex!, newIndex!);
-      // console.log(oldIndex);
+      console.log(`TaskFirstName is ${taskList[newIndex - 1].name}`);
+      console.log(`TaskReorderName is ${taskList[oldIndex].name}`);
+      console.log(`TaskSecondName is ${taskList[newIndex].name}`);
+
       API.reorderTask({
-        taskFirstID: taskList[oldIndex].index,
-        taskReorderID: taskList[newIndex].index,
-        taskSecondID: taskList[newIndex - 1].index
+        taskFirstID: taskList[newIndex - 1].id,
+        taskReorderID: taskList[oldIndex].id,
+        taskSecondID: taskList[newIndex].id
       });
 
       setTodoList({...todoList, tasks: arrangeTask});
