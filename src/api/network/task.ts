@@ -2,6 +2,7 @@ import * as HttpRequest from '@/api/http-request';
 import {API_ENDPOINTS} from '@/configs/endpoint.config';
 import {IAxiosResponse} from '@/types';
 
+import {ITaskReorder} from '../types/task.reorder.type';
 import {ITask} from '../types/task.type';
 
 type Task = IAxiosResponse<ITask>;
@@ -14,6 +15,7 @@ const createTask = (data: ITask) => HttpRequest.post<ITask>(`${API_ENDPOINTS.TAS
 const deleteTask = (id: string) => HttpRequest.destroy<ITask>(`${API_ENDPOINTS.TASK}/${id}`);
 const updateTask = (id: string, data: ITask) => HttpRequest.patch<ITask>(`${API_ENDPOINTS.TASK}/${id}`, data);
 const updateStatusTask = (id: string) => HttpRequest.put(`${API_ENDPOINTS.TASK}/${id}`, {});
+const reorderTask = (data: ITaskReorder) => HttpRequest.patch(`${API_ENDPOINTS.TASK}/query/reorders`, data);
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default {getTasks, getListTasks, getTask, createTask, deleteTask, updateTask, updateStatusTask};
+export default {getTasks, getListTasks, getTask, createTask, deleteTask, updateTask, updateStatusTask, reorderTask};
