@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import {DndContext} from '@dnd-kit/core';
 import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
-import {SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
+import {SortableContext, arrayMove, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {InferGetStaticPropsType} from 'next';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
@@ -22,7 +22,6 @@ import FloatIcon from '@/core-ui/float-icon';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
 import LayoutDefault from '@/layouts/default';
 import {useMouseSensor} from '@/lib/dnd-kit/sensor/mouse-sensor';
-import {TaskDND} from '@/lib/dnd-kit/task-dnd';
 import {IAction} from '@/types';
 import LocalStorage from '@/utils/local-storage';
 
@@ -72,7 +71,15 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
     socketMsgToServer();
   };
 
-  const handleDragEnd = (event: any) => setTodoList(TaskDND(event, todoList!));
+  function handleDragEnd({active, over}: any) {
+    if (!over) return;
+    if (active.id !== over.id) {
+      const oldIndex = todoList?.tasks?.findIndex(item => active.id === item.id);
+      const newIndex = todoList?.tasks?.findIndex(item => over.id === item.id);
+      const arrangeTask = arrayMove(todoList!.tasks!, oldIndex!, newIndex!);
+      setTodoList({...todoList, tasks: arrangeTask});
+    }
+  }
 
   useEffect(() => {
     if (id) {
