@@ -137,18 +137,6 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
               addTodo={() => setAction({type: 'add', payload: null})}
             />
           )}
-          <div className="tasks">
-            {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
-            {todoList.tasks?.length && (
-              <ListTask
-                list={todoList.tasks}
-                listID={id.toString()}
-                msgToServer={socketMsgToServer}
-                refreshList={() => getListTasks(String(id) || '')}
-              />
-            )}
-          </div>
-          <p>This below is dnd context area</p>
           <DndContext sensors={sensors} onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
             <div className="tasks">
               {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
