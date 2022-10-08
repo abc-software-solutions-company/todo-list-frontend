@@ -8,6 +8,7 @@ import React, {useEffect, useState} from 'react';
 import io from 'socket.io-client';
 
 import API from '@/api/network/task';
+import {ITask} from '@/api/types/task.type';
 import {ITodo} from '@/api/types/todo.type';
 import ModalShare from '@/components/modal-share';
 import ModalTaskAddEdit from '@/components/modal-task-add-edit';
@@ -74,9 +75,17 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
   function handleDragEnd({active, over}: any) {
     if (!over) return;
     if (active.id !== over.id) {
-      const oldIndex = todoList?.tasks?.findIndex(item => active.id === item.id);
-      const newIndex = todoList?.tasks?.findIndex(item => over.id === item.id);
+      const taskList: ITask[] = todoList!.tasks!;
+      const oldIndex = taskList?.findIndex(item => active.id === item.id);
+      const newIndex = taskList?.findIndex(item => over.id === item.id);
       const arrangeTask = arrayMove(todoList!.tasks!, oldIndex!, newIndex!);
+      // console.log(oldIndex);
+      API.reorderTask({
+        taskFirstID: taskList[oldIndex].index,
+        taskReorderID: taskList[newIndex].index,
+        taskSecondID: taskList[newIndex - 1].index
+      });
+
       setTodoList({...todoList, tasks: arrangeTask});
     }
   }

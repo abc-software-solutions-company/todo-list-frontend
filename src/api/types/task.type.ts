@@ -5,4 +5,5 @@ export interface ITask {
   createdAt?: string;
   updatedAt?: string;
   todoListId?: string;
+  index?: number;
 }
