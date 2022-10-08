@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import {DndContext, MouseSensor, useSensor, useSensors} from '@dnd-kit/core';
+import {DndContext} from '@dnd-kit/core';
 import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {SortableContext, arrayMove, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {InferGetStaticPropsType} from 'next';
@@ -21,6 +21,7 @@ import {ROUTES} from '@/configs/routes.config';
 import FloatIcon from '@/core-ui/float-icon';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
 import LayoutDefault from '@/layouts/default';
+import {useMouseSensor} from '@/lib/dnd-kit/mouse-sensor';
 import {IAction} from '@/types';
 import LocalStorage from '@/utils/local-storage';
 
@@ -31,16 +32,6 @@ const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
 export {getStaticPaths, getStaticProps};
 
 export default function Detail({roomId}: InferGetStaticPropsType<typeof getStaticProps>) {
-  const sensors = useSensors(
-    useSensor(MouseSensor, {
-      activationConstraint: {
-        distance: 10
-        // delay: 7,
-        // tolerance: 1
-      }
-    })
-  );
-
   const router = useRouter();
   const [todoList, setTodoList] = useState<ITodo>();
   const [action, setAction] = useState<IAction>({type: '', payload: null});
@@ -61,9 +52,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
         router.push(ROUTES.LIST);
       });
 
-  const handleShare = () => {
-    setShareOpen(true);
-  };
+  const handleShare = () => setShareOpen(true);
 
   const resetAction = () => setAction({type: '', payload: null});
   const resetActionTodo = () => setActionTodo({type: '', payload: null});
@@ -89,29 +78,19 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  if (!todoList || !id)
-    return (
-      <>
-        <Seo title={roomId} />
-      </>
-    );
+  if (!todoList || !id) return <Seo title={roomId} />;
 
   function handleDragEnd(event: any) {
     const {active, over} = event;
-    if (!over) {
-      return;
-    }
+    if (!over) return;
 
     if (active.id !== over.id) {
       const oldIndex = todoList?.tasks?.findIndex(item => active.id === item.id);
       const newIndex = todoList?.tasks?.findIndex(item => over.id === item.id);
 
       const arrangeTask = arrayMove(todoList!.tasks!, oldIndex!, newIndex!);
-      // console.log(arrangeTask);
-
       setTodoList({...todoList, tasks: arrangeTask});
     }
-    // console.log(todoList);
   }
 
   return (
@@ -128,7 +107,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
               addTodo={() => setAction({type: 'add', payload: null})}
             />
           )}
-          <DndContext sensors={sensors} onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
+          <DndContext sensors={useMouseSensor()} onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
             <div className="tasks">
               {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
               {todoList.tasks?.length && (
