@@ -130,6 +130,8 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
                           task={task}
                           msgToServer={socketMsgToServer}
                           refreshList={() => getListTasks(String(id) || '')}
+                          editTask={() => setAction({type: 'edit', payload: task})}
+                          deleteTask={() => setAction({type: 'delete', payload: task})}
                         />
                       </div>
                     ))}
