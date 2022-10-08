@@ -1,4 +1,4 @@
-export const dataTest = [
+const dataTest = [
   {
     id: '87902f97-3ef6-432c-98f3-63c27f7521df',
     name: 'SSR Use OK',
@@ -132,3 +132,4 @@ export const dataTest = [
     index: 356000
   }
 ];
+export default dataTest;

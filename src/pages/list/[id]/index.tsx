@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import {DndContext, MouseSensor, PointerSensor, useSensor, useSensors} from '@dnd-kit/core';
+import {DndContext, MouseSensor, useSensor, useSensors} from '@dnd-kit/core';
 import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {SortableContext, arrayMove, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {InferGetStaticPropsType} from 'next';
@@ -9,7 +9,6 @@ import io from 'socket.io-client';
 
 import API from '@/api/network/task';
 import {ITodo} from '@/api/types/todo.type';
-import ListTask from '@/components/list-task';
 import ModalShare from '@/components/modal-share';
 import ModalTaskAddEdit from '@/components/modal-task-add-edit';
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
@@ -66,14 +65,6 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
     setShareOpen(true);
   };
 
-  const setDone = (taskId: string) => {
-    if (!taskId) return;
-    API.updateStatusTask(taskId).then(() => {
-      getListTasks(String(id) || '');
-      socketMsgToServer();
-    });
-  };
-
   const resetAction = () => setAction({type: '', payload: null});
   const resetActionTodo = () => setActionTodo({type: '', payload: null});
   const socketMsgToClient = () => {
@@ -115,7 +106,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
       const oldIndex = todoList?.tasks?.findIndex(item => active.id === item.id);
       const newIndex = todoList?.tasks?.findIndex(item => over.id === item.id);
 
-      const arrangeTask = arrayMove(todoList?.tasks, oldIndex, newIndex);
+      const arrangeTask = arrayMove(todoList!.tasks!, oldIndex!, newIndex!);
       // console.log(arrangeTask);
 
       setTodoList({...todoList, tasks: arrangeTask});
@@ -141,7 +132,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
             <div className="tasks">
               {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
               {todoList.tasks?.length && (
-                <SortableContext items={todoList.tasks} strategy={verticalListSortingStrategy}>
+                <SortableContext items={todoList.tasks.map(task => task.id!)} strategy={verticalListSortingStrategy}>
                   {todoList.tasks &&
                     todoList.tasks.map(task => (
                       <div key={task.id}>

@@ -46,7 +46,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
   const getTodo = (id: string) => {
     API.getTodo(id).then(res => {
       const resp = res.data as ITodo;
-      setValue('name', resp.name);
+      setValue('name', resp.name!);
     });
   };
 

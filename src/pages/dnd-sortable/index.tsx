@@ -1,14 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import {
-  DndContext,
-  KeyboardSensor,
-  MouseSensor,
-  PointerActivationConstraint,
-  PointerSensor,
-  closestCenter,
-  useSensor,
-  useSensors
-} from '@dnd-kit/core';
+import {DndContext, MouseSensor, closestCenter, useSensor, useSensors} from '@dnd-kit/core';
 import {SortableContext, arrayMove, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import React, {useState} from 'react';
 
@@ -46,7 +37,8 @@ export default function App() {
   const sensors = useSensors(
     useSensor(MouseSensor, {
       activationConstraint: {
-        delay: 1000
+        delay: 1000,
+        tolerance: 1
       }
     })
   );
