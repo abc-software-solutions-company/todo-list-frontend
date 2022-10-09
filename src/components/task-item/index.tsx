@@ -33,7 +33,7 @@ export default function TaskItem({task, refreshList, msgToServer, editTask, dele
     <div className="item" ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <Checkbox checked={task.isDone} onChange={() => setDone(task.id!)} />
       <p className={`h6 ${task.isDone ? 'checked' : ''}`} onClick={() => setDone(task.id!)}>
-        {task.name}
+        {`${task.name} && ${task.index}`}
       </p>
       <div className="actions">
         <IconButton name="ico-edit" onClick={editTask} />
