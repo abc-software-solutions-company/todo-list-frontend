@@ -5,30 +5,32 @@ import {siteSettings} from '@/configs/site.config';
 const DefaultSeo: React.FC = () => {
   return (
     <NextDefaultSeo
-      titleTemplate={`${siteSettings.name}  | %s`}
+      titleTemplate={`${siteSettings.name} | %s`}
+      defaultTitle={siteSettings.name}
       description={siteSettings.description}
       openGraph={{
         type: 'website',
         locale: 'en_IE',
+        title: siteSettings.name,
         site_name: siteSettings.name,
         description: siteSettings.description,
-        images: [{url: '/og-img.png', width: 1200, height: 628, alt: 'To-Do List'}]
+        images: [siteSettings.cover]
       }}
       twitter={{handle: '@handle', site: '@site', cardType: 'summary_large_image'}}
       additionalMetaTags={[
-        {httpEquiv: 'x-ua-compatible', content: 'IE=edge'},
         {name: 'viewport', content: 'width=device-width, initial-scale=1 maximum-scale=1'},
         {name: 'HandheldFriendly', content: 'true'},
-        {name: 'MobileOptimized', content: '360'},
-        {name: 'keywords', content: 'CMS, CRM, ERP, Microsite, AR, AI, Machine Learning'},
-        {name: 'application-name', content: `${siteSettings.name}`},
-        {name: 'theme-color', content: '#ffffff'},
+        {name: 'MobileOptimized', content: '320'},
+        {name: 'keywords', content: siteSettings.keyword},
+        {name: 'application-name', content: siteSettings.name},
+        {name: 'theme-color', content: '#334155'},
         {name: 'msapplication-TileColor', content: '#da532c'},
         {name: 'msapplication-tap-highlight', content: 'no'},
         {name: 'apple-mobile-web-app-capable', content: 'yes'},
         {name: 'apple-mobile-web-app-status-bar-style', content: 'black'},
-        {name: 'apple-mobile-web-app-title', content: `${siteSettings.name}`},
-        {name: 'google', content: 'notranslate'}
+        {name: 'apple-mobile-web-app-title', content: siteSettings.name},
+        {name: 'google', content: 'notranslate'},
+        {name: 'author', content: siteSettings.author.name}
       ]}
       additionalLinkTags={[
         {rel: 'manifest', href: '/manifest.json'},

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {siteSettings} from '@/configs/site.config';
+
 import styles from './style.module.scss';
 
 const Footer: React.FC = () => {
@@ -9,8 +11,8 @@ const Footer: React.FC = () => {
         <div className="copyright">
           <p>
             Created by{' '}
-            <a className="text-abc-grey  " href="https://www.abcsoftwarecompany.com/" target="_blank" rel="noreferrer">
-              ABC Software Solutions Company
+            <a className="text-abc-grey " href={siteSettings.author.websiteUrl} target="_blank" rel="noreferrer">
+              {siteSettings.author.name}
             </a>
           </p>
         </div>
