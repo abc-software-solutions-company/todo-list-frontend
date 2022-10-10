@@ -3,8 +3,8 @@ import {CSS} from '@dnd-kit/utilities';
 
 import API from '@/api/network/task';
 import {ITask} from '@/api/types/task.type';
-import Checkbox from '@/core-ui/checkbox';
-import IconButton from '@/core-ui/icon-button';
+import Checkbox from '@/lib/core-ui/checkbox';
+import IconButton from '@/lib/core-ui/icon-button';
 
 interface IProp {
   task: ITask;
@@ -15,7 +15,7 @@ interface IProp {
 }
 
 export default function TaskItem({task, refreshList, msgToServer, editTask, deleteTask}: IProp) {
-  const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: task.id!});
+  const {attributes, listeners, setNodeRef, transform, isDragging, isOver} = useSortable({id: task.id!});
   const setDone = (id: string) => {
     if (!id) return;
     API.updateStatusTask(id).then(() => {
@@ -25,8 +25,10 @@ export default function TaskItem({task, refreshList, msgToServer, editTask, dele
   };
 
   const style = {
-    transform: CSS.Transform.toString(transform),
-    transition
+    transform: CSS.Transform.toString(transform)
+    // zIndex: isDragging ? '10' : '-10',
+    // opacity: isOver ? 0.3 : 1
+    // zIndex: isDragging ? '10' : '-10'
   };
 
   return (

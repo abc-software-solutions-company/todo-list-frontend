@@ -4,7 +4,7 @@ import {useRouter} from 'next/router';
 import API from '@/api/network/user';
 import {IEmail} from '@/api/types/email.type';
 import {ROUTES} from '@/configs/routes.config';
-import useToast from '@/core-ui/toast';
+import useToast from '@/lib/core-ui/toast';
 import useLoginHandler from '@/hooks/login/workflow/login-handler';
 
 const auth = getAuth();

@@ -1,7 +1,7 @@
 import cls from 'classnames';
 import React, {FC} from 'react';
 
-import IconButton from '@/core-ui/icon-button';
+import IconButton from '@/lib/core-ui/icon-button';
 
 interface IProps {
   className?: string;

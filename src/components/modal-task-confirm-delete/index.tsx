@@ -5,9 +5,9 @@ import {FC} from 'react';
 import TaskAPI from '@/api/network/task';
 import {ITask} from '@/api/types/task.type';
 import {ROUTES} from '@/configs/routes.config';
-import Button from '@/core-ui/button';
-import {Modal} from '@/core-ui/modal';
-import useToast from '@/core-ui/toast';
+import Button from '@/lib/core-ui/button';
+import {Modal} from '@/lib/core-ui/modal';
+import useToast from '@/lib/core-ui/toast';
 
 import styles from './style.module.scss';
 

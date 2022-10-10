@@ -4,7 +4,7 @@ import {ROUTES} from '@/configs/routes.config';
 import {AuthActions} from '@/contexts/auth';
 import {useDispatchAuth} from '@/contexts/auth/context';
 import {IState} from '@/contexts/auth/state';
-import useToast from '@/core-ui/toast';
+import useToast from '@/lib/core-ui/toast';
 import LocalStorage from '@/utils/local-storage';
 
 export default function useLoginHandler() {

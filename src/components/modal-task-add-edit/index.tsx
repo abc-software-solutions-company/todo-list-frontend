@@ -6,10 +6,10 @@ import * as yup from 'yup';
 
 import API from '@/api/network/task';
 import {ITask} from '@/api/types/task.type';
-import Button from '@/core-ui/button';
-import Input from '@/core-ui/input';
-import {Modal} from '@/core-ui/modal';
-import useToast from '@/core-ui/toast';
+import Button from '@/lib/core-ui/button';
+import Input from '@/lib/core-ui/input';
+import {Modal} from '@/lib/core-ui/modal';
+import useToast from '@/lib/core-ui/toast';
 
 import styles from './style.module.scss';
 

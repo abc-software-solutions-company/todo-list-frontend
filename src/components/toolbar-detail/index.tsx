@@ -1,5 +1,5 @@
-import Button from '@/core-ui/button';
-import Icon from '@/core-ui/icon';
+import Button from '@/lib/core-ui/button';
+import Icon from '@/lib/core-ui/icon';
 
 import styles from './style.module.scss';
 

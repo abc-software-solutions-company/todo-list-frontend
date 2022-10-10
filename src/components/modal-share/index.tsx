@@ -1,12 +1,12 @@
 import cls from 'classnames';
 import React, {useEffect, useState} from 'react';
 
-import Button from '@/core-ui/button';
-import Icon from '@/core-ui/icon';
-import Input from '@/core-ui/input';
-import useToast from '@/core-ui/toast';
+import Button from '@/lib/core-ui/button';
+import Icon from '@/lib/core-ui/icon';
+import Input from '@/lib/core-ui/input';
+import useToast from '@/lib/core-ui/toast';
 
-import {Modal} from '../../core-ui/modal';
+import {Modal} from '../../lib/core-ui/modal';
 import styles from './style.module.scss';
 
 interface IProps {

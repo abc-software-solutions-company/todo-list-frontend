@@ -1,6 +1,6 @@
 import API from '@/api/network/task';
 import {ITask} from '@/api/types/task.type';
-import Checkbox from '@/core-ui/checkbox';
+import Checkbox from '@/lib/core-ui/checkbox';
 
 interface IProp {
   list: ITask[];

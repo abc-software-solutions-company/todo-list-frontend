@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import {DndContext} from '@dnd-kit/core';
+import {DndContext, DragOverlay} from '@dnd-kit/core';
 import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {InferGetStaticPropsType} from 'next';
@@ -19,9 +19,9 @@ import Seo from '@/components/seo/seo';
 import TaskItem from '@/components/task-item';
 import ToolbarDetail from '@/components/toolbar-detail';
 import {ROUTES} from '@/configs/routes.config';
-import FloatIcon from '@/core-ui/float-icon';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
 import LayoutDefault from '@/layouts/default';
+import FloatIcon from '@/lib/core-ui/float-icon';
 import {useMouseSensor} from '@/lib/dnd-kit/sensor/sensor-group';
 import {IAction} from '@/types';
 import LocalStorage from '@/utils/local-storage';
@@ -40,6 +40,7 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
   const [action, setAction] = useState<IAction>({type: '', payload: null});
   const [actionTodo, setActionTodo] = useState<IAction>({type: '', payload: null});
   const [shareOpen, setShareOpen] = useState(false);
+  const [activeId, setActiveId] = useState(null);
 
   const {id} = router.query;
   const page = 'detail';
@@ -100,6 +101,11 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
         }
       });
     }
+    setActiveId(null);
+  }
+
+  function handleDragStart(event: any) {
+    setActiveId(event.active.id);
   }
 
   useEffect(() => {
@@ -127,7 +133,12 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
               addTodo={() => setAction({type: 'add', payload: null})}
             />
           )}
-          <DndContext sensors={sensor} onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
+          <DndContext
+            sensors={sensor}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            modifiers={[restrictToVerticalAxis]}
+          >
             <div className="tasks">
               {!todoList?.tasks!.length && <span className="empty">Empty list</span>}
               {todoList.tasks?.length && (
@@ -143,6 +154,14 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
                         deleteTask={() => setAction({type: 'delete', payload: task})}
                       />
                     ))}
+                  {/* <DragOverlay>
+                    <TaskItem
+                      key={tas}
+                      task={task}
+                      msgToServer={socketMsgToServer}
+                      refreshList={() => getListTasks(String(id) || '')}
+                    />
+                  </DragOverlay> */}
                 </SortableContext>
               )}
             </div>

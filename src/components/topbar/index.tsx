@@ -5,7 +5,7 @@ import {FC, useState} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
 import {useStateAuth} from '@/contexts/auth/context';
-import Icon from '@/core-ui/icon';
+import Icon from '@/lib/core-ui/icon';
 import {FireAuthUtils} from '@/lib/firebase/fireAuth-utils';
 
 import Back from '../back';

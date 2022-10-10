@@ -1,8 +1,8 @@
 import {ROUTES} from '@/configs/routes.config';
-import Button from '@/core-ui/button';
-import FloatIcon from '@/core-ui/float-icon';
-import Icon from '@/core-ui/icon';
-import IconButton from '@/core-ui/icon-button';
+import Button from '@/lib/core-ui/button';
+import FloatIcon from '@/lib/core-ui/float-icon';
+import Icon from '@/lib/core-ui/icon';
+import IconButton from '@/lib/core-ui/icon-button';
 
 import ModalShare from '../modal-share';
 import ModalTodoAddEdit from '../modal-todo-add-edit';

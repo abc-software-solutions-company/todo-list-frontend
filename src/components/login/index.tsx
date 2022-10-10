@@ -2,8 +2,8 @@ import cn from 'classnames';
 import React from 'react';
 
 import TodoListLogo from '@/components/icons/todolist-logo';
-import Button from '@/core-ui/button';
-import Input from '@/core-ui/input';
+import Button from '@/lib/core-ui/button';
+import Input from '@/lib/core-ui/input';
 import useGuestLoginHook from '@/hooks/login/guest-login/index.hook';
 import LayoutDefault from '@/layouts/default';
 
