@@ -21,7 +21,7 @@ export interface Props {
   onRemove?(): void;
 }
 
-export const Container = forwardRef<HTMLDivElement, Props>(
+export const Container = forwardRef<any | HTMLDivElement, Props>(
   (
     {
       children,
