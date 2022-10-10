@@ -81,15 +81,16 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
       const arrangeTask = arrayMove(todoList!.tasks!, oldIndex!, newIndex!);
 
       setTodoList({...todoList, tasks: arrangeTask});
-      console.log(arrangeTask);
 
       arrangeTask.forEach((element, index) => {
         if (element.id === active.id) {
-          const taskFirstId = arrangeTask[index - 1].id;
-          const taskSecondId = arrangeTask[index + 1].id;
+          const taskFirstId = index === 0 ? 'swap-top-list' : arrangeTask[index - 1].id;
           const taskReorderId = arrangeTask[index].id;
+          const taskSecondId = index == arrangeTask.length - 1 ? 'swap-bottom-list' : arrangeTask[index + 1].id;
           console.log(
-            `taskFirstID is ${taskFirstId}, taskSecondID is ${taskSecondId}, taskReorderId is ${taskReorderId}`
+            `taskFirstID is ${taskFirstId},
+            taskSecondID is ${taskSecondId},
+            taskReorderId is ${taskReorderId}`
           );
           API.reorderTask({
             taskFirstID: taskFirstId,
