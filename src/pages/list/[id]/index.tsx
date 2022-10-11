@@ -32,8 +32,8 @@ const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
 
 export {getStaticPaths, getStaticProps};
 
-export default function Detail({roomId, title}: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log(title);
+export default function Detail({roomId, title, listData}: InferGetStaticPropsType<typeof getStaticProps>) {
+  console.log(listData);
 
   const sensor = useMouseSensor();
 
