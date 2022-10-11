@@ -3,6 +3,7 @@ import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 
 import apiTask from '@/api/network/task';
 import apiTodo from '@/api/network/todo';
+import {ITodo} from '@/api/types/todo.type';
 
 type ParsedQueryParams = {
   id: string;
@@ -11,21 +12,26 @@ type ParsedQueryParams = {
 type PageProps = {
   roomId: string;
   title: string;
-  listData: string;
 };
 
 export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = async ({locale, params}) => {
   try {
     const {id} = params!;
-    let listDataRaw = '';
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let title = '';
 
     // Get title and 3 task in description
-    await apiTask.getListTasks(id).then(res => (listDataRaw = JSON.stringify(res.data)));
+    await apiTask
+      .getListTasks(id)
+      .then(res => {
+        const listData: ITodo = res.data;
+        title = listData.name!;
+      })
+      .catch(() => (title = 'This list Not Found'));
     return {
       props: {
         roomId: id,
-        title: 'This is test description for Todo List Website, This will change in the future',
-        listData: listDataRaw,
+        title,
         ...(await serverSideTranslations(locale!, ['common']))
       }
     };

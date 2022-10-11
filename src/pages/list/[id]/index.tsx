@@ -19,6 +19,7 @@ import Seo from '@/components/seo/seo';
 import TaskItem from '@/components/task-item';
 import ToolbarDetail from '@/components/toolbar-detail';
 import {ROUTES} from '@/configs/routes.config';
+import {siteSettings} from '@/configs/site.config';
 import FloatIcon from '@/core-ui/float-icon';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
 import LayoutDefault from '@/layouts/default';
@@ -32,9 +33,7 @@ const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
 
 export {getStaticPaths, getStaticProps};
 
-export default function Detail({roomId, title, listData}: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log(listData);
-
+export default function Detail({title}: InferGetStaticPropsType<typeof getStaticProps>) {
   const sensor = useMouseSensor();
 
   const router = useRouter();
@@ -113,11 +112,11 @@ export default function Detail({roomId, title, listData}: InferGetStaticPropsTyp
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  if (!todoList || !id) return <Seo title={roomId} description={title} />;
+  if (!todoList || !id) return <Seo title={siteSettings.name + ' | ' + title} />;
 
   return (
     <>
-      <Seo title={roomId} description={title} />
+      <Seo title={siteSettings.name + ' | ' + title} />;
       <div className={styles['page-detail']}>
         <div className="container">
           {todoList.name && (
