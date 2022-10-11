@@ -32,7 +32,9 @@ const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
 
 export {getStaticPaths, getStaticProps};
 
-export default function Detail({roomId}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Detail({roomId, title}: InferGetStaticPropsType<typeof getStaticProps>) {
+  console.log(title);
+
   const sensor = useMouseSensor();
 
   const router = useRouter();
@@ -111,11 +113,11 @@ export default function Detail({roomId}: InferGetStaticPropsType<typeof getStati
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  if (!todoList || !id) return <Seo title={roomId} />;
+  if (!todoList || !id) return <Seo title={roomId} description={title} />;
 
   return (
     <>
-      <Seo title={roomId} />
+      <Seo title={roomId} description={title} />
       <div className={styles['page-detail']}>
         <div className="container">
           {todoList.name && (

@@ -1,7 +1,7 @@
 import {GetStaticPaths, GetStaticProps} from 'next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 
-import api from '@/api/network/todo';
+import apiTodo from '@/api/network/todo';
 
 type ParsedQueryParams = {
   id: string;
@@ -9,6 +9,7 @@ type ParsedQueryParams = {
 
 type PageProps = {
   roomId: string;
+  title: string;
 };
 
 export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = async ({locale, params}) => {
@@ -17,6 +18,7 @@ export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = asyn
     return {
       props: {
         roomId: id,
+        title: 'This is test description for Todo List Website, This will change in the future',
         ...(await serverSideTranslations(locale!, ['common']))
       }
     };
@@ -28,7 +30,7 @@ export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = asyn
 };
 
 export const getStaticPaths: GetStaticPaths<ParsedQueryParams> = async () => {
-  const rooms = await api.getAllTodo();
+  const rooms = await apiTodo.getAllTodo();
   const paths = rooms.data.flatMap((room: {id: string}) => ({params: {id: `${room.id}`}}));
   return {paths, fallback: 'blocking'};
 };
