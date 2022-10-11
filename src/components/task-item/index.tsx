@@ -32,7 +32,16 @@ export default function TaskItem({task, refreshList, msgToServer, editTask, dele
   return (
     <div className="item" ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <Checkbox checked={task.isDone} onChange={() => setDone(task.id!)} />
-      <p className={`h6 ${task.isDone ? 'checked' : ''}`} onClick={() => setDone(task.id!)}>
+      <p
+        className={`h6 ${task.isDone ? 'checked' : ''}`}
+        onClick={e => {
+          // console.log(e.currentTarget.classList.add('checked'));
+          const elm = e.currentTarget.classList;
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+          task.isDone ? elm.remove('checked') : elm.add('checked');
+          setDone(task.id!);
+        }}
+      >
         {task.name}
       </p>
       <div className="actions">
