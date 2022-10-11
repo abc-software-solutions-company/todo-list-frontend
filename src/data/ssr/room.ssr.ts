@@ -12,6 +12,7 @@ type ParsedQueryParams = {
 type PageProps = {
   roomId: string;
   title: string;
+  taskCount: number;
 };
 
 export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = async ({locale, params}) => {
@@ -19,6 +20,7 @@ export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = asyn
     const {id} = params!;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let title = '';
+    let taskCount = 0;
 
     // Get title and 3 task in description
     await apiTask
@@ -26,12 +28,14 @@ export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = asyn
       .then(res => {
         const listData: ITodo = res.data;
         title = listData.name!;
+        taskCount = listData.tasks?.length || 0;
       })
       .catch(() => (title = 'This list Not Found'));
     return {
       props: {
         roomId: id,
         title,
+        taskCount,
         ...(await serverSideTranslations(locale!, ['common']))
       }
     };
