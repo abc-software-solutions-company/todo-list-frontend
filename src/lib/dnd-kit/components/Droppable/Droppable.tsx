@@ -2,7 +2,7 @@ import {UniqueIdentifier, useDroppable} from '@dnd-kit/core';
 import classNames from 'classnames';
 import React from 'react';
 
-import styles from './Droppable.module.css';
+import styles from './Droppable.module.scss';
 import {droppable} from './droppable-svg';
 
 interface Props {

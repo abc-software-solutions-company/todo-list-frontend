@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import React, {forwardRef} from 'react';
 
 import {Handle} from '../Item/components/Handle';
-import styles from './Draggable.module.css';
+import styles from './Draggable.module.scss';
 import {draggable, draggableHorizontal, draggableVertical} from './draggable-svg';
 
 export enum Axis {

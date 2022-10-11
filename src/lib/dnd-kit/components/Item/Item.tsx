@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import React, {useEffect} from 'react';
 
 import {Handle, Remove} from './components';
-import styles from './Item.module.css';
+import styles from './Item.module.scss';
 
 export interface Props {
   dragOverlay?: boolean;

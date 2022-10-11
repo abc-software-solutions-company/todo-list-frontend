@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import styles from './Wrapper.module.css';
+import styles from './Wrapper.module.scss';
 
 interface Props {
   children: React.ReactNode;

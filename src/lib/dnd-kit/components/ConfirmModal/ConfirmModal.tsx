@@ -1,6 +1,6 @@
 import React, {PropsWithChildren} from 'react';
 
-import styles from './ConfirmModal.module.css';
+import styles from './ConfirmModal.module.scss';
 
 interface Props {
   onConfirm(): void;

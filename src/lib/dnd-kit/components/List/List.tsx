@@ -2,7 +2,7 @@
 import classNames from 'classnames';
 import React, {forwardRef} from 'react';
 
-import styles from './List.module.css';
+import styles from './List.module.scss';
 
 export interface Props {
   children: React.ReactNode;
