@@ -1,11 +1,13 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import cls from 'classnames';
+import {useRouter} from 'next/router';
 import React, {FC, useCallback, useEffect} from 'react';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
 import API from '@/api/network/todo';
 import {ITodo} from '@/api/types/todo.type';
+import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
@@ -33,6 +35,7 @@ const FORM_DEFAULT_VALUES = {
 };
 
 const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
+  const router = useRouter();
   const inputRef = useCallback((node: HTMLInputElement) => {
     if (node) node.focus();
   }, []);
@@ -64,8 +67,13 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
         });
     } else {
       await API.createTodo(formData)
-        .then(() => {
+        .then(res => {
           toast.show({type: 'success', title: 'Create List', content: 'Successful!'});
+          // After create list done, redirect to created list
+          console.log(res.data.id);
+          const id = res.data.id;
+          router.push(`${ROUTES.LIST}/${id}`);
+
           onSave?.();
         })
         .catch(() => {
