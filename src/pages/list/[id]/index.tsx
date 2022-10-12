@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import {DndContext} from '@dnd-kit/core';
+import {DndContext, DragEndEvent} from '@dnd-kit/core';
 import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {InferGetStaticPropsType} from 'next';
@@ -72,7 +72,7 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
     socketMsgToServer();
   };
 
-  function handleDragEnd({active, over}: any) {
+  function handleDragEnd({active, over}: DragEndEvent) {
     if (!over) return;
     if (active.id !== over.id) {
       const taskList: ITask[] = todoList!.tasks!;
