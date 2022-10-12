@@ -32,7 +32,25 @@ export default function TaskItem({task, refreshList, msgToServer, editTask, dele
   };
 
   return (
-    <div className="item" ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div
+      className="item"
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      onClick={e => {
+        const elmCheckbox = e.currentTarget.querySelector('.form-checkbox') as HTMLInputElement | null;
+        const elmText = e.currentTarget.querySelector('h6')?.classList;
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        if (task.isDone) {
+          elmText?.remove('checked');
+          elmCheckbox?.removeAttribute('checked');
+        } else {
+          elmText?.add('checked');
+          elmCheckbox?.setAttribute('checked', '');
+        }
+      }}
+    >
       <Checkbox checked={task.isDone} onChange={() => setDone(task.id!)} />
       <p className={`h6 ${task.isDone ? 'checked' : ''}`} onClick={() => setDone(task.id!)}>
         {task.name}
