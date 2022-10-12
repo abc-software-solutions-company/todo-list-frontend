@@ -36,15 +36,7 @@ export default function Lobby() {
   });
   const {errors} = formState;
 
-  const getTodoCreated = () => {
-    API.getLastTodo().then(res => {
-      const id = res.data.id;
-      router.push(`${ROUTES.LIST}/${id}`);
-    });
-  };
-
   const reset = () => {
-    getTodoCreated();
     resetAction();
   };
 

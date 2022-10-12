@@ -19,7 +19,6 @@ import Seo from '@/components/seo/seo';
 import TaskItem from '@/components/task-item';
 import ToolbarDetail from '@/components/toolbar-detail';
 import {ROUTES} from '@/configs/routes.config';
-import {siteSettings} from '@/configs/site.config';
 import FloatIcon from '@/core-ui/float-icon';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
 import LayoutDefault from '@/layouts/default';
@@ -115,7 +114,7 @@ export default function Detail({title, taskCount}: InferGetStaticPropsType<typeo
   if (!todoList || !id)
     return (
       <Seo
-        title={siteSettings.name + ' | ' + title}
+        title={title}
         description={`ABC To-Do List, Your friend have share you a list "${title}". Click this link to join with me and collebrate editor. Currently This list have ${taskCount} tasks.`}
       />
     );
@@ -123,7 +122,7 @@ export default function Detail({title, taskCount}: InferGetStaticPropsType<typeo
   return (
     <>
       <Seo
-        title={siteSettings.name + ' | ' + title}
+        title={title}
         description={`ABC To-Do List, Your friend have share you a list "${title}". Click this link to join with me and collebrator editor realtime. Currently This list have ${taskCount} tasks.`}
       />
       ;
