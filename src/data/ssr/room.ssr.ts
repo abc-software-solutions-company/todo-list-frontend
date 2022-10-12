@@ -31,10 +31,10 @@ export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = asyn
         const listData: ITodo = res.data;
         const listName = listData.name!;
         const taskFirst = listData!.tasks![0].name || '';
-        const taskSecond = listData!.tasks![1].name || '';
-        const taskThrid = listData!.tasks![2].name || '';
+        const taskSecond = `- ${listData!.tasks![1].name}` || '';
+        const taskThrid = `- ${listData!.tasks![2].name}` || '';
         title = listName;
-        description = `ABC To-Do List.${taskFirst} ${taskSecond} ${taskThrid} .Click this link to join with me and collaborate editor. `;
+        description = `${listName}. ${taskFirst} ${taskSecond} ${taskThrid}. Click this link to join with me and collaborate editor. `;
       })
       .catch(() => {
         title = 'List Not Available';
