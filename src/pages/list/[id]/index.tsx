@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import {DndContext, DragEndEvent} from '@dnd-kit/core';
+import {DndContext, DragEndEvent, DragOverlay, UniqueIdentifier} from '@dnd-kit/core';
 import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {InferGetStaticPropsType} from 'next';
@@ -34,6 +34,7 @@ export {getStaticPaths, getStaticProps};
 
 export default function Detail({title, description}: InferGetStaticPropsType<typeof getStaticProps>) {
   const sensor = useMouseSensor();
+  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   const router = useRouter();
   const [todoList, setTodoList] = useState<ITodo>();
@@ -59,11 +60,6 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
 
   const resetAction = () => setAction({type: '', payload: null});
   const resetActionTodo = () => setActionTodo({type: '', payload: null});
-  const socketMsgToClient = () => {
-    socket.on(`msgToClient_${id}`, () => {
-      getListTasks(String(id) || '').catch(() => router.push(ROUTES.LIST));
-    });
-  };
 
   const reset = () => {
     getListTasks(String(id) || '');
@@ -73,6 +69,10 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
   };
 
   function handleDragEnd({active, over}: DragEndEvent) {
+    console.log(active);
+    console.log(over);
+
+    setActiveId(null);
     if (!over) return;
     if (active.id !== over.id) {
       const taskList: ITask[] = todoList!.tasks!;
@@ -105,10 +105,15 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
   useEffect(() => {
     if (id) {
       getListTasks(String(id) || '').catch(() => router.push(ROUTES.LIST));
-      socketMsgToClient();
+      socket.on(`msgToClient_${id}`, () => {
+        getListTasks(String(id) || '').catch(() => router.push(ROUTES.LIST));
+      });
       LocalStorage.previousPage.remove();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      socket.off(`msgToClient_${id}`);
+    };
   }, [id]);
 
   if (!todoList || !id) return <Seo title={title} description={description} />;
@@ -127,7 +132,19 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
               addTodo={() => setAction({type: 'add', payload: null})}
             />
           )}
-          <DndContext sensors={sensor} onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis]}>
+          <DndContext
+            sensors={sensor}
+            onDragCancel={() => setActiveId(null)}
+            onDragEnd={handleDragEnd}
+            modifiers={[restrictToVerticalAxis]}
+            onDragStart={({active}) => {
+              if (!active) {
+                return;
+              }
+
+              setActiveId(active.id);
+            }}
+          >
             <div className="tasks">
               {!todoList?.tasks!.length ? <span className="empty">Empty list</span> : ''}
               {todoList.tasks?.length ? (
@@ -143,6 +160,7 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
                         deleteTask={() => setAction({type: 'delete', payload: task})}
                       />
                     ))}
+                  <DragOverlay>{activeId ? <p>AAAAQAA</p> : null}</DragOverlay>
                 </SortableContext>
               ) : (
                 <></>

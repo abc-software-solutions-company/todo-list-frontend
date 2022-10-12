@@ -51,7 +51,7 @@ export default function TaskItem({task, refreshList, msgToServer, editTask, dele
     >
       <Checkbox checked={task.isDone} onChange={() => setDone(task.id!)} />
       <p className={`h6 ${task.isDone ? 'checked' : ''}`} onClick={() => setDone(task.id!)}>
-        {task.name}
+        {`${task.name} -- ${task.id}`}
       </p>
       <div className="actions">
         <IconButton name="ico-edit" onClick={editTask} />

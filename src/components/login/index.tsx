@@ -28,8 +28,8 @@ export default function Login() {
                 className="name-input"
                 maxLength={33}
                 disabled={formState.isSubmitting}
-                error={errors.userName?.message}
-                {...register('userName')}
+                error={errors.name?.message}
+                {...register('name')}
               />
               <Button
                 className="btn-submit"

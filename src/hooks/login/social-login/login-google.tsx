@@ -27,7 +27,7 @@ export default function useLoginGoogle() {
         auth.onAuthStateChanged(user => {
           // Then use API to login with email existing
           if (user?.email) {
-            API.createUser({userName: user?.displayName || ''}).then(res => {
+            API.createUser({name: user?.displayName || ''}).then(res => {
               loginSuccess(res);
               // eslint-disable-next-line @typescript-eslint/no-use-before-define
               attachEmailToUser({email: user?.email || ''});

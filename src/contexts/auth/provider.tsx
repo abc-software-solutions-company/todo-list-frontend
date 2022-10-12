@@ -46,7 +46,7 @@ const Authentication: FC<IProps> = ({children}) => {
           //   router.push(ROUTES.LOGIN);
           // } else {
           if (asPath.includes(`${ROUTES.LIST}`))
-            api.createUser({userName: 'Anonymous'}).then(userRes => {
+            api.createUser({name: 'Anonymous'}).then(userRes => {
               loginSuccess(userRes);
             });
           else {

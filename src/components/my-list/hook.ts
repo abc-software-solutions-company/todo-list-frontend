@@ -25,7 +25,7 @@ export default function useList() {
   };
 
   const getUserId = () => {
-    if (auth?.userName) return auth.id;
+    if (auth?.name) return auth.id;
   };
 
   const reset = () => {

@@ -9,11 +9,11 @@ import useLoginHandler from '@/hooks/login/workflow/login-handler';
 import useMediaQuery from '@/hooks/useMediaQuery';
 
 interface IFormInputs {
-  userName: string;
+  name: string;
 }
 
 const Schema = yup.object().shape({
-  userName: yup.string().required('Please fill in your name').max(32, 'Your name must not exceed 32 letters').trim()
+  name: yup.string().required('Please fill in your name').max(32, 'Your name must not exceed 32 letters').trim()
 });
 
 export default function useGuestLoginHook() {
