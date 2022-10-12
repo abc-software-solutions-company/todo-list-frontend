@@ -69,8 +69,10 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
   };
 
   function handleDragEnd({active, over}: DragEndEvent) {
-    console.log(active);
-    console.log(over);
+    console.log(todoList);
+
+    // console.log(active);
+    // console.log(over);
 
     setActiveId(null);
     if (!over) return;
@@ -79,14 +81,13 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
       const oldIndex = taskList?.findIndex(item => active.id === item.id);
       const newIndex = taskList?.findIndex(item => over.id === item.id);
       const arrangeTask = arrayMove(todoList!.tasks!, oldIndex!, newIndex!);
-
       setTodoList({...todoList, tasks: arrangeTask});
 
       arrangeTask.forEach((element, index) => {
         if (element.id === active.id) {
-          const taskFirstId = index === 0 ? 'swap-top-list' : arrangeTask[index - 1].id;
+          const taskFirstId = arrangeTask[index - 1]?.id;
           const taskReorderId = arrangeTask[index].id;
-          const taskSecondId = index == arrangeTask.length - 1 ? 'swap-bottom-list' : arrangeTask[index + 1].id;
+          const taskSecondId = arrangeTask[index + 1]?.id;
           console.log(
             `taskFirstID is ${taskFirstId},
             taskSecondID is ${taskSecondId},
@@ -160,7 +161,7 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
                         deleteTask={() => setAction({type: 'delete', payload: task})}
                       />
                     ))}
-                  <DragOverlay>{activeId ? <p>AAAAQAA</p> : null}</DragOverlay>
+                  {/* <DragOverlay>{activeId ? <p>AAAAQAA</p> : null}</DragOverlay> */}
                 </SortableContext>
               ) : (
                 <></>
