@@ -7,20 +7,20 @@ import Checkbox from '@/core-ui/checkbox';
 import IconButton from '@/core-ui/icon-button';
 
 interface IProp {
-  task: ITask;
-  msgToServer: () => void;
-  refreshList: () => Promise<void>;
-  editTask: () => void;
-  deleteTask: () => void;
+  task?: ITask;
+  msgToServer?: () => void;
+  refreshList?: () => Promise<void>;
+  editTask?: () => void;
+  deleteTask?: () => void;
 }
 
 export default function TaskItem({task, refreshList, msgToServer, editTask, deleteTask}: IProp) {
-  const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: task.id!});
+  const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: task!.id!});
   const setDone = (id: string) => {
     if (!id) return;
     API.updateStatusTask(id).then(() => {
-      refreshList();
-      msgToServer();
+      refreshList!();
+      msgToServer!();
     });
   };
 
@@ -40,7 +40,7 @@ export default function TaskItem({task, refreshList, msgToServer, editTask, dele
         const elmCheckbox = e.currentTarget.querySelector('.form-checkbox') as HTMLInputElement | null;
         const elmText = e.currentTarget.querySelector('h6')?.classList;
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        if (task.isDone) {
+        if (task?.isDone) {
           elmText?.remove('checked');
           elmCheckbox?.removeAttribute('checked');
         } else {
@@ -49,9 +49,9 @@ export default function TaskItem({task, refreshList, msgToServer, editTask, dele
         }
       }}
     >
-      <Checkbox checked={task.isDone} onChange={() => setDone(task.id!)} />
-      <p className={`h6 ${task.isDone ? 'checked' : ''}`} onClick={() => setDone(task.id!)}>
-        {`${task.name} -- ${task.id}`}
+      <Checkbox checked={task?.isDone} onChange={() => setDone(task!.id!)} />
+      <p className={`h6 ${task!.isDone ? 'checked' : ''}`} onClick={() => setDone(task!.id!)}>
+        {`${task!.name} -- ${task!.id}`}
       </p>
       <div className="actions">
         <IconButton name="ico-edit" onClick={editTask} />

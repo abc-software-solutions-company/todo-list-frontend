@@ -53,14 +53,10 @@
       @apply flex w-full  justify-between border bg-white;
       @apply border-t-0 px-4 first:border-t;
       @apply first:rounded-t-lg last:rounded-b-lg;
-      // @apply transition-all duration-100;
       @apply hover:bg-blue-100;
       @apply relative;
-      z-index: 100 !important;
       &:hover {
-        z-index: 1000 !important;
-        box-shadow: 20px 5px 5px rgba(0, 0, 0, 0.5);
-        scale: 105%;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
       }
     }
     .h6 {

@@ -161,11 +161,13 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
                         deleteTask={() => setAction({type: 'delete', payload: task})}
                       />
                     ))}
-                  {/* <DragOverlay>{activeId ? <p>AAAAQAA</p> : null}</DragOverlay> */}
                 </SortableContext>
               ) : (
                 <></>
               )}
+              <DragOverlay>
+                {activeId ? <TaskItem task={todoList.tasks?.filter(e => e.id === activeId)[0]} /> : null}
+              </DragOverlay>
             </div>
           </DndContext>
         </div>
