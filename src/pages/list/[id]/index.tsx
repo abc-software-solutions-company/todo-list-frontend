@@ -32,7 +32,7 @@ const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
 
 export {getStaticPaths, getStaticProps};
 
-export default function Detail({title, taskCount}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Detail({title, description}: InferGetStaticPropsType<typeof getStaticProps>) {
   const sensor = useMouseSensor();
 
   const router = useRouter();
@@ -111,21 +111,11 @@ export default function Detail({title, taskCount}: InferGetStaticPropsType<typeo
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  if (!todoList || !id)
-    return (
-      <Seo
-        title={title}
-        description={`ABC To-Do List, Your friend have share you a list "${title}". Click this link to join with me and collebrate editor. Currently This list have ${taskCount} tasks.`}
-      />
-    );
+  if (!todoList || !id) return <Seo title={title} description={description} />;
 
   return (
     <>
-      <Seo
-        title={title}
-        description={`ABC To-Do List, Your friend have share you a list "${title}". Click this link to join with me and collebrator editor realtime. Currently This list have ${taskCount} tasks.`}
-      />
-      ;
+      <Seo title={title} description={description} />;
       <div className={styles['page-detail']}>
         <div className="container">
           {todoList.name && (

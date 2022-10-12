@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {GetStaticPaths, GetStaticProps} from 'next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 
@@ -12,32 +13,38 @@ type ParsedQueryParams = {
 type PageProps = {
   roomId: string;
   title: string;
-  taskCount: number;
+  description: string;
+  // taskFirst: string;
+  // taskSecond: string;
+  // taskThrid: string;
 };
 
 export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = async ({locale, params}) => {
   try {
     const {id} = params!;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let description = '';
     let title = '';
-    let taskCount = 0;
-
-    // Get title and 3 task in description
+    // Get description and 3 task in description
     await apiTask
       .getListTasks(id)
       .then(res => {
         const listData: ITodo = res.data;
-        title = listData.name!;
-        taskCount = listData.tasks?.length || 0;
+        const listName = listData.name!;
+        const taskFirst = listData!.tasks![0].name || '';
+        const taskSecond = listData!.tasks![1].name || '';
+        const taskThrid = listData!.tasks![2].name || '';
+        title = listName;
+        description = `ABC To-Do List.${taskFirst} ${taskSecond} ${taskThrid} .Click this link to join with me and collaborate editor. `;
       })
       .catch(() => {
-        title = 'This list Not Found';
+        title = 'List Not Available';
+        description = 'This list Not Available. Check your link or use copy link button to share correct list link.';
       });
     return {
       props: {
         roomId: id,
+        description,
         title,
-        taskCount,
         ...(await serverSideTranslations(locale!, ['common']))
       }
     };
