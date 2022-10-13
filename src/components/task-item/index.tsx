@@ -47,7 +47,7 @@ export default function TaskItem({task, editTask, deleteTask}: IProp) {
     >
       <Checkbox checked={task?.isDone} onChange={() => setDone(task!.id!)} />
       <p className={`h6 ${task!.isDone ? 'checked' : ''}`} onClick={() => setDone(task!.id!)}>
-        {`${task!.index}`}
+        {`${task!.name}`}
       </p>
       <div className="actions">
         <IconButton name="ico-edit" onClick={editTask} />
