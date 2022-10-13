@@ -1,4 +1,4 @@
-import {Dispatch, createContext, useContext} from 'react';
+import {createContext, Dispatch, useContext} from 'react';
 
 import {IAction} from './actions';
 import initialState, {IState} from './state';

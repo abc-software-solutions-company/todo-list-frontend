@@ -6,11 +6,10 @@ import {ROUTES} from '@/configs/routes.config';
 import useLoginHandler from '@/hooks/login/workflow/login-handler';
 import LocalStorage from '@/utils/local-storage';
 
+import {AuthActions} from '.';
 import {Context, DispatchContext, useDispatchAuth, useStateAuth} from './context';
 import reducer from './reducer';
 import initialState from './state';
-
-import {AuthActions} from '.';
 
 interface IProps {
   children: ReactNode;

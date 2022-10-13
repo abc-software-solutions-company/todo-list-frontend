@@ -18,13 +18,13 @@ import Seo from '@/components/seo/seo';
 import TaskItem from '@/components/task-item';
 import ToolbarDetail from '@/components/toolbar-detail';
 import {ROUTES} from '@/configs/routes.config';
-import {useStateAuth} from '@/states/auth';
 import FloatIcon from '@/core-ui/float-icon';
 import socket from '@/data/socket';
 import {SOCKET_EVENTS} from '@/data/socket/type';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
 import LayoutDefault from '@/layouts/default';
 import {useMouseSensor} from '@/lib/dnd-kit/sensor/sensor-group';
+import {useStateAuth} from '@/states/auth';
 import {IAction} from '@/types';
 
 import styles from './style.module.scss';
