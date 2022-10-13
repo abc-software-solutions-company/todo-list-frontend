@@ -11,7 +11,7 @@ import nProgress from 'nprogress';
 import {useEffect} from 'react';
 
 import DefaultSeo from '@/components/seo/default-seo';
-import {AuthProvider} from '@/contexts/auth';
+import {AuthProvider} from '@/states/auth';
 import {initFirebase} from '@/lib/firebase/initFirebase';
 
 const Noop: React.FC = ({children}: React.PropsWithChildren<any>) => <>{children}</>;

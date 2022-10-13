@@ -4,7 +4,7 @@ import {useRouter} from 'next/router';
 import {FC, useState} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
-import {useStateAuth} from '@/contexts/auth/context';
+import {useStateAuth} from '@/states/auth/context';
 import Icon from '@/core-ui/icon';
 import {FireAuthUtils} from '@/lib/firebase/fireAuth-utils';
 

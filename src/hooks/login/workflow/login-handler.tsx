@@ -1,9 +1,9 @@
 import {useRouter} from 'next/router';
 
 import {ROUTES} from '@/configs/routes.config';
-import {AuthActions} from '@/contexts/auth';
-import {useDispatchAuth} from '@/contexts/auth/context';
-import {IState} from '@/contexts/auth/state';
+import {AuthActions} from '@/states/auth';
+import {useDispatchAuth} from '@/states/auth/context';
+import {IState} from '@/states/auth/state';
 import useToast from '@/core-ui/toast';
 import LocalStorage from '@/utils/local-storage';
 

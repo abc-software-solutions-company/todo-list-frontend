@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 
 import API from '@/api/network/todo';
 import {ITodo} from '@/api/types/todo.type';
-import {useStateAuth} from '@/contexts/auth/context';
+import {useStateAuth} from '@/states/auth/context';
 import {IAction} from '@/types';
 
 export default function useList() {
