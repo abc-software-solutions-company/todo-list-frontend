@@ -4,12 +4,12 @@ import {useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
-import API from '@/api/network/todo';
 import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
 import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
+import API from '@/data/api';
 import LayoutDefault from '@/layouts/default';
 import {IAction} from '@/types';
 import detectIdOrLink from '@/utils/detect-id-or-link';
@@ -36,23 +36,21 @@ export default function Lobby() {
   });
   const {errors} = formState;
 
-  const reset = () => {
-    resetAction();
-  };
+  const reset = () => resetAction();
 
   const onSubmit: SubmitHandler<IFormInputs> = data => {
-    const todoId = detectIdOrLink(data.listId);
-    // Check if it contain space character only
-    if (todoId.trim().length == 0)
-      toast.show({type: 'danger', title: 'Error!', content: 'List not found', lifeTime: 3000});
-    else {
-      API.getTodo(todoId.trim())
-        .then(() => {
-          toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
-          router.push(`${ROUTES.LIST}/${todoId}`);
-        })
-        .catch(() => toast.show({type: 'danger', title: 'Error!', content: 'List not found', lifeTime: 3000}));
-    }
+    const id = detectIdOrLink(data.listId).trim();
+    API.list
+      .getOne({id})
+      .then(res => {
+        toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
+        console.log(res.data);
+
+        // router.push(`${ROUTES.LIST}/${id}`);
+      })
+      .catch(() => {
+        toast.show({type: 'danger', title: 'Error!', content: 'List not found', lifeTime: 3000});
+      });
   };
 
   return (
@@ -84,8 +82,8 @@ export default function Lobby() {
                     />
                   }
                   placeholder="Enter Link or ID"
-                  error={errors.todoId?.message}
-                  {...register('todoId')}
+                  error={errors.listId?.message}
+                  {...register('listId')}
                 />
               </form>
             </div>

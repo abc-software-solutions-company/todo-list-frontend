@@ -1,5 +1,7 @@
 // Type for request payload data
 
+import {ITask} from './task.type';
+
 export interface IListCreate {
   name: string;
 }
@@ -10,6 +12,9 @@ export interface IList extends IListCreate {
   isActive: boolean;
 }
 
+export interface IListOne {
+  id: string;
+}
 export interface IListUpdate {
   id: string;
   name?: string;
@@ -18,6 +23,10 @@ export interface IListUpdate {
 }
 
 // Type for response data
+
+export interface IListOneResponse extends IList {
+  tasks: ITask[];
+}
 
 export type IListCreateResponse = IList;
 

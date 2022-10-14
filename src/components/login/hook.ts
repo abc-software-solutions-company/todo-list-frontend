@@ -4,7 +4,7 @@ import {useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
-import API from '@/api/network/user';
+import API from '@/data/api';
 import useLoginHandler from '@/hooks/login/workflow/login-handler';
 import useMediaQuery from '@/hooks/useMediaQuery';
 
@@ -32,7 +32,8 @@ export default function useGuestLoginHook() {
   });
   // Form Login Onsubmit handler
   const onSubmit: SubmitHandler<IFormInputs> = data => {
-    API.createUser(data)
+    API.auth
+      .login(data)
       .then(res => loginSuccess(res))
       .catch(() => loginFailed());
   };

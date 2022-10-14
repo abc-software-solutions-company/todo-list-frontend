@@ -2,7 +2,15 @@ import {API_ENDPOINTS} from '@/configs/endpoint.config';
 import http from '@/utils/http';
 
 import {IAuthInfor, IAuthLogin, IAuthResponse} from './types/auth.type';
-import {IList, IListCreate, IListCreateResponse, IListUpdate, IListUpdateResponse} from './types/list.type';
+import {
+  IList,
+  IListCreate,
+  IListCreateResponse,
+  IListOne,
+  IListOneResponse,
+  IListUpdate,
+  IListUpdateResponse
+} from './types/list.type';
 import {
   ITaskByList,
   ITaskByListDetail,
@@ -19,6 +27,7 @@ const api = {
     update: (data: IAuthLogin) => http.patch<IAuthInfor>(API_ENDPOINTS.AUTH, data)
   },
   list: {
+    getOne: ({id}: IListOne) => http.get<IListOneResponse>(API_ENDPOINTS.LIST + '/' + id),
     user: () => http.get<IList[]>(API_ENDPOINTS.LIST),
     create: (data: IListCreate) => http.post<IListCreateResponse>(API_ENDPOINTS.TASK, data),
     update: (data: IListUpdate) => http.patch<IListUpdateResponse>(API_ENDPOINTS.LIST + '/update', data)

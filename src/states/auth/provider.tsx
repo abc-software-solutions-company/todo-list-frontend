@@ -1,8 +1,8 @@
 import {useRouter} from 'next/router';
 import React, {FC, ReactNode, useEffect, useReducer} from 'react';
 
-import api from '@/api/network/user';
 import {ROUTES} from '@/configs/routes.config';
+import api from '@/data/api';
 import useLoginHandler from '@/hooks/login/workflow/login-handler';
 import LocalStorage from '@/utils/local-storage';
 
@@ -33,19 +33,16 @@ const Authentication: FC<IProps> = ({children}) => {
       }
     }
     if (!auth && !isLoginPage) {
-      api
-        .getUserProfile()
+      api.auth
+        .verify()
         .then(res => {
           if (res.status === 200) {
             authDispatch(AuthActions.login(res.data));
           }
         })
         .catch(() => {
-          // if (asPath.includes(ROUTES.HOME)) {
-          //   router.push(ROUTES.LOGIN);
-          // } else {
           if (asPath.includes(`${ROUTES.LIST}`))
-            api.createUser({name: 'Anonymous'}).then(userRes => {
+            api.auth.login({name: 'Anonymous'}).then(userRes => {
               loginSuccess(userRes);
             });
           else {
