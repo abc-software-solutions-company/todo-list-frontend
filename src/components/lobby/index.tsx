@@ -18,11 +18,11 @@ import LobbyTitle from '../lobby-title';
 import styles from './style.module.scss';
 
 interface IFormInputs {
-  todoId: string;
+  listId: string;
 }
 
 const Schema = yup.object().shape({
-  todoId: yup.string().required('Please enter Link or ID')
+  listId: yup.string().required('Please enter Link or ID')
 });
 
 export default function Lobby() {
@@ -41,19 +41,17 @@ export default function Lobby() {
   };
 
   const onSubmit: SubmitHandler<IFormInputs> = data => {
-    const todoId = detectIdOrLink(data.todoId);
+    const todoId = detectIdOrLink(data.listId);
     // Check if it contain space character only
-    if (todoId.trim().length == 0) {
+    if (todoId.trim().length == 0)
       toast.show({type: 'danger', title: 'Error!', content: 'List not found', lifeTime: 3000});
-    } else {
+    else {
       API.getTodo(todoId.trim())
         .then(() => {
           toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
           router.push(`${ROUTES.LIST}/${todoId}`);
         })
-        .catch(() => {
-          toast.show({type: 'danger', title: 'Error!', content: 'List not found', lifeTime: 3000});
-        });
+        .catch(() => toast.show({type: 'danger', title: 'Error!', content: 'List not found', lifeTime: 3000}));
     }
   };
 

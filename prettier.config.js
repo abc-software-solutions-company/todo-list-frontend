@@ -23,11 +23,11 @@ module.exports = {
     },
     {
       files: '.editorconfig',
-      options: {parser: 'yaml'}
+      options: { parser: 'yaml' }
     },
     {
       files: 'LICENSE',
-      options: {parser: 'markdown'}
+      options: { parser: 'markdown' }
     }
   ],
 

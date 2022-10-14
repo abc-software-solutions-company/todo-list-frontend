@@ -12,31 +12,31 @@ interface IFormInputs {
   name: string;
 }
 
+// Schema validate form
 const Schema = yup.object().shape({
   name: yup.string().required('Please fill in your name').max(32, 'Your name must not exceed 32 letters').trim()
 });
 
 export default function useGuestLoginHook() {
+  // Handle Modal Login Social
   const [socialOpen, setSocialOpen] = useState(false);
   const handleSocial = () => setSocialOpen(true);
-
+  // Handle After Login Success | After Login Failed
   const {loginSuccess, loginFailed} = useLoginHandler();
-
+  // Media Query for Todo List Logo in HomePage (@TinTran)
   const matches = useMediaQuery('(min-width:640px)');
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: yupResolver(Schema)
   });
+  // Form Login Onsubmit handler
   const onSubmit: SubmitHandler<IFormInputs> = data => {
     API.createUser(data)
-      .then(res => {
-        if (res.status === 201) {
-          loginSuccess(res);
-        }
-      })
+      .then(res => loginSuccess(res))
       .catch(() => loginFailed());
   };
+  // Error State for prevent spam click in modal button
   const {errors} = formState;
 
   return {onSubmit, matches, register, handleSubmit, formState, errors, handleSocial, socialOpen, setSocialOpen};

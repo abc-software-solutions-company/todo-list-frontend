@@ -1,7 +1,7 @@
 const PREFIX = '';
 
 export const API_ENDPOINTS = {
-  USER: `${PREFIX}/auth`,
+  AUTH: `${PREFIX}/auth`,
   TASK: `${PREFIX}/tasks`,
-  TODO: `${PREFIX}/lists`
+  LIST: `${PREFIX}/lists`
 };

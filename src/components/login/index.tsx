@@ -1,16 +1,15 @@
 import cn from 'classnames';
-import React from 'react';
+import React, {FC} from 'react';
 
 import TodoListLogo from '@/components/icons/todolist-logo';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
-import useGuestLoginHook from '@/hooks/login/guest-login/index.hook';
-import LayoutDefault from '@/layouts/default';
 
 import ModalSocial from '../modal-social';
+import useGuestLoginHook from './hook';
 import styles from './style.module.scss';
 
-export default function Login() {
+const Login: FC = () => {
   const {formState, onSubmit, matches, register, handleSubmit, errors, handleSocial, socialOpen, setSocialOpen} =
     useGuestLoginHook();
   return (
@@ -57,6 +56,6 @@ export default function Login() {
       <ModalSocial open={socialOpen} onClose={() => setSocialOpen(false)} />
     </>
   );
-}
+};
 
-Login.Layout = LayoutDefault;
+export default Login;

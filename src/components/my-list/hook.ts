@@ -35,6 +35,7 @@ export default function useList() {
 
   useEffect(() => {
     getTodoList(getUserId());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
