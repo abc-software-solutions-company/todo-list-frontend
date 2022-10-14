@@ -29,6 +29,12 @@ export interface ITaskByListDetail extends IListCreate {
   task: ITask[];
 }
 
+export interface ITaskReIndex {
+  taskFirstId?: string;
+  taskReorderId: string;
+  taskSecondId?: string;
+}
+
 // Type for response data
 export type ITaskCreateResponse = ITask;
 

@@ -2,11 +2,9 @@
 import {DndContext, DragEndEvent, DragOverlay, UniqueIdentifier} from '@dnd-kit/core';
 import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
-import {InferGetStaticPropsType} from 'next';
 import {useRouter} from 'next/router';
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 
-import API from '@/api/network/task';
 import {ITask} from '@/api/types/task.type';
 import {ITodo} from '@/api/types/todo.type';
 import ModalShare from '@/components/modal-share';
@@ -14,24 +12,23 @@ import ModalTaskAddEdit from '@/components/modal-task-add-edit';
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
 import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
 import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
-import Seo from '@/components/seo/seo';
 import TaskItem from '@/components/task-item';
 import ToolbarDetail from '@/components/toolbar-detail';
 import {ROUTES} from '@/configs/routes.config';
 import FloatIcon from '@/core-ui/float-icon';
+import api from '@/data/api';
 import socket from '@/data/socket';
 import {SOCKET_EVENTS} from '@/data/socket/type';
-import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
-import LayoutDefault from '@/layouts/default';
+// import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
 import {useMouseSensor} from '@/lib/dnd-kit/sensor/sensor-group';
 import {useStateAuth} from '@/states/auth';
 import {IAction} from '@/types';
 
 import styles from './style.module.scss';
 
-export {getStaticPaths, getStaticProps};
+// export {getStaticPaths, getStaticProps};
 
-export default function Detail({title, description}: InferGetStaticPropsType<typeof getStaticProps>) {
+const Detail: FC = () => {
   const auth = useStateAuth();
   const sensor = useMouseSensor();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
@@ -47,7 +44,8 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
 
   const getListTasks = (todoListId: string | undefined) => {
     if (todoListId) {
-      return API.getListTasks(todoListId)
+      return api.task
+        .getByList({todoListId})
         .then(res => {
           if (res.status >= 200) setTodoList(res.data);
         })
@@ -84,18 +82,14 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
       arrangeTask.forEach((element, index) => {
         if (element.id === active.id) {
           const taskFirstId = arrangeTask[index - 1]?.id;
-          const taskReorderId = arrangeTask[index].id;
+          const taskReorderId = arrangeTask[index].id!;
           const taskSecondId = arrangeTask[index + 1]?.id;
           console.log(
             `taskFirstID is ${taskFirstId},
             taskSecondID is ${taskSecondId},
             taskReorderId is ${taskReorderId}`
           );
-          API.reorderTask({
-            taskFirstID: taskFirstId,
-            taskReorderID: taskReorderId,
-            taskSecondID: taskSecondId
-          }).then(() => getListTasks(id));
+          api.task.reIndex({taskFirstId, taskReorderId, taskSecondId}).then(() => getListTasks(id));
         }
       });
     }
@@ -127,7 +121,6 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
 
   return (
     <>
-      <Seo title={title} description={description} />;
       <div className={styles['page-detail']}>
         <div className="container">
           {todoList.name && (
@@ -216,6 +209,6 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
       </div>
     </>
   );
-}
+};
 
-Detail.Layout = LayoutDefault;
+export default Detail;

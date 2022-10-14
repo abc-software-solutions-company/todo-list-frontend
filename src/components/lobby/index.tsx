@@ -1,6 +1,6 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useRouter} from 'next/router';
-import {useState} from 'react';
+import {FC, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -10,7 +10,6 @@ import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
 import API from '@/data/api';
-import LayoutDefault from '@/layouts/default';
 import {IAction} from '@/types';
 import detectIdOrLink from '@/utils/detect-id-or-link';
 
@@ -25,7 +24,7 @@ const Schema = yup.object().shape({
   listId: yup.string().required('Please enter Link or ID')
 });
 
-export default function Lobby() {
+const Lobby: FC = () => {
   const router = useRouter();
   const toast = useToast();
   const [action, setAction] = useState<IAction>({type: '', payload: null});
@@ -45,8 +44,7 @@ export default function Lobby() {
       .then(res => {
         toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
         console.log(res.data);
-
-        // router.push(`${ROUTES.LIST}/${id}`);
+        router.push(`${ROUTES.LIST}/${id}`);
       })
       .catch(() => {
         toast.show({type: 'danger', title: 'Error!', content: 'List not found', lifeTime: 3000});
@@ -95,6 +93,5 @@ export default function Lobby() {
       )}
     </>
   );
-}
-
-Lobby.Layout = LayoutDefault;
+};
+export default Lobby;
