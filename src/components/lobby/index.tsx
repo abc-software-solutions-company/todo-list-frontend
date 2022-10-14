@@ -1,56 +1,15 @@
-import {yupResolver} from '@hookform/resolvers/yup';
-import {useRouter} from 'next/router';
-import {FC, useState} from 'react';
-import {SubmitHandler, useForm} from 'react-hook-form';
-import * as yup from 'yup';
+import {FC} from 'react';
 
 import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
-import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
-import useToast from '@/core-ui/toast';
-import API from '@/data/api';
-import {IAction} from '@/types';
-import detectIdOrLink from '@/utils/detect-id-or-link';
 
 import LobbyTitle from '../lobby-title';
+import useLobbyHook from './hook';
 import styles from './style.module.scss';
 
-interface IFormInputs {
-  listId: string;
-}
-
-const Schema = yup.object().shape({
-  listId: yup.string().required('Please enter Link or ID')
-});
-
 const Lobby: FC = () => {
-  const router = useRouter();
-  const toast = useToast();
-  const [action, setAction] = useState<IAction>({type: '', payload: null});
-
-  const resetAction = () => setAction({type: '', payload: null});
-  const {register, handleSubmit, formState} = useForm<IFormInputs>({
-    resolver: yupResolver(Schema)
-  });
-  const {errors} = formState;
-
-  const reset = () => resetAction();
-
-  const onSubmit: SubmitHandler<IFormInputs> = data => {
-    const id = detectIdOrLink(data.listId).trim();
-    API.list
-      .getOne({id})
-      .then(res => {
-        toast.show({type: 'success', title: 'Success', content: 'Join List Successfull', lifeTime: 3000});
-        console.log(res.data);
-        router.push(`${ROUTES.LIST}/${id}`);
-      })
-      .catch(() => {
-        toast.show({type: 'danger', title: 'Error!', content: 'List not found', lifeTime: 3000});
-      });
-  };
-
+  const {action, errors, handleSubmit, onSubmit, register, reset, setAction, formState, resetAction} = useLobbyHook();
   return (
     <>
       <div className={styles['page-action']}>

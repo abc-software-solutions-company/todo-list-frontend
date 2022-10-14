@@ -1,4 +1,6 @@
-export type IState = {id: string; name: string; email?: string} | undefined;
+import {IAuthResponse} from '@/data/api/types/auth.type';
+
+export type IState = IAuthResponse | undefined;
 
 const initialState: IState = undefined;
 
