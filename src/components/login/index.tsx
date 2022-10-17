@@ -1,10 +1,13 @@
 import cn from 'classnames';
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 
 import TodoListLogo from '@/components/icons/todolist-logo';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import useMediaQuery from '@/hooks/useMediaQuery';
+import {AuthActions} from '@/states/auth';
+import {useDispatchAuth} from '@/states/auth/context';
+import LocalStorage from '@/utils/local-storage';
 
 import ModalSocial from '../modal-social';
 import useGuestLoginHook from './hook';
@@ -14,6 +17,11 @@ const Login: FC = () => {
   const {formState, modalOpen, onSubmit, register, setModalOpen} = useGuestLoginHook();
   const matches = useMediaQuery('(min-width:640px)');
   const {errors, isSubmitting} = formState;
+  const dispatchAuth = useDispatchAuth();
+  useEffect(() => {
+    dispatchAuth(AuthActions.login(undefined));
+    LocalStorage.accessToken.remove();
+  }, []);
 
   return (
     <>
