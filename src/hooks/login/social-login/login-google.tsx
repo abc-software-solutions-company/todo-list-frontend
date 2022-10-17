@@ -4,7 +4,7 @@ import {useRouter} from 'next/router';
 import {ROUTES} from '@/configs/routes.config';
 import API from '@/data/api';
 import {IAuthLogin} from '@/data/api/types/auth.type';
-import useLoginHandler from '@/hooks/login/workflow/login-handler';
+import useLoginHandler from '@/hooks/login/login-handle/login-handler';
 
 // const fireAuth = getAuth();
 

@@ -5,8 +5,7 @@ import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
 import API from '@/data/api';
-import useLoginHandler from '@/hooks/login/workflow/login-handler';
-import useMediaQuery from '@/hooks/useMediaQuery';
+import useLoginHandler from '@/hooks/login/login-handle/login-handler';
 
 interface IFormInputs {
   name: string;
@@ -19,19 +18,17 @@ const Schema = yup.object().shape({
 
 export default function useGuestLoginHook() {
   // Handle Modal Login Social
-  const [socialOpen, setSocialOpen] = useState(false);
-  const handleSocial = () => setSocialOpen(true);
+  const [modalOpen, setModalOpen] = useState(false);
   // Handle After Login Success | After Login Failed
   const {loginSuccess, loginFailed} = useLoginHandler();
   // Media Query for Todo List Logo in HomePage (@TinTran)
-  const matches = useMediaQuery('(min-width:640px)');
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: yupResolver(Schema)
   });
   // Form Login Onsubmit handler
-  const onSubmit: SubmitHandler<IFormInputs> = data => {
+  const submitHandler: SubmitHandler<IFormInputs> = data => {
     API.auth
       .login(data)
       .then(res => {
@@ -39,8 +36,6 @@ export default function useGuestLoginHook() {
       })
       .catch(() => loginFailed());
   };
-  // Error State for prevent spam click in modal button
-  const {errors} = formState;
 
-  return {onSubmit, matches, register, handleSubmit, formState, errors, handleSocial, socialOpen, setSocialOpen};
+  return {onSubmit: handleSubmit(submitHandler), register, formState, modalOpen, setModalOpen};
 }

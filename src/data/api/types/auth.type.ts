@@ -1,5 +1,5 @@
 export interface IAuthLogin {
-  name?: string | undefined;
+  name: string | undefined;
   email?: string | undefined;
 }
 export type IAuthUpdate = IAuthLogin;

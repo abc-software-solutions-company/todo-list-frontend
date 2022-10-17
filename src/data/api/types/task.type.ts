@@ -9,7 +9,6 @@ export interface ITask {
   isActive: boolean;
 }
 
-// Type for request payload
 export interface ITaskByList {
   todoListId: string;
 }

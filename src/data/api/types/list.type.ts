@@ -1,5 +1,3 @@
-// Type for request payload data
-
 import {ITask} from './task.type';
 
 export interface IListCreate {

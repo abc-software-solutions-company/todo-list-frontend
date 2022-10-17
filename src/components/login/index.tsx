@@ -4,14 +4,17 @@ import React, {FC} from 'react';
 import TodoListLogo from '@/components/icons/todolist-logo';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
+import useMediaQuery from '@/hooks/useMediaQuery';
 
 import ModalSocial from '../modal-social';
 import useGuestLoginHook from './hook';
 import styles from './style.module.scss';
 
 const Login: FC = () => {
-  const {formState, onSubmit, matches, register, handleSubmit, errors, handleSocial, socialOpen, setSocialOpen} =
-    useGuestLoginHook();
+  const {formState, modalOpen, onSubmit, register, setModalOpen} = useGuestLoginHook();
+  const matches = useMediaQuery('(min-width:640px)');
+  const {errors, isSubmitting} = formState;
+
   return (
     <>
       <div className={cn(styles['com-quick-play'])}>
@@ -20,13 +23,12 @@ const Login: FC = () => {
             <div className="logo-wrapper">
               <TodoListLogo width={matches ? 249 : 175} />
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={onSubmit}>
               <h2 className="text-center">Let&apos;s start!</h2>
               <Input
                 placeholder="Enter your name"
                 className="name-input"
                 maxLength={33}
-                disabled={formState.isSubmitting}
                 error={errors.name?.message}
                 {...register('name')}
               />
@@ -36,8 +38,8 @@ const Login: FC = () => {
                 color="primary"
                 type="submit"
                 text="Enter"
-                loading={formState.isSubmitting}
-                disabled={formState.isSubmitting}
+                loading={isSubmitting}
+                disabled={isSubmitting}
               />
               <Button
                 className="btn-submit"
@@ -45,15 +47,15 @@ const Login: FC = () => {
                 color="primary"
                 type="button"
                 text="Login With Email"
-                onClick={() => handleSocial()}
-                loading={formState.isSubmitting}
-                disabled={formState.isSubmitting}
+                onClick={() => setModalOpen(true)}
+                loading={isSubmitting}
+                disabled={isSubmitting}
               />
             </form>
           </div>
         </div>
       </div>
-      <ModalSocial open={socialOpen} onClose={() => setSocialOpen(false)} />
+      <ModalSocial open={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 };

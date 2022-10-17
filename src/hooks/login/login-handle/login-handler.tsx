@@ -19,8 +19,8 @@ export default function useLoginHandler() {
     const {user} = data;
     dispatchAuth(AuthActions.login(user));
     const previousPage = LocalStorage.previousPage.get();
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    previousPage ? router.push(previousPage) : router.push(ROUTES.HOME);
+    if (previousPage) router.push(previousPage);
+    else router.push(ROUTES.HOME);
   };
 
   // Show Error when Login Failed
