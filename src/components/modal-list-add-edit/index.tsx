@@ -43,64 +43,40 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
   });
   const toast = useToast();
   const {errors} = formState;
-
-  // const getTodo = (id: string) => {
-  //   API.getTodo(id).then(res => {
-  //     const resp = res.data as ITodo;
-  //     setValue('name', resp.name!);
-  //   });
-  // };
+  // If update list, do it
+  if (data?.name) setValue('name', data.name);
 
   const onSubmit: SubmitHandler<IFormInputs> = async formData => {
     console.log(formData);
     const {name} = formData;
     if (formState.isSubmitting) return;
 
-    API.list
-      .create({name})
-      .then(() => {
-        toast.show({type: 'success', title: 'Create List', content: 'Successful!'});
-        onSave?.();
-      })
-      .catch(() => {
-        toast.show({type: 'danger', title: 'Create List', content: 'Error, Cannot create List'});
-      });
-
-    // if (data?.id) {
-    //   await API.updateTodo(data.id, formData)
-    //     .then(() => {
-    //       toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
-    //       onSave?.();
-    //     })
-    //     .catch(() => {
-    //       toast.show({type: 'danger', title: 'Update List', content: 'Error, Cannot update List'});
-    //     });
-    // } else {
-    //   await API.createTodo(formData)
-    //     .then(res => {
-    //       toast.show({type: 'success', title: 'Create List', content: 'Successful!'});
-    //       // After create list done, redirect to created list
-    //       console.log(res.data.id);
-    //       const id = res.data.id;
-    //       router.push(`${ROUTES.LIST}/${id}`);
-
-    //       onSave?.();
-    //     })
-    //     .catch(() => {
-    //       toast.show({type: 'danger', title: 'Create List', content: 'Error, Cannot create List'});
-    //     });
-    // }
+    if (data?.id) {
+      const {id} = data;
+      API.list
+        .update({id, name})
+        .then(() => {
+          toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
+          onSave?.();
+        })
+        .catch(() => {
+          toast.show({type: 'danger', title: 'Update List', content: 'Error, Cannot update List'});
+        });
+    } else {
+      API.list
+        .create({name})
+        .then(() => {
+          toast.show({type: 'success', title: 'Create List', content: 'Successful!'});
+          onSave?.();
+        })
+        .catch(() => {
+          toast.show({type: 'danger', title: 'Create List', content: 'Error, Cannot create List'});
+        });
+    }
   };
 
   useEffect(() => {
-    // if (data?.id) {
-    //   getTodo(data.id);
-    // } else {
-    //   reset(FORM_DEFAULT_VALUES);
-    // }
     reset(FORM_DEFAULT_VALUES);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   return (

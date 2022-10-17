@@ -1,6 +1,6 @@
 import {FC} from 'react';
 
-import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
+import ModalTodoAddEdit from '@/components/modal-list-add-edit';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 

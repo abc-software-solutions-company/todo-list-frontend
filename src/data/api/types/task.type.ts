@@ -27,6 +27,7 @@ export interface ITaskUpdate {
 
 export interface ITaskByListDetail extends IListCreate {
   tasks: ITask[];
+  id: string;
 }
 
 export interface ITaskReIndex {

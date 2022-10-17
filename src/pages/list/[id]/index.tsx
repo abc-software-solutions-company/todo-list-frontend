@@ -5,11 +5,11 @@ import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/
 import {useRouter} from 'next/router';
 import React, {FC, useEffect, useState} from 'react';
 
+import ModalTodoAddEdit from '@/components/modal-list-add-edit';
+import ModalTodoConfirmDelete from '@/components/modal-list-confirm-delete';
 import ModalShare from '@/components/modal-share';
 import ModalTaskAddEdit from '@/components/modal-task-add-edit';
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
-import ModalTodoAddEdit from '@/components/modal-todo-add-edit';
-import ModalTodoConfirmDelete from '@/components/modal-todo-confirm-delete';
 import TaskItem from '@/components/task-item';
 import ToolbarDetail from '@/components/toolbar-detail';
 import {ROUTES} from '@/configs/routes.config';
@@ -48,8 +48,9 @@ const Detail: FC = () => {
       return api.task
         .getByList({todoListId})
         .then(res => {
-          const {tasks, name} = res.data;
-          if (res.status >= 200) setTodoList({tasks, name});
+          // eslint-disable-next-line @typescript-eslint/no-shadow
+          const {tasks, name, id} = res.data;
+          if (res.status >= 200) setTodoList({tasks, name, id});
         })
         .catch(() => {
           router.push(ROUTES.LIST);
@@ -70,8 +71,6 @@ const Detail: FC = () => {
   };
 
   function handleDragEnd({active, over}: DragEndEvent) {
-    console.log(todoList);
-
     setActiveId(null);
     if (!over) return;
     if (active.id !== over.id) {
@@ -79,7 +78,7 @@ const Detail: FC = () => {
       const oldIndex = taskList?.findIndex(item => active.id === item.id);
       const newIndex = taskList?.findIndex(item => over.id === item.id);
       const arrangeTask = arrayMove(todoList!.tasks, oldIndex!, newIndex!);
-      setTodoList({name: todoList?.name, tasks: arrangeTask});
+      setTodoList({name: todoList?.name, tasks: arrangeTask, id});
 
       arrangeTask.forEach((element, index) => {
         if (element.id === active.id) {

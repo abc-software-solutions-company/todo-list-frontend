@@ -42,14 +42,15 @@ const Authentication: FC<IProps> = ({children}) => {
           }
         })
         .catch(() => {
-          if (asPath.includes(`${ROUTES.LIST}`))
-            api.auth.login({name: 'Anonymous'}).then(res => {
-              loginSuccess({accessToken: res.data.accessToken, user: res.data.user});
-            });
-          else {
-            router.push(ROUTES.LOGIN);
-          }
+          // if (asPath.includes(`${ROUTES.LIST}`))
+          //   api.auth.login({name: 'Anonymous'}).then(res => {
+          //     loginSuccess({accessToken: res.data.accessToken, user: res.data.user});
+          //   });
+          // else {
+          //   router.push(ROUTES.LOGIN);
           // }
+          // }
+          router.push(ROUTES.LOGIN);
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

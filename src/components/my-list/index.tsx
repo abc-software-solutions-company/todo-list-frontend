@@ -4,9 +4,9 @@ import FloatIcon from '@/core-ui/float-icon';
 import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
 
+import ModalTodoAddEdit from '../modal-list-add-edit';
+import ModalTodoConfirmDelete from '../modal-list-confirm-delete';
 import ModalShare from '../modal-share';
-import ModalTodoAddEdit from '../modal-todo-add-edit';
-import ModalTodoConfirmDelete from '../modal-todo-confirm-delete';
 import MyListTitle from '../my-list-title';
 import useList from './hook';
 import styles from './style.module.scss';

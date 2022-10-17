@@ -23,7 +23,7 @@ interface IProps {
 
 interface IFormInputs {
   name: string;
-  todoListId?: string;
+  todoListId: string;
 }
 
 const Schema = yup.object().shape({
@@ -57,10 +57,10 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
 
   const onSubmit: SubmitHandler<IFormInputs> = async formData => {
     if (formState.isSubmitting) return;
-    formData.todoListId = todoListId;
+    formData.todoListId = todoListId!;
 
     await API.task
-      .create(data)
+      .create(formData)
       .then(() => {
         toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
         onSave();
