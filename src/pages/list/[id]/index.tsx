@@ -167,7 +167,7 @@ const Detail: FC = () => {
                 <></>
               )}
               <DragOverlay>
-                {activeId ? <TaskItem task={todoList.task?.filter(e => e.id === activeId)[0]} /> : null}
+                {activeId ? <TaskItem task={todoList.tasks?.filter(e => e.id === activeId)[0]} /> : null}
               </DragOverlay>
             </div>
           </DndContext>
