@@ -34,7 +34,9 @@ export default function useGuestLoginHook() {
   const onSubmit: SubmitHandler<IFormInputs> = data => {
     API.auth
       .login(data)
-      .then(res => loginSuccess({user: res.data.accessToken}))
+      .then(res => {
+        loginSuccess(res.data);
+      })
       .catch(() => loginFailed());
   };
   // Error State for prevent spam click in modal button

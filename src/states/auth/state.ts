@@ -1,6 +1,6 @@
-import {IAuthResponse} from '@/data/api/types/auth.type';
+import {IAuthInfor} from '@/data/api/types/auth.type';
 
-export type IState = IAuthResponse | undefined;
+export type IState = IAuthInfor | undefined;
 
 const initialState: IState = undefined;
 

@@ -37,8 +37,8 @@ const Authentication: FC<IProps> = ({children}) => {
         .verify()
         .then(res => {
           if (res.status === 200) {
-            // const {name, email,id} = res.data;
-            authDispatch(AuthActions.login({user: res.data}));
+            const {name, email, id} = res.data;
+            authDispatch(AuthActions.login({id, name, email}));
           }
         })
         .catch(() => {
