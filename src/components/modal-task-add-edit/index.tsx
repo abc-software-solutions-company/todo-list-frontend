@@ -9,7 +9,7 @@ import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
 import API from '@/data/api';
-import {ITaskCreate} from '@/data/api/types/task.type';
+import {ITaskCreate, ITaskUpdate} from '@/data/api/types/task.type';
 
 import styles from './style.module.scss';
 
@@ -19,11 +19,6 @@ interface IProps {
   todoListId?: string;
   onSave: () => void;
   onCancel?: () => void;
-}
-
-interface IFormInputs {
-  name: string;
-  todoListId: string;
 }
 
 const Schema = yup.object().shape({
@@ -37,7 +32,7 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
   const inputRef = useCallback((node: HTMLInputElement) => {
     if (node) node.focus();
   }, []);
-  const {handleSubmit, reset, control, formState, setValue} = useForm<IFormInputs>({
+  const {handleSubmit, reset, control, formState, setValue} = useForm<ITaskUpdate | ITaskCreate>({
     defaultValues: FORM_DEFAULT_VALUES,
     resolver: yupResolver(Schema)
   });
@@ -46,13 +41,13 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
   const {errors} = formState;
   console.log(data);
 
-  const onSubmit: SubmitHandler<IFormInputs> = async formData => {
+  const onSubmit: SubmitHandler<ITaskUpdate> = formData => {
     if (formState.isSubmitting) return;
-    formData.todoListId = todoListId!;
+    formData.id = todoListId!;
 
     if (data?.todoListId) {
       const {name, todoListId: id} = data;
-      await API.task
+      API.task
         .update({id, name})
         .then(() => {
           toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
@@ -65,21 +60,24 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
             content: 'Error, Cannot update todo'
           });
         });
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const {name, todoListId} = data;
+      API.task
+        .create({name, todoListId})
+        .then(() => {
+          toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
+          onSave();
+        })
+        .catch(() => {
+          toast.show({
+            type: 'danger',
+            title: 'Create To-Do',
+            content: 'Error, Cannot create Todo'
+          });
+        });
     }
 
-    await API.task
-      .create(formData)
-      .then(() => {
-        toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
-        onSave();
-      })
-      .catch(() => {
-        toast.show({
-          type: 'danger',
-          title: 'Create To-Do',
-          content: 'Error, Cannot create Todo'
-        });
-      });
     // if (data?.id) {
     //   await API.updateTask(data.id, formData)
     //     .then(() => {
@@ -124,7 +122,6 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header>
           <h3 className="title">{data?.todoListId ? 'Update To-Do' : 'Add New To-Do'}</h3>
-          {/* <h3 className="title">{'Add New To-Do'}</h3> */}
         </Modal.Header>
         <Modal.Body>
           <Controller
@@ -158,8 +155,7 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
               className="w-full"
               variant="contained"
               color="primary"
-              // text={data?.id ? 'Save' : 'Create'}
-              text={'Create'}
+              text={data?.todoListId ? 'Save' : 'Create'}
               type="submit"
               loading={formState.isSubmitting}
               disabled={formState.isSubmitting}
