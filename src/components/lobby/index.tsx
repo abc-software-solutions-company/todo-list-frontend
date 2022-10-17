@@ -1,15 +1,17 @@
-import {FC} from 'react';
+import {FC, useState} from 'react';
 
-import ModalTodoAddEdit from '@/components/modal-list-add-edit';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 
-import LobbyTitle from '../lobby-title';
+import ModalCreateUpdateList from '../modal-create-update-list';
 import useLobbyHook from './hook';
 import styles from './style.module.scss';
+import LobbyTitle from './title';
 
 const Lobby: FC = () => {
-  const {action, errors, handleSubmit, onSubmit, register, reset, setAction, formState, resetAction} = useLobbyHook();
+  const [modalOpen, setModalOpen] = useState(false);
+  const {onSubmit, register, formState} = useLobbyHook();
+  const {errors, isSubmitting} = formState;
   return (
     <>
       <div className={styles['page-action']}>
@@ -18,38 +20,21 @@ const Lobby: FC = () => {
             <LobbyTitle />
             <div className="actions">
               <div className="item">
-                <Button
-                  variant="contained"
-                  className="w-full font-medium"
-                  color="primary"
-                  onClick={() => setAction({type: 'add', payload: null})}
-                  text=" Create New List"
-                />
+                <Button variant="contained" className="w-full font-medium" color="primary" onClick={() => setModalOpen(true)} text=" Create New List" />
               </div>
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={onSubmit}>
                 <Input
-                  groupEnd={
-                    <Button
-                      className="px-5 font-medium "
-                      color="primary"
-                      variant="contained"
-                      text="Join"
-                      type="submit"
-                      disabled={formState.isSubmitting}
-                    />
-                  }
+                  groupEnd={<Button className="px-5 font-medium " color="primary" variant="contained" text="Join" type="submit" disabled={isSubmitting} />}
                   placeholder="Enter Link or ID"
-                  error={errors.listId?.message}
-                  {...register('listId')}
+                  error={errors.idOrLink?.message}
+                  {...register('idOrLink')}
                 />
               </form>
             </div>
           </div>
         </div>
       </div>
-      {['add'].includes(action.type) && (
-        <ModalTodoAddEdit data={action.payload} open={true} onSave={() => reset()} onCancel={resetAction} />
-      )}
+      {<ModalCreateUpdateList {...{modalOpen, setModalOpen}} />}
     </>
   );
 };

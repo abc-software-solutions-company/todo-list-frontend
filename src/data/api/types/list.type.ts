@@ -1,7 +1,7 @@
 import {ITask} from './task.type';
 
 export interface IListCreate {
-  name?: string;
+  name: string;
 }
 
 export interface IList extends IListCreate {

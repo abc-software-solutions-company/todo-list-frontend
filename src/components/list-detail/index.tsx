@@ -4,8 +4,8 @@ import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/
 import {useRouter} from 'next/router';
 import React, {FC, useEffect, useState} from 'react';
 
-import ModalTodoAddEdit from '@/components/modal-list-add-edit';
-import ModalTodoConfirmDelete from '@/components/modal-list-confirm-delete';
+import ModalDeleteList from '@/components/modal-delete-list';
+import ModalTodoAddEdit from '@/components/modal-create-update-list';
 import ModalShare from '@/components/modal-share';
 import ModalTaskAddEdit from '@/components/modal-task-add-edit';
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
@@ -166,9 +166,7 @@ const ListDetail: FC<IListDetailProp> = ({id}) => {
               ) : (
                 <></>
               )}
-              <DragOverlay>
-                {activeId ? <TaskItem task={todoList.tasks?.filter(e => e.id === activeId)[0]} /> : null}
-              </DragOverlay>
+              <DragOverlay>{activeId ? <TaskItem task={todoList.tasks?.filter(e => e.id === activeId)[0]} /> : null}</DragOverlay>
             </div>
           </DndContext>
         </div>
@@ -176,38 +174,16 @@ const ListDetail: FC<IListDetailProp> = ({id}) => {
         {/* Modal Components Area */}
         <FloatIcon className="float-icon" onClick={() => setAction({type: 'add', payload: null})} />
         {['add', 'edit'].includes(action.type) && (
-          <ModalTaskAddEdit
-            data={action.payload}
-            todoListId={id.toString()}
-            open={true}
-            onSave={() => reset()}
-            onCancel={() => resetAction()}
-          />
+          <ModalTaskAddEdit data={action.payload} todoListId={id.toString()} open={true} onSave={() => reset()} onCancel={() => resetAction()} />
         )}
         {['delete'].includes(action.type) && (
-          <ModalTaskConfirmDelete
-            data={action.payload}
-            open={true}
-            onConfirm={() => reset()}
-            onCancel={() => resetAction()}
-          />
+          <ModalTaskConfirmDelete data={action.payload} open={true} onConfirm={() => reset()} onCancel={() => resetAction()} />
         )}
         <FloatIcon className="float-icon" onClick={() => setAction({type: 'add', payload: null})} />
         {['add', 'edit'].includes(actionTodo.type) && (
-          <ModalTodoAddEdit
-            data={actionTodo.payload}
-            open={true}
-            onSave={() => reset()}
-            onCancel={() => resetActionTodo()}
-          />
+          <ModalTodoAddEdit data={actionTodo.payload} open={true} onSave={() => reset()} onCancel={() => resetActionTodo()} />
         )}
-        <ModalTodoConfirmDelete
-          open={['delete'].includes(actionTodo.type)}
-          data={actionTodo.payload}
-          page={page}
-          onConfirm={reset}
-          onCancel={resetActionTodo}
-        />
+        <ModalDeleteList open={['delete'].includes(actionTodo.type)} data={actionTodo.payload} page={page} onConfirm={reset} onCancel={resetActionTodo} />
         <ModalShare open={shareOpen} onClose={() => setShareOpen(false)} id={id} />
       </div>
     </>
