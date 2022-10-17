@@ -215,3 +215,5 @@ const Detail: FC = () => {
 };
 
 export default Detail;
+
+// Detail.layout = LayoutDefault;

@@ -36,7 +36,7 @@ const api = {
   task: {
     getByList: ({todoListId}: ITaskByList) => http.get<ITaskByListDetail>(API_ENDPOINTS.LIST + '/' + todoListId),
     create: (data: ITaskCreate) => http.post<ITaskCreateResponse>(API_ENDPOINTS.TASK, data),
-    update: (data: ITaskUpdate) => http.patch<ITaskUpdateResponse>(API_ENDPOINTS.LIST, data),
+    update: (data: ITaskUpdate) => http.patch<ITaskUpdateResponse>(API_ENDPOINTS.TASK + '/update', data),
     reIndex: (data: ITaskReIndex) => http.patch(API_ENDPOINTS.TASK + '/reIndex', data)
   }
 };

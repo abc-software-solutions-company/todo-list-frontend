@@ -15,9 +15,9 @@ interface IProp {
 
 export default function TaskItem({task, editTask, deleteTask}: IProp) {
   const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: task!.id!});
-  const setDone = (id: string) => {
+  const setDone = (id: string, isDone: boolean) => {
     if (!id) return;
-    API.task.update({id}).then(socketUpdateList);
+    API.task.update({id, isDone: !isDone}).then(socketUpdateList);
   };
 
   const style = {
@@ -45,8 +45,8 @@ export default function TaskItem({task, editTask, deleteTask}: IProp) {
         }
       }}
     >
-      <Checkbox checked={task?.isDone} onChange={() => setDone(task!.id!)} />
-      <p className={`h6 ${task!.isDone ? 'checked' : ''}`} onClick={() => setDone(task!.id!)}>
+      <Checkbox checked={task?.isDone} onChange={() => setDone(task!.id!, task!.isDone)} />
+      <p className={`h6 ${task!.isDone ? 'checked' : ''}`} onClick={() => setDone(task!.id!, task!.isDone)}>
         {`${task!.name}`}
       </p>
       <div className="actions">
