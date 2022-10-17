@@ -9,7 +9,7 @@ import {useDispatchAuth} from '@/states/auth/context';
 import LocalStorage from '@/utils/local-storage';
 
 import ModalSocial from '../modal-social';
-import useGuestLoginHook from './hook';
+import useGuestLoginHook from './hooks';
 import styles from './style.module.scss';
 
 const Login: FC = () => {

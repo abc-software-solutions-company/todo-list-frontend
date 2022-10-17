@@ -5,7 +5,7 @@ import React from 'react';
 import Button from '@/core-ui/button';
 
 import {Modal} from '../../core-ui/modal';
-import useLoginGoogle from '../../hooks/login/social-login/login-google';
+import useLoginGoogle from '../login/hooks/login-google';
 import styles from './style.module.scss';
 
 interface IProps {
@@ -20,7 +20,7 @@ const ModalSocial: React.FC<IProps> = ({open, onClose}) => {
       <Modal.Header />
       <Modal.Body className="container">
         <Button className=" bg-white text-black" onClick={() => openGooglePopUp()}>
-          <Image src={'/google.png'} alt={'Login Google Logo'} />
+          <Image src={'/google.png'} alt={'Login Google Logo'} width={24} height={24} />
           <span>Sign in with Google</span>
         </Button>
       </Modal.Body>

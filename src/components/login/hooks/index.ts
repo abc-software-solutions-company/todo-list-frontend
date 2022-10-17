@@ -4,8 +4,8 @@ import {useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
+import useLoginHandler from '@/components/login/hooks/login-handler';
 import API from '@/data/api';
-import useLoginHandler from '@/hooks/login/login-handle/login-handler';
 
 interface IFormInputs {
   name: string;
