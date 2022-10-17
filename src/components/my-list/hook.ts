@@ -1,21 +1,23 @@
 import {useRouter} from 'next/router';
 import {useEffect, useState} from 'react';
 
-import API from '@/api/network/todo';
-import {ITodo} from '@/api/types/todo.type';
-import {useStateAuth} from '@/states/auth/context';
+import API from '@/data/api/index';
+import {IList} from '@/data/api/types/list.type';
 import {IAction} from '@/types';
 
 export default function useList() {
   const router = useRouter();
-  const [todoList, setTodoList] = useState<ITodo[]>([]);
+  const [todoList, setTodoList] = useState<IList[]>([]);
   const [action, setAction] = useState<IAction>({type: '', payload: null});
   const [shareOpen, setShareOpen] = useState(false);
   const [id, setId] = useState<string>('');
-  const auth = useStateAuth();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getTodoList = (userId: string | any) => API.getTodos(userId).then(res => setTodoList(res.data));
+  // const getTodoList = (userId: string | any) => API.getTodos(userId).then(res => setTodoList(res.data));
+  const getTodoList = () =>
+    API.list.user().then(res => {
+      setTodoList(res.data);
+    });
 
   const resetAction = () => setAction({type: '', payload: null});
 
@@ -24,17 +26,13 @@ export default function useList() {
     setId(todoListId);
   };
 
-  const getUserId = () => {
-    if (auth?.name) return auth.id;
-  };
-
   const reset = () => {
-    getTodoList(getUserId());
+    getTodoList();
     resetAction();
   };
 
   useEffect(() => {
-    getTodoList(getUserId());
+    getTodoList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

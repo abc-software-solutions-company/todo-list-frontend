@@ -7,6 +7,8 @@ import * as yup from 'yup';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
+import useToast from '@/core-ui/toast';
+import API from '@/data/api/index';
 import {IList} from '@/data/api/types/list.type';
 
 // import useToast from '@/core-ui/toast';
@@ -39,7 +41,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
     defaultValues: FORM_DEFAULT_VALUES,
     resolver: yupResolver(Schema)
   });
-  // const toast = useToast();
+  const toast = useToast();
   const {errors} = formState;
 
   // const getTodo = (id: string) => {
@@ -51,7 +53,19 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
 
   const onSubmit: SubmitHandler<IFormInputs> = async formData => {
     console.log(formData);
+    const {name} = formData;
     if (formState.isSubmitting) return;
+
+    API.list
+      .create({name})
+      .then(() => {
+        toast.show({type: 'success', title: 'Create List', content: 'Successful!'});
+        onSave?.();
+      })
+      .catch(() => {
+        toast.show({type: 'danger', title: 'Create List', content: 'Error, Cannot create List'});
+      });
+
     // if (data?.id) {
     //   await API.updateTodo(data.id, formData)
     //     .then(() => {
