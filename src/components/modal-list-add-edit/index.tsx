@@ -77,6 +77,7 @@ const ModalTodoAddEdit: FC<IProps> = ({data, open, onCancel, onSave}) => {
 
   useEffect(() => {
     reset(FORM_DEFAULT_VALUES);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   return (

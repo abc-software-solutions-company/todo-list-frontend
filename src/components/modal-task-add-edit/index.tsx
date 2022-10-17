@@ -37,27 +37,35 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
   const inputRef = useCallback((node: HTMLInputElement) => {
     if (node) node.focus();
   }, []);
-  // const {handleSubmit, reset, setValue, control, formState} = useForm<IFormInputs>({
-  //   defaultValues: FORM_DEFAULT_VALUES,
-  //   resolver: yupResolver(Schema)
-  // });
-  const {handleSubmit, reset, control, formState} = useForm<IFormInputs>({
+  const {handleSubmit, reset, control, formState, setValue} = useForm<IFormInputs>({
     defaultValues: FORM_DEFAULT_VALUES,
     resolver: yupResolver(Schema)
   });
+  if (data?.todoListId) setValue('name', data?.name);
   const toast = useToast();
   const {errors} = formState;
-
-  // const getTask = (id: string) => {
-  //   API.getTask(id).then(res => {
-  //     const resp = res.data as ITask;
-  //     setValue('name', resp.name);
-  //   });
-  // };
+  console.log(data);
 
   const onSubmit: SubmitHandler<IFormInputs> = async formData => {
     if (formState.isSubmitting) return;
     formData.todoListId = todoListId!;
+
+    if (data?.todoListId) {
+      const {name, todoListId: id} = data;
+      await API.task
+        .update({id, name})
+        .then(() => {
+          toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
+          onSave?.();
+        })
+        .catch(() => {
+          toast.show({
+            type: 'danger',
+            title: 'Update To-Do',
+            content: 'Error, Cannot update todo'
+          });
+        });
+    }
 
     await API.task
       .create(formData)
@@ -102,10 +110,6 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
   };
 
   useEffect(() => {
-    // if (data?.id) getTask(data.id);
-    // else {
-    //   reset(FORM_DEFAULT_VALUES);
-    // }
     reset(FORM_DEFAULT_VALUES);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -119,8 +123,8 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header>
-          {/* <h3 className="title">{data?.id ? 'Update To-Do' : 'Add New To-Do'}</h3> */}
-          <h3 className="title">{'Add New To-Do'}</h3>
+          <h3 className="title">{data?.todoListId ? 'Update To-Do' : 'Add New To-Do'}</h3>
+          {/* <h3 className="title">{'Add New To-Do'}</h3> */}
         </Modal.Header>
         <Modal.Body>
           <Controller

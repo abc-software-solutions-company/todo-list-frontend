@@ -3,7 +3,7 @@ import React, {FC, ReactNode, useEffect, useReducer} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
 import api from '@/data/api/index';
-import useLoginHandler from '@/hooks/login/workflow/login-handler';
+// import useLoginHandler from '@/hooks/login/workflow/login-handler';
 import LocalStorage from '@/utils/local-storage';
 
 import {AuthActions} from '.';
@@ -21,7 +21,7 @@ const Authentication: FC<IProps> = ({children}) => {
   const asPath = router.asPath;
   const isLoginPage = asPath.includes(ROUTES.LOGIN);
   const authDispatch = useDispatchAuth();
-  const {loginSuccess} = useLoginHandler();
+  // const {loginSuccess} = useLoginHandler();
 
   let showPage = false;
   useEffect(() => {
