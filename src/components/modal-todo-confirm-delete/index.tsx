@@ -24,9 +24,10 @@ const ModalTodoConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
   const toast = useToast();
 
   const deletePost = () => {
-    if (data?.id)
+    if (data?.id) {
+      const {id} = data;
       API.list
-        .update(data)
+        .update({id, isActive: false})
         .then(() => {
           onConfirm?.();
           toast.show({type: 'success', title: 'Delete list', content: 'Successful!'});
@@ -38,9 +39,10 @@ const ModalTodoConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
           toast.show({
             type: 'danger',
             title: 'Delete list',
-            content: 'Error!, Only List Owner have permission to delete'
+            content: 'Error!, Cannot delete list'
           });
         });
+    }
   };
 
   if (!data) return null;

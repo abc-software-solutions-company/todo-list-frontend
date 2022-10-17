@@ -31,7 +31,7 @@ const api = {
     getOne: ({id}: IListOne) => http.get<IListOneResponse>(API_ENDPOINTS.LIST + '/' + id),
     user: () => http.get<IList[]>(API_ENDPOINTS.LIST),
     create: (data: IListCreate) => http.post<IListCreateResponse>(API_ENDPOINTS.LIST, data),
-    update: (data: IListUpdate) => http.patch<IListUpdateResponse>(API_ENDPOINTS.LIST + '/update', data)
+    update: (data: IListUpdate) => http.patch<IListUpdateResponse>(API_ENDPOINTS.LIST, data)
   },
   task: {
     getByList: ({todoListId}: ITaskByList) => http.get<ITaskByListDetail>(API_ENDPOINTS.LIST + '/' + todoListId),
