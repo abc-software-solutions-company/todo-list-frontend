@@ -1,6 +1,6 @@
 import {MouseSensor, TouchSensor, useSensor, useSensors} from '@dnd-kit/core';
 
-export const useMouseSensor = () => {
+export const useSensorGroup = () => {
   return useSensors(
     useSensor(MouseSensor, {
       activationConstraint: {

@@ -28,82 +28,34 @@ const FORM_DEFAULT_VALUES = {
   name: ''
 };
 
+interface IFormInputs extends ITaskUpdate {
+  todoListId?: string;
+}
+
 const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}) => {
   const inputRef = useCallback((node: HTMLInputElement) => {
     if (node) node.focus();
   }, []);
-  const {handleSubmit, reset, control, formState, setValue} = useForm<ITaskUpdate | ITaskCreate>({
+  const {handleSubmit, reset, control, formState, setValue} = useForm<IFormInputs>({
     defaultValues: FORM_DEFAULT_VALUES,
     resolver: yupResolver(Schema)
   });
   if (data?.todoListId) setValue('name', data?.name);
   const toast = useToast();
   const {errors} = formState;
-  console.log(data);
 
-  const onSubmit: SubmitHandler<ITaskUpdate> = formData => {
+  const onSubmit: SubmitHandler<IFormInputs> = formData => {
+    console.log(typeof formData);
     if (formState.isSubmitting) return;
-    formData.id = todoListId!;
-
-    if (data?.todoListId) {
-      const {name, todoListId: id} = data;
-      API.task
-        .update({id, name})
-        .then(() => {
-          toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
-          onSave?.();
-        })
-        .catch(() => {
-          toast.show({
-            type: 'danger',
-            title: 'Update To-Do',
-            content: 'Error, Cannot update todo'
-          });
-        });
-    } else {
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      const {name, todoListId} = data;
-      API.task
-        .create({name, todoListId})
-        .then(() => {
-          toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
-          onSave();
-        })
-        .catch(() => {
-          toast.show({
-            type: 'danger',
-            title: 'Create To-Do',
-            content: 'Error, Cannot create Todo'
-          });
-        });
-    }
-
-    // if (data?.id) {
-    //   await API.updateTask(data.id, formData)
-    //     .then(() => {
-    //       toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
-    //       onSave?.();
-    //     })
-    //     .catch(() => {
-    //       toast.show({
-    //         type: 'danger',
-    //         title: 'Update To-Do',
-    //         content: 'Error, Cannot update todo'
-    //       });
-    //     });
-    // } else {
-    //   await API.createTask(formData)
-    //     .then(() => {
-    //       toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
-    //       onSave();
-    //     })
-    //     .catch(() => {
-    //       toast.show({
-    //         type: 'danger',
-    //         title: 'Create To-Do',
-    //         content: 'Error, Cannot create Todo'
-    //       });
-    //     });
+    formData.todoListId = todoListId!;
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    const {name} = formData;
+    console.log(formData);
+    // if (todoListId && name) {
+    //   API.task.create({name, todoListId}).then(() => {
+    //     toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
+    //     onSave?.();
+    //   });
     // }
   };
 

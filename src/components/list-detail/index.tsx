@@ -1,8 +1,7 @@
-import {DndContext, DragEndEvent, DragOverlay, UniqueIdentifier} from '@dnd-kit/core';
+import {DndContext, DragEndEvent, DragOverlay} from '@dnd-kit/core';
 import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
-import {useRouter} from 'next/router';
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect} from 'react';
 
 import ModalDeleteList from '@/components/modal-delete-list';
 import ModalTodoAddEdit from '@/components/modal-create-update-list';
@@ -14,56 +13,35 @@ import ToolbarDetail from '@/components/toolbar-detail';
 import {ROUTES} from '@/configs/routes.config';
 import FloatIcon from '@/core-ui/float-icon';
 import api from '@/data/api';
-// import {ITask} from '@/api/types/task.type';
-// import {ITaskByListDetail} from '@/api/types/todo.type';
-import {ITask, ITaskByListDetail} from '@/data/api/types/task.type';
+import {ITask} from '@/data/api/types/task.type';
 import socket from '@/data/socket';
 import {SOCKET_EVENTS} from '@/data/socket/type';
-// import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
-import {useMouseSensor} from '@/lib/dnd-kit/sensor/sensor-group';
-import {useStateAuth} from '@/states/auth';
-import {IAction} from '@/types';
 
+import useListDetail, {IListDetailProp} from './hooks';
 import styles from './style.module.scss';
 
-export interface IListDetailProp {
-  id: string;
-}
-
 const ListDetail: FC<IListDetailProp> = ({id}) => {
-  const auth = useStateAuth();
-  const sensor = useMouseSensor();
-  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+  const {
+    activeId,
+    auth,
+    sensor,
+    setActiveId,
+    action,
+    actionTodo,
+    setAction,
+    setActionTodo,
+    setShareOpen,
+    setTodoList,
+    shareOpen,
+    todoList,
+    router,
+    getListTasks,
+    handleShare,
+    resetAction,
+    resetActionTodo
+  } = useListDetail();
 
-  const router = useRouter();
-  const [todoList, setTodoList] = useState<ITaskByListDetail>();
-  const [action, setAction] = useState<IAction>({type: '', payload: null});
-  const [actionTodo, setActionTodo] = useState<IAction>({type: '', payload: null});
-  const [shareOpen, setShareOpen] = useState(false);
-
-  // const id = router.query.id as string;
   const page = 'detail';
-
-  const getListTasks = (todoListId: string | undefined) => {
-    if (todoListId) {
-      return api.task
-        .getByList({todoListId})
-        .then(res => {
-          // eslint-disable-next-line @typescript-eslint/no-shadow
-          const {tasks, name, id} = res.data;
-          if (res.status >= 200) setTodoList({tasks, name, id});
-        })
-        .catch(() => {
-          router.push(ROUTES.LIST);
-        });
-    } else return Promise.reject('err');
-  };
-
-  const handleShare = () => setShareOpen(true);
-
-  // Modal task
-  const resetAction = () => setAction({type: '', payload: null});
-  const resetActionTodo = () => setActionTodo({type: '', payload: null});
 
   const reset = () => {
     getListTasks(id);
@@ -103,6 +81,7 @@ const ListDetail: FC<IListDetailProp> = ({id}) => {
   }, [id]);
 
   useEffect(() => {
+    // Send param auth,id, getListTasks
     if (auth) {
       socket.auth = {...auth, listID: id};
       socket.connect();
@@ -117,7 +96,7 @@ const ListDetail: FC<IListDetailProp> = ({id}) => {
       console.log('SocketIO', SOCKET_EVENTS.updateList);
       getListTasks(id);
     });
-  });
+  }, []);
 
   if (!todoList || !id) return null;
 
