@@ -4,7 +4,6 @@ import React, {FC, useEffect} from 'react';
 import TodoListLogo from '@/components/icons/todolist-logo';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
-import useMediaQuery from '@/hooks/useMediaQuery';
 import {AuthActions} from '@/states/auth';
 import {useDispatchAuth} from '@/states/auth/context';
 import LocalStorage from '@/utils/local-storage';
@@ -15,12 +14,12 @@ import styles from './style.module.scss';
 
 const Login: FC = () => {
   const {formState, modalOpen, onSubmit, register, setModalOpen} = useGuestLoginHook();
-  const matches = useMediaQuery('(min-width:640px)');
   const {errors, isSubmitting} = formState;
   const dispatchAuth = useDispatchAuth();
   useEffect(() => {
     dispatchAuth(AuthActions.login(undefined));
     LocalStorage.accessToken.remove();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -29,7 +28,7 @@ const Login: FC = () => {
         <div className="container">
           <div className="inner">
             <div className="logo-wrapper">
-              <TodoListLogo width={matches ? 249 : 175} />
+              <TodoListLogo width={249} />
             </div>
             <form onSubmit={onSubmit}>
               <h2 className="text-center">Let&apos;s start!</h2>
