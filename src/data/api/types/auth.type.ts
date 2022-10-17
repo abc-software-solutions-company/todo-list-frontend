@@ -11,6 +11,6 @@ export interface IAuthInfor extends IAuthLogin {
 }
 
 export interface IAuthResponse {
-  accessToken?: string;
+  accessToken: string;
   user: IAuthInfor;
 }

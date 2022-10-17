@@ -15,7 +15,7 @@ export default function useLoginHandler() {
 
   // Save token and redirect to specific page when login success
   const loginSuccess = (data: IAuthResponse) => {
-    LocalStorage.accessToken.set(data.accessToken);
+    LocalStorage.accessToken.set(data.accessToken!);
     dispatchAuth(AuthActions.login(data));
     const previousPage = LocalStorage.previousPage.get();
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
