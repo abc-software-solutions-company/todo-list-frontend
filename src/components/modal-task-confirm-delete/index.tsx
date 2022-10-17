@@ -2,17 +2,18 @@ import cls from 'classnames';
 import {useRouter} from 'next/router';
 import {FC} from 'react';
 
-import TaskAPI from '@/api/network/task';
-import {ITask} from '@/api/types/task.type';
 import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
+import API from '@/data/api/index';
+// import {ITask} from '@/api/types/task.type';
+import {ITaskUpdate} from '@/data/api/types/task.type';
 
 import styles from './style.module.scss';
 
 interface IProps {
-  data?: ITask;
+  data?: ITaskUpdate;
   open: boolean;
   page?: string;
   onConfirm?: () => void;
@@ -23,8 +24,10 @@ const ModalTaskConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
   const router = useRouter();
   const toast = useToast();
   const deletePost = () => {
-    if (data?.id)
-      TaskAPI.deleteTask(data?.id)
+    if (data?.id) {
+      const {id} = data;
+      API.task
+        .update({isActive: false, id})
         .then(res => {
           onConfirm?.();
           if (res.status == 200) toast.show({type: 'success', title: 'Delete To-Do', content: 'Successful!'});
@@ -39,6 +42,7 @@ const ModalTaskConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
             content: 'Error!, your task is not available or something error '
           });
         });
+    }
   };
 
   if (!data) return null;

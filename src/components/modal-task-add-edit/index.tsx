@@ -4,17 +4,17 @@ import {FC, useCallback, useEffect} from 'react';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
-import API from '@/api/network/task';
-import {ITask} from '@/api/types/task.type';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
+import API from '@/data/api';
+import {ITaskCreate} from '@/data/api/types/task.type';
 
 import styles from './style.module.scss';
 
 interface IProps {
-  data: ITask;
+  data: ITaskCreate;
   open: boolean;
   todoListId?: string;
   onSave: () => void;
@@ -37,58 +37,76 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
   const inputRef = useCallback((node: HTMLInputElement) => {
     if (node) node.focus();
   }, []);
-  const {handleSubmit, reset, setValue, control, formState} = useForm<IFormInputs>({
+  // const {handleSubmit, reset, setValue, control, formState} = useForm<IFormInputs>({
+  //   defaultValues: FORM_DEFAULT_VALUES,
+  //   resolver: yupResolver(Schema)
+  // });
+  const {handleSubmit, reset, control, formState} = useForm<IFormInputs>({
     defaultValues: FORM_DEFAULT_VALUES,
     resolver: yupResolver(Schema)
   });
   const toast = useToast();
   const {errors} = formState;
 
-  const getTask = (id: string) => {
-    API.getTask(id).then(res => {
-      const resp = res.data as ITask;
-      setValue('name', resp.name);
-    });
-  };
+  // const getTask = (id: string) => {
+  //   API.getTask(id).then(res => {
+  //     const resp = res.data as ITask;
+  //     setValue('name', resp.name);
+  //   });
+  // };
 
   const onSubmit: SubmitHandler<IFormInputs> = async formData => {
     if (formState.isSubmitting) return;
     formData.todoListId = todoListId;
 
-    if (data?.id) {
-      await API.updateTask(data.id, formData)
-        .then(() => {
-          toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
-          onSave?.();
-        })
-        .catch(() => {
-          toast.show({
-            type: 'danger',
-            title: 'Update To-Do',
-            content: 'Error, Cannot update todo'
-          });
+    await API.task
+      .create(data)
+      .then(() => {
+        toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
+        onSave();
+      })
+      .catch(() => {
+        toast.show({
+          type: 'danger',
+          title: 'Create To-Do',
+          content: 'Error, Cannot create Todo'
         });
-    } else {
-      await API.createTask(formData)
-        .then(() => {
-          toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
-          onSave();
-        })
-        .catch(() => {
-          toast.show({
-            type: 'danger',
-            title: 'Create To-Do',
-            content: 'Error, Cannot create Todo'
-          });
-        });
-    }
+      });
+    // if (data?.id) {
+    //   await API.updateTask(data.id, formData)
+    //     .then(() => {
+    //       toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
+    //       onSave?.();
+    //     })
+    //     .catch(() => {
+    //       toast.show({
+    //         type: 'danger',
+    //         title: 'Update To-Do',
+    //         content: 'Error, Cannot update todo'
+    //       });
+    //     });
+    // } else {
+    //   await API.createTask(formData)
+    //     .then(() => {
+    //       toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
+    //       onSave();
+    //     })
+    //     .catch(() => {
+    //       toast.show({
+    //         type: 'danger',
+    //         title: 'Create To-Do',
+    //         content: 'Error, Cannot create Todo'
+    //       });
+    //     });
+    // }
   };
 
   useEffect(() => {
-    if (data?.id) getTask(data.id);
-    else {
-      reset(FORM_DEFAULT_VALUES);
-    }
+    // if (data?.id) getTask(data.id);
+    // else {
+    //   reset(FORM_DEFAULT_VALUES);
+    // }
+    reset(FORM_DEFAULT_VALUES);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
@@ -101,7 +119,8 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header>
-          <h3 className="title">{data?.id ? 'Update To-Do' : 'Add New To-Do'}</h3>
+          {/* <h3 className="title">{data?.id ? 'Update To-Do' : 'Add New To-Do'}</h3> */}
+          <h3 className="title">{'Add New To-Do'}</h3>
         </Modal.Header>
         <Modal.Body>
           <Controller
@@ -135,7 +154,8 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
               className="w-full"
               variant="contained"
               color="primary"
-              text={data?.id ? 'Save' : 'Create'}
+              // text={data?.id ? 'Save' : 'Create'}
+              text={'Create'}
               type="submit"
               loading={formState.isSubmitting}
               disabled={formState.isSubmitting}

@@ -2,17 +2,17 @@ import cls from 'classnames';
 import {useRouter} from 'next/router';
 import React, {FC} from 'react';
 
-import API from '@/api/network/todo';
-import {ITodo} from '@/api/types/todo.type';
 import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
+import API from '@/data/api';
+import {IListUpdate} from '@/data/api/types/list.type';
 
 import styles from './style.module.scss';
 
 interface IProps {
-  data: ITodo;
+  data: IListUpdate;
   open: boolean;
   page?: string;
   onCancel?: () => void;
@@ -25,7 +25,8 @@ const ModalTodoConfirmDelete: FC<IProps> = ({data, open, page, onCancel, onConfi
 
   const deletePost = () => {
     if (data?.id)
-      API.deleteTodo(data?.id)
+      API.list
+        .update(data)
         .then(() => {
           onConfirm?.();
           toast.show({type: 'success', title: 'Delete list', content: 'Successful!'});

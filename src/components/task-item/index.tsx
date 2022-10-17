@@ -1,10 +1,10 @@
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 
-import API from '@/api/network/task';
-import {ITask} from '@/api/types/task.type';
 import Checkbox from '@/core-ui/checkbox';
 import IconButton from '@/core-ui/icon-button';
+import API from '@/data/api/index';
+import {ITask} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
 
 interface IProp {
@@ -17,7 +17,7 @@ export default function TaskItem({task, editTask, deleteTask}: IProp) {
   const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: task!.id!});
   const setDone = (id: string) => {
     if (!id) return;
-    API.updateStatusTask(id).then(socketUpdateList);
+    API.task.update({id}).then(socketUpdateList);
   };
 
   const style = {

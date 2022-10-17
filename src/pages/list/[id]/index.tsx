@@ -5,8 +5,6 @@ import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/
 import {useRouter} from 'next/router';
 import React, {FC, useEffect, useState} from 'react';
 
-import {ITask} from '@/api/types/task.type';
-import {ITodo} from '@/api/types/todo.type';
 import ModalShare from '@/components/modal-share';
 import ModalTaskAddEdit from '@/components/modal-task-add-edit';
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
@@ -17,6 +15,9 @@ import ToolbarDetail from '@/components/toolbar-detail';
 import {ROUTES} from '@/configs/routes.config';
 import FloatIcon from '@/core-ui/float-icon';
 import api from '@/data/api';
+// import {ITask} from '@/api/types/task.type';
+// import {ITaskByListDetail} from '@/api/types/todo.type';
+import {ITask, ITaskByListDetail} from '@/data/api/types/task.type';
 import socket from '@/data/socket';
 import {SOCKET_EVENTS} from '@/data/socket/type';
 // import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
@@ -34,7 +35,7 @@ const Detail: FC = () => {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   const router = useRouter();
-  const [todoList, setTodoList] = useState<ITodo>();
+  const [todoList, setTodoList] = useState<ITaskByListDetail>();
   const [action, setAction] = useState<IAction>({type: '', payload: null});
   const [actionTodo, setActionTodo] = useState<IAction>({type: '', payload: null});
   const [shareOpen, setShareOpen] = useState(false);
@@ -47,7 +48,8 @@ const Detail: FC = () => {
       return api.task
         .getByList({todoListId})
         .then(res => {
-          if (res.status >= 200) setTodoList(res.data);
+          const {tasks, name} = res.data;
+          if (res.status >= 200) setTodoList({tasks, name});
         })
         .catch(() => {
           router.push(ROUTES.LIST);
@@ -73,11 +75,11 @@ const Detail: FC = () => {
     setActiveId(null);
     if (!over) return;
     if (active.id !== over.id) {
-      const taskList: ITask[] = todoList!.tasks!;
+      const taskList: ITask[] = todoList!.tasks;
       const oldIndex = taskList?.findIndex(item => active.id === item.id);
       const newIndex = taskList?.findIndex(item => over.id === item.id);
-      const arrangeTask = arrayMove(todoList!.tasks!, oldIndex!, newIndex!);
-      setTodoList({...todoList, tasks: arrangeTask});
+      const arrangeTask = arrayMove(todoList!.tasks, oldIndex!, newIndex!);
+      setTodoList({name: todoList?.name, tasks: arrangeTask});
 
       arrangeTask.forEach((element, index) => {
         if (element.id === active.id) {
@@ -146,9 +148,10 @@ const Detail: FC = () => {
             }}
           >
             <div className="tasks">
-              {!todoList?.tasks!.length ? <span className="empty">Empty list</span> : ''}
+              {/* {console.log(todoList)} */}
+              {!todoList?.tasks.length ? <span className="empty">Empty list</span> : ''}
 
-              {todoList.tasks?.length ? (
+              {todoList.tasks.length ? (
                 <SortableContext items={todoList.tasks.map(task => task.id!)} strategy={verticalListSortingStrategy}>
                   {todoList.tasks &&
                     todoList.tasks.map(task => (
@@ -164,7 +167,7 @@ const Detail: FC = () => {
                 <></>
               )}
               <DragOverlay>
-                {activeId ? <TaskItem task={todoList.tasks?.filter(e => e.id === activeId)[0]} /> : null}
+                {activeId ? <TaskItem task={todoList.task?.filter(e => e.id === activeId)[0]} /> : null}
               </DragOverlay>
             </div>
           </DndContext>
