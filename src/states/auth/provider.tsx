@@ -2,7 +2,7 @@ import {useRouter} from 'next/router';
 import React, {FC, ReactNode, useEffect, useReducer} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
-import api from '@/data/api';
+import api from '@/data/api/index';
 import useLoginHandler from '@/hooks/login/workflow/login-handler';
 import LocalStorage from '@/utils/local-storage';
 
@@ -37,13 +37,14 @@ const Authentication: FC<IProps> = ({children}) => {
         .verify()
         .then(res => {
           if (res.status === 200) {
-            authDispatch(AuthActions.login(res.data));
+            // const {name, email,id} = res.data;
+            authDispatch(AuthActions.login({user: res.data}));
           }
         })
         .catch(() => {
           if (asPath.includes(`${ROUTES.LIST}`))
-            api.auth.login({name: 'Anonymous'}).then(userRes => {
-              loginSuccess(userRes);
+            api.auth.login({name: 'Anonymous'}).then(res => {
+              loginSuccess({accessToken: res.data.accessToken, user: res.data.user});
             });
           else {
             router.push(ROUTES.LOGIN);
