@@ -8,6 +8,7 @@ import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 import useToast from '@/core-ui/toast';
+import API from '@/data/api';
 import {ITaskUpdate} from '@/data/api/types/task.type';
 
 import styles from './style.module.scss';

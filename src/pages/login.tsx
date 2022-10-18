@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Login from '@/components/login';
 import Seo from '@/components/common/seo/seo';
+import Login from '@/components/login';
 import LayoutDefault from '@/layouts/default';
 
 export default function PageLogin() {

@@ -2,7 +2,7 @@ import {useRouter} from 'next/router';
 import React from 'react';
 
 import Seo from '@/components/common/seo/seo';
-import ListDetail from '@/components/list-detail';
+import ListDetail from '@/components/list/list-detail';
 import LayoutDefault from '@/layouts/default';
 
 export default function PageListDetail() {
