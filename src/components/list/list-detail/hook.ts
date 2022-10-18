@@ -25,6 +25,7 @@ export default function useListDetail({id}: Iprops) {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   const updateList = () => {
+    console.log('🚀 ~ file: hook.ts ~ line 33 ~ updateList ~ updateList');
     api.list
       .getOne({id})
       .then(res => setTodoList(res.data))
@@ -79,8 +80,13 @@ export default function useListDetail({id}: Iprops) {
       console.log('SocketIO', SOCKET_EVENTS.updateList);
       updateList();
     });
+
+    return () => {
+      socket.off(SOCKET_EVENTS.reconnect);
+      socket.off(SOCKET_EVENTS.updateList);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [auth]);
 
   return {activeId, todoList, handleDragEnd, setActiveId, updateList};
 }
