@@ -121,7 +121,7 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
 
   return (
     <>
-      <Seo title={title} description={description} />;
+      <Seo title={title} description={description} />
       <div className={styles['page-detail']}>
         <div className="container">
           {todoList.name && (
