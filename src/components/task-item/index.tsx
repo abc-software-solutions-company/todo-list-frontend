@@ -5,11 +5,10 @@ import API from '@/api/network/task';
 import {ITask} from '@/api/types/task.type';
 import Checkbox from '@/core-ui/checkbox';
 import IconButton from '@/core-ui/icon-button';
+import {socketUpdateList} from '@/data/socket';
 
 interface IProp {
   task?: ITask;
-  msgToServer?: () => void;
-  refreshList?: () => Promise<void>;
   editTask?: () => void;
   deleteTask?: () => void;
 }
@@ -18,10 +17,7 @@ export default function TaskItem({task, refreshList, msgToServer, editTask, dele
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task!.id!});
   const setDone = (id: string) => {
     if (!id) return;
-    API.updateStatusTask(id).then(() => {
-      refreshList!();
-      msgToServer!();
-    });
+    API.updateStatusTask(id).then(socketUpdateList);
   };
 
   const style = {

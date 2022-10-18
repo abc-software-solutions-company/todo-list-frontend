@@ -5,18 +5,16 @@ import Checkbox from '@/core-ui/checkbox';
 interface IProp {
   list: ITask[];
   listID: string;
-  msgToServer: () => void;
   refreshList: () => Promise<void>;
   // editTask: () => void;
   // deleteTask: () => void;
 }
 
-export default function ListTask({list, refreshList, msgToServer}: IProp) {
+export default function ListTask({list, refreshList}: IProp) {
   const setDone = (id: string) => {
     if (!id) return;
     API.updateStatusTask(id).then(() => {
       refreshList();
-      msgToServer();
     });
   };
 

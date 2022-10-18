@@ -5,7 +5,6 @@ import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/
 import {InferGetStaticPropsType} from 'next';
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
-import io from 'socket.io-client';
 
 import API from '@/api/network/task';
 import {ITask} from '@/api/types/task.type';
@@ -19,20 +18,21 @@ import Seo from '@/components/seo/seo';
 import TaskItem from '@/components/task-item';
 import ToolbarDetail from '@/components/toolbar-detail';
 import {ROUTES} from '@/configs/routes.config';
+import {useStateAuth} from '@/contexts/auth';
 import FloatIcon from '@/core-ui/float-icon';
+import socket from '@/data/socket';
+import {SOCKET_EVENTS} from '@/data/socket/type';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/room.ssr';
 import LayoutDefault from '@/layouts/default';
 import {useMouseSensor} from '@/lib/dnd-kit/sensor/sensor-group';
 import {IAction} from '@/types';
-import LocalStorage from '@/utils/local-storage';
 
 import styles from './style.module.scss';
-
-const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
 
 export {getStaticPaths, getStaticProps};
 
 export default function Detail({title, description}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const auth = useStateAuth();
   const sensor = useMouseSensor();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
@@ -42,37 +42,35 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
   const [actionTodo, setActionTodo] = useState<IAction>({type: '', payload: null});
   const [shareOpen, setShareOpen] = useState(false);
 
-  const {id} = router.query;
+  const id = router.query.id as string;
   const page = 'detail';
 
-  const socketMsgToServer = () => socket.emit('msgToServer', {roomId: id});
-
-  const getListTasks = (todoListId: string) =>
-    API.getListTasks(todoListId)
-      .then(res => {
-        if (res.status >= 200) setTodoList(res.data);
-      })
-      .catch(() => {
-        router.push(ROUTES.LIST);
-      });
+  const getListTasks = (todoListId: string | undefined) => {
+    if (todoListId) {
+      return API.getListTasks(todoListId)
+        .then(res => {
+          if (res.status >= 200) setTodoList(res.data);
+        })
+        .catch(() => {
+          router.push(ROUTES.LIST);
+        });
+    } else return Promise.reject('err');
+  };
 
   const handleShare = () => setShareOpen(true);
 
+  // Modal task
   const resetAction = () => setAction({type: '', payload: null});
   const resetActionTodo = () => setActionTodo({type: '', payload: null});
 
   const reset = () => {
-    getListTasks(String(id) || '');
+    getListTasks(id);
     resetAction();
     resetActionTodo();
-    socketMsgToServer();
   };
 
   function handleDragEnd({active, over}: DragEndEvent) {
     console.log(todoList);
-
-    // console.log(active);
-    // console.log(over);
 
     setActiveId(null);
     if (!over) return;
@@ -97,27 +95,35 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
             taskFirstID: taskFirstId,
             taskReorderID: taskReorderId,
             taskSecondID: taskSecondId
-          }).then(() => getListTasks(String(id) || ''));
+          }).then(() => getListTasks(id));
         }
       });
     }
   }
 
   useEffect(() => {
-    if (id) {
-      getListTasks(String(id) || '').catch(() => router.push(ROUTES.LIST));
-      socket.on(`msgToClient_${id}`, () => {
-        getListTasks(String(id) || '').catch(() => router.push(ROUTES.LIST));
-      });
-      LocalStorage.previousPage.remove();
-    }
+    if (id) getListTasks(id).catch(() => router.push(ROUTES.LIST));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    return () => {
-      socket.off(`msgToClient_${id}`);
-    };
   }, [id]);
 
-  if (!todoList || !id) return <Seo title={title} description={description} />;
+  useEffect(() => {
+    if (auth) {
+      socket.auth = {...auth, listID: id};
+      socket.connect();
+    }
+
+    socket.on(SOCKET_EVENTS.reconnect, attempt => {
+      console.log('SocketIO', SOCKET_EVENTS.reconnect, attempt);
+      getListTasks(id);
+    });
+
+    socket.on(SOCKET_EVENTS.updateList, () => {
+      console.log('SocketIO', SOCKET_EVENTS.updateList);
+      getListTasks(id);
+    });
+  });
+
+  if (!todoList || !id) return null;
 
   return (
     <>
@@ -148,6 +154,7 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
           >
             <div className="tasks">
               {!todoList?.tasks!.length ? <span className="empty">Empty list</span> : ''}
+
               {todoList.tasks?.length ? (
                 <SortableContext items={todoList.tasks.map(task => task.id!)} strategy={verticalListSortingStrategy}>
                   {todoList.tasks &&
@@ -155,8 +162,6 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
                       <TaskItem
                         key={task.id}
                         task={task}
-                        msgToServer={socketMsgToServer}
-                        refreshList={() => getListTasks(String(id) || '')}
                         editTask={() => setAction({type: 'edit', payload: task})}
                         deleteTask={() => setAction({type: 'delete', payload: task})}
                       />
@@ -207,7 +212,7 @@ export default function Detail({title, description}: InferGetStaticPropsType<typ
           onConfirm={reset}
           onCancel={resetActionTodo}
         />
-        <ModalShare open={shareOpen} onClose={() => setShareOpen(false)} id={String(id) || ''} />
+        <ModalShare open={shareOpen} onClose={() => setShareOpen(false)} id={id} />
       </div>
     </>
   );
