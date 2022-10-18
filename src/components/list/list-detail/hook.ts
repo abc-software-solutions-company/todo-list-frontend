@@ -7,7 +7,7 @@ import {ROUTES} from '@/configs/routes.config';
 import api from '@/data/api';
 import {IListResponse} from '@/data/api/types/list.type';
 import {ITaskResponse} from '@/data/api/types/task.type';
-import socket from '@/data/socket';
+import socket, {socketUpdateList} from '@/data/socket';
 import {SOCKET_EVENTS} from '@/data/socket/type';
 import {useStateAuth} from '@/states/auth';
 
@@ -49,12 +49,7 @@ export default function useListDetail({id}: Iprops) {
           const taskFirstId = arrangeTask[index - 1]?.id;
           const taskReorderId = arrangeTask[index].id!;
           const taskSecondId = arrangeTask[index + 1]?.id;
-          console.log(
-            `taskFirstID is ${taskFirstId},
-            taskSecondID is ${taskSecondId},
-            taskReorderId is ${taskReorderId}`
-          );
-          api.task.reIndex({taskFirstId, taskReorderId, taskSecondId}).then(() => updateList());
+          api.task.reIndex({taskFirstId, taskReorderId, taskSecondId}).then(socketUpdateList);
         }
       });
     }
