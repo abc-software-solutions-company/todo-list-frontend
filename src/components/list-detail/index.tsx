@@ -5,7 +5,7 @@ import React, {FC, useEffect} from 'react';
 
 import ModalTodoAddEdit from '@/components/modal-create-update-list';
 import ModalTaskAddEdit from '@/components/modal-create-update-task';
-import ModalDeleteList from '@/components/modal-delete-list';
+// import ModalDeleteList from '@/components/modal-delete-list';
 import ModalShare from '@/components/modal-share';
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
 import TaskItem from '@/components/task-item';

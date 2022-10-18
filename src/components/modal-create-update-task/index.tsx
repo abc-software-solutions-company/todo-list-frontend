@@ -14,7 +14,7 @@ import {ITaskCreate, ITaskUpdate} from '@/data/api/types/task.type';
 import styles from './style.module.scss';
 
 interface IProps {
-  data: ITaskCreate;
+  data: IFormInputs;
   open: boolean;
   todoListId?: string;
   onSave: () => void;
@@ -30,6 +30,7 @@ const FORM_DEFAULT_VALUES = {
 
 interface IFormInputs extends ITaskUpdate {
   todoListId?: string;
+  id: string;
 }
 
 const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}) => {
@@ -45,18 +46,20 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
   const {errors} = formState;
 
   const onSubmit: SubmitHandler<IFormInputs> = formData => {
-    console.log(typeof formData);
     if (formState.isSubmitting) return;
-    formData.todoListId = todoListId!;
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     const {name} = formData;
-    console.log(formData);
-    // if (todoListId && name) {
-    //   API.task.create({name, todoListId}).then(() => {
-    //     toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
-    //     onSave?.();
-    //   });
-    // }
+    if (todoListId && name && !data) {
+      API.task.create({name, todoListId}).then(() => {
+        toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
+        onSave?.();
+      });
+    } else {
+      const id = data.id;
+      API.task.update({name, id}).then(() => {
+        toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
+        onSave?.();
+      });
+    }
   };
 
   useEffect(() => {
@@ -65,12 +68,7 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
   }, [data]);
 
   return (
-    <Modal
-      className={cls(styles['com-modal-task-add-edit'], 'max-w-xl')}
-      variant="center"
-      open={open}
-      onClose={() => onCancel?.()}
-    >
+    <Modal className={cls(styles['com-modal-task-add-edit'], 'max-w-xl')} variant="center" open={open} onClose={() => onCancel?.()}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header>
           <h3 className="title">{data?.todoListId ? 'Update To-Do' : 'Add New To-Do'}</h3>
@@ -95,14 +93,7 @@ const ModalTaskAddEdit: FC<IProps> = ({data, open, todoListId, onSave, onCancel}
         </Modal.Body>
         <Modal.Footer>
           <div className="flex w-full gap-x-3 md:gap-x-4">
-            <Button
-              className="w-full"
-              variant="outlined"
-              color="primary"
-              text="Cancel"
-              onClick={() => onCancel?.()}
-              type="button"
-            />
+            <Button className="w-full" variant="outlined" color="primary" text="Cancel" onClick={() => onCancel?.()} type="button" />
             <Button
               className="w-full"
               variant="contained"
