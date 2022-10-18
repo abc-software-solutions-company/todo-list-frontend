@@ -13,18 +13,17 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
 
   const onClick = () => {
     let req;
-    if (!(data as any).todoListId)
+    if ((data as any).todoListId)
+      req = api.task.update({id, isActive: false}).then(() => {
+        toast.show({type: 'success', title: 'Delete task', content: 'Successful!'});
+      });
+    else
       req = api.list.update({id, isActive: false}).then(() => {
         toast.show({type: 'success', title: 'Delete list', content: 'Successful!'});
         if (router.asPath.includes(ROUTES.LIST + '/' + id)) {
           router.push(ROUTES.LIST);
         }
       });
-    else {
-      req = api.task.update({id, isActive: false}).then(() => {
-        toast.show({type: 'success', title: 'Delete task', content: 'Successful!'});
-      });
-    }
     req
       .catch(() =>
         toast.show({

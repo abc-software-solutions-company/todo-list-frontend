@@ -18,7 +18,6 @@ export interface IListDetailProp {
 }
 
 export default function useListDetail({id}: Iprops) {
-  console.log('🚀 ~ file: hook.ts ~ line 21 ~ useListDetail ~ id', id);
   const router = useRouter();
   const auth = useStateAuth();
   const [todoList, setTodoList] = useState<IListResponse>();
@@ -83,5 +82,5 @@ export default function useListDetail({id}: Iprops) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return {activeId, handleDragEnd, setActiveId, todoList, updateList};
+  return {activeId, todoList, handleDragEnd, setActiveId, updateList};
 }

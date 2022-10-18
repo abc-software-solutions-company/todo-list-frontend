@@ -11,6 +11,7 @@ import ModalDelete from '@/components/modal/modal-delete';
 import ModalShareList from '@/components/modal/modal-share-list';
 import FloatIcon from '@/core-ui/float-icon';
 import {ITaskResponse} from '@/data/api/types/task.type';
+import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 
 import useListDetail from './hook';
@@ -20,7 +21,7 @@ export interface Iprops {
   id: string;
 }
 const ListDetail: FC<Iprops> = ({id}) => {
-  const {activeId, handleDragEnd, setActiveId, todoList, updateList} = useListDetail({id});
+  const {activeId, handleDragEnd, setActiveId, todoList} = useListDetail({id});
   const sensor = useSensorGroup();
 
   const [createUpdateListModal, setCreateUpdateListModal] = useState(false);
@@ -58,9 +59,12 @@ const ListDetail: FC<Iprops> = ({id}) => {
     if (createUpdateTaskModal) setCreateUpdateTaskModal(false);
     if (deleteListModal) setDeleteListModal(false);
     if (shareListModal) setShareListModal(false);
+    if (deleteTaskModal) setDeleteTaskModal(false);
+    if (selectedTask) setSelectedTask(undefined);
   };
 
   if (!todoList || !id) return null;
+  const activeTasks = todoList.tasks.filter(list => list.isActive);
 
   return (
     <>
@@ -89,24 +93,22 @@ const ListDetail: FC<Iprops> = ({id}) => {
             }}
           >
             <div className="tasks">
-              {!todoList.tasks.length && <span className="empty">Empty list</span>}
-              {todoList.tasks.length && (
-                <SortableContext items={todoList.tasks.map(task => task.id!)} strategy={verticalListSortingStrategy}>
-                  {todoList.tasks &&
-                    todoList.tasks.map(task => (
-                      <TaskItem key={task.id} task={task} onEdit={() => onCreateUpdateTask(task)} onDelete={() => onDeleteTask(task)} />
-                    ))}
+              {activeTasks.length === 0 && <span className="empty">Empty list</span>}
+              {activeTasks.length > 0 && (
+                <SortableContext items={activeTasks.map(task => task.id!)} strategy={verticalListSortingStrategy}>
+                  {activeTasks &&
+                    activeTasks.map(task => <TaskItem key={task.id} task={task} onEdit={() => onCreateUpdateTask(task)} onDelete={() => onDeleteTask(task)} />)}
                 </SortableContext>
               )}
-              <DragOverlay>{activeId ? <TaskItem task={todoList.tasks?.filter(e => e.id === activeId)[0]} /> : null}</DragOverlay>
+              <DragOverlay>{activeId ? <TaskItem task={activeTasks.filter(e => e.id === activeId)[0]} /> : null}</DragOverlay>
             </div>
           </DndContext>
         </div>
-        <ModalCreateUpdateList open={createUpdateListModal} onClose={onClose} data={todoList} onSuccess={updateList} />
-        <ModalDelete open={deleteListModal} onClose={onClose} data={todoList} onSuccess={updateList} />
+        <ModalCreateUpdateList open={createUpdateListModal} onClose={onClose} data={todoList} onSuccess={socketUpdateList} />
+        <ModalDelete open={deleteListModal} onClose={onClose} data={selectedTask || todoList} onSuccess={socketUpdateList} />
         <ModalShareList open={shareListModal} onClose={onClose} data={todoList} />
-        <ModalCreateUpdateTask open={createUpdateTaskModal} onClose={onClose} listData={todoList} taskData={selectedTask} onSuccess={updateList} />
-        {selectedTask && <ModalDelete open={deleteTaskModal} onClose={onClose} data={selectedTask} onSuccess={updateList} />}
+        <ModalCreateUpdateTask open={createUpdateTaskModal} onClose={onClose} listData={todoList} taskData={selectedTask} onSuccess={socketUpdateList} />
+        {selectedTask && <ModalDelete open={deleteTaskModal} onClose={onClose} data={selectedTask} onSuccess={socketUpdateList} />}
         <FloatIcon className="float-icon" onClick={() => onCreateUpdateTask()} />
       </div>
     </>
