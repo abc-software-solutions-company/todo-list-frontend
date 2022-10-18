@@ -9,7 +9,8 @@ export const useMouseSensor = () => {
     }),
     useSensor(TouchSensor, {
       activationConstraint: {
-        distance: 10
+        delay: 300,
+        tolerance: {y: 15, x: 5}
       }
     })
   );
