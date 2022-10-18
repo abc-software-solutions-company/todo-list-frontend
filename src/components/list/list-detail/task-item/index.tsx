@@ -14,7 +14,7 @@ interface IProp {
 }
 
 export default function TaskItem({task, onEdit, onDelete}: IProp) {
-  const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: task!.id!});
+  const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task!.id!});
   const setDone = (id: string, isDone: boolean) => {
     if (!id) return;
     API.task.update({id, isDone: !isDone}).then(socketUpdateList);
@@ -22,7 +22,8 @@ export default function TaskItem({task, onEdit, onDelete}: IProp) {
 
   const style = {
     transform: CSS.Transform.toString(transform),
-    transition
+    transition,
+    opacity: isDragging ? 0.5 : 1
   };
 
   return (
@@ -50,8 +51,14 @@ export default function TaskItem({task, onEdit, onDelete}: IProp) {
         {`${task!.name}`}
       </p>
       <div className="actions">
-        <IconButton name="ico-edit" onClick={onEdit} />
-        <IconButton name="ico-trash-2" onClick={onDelete} />
+        {!isDragging ? (
+          <>
+            <IconButton name="ico-edit" onClick={onEdit} />
+            <IconButton name="ico-trash-2" onClick={onDelete} />
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

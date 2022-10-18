@@ -4,12 +4,13 @@ export const useSensorGroup = () => {
   return useSensors(
     useSensor(MouseSensor, {
       activationConstraint: {
-        distance: 10
+        distance: {y: 10}
       }
     }),
     useSensor(TouchSensor, {
       activationConstraint: {
-        distance: 10
+        delay: 250,
+        tolerance: {y: 15, x: 5}
       }
     })
   );

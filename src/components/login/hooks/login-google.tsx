@@ -1,5 +1,6 @@
 import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
 import {useRouter} from 'next/router';
+import {useEffect} from 'react';
 
 import useLoginHandler from '@/components/login/hooks/login-handler';
 import {ROUTES} from '@/configs/routes.config';
@@ -51,5 +52,9 @@ export default function useLoginGoogle() {
       }
     });
   };
+
+  useEffect(() => {
+    initFirebase();
+  }, []);
   return {openGooglePopUp};
 }
