@@ -14,7 +14,7 @@ interface IProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
   id: string;
 }
-const ModalShare: React.FC<IProps> = ({id, modalOpen, setModalOpen}) => {
+const ModalShareList: React.FC<IProps> = ({id, modalOpen, setModalOpen}) => {
   const toast = useToast();
   const [link, setLink] = useState<string>('');
 
@@ -65,4 +65,4 @@ const ModalShare: React.FC<IProps> = ({id, modalOpen, setModalOpen}) => {
   );
 };
 
-export default ModalShare;
+export default ModalShareList;

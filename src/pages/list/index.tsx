@@ -1,7 +1,7 @@
 import React from 'react';
 
-import MyList from '@/components/my-list';
-import Seo from '@/components/seo/seo';
+import Seo from '@/components/common/seo/seo';
+import MyList from '@/components/list';
 import LayoutDefault from '@/layouts/default';
 
 export default function ListPage() {

@@ -8,8 +8,8 @@ import Icon from '@/core-ui/icon';
 import {FireAuthUtils} from '@/lib/firebase/fireAuth-utils';
 import {useStateAuth} from '@/states/auth/context';
 
+import ModalThirdPartyLogin from '../../modal/modal-third-party-login';
 import Back from '../back';
-import ModalSocial from '../modal-social';
 import styles from './style.module.scss';
 
 interface IProps {
@@ -71,7 +71,7 @@ const Topbar: FC<IProps> = ({className}) => {
           </div>
         </div>
       )}
-      <ModalSocial open={socialOpen} onClose={() => setSocialOpen(false)} />
+      <ModalThirdPartyLogin open={socialOpen} onClose={() => setSocialOpen(false)} />
     </div>
   );
 };

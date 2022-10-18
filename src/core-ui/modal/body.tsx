@@ -1,5 +1,6 @@
 import cls from 'classnames';
-import React, {FC, ReactNode} from 'react';
+import {FC, ReactNode} from 'react';
+
 export interface IModalBodyProps {
   className?: string;
   children: ReactNode;

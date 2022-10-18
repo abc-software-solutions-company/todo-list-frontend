@@ -1,12 +1,5 @@
 import cx from 'classnames';
-import {
-  FacebookIcon,
-  FacebookShareButton,
-  LinkedinIcon,
-  LinkedinShareButton,
-  TwitterIcon,
-  TwitterShareButton
-} from 'next-share';
+import {FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton} from 'next-share';
 import React from 'react';
 
 import styles from './share.module.scss';

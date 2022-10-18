@@ -8,11 +8,11 @@ import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
 import {IList} from '@/data/api/types/list.type';
 
-import ModalCreateUpdateList from '../modal-create-update-list';
-import ModalDeleteList from '../modal-delete-list';
-import ModalShare from '../modal-share';
-import MyListTitle from '../my-list-title';
+import ModalCreateUpdateList from '../modal/modal-create-update-list';
+import ModalDeleteList from '../modal/modal-delete-list';
+import ModalShareList from '../modal/modal-share-list';
 import useList from './hook';
+import MyListTitle from './list-title';
 import styles from './style.module.scss';
 
 export default function MyList() {
@@ -73,7 +73,7 @@ export default function MyList() {
         {selectedList && (
           <>
             <ModalDeleteList modalOpen={deleteModal} setModalOpen={setDeleteModal} data={selectedList} />
-            <ModalShare modalOpen={shareModal} setModalOpen={setShareModal} id={selectedList.id} />
+            <ModalShareList modalOpen={shareModal} setModalOpen={setShareModal} id={selectedList.id} />
           </>
         )}
       </div>

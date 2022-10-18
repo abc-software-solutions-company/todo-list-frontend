@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import React, {FC, ReactNode, createContext, useContext, useEffect, useMemo, useState} from 'react';
+import React, {createContext, FC, ReactNode, useContext, useEffect, useMemo, useState} from 'react';
 import {CSSTransition} from 'react-transition-group';
 
 import Backdrop from '../backdrop';
@@ -7,6 +7,7 @@ import Portal from '../portal';
 import Body, {IModalBodyProps} from './body';
 import Footer, {IModalFooterProps} from './footer';
 import Header, {IModalHeaderProps} from './header';
+
 interface IModalComposition {
   Header: FC<IModalHeaderProps>;
   Body: FC<IModalBodyProps>;

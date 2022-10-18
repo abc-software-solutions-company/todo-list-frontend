@@ -2,10 +2,10 @@ import cls from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
+import useLoginGoogle from '@/components/login/hooks/login-google';
 import Button from '@/core-ui/button';
+import {Modal} from '@/core-ui/modal';
 
-import {Modal} from '../../core-ui/modal';
-import useLoginGoogle from '../login/hooks/login-google';
 import styles from './style.module.scss';
 
 interface IProps {
@@ -13,7 +13,7 @@ interface IProps {
   onClose: () => void;
 }
 
-const ModalSocial: React.FC<IProps> = ({open, onClose}) => {
+const ModalThirdPartyLogin: React.FC<IProps> = ({open, onClose}) => {
   const {openGooglePopUp} = useLoginGoogle();
   return (
     <Modal variant="center" className={cls(styles['com-modal-social'], 'max-w-[378px]')} open={open} onClose={onClose}>
@@ -28,4 +28,4 @@ const ModalSocial: React.FC<IProps> = ({open, onClose}) => {
   );
 };
 
-export default ModalSocial;
+export default ModalThirdPartyLogin;

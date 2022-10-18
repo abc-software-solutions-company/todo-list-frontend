@@ -2,7 +2,7 @@ import Link from 'next/link';
 import {useTranslation} from 'next-i18next';
 import * as React from 'react';
 
-import Seo from '@/components/seo/seo';
+import Seo from '@/components/common/seo/seo';
 import {ROUTES} from '@/configs/routes.config';
 
 import styles from './404.module.scss';

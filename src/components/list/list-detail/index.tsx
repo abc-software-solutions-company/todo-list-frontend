@@ -3,10 +3,15 @@ import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import React, {FC, useEffect} from 'react';
 
-import ModalTodoAddEdit from '@/components/modal-create-update-list';
+import ModalTodoAddEdit from '@/components/modal/modal-create-update-list';
 import ModalTaskAddEdit from '@/components/modal-create-update-task';
+<<<<<<< Updated upstream
 // import ModalDeleteList from '@/components/modal-delete-list';
 import ModalShare from '@/components/modal-share';
+=======
+import ModalDeleteList from '@/components/modal-delete-list';
+import ModalShareList from '@/components/modal-share';
+>>>>>>> Stashed changes
 import ModalTaskConfirmDelete from '@/components/modal-task-confirm-delete';
 import TaskItem from '@/components/task-item';
 import ToolbarDetail from '@/components/toolbar-detail';
@@ -163,7 +168,7 @@ const ListDetail: FC<IListDetailProp> = ({id}) => {
           <ModalTodoAddEdit data={actionTodo.payload} open={true} onSave={() => reset()} onCancel={() => resetActionTodo()} />
         )}
         {/* <ModalDeleteList open={['delete'].includes(actionTodo.type)} data={actionTodo.payload} page={page} onConfirm={reset} onCancel={resetActionTodo} /> */}
-        <ModalShare open={shareOpen} onClose={() => setShareOpen(false)} id={id} />
+        <ModalShareList open={shareOpen} onClose={() => setShareOpen(false)} id={id} />
       </div>
     </>
   );

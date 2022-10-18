@@ -3,7 +3,7 @@ import {FC, useState} from 'react';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 
-import ModalCreateUpdateList from '../modal-create-update-list';
+import ModalCreateUpdateList from '../modal/modal-create-update-list';
 import useLobbyHook from './hook';
 import styles from './style.module.scss';
 import LobbyTitle from './title';

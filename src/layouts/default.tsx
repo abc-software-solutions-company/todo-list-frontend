@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Footer from '@/components/footer';
-import Topbar from '@/components/topbar';
+import Footer from '@/components/common/footer';
+import Topbar from '@/components/common/topbar';
 
 import styles from './style.module.scss';
 
