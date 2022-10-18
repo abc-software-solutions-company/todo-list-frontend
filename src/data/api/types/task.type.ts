@@ -1,19 +1,5 @@
-import {IListCreate} from './list.type';
-
-export interface ITask {
-  id: string;
-  name: string;
+export interface ITaskCreate {
   todoListId: string;
-  userId: string;
-  isDone: boolean;
-  isActive: boolean;
-}
-
-export interface ITaskByList {
-  todoListId: string;
-}
-
-export interface ITaskCreate extends ITaskByList {
   name: string;
 }
 
@@ -24,18 +10,17 @@ export interface ITaskUpdate {
   isActive?: boolean;
 }
 
-export interface ITaskByListDetail extends IListCreate {
-  tasks: ITask[];
-  id: string;
-}
-
 export interface ITaskReIndex {
   taskFirstId?: string;
   taskReorderId: string;
   taskSecondId?: string;
 }
 
-// Type for response data
-export type ITaskCreateResponse = ITask;
-
-export type ITaskUpdateResponse = ITask;
+export interface ITaskResponse {
+  id: string;
+  name: string;
+  todoListId: string;
+  userId: string;
+  isDone: boolean;
+  isActive: boolean;
+}

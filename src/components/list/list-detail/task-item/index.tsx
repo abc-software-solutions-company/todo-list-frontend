@@ -4,16 +4,16 @@ import {CSS} from '@dnd-kit/utilities';
 import Checkbox from '@/core-ui/checkbox';
 import IconButton from '@/core-ui/icon-button';
 import API from '@/data/api/index';
-import {ITask} from '@/data/api/types/task.type';
+import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
 
 interface IProp {
-  task?: ITask;
-  editTask?: () => void;
-  deleteTask?: () => void;
+  task?: ITaskResponse;
+  onEdit?: () => void;
+  onDelete?: () => void;
 }
 
-export default function TaskItem({task, editTask, deleteTask}: IProp) {
+export default function TaskItem({task, onEdit, onDelete}: IProp) {
   const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: task!.id!});
   const setDone = (id: string, isDone: boolean) => {
     if (!id) return;
@@ -50,8 +50,8 @@ export default function TaskItem({task, editTask, deleteTask}: IProp) {
         {`${task!.name}`}
       </p>
       <div className="actions">
-        <IconButton name="ico-edit" onClick={editTask} />
-        <IconButton name="ico-trash-2" onClick={deleteTask} />
+        <IconButton name="ico-edit" onClick={onEdit} />
+        <IconButton name="ico-trash-2" onClick={onDelete} />
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import {Controller} from 'react-hook-form';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
-import {IList} from '@/data/api/types/list.type';
+import {IListResponse} from '@/data/api/types/list.type';
 
 import useModalCreateUpdateList from './hook';
 import styles from './style.module.scss';
@@ -13,7 +13,7 @@ import styles from './style.module.scss';
 export interface IProps {
   modalOpen: boolean;
   setModalOpen: Dispatch<SetStateAction<boolean>>;
-  data?: IList;
+  data?: IListResponse;
 }
 
 const ModalCreateUpdateList: FC<IProps> = prop => {

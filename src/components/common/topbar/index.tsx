@@ -3,12 +3,12 @@ import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {FC, useState} from 'react';
 
+import ModalThirdPartyLogin from '@/components/modal/modal-third-party-login';
 import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 import {FireAuthUtils} from '@/lib/firebase/fireAuth-utils';
 import {useStateAuth} from '@/states/auth/context';
 
-import ModalThirdPartyLogin from '../../modal/modal-third-party-login';
 import Back from '../back';
 import styles from './style.module.scss';
 

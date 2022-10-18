@@ -1,4 +1,4 @@
-export default function MyListTitle() {
+export default function ListTitle() {
   return (
     <>
       <div className="title">

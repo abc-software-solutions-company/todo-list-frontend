@@ -1,33 +1,20 @@
-import {ITask} from './task.type';
+import {ITaskResponse} from './task.type';
+
+export interface IListGetOne {
+  id: string;
+}
 
 export interface IListCreate {
   name: string;
 }
 
-export interface IList extends IListCreate {
-  id: string;
-  userId: string;
-  isActive: boolean;
-}
-
-export interface IListOne {
-  id: string;
-}
-export interface IListUpdate {
-  id: string;
+export interface IListUpdate extends IListGetOne {
   name?: string;
   isActive?: boolean;
-  isDone?: boolean;
 }
 
-// Type for response data
-
-export interface IListOneResponse extends IList {
-  tasks: ITask[];
-}
-
-export type IListCreateResponse = IList;
-
-export interface IListUpdateResponse extends IList {
-  isDone: boolean;
+export interface IListResponse extends IListGetOne, IListCreate {
+  userId: string;
+  isActive: boolean;
+  tasks: ITaskResponse[];
 }

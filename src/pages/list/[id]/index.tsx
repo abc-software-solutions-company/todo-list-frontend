@@ -12,7 +12,7 @@ export default function PageListDetail() {
   return (
     <>
       <Seo title={`List ID ${id}`} />
-      <ListDetail id={id} />;
+      {id && <ListDetail id={id} />}
     </>
   );
 }
