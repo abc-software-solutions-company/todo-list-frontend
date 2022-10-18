@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import {Dispatch, FC, SetStateAction} from 'react';
+import {FC} from 'react';
 import {Controller} from 'react-hook-form';
 
 import Button from '@/core-ui/button';
@@ -12,20 +12,20 @@ import useModalCreateUpdateTask from './hook';
 import styles from './style.module.scss';
 
 export interface IProps {
-  modalOpen: boolean;
-  setModalOpen: Dispatch<SetStateAction<boolean>>;
+  open: boolean;
+  onClose: () => void;
+  onSuccess?: () => void;
   taskData?: ITaskResponse;
   listData: IListResponse;
 }
 const ModalCreateUpdateTask: FC<IProps> = props => {
-  const {modalOpen, taskData} = props;
-  const {onClose, onSubmit, control, formState} = useModalCreateUpdateTask(props);
-  const {errors, isSubmitting} = formState;
+  const {open, onClose, taskData} = props;
+  const {onSubmit, control, errors, isSubmitting} = useModalCreateUpdateTask(props);
 
   return (
     <>
-      {modalOpen && (
-        <Modal className={cls(styles['com-modal-task-add-edit'], 'max-w-xl')} variant="center" open={modalOpen} onClose={onClose}>
+      {open && (
+        <Modal className={cls(styles['com-modal-task-add-edit'], 'max-w-xl')} variant="center" open={open} onClose={onClose}>
           <form onSubmit={onSubmit}>
             <Modal.Header>
               <h3 className="title">{taskData?.todoListId ? 'Update To-Do' : 'Add New To-Do'}</h3>

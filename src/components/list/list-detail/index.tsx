@@ -20,7 +20,7 @@ export interface Iprops {
   id: string;
 }
 const ListDetail: FC<Iprops> = ({id}) => {
-  const {activeId, handleDragEnd, setActiveId, todoList} = useListDetail({id});
+  const {activeId, handleDragEnd, setActiveId, todoList, updateList} = useListDetail({id});
   const sensor = useSensorGroup();
 
   const [createUpdateListModal, setCreateUpdateListModal] = useState(false);
@@ -51,6 +51,13 @@ const ListDetail: FC<Iprops> = ({id}) => {
   const onDeleteTask = (task: ITaskResponse) => {
     setSelectedTask(task);
     setDeleteTaskModal(true);
+  };
+
+  const onClose = () => {
+    if (createUpdateListModal) setCreateUpdateListModal(false);
+    if (createUpdateTaskModal) setCreateUpdateTaskModal(false);
+    if (deleteListModal) setDeleteListModal(false);
+    if (shareListModal) setShareListModal(false);
   };
 
   if (!todoList || !id) return null;
@@ -95,11 +102,11 @@ const ListDetail: FC<Iprops> = ({id}) => {
             </div>
           </DndContext>
         </div>
-        <ModalCreateUpdateList modalOpen={createUpdateListModal} setModalOpen={setCreateUpdateListModal} data={todoList} />
-        <ModalDelete modalOpen={deleteListModal} setModalOpen={setDeleteListModal} data={todoList} />
-        <ModalShareList modalOpen={shareListModal} setModalOpen={setShareListModal} id={id} />
-        <ModalCreateUpdateTask modalOpen={createUpdateTaskModal} setModalOpen={setCreateUpdateTaskModal} listData={todoList} taskData={selectedTask} />
-        {selectedTask && <ModalDelete modalOpen={deleteTaskModal} setModalOpen={setDeleteTaskModal} data={selectedTask} />}
+        <ModalCreateUpdateList open={createUpdateListModal} onClose={onClose} data={todoList} onSuccess={updateList} />
+        <ModalDelete open={deleteListModal} onClose={onClose} data={todoList} onSuccess={updateList} />
+        <ModalShareList open={shareListModal} onClose={onClose} data={todoList} />
+        <ModalCreateUpdateTask open={createUpdateTaskModal} onClose={onClose} listData={todoList} taskData={selectedTask} onSuccess={updateList} />
+        {selectedTask && <ModalDelete open={deleteTaskModal} onClose={onClose} data={selectedTask} onSuccess={updateList} />}
         <FloatIcon className="float-icon" onClick={() => onCreateUpdateTask()} />
       </div>
     </>

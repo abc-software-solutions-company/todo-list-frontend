@@ -4,19 +4,21 @@ import api from '@/data/api/index';
 import {IListResponse} from '@/data/api/types/list.type';
 
 export default function useList() {
-  const [todoList, setTodoList] = useState<IListResponse[]>([]);
+  const [allListbyUser, setAllListbyUser] = useState<IListResponse[]>([]);
 
-  const getTodoList = () =>
+  const updateAllListbyUser = () => {
     api.list.getByUser().then(res => {
-      setTodoList(res.data);
+      setAllListbyUser(res.data);
     });
+  };
 
   useEffect(() => {
-    getTodoList();
+    updateAllListbyUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
-    todoList
+    allListbyUser,
+    updateAllListbyUser
   };
 }

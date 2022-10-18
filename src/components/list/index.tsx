@@ -21,7 +21,7 @@ export default function List() {
   const [shareModal, setShareModal] = useState(false);
   const [selectedList, setSelectedList] = useState<IListResponse>();
   const router = useRouter();
-  const {todoList} = useList();
+  const {allListbyUser, updateAllListbyUser} = useList();
 
   const onCreateUpdate = (list?: IListResponse) => {
     setSelectedList(list);
@@ -34,6 +34,11 @@ export default function List() {
   const onShare = (list: IListResponse) => {
     setSelectedList(list);
     setShareModal(true);
+  };
+  const onClose = () => {
+    if (createUpdateModel) setCreateUpdateModel(false);
+    if (deleteModal) setDeleteModal(false);
+    if (shareModal) setShareModal(false);
   };
 
   return (
@@ -51,8 +56,8 @@ export default function List() {
             </div>
           </div>
           <div className="list">
-            {!todoList.length && <span className="empty">Empty list</span>}
-            {todoList.map(list => (
+            {!allListbyUser.length && <span className="empty">Empty list</span>}
+            {allListbyUser.map(list => (
               <div className="item" key={list.id}>
                 <p className="title" onClick={() => router.push(`${ROUTES.LIST}/${list.id}`)}>
                   {list.name}
@@ -69,11 +74,11 @@ export default function List() {
         </div>
 
         <FloatIcon className="float-icon" onClick={() => onCreateUpdate()} />
-        <ModalCreateUpdateList modalOpen={createUpdateModel} setModalOpen={setCreateUpdateModel} data={selectedList} />
+        <ModalCreateUpdateList open={createUpdateModel} onClose={onClose} data={selectedList} onSuccess={updateAllListbyUser} />
         {selectedList && (
           <>
-            <ModalDelete modalOpen={deleteModal} setModalOpen={setDeleteModal} data={selectedList} />
-            <ModalShareList modalOpen={shareModal} setModalOpen={setShareModal} id={selectedList.id} />
+            <ModalDelete open={deleteModal} onClose={onClose} data={selectedList} onSuccess={updateAllListbyUser} />
+            <ModalShareList open={shareModal} onClose={onClose} data={selectedList} />
           </>
         )}
       </div>

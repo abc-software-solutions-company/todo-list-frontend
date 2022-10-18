@@ -12,31 +12,36 @@ const Schema = yup.object().shape({
   name: yup.string().required('Please enter your To-Do name.')
 });
 
-interface IFormInput {
+interface IFormInputs {
   name: string;
 }
 
-export default function useModalCreateUpdateTask({modalOpen, setModalOpen, listData, taskData}: IProps) {
+export default function useModalCreateUpdateTask({open, onClose, onSuccess, listData, taskData}: IProps) {
   const toast = useToast();
-  const {handleSubmit, setFocus, ...rest} = useForm<IFormInput>({resolver: yupResolver(Schema)});
-
-  const onClose = () => setModalOpen(false);
-
-  const submitHandler: SubmitHandler<IFormInput> = formData => {
+  const {handleSubmit, formState, reset, setFocus, ...rest} = useForm<IFormInputs>({resolver: yupResolver(Schema)});
+  const {errors, isSubmitting} = formState;
+  const submitHandler: SubmitHandler<IFormInputs> = formData => {
+    if (isSubmitting) return;
     const {name} = formData;
     let req: Promise<any>;
     if (!taskData) {
-      req = api.task.create({name, todoListId: listData.id}).then(() => toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'}));
-    } else {
-      req = api.task.update({name, id: taskData.id}).then(() => toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'}));
-    }
-    req.catch(() => toast.show({type: 'danger', title: 'Err', content: 'Err!'})).finally(onClose);
+      req = api.task.create({name, todoListId: listData.id}).then(() => {
+        toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
+        onSuccess?.();
+      });
+    } else req = api.task.update({name, id: taskData.id}).then(() => toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'}));
+    req
+      .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}))
+      .finally(() => {
+        onClose();
+        reset();
+      });
   };
 
   useEffect(() => {
     setFocus('name');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modalOpen]);
+  }, [open]);
 
-  return {onClose, onSubmit: handleSubmit(submitHandler), ...rest};
+  return {onSubmit: handleSubmit(submitHandler), errors, isSubmitting, ...rest};
 }

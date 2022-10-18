@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import React, {Dispatch, FC, SetStateAction} from 'react';
+import React, {FC} from 'react';
 
 import Button from '@/core-ui/button';
 import {Modal} from '@/core-ui/modal';
@@ -10,19 +10,20 @@ import useModalDelete from './hook';
 import styles from './style.module.scss';
 
 export interface IProps {
-  modalOpen: boolean;
-  setModalOpen: Dispatch<SetStateAction<boolean>>;
+  open: boolean;
+  onClose: () => void;
+  onSuccess?: () => void;
   data: ITaskResponse | IListResponse;
 }
 
 const ModalDelete: FC<IProps> = props => {
-  const {modalOpen, data} = props;
-  const {onClose, onClick} = useModalDelete(props);
+  const {open, onClose, data} = props;
+  const {onClick} = useModalDelete(props);
 
   return (
     <>
-      {modalOpen && (
-        <Modal className={cls(styles['com-modal-todo-confirm-delete'], 'max-w-xl')} variant="center" open={modalOpen} onClose={onClose}>
+      {open && (
+        <Modal className={cls(styles['com-modal-todo-confirm-delete'], 'max-w-xl')} variant="center" open={open} onClose={onClose}>
           <Modal.Header>
             <h3 className="title">
               <span className="block text-center">Are you sure you want to delete list:</span>

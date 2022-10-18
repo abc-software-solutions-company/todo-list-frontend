@@ -1,37 +1,28 @@
 import cls from 'classnames';
-import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
+import {FC} from 'react';
 
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
-import useToast from '@/core-ui/toast';
+import {IListResponse} from '@/data/api/types/list.type';
 
+import useModalShareList from './hook';
 import styles from './style.module.scss';
 
-interface IProps {
-  modalOpen: boolean;
-  setModalOpen: Dispatch<SetStateAction<boolean>>;
-  id: string;
+export interface IProps {
+  open: boolean;
+  onClose: () => void;
+  data: IListResponse;
 }
-const ModalShareList: React.FC<IProps> = ({id, modalOpen, setModalOpen}) => {
-  const toast = useToast();
-  const [link, setLink] = useState<string>('');
-
-  const copy = (text: string, title: string) => {
-    toast.show({type: 'success', title: title, content: 'Successful!'});
-    navigator.clipboard.writeText(text);
-  };
-
-  useEffect(() => {
-    const location = window.location;
-    setLink(location.origin + `/list/${id}`);
-  }, [id]);
+const ModalShareList: FC<IProps> = props => {
+  const {id, link, copy} = useModalShareList(props);
+  const {open, onClose} = props;
 
   return (
     <>
-      {modalOpen && (
-        <Modal variant="center" className={cls(styles['com-modal-share'], 'max-w-xl')} open={modalOpen} onClose={() => setModalOpen(false)}>
+      {open && (
+        <Modal variant="center" className={cls(styles['com-modal-share'], 'max-w-xl')} open={open} onClose={onClose}>
           <Modal.Header text="Share this list to a teammate" />
           <Modal.Body className="inputs">
             <div className="item">

@@ -6,12 +6,10 @@ import api from '@/data/api';
 
 import {IProps} from '.';
 
-export default function useModalDelete({setModalOpen, data}: IProps) {
+export default function useModalDelete({onClose, onSuccess, data}: IProps) {
   const router = useRouter();
   const toast = useToast();
   const {id} = data;
-
-  const onClose = () => setModalOpen(false);
 
   const onClick = () => {
     let req;
@@ -31,11 +29,14 @@ export default function useModalDelete({setModalOpen, data}: IProps) {
       .catch(() =>
         toast.show({
           type: 'danger',
-          title: 'Delete list',
-          content: 'Error!, Cannot delete list'
+          title: 'Error',
+          content: 'An error occurred, please try again'
         })
       )
-      .finally(() => onClose());
+      .finally(() => {
+        onClose();
+        onSuccess?.();
+      });
   };
-  return {onClick, onClose};
+  return {onClick};
 }
