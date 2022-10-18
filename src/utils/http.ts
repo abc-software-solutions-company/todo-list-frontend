@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 
 import {ROUTES} from '@/configs/routes.config';
 import LocalStorage from '@/utils/local-storage';
@@ -31,14 +31,15 @@ http.interceptors.response.use(
   response => {
     return response;
   },
-  err => {
-    if (err?.response?.status === 401) {
+  (error: AxiosError<any, any>) => {
+    console.log('🚀 ~ file: http.ts ~ line 35 ~ error', error);
+    if (error.response?.data === 401) {
       if (typeof window !== 'undefined') {
         window.location.href = ROUTES.LOGIN;
       }
     }
-    console.log(err.response);
-    return Promise.reject(err);
+    console.log(error.response);
+    return Promise.reject(error);
   }
 );
 
