@@ -1,6 +1,5 @@
 import cls from 'classnames';
 import {FC} from 'react';
-import {Controller} from 'react-hook-form';
 
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
@@ -19,7 +18,7 @@ export interface IProps {
 
 const ModalCreateUpdateList: FC<IProps> = prop => {
   const {open, onClose, data} = prop;
-  const {onSubmit, control, errors, isSubmitting} = useModalCreateUpdateList(prop);
+  const {onSubmit, register, errors, isSubmitting} = useModalCreateUpdateList(prop);
   return (
     <>
       {open && (
@@ -29,12 +28,7 @@ const ModalCreateUpdateList: FC<IProps> = prop => {
               <h3 className="title">{data ? 'Update List' : 'Create New List'}</h3>
             </Modal.Header>
             <Modal.Body>
-              <Controller
-                name="name"
-                control={control}
-                rules={{required: true}}
-                render={({field}) => <Input {...field} placeholder="Enter your list name" error={errors.name?.message} value={data?.name} autoFocus />}
-              />
+              <Input error={errors.name?.message} value={data?.name} autoFocus={true} placeholder={'Enter your list name'} {...register('name')} />
             </Modal.Body>
             <Modal.Footer>
               <div className="flex w-full gap-x-3 md:gap-x-4">

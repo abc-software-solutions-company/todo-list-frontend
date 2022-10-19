@@ -1,5 +1,6 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useRouter} from 'next/router';
+import {useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -18,7 +19,7 @@ const Schema = yup.object().shape({
 });
 
 export default function useModalCreateUpdateList({onClose, onSuccess, data}: IProps) {
-  const {handleSubmit, formState, reset, ...rest} = useForm<IFormInputs>({resolver: yupResolver(Schema)});
+  const {handleSubmit, formState, setValue, ...rest} = useForm<IFormInputs>({resolver: yupResolver(Schema)});
   const {errors, isSubmitting} = formState;
   const toast = useToast();
   const router = useRouter();
@@ -42,9 +43,13 @@ export default function useModalCreateUpdateList({onClose, onSuccess, data}: IPr
       .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}))
       .finally(() => {
         onClose();
-        reset();
       });
   };
+
+  useEffect(() => {
+    setValue('name', data?.name || '');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   return {onSubmit: handleSubmit(submitHandler), errors, isSubmitting, ...rest};
 }

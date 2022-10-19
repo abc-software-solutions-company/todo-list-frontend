@@ -1,6 +1,5 @@
 import cls from 'classnames';
 import {FC} from 'react';
-import {Controller} from 'react-hook-form';
 
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
@@ -20,7 +19,7 @@ export interface IProps {
 }
 const ModalCreateUpdateTask: FC<IProps> = props => {
   const {open, onClose, taskData} = props;
-  const {onSubmit, control, errors, isSubmitting} = useModalCreateUpdateTask(props);
+  const {onSubmit, register, errors, isSubmitting} = useModalCreateUpdateTask(props);
 
   return (
     <>
@@ -31,13 +30,7 @@ const ModalCreateUpdateTask: FC<IProps> = props => {
               <h3 className="title">{taskData?.todoListId ? 'Update Task' : 'Add New Task'}</h3>
             </Modal.Header>
             <Modal.Body>
-              <Controller
-                name="name"
-                control={control}
-                rules={{required: true}}
-                defaultValue={taskData?.name}
-                render={({field}) => <Input {...field} error={errors.name?.message} placeholder="Enter your to-do" autoFocus />}
-              />
+              <Input error={errors.name?.message} autoFocus={true} placeholder={'Enter your list name'} {...register('name')} />
             </Modal.Body>
             <Modal.Footer>
               <div className="flex w-full gap-x-3 md:gap-x-4">
