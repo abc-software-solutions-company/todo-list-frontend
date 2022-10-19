@@ -30,7 +30,7 @@ export default function useModalCreateUpdateList({open, onClose, onSuccess, data
       req = api.list.update({id, name}).then(() => {
         toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
         onSuccess?.();
-      });
+      }).catch(() => {});
     } else req = api.list.create({name}).then(() => toast.show({type: 'success', title: 'Create List', content: 'Successful!'}));
     req
       .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}))

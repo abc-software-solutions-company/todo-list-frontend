@@ -25,11 +25,18 @@ export default function useModalCreateUpdateTask({open, onClose, onSuccess, list
     const {name} = formData;
     let req: Promise<any>;
     if (!taskData) {
-      req = api.task.create({name, todoListId: listData.id}).then(() => {
-        toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
-        onSuccess?.();
-      });
-    } else req = api.task.update({name, id: taskData.id}).then(() => toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'}));
+      req = api.task
+        .create({name, todoListId: listData.id})
+        .then(() => {
+          toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
+          onSuccess?.();
+        })
+        .catch(() => {});
+    } else
+      req = api.task
+        .update({name, id: taskData.id})
+        .then(() => toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'}))
+        .catch(() => {});
     req
       .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}))
       .finally(() => {

@@ -8,19 +8,15 @@ initFirebase(); // initialize firebase
 const auth = getAuth();
 
 export class FireAuthUtils {
-  attachEmailToUser = async (email: string) => {
-    await API.auth
-      .login({email})
-      .then(() => {})
-      .catch(() => {});
-  };
-
   saveAuthProfile = () => {
-    auth.onAuthStateChanged(user => {
+    auth.onAuthStateChanged(async user => {
       LocalStorage.firebaseAuthData.set(JSON.stringify(user));
       if (user?.email) {
         const email = user.email;
-        this.attachEmailToUser(email);
+        await API.auth
+          .login({name: '', email: email})
+          .then(() => {})
+          .catch(() => {});
       }
     });
   };

@@ -49,7 +49,10 @@ export default function useListDetail({id}: Iprops) {
           const taskFirstId = arrangeTask[index - 1]?.id;
           const taskReorderId = arrangeTask[index].id!;
           const taskSecondId = arrangeTask[index + 1]?.id;
-          api.task.reIndex({taskFirstId, taskReorderId, taskSecondId}).then(socketUpdateList);
+          api.task
+            .reIndex({taskFirstId, taskReorderId, taskSecondId})
+            .then(socketUpdateList)
+            .catch(() => {});
         }
       });
     }

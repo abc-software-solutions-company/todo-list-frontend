@@ -1,9 +1,7 @@
 import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
-import {useRouter} from 'next/router';
 import {useEffect} from 'react';
 
 import useLoginHandler from '@/components/login/hooks/login-handler';
-import {ROUTES} from '@/configs/routes.config';
 import api from '@/data/api';
 import {IAuthLogin} from '@/data/api/types/auth.type';
 import {initFirebase} from '@/lib/firebase/initFirebase';
@@ -12,42 +10,26 @@ initFirebase();
 const fireAuth = getAuth();
 
 export default function useLoginGoogle() {
-  const router = useRouter();
-
   const {loginSuccess} = useLoginHandler();
 
   const googleProvider = new GoogleAuthProvider();
   const signInWithGoogle = () => signInWithPopup(fireAuth, googleProvider);
 
-  const loginWithGmail = ({email}: IAuthLogin) => {
+  const loginWithGmail = ({email, name}: IAuthLogin) => {
     api.auth
-      .login({email})
+      .login({email, name})
       .then(res => {
-        loginSuccess(res.data);
+        const {accessToken, user} = res.data;
+        loginSuccess({accessToken, user});
       })
-      .catch(() => {
-        //FIXME: KIMOCHI
-        // fireAuth.onAuthStateChanged(gmail => {
-        //   if (gmail?.email) {
-        //     // eslint-disable-next-line @typescript-eslint/no-shadow
-        //     const {email, displayName: name} = gmail;
-        //     if (name) {
-        //       api.auth.login({email, name}).then(res => {
-        //         const {accessToken, user} = res.data;
-        //         loginSuccess({accessToken, user});
-        //       });
-        //     }
-        //   }
-        // });
-      });
+      .catch(() => {});
   };
 
-  const openGooglePopUp = async () => {
-    await signInWithGoogle().catch(() => {});
+  const openGooglePopUp = () => {
+    signInWithGoogle().catch(() => {});
     fireAuth.onAuthStateChanged(user => {
-      if (user?.email) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        router.asPath == ROUTES.LOGIN && loginWithGmail({name: user.displayName!, email: user.email});
+      if (user?.email && user?.displayName) {
+        loginWithGmail({name: user.displayName, email: user.email});
       }
     });
   };

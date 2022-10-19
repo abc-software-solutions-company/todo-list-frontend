@@ -1,5 +1,5 @@
 export interface IAuthLogin {
-  name?: string;
+  name: string;
   email?: string;
 }
 export type IAuthUpdate = IAuthLogin;

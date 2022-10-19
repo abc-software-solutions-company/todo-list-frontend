@@ -17,7 +17,10 @@ export default function TaskItem({task, onEdit, onDelete}: IProp) {
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task!.id!});
   const setDone = (id: string, isDone: boolean) => {
     if (!id) return;
-    API.task.update({id, isDone: !isDone}).then(socketUpdateList);
+    API.task
+      .update({id, isDone: !isDone})
+      .then(socketUpdateList)
+      .catch(() => {});
   };
 
   const style = {

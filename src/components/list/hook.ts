@@ -7,9 +7,12 @@ export default function useList() {
   const [allListbyUser, setAllListbyUser] = useState<IListResponse[]>([]);
 
   const updateAllListbyUser = () => {
-    api.list.getByUser().then(res => {
-      setAllListbyUser(res.data);
-    });
+    api.list
+      .getByUser()
+      .then(res => {
+        setAllListbyUser(res.data);
+      })
+      .catch(() => {});
   };
 
   useEffect(() => {
