@@ -25,7 +25,6 @@ export default function useListDetail({id}: Iprops) {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   const updateList = () => {
-    console.log('🚀 ~ file: hook.ts ~ line 33 ~ updateList ~ updateList');
     api.list
       .getOne({id})
       .then(res => setTodoList(res.data))

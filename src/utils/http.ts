@@ -32,13 +32,11 @@ http.interceptors.response.use(
     return response;
   },
   (error: AxiosError<any, any>) => {
-    console.log('🚀 ~ file: http.ts ~ line 35 ~ error', error);
     if (error.response?.data === 401) {
       if (typeof window !== 'undefined') {
         window.location.href = ROUTES.LOGIN;
       }
     }
-    console.log(error.response);
     return Promise.reject(error);
   }
 );

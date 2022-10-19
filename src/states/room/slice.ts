@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit';
 
 const slice = createSlice({
   name: 'global',
@@ -8,13 +8,12 @@ const slice = createSlice({
   },
   reducers: {
     setOpenMainMenu: (state, action) => {
-      console.log(action);
       state.isOpenMainMenu = action.payload.a;
     },
-    setOpenVideoModal: (state,action) => {
+    setOpenVideoModal: (state, action) => {
       state.isOpenVideoModal = action.payload.a;
-    },
-  },
-})
+    }
+  }
+});
 
 export default slice;

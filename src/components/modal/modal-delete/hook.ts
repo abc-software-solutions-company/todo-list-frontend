@@ -28,6 +28,7 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
         })
         .catch(() => {});
     req
+      .then(onSuccess)
       .catch(() =>
         toast.show({
           type: 'danger',
@@ -35,10 +36,7 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
           content: 'An error occurred, please try again'
         })
       )
-      .finally(() => {
-        onClose();
-        onSuccess?.();
-      });
+      .finally(onClose);
   };
   return {onClick};
 }

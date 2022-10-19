@@ -36,7 +36,7 @@ const ModalCreateUpdateTask: FC<IProps> = props => {
                 control={control}
                 rules={{required: true}}
                 defaultValue={taskData?.name}
-                render={({field}) => <Input {...field} error={errors.name?.message} placeholder="Enter your to-do" />}
+                render={({field}) => <Input {...field} error={errors.name?.message} placeholder="Enter your to-do" autoFocus />}
               />
             </Modal.Body>
             <Modal.Footer>

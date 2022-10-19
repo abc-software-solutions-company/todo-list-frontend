@@ -33,7 +33,7 @@ const ModalCreateUpdateList: FC<IProps> = prop => {
                 name="name"
                 control={control}
                 rules={{required: true}}
-                render={({field}) => <Input {...field} placeholder="Enter your list name" error={errors.name?.message} value={data?.name} />}
+                render={({field}) => <Input {...field} placeholder="Enter your list name" error={errors.name?.message} value={data?.name} autoFocus />}
               />
             </Modal.Body>
             <Modal.Footer>
