@@ -19,7 +19,7 @@ const Schema = yup.object().shape({
 });
 
 export default function useModalCreateUpdateList({onClose, onSuccess, data}: IProps) {
-  const {handleSubmit, formState, setValue, ...rest} = useForm<IFormInputs>({resolver: yupResolver(Schema)});
+  const {handleSubmit, formState, setValue, setFocus, ...rest} = useForm<IFormInputs>({resolver: yupResolver(Schema)});
   const {errors, isSubmitting} = formState;
   const toast = useToast();
   const router = useRouter();

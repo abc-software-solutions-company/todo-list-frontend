@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import {FC} from 'react';
+import {FC, useEffect} from 'react';
 
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
@@ -19,7 +19,11 @@ export interface IProps {
 }
 const ModalCreateUpdateTask: FC<IProps> = props => {
   const {open, onClose, taskData} = props;
-  const {onSubmit, register, errors, isSubmitting} = useModalCreateUpdateTask(props);
+  const {onSubmit, register, errors, setValue, isSubmitting} = useModalCreateUpdateTask(props);
+
+  useEffect(() => {
+    setValue('name', taskData?.name || '');
+  }, [taskData, setValue]);
 
   return (
     <>
@@ -30,7 +34,7 @@ const ModalCreateUpdateTask: FC<IProps> = props => {
               <h3 className="title">{taskData?.todoListId ? 'Update Task' : 'Add New Task'}</h3>
             </Modal.Header>
             <Modal.Body>
-              <Input error={errors.name?.message} autoFocus={true} placeholder={'Enter your list name'} {...register('name')} />
+              <Input error={errors.name?.message} autoFocus={true} placeholder={'Enter your list name'} {...register('name', {value: taskData?.name})} />
             </Modal.Body>
             <Modal.Footer>
               <div className="flex w-full gap-x-3 md:gap-x-4">

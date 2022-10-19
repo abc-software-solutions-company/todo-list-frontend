@@ -18,7 +18,7 @@ interface IFormInputs {
 
 export default function useModalCreateUpdateTask({onClose, onSuccess, listData, taskData}: IProps) {
   const toast = useToast();
-  const {handleSubmit, formState, reset, setValue, ...rest} = useForm<IFormInputs>({resolver: yupResolver(Schema)});
+  const {handleSubmit, formState, setValue, setFocus, ...rest} = useForm<IFormInputs>({resolver: yupResolver(Schema), mode: 'onChange'});
 
   const {errors, isSubmitting} = formState;
 
@@ -43,13 +43,13 @@ export default function useModalCreateUpdateTask({onClose, onSuccess, listData, 
   };
 
   useEffect(() => {
-    setValue('name', taskData?.name || '');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [taskData]);
+    setFocus('name');
+  }, []);
 
   return {
     onSubmit: handleSubmit(submitHandler),
     errors,
+    setValue,
     isSubmitting,
     ...rest
   };
