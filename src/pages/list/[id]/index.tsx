@@ -10,15 +10,11 @@ export {getStaticPaths, getStaticProps};
 
 export default function PageListDetail({list}: InferGetStaticPropsType<typeof getStaticProps>) {
   const {id, name, tasks} = list;
-  const description = tasks[0].name || '' + tasks[1].name || '' + tasks[2].name || '';
+  const description = tasks[0]?.name || '' + tasks[1]?.name || '' + tasks[2]?.name || '';
 
   return (
     <>
-      <Seo
-        title={name}
-        description={`List ${name}. 
-       ${description}`}
-      />
+      <Seo title={name} description={`List ${name}. First 3 tasks in this list: ${description}`} />
       <ListDetail id={id} />
     </>
   );
