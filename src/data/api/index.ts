@@ -12,6 +12,7 @@ const api = {
     update: (data: IAuthUpdate) => http.patch<IAuthInfor>(API_ENDPOINTS.AUTH, data)
   },
   list: {
+    get: () => http.get<IListResponse[]>(API_ENDPOINTS.LIST),
     getOne: ({id}: IListGetOne) => http.get<IListResponse>(API_ENDPOINTS.LIST + '/' + id),
     getByUser: () => http.get<IListResponse[]>(API_ENDPOINTS.LIST),
     create: (data: IListCreate) => http.post<IListResponse>(API_ENDPOINTS.LIST, data),
