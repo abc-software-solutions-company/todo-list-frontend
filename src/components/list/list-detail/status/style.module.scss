@@ -2,14 +2,20 @@
   @apply flex h-full items-center;
 }
 .status-button :global {
-  @apply h-8 overflow-hidden px-3 py-1;
+  @apply h-8 overflow-hidden lg:px-3 lg:py-1;
   .MuiSelect-select {
-    @apply h-full py-1;
+    @apply h-full lg:py-1;
   }
   .MuiOutlinedInput-notchedOutline {
     @apply border-0;
   }
   .MuiSelect-icon {
     @apply fill-white;
+  }
+  .MuiSelect-outlined {
+    @apply bg-amber-400 px-2 lg:pl-3 lg:pr-8;
+  }
+  .MuiStatus-box {
+    @apply hidden w-fit font-semibold lg:block lg:rounded lg:px-2 lg:py-0.5;
   }
 }

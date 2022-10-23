@@ -27,7 +27,7 @@ const Status: FC<IProps> = forwardRef(({items, className, defaultValue, ...rest}
         {items.map(({id, name, color}) => {
           return (
             <MenuItem key={id} value={id} sx={{color, justifyContent: 'end', fontFamily: 'inherit'}}>
-              <div className="w-fit rounded px-2 py-0.5 font-semibold" style={{backgroundColor: color + '32'}}>
+              <div className="MuiStatus-box" style={{backgroundColor: color + '32'}}>
                 {name}
               </div>
             </MenuItem>

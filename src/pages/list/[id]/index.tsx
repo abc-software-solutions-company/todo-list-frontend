@@ -10,10 +10,7 @@ export {getStaticPaths, getStaticProps};
 
 export default function PageListDetail({list}: InferGetStaticPropsType<typeof getStaticProps>) {
   const {id, name, tasks} = list;
-  // const description = tasks[0]?.name || '' + tasks[1]?.name || '' + tasks[2]?.name || '';
   const description = `${tasks[0]?.name || ''} ${tasks[1]?.name || ''} ${tasks[2]?.name || ''}`;
-  console.log('Description');
-  console.log(description);
 
   return (
     <>
