@@ -3,6 +3,9 @@
 }
 .status-button :global {
   @apply h-8 overflow-hidden lg:px-3 lg:py-1;
+  @media screen and (max-width: 1023px) {
+    border-radius: 100% !important;
+  }
   .MuiSelect-select {
     @apply h-full lg:py-1;
   }
@@ -13,7 +16,7 @@
     @apply fill-white;
   }
   .MuiSelect-outlined {
-    @apply bg-amber-400 px-2 lg:pl-3 lg:pr-8;
+    @apply pl-1 lg:pl-3 lg:pr-8;
   }
   .MuiStatus-box {
     @apply hidden w-fit font-semibold lg:block lg:rounded lg:px-2 lg:py-0.5;
