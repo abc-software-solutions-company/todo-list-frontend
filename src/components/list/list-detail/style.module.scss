@@ -12,8 +12,8 @@
       @apply border-t-0 px-4 first:border-t;
       @apply first:rounded-t-lg last:rounded-b-lg;
       @apply relative;
-      &:hover {
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+      .select {
+        background-color: red;
       }
     }
     .h6 {

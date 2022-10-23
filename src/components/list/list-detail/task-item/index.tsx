@@ -18,9 +18,10 @@ interface IProp {
   onEdit?: () => void;
   onDelete?: () => void;
   statusList?: IStatus[];
+  isSelect: boolean;
 }
 
-export default function TaskItem({task, onEdit, onDelete, statusList}: IProp) {
+export default function TaskItem({task, onEdit, onDelete, statusList, isSelect}: IProp) {
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task!.id!});
   statusList?.sort((a, b) => a.id - b.id);
 
@@ -68,7 +69,7 @@ export default function TaskItem({task, onEdit, onDelete, statusList}: IProp) {
       <p className={`h6 ${task!.isDone ? 'checked' : ''}`} onClick={() => setDone(task!.id!, task!.isDone)}>
         {`${task!.name}`}
       </p>
-      <div className="actions">
+      <div className={`actions ${isSelect && 'select'}`}>
         {!isDragging && (
           <>
             {statusList && <Status items={statusList} defaultValue={statusList.filter(e => e.id === task.statusId)[0]} onChange={e => onChangeStatus(e)} />}

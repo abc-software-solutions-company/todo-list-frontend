@@ -105,11 +105,12 @@ const ListDetail: FC<Iprops> = ({id}) => {
                         onEdit={() => onCreateUpdateTask(task)}
                         onDelete={() => onDeleteTask(task)}
                         statusList={todoList.status}
+                        isSelect={false}
                       />
                     ))}
                 </SortableContext>
               )}
-              <DragOverlay>{activeId ? <TaskItem task={activeTasks.filter(e => e.id === activeId)[0]} /> : null}</DragOverlay>
+              <DragOverlay>{activeId ? <TaskItem task={activeTasks.filter(e => e.id === activeId)[0]} isSelect={true} /> : null}</DragOverlay>
             </div>
           </DndContext>
         </div>
