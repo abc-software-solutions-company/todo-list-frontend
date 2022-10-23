@@ -13,7 +13,7 @@
       @apply first:rounded-t-lg last:rounded-b-lg;
       @apply relative;
       &.select {
-        @apply z-10 scale-105 transform-gpu shadow-md;
+        @apply z-10 rotate-1 transform-gpu drop-shadow-lg ease-in-out-back;
       }
     }
     .h6 {

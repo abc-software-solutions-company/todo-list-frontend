@@ -110,7 +110,9 @@ const ListDetail: FC<Iprops> = ({id}) => {
                     ))}
                 </SortableContext>
               )}
-              <DragOverlay>{activeId ? <TaskItem task={activeTasks.filter(e => e.id === activeId)[0]} isSelect={true} /> : null}</DragOverlay>
+              <DragOverlay>
+                {activeId ? <TaskItem statusList={todoList.status} task={activeTasks.filter(e => e.id === activeId)[0]} isSelect={true} /> : null}
+              </DragOverlay>
             </div>
           </DndContext>
         </div>
