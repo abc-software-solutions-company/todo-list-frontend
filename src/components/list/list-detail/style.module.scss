@@ -12,8 +12,8 @@
       @apply border-t-0 px-4 first:border-t;
       @apply first:rounded-t-lg last:rounded-b-lg;
       @apply relative;
-      .select {
-        background-color: red;
+      &.select {
+        @apply z-10 scale-105 transform-gpu shadow-md;
       }
     }
     .h6 {

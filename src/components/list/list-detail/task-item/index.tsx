@@ -47,7 +47,7 @@ export default function TaskItem({task, onEdit, onDelete, statusList, isSelect}:
 
   return (
     <div
-      className="item"
+      className={`item ${isSelect && 'select'}`}
       ref={setNodeRef}
       style={styleDnd}
       {...attributes}
@@ -69,7 +69,7 @@ export default function TaskItem({task, onEdit, onDelete, statusList, isSelect}:
       <p className={`h6 ${task!.isDone ? 'checked' : ''}`} onClick={() => setDone(task!.id!, task!.isDone)}>
         {`${task!.name}`}
       </p>
-      <div className={`actions ${isSelect && 'select'}`}>
+      <div className="actions">
         {!isDragging && (
           <>
             {statusList && <Status items={statusList} defaultValue={statusList.filter(e => e.id === task.statusId)[0]} onChange={e => onChangeStatus(e)} />}
