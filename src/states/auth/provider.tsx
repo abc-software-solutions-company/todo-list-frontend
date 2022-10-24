@@ -42,15 +42,16 @@ const Authentication: FC<IProps> = ({children}) => {
           }
         })
         .catch(() => {
-          // if (asPath.includes(`${ROUTES.LIST}`))
-          //   api.auth.login({name: 'Anonymous'}).then(res => {
-          //     loginSuccess({accessToken: res.data.accessToken, user: res.data.user});
-          //   });
-          // else {
-          //   router.push(ROUTES.LOGIN);
-          // }
-          // }
-          router.push(ROUTES.LOGIN);
+          const isAnonymous = LocalStorage.anonymous.get();
+          if (!isAnonymous) {
+            api.auth.login({name: 'Anonymous'}).then(res => {
+              const {user} = res.data;
+              authDispatch(AuthActions.login(user));
+              LocalStorage.anonymous.set('yes');
+            });
+          } else {
+            router.push(ROUTES.LOGIN);
+          }
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
