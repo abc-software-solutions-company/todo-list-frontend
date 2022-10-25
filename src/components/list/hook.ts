@@ -1,27 +1,40 @@
 import {useEffect, useState} from 'react';
 
 import api from '@/data/api/index';
-import {IListResponse} from '@/data/api/types/list.type';
+import {ITodolistResponse} from '@/data/api/types/list.type';
 
 export default function useList() {
-  const [allListbyUser, setAllListbyUser] = useState<IListResponse[]>([]);
+  const [yourList, setYourList] = useState<ITodolistResponse[]>([]);
+  const [favoriteList, setFavoriteList] = useState<ITodolistResponse[]>([]);
 
-  const updateAllListbyUser = () => {
+  const updateYourList = () => {
     api.list
       .getByUser()
       .then(res => {
-        setAllListbyUser(res.data);
+        setYourList(res.data);
+      })
+      .catch(() => {});
+  };
+
+  const updateFavoriteList = () => {
+    api.list
+      .getFavorite()
+      .then(res => {
+        setFavoriteList(res.data);
       })
       .catch(() => {});
   };
 
   useEffect(() => {
-    updateAllListbyUser();
+    updateYourList();
+    updateFavoriteList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
-    allListbyUser,
-    updateAllListbyUser
+    yourList,
+    updateYourList,
+    favoriteList,
+    updateFavoriteList
   };
 }

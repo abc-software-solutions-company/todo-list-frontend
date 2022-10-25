@@ -9,7 +9,7 @@ import Icon from '@/core-ui/icon';
 import {FireAuthUtils} from '@/lib/firebase/fireAuth-utils';
 import {useStateAuth} from '@/states/auth/context';
 
-import Back from '../back';
+import Back from '../common/back';
 import styles from './style.module.scss';
 
 interface IProps {

@@ -3,7 +3,7 @@ import React, {FC} from 'react';
 
 import Button from '@/core-ui/button';
 import {Modal} from '@/core-ui/modal';
-import {IListResponse} from '@/data/api/types/list.type';
+import {ITodolistResponse} from '@/data/api/types/list.type';
 import {ITaskResponse} from '@/data/api/types/task.type';
 
 import useModalDelete from './hook';
@@ -13,7 +13,7 @@ export interface IProps {
   open: boolean;
   onClose: () => void;
   onSuccess?: () => void;
-  data: ITaskResponse | IListResponse;
+  data: ITaskResponse | ITodolistResponse;
 }
 
 const ModalDelete: FC<IProps> = props => {

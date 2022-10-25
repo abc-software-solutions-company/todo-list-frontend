@@ -2,14 +2,14 @@ import {GetStaticPaths, GetStaticProps} from 'next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 
 import api from '../api';
-import {IListResponse} from '../api/types/list.type';
+import {ITodolistResponse} from '../api/types/list.type';
 
 type ParsedQueryParams = {
   id: string;
 };
 
 type PageProps = {
-  list: IListResponse;
+  list: ITodolistResponse;
 };
 
 export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = async ({locale, params}) => {

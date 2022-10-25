@@ -43,6 +43,7 @@ module.exports = {
         h4: ['1.25rem', {lineHeight: '1.75rem', letterSpacing: '0'}],
         h5: ['1.125rem', {lineHeight: '1.625rem', letterSpacing: '0'}],
         h6: ['1rem', {lineHeight: '1.5rem', letterSpacing: '0'}],
+        brand: ['0.75rem', {lineHeight: '1rem', letterSpacing: '0'}],
         display1: ['5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
         display2: ['4.5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
         display3: ['4rem', {lineHeight: '3.5rem', letterSpacing: '0'}],

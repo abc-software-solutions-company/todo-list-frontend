@@ -1,0 +1,13 @@
+.task :global {
+  @apply relative flex h-12 w-full justify-between border border-t-0 bg-white px-4;
+  .h6 {
+    @apply mx-3 flex w-full cursor-pointer items-start py-3 leading-5;
+    word-break: break-word;
+  }
+  .checked {
+    @apply line-through opacity-50;
+  }
+  .actions {
+    @apply flex gap-x-3;
+  }
+}

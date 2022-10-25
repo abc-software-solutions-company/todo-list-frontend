@@ -4,7 +4,7 @@ import {FC, useEffect} from 'react';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
-import {IListResponse} from '@/data/api/types/list.type';
+import {ITodolistResponse} from '@/data/api/types/list.type';
 import {ITaskResponse} from '@/data/api/types/task.type';
 
 import useModalCreateUpdateTask from './hook';
@@ -15,7 +15,7 @@ export interface IProps {
   onClose: () => void;
   onSuccess?: () => void;
   taskData?: ITaskResponse;
-  listData: IListResponse;
+  listData: ITodolistResponse;
 }
 const ModalCreateUpdateTask: FC<IProps> = props => {
   const {open, onClose, taskData} = props;
