@@ -1,0 +1,57 @@
+.toolbar-detail :global {
+  .toolbar {
+    @apply mt-4 flex h-7 items-center justify-between lg:mt-6 lg:h-9;
+    & > * {
+      @apply flex h-full items-center;
+      .abc-btn {
+        @apply min-w-0 p-0;
+      }
+      .icon {
+        @apply h-6 w-6;
+      }
+    }
+    .left {
+      @apply gap-2.5;
+      .title {
+        @apply text-h4 lg:mt-0 lg:text-h2;
+        word-break: break-word;
+      }
+    }
+    .right {
+      @apply gap-4 lg:gap-6;
+      button {
+        p {
+          @apply hidden lg:inline;
+        }
+      }
+      .btn-add-todo {
+        @apply hidden md:flex;
+      }
+      .filter {
+        @apply relative flex items-center gap-1.5;
+      }
+      .filter-icon {
+        @apply absolute h-6;
+      }
+      .MuiSelect-select {
+        @apply ml-3 p-0 lg:pl-5;
+        .dropdown-item {
+          @apply h-4 font-medium lg:h-7 lg:text-h5;
+          @media only screen and (max-width: 1023px) {
+            border-radius: 4px !important;
+            margin: 8px 0 0 8px !important;
+            padding: 1px 4px 3px !important;
+            font-size: 12px !important;
+            line-height: 12px !important;
+          }
+        }
+      }
+      .MuiOutlinedInput-notchedOutline {
+        @apply border-0 p-0;
+      }
+      svg {
+        @apply hidden;
+      }
+    }
+  }
+}

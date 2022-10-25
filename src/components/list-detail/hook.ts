@@ -5,7 +5,7 @@ import {useEffect, useState} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
 import api from '@/data/api';
-import {IListResponse} from '@/data/api/types/list.type';
+import {ITodolistResponse} from '@/data/api/types/list.type';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import socket, {socketUpdateList} from '@/data/socket';
 import {SOCKET_EVENTS} from '@/data/socket/type';
@@ -20,7 +20,7 @@ export interface IListDetailProp {
 export default function useListDetail({id}: Iprops) {
   const router = useRouter();
   const auth = useStateAuth();
-  const [todoList, setTodoList] = useState<IListResponse>();
+  const [todoList, setTodoList] = useState<ITodolistResponse>();
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
@@ -46,7 +46,7 @@ export default function useListDetail({id}: Iprops) {
       const arrangeTask = arrayMove(todoList!.tasks, oldIndex!, newIndex!);
       const newTodoList = {...todoList};
       newTodoList.tasks = arrangeTask;
-      setTodoList(newTodoList as IListResponse);
+      setTodoList(newTodoList as ITodolistResponse);
 
       arrangeTask.forEach((element, index) => {
         if (element.id === active.id) {

@@ -5,7 +5,7 @@ import {FC} from 'react';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
-import {IListResponse} from '@/data/api/types/list.type';
+import {ITodolistResponse} from '@/data/api/types/list.type';
 import {VisibilityTypes} from '@/utils/constant';
 
 import useModalCreateUpdateList from './hook';
@@ -15,7 +15,7 @@ export interface IProps {
   open: boolean;
   onClose: () => void;
   onSuccess?: () => void;
-  data?: IListResponse;
+  data?: ITodolistResponse;
 }
 
 const ModalCreateUpdateList: FC<IProps> = prop => {

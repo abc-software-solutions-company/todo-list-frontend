@@ -5,7 +5,7 @@ import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
-import {IListResponse} from '@/data/api/types/list.type';
+import {ITodolistResponse} from '@/data/api/types/list.type';
 
 import useModalShareList from './hook';
 import styles from './style.module.scss';
@@ -13,7 +13,7 @@ import styles from './style.module.scss';
 export interface IProps {
   open: boolean;
   onClose: () => void;
-  data: IListResponse;
+  data: ITodolistResponse;
 }
 const ModalShareList: FC<IProps> = props => {
   const {id, link, copy} = useModalShareList(props);

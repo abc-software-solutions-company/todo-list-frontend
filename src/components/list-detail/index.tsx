@@ -3,8 +3,8 @@ import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {FC, useState} from 'react';
 
-import TaskItem from '@/components/list/list-detail/task-item';
-import ToolbarDetail from '@/components/list/list-detail/toolbar';
+import TaskItem from '@/components/list-detail/task-item';
+import ToolbarDetail from '@/components/list-detail/toolbar';
 import ModalCreateUpdateList from '@/components/modal/modal-create-update-list';
 import ModalCreateUpdateTask from '@/components/modal/modal-create-update-task';
 import ModalDelete from '@/components/modal/modal-delete';
@@ -21,7 +21,7 @@ export interface Iprops {
   id: string;
 }
 const ListDetail: FC<Iprops> = ({id}) => {
-  const {activeId, handleDragEnd, setActiveId, todoList, auth, isReadOnly} = useListDetail({id});
+  const {activeId, handleDragEnd, setActiveId, todoList, auth, isReadOnly, updateList} = useListDetail({id});
   const [filterValue, SetFilterValue] = useState(0);
   const sensor = useSensorGroup();
 
@@ -72,6 +72,9 @@ const ListDetail: FC<Iprops> = ({id}) => {
   const onFilter = (e: number) => {
     SetFilterValue(e);
   };
+  const onSuccessFavorite = () => {
+    updateList();
+  };
 
   if (!todoList || !id) return null;
 
@@ -97,6 +100,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
               onAddTask={() => onCreateUpdateTask()}
               filterValue={filterValue}
               onFilter={onFilter}
+              onSuccessFavorite={onSuccessFavorite}
             />
           )}
           <DndContext

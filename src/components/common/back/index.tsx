@@ -3,6 +3,8 @@ import React, {FC} from 'react';
 
 import IconButton from '@/core-ui/icon-button';
 
+import style from './style.module.scss';
+
 interface IProps {
   className?: string;
   currentPage: string;
@@ -13,8 +15,8 @@ interface IProps {
 const Back: FC<IProps> = ({className, currentPage, visibleOn, onClick}) => {
   if (!visibleOn?.includes(currentPage)) return null;
   return (
-    <div className={cls('return-to', className)}>
-      <IconButton className="px-0" name="ico-arrow-left-circle" size={28} onClick={onClick} />
+    <div className={cls(style.back, className)}>
+      <IconButton name="ico-arrow-left-circle" onClick={onClick} />
     </div>
   );
 };

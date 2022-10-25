@@ -1,0 +1,9 @@
+.back :global {
+  @apply h-6 lg:h-7;
+  .icon-btn {
+    @apply h-full p-0;
+  }
+  .abc-icon::before {
+    @apply lg:text-[28px];
+  }
+}

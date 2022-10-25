@@ -2,7 +2,7 @@ import {InferGetStaticPropsType} from 'next';
 import React from 'react';
 
 import Seo from '@/components/common/seo/seo';
-import ListDetail from '@/components/list/list-detail';
+import ListDetail from '@/components/list-detail';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/list.ssr';
 import LayoutDefault from '@/layouts/default';
 

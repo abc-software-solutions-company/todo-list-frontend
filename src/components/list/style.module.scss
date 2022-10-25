@@ -35,7 +35,7 @@
       @apply -mt-1 flex justify-center;
     }
     .item {
-      @apply flex items-center justify-between border bg-white;
+      @apply flex h-12 items-center justify-between border bg-white;
       @apply border-t-0 px-4 first:border-t;
       @apply first:rounded-t-lg last:rounded-b-lg;
       @apply transition-all duration-100;
@@ -45,7 +45,10 @@
       @apply mr-2 w-full cursor-pointer truncate py-3;
     }
     .actions {
-      @apply -mr-2 flex items-center gap-x-3;
+      @apply flex items-center gap-x-3;
+      .abc-btn {
+        @apply min-w-0 p-0;
+      }
     }
   }
   .float-icon {
