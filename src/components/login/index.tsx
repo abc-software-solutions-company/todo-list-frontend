@@ -3,6 +3,7 @@
 import React, {FC, useEffect} from 'react';
 
 import ABC_Logo from '@/components/common/icons/abc-logo';
+import Footer from '@/components/footer';
 import LoginDecor from '@/components/login-decor';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
@@ -58,6 +59,9 @@ const Login: FC = () => {
                 </div>
               </div>
             </form>
+            <div className={styles['footer-login']}>
+              <Footer />
+            </div>
           </div>
           <LoginDecor />
         </div>

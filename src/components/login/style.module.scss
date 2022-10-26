@@ -2,7 +2,7 @@
   @apply h-full;
 }
 .container {
-  @apply relative flex h-full items-center p-4 md:p-0 lg:overflow-clip;
+  @apply relative flex h-full items-center justify-between p-4 md:p-0 lg:overflow-clip;
 }
 
 .inner {
@@ -64,4 +64,8 @@
 
 .login-buttons {
   @apply mt-4 flex justify-center;
+}
+
+.footer-login {
+  @apply absolute bottom-0 left-1/2 -translate-x-1/2;
 }
