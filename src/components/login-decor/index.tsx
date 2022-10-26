@@ -2,6 +2,7 @@ import {FC} from 'react';
 
 import TreeLeft from '../common/icons/tree-left';
 import TreeRight from '../common/icons/tree-right';
+import Footer from '../footer';
 import styles from './style.module.scss';
 
 const LoginDecor: FC = () => {
@@ -12,6 +13,9 @@ const LoginDecor: FC = () => {
           <TreeLeft />
           <TreeRight />
         </div>
+      </div>
+      <div className={styles['footer-login']}>
+        <Footer />
       </div>
     </div>
   );
