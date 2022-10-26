@@ -7,27 +7,14 @@
   }
   .tasks {
     @apply mt-3 lg:mt-5;
-    .empty {
-      @apply -mt-1 flex justify-center;
-    }
     .item {
-      @apply flex w-full  justify-between border bg-white;
-      @apply border-t-0 px-4 first:border-t;
-      @apply first:rounded-t-lg last:rounded-b-lg;
-      @apply relative;
+      @apply first:rounded-t-lg first:border-t last:rounded-b-lg;
       &.select {
         @apply z-10 scale-105 transform-gpu drop-shadow-lg ease-in-out-back;
       }
     }
-    .h6 {
-      @apply mx-3 flex w-full cursor-pointer items-start py-3 leading-5;
-      word-break: break-word;
-    }
-    .checked {
-      @apply line-through opacity-50;
-    }
-    .actions {
-      @apply -mr-1 flex gap-x-3;
+    .empty {
+      @apply -mt-1 flex justify-center;
     }
   }
   .float-icon {

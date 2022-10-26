@@ -24,6 +24,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
   const {activeId, handleDragEnd, setActiveId, todoList, auth, isReadOnly, updateList} = useListDetail({id});
   const [filterValue, SetFilterValue] = useState(0);
   const sensor = useSensorGroup();
+  const readonly = isReadOnly();
 
   const [createUpdateListModal, setCreateUpdateListModal] = useState(false);
   const [deleteListModal, setDeleteListModal] = useState(false);
@@ -85,62 +86,57 @@ const ListDetail: FC<Iprops> = ({id}) => {
       </div>
     );
   }
-  const activeTasks = todoList.tasks.filter(task => task.isActive && (!filterValue || task.statusId === filterValue));
+  const tasksData = todoList.tasks.filter(task => task.isActive && (!filterValue || task.statusId === filterValue));
 
   return (
-    <>
-      <div className={styles['list-detail']}>
-        <div className="container">
-          {todoList.name && (
-            <ToolbarDetail
-              todolist={todoList}
-              onEdit={() => onUpdateList()}
-              onDelete={() => onDeleteList()}
-              onShare={() => onShareList()}
-              onAddTask={() => onCreateUpdateTask()}
-              filterValue={filterValue}
-              onFilter={onFilter}
-              onSuccessFavorite={onSuccessFavorite}
-            />
-          )}
-          <DndContext
-            sensors={sensor}
-            onDragCancel={() => setActiveId(null)}
-            onDragEnd={handleDragEnd}
-            modifiers={[restrictToVerticalAxis]}
-            onDragStart={({active}) => {
-              if (!active) {
-                return;
-              }
-              setActiveId(active.id);
-            }}
-          >
-            <div className="tasks">
-              {activeTasks.length === 0 && <span className="empty">Empty list</span>}
-              {activeTasks.length > 0 && (
-                <SortableContext disabled={isReadOnly()} items={activeTasks.map(task => task.id!)} strategy={verticalListSortingStrategy}>
-                  {activeTasks &&
-                    activeTasks.map(task => (
-                      <TaskItem
-                        readOnlyList={isReadOnly()}
-                        key={task.id}
-                        task={task}
-                        onEdit={() => onCreateUpdateTask(task)}
-                        onDelete={() => onDeleteTask(task)}
-                        statusList={todoList.status}
-                        isSelect={false}
-                      />
-                    ))}
-                </SortableContext>
-              )}
-              <DragOverlay>
-                {activeId ? (
-                  <TaskItem readOnlyList={isReadOnly()} statusList={todoList.status} task={activeTasks.filter(e => e.id === activeId)[0]} isSelect={true} />
-                ) : null}
-              </DragOverlay>
-            </div>
-          </DndContext>
-        </div>
+    <div className={styles['list-detail']}>
+      <div className="container">
+        <ToolbarDetail
+          todolist={todoList}
+          onEdit={() => onUpdateList()}
+          onDelete={() => onDeleteList()}
+          onShare={() => onShareList()}
+          onAddTask={() => onCreateUpdateTask()}
+          filterValue={filterValue}
+          onFilter={onFilter}
+          onSuccessFavorite={onSuccessFavorite}
+        />
+        <DndContext
+          sensors={sensor}
+          onDragCancel={() => setActiveId(null)}
+          onDragEnd={handleDragEnd}
+          modifiers={[restrictToVerticalAxis]}
+          onDragStart={({active}) => {
+            if (!active) {
+              return;
+            }
+            setActiveId(active.id);
+          }}
+        >
+          <div className="tasks">
+            {tasksData.length === 0 && <span className="empty">Empty list</span>}
+            {tasksData.length > 0 && (
+              <SortableContext disabled={readonly} items={tasksData.map(task => task.id!)} strategy={verticalListSortingStrategy}>
+                {tasksData.map(task => (
+                  <TaskItem
+                    readonly={readonly}
+                    key={task.id}
+                    task={task}
+                    onEdit={() => onCreateUpdateTask(task)}
+                    onDelete={() => onDeleteTask(task)}
+                    statusList={todoList.status}
+                    isSelect={false}
+                  />
+                ))}
+              </SortableContext>
+            )}
+            <DragOverlay>
+              {activeId ? (
+                <TaskItem readonly={readonly} statusList={todoList.status} task={tasksData.filter(e => e.id === activeId)[0]} isSelect={true} />
+              ) : null}
+            </DragOverlay>
+          </div>
+        </DndContext>
         <ModalCreateUpdateList open={createUpdateListModal} onClose={onClose} data={todoList} onSuccess={socketUpdateList} />
         <ModalDelete open={deleteListModal} onClose={onClose} data={selectedTask || todoList} onSuccess={socketUpdateList} />
         <ModalShareList open={shareListModal} onClose={onClose} data={todoList} />
@@ -148,7 +144,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
         {selectedTask && <ModalDelete open={deleteTaskModal} onClose={onClose} data={selectedTask} onSuccess={socketUpdateList} />}
         <FloatIcon className="float-icon" onClick={() => onCreateUpdateTask()} />
       </div>
-    </>
+    </div>
   );
 };
 

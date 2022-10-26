@@ -28,22 +28,15 @@
         @apply hidden md:flex;
       }
       .filter {
-        @apply relative flex items-center gap-1.5;
+        @apply relative flex items-center gap-1.5 lg:h-7;
       }
       .filter-icon {
         @apply absolute h-6;
       }
       .MuiSelect-select {
-        @apply ml-3 p-0 lg:pl-5;
-        .dropdown-item {
-          @apply h-4 font-medium lg:h-7 lg:text-h5;
-          @media only screen and (max-width: 1023px) {
-            border-radius: 4px !important;
-            margin: 8px 0 0 8px !important;
-            padding: 1px 4px 3px !important;
-            font-size: 12px !important;
-            line-height: 12px !important;
-          }
+        @apply h-6 p-0 pl-5;
+        .dropdown-name {
+          @apply mt-2 h-4 px-1 align-middle text-brand font-medium;
         }
       }
       .MuiOutlinedInput-notchedOutline {

@@ -1,37 +1,30 @@
-.status {
-  @apply flex h-full items-center;
-}
-.status-button-desktop :global {
-  @media only screen and (max-width: 1023px) {
-    display: none !important;
+.status :global {
+  @apply relative flex h-full items-center;
+  .MuiOutlinedInput-root {
+    @apply h-5 w-5 rounded-full lg:h-8 lg:w-auto lg:rounded;
   }
-  @apply h-8 overflow-hidden;
+
   .MuiSelect-select {
-    @apply px-3 py-0;
+    @apply h-full w-full;
+    padding: 0 !important;
+    .mobile-icon {
+      @apply absolute flex h-[23px] w-full items-center justify-center lg:hidden;
+    }
   }
-  .MuiSelect-icon {
-    @apply fill-white;
-  }
-  .MuiOutlinedInput-notchedOutline {
-    @apply border-0;
-  }
-}
-.status-button-mobile :global {
-  border-radius: 100% !important;
-  @media only screen and (min-width: 1024px) {
-    display: none !important;
-  }
-  @apply h-5 w-5 overflow-hidden;
-  .MuiSelect-select {
-    @apply px-3 py-0;
-  }
-  .MuiSelect-icon {
-    @apply top-0 right-0 h-5 w-5 fill-white;
+
+  .MuiSelect-select[aria-expanded='true'] {
+    .mobile-icon {
+      transform: rotate(180deg) !important;
+    }
   }
   .status-name {
-    @apply hidden;
+    @apply hidden pl-3 pr-8 lg:block;
   }
   .MuiOutlinedInput-notchedOutline {
     @apply border-0;
+  }
+
+  .MuiSelect-icon {
+    @apply hidden fill-white lg:block;
   }
 }

@@ -20,42 +20,20 @@ const Status: FC<IProps> = forwardRef(({items, className, status, ...rest}, ref)
       <Select
         ref={ref}
         {...rest}
-        className={classNames(style['status-button-desktop'])}
         value={status.id}
         IconComponent={KeyboardArrowDownIcon}
         sx={{color: '#FFFFFF', backgroundColor: status.color, fontFamily: 'inherit'}}
       >
         {items.map(({id, name, color}) => {
           return (
-            <MenuItem
-              key={id}
-              value={id}
-              sx={{color, justifyContent: 'end', fontFamily: 'inherit', margin: '0', padding: '4px 16px', height: 40, minHeight: 40}}
-            >
-              <div className="status-name" style={{backgroundColor: color + '32', padding: '3px 8px 5px', borderRadius: '4px'}}>
-                {name}
-              </div>
-            </MenuItem>
-          );
-        })}
-      </Select>
-      <Select
-        ref={ref}
-        {...rest}
-        className={classNames(style['status-button-mobile'])}
-        value={status.id}
-        IconComponent={ArrowDropDownIcon}
-        sx={{color: '#FFFFFF', backgroundColor: status.color, fontFamily: 'inherit'}}
-      >
-        {items.map(({id, name, color}) => {
-          return (
-            <MenuItem
-              key={id}
-              value={id}
-              sx={{color, justifyContent: 'end', fontFamily: 'inherit', margin: '0', padding: '4px 16px', height: 40, minHeight: 40}}
-            >
-              <div className="status-name" style={{backgroundColor: color + '32', padding: '3px 8px 5px', borderRadius: '4px'}}>
-                {name}
+            <MenuItem key={id} value={id} sx={{color, justifyContent: 'end', fontFamily: 'inherit', padding: '4px 16px', minWidth: 160}}>
+              <div className="relative">
+                <span className="status-name vertical-align inline-block h-7 rounded px-2 py-0 text-h6" style={{backgroundColor: color + '32'}}>
+                  {name}
+                </span>
+                <div className="mobile-icon hidden">
+                  <ArrowDropDownIcon />
+                </div>
               </div>
             </MenuItem>
           );
