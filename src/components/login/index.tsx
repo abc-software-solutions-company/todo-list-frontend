@@ -8,12 +8,11 @@ import {useDispatchAuth} from '@/states/auth/context';
 import LocalStorage from '@/utils/local-storage';
 
 import ABC_Logo from '../common/icons/todolist-logo';
-import ModalThirdPartyLogin from '../modal/modal-third-party-login';
 import useGuestLoginHook from './hooks';
 import styles from './style.module.scss';
 
 const Login: FC = () => {
-  const {formState, modalOpen, onSubmit, register, setModalOpen} = useGuestLoginHook();
+  const {formState, onSubmit, register} = useGuestLoginHook();
   const {errors, isSubmitting} = formState;
   const dispatchAuth = useDispatchAuth();
   useEffect(() => {
@@ -35,24 +34,15 @@ const Login: FC = () => {
                 <h2>Welcome to To-do list 🖐️</h2>
                 <p>Please sign-in and start</p>
               </div>
-
               <Input placeholder="Enter your name" className="name-input" maxLength={33} error={errors.name?.message} {...register('name')} />
               <Button className="btn-submit" variant="contained" color="primary" type="submit" text="LOGIN" loading={isSubmitting} disabled={isSubmitting} />
-              <Button
-                className="btn-submit"
-                variant="contained"
-                color="primary"
-                type="button"
-                text="Login With Email"
-                onClick={() => setModalOpen(true)}
-                loading={isSubmitting}
-                disabled={isSubmitting}
-              />
+              <div className="third-party-login">
+                <hr className="hr-text" data-content="OR" />
+              </div>
             </form>
           </div>
         </div>
       </div>
-      <ModalThirdPartyLogin open={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 };
