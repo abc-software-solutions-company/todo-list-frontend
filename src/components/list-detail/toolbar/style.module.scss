@@ -18,10 +18,13 @@
       }
     }
     .right {
+      & > *:not(.filter) {
+        @apply hidden sm:flex;
+      }
       @apply gap-4 lg:gap-6;
       button {
         p {
-          @apply hidden lg:inline;
+          @apply m-0 hidden lg:inline;
         }
       }
       .btn-add-todo {

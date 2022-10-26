@@ -5,7 +5,7 @@
   }
 
   .authenticated {
-    @apply flex w-full items-center justify-end;
+    @apply flex items-center justify-end sm:w-full;
     .h2 {
       @apply flex items-center break-words text-h4 leading-none;
     }
@@ -25,5 +25,12 @@
   .unverified,
   .logout {
     @apply ml-1 cursor-pointer text-base text-red-500;
+  }
+
+  #ToolBarMenu-button {
+    @apply sm:hidden;
+    svg {
+      @apply fill-[#334155];
+    }
   }
 }

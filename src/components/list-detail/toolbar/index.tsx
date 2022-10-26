@@ -1,9 +1,11 @@
-import {MenuItem, Select, SxProps, Theme} from '@mui/material';
+import {Menu, MenuItem, Select, SxProps, Theme} from '@mui/material';
+import {useDispatch, useSelector} from 'react-redux';
 
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import {ITodolistResponse} from '@/data/api/types/list.type';
 import {useStateAuth} from '@/states/auth';
+import {globalSlice, RootState} from '@/states/store';
 
 import FavoriteButton from '../../common/favorite-button';
 import styles from './style.module.scss';
@@ -19,6 +21,14 @@ interface IProp {
   onSuccessFavorite: () => void;
 }
 export default function ToolbarDetail({todolist, filterValue, onEdit, onDelete, onShare, onAddTask, onFilter, onSuccessFavorite}: IProp) {
+  const globalState = useSelector((state: RootState) => state.global);
+  const anchorEl = globalState.anchorElToolBarMenu;
+  const openMenu = Boolean(anchorEl);
+  const dispatch = useDispatch();
+
+  const handleClose = () => {
+    dispatch(globalSlice.actions.setAnchorElToolBarMenu(null));
+  };
   const statusFilters = todolist.status.sort((a, b) => a.index - b.index);
   const auth = useStateAuth();
 
@@ -85,6 +95,56 @@ export default function ToolbarDetail({todolist, filterValue, onEdit, onDelete, 
               </Button>
             )}
           </div>
+          <Menu
+            id="ToolBarMenu-menu"
+            anchorEl={anchorEl}
+            open={openMenu}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'ToolBarMenu-button'
+            }}
+          >
+            <MenuItem
+              onClick={() => {
+                onAddTask();
+                handleClose();
+              }}
+              sx={{justifyContent: 'end', fontFamily: 'inherit', alignItems: 'middle'}}
+            >
+              <span className="mr-1">Add Task</span>
+              <Icon name="ico-plus-circle" />
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                onDelete();
+                handleClose();
+              }}
+              sx={{justifyContent: 'end', fontFamily: 'inherit', alignItems: 'middle'}}
+            >
+              <span className="mr-1">Delete List</span>
+              <Icon name="ico-trash-2" />
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                onShare();
+                handleClose();
+              }}
+              sx={{justifyContent: 'end', fontFamily: 'inherit', alignItems: 'middle'}}
+            >
+              <span className="mr-1">Share</span>
+              <Icon name="ico-share-2" />
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                onEdit();
+                handleClose();
+              }}
+              sx={{justifyContent: 'end', fontFamily: 'inherit', alignItems: 'middle'}}
+            >
+              <span className="mr-1">Settings</span>
+              <Icon name="ico-settings" />
+            </MenuItem>
+          </Menu>
         </div>
       </div>
     </>

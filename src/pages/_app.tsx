@@ -9,9 +9,11 @@ import {useRouter} from 'next/router';
 import {appWithTranslation} from 'next-i18next';
 import nProgress from 'nprogress';
 import {useEffect} from 'react';
+import {Provider} from 'react-redux';
 
 import DefaultSeo from '@/components/common/seo/default-seo';
 import {AuthProvider} from '@/states/auth';
+import {store} from '@/states/store';
 
 const Noop: React.FC = ({children}: React.PropsWithChildren<any>) => <>{children}</>;
 
@@ -47,9 +49,11 @@ const CustomApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) =>
     <>
       <DefaultSeo />
       <AuthProvider>
-        <Layout pageProps={pageProps}>
-          <Component {...pageProps} key={router.route} />
-        </Layout>
+        <Provider store={store}>
+          <Layout pageProps={pageProps}>
+            <Component {...pageProps} key={router.route} />
+          </Layout>
+        </Provider>
       </AuthProvider>
     </>
   );

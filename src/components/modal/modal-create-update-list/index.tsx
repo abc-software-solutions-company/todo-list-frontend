@@ -28,7 +28,7 @@ const ModalCreateUpdateList: FC<IProps> = prop => {
         <Modal className={cls(styles['com-modal-todo-add-edit'], 'max-w-xl')} variant="center" open={open} onClose={onClose}>
           <form onSubmit={onSubmit}>
             <Modal.Header>
-              <h3 className="title">{data ? 'Update List' : 'Create New List'}</h3>
+              <h3 className="title">{data ? 'Setting' : 'Create New List'}</h3>
             </Modal.Header>
             <Modal.Body>
               <Input error={errors.name?.message} value={data?.name} autoFocus={true} placeholder={'Enter your list name'} {...register('name')} />
