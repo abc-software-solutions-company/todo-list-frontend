@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react/jsx-no-undef */
 import cn from 'classnames';
 import React, {FC, useEffect} from 'react';
 
@@ -23,7 +25,7 @@ const Login: FC = () => {
 
   return (
     <>
-      <div className={cn(styles['com-quick-play'])}>
+      <div className={cn(styles['com-login'])}>
         <div className="container">
           <div className="inner">
             <form onSubmit={onSubmit}>
@@ -37,9 +39,24 @@ const Login: FC = () => {
               <Input placeholder="Enter your name" className="name-input" maxLength={33} error={errors.name?.message} {...register('name')} />
               <Button className="btn-submit" variant="contained" color="primary" type="submit" text="LOGIN" loading={isSubmitting} disabled={isSubmitting} />
               <div className="third-party-login">
-                <hr className="hr-text" data-content="OR" />
+                <hr className="hr-text-decor" data-content="OR" />
+                <div className="third-party-buttons">
+                  <div className="github"></div>
+                  <div className="google">
+                    <Button>
+                      <img src="/google.png" alt="Google Login" />
+                    </Button>
+                  </div>
+                </div>
               </div>
             </form>
+          </div>
+        </div>
+        <div className="com-login-decor absolute right-0 bottom-0 -z-10 w-full">
+          <div className="backdrop-decor h-24 -rotate-3"></div>
+          <div className="tree-decor flex justify-between">
+            <div className="left">left tree</div>
+            <div className="right">right tree</div>
           </div>
         </div>
       </div>

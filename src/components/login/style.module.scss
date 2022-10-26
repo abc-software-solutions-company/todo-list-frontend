@@ -1,20 +1,20 @@
-.com-quick-play :global {
+.com-login :global {
   @apply h-full;
   .container {
-    @apply flex h-full items-center p-4 md:p-0;
+    @apply relative flex h-full items-center p-4 md:p-0;
   }
   .inner {
     @apply mx-auto w-full md:max-w-login-container-lg;
   }
   .logo-wrapper {
-    @apply flex justify-center md:mt-6;
+    @apply flex justify-center;
   }
   .welcome {
-    @apply bg-teal-300;
+    @apply bg-teal-300 md:mt-8 md:mb-6;
   }
   .third-party-login {
-    @apply bg-amber-300;
-    .hr-text {
+    // @apply bg-cyan-300;
+    .hr-text-decor {
       line-height: 1em;
       position: relative;
       outline: 0;
@@ -22,28 +22,27 @@
       color: black;
       text-align: center;
       height: 1.5em;
-      opacity: 0.5;
       &:before {
         content: '';
         // use the linear-gradient for the fading effect
         // use a solid background color for a solid bar
-        background: linear-gradient(to right, transparent, #818078, transparent);
+        @apply bg-gray-400;
         position: absolute;
         left: 0;
         top: 50%;
         width: 100%;
         height: 1px;
+        opacity: 0.5;
       }
       &:after {
         content: attr(data-content);
         position: relative;
         display: inline-block;
         color: black;
-
+        opacity: 1;
         padding: 0 0.5em;
         line-height: 1.5em;
         // this is really the only tricky part, you need to specify the background color of the container element...
-        color: #818078;
         background-color: #fcfcfa;
       }
     }
@@ -52,7 +51,7 @@
     @apply w-28;
   }
   form {
-    @apply mt-8 rounded-lg bg-white px-4 py-9 lg:mt-16 lg:py-16 lg:px-12;
+    @apply mt-8 rounded-lg bg-white px-4 py-9 lg:mt-16 lg:py-12 lg:px-12;
     .abc-input.error {
       @apply relative;
       .message {
