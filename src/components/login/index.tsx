@@ -2,14 +2,14 @@
 /* eslint-disable react/jsx-no-undef */
 import React, {FC, useEffect} from 'react';
 
+import ABC_Logo from '@/components/common/icons/abc-logo';
+import LoginDecor from '@/components/login-decor';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {AuthActions} from '@/states/auth';
 import {useDispatchAuth} from '@/states/auth/context';
 import LocalStorage from '@/utils/local-storage';
 
-import ABC_Logo from '../common/icons/todolist-logo';
-import LoginDecor from '../login-decor';
 import useGuestLoginHook from './hooks';
 import styles from './style.module.scss';
 
