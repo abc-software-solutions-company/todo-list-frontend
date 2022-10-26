@@ -13,7 +13,15 @@ export default function DefaultLayout({children}: React.PropsWithChildren<Record
     <div className={styles['layout-default']}>
       <Topbar />
       <main>{children}</main>
-      {router.asPath !== ROUTES.LOGIN && <Footer />}
+      {router.asPath === ROUTES.LOGIN ? (
+        <>
+          <div className="lg:bg-slate-200">
+            <Footer />
+          </div>
+        </>
+      ) : (
+        <Footer />
+      )}
     </div>
   );
 }
