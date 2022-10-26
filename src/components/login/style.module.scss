@@ -2,7 +2,7 @@
   @apply h-full;
 }
 .container {
-  @apply relative h-full items-center overflow-clip p-4 md:p-0;
+  @apply relative h-full items-center p-4 md:p-0 lg:overflow-clip;
 }
 
 .inner {
