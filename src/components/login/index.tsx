@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-no-undef */
-import cn from 'classnames';
 import React, {FC, useEffect} from 'react';
 
 import Button from '@/core-ui/button';
@@ -14,7 +13,7 @@ import useGuestLoginHook from './hooks';
 import styles from './style.module.scss';
 
 const Login: FC = () => {
-  const {formState, onSubmit, register} = useGuestLoginHook();
+  const {formState, onSubmit, register, openGooglePopUp} = useGuestLoginHook();
   const {errors, isSubmitting} = formState;
   const dispatchAuth = useDispatchAuth();
   useEffect(() => {
@@ -25,25 +24,33 @@ const Login: FC = () => {
 
   return (
     <>
-      <div className={cn(styles['com-login'])}>
-        <div className="container">
-          <div className="inner">
-            <form onSubmit={onSubmit}>
-              <div className="logo-wrapper">
+      <div className={styles['com-login']}>
+        <div className={styles.container}>
+          <div className={styles.inner}>
+            <form onSubmit={onSubmit} className={styles.form}>
+              <div className={styles['logo-wrapper']}>
                 <ABC_Logo width={149} />
               </div>
-              <div className="welcome">
+              <div className={styles.welcome}>
                 <h2>Welcome to To-do list 🖐️</h2>
                 <p>Please sign-in and start</p>
               </div>
-              <Input placeholder="Enter your name" className="name-input" maxLength={33} error={errors.name?.message} {...register('name')} />
-              <Button className="btn-submit" variant="contained" color="primary" type="submit" text="LOGIN" loading={isSubmitting} disabled={isSubmitting} />
+              <Input placeholder="Enter your name" className={styles['name-input']} maxLength={33} error={errors.name?.message} {...register('name')} />
+              <Button
+                className={styles['btn-submit']}
+                variant="contained"
+                color="info"
+                type="submit"
+                text="LOGIN"
+                loading={isSubmitting}
+                disabled={isSubmitting}
+              />
               <div className="third-party-login">
-                <hr className="hr-text-decor" data-content="OR" />
-                <div className="third-party-buttons">
+                <hr className={styles.or} data-content="or" />
+                <div className={styles['login-buttons']}>
                   <div className="github"></div>
                   <div className="google">
-                    <Button>
+                    <Button onClick={openGooglePopUp}>
                       <img src="/google.png" alt="Google Login" />
                     </Button>
                   </div>

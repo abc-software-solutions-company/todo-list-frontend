@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {yupResolver} from '@hookform/resolvers/yup';
-import {useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
 import useLoginHandler from '@/components/login/hooks/login-handler';
 import API from '@/data/api';
+
+import useLoginGoogle from './login-google';
 
 interface IFormInputs {
   name: string;
@@ -17,8 +18,8 @@ const Schema = yup.object().shape({
 });
 
 export default function useGuestLoginHook() {
-  // Handle Modal Login Social
-  const [modalOpen, setModalOpen] = useState(false);
+  const {openGooglePopUp} = useLoginGoogle();
+
   // Handle After Login Success | After Login Failed
   const {loginSuccess, loginFailed} = useLoginHandler();
   // Media Query for Todo List Logo in HomePage (@TinTran)
@@ -37,5 +38,5 @@ export default function useGuestLoginHook() {
       .catch(() => loginFailed());
   };
 
-  return {onSubmit: handleSubmit(submitHandler), register, formState, modalOpen, setModalOpen};
+  return {onSubmit: handleSubmit(submitHandler), register, formState, openGooglePopUp};
 }
