@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
         <div className="copyright">
           <p>
             Created by{' '}
-            <a className="text-abc-grey " href={siteSettings.author.websiteUrl} target="_blank" rel="noreferrer">
+            <a href={siteSettings.author.websiteUrl} target="_blank" rel="noreferrer">
               {siteSettings.author.name}
             </a>
           </p>

@@ -7,6 +7,6 @@
     @apply text-center md:flex md:items-center md:justify-center md:gap-1;
   }
   a {
-    @apply text-slate-700 hover:text-blue-500;
+    @apply font-bold text-sky-500 hover:text-blue-500;
   }
 }

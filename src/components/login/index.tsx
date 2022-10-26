@@ -9,6 +9,7 @@ import {useDispatchAuth} from '@/states/auth/context';
 import LocalStorage from '@/utils/local-storage';
 
 import ABC_Logo from '../common/icons/todolist-logo';
+import LoginDecor from '../login-decor';
 import useGuestLoginHook from './hooks';
 import styles from './style.module.scss';
 
@@ -58,13 +59,7 @@ const Login: FC = () => {
               </div>
             </form>
           </div>
-        </div>
-        <div className="com-login-decor absolute right-0 bottom-0 -z-10 w-full">
-          <div className="backdrop-decor h-24 -rotate-3"></div>
-          <div className="tree-decor flex justify-between">
-            <div className="left">left tree</div>
-            <div className="right">right tree</div>
-          </div>
+          <LoginDecor />
         </div>
       </div>
     </>

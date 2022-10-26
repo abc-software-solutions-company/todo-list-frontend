@@ -8,7 +8,7 @@ export default function PageLogin() {
   return (
     <>
       <Seo title="Login" />
-      <Login />;
+      <Login />
     </>
   );
 }
