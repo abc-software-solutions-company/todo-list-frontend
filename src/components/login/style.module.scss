@@ -9,18 +9,11 @@
   .logo-wrapper {
     @apply flex justify-center md:mt-6;
   }
-  svg {
-    @apply w-[250px] lg:w-full;
-  }
   .todolist-logo {
     @apply w-28;
   }
   form {
-    // @apply mt-6 md:mt-14;
     @apply mt-8 rounded-lg bg-white px-4 py-9 lg:mt-16 lg:py-16 lg:px-20;
-    h2 {
-      @apply mb-14;
-    }
     .abc-input.error {
       @apply relative;
       .message {

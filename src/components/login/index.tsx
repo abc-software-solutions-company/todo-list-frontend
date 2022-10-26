@@ -27,11 +27,15 @@ const Login: FC = () => {
       <div className={cn(styles['com-quick-play'])}>
         <div className="container">
           <div className="inner">
-            <div className="logo-wrapper">
-              <TodoListLogo width={249} />
-            </div>
             <form onSubmit={onSubmit}>
-              <h2 className="text-center">Let&apos;s start!</h2>
+              <div className="logo-wrapper">
+                <TodoListLogo width={149} />
+              </div>
+              <div className="welcome">
+                <h2>Welcome to To-do list 🖐️</h2>
+                <p>Please sign-in and start</p>
+              </div>
+
               <Input placeholder="Enter your name" className="name-input" maxLength={33} error={errors.name?.message} {...register('name')} />
               <Button className="btn-submit" variant="contained" color="primary" type="submit" text="Enter" loading={isSubmitting} disabled={isSubmitting} />
               <Button
