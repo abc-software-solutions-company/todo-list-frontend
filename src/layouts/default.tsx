@@ -3,6 +3,7 @@ import React from 'react';
 
 import Footer from '@/components/footer';
 import Topbar from '@/components/topbar';
+import {ROUTES} from '@/configs/routes.config';
 
 import styles from './style.module.scss';
 
