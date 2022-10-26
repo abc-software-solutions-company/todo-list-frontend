@@ -30,7 +30,7 @@ const Login: FC = () => {
           <div className={styles.inner}>
             <form onSubmit={onSubmit} className={styles.form}>
               <div className={styles['logo-wrapper']}>
-                <ABC_Logo width={149} />
+                <ABC_Logo />
               </div>
               <div className={styles.welcome}>
                 <h2>Welcome to To-do list 🖐️</h2>
