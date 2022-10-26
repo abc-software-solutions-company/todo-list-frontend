@@ -15,7 +15,7 @@ export default function DefaultLayout({children}: React.PropsWithChildren<Record
       <main>{children}</main>
       {router.asPath === ROUTES.LOGIN ? (
         <>
-          <div className="lg:bg-slate-200">
+          <div className="lg:bg-slate-100">
             <Footer />
           </div>
         </>
