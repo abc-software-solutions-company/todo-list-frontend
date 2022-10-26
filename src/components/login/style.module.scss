@@ -9,6 +9,7 @@
   @apply absolute w-full md:max-w-login-container-lg;
   @apply top-1/2 left-1/2;
   @apply -translate-x-1/2 -translate-y-1/2;
+  @apply px-4 lg:px-0;
 }
 
 .logo-wrapper {

@@ -7,17 +7,19 @@ import styles from './style.module.scss';
 
 const LoginDecor: FC = () => {
   return (
-    <div className={styles['com-login-decor']}>
-      <div className={styles.container}>
-        <div className={styles.trees}>
-          <TreeLeft />
-          <TreeRight />
+    <>
+      <div className={styles['com-login-decor']}>
+        <div className={styles.container}>
+          <div className={styles.trees}>
+            <TreeLeft />
+            <TreeRight />
+          </div>
         </div>
       </div>
       <div className={styles['footer-login']}>
         <Footer />
       </div>
-    </div>
+    </>
   );
 };
 
