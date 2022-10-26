@@ -1,7 +1,11 @@
 .com-login-decor {
-  @apply absolute right-0 bottom-3 -z-10 w-full;
+  @apply hidden lg:block;
 }
-.com-login-decor::before {
+
+.container {
+  @apply right-0 bottom-3 -z-10 w-full lg:absolute;
+}
+.container::before {
   @apply absolute top-0 left-0 -z-20 h-[120%] w-[200%] -rotate-3 bg-slate-200 content-[''];
 }
 

@@ -7,11 +7,9 @@ import styles from './style.module.scss';
 const LoginDecor: FC = () => {
   return (
     <div className={styles['com-login-decor']}>
-      <div className={styles.trees}>
-        <div className={styles.left}>
+      <div className={styles.container}>
+        <div className={styles.trees}>
           <TreeLeft />
-        </div>
-        <div className={styles.right}>
           <TreeRight />
         </div>
       </div>
