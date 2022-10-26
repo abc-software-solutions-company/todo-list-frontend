@@ -4,7 +4,7 @@
     @apply flex h-full items-center p-4 md:p-0;
   }
   .inner {
-    @apply mx-auto w-full md:max-w-xl;
+    @apply mx-auto w-full md:max-w-login-container-lg;
   }
   .logo-wrapper {
     @apply flex justify-center md:mt-6;
@@ -13,7 +13,7 @@
     @apply w-28;
   }
   form {
-    @apply mt-8 rounded-lg bg-white px-4 py-9 lg:mt-16 lg:py-16 lg:px-20;
+    @apply mt-8 rounded-lg bg-white px-4 py-9 lg:mt-16 lg:py-16 lg:px-12;
     .abc-input.error {
       @apply relative;
       .message {

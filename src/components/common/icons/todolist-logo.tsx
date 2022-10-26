@@ -1,4 +1,5 @@
-const TodoListLogo: React.FC<React.SVGAttributes<Record<string, unknown>>> = () => {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const ABC_Logo: React.FC<React.SVGAttributes<Record<string, unknown>>> = () => {
   return (
     <svg width="96" height="32" viewBox="0 0 96 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -29,4 +30,4 @@ const TodoListLogo: React.FC<React.SVGAttributes<Record<string, unknown>>> = () 
   );
 };
 
-export default TodoListLogo;
+export default ABC_Logo;
