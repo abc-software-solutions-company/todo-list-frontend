@@ -1,0 +1,11 @@
+.topbar-lobby :global {
+  @apply block px-8;
+  .topbar {
+    a {
+      @apply text-white;
+    }
+    .sep {
+      @apply bg-white;
+    }
+  }
+}
