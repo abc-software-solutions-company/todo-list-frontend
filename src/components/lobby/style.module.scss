@@ -9,19 +9,20 @@
 }
 
 .container {
-  @apply flex h-full items-center;
+  @apply flex h-full flex-col-reverse items-center space-x-28 px-40 xl:flex-row;
 }
 
 .inner {
-  @apply basis-1/2 px-40;
+  @apply basis-1/2;
 }
 
 .actions {
   @apply mt-8 grid w-full gap-x-5 md:grid-cols-2;
 }
 .decor {
-  @apply basis-1/2;
+  @apply flex basis-1/2 justify-end;
+  background: aqua;
   svg {
-    @apply max-w-full bg-amber-300;
+    @apply max-w-full;
   }
 }
