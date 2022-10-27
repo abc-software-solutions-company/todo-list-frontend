@@ -15,7 +15,7 @@ const Lobby: FC = () => {
   const {errors, isSubmitting} = formState;
   return (
     <>
-      <div className={styles['page-action']}>
+      <div className={styles['page-lobby']}>
         <div className={styles.container}>
           <div className={styles.inner}>
             <LobbyTitle />

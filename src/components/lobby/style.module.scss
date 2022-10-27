@@ -1,5 +1,5 @@
-.page-action {
-  @apply h-full overflow-x-hidden;
+.page-lobby {
+  @apply h-full overflow-x-hidden bg-[url('/image/bg-lobby.png')] bg-left-top xl:bg-right-top;
   .abc-input.error {
     @apply relative;
     .message {
