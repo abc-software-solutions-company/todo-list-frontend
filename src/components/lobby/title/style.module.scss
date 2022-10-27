@@ -4,12 +4,12 @@
 }
 
 .title {
-  @apply text-hero font-bold;
+  @apply text-h1 font-bold md:text-hero;
 }
 
 .headline {
-  @apply mb-5 text-h3 font-bold;
+  @apply mb-5 text-h4 font-bold md:text-h3;
 }
 .quote {
-  @apply text-h4 font-medium;
+  @apply text-h5 font-medium md:text-h4;
 }

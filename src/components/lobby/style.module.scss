@@ -1,5 +1,5 @@
 .page-action {
-  @apply h-full;
+  @apply h-full overflow-x-hidden;
   .abc-input.error {
     @apply relative;
     .message {
@@ -9,9 +9,10 @@
 }
 
 .container {
-  @apply relative flex h-full flex-col-reverse items-center justify-between space-x-28 xl:flex-row;
-  @apply px-20 xl:px-40;
-  // @apply bg-amber-400;
+  @apply relative flex h-full flex-col-reverse items-center justify-between  xl:flex-row;
+  @apply space-x-28 px-10 md:px-20 xl:px-40;
+  @apply py-10;
+  // @apply bg-amber-400 py-8;
 }
 
 .inner {
@@ -27,6 +28,6 @@
   @apply flex basis-1/2 justify-end;
   // background: aqua;
   svg {
-    @apply h-auto max-w-[80%] xl:max-w-full;
+    @apply h-auto w-96 sm:w-[80%] xl:w-full xl:max-w-full;
   }
 }
