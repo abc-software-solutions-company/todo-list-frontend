@@ -1,5 +1,8 @@
 .topbar-lobby :global {
-  @apply px-8;
+  @apply px-10 xl:px-40;
+  .container {
+    @apply max-w-full;
+  }
   .inner {
     @apply flex justify-between;
   }
