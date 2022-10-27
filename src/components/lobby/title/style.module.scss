@@ -1,7 +1,10 @@
 .title {
-  @apply text-center text-5xl font-extrabold text-blue-500 md:text-hero;
+  @apply text-center text-5xl font-extrabold text-white md:text-hero;
 }
 
-.h1 {
-  @apply mt-6 text-center font-medium text-blue-500 lg:mt-16;
+.headline {
+  @apply mt-6 text-center font-medium text-white lg:mt-16;
+}
+.quote {
+  @apply text-white;
 }
