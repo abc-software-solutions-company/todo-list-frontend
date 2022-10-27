@@ -3,6 +3,7 @@ import {FC, useState} from 'react';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 
+import LobbyDecor from '../common/vector/lobby-decor';
 import ModalCreateUpdateList from '../modal/modal-create-update-list';
 import useLobbyHook from './hook';
 import styles from './style.module.scss';
@@ -31,6 +32,9 @@ const Lobby: FC = () => {
                 />
               </form>
             </div>
+          </div>
+          <div className="decor">
+            <LobbyDecor />
           </div>
         </div>
       </div>
