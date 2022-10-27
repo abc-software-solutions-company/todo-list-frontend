@@ -1,10 +1,15 @@
+.lobby-title {
+  @apply text-white;
+}
+
 .title {
-  @apply text-center text-5xl font-extrabold text-white md:text-hero;
+  // @apply text-5xl font-bold leading-10;
+  @apply text-hero font-bold;
 }
 
 .headline {
-  @apply mt-6 text-center font-medium text-white lg:mt-16;
+  @apply mb-5 text-h3 font-bold;
 }
 .quote {
-  @apply text-white;
+  @apply text-h4 font-medium;
 }
