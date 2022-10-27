@@ -9,12 +9,14 @@ const TopBarLobby: FC = () => {
   return (
     <>
       <div className={styles['topbar-lobby']}>
-        <div className="inner flex justify-between">
-          <div className="logo pt-7">
-            <ABC_LogoText />
-          </div>
-          <div className="topbar text-white">
-            <Topbar />
+        <div className="container">
+          <div className="inner">
+            <div className="logo">
+              <ABC_LogoText />
+            </div>
+            <div className="topbar">
+              <Topbar />
+            </div>
           </div>
         </div>
       </div>

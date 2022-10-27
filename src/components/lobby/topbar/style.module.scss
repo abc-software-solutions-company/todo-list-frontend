@@ -1,6 +1,13 @@
 .topbar-lobby :global {
-  @apply block px-8;
+  @apply px-8;
+  .inner {
+    @apply flex justify-between;
+  }
+  .logo {
+    @apply pt-7;
+  }
   .topbar {
+    @apply text-white;
     a {
       @apply text-white;
     }

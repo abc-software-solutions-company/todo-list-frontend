@@ -9,8 +9,8 @@
 }
 
 .container {
-  @apply relative flex h-full flex-col-reverse items-center justify-between  xl:flex-row;
-  @apply space-x-28 px-10 md:px-20 xl:px-40;
+  @apply relative flex h-full flex-col-reverse items-center xl:flex-row;
+  @apply space-x-28 px-10 xl:px-40;
   @apply py-10;
   // @apply bg-amber-400 py-8;
 }
@@ -20,7 +20,7 @@
 }
 
 .actions {
-  @apply grid xl:grid-cols-2;
+  @apply grid lg:grid-cols-2;
   @apply gap-x-5 gap-y-4;
   @apply mt-8 w-full;
 }
