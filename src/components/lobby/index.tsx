@@ -20,11 +20,11 @@ const Lobby: FC = () => {
             <LobbyTitle />
             <div className="actions">
               <div className="item">
-                <Button variant="contained" className="w-full font-medium" color="primary" onClick={() => setModalOpen(true)} text=" Create New List" />
+                <Button variant="contained" className="w-full font-medium" color="info" onClick={() => setModalOpen(true)} text=" Create New List" />
               </div>
               <form onSubmit={onSubmit}>
                 <Input
-                  groupEnd={<Button className="px-5 font-medium " color="primary" variant="contained" text="Join" type="submit" disabled={isSubmitting} />}
+                  groupEnd={<Button className="px-5 font-medium " color="info" variant="contained" text="Join" type="submit" disabled={isSubmitting} />}
                   placeholder="Enter Link or ID"
                   error={errors.idOrLink?.message}
                   {...register('idOrLink')}
