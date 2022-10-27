@@ -2,7 +2,7 @@ import React from 'react';
 
 import Seo from '@/components/common/seo/seo';
 import Lobby from '@/components/lobby';
-import LayoutDefault from '@/layouts/default';
+import LobbyLayout from '@/layouts/lobby';
 
 export default function PageHome() {
   return (
@@ -13,4 +13,4 @@ export default function PageHome() {
   );
 }
 
-PageHome.Layout = LayoutDefault;
+PageHome.Layout = LobbyLayout;

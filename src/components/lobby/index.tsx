@@ -15,10 +15,10 @@ const Lobby: FC = () => {
   return (
     <>
       <div className={styles['page-action']}>
-        <div className="container">
-          <div className="inner">
+        <div className={styles.container}>
+          <div className={styles.inner}>
             <LobbyTitle />
-            <div className="actions">
+            <div className={styles.actions}>
               <div className="item">
                 <Button variant="contained" className="w-full font-medium" color="info" onClick={() => setModalOpen(true)} text=" Create New List" />
               </div>

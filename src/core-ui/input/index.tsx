@@ -1,31 +1,9 @@
 import cls from 'classnames';
-import React, {
-  ChangeEvent,
-  ChangeEventHandler,
-  ComponentPropsWithRef,
-  FC,
-  ReactElement,
-  ReactNode,
-  forwardRef,
-  useEffect,
-  useState
-} from 'react';
+import React, {ChangeEvent, ChangeEventHandler, ComponentPropsWithRef, FC, forwardRef, ReactElement, ReactNode, useEffect, useState} from 'react';
 
 import {Variant} from '../types';
 
-type InputType =
-  | 'text'
-  | 'email'
-  | 'url'
-  | 'password'
-  | 'number'
-  | 'date'
-  | 'datetime-local'
-  | 'month'
-  | 'search'
-  | 'tel'
-  | 'time'
-  | 'week';
+type InputType = 'text' | 'email' | 'url' | 'password' | 'number' | 'date' | 'datetime-local' | 'month' | 'search' | 'tel' | 'time' | 'week';
 
 interface IInputProps extends ComponentPropsWithRef<'input'> {
   className?: string;
@@ -44,10 +22,7 @@ interface IInputProps extends ComponentPropsWithRef<'input'> {
 }
 
 const Input: FC<IInputProps> = forwardRef(
-  (
-    {className, variant, label, labelRequire, error, type, value = '', groupStart, groupEnd, onChange, ...rest},
-    ref
-  ) => {
+  ({className, variant, label, labelRequire, error, type, value = '', groupStart, groupEnd, onChange, ...rest}, ref) => {
     const [val, setVal] = useState(value);
 
     const rootProps: IInputProps = {};
