@@ -52,7 +52,7 @@ const Login: FC = () => {
                   <div className="github"></div>
                   <div className="google">
                     <Button onClick={openGooglePopUp}>
-                      <img src="/google.png" alt="Google Login" />
+                      <img src="icons/google.png" alt="Google Login" />
                     </Button>
                   </div>
                 </div>
