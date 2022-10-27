@@ -9,7 +9,9 @@
 }
 
 .container {
-  @apply flex h-full flex-col-reverse items-center space-x-28 px-40 xl:flex-row;
+  @apply relative flex h-full flex-col-reverse items-center justify-between space-x-28 xl:flex-row;
+  @apply px-20 xl:px-40;
+  // @apply bg-amber-400;
 }
 
 .inner {
@@ -17,12 +19,14 @@
 }
 
 .actions {
-  @apply mt-8 grid w-full gap-x-5 md:grid-cols-2;
+  @apply grid xl:grid-cols-2;
+  @apply gap-x-5 gap-y-4;
+  @apply mt-8 w-full;
 }
 .decor {
   @apply flex basis-1/2 justify-end;
-  background: aqua;
+  // background: aqua;
   svg {
-    @apply max-w-full;
+    @apply h-auto max-w-[80%] xl:max-w-full;
   }
 }
