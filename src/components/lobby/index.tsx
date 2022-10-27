@@ -33,7 +33,7 @@ const Lobby: FC = () => {
               </form>
             </div>
           </div>
-          <div className="decor">
+          <div className={styles.decor}>
             <LobbyDecor />
           </div>
         </div>

@@ -1,8 +1,5 @@
-.page-action :global {
+.page-action {
   @apply h-full;
-  .form-input {
-    @apply p-0 px-4;
-  }
   .abc-input.error {
     @apply relative;
     .message {
@@ -12,13 +9,19 @@
 }
 
 .container {
-  @apply flex h-full items-center px-4 md:p-0;
+  @apply flex h-full items-center;
 }
 
 .inner {
-  @apply mx-auto  w-full md:max-w-[708px];
+  @apply basis-1/2 px-40;
 }
 
 .actions {
-  @apply mt-8 grid w-full gap-x-5 gap-y-5 md:grid-cols-2;
+  @apply mt-8 grid w-full gap-x-5 md:grid-cols-2;
+}
+.decor {
+  @apply basis-1/2;
+  svg {
+    @apply max-w-full bg-amber-300;
+  }
 }

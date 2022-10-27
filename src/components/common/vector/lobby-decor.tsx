@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const LobbyDecor: React.FC<React.SVGAttributes<Record<string, unknown>>> = () => {
   return (
-    <svg width="861" height="662" viewBox="0 0 861 662" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="861" height="662" preserveAspectRatio="xMidYMid meet" viewBox="0 0 861 662" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M547.973 184.99C489.654 130.304 421.327 116.187 403.273 113.306C415.441 80.4803 434.233 31.6827 438.913 24.4621C441.94 24.0818 444.989 23.9073 448.039 23.9399C461.305 23.9399 489.708 26.6949 530.838 45.1875C590.237 71.8912 606.022 101.944 609.154 109.291L547.973 184.99Z"
         fill="white"
