@@ -14,6 +14,7 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 
+import ErrorInformation from '../common/404';
 import useListDetail from './hook';
 import styles from './style.module.scss';
 
@@ -81,9 +82,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
 
   if (isPrivate()) {
     return (
-      <div className={styles['list-detail']}>
-        <h3 className="error-private-list">Error. This is private list</h3>
-      </div>
+      <ErrorInformation/>
     );
   }
   const tasksData = todoList.tasks.filter(task => task.isActive && (!filterValue || task.statusId === filterValue));
