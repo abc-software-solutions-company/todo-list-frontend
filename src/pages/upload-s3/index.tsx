@@ -1,4 +1,5 @@
 import aws from 'aws-sdk';
+import {PutObjectRequest} from 'aws-sdk/clients/s3';
 import React from 'react';
 import {Resolver, useForm} from 'react-hook-form';
 
@@ -40,20 +41,20 @@ export default function UploadImage() {
     const {name} = data.image[0];
     const imageFile = data.image[0];
 
-    const params = {
+    const params: PutObjectRequest = {
       Bucket: 'todo-list-website-production',
       Body: imageFile,
       Key: `data/${name}`,
       ACL: 'public-read'
     };
 
-    s3.upload(params, function (err, data) {
+    s3.upload(params, function (err, response) {
       if (err) {
         console.log('Error', err);
       }
-      if (data) {
-        console.log('Link image to save in database: ', data.Location);
-        console.log(data);
+      if (response) {
+        console.log('Link image to save in database: ', response.Location);
+        console.log(response);
       }
     });
   });
