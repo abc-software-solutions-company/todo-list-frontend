@@ -36,13 +36,12 @@ export default function UploadImage() {
     formState: {errors}
   } = useForm<FormValues>({resolver});
   const onSubmit = handleSubmit(data => {
-    const file = data.image;
-    console.log(file[0].name);
+    const {name, arrayBuffer, type} = data.image[0];
 
     const params = {
       Bucket: 'todo-list-website-production',
       // Body: fs.createReadStream(filePath),
-      Key: `image/${data.image}`,
+      Key: `image/${name}`,
       ACL: 'public-read'
     };
     console.log(params);
