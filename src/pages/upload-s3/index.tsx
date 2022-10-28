@@ -3,8 +3,9 @@ import React from 'react';
 import {Resolver, useForm} from 'react-hook-form';
 
 aws.config.update({
-  accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY
+  accessKeyId: 'AKIAWKOFN5TU5IT42IFX',
+  secretAccessKey: '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',
+  region: 'ap-southeast-1'
 });
 
 const s3 = new aws.S3();
@@ -36,15 +37,25 @@ export default function UploadImage() {
     formState: {errors}
   } = useForm<FormValues>({resolver});
   const onSubmit = handleSubmit(data => {
-    const {name, arrayBuffer, type} = data.image[0];
+    const {name} = data.image[0];
+    const imageFile = data.image[0];
 
     const params = {
       Bucket: 'todo-list-website-production',
-      // Body: fs.createReadStream(filePath),
-      Key: `image/${name}`,
+      Body: imageFile,
+      Key: `data/${name}`,
       ACL: 'public-read'
     };
-    console.log(params);
+
+    s3.upload(params, function (err, data) {
+      if (err) {
+        console.log('Error', err);
+      }
+      if (data) {
+        console.log('Link image to save in database: ', data.Location);
+        console.log(data);
+      }
+    });
   });
 
   return (
