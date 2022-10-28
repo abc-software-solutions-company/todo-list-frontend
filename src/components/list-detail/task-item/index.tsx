@@ -2,7 +2,9 @@ import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import {SelectChangeEvent} from '@mui/material';
 import classNames from 'classnames';
+import {useRouter} from 'next/router';
 
+import {ROUTES} from '@/configs/routes.config';
 import Checkbox from '@/core-ui/checkbox';
 import IconButton from '@/core-ui/icon-button';
 import api from '@/data/api/index';
@@ -24,6 +26,7 @@ interface IProp {
 }
 
 export default function TaskItem({task, onEdit, onDelete, statusList, isSelect, readonly}: IProp) {
+  const router = useRouter();
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task!.id!});
   statusList?.sort((a, b) => a.id - b.id);
   const statusValue = statusList.filter(e => e.id === task.statusId)[0];
@@ -46,6 +49,9 @@ export default function TaskItem({task, onEdit, onDelete, statusList, isSelect, 
       .update({id: task.id, statusId: Number(event.target.value)})
       .then(socketUpdateList)
       .catch(() => {});
+  };
+  const onDetail = (taskId: string) => {
+    router.push(ROUTES.TASK + '/' + taskId);
   };
 
   return (
@@ -79,6 +85,7 @@ export default function TaskItem({task, onEdit, onDelete, statusList, isSelect, 
             <IconButton name="ico-trash-2" size={20} onClick={onDelete} />
           </>
         )}
+        <IconButton name="ico-chevron-right" onClick={() => onDetail(task.id)} />
       </div>
     </div>
   );

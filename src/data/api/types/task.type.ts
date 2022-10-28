@@ -10,6 +10,7 @@ export interface ITaskCreate {
 export interface ITaskUpdate extends ITaskGet {
   name?: string;
   isDone?: boolean;
+  description?: string;
   isActive?: boolean;
   statusId?: number;
 }
