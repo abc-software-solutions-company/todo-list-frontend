@@ -1,7 +1,7 @@
 import aws from 'aws-sdk';
-import {PutObjectRequest} from 'aws-sdk/clients/s3';
+import {ManagedUpload, PutObjectRequest} from 'aws-sdk/clients/s3';
 import React from 'react';
-import {Resolver, useForm} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 
 aws.config.update({
   accessKeyId: 'AKIAWKOFN5TU5IT42IFX',
@@ -12,23 +12,7 @@ aws.config.update({
 const s3 = new aws.S3();
 
 type FormValues = {
-  firstName: string;
-  lastName: string;
   image: File[];
-};
-
-const resolver: Resolver<FormValues> = async values => {
-  return {
-    values: values.firstName ? values : {},
-    errors: !values.firstName
-      ? {
-          firstName: {
-            type: 'required',
-            message: 'This is required.'
-          }
-        }
-      : {}
-  };
 };
 
 export default function UploadImage() {
@@ -36,19 +20,19 @@ export default function UploadImage() {
     register,
     handleSubmit,
     formState: {errors}
-  } = useForm<FormValues>({resolver});
+  } = useForm<FormValues>();
   const onSubmit = handleSubmit(data => {
     const {name} = data.image[0];
     const imageFile = data.image[0];
 
-    const params: PutObjectRequest = {
+    const s3ObjectRequest: PutObjectRequest = {
       Bucket: 'todo-list-website-production',
       Body: imageFile,
       Key: `data/${name}`,
       ACL: 'public-read'
     };
 
-    s3.upload(params, function (err, response) {
+    s3.upload(s3ObjectRequest, function (err: Error, response: ManagedUpload.SendData) {
       if (err) {
         console.log('Error', err);
       }
@@ -61,11 +45,8 @@ export default function UploadImage() {
 
   return (
     <form onSubmit={onSubmit}>
-      <input {...register('firstName')} placeholder="Bill" />
-      {errors?.firstName && <p>{errors.firstName.message}</p>}
-
-      <input {...register('lastName')} placeholder="Luo" />
-      <input {...register('image')} type="file" />
+      <input {...register('image', {required: true})} type="file" />
+      {errors?.image && <p>Image bắt buộc thêm</p>}
 
       <input type="submit" />
     </form>
