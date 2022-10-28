@@ -1,17 +1,14 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: TodoList Frontend Pipeline
+name: Deploy Production
 
 on:
   push:
-    branches: ["main"]
-  # This instruction can only be used on test.workflow.yml for CI Stage in the future
-  # pull_request:
-  #   branches: ["main"]
+    branches: ["release"]
 
 env:
-  test: test
+  PRODUCTION: ${{ secrets.PRODUCTION }}
 
 jobs:
   build:
@@ -29,8 +26,20 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Copy .env.template --> .env
-        run: cp .env.sample .env
+      - name: Delete old env file
+        run: rm -r -f .env
+
+      - name: Create env_temp file
+        run: touch .env_temp
+
+      - name: Copy Secret Key Multiline environment variable to .env_temp file
+        run: echo $PRODUCTION | tee .env_temp
+
+      - name: Replace space character with break-line in .env
+        run: sed 's/ /\n/g' .env_temp >> .env
+
+      - name: Remove .env_temp file
+        run: rm -r -f .env_temp
 
       - name: Install Yarn, PM2
         run: npm install -g yarn pm2
@@ -38,7 +47,7 @@ jobs:
       - name: Install Node Module
         run: yarn
 
-      - name: Generated SVG Font
+      - name: Generate Icon Font
         run: yarn genfont
 
       - name: Build,Start and Restart Web Application
