@@ -4,9 +4,9 @@ import React from 'react';
 import {useForm} from 'react-hook-form';
 
 aws.config.update({
-  accessKeyId: 'AKIAWKOFN5TU5IT42IFX',
-  secretAccessKey: '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',
-  region: 'ap-southeast-1'
+  accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
+  region: process.env.NEXT_PUBLIC_AWS_REGION
 });
 
 const s3 = new aws.S3();
@@ -26,7 +26,7 @@ export default function UploadImage() {
     const imageFile = data.image[0];
 
     const s3ObjectRequest: PutObjectRequest = {
-      Bucket: 'todo-list-website-production',
+      Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME!,
       Body: imageFile,
       Key: `data/${name}`,
       ACL: 'public-read'
@@ -38,6 +38,7 @@ export default function UploadImage() {
       }
       if (response) {
         console.log('Link image to save in database: ', response.Location);
+        alert(`Link image to save in database:  ${response.Location}`);
         console.log(response);
       }
     });
