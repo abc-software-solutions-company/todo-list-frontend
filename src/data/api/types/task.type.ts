@@ -1,3 +1,16 @@
+export interface IImageResponse {
+  id: number;
+  link: string;
+  isActive: boolean;
+}
+
+export interface ITaskImageResponse {
+  taskId: string;
+  imageId: number;
+  isActive: boolean;
+  image: IImageResponse;
+}
+
 export interface ITaskGet {
   id: string;
 }
@@ -10,6 +23,10 @@ export interface ITaskCreate {
 export interface ITaskUpdate extends ITaskGet {
   name?: string;
   isDone?: boolean;
+  images?: {
+    add?: string[];
+    remove?: number[];
+  };
   description?: string;
   isActive?: boolean;
   statusId?: number;
@@ -23,6 +40,7 @@ export interface ITaskReIndex {
 
 export interface ITaskResponse extends ITaskGet {
   name: string;
+  taskImages: ITaskImageResponse[];
   description: string;
   todoListId: string;
   statusId: number;

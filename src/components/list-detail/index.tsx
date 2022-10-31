@@ -1,9 +1,6 @@
-import {DndContext, DragOverlay} from '@dnd-kit/core';
-import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
-import {SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {FC, useState} from 'react';
 
-import TaskItem from '@/components/list-detail/task-item';
+import ErrorInformation from '@/components/common/404';
 import ToolbarDetail from '@/components/list-detail/toolbar';
 import ModalCreateUpdateList from '@/components/modal/modal-create-update-list';
 import ModalCreateUpdateTask from '@/components/modal/modal-create-update-task';
@@ -12,19 +9,17 @@ import ModalShareList from '@/components/modal/modal-share-list';
 import FloatIcon from '@/core-ui/float-icon';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
-import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 
-import ErrorInformation from '../common/404';
 import useListDetail from './hook';
+import ListTask from './list-task';
 import styles from './style.module.scss';
 
 export interface Iprops {
   id: string;
 }
 const ListDetail: FC<Iprops> = ({id}) => {
-  const {activeId, handleDragEnd, setActiveId, todoList, auth, isReadOnly, updateList} = useListDetail({id});
+  const {setTodoList, todoList, auth, isReadOnly, updateList} = useListDetail({id});
   const [filterValue, SetFilterValue] = useState(0);
-  const sensor = useSensorGroup();
   const readonly = isReadOnly();
 
   const [createUpdateListModal, setCreateUpdateListModal] = useState(false);
@@ -98,42 +93,14 @@ const ListDetail: FC<Iprops> = ({id}) => {
           onFilter={onFilter}
           onSuccessFavorite={onSuccessFavorite}
         />
-        <DndContext
-          sensors={sensor}
-          onDragCancel={() => setActiveId(null)}
-          onDragEnd={handleDragEnd}
-          modifiers={[restrictToVerticalAxis]}
-          onDragStart={({active}) => {
-            if (!active) {
-              return;
-            }
-            setActiveId(active.id);
-          }}
-        >
-          <div className="tasks">
-            {tasksData.length === 0 && <span className="empty">Empty list</span>}
-            {tasksData.length > 0 && (
-              <SortableContext disabled={readonly} items={tasksData.map(task => task.id!)} strategy={verticalListSortingStrategy}>
-                {tasksData.map(task => (
-                  <TaskItem
-                    readonly={readonly}
-                    key={task.id}
-                    task={task}
-                    onEdit={() => onCreateUpdateTask(task)}
-                    onDelete={() => onDeleteTask(task)}
-                    statusList={todoList.status}
-                    isSelect={false}
-                  />
-                ))}
-              </SortableContext>
-            )}
-            <DragOverlay>
-              {activeId ? (
-                <TaskItem readonly={readonly} statusList={todoList.status} task={tasksData.filter(e => e.id === activeId)[0]} isSelect={true} />
-              ) : null}
-            </DragOverlay>
-          </div>
-        </DndContext>
+        <ListTask
+          list={todoList}
+          onCreateUpdateTask={onCreateUpdateTask}
+          onDeleteTask={onDeleteTask}
+          readonly={readonly}
+          setList={setTodoList}
+          tasksData={tasksData}
+        />
         <ModalCreateUpdateList open={createUpdateListModal} onClose={onClose} data={todoList} onSuccess={socketUpdateList} />
         <ModalDelete open={deleteListModal} onClose={onClose} data={selectedTask || todoList} onSuccess={socketUpdateList} />
         <ModalShareList open={shareListModal} onClose={onClose} data={todoList} />
