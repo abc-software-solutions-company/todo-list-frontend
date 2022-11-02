@@ -1,5 +1,5 @@
 .page-not-found :global {
-  @apply grid min-h-screen place-items-center p-4 text-white sm:p-8;
+  @apply grid place-items-center p-4 text-white sm:p-8 lg:mt-40;
   .container {
     @apply text-center text-black;
   }
