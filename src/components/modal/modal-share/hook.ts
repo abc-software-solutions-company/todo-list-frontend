@@ -4,10 +4,11 @@ import useToast from '@/core-ui/toast';
 
 import {IProps} from '.';
 
-export default function useModalShareList({data}: IProps) {
+export default function useModalShare({data}: IProps) {
   const {id} = data;
   const toast = useToast();
   const [link, setLink] = useState<string>('');
+  const role = (data as any).todoListId ? 'task' : 'list';
 
   const copy = (text: string, title: string) => {
     toast.show({type: 'success', title: title, content: 'Successful!'});
@@ -15,8 +16,10 @@ export default function useModalShareList({data}: IProps) {
   };
 
   useEffect(() => {
-    setLink(window.location.origin + `/list/${id}`);
+    if (role === 'list') setLink(window.location.origin + `/list/${id}`);
+    else setLink(window.location.origin + `/tasks/${id}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  return {id, copy, link};
+  return {id, copy, role, link};
 }

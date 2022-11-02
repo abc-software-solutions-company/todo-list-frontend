@@ -9,7 +9,6 @@ import LayoutDefault from '@/layouts/default';
 export {getStaticPaths, getStaticProps};
 
 export default function PageTask({task}: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log('🚀 ~ file: index.tsx ~ line 11 ~ PageTask ~ task', task);
   const {name} = task;
   return (
     <>

@@ -6,24 +6,25 @@ import Icon from '@/core-ui/icon';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 import {ITodolistResponse} from '@/data/api/types/list.type';
+import {ITaskResponse} from '@/data/api/types/task.type';
 
-import useModalShareList from './hook';
+import useModalShare from './hook';
 import styles from './style.module.scss';
 
 export interface IProps {
   open: boolean;
   onClose: () => void;
-  data: ITodolistResponse;
+  data: ITodolistResponse | ITaskResponse;
 }
-const ModalShareList: FC<IProps> = props => {
-  const {id, link, copy} = useModalShareList(props);
+const ModalShare: FC<IProps> = props => {
+  const {id, link, copy, role} = useModalShare(props);
   const {open, onClose} = props;
 
   return (
     <>
       {open && (
         <Modal variant="center" className={cls(styles['com-modal-share'], 'max-w-xl')} open={open} onClose={onClose}>
-          <Modal.Header text="Share this list to a teammate" />
+          <Modal.Header text={`Share this ${role} to a teammate`} />
           <Modal.Body className="inputs">
             <div className="item">
               <Input
@@ -39,7 +40,7 @@ const ModalShareList: FC<IProps> = props => {
             </div>
             <div className="item mt-3">
               <Input
-                label="ID List:"
+                label="Id:"
                 groupEnd={
                   <Button className="btn-text" variant="contained" color="primary" onClick={() => copy(id, 'ID list copy')}>
                     <Icon name="ico-copy" />
@@ -56,4 +57,4 @@ const ModalShareList: FC<IProps> = props => {
   );
 };
 
-export default ModalShareList;
+export default ModalShare;

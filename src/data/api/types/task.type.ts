@@ -1,8 +1,14 @@
-export interface IImageResponse {
-  id: number;
-  link: string;
+import {IStatus, ITodolistResponse} from './list.type';
+
+export interface IImage {
   name: string;
+  link: string;
+}
+
+export interface IImageResponse extends IImage {
+  id: number;
   isActive: boolean;
+  createdDate: string;
 }
 
 export interface ITaskImageResponse {
@@ -25,8 +31,9 @@ export interface ITaskUpdate extends ITaskGet {
   name?: string;
   isDone?: boolean;
   images?: {
-    add?: {name: string; link: string}[];
+    add?: IImage[];
     remove?: number[];
+    edit?: {id: number; name: string}[];
   };
   description?: string;
   isActive?: boolean;
@@ -47,5 +54,7 @@ export interface ITaskResponse extends ITaskGet {
   statusId: number;
   userId: string;
   isDone: boolean;
+  status: IStatus;
+  todoList: ITodolistResponse;
   isActive: boolean;
 }

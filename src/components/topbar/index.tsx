@@ -8,6 +8,7 @@ import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 import {FireAuthUtils} from '@/lib/firebase/fireAuth-utils';
 import {useStateAuth} from '@/states/auth/context';
+import LocalStorage from '@/utils/local-storage';
 
 import Back from '../common/back';
 import styles from './style.module.scss';
@@ -35,6 +36,9 @@ const Topbar: FC<IProps> = ({className}) => {
       case '/list/[id]':
         router.push(ROUTES.LIST);
         break;
+      case '/tasks/[id]':
+        router.push(ROUTES.LIST + '/' + LocalStorage.listId.get());
+        break;
     }
   };
 
@@ -42,7 +46,7 @@ const Topbar: FC<IProps> = ({className}) => {
     <div className={cls(styles.topbar, className)}>
       {auth?.name && (
         <div className="container">
-          <Back visibleOn={['/list', '/list/[id]']} currentPage={currentPage} onClick={() => returnTo(currentPage)} />
+          <Back visibleOn={['/list', '/list/[id]', '/tasks/[id]']} currentPage={currentPage} onClick={() => returnTo(currentPage)} />
           <div className="authenticated">
             <Link href={ROUTES.LIST}>
               <a className="h2 text">My List</a>

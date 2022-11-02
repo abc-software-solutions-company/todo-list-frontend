@@ -11,7 +11,7 @@ import {ITodolistResponse} from '@/data/api/types/list.type';
 import FavoriteButton from '../common/favorite-button';
 import ModalCreateUpdateList from '../modal/modal-create-update-list';
 import ModalDelete from '../modal/modal-delete';
-import ModalShareList from '../modal/modal-share-list';
+import ModalShare from '../modal/modal-share';
 import useList from './hook';
 import ListTitle from './list-title';
 import styles from './style.module.scss';
@@ -114,7 +114,7 @@ export default function List() {
         {selectedList && (
           <>
             <ModalDelete open={deleteModal} onClose={onClose} data={selectedList} onSuccess={updateYourList} />
-            <ModalShareList open={shareModal} onClose={onClose} data={selectedList} />
+            <ModalShare open={shareModal} onClose={onClose} data={selectedList} />
           </>
         )}
       </div>

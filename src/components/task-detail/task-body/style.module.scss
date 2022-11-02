@@ -1,5 +1,5 @@
 .task-body :global {
-  @apply mt-8 bg-gray-50 p-8;
+  @apply mt-8 bg-gray-50 p-8 shadow-md;
   .title {
     @apply mt-5 mb-3 flex items-center gap-2.5 first:mt-0;
     i::before {
@@ -9,15 +9,26 @@
       @apply text-h4 font-medium text-slate-700;
     }
   }
+  .edit-btn {
+    @apply bg-slate-100 p-1 text-h6 text-slate-500;
+  }
+
   .description {
     &-text {
-      @apply break-words rounded-xl bg-gray-100 p-5 hover:bg-gray-200;
+      @apply -my-1 break-words py-1 text-h6 text-slate-700 hover:bg-gray-200;
     }
     &-form {
       @apply rounded-xl bg-gray-200 p-5;
     }
   }
+
+  textarea {
+    box-shadow: none;
+  }
   .task-images {
-    @apply grid w-full grid-cols-2 gap-5 lg:grid-cols-3;
+    @apply flex flex-col gap-3;
+    &-upload {
+      @apply mt-3 flex gap-3 overflow-x-auto bg-blue-100 p-2;
+    }
   }
 }

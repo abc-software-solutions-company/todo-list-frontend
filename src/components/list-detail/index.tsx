@@ -5,7 +5,7 @@ import ToolbarDetail from '@/components/list-detail/toolbar';
 import ModalCreateUpdateList from '@/components/modal/modal-create-update-list';
 import ModalCreateUpdateTask from '@/components/modal/modal-create-update-task';
 import ModalDelete from '@/components/modal/modal-delete';
-import ModalShareList from '@/components/modal/modal-share-list';
+import ModalShare from '@/components/modal/modal-share';
 import FloatIcon from '@/core-ui/float-icon';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
@@ -103,7 +103,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
         />
         <ModalCreateUpdateList open={createUpdateListModal} onClose={onClose} data={todoList} onSuccess={socketUpdateList} />
         <ModalDelete open={deleteListModal} onClose={onClose} data={selectedTask || todoList} onSuccess={socketUpdateList} />
-        <ModalShareList open={shareListModal} onClose={onClose} data={todoList} />
+        <ModalShare open={shareListModal} onClose={onClose} data={todoList} />
         <ModalCreateUpdateTask open={createUpdateTaskModal} onClose={onClose} listData={todoList} taskData={selectedTask} onSuccess={socketUpdateList} />
         {selectedTask && <ModalDelete open={deleteTaskModal} onClose={onClose} data={selectedTask} onSuccess={socketUpdateList} />}
         {!readonly && <FloatIcon className="float-icon" onClick={() => onCreateUpdateTask()} />}

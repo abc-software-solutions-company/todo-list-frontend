@@ -8,9 +8,9 @@ import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
-import {ITaskResponse} from '@/data/api/types/task.type';
+import {IImage, IImageResponse, ITaskResponse} from '@/data/api/types/task.type';
 
-import TaskImages, {IPreviewImage} from '../task-image';
+import TaskImages from '../task-images';
 import style from './style.module.scss';
 
 interface ITaskBodyProps {
@@ -24,7 +24,7 @@ interface IFormInputs {
 }
 
 const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => {
-  const [previewImages, setPreviewImages] = useState<IPreviewImage[]>([]);
+  const [previewImages, setPreviewImages] = useState<IImage[]>([]);
   const [editDescription, setEditDescription] = useState(false);
   const {handleSubmit, formState, register} = useForm<IFormInputs>({mode: 'onChange'});
   const {isSubmitting} = formState;
@@ -60,21 +60,28 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
     updateTaskData();
     setPreviewImages([]);
   };
+  const onClick = () => setEditDescription(true);
+  const taskImages = taskData.taskImages?.filter(e => e.isActive).map(e => e.image);
 
   return (
     <div className={classNames(style['task-body'], className)}>
       <div className="title">
         <Icon name="ico-description" />
         <h4>Description</h4>
+        {Boolean(taskData.description) && (
+          <button className={classNames('edit-btn', `${editDescription ? 'hidden' : ''}`)} onClick={onClick}>
+            Edit
+          </button>
+        )}
       </div>
       {!editDescription ? (
-        <div className="description-text" onClick={() => setEditDescription(true)}>
+        <div className="description-text" onClick={onClick}>
           {taskData.description || 'No description'}
         </div>
       ) : (
         <form className="decsription-form" onSubmit={handleSubmit(submitHandler)}>
-          <TextField className=" w-full bg-white" multiline rows={4} {...register('description')} defaultValue={taskData.description} />
-          <div className="mt-5 flex gap-5">
+          <TextField className="w-full bg-white" multiline rows={4} {...register('description')} defaultValue={taskData.description} />
+          <div className="mt-4 flex gap-4">
             <Button className="w-24" variant="contained" color="primary" text="Save" type="submit" loading={isSubmitting} disabled={isSubmitting} />
             <Button className="w-24" variant="outlined" color="white" text="Cancel" onClick={() => setEditDescription(false)} type="button" />
           </div>
@@ -85,7 +92,8 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
         <Icon name="ico-attachment" />
         <h4>Attachments</h4>
       </div>
-      <TaskImages className="task-images" images={[...taskData.taskImages?.map(e => e.image), ...previewImages]} />
+      <TaskImages className="task-images" images={taskImages} {...{taskData, updateTaskData}} />
+      <TaskImages className="task-images-upload" images={previewImages as IImageResponse[]} />
       <UploadImage {...{taskData, onUpload, previewImages, onSuccess}} />
 
       <div className="title">

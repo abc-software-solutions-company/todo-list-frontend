@@ -1,14 +1,13 @@
 import aws from 'aws-sdk';
 import {ManagedUpload, PutObjectRequest} from 'aws-sdk/clients/s3';
 import classNames from 'classnames';
-import {ChangeEvent, FC} from 'react';
+import {ChangeEvent, FC, useState} from 'react';
 import {useForm} from 'react-hook-form';
 
 import Button from '@/core-ui/button';
 import api from '@/data/api';
-import {ITaskResponse} from '@/data/api/types/task.type';
+import {IImage, ITaskResponse} from '@/data/api/types/task.type';
 
-import {IPreviewImage} from '../task-image';
 import style from './style.module.scss';
 
 aws.config.update({
@@ -26,20 +25,27 @@ type FormValues = {
 export interface IUploadImage {
   className?: string;
   taskData: ITaskResponse;
-  previewImages: IPreviewImage[];
+  previewImages: IImage[];
   onUpload: (e: ChangeEvent<HTMLInputElement>) => void;
   onSuccess: () => void;
 }
 
 const UploadImage: FC<IUploadImage> = ({taskData, onSuccess, onUpload, previewImages, className}) => {
-  const {register, handleSubmit, formState} = useForm<FormValues>();
-  const {errors, isSubmitting} = formState;
-  console.log('🚀 ~ file: index.tsx ~ line 38 ~ isSubmitting', isSubmitting);
+  const {register, handleSubmit} = useForm<FormValues>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onFinally = (isEnd?: boolean) => {
+    if (isEnd) {
+      setIsSubmitting(false);
+    }
+  };
 
   const onSubmit = handleSubmit(async ({images}) => {
     if (isSubmitting) return;
-    for (let i = 0; i < images.length; i++) {
-      const image = images[i];
+    setIsSubmitting(true);
+    const copyImages = [...images];
+    for (let i = 0; i < copyImages.length; i++) {
+      const image = copyImages[i];
       const name = Date.now() + image.name;
       const s3ObjectRequest: PutObjectRequest = {
         Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME!,
@@ -47,16 +53,15 @@ const UploadImage: FC<IUploadImage> = ({taskData, onSuccess, onUpload, previewIm
         Key: `data/${name}`,
         ACL: 'public-read'
       };
-
-      s3.upload(s3ObjectRequest, async (err: Error, response: ManagedUpload.SendData) => {
+      s3.upload(s3ObjectRequest, (err: Error, response: ManagedUpload.SendData) => {
         if (err) console.log('Error', err);
         if (response) {
-          console.log('Link image to save in database: ', response.Location);
           console.log(response);
           api.task
             .update({id: taskData.id, images: {add: [{name: image.name, link: response.Location}]}})
             .then(onSuccess)
-            .catch(error => console.log(error));
+            .catch(error => console.log(error))
+            .finally(() => onFinally(i + 1 === copyImages.length));
         }
       });
     }
@@ -75,7 +80,6 @@ const UploadImage: FC<IUploadImage> = ({taskData, onSuccess, onUpload, previewIm
           </Button>
         )}
       </div>
-      {errors?.images && <p>Image bắt buộc thêm</p>}
     </form>
   );
 };

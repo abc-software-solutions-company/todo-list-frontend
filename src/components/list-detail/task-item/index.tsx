@@ -78,7 +78,7 @@ export default function TaskItem({task, onEdit, onDelete, statusList, isSelect, 
         {`${task!.name}`}
       </p>
       <div className="actions">
-        {statusList && <Status items={statusList} readOnly={readonly} status={statusValue} onChange={e => onChangeStatus(e)} />}
+        {statusList && <Status className={style.status} items={statusList} readOnly={readonly} status={statusValue} onChange={e => onChangeStatus(e)} />}
         {!readonly && (
           <>
             <IconButton name="ico-edit" size={20} onClick={onEdit} />
