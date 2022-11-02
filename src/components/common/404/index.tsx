@@ -1,14 +1,16 @@
-import Link from 'next/link';
+import {useRouter} from 'next/router';
 import {useTranslation} from 'next-i18next';
 import * as React from 'react';
 
 import Seo from '@/components/common/seo/seo';
 import {ROUTES} from '@/configs/routes.config';
+import Button from '@/core-ui/button';
 
 import styles from './404.module.scss';
 
 const ErrorInformation: React.FC = () => {
   const {t} = useTranslation('common');
+  const router = useRouter();
 
   return (
     <>
@@ -17,7 +19,7 @@ const ErrorInformation: React.FC = () => {
         <div className="container">
           <p className="heading">404</p>
           <h1 className="sub-heading">{t('404-sub-heading')}</h1>
-          <Link href={ROUTES.HOME}>{t('404-back-home')}</Link>
+          <Button className="w-1/2" variant="contained" color="primary" text={t('404-back-home')} type="submit" onClick={() => router.push(ROUTES.HOME)} />
         </div>
       </div>
     </>
