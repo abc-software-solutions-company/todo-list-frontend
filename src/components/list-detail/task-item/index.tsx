@@ -85,7 +85,7 @@ export default function TaskItem({task, onEdit, onDelete, statusList, isSelect, 
             <IconButton name="ico-trash-2" size={20} onClick={onDelete} />
           </>
         )}
-        <IconButton name="ico-chevron-right" onClick={() => onDetail(task.id)} />
+        <IconButton name="ico-chevron-right" size={20} onClick={() => onDetail(task.id)} />
       </div>
     </div>
   );

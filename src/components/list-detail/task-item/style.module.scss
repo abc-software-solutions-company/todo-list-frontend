@@ -8,6 +8,7 @@
     @apply line-through opacity-50;
   }
   .actions {
-    @apply flex gap-x-3;
+    // @apply flex gap-x-3;
+    @apply flex gap-x-3 bg-lime-300;
   }
 }
