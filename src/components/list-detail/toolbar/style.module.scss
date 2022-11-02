@@ -1,11 +1,12 @@
 .toolbar {
-  @apply mt-4 flex h-7 items-center justify-between lg:mt-6 lg:h-9;
+  @apply mt-4 flex lg:mt-6;
+  @apply gap-x-6;
 }
 .tools {
   @apply flex h-full items-center;
 }
 .left {
-  @apply gap-2.5;
+  @apply items-start gap-2.5;
 }
 .title {
   @apply text-h4 lg:mt-0 lg:text-h2;
