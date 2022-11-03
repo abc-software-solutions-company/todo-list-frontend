@@ -26,7 +26,7 @@ const ModalThirdPartyLogin: React.FC<IProps> = ({open, onClose}) => {
             onClose();
           }}
         >
-          <Image src={'/google.png'} alt={'Login Google Logo'} width={24} height={24} />
+          <Image src={'/icons/google.png'} alt={'Login Google Logo'} width={24} height={24} />
           <span>Sign in with Google</span>
         </Button>
       </Modal.Body>
