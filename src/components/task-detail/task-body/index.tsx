@@ -65,7 +65,7 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
   const onError = () => {
     console.log('🚀 ~ file: index.tsx ~ line 67 ~ onError ~ onError', onError);
     setPreviewImages([]);
-    toast.show({type: 'danger', title: 'Error', content: 'Task Not Found, please check your task ID'});
+    toast.show({type: 'danger', title: 'Error', content: 'Warning your file must be image and maximum size is 5MB'});
   };
   const onClick = () => setEditDescription(true);
   const taskImages = taskData.taskImages?.filter(e => e.isActive).map(e => e.image);
