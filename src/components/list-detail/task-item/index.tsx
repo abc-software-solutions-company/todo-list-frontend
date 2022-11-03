@@ -81,11 +81,11 @@ export default function TaskItem({task, onEdit, onDelete, statusList, isSelect, 
         {statusList && <Status className={style.status} items={statusList} readOnly={readonly} status={statusValue} onChange={e => onChangeStatus(e)} />}
         {!readonly && (
           <>
-            <IconButton name="ico-edit" size={20} onClick={onEdit} />
-            <IconButton name="ico-trash-2" size={20} onClick={onDelete} />
+            <IconButton name="ico-edit" onClick={onEdit} />
+            <IconButton name="ico-trash-2" onClick={onDelete} />
           </>
         )}
-        <IconButton name="ico-chevron-right" size={20} onClick={() => onDetail(task.id)} />
+        <IconButton name="ico-chevron-right" onClick={() => onDetail(task.id)} />
       </div>
     </div>
   );
