@@ -50,7 +50,7 @@ const ModalCreateUpdateList: FC<IProps> = prop => {
               )}
             </Modal.Body>
             <Modal.Footer>
-              <div className="flex w-full gap-x-3 md:gap-x-4">
+              <div className="content">
                 <Button className="w-full" variant="outlined" color="primary" text="Cancel" onClick={onClose} type="button" />
                 <Button
                   className="w-full"

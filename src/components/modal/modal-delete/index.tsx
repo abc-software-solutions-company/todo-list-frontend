@@ -31,7 +31,7 @@ const ModalDelete: FC<IProps> = props => {
             </h3>
           </Modal.Header>
           <Modal.Footer>
-            <div className="flex w-full gap-x-3 md:gap-x-4">
+            <div className="content">
               <Button className="w-full" variant="outlined" color="primary" text="No" onClick={onClose} type="button" />
               <Button className="w-full" variant="contained" color="primary" text="Yes" type="submit" onClick={onClick} />
             </div>
