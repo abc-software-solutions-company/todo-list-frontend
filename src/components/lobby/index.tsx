@@ -25,7 +25,7 @@ const Lobby: FC = () => {
               </div>
               <form onSubmit={onSubmit}>
                 <Input
-                  groupEnd={<Button className="px-5 font-medium " color="info" variant="contained" text="Join" type="submit" disabled={isSubmitting} />}
+                  groupEnd={<Button className="px-5 font-medium" color="info" variant="contained" text="Join" type="submit" disabled={isSubmitting} />}
                   placeholder="Enter Link or ID"
                   error={errors.idOrLink?.message}
                   {...register('idOrLink')}

@@ -13,6 +13,18 @@
   @apply space-x-28 px-10 xl:px-40;
   @apply py-10;
   // @apply bg-amber-400 py-8;
+  // form {
+  //   @apply relative bg-amber-700;
+  //   .invalid {
+  //     @apply absolute;
+  //   }
+  // }
+  form {
+    @apply relative;
+    p {
+      @apply absolute;
+    }
+  }
 }
 
 .inner {
@@ -24,6 +36,7 @@
   @apply gap-x-5 gap-y-4;
   @apply mt-8 w-full;
 }
+
 .decor {
   @apply flex basis-1/2 justify-end;
   // background: aqua;
