@@ -28,7 +28,7 @@ export default function ToolbarDetail({todolist, filterValue, onEdit, onDelete, 
   const isInteractive = visibility === 'PUBLIC' || auth?.id === userId;
   const deleteToolProps: IToolProps = {
     icon: <Icon name="ico-trash-2" />,
-    text: 'Deletelist',
+    text: 'Delete list',
     hidden: !isInteractive,
     onClick: onDelete
   };

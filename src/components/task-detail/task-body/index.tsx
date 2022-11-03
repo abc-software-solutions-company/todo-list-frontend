@@ -77,7 +77,7 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
     <div className={classNames(style['task-body'], className)}>
       <div className="title">
         <Icon name="ico-description" />
-        <h4>Description</h4>
+        <h4>Describe</h4>
         {Boolean(taskData.description) && (
           <button className={classNames('edit-btn', `${editDescription ? 'hidden' : ''}`)} onClick={onClick}>
             Edit
