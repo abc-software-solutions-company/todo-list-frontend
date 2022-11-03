@@ -58,7 +58,7 @@ export default function List() {
               </div>
               <div className="right">
                 <Button className="btn-create-new" startIcon={<Icon name="ico-plus-circle" size={28} />} onClick={() => onCreateUpdate()}>
-                  <span className="h5 font-medium">New List</span>
+                  <span className="h5 ml-1 font-medium">New List</span>
                 </Button>
               </div>
             </div>

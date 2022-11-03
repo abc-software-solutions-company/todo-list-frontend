@@ -12,13 +12,6 @@
   @apply relative flex h-full flex-col-reverse items-center xl:flex-row;
   @apply space-x-28 px-10 xl:px-40;
   @apply py-10;
-  // @apply bg-amber-400 py-8;
-  // form {
-  //   @apply relative bg-amber-700;
-  //   .invalid {
-  //     @apply absolute;
-  //   }
-  // }
   form {
     @apply relative;
     p {
