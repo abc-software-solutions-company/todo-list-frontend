@@ -21,7 +21,7 @@ const Lobby: FC = () => {
             <LobbyTitle />
             <div className={styles.actions}>
               <div className="item">
-                <Button variant="contained" className="w-full font-medium" color="info" onClick={() => setModalOpen(true)} text=" Create New List" />
+                <Button variant="contained" className="h-full w-full font-medium" color="info" onClick={() => setModalOpen(true)} text=" Create New List" />
               </div>
               <form onSubmit={onSubmit}>
                 <Input
