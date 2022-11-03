@@ -53,7 +53,6 @@ const UploadImage: FC<IUploadImage> = ({taskData, onSuccess, onUpload, previewIm
       if (!imageValid(image)) {
         setIsSubmitting(false);
         onError();
-        previewImages = [];
         return alert('Warning your file must be image and maximum size is 5MB');
       }
       const s3ObjectRequest: PutObjectRequest = {

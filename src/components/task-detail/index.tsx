@@ -6,7 +6,6 @@ import socket from '@/data/socket';
 import {useStateAuth} from '@/states/auth';
 import LocalStorage from '@/utils/local-storage';
 
-import ErrorInformation from '../common/404';
 import TaskBody from './task-body';
 import TaskToolbar from './task-toolbar';
 
@@ -37,7 +36,7 @@ const TaskDetail: FC<IProps> = ({task}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth]);
 
-  if (!taskData) return <ErrorInformation />;
+  if (!taskData) return null;
   LocalStorage.listId.set(taskData.todoListId);
 
   return (
