@@ -78,7 +78,7 @@ const TaskImages: FC<ITaskImagesProps> = ({attachments, className, taskData, upd
               <div className="info-date"> {'Added ' + getDate(new Date(e.createdDate))}</div>
               <div className="info-actions">
                 <ButtonBase aria-describedby={editButtonId} onClick={event => handleClick(event, e)}>
-                  Edit
+                  Rename
                 </ButtonBase>
                 <Popover
                   id={editButtonId}

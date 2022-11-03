@@ -114,7 +114,7 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
         <h4>Comments</h4>
       </div>
       <form className="comments-form">
-        <TextField className=" w-full bg-white" multiline rows={2} />
+        <TextField className=" w-full bg-white" multiline rows={1} />
         <div className="mt-5 flex gap-5">
           <Button className="w-24" variant="contained" color="primary" text="Save" type="submit" />
           <Button className="w-24 text-blue-500" variant="outlined" color="white" text="Close" type="button" />
