@@ -1,5 +1,6 @@
 import {SelectChangeEvent} from '@mui/material';
 import classNames from 'classnames';
+import {useRouter} from 'next/router';
 import {FC, useState} from 'react';
 
 import Status from '@/components/list-detail/status';
@@ -44,6 +45,8 @@ const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, updateTaskData, className
       .catch(() => {});
   };
 
+  const router = useRouter();
+
   return (
     <div className={classNames(style.toolbar, className)}>
       <div className="header">
@@ -67,7 +70,15 @@ const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, updateTaskData, className
         <Status className={style.status} status={taskData.status} items={taskData.todoList.status} onChange={onChangeStatus} />
         <span> list</span>
       </div>
-      <ModalDelete open={deleteModal} onClose={onClose} data={taskData} onSuccess={socketUpdateList} />
+      <ModalDelete
+        open={deleteModal}
+        onClose={onClose}
+        data={taskData}
+        onSuccess={() => {
+          socketUpdateList();
+          router.back();
+        }}
+      />
       <ModalShare open={shareModal} onClose={onClose} data={taskData} />
     </div>
   );
