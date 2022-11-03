@@ -59,11 +59,13 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
     console.log('🚀 ~ file: index.tsx ~ line 62 ~ onSuccess ~ onSuccess');
     updateTaskData();
     setPreviewImages([]);
+    toast.show({type: 'success', title: 'success', content: 'Update Image Successfull'});
   };
 
   const onError = () => {
     console.log('🚀 ~ file: index.tsx ~ line 67 ~ onError ~ onError', onError);
     setPreviewImages([]);
+    toast.show({type: 'danger', title: 'Error', content: 'Task Not Found, please check your task ID'});
   };
   const onClick = () => setEditDescription(true);
   const taskImages = taskData.taskImages?.filter(e => e.isActive).map(e => e.image);

@@ -53,7 +53,7 @@ const UploadImage: FC<IUploadImage> = ({taskData, onSuccess, onUpload, previewIm
       if (!imageValid(image)) {
         setIsSubmitting(false);
         onError();
-        return alert('Warning your file must be image and maximum size is 5MB');
+        return;
       }
       const s3ObjectRequest: PutObjectRequest = {
         Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME!,
