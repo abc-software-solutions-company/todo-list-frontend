@@ -78,11 +78,12 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
       <div className="title">
         <Icon name="ico-description" />
         <h4>Describe</h4>
-        {Boolean(taskData.description) && (
+        <Button text="Edit" className="edit-btn" onClick={onClick} />
+        {/* {Boolean(taskData.description) && (
           <button className={classNames('edit-btn', `${editDescription ? 'hidden' : ''}`)} onClick={onClick}>
             Edit
           </button>
-        )}
+        )} */}
       </div>
       {!editDescription ? (
         <div className="description-text" onClick={onClick}>
@@ -98,6 +99,8 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
         </form>
       )}
 
+      <hr />
+
       <div className="title">
         <Icon name="ico-attachment" />
         <h4>Attachments</h4>
@@ -105,7 +108,7 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
       <TaskImages className="task-images" attachments={taskImages} {...{taskData, updateTaskData}} />
       <TaskImages className="task-images-upload" attachments={previewImages as IAttachmentResponse[]} />
       <UploadImage {...{taskData, onUpload, previewImages, onSuccess, onError}} />
-
+      <hr />
       <div className="title">
         <Icon name="ico-message-circle" />
         <h4>Comments</h4>

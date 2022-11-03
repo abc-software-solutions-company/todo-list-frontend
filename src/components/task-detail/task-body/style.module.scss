@@ -10,7 +10,8 @@
     }
   }
   .edit-btn {
-    @apply bg-slate-100 p-1 text-h6 text-slate-500;
+    // @apply bg-slate-100 p-1 text-h6 text-slate-500;
+    @apply rounded bg-slate-200 p-1 text-h6 text-slate-500;
   }
 
   .description {
@@ -30,5 +31,9 @@
     &-upload {
       @apply mt-3 flex gap-3 overflow-x-auto bg-blue-100 p-2;
     }
+  }
+
+  hr {
+    @apply bg-amber-300 py-4;
   }
 }
