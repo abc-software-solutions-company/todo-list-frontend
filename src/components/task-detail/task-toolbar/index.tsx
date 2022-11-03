@@ -1,14 +1,11 @@
-import {SelectChangeEvent} from '@mui/material';
 import classNames from 'classnames';
 import {useRouter} from 'next/router';
 import {FC, useState} from 'react';
 
-import Status from '@/components/list-detail/status';
 import ModalDelete from '@/components/modal/modal-delete';
 import ModalShare from '@/components/modal/modal-share';
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
-import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
 
@@ -17,10 +14,9 @@ import style from './style.module.scss';
 interface ITaskToolbarProps {
   className?: string;
   taskData: ITaskResponse;
-  updateTaskData: () => void;
 }
 
-const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, updateTaskData, className}) => {
+const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, className}) => {
   const [deleteModal, setDeleteModel] = useState(false);
   const [shareModal, setShareModel] = useState(false);
 
@@ -35,14 +31,6 @@ const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, updateTaskData, className
   const onClose = () => {
     setShareModel(false);
     setDeleteModel(false);
-  };
-
-  const onChangeStatus = (event: SelectChangeEvent<unknown>) => {
-    api.task
-      .update({id: taskData.id, statusId: Number(event.target.value)})
-      .then(updateTaskData)
-      .then(socketUpdateList)
-      .catch(() => {});
   };
 
   const router = useRouter();
@@ -64,11 +52,6 @@ const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, updateTaskData, className
             <span> Share </span>
           </Button>
         </div>
-      </div>
-      <div className="info-status">
-        <span>In the </span>
-        <Status className={style.status} status={taskData.status} items={taskData.todolist.status} onChange={onChangeStatus} />
-        <span> list</span>
       </div>
       <ModalDelete
         open={deleteModal}
