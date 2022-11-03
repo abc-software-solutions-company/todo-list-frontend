@@ -49,7 +49,10 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
       const images = [];
       for (let i = 0; i < e.target.files.length; i++) {
         const element = e.target.files[i];
-        images.push({name: element.name, link: URL.createObjectURL(element)});
+        if (element.type.startsWith('image')) images.push({name: element.name, link: URL.createObjectURL(element)});
+        else {
+          toast.show({type: 'danger', title: 'Error', content: 'Warning, this is not image file'});
+        }
       }
       setPreviewImages(images);
     }
