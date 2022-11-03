@@ -48,14 +48,11 @@ const UploadImage: FC<IUploadImage> = ({taskData, onSuccess, onUpload, previewIm
     for (let i = 0; i < copyImages.length; i++) {
       const image = copyImages[i];
       const name = Date.now() + image.name;
-      const imageSize = image.size;
-      console.log('🚀 ~ file: index.tsx ~ line 51 ~ onSubmit ~ imageSize', imageSize);
-      const imageType = image.type;
-      console.log('🚀 ~ file: index.tsx ~ line 53 ~ onSubmit ~ imageType', imageType);
-      console.log(imageValid());
 
-      //imageType image/png
-
+      if (!imageValid(image)) {
+        setIsSubmitting(false);
+        return alert('Warning your file must be image and maximum size is 5MB');
+      }
       const s3ObjectRequest: PutObjectRequest = {
         Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME!,
         Body: image,
