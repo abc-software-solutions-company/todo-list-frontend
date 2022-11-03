@@ -1,14 +1,16 @@
-import {TextField} from '@mui/material';
+import {SelectChangeEvent, TextField} from '@mui/material';
 import classNames from 'classnames';
 import {ChangeEvent, FC, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 
+import Status from '@/components/list-detail/status';
 import UploadImage from '@/components/task-detail/upload-image';
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {IAttachment, IAttachmentResponse, ITaskResponse} from '@/data/api/types/task.type';
+import {socketUpdateList} from '@/data/socket';
 
 import TaskImages from '../task-images';
 import style from './style.module.scss';
@@ -73,6 +75,14 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
   const onClick = () => setEditDescription(true);
   const taskImages = taskData.taskAttachments?.filter(e => e.isActive).map(e => e.attachment);
 
+  const onChangeStatus = (event: SelectChangeEvent<unknown>) => {
+    api.task
+      .update({id: taskData.id, statusId: Number(event.target.value)})
+      .then(updateTaskData)
+      .then(socketUpdateList)
+      .catch(() => {});
+  };
+
   return (
     <div className={classNames(style['task-body'], className)}>
       <div className="left">
@@ -122,7 +132,9 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
           </div>
         </form>
       </div>
-      <div className="right"></div>
+      <div className="right">
+        <Status className={style.status} status={taskData.status} items={taskData.todolist.status} onChange={onChangeStatus} />
+      </div>
     </div>
   );
 };
