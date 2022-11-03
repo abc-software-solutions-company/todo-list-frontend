@@ -1,5 +1,6 @@
 .abc-modal {
   @apply fixed left-0 top-0 z-modal h-full w-full py-3;
+  @apply px-5 md:px-0;
   // Effect
   &.enter {
     .abc-modal-dialog {
