@@ -1,39 +1,45 @@
 .task-body :global {
   @apply mt-8 bg-gray-50 p-8 shadow-md;
-  .title {
-    @apply mt-5 mb-3 flex items-center gap-2.5 first:mt-0;
-    i::before {
-      @apply text-[20px];
+  @apply flex;
+  .left {
+    .title {
+      @apply mt-5 mb-3 flex items-center gap-2.5 first:mt-0;
+      i::before {
+        @apply text-[20px];
+      }
+      h4 {
+        @apply text-h4 font-medium text-slate-700;
+      }
     }
-    h4 {
-      @apply text-h4 font-medium text-slate-700;
+    .edit-btn {
+      // @apply bg-slate-100 p-1 text-h6 text-slate-500;
+      @apply rounded bg-slate-200 p-1 text-h6 text-slate-500;
     }
-  }
-  .edit-btn {
-    // @apply bg-slate-100 p-1 text-h6 text-slate-500;
-    @apply rounded bg-slate-200 p-1 text-h6 text-slate-500;
-  }
 
-  .description {
-    &-text {
-      @apply -my-1 break-words py-1 text-h6 text-slate-700 hover:bg-gray-200;
+    .description {
+      &-text {
+        @apply -my-1 break-words py-1 text-h6 text-slate-700 hover:bg-gray-200;
+      }
+      &-form {
+        @apply rounded-xl bg-gray-200 p-5;
+      }
     }
-    &-form {
-      @apply rounded-xl bg-gray-200 p-5;
-    }
-  }
 
-  textarea {
-    box-shadow: none;
-  }
-  .task-images {
-    @apply flex flex-col gap-3;
-    &-upload {
-      @apply mt-3 flex gap-3 overflow-x-auto bg-blue-100 p-2;
+    textarea {
+      box-shadow: none;
+    }
+    .task-images {
+      @apply flex flex-col gap-3;
+      &-upload {
+        @apply mt-3 flex gap-3 overflow-x-auto bg-blue-100 p-2;
+      }
+    }
+
+    hr {
+      @apply my-4 bg-amber-300;
     }
   }
-
-  hr {
-    @apply my-4 bg-amber-300;
+  .right {
+    @apply bg-red-400;
   }
 }
