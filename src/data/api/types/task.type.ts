@@ -1,21 +1,21 @@
 import {IStatus, ITodolistResponse} from './list.type';
 
-export interface IImage {
+export interface IAttachment {
   name: string;
   link: string;
 }
 
-export interface IImageResponse extends IImage {
+export interface IAttachmentResponse extends IAttachment {
   id: number;
   isActive: boolean;
   createdDate: string;
 }
 
-export interface ITaskImageResponse {
+export interface ITaskAttachmentResponse {
   taskId: string;
-  imageId: number;
+  attachmentId: number;
   isActive: boolean;
-  image: IImageResponse;
+  attachment: IAttachmentResponse;
 }
 
 export interface ITaskGet {
@@ -23,17 +23,17 @@ export interface ITaskGet {
 }
 
 export interface ITaskCreate {
-  todoListId: string;
+  todolistId: string;
   name: string;
 }
 
 export interface ITaskUpdate extends ITaskGet {
   name?: string;
   isDone?: boolean;
-  images?: {
-    add?: IImage[];
-    remove?: number[];
-    edit?: {id: number; name: string}[];
+  attachments?: {
+    add?: IAttachment;
+    remove?: {id: number};
+    edit?: {id: number; name: string};
   };
   description?: string;
   isActive?: boolean;
@@ -48,13 +48,13 @@ export interface ITaskReIndex {
 
 export interface ITaskResponse extends ITaskGet {
   name: string;
-  taskImages: ITaskImageResponse[];
+  taskAttachments: ITaskAttachmentResponse[];
   description: string;
-  todoListId: string;
+  todolistId: string;
   statusId: number;
   userId: string;
   isDone: boolean;
   status: IStatus;
-  todoList: ITodolistResponse;
+  todolist: ITodolistResponse;
   isActive: boolean;
 }

@@ -17,7 +17,7 @@ export interface IListDetailProp {
 export default function useListDetail({id}: Iprops) {
   const router = useRouter();
   const auth = useStateAuth();
-  const [todoList, setTodoList] = useState<ITodolistResponse>();
+  const [todolist, setTodoList] = useState<ITodolistResponse>();
 
   const updateList = () => {
     api.list
@@ -27,7 +27,7 @@ export default function useListDetail({id}: Iprops) {
   };
 
   const isReadOnly = () => {
-    if (todoList?.visibility === 'READ_ONLY' && auth?.id !== todoList.userId) return true;
+    if (todolist?.visibility === 'READ_ONLY' && auth?.id !== todolist.userId) return true;
     return false;
   };
 
@@ -59,5 +59,5 @@ export default function useListDetail({id}: Iprops) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth]);
 
-  return {setTodoList, todoList, updateList, isReadOnly, auth};
+  return {setTodoList, todolist, updateList, isReadOnly, auth};
 }

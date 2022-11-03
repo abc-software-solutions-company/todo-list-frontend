@@ -6,7 +6,7 @@ import {useForm} from 'react-hook-form';
 
 import Button from '@/core-ui/button';
 import api from '@/data/api';
-import {IImage, ITaskResponse} from '@/data/api/types/task.type';
+import {IAttachment, ITaskResponse} from '@/data/api/types/task.type';
 import {imageValid} from '@/utils/image-valid';
 
 import style from './style.module.scss';
@@ -26,7 +26,7 @@ type FormValues = {
 export interface IUploadImage {
   className?: string;
   taskData: ITaskResponse;
-  previewImages: IImage[];
+  previewImages: IAttachment[];
   onUpload: (e: ChangeEvent<HTMLInputElement>) => void;
   onSuccess: () => void;
   onError: () => void;
@@ -58,7 +58,7 @@ const UploadImage: FC<IUploadImage> = ({taskData, onSuccess, onUpload, previewIm
       const s3ObjectRequest: PutObjectRequest = {
         Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME!,
         Body: image,
-        Key: `data/${name}`,
+        Key: `data1/${name}`,
         ACL: 'public-read'
       };
       s3.upload(s3ObjectRequest, (err: Error, response: ManagedUpload.SendData) => {
@@ -66,7 +66,7 @@ const UploadImage: FC<IUploadImage> = ({taskData, onSuccess, onUpload, previewIm
         if (response) {
           console.log(response);
           api.task
-            .update({id: taskData.id, images: {add: [{name: image.name, link: response.Location}]}})
+            .update({id: taskData.id, attachments: {add: {name: image.name, link: response.Location}}})
             .then(onSuccess)
             .catch(error => console.log(error))
             .finally(() => onFinally(i + 1 === copyImages.length));

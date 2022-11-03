@@ -9,7 +9,7 @@ import Icon from '@/core-ui/icon';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
-import {IImageResponse, ITaskResponse} from '@/data/api/types/task.type';
+import {IAttachmentResponse, ITaskResponse} from '@/data/api/types/task.type';
 import {getDate} from '@/utils/get-date';
 
 import style from './style.module.scss';
@@ -18,12 +18,12 @@ interface ITaskImagesProps {
   className?: string;
   taskData?: ITaskResponse;
   updateTaskData?: () => void;
-  images: IImageResponse[];
+  attachments: IAttachmentResponse[];
 }
 interface IFormInputs {
   name: string;
 }
-const TaskImages: FC<ITaskImagesProps> = ({images, className, taskData, updateTaskData}) => {
+const TaskImages: FC<ITaskImagesProps> = ({attachments, className, taskData, updateTaskData}) => {
   const toast = useToast();
   const [imageSelected, setImageSelected] = useState<number>();
 
@@ -33,7 +33,7 @@ const TaskImages: FC<ITaskImagesProps> = ({images, className, taskData, updateTa
   const open = Boolean(anchorEl);
   const editButtonId = open ? 'simple-popover' : undefined;
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement>, {id, name}: IImageResponse) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>, {id, name}: IAttachmentResponse) => {
     setAnchorEl(event.currentTarget);
     setImageSelected(id);
     setValue('name', name);
@@ -47,7 +47,7 @@ const TaskImages: FC<ITaskImagesProps> = ({images, className, taskData, updateTa
   const submitHandler: SubmitHandler<IFormInputs> = ({name}) => {
     if (taskData && imageSelected)
       api.task
-        .update({id: taskData.id, images: {edit: [{id: imageSelected, name}]}})
+        .update({id: taskData.id, attachments: {edit: {id: imageSelected, name}}})
         .then(updateTaskData)
         .catch(() => toast.show({type: 'danger', title: 'Edit Image', content: 'An error occurred, please try again'}));
     handleClose();
@@ -55,15 +55,16 @@ const TaskImages: FC<ITaskImagesProps> = ({images, className, taskData, updateTa
   const onDelete = (imageId: number) => {
     if (taskData)
       api.task
-        .update({id: taskData.id, images: {remove: [imageId]}})
+        .update({id: taskData.id, attachments: {remove: {id: imageId}}})
         .then(updateTaskData)
         .catch(() => toast.show({type: 'danger', title: 'Delete Image', content: 'An error occurred, please try again'}));
   };
 
-  if (images.length < 1) return null;
+  if (!attachments || attachments.length < 1) return null;
+
   return (
     <div className={classNames(className, style['task-images'])}>
-      {images.map((e, idx) => (
+      {attachments.map((e, idx) => (
         <div key={idx} className={classNames('task-image', `${!taskData ? 'upload' : ''}`)}>
           <div className="image">
             <Image src={e.link} alt="" objectFit="contain" layout="fill" />

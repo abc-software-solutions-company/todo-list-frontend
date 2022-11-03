@@ -41,7 +41,7 @@ const ListTask = ({list, setList, tasksData, readonly, onCreateUpdateTask, onDel
           const taskReorderId = arrangeTask[index].id!;
           const taskSecondId = arrangeTask[index + 1]?.id;
           api.task
-            .reIndex({taskFirstId, taskReorderId, taskSecondId})
+            .reindex({taskFirstId, taskReorderId, taskSecondId})
             .then(socketUpdateList)
             .catch(() => {});
         }

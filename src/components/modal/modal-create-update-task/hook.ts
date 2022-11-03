@@ -30,7 +30,7 @@ export default function useModalCreateUpdateTask({onClose, onSuccess, listData, 
     let req: Promise<any>;
 
     if (!taskData) {
-      req = api.task.create({name, todoListId: listData.id}).then(() => {
+      req = api.task.create({name, todolistId: listData.id}).then(() => {
         toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
       });
     } else req = api.task.update({name, id: taskData.id}).then(() => toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'}));

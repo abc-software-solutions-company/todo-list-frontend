@@ -25,7 +25,7 @@ const api = {
     getOne: ({id}: ITaskGet) => http.get<ITaskResponse>(API_ENDPOINTS.TASK + '/' + id),
     create: (data: ITaskCreate) => http.post<ITaskResponse>(API_ENDPOINTS.TASK, data),
     update: (data: ITaskUpdate) => http.patch<ITaskResponse>(API_ENDPOINTS.TASK + '/update', data),
-    reIndex: (data: ITaskReIndex) => http.patch(API_ENDPOINTS.TASK + '/reIndex', data)
+    reindex: (data: ITaskReIndex) => http.patch(API_ENDPOINTS.TASK + '/reindex', data)
   },
   favorite: {
     create: (data: IFavoriteCreate) => http.post<IFavoriteResponse>(API_ENDPOINTS.FAVORITE, data),

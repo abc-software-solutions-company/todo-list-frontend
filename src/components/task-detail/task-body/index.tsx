@@ -8,7 +8,7 @@ import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
-import {IImage, IImageResponse, ITaskResponse} from '@/data/api/types/task.type';
+import {IAttachment, IAttachmentResponse, ITaskResponse} from '@/data/api/types/task.type';
 
 import TaskImages from '../task-images';
 import style from './style.module.scss';
@@ -24,7 +24,7 @@ interface IFormInputs {
 }
 
 const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => {
-  const [previewImages, setPreviewImages] = useState<IImage[]>([]);
+  const [previewImages, setPreviewImages] = useState<IAttachment[]>([]);
   const [editDescription, setEditDescription] = useState(false);
   const {handleSubmit, formState, register} = useForm<IFormInputs>({mode: 'onChange'});
   const {isSubmitting} = formState;
@@ -71,7 +71,7 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
     toast.show({type: 'danger', title: 'Error', content: 'Warning your file must be image and maximum size is 5MB'});
   };
   const onClick = () => setEditDescription(true);
-  const taskImages = taskData.taskImages?.filter(e => e.isActive).map(e => e.image);
+  const taskImages = taskData.taskAttachments?.filter(e => e.isActive).map(e => e.attachment);
 
   return (
     <div className={classNames(style['task-body'], className)}>
@@ -102,8 +102,8 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
         <Icon name="ico-attachment" />
         <h4>Attachments</h4>
       </div>
-      <TaskImages className="task-images" images={taskImages} {...{taskData, updateTaskData}} />
-      <TaskImages className="task-images-upload" images={previewImages as IImageResponse[]} />
+      <TaskImages className="task-images" attachments={taskImages} {...{taskData, updateTaskData}} />
+      <TaskImages className="task-images-upload" attachments={previewImages as IAttachmentResponse[]} />
       <UploadImage {...{taskData, onUpload, previewImages, onSuccess, onError}} />
 
       <div className="title">

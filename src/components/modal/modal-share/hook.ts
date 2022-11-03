@@ -8,7 +8,7 @@ export default function useModalShare({data}: IProps) {
   const {id} = data;
   const toast = useToast();
   const [link, setLink] = useState<string>('');
-  const role = (data as any).todoListId ? 'task' : 'list';
+  const role = (data as any).todolistId ? 'task' : 'list';
 
   const copy = (text: string, title: string) => {
     toast.show({type: 'success', title: title, content: 'Successful!'});

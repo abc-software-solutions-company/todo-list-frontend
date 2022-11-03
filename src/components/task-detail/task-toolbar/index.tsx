@@ -67,7 +67,7 @@ const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, updateTaskData, className
       </div>
       <div className="info-status">
         <span>In the </span>
-        <Status className={style.status} status={taskData.status} items={taskData.todoList.status} onChange={onChangeStatus} />
+        <Status className={style.status} status={taskData.status} items={taskData.todolist.status} onChange={onChangeStatus} />
         <span> list</span>
       </div>
       <ModalDelete

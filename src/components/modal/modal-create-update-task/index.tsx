@@ -31,7 +31,7 @@ const ModalCreateUpdateTask: FC<IProps> = props => {
         <Modal className={cls(styles['com-modal-task-add-edit'], 'max-w-xl')} variant="center" open={open} onClose={onClose}>
           <form onSubmit={onSubmit}>
             <Modal.Header>
-              <h3 className="title">{taskData?.todoListId ? 'Update Task' : 'Add New Task'}</h3>
+              <h3 className="title">{taskData?.todolistId ? 'Update Task' : 'Add New Task'}</h3>
             </Modal.Header>
             <Modal.Body>
               <Input error={errors.name?.message} autoFocus={true} placeholder={'Enter your list name'} {...register('name', {value: taskData?.name})} />

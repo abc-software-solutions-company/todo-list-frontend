@@ -18,7 +18,7 @@ export interface Iprops {
   id: string;
 }
 const ListDetail: FC<Iprops> = ({id}) => {
-  const {setTodoList, todoList, auth, isReadOnly, updateList} = useListDetail({id});
+  const {setTodoList, todolist, auth, isReadOnly, updateList} = useListDetail({id});
   const [filterValue, SetFilterValue] = useState(0);
   const readonly = isReadOnly();
 
@@ -53,7 +53,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
   };
 
   const isPrivate = () => {
-    if (todoList?.visibility === 'PRIVATE' && todoList.userId !== auth?.id) return true;
+    if (todolist?.visibility === 'PRIVATE' && todolist.userId !== auth?.id) return true;
     return false;
   };
 
@@ -73,18 +73,18 @@ const ListDetail: FC<Iprops> = ({id}) => {
     updateList();
   };
 
-  if (!todoList || !id) return null;
+  if (!todolist || !id) return null;
 
   if (isPrivate()) {
     return <ErrorInformation />;
   }
-  const tasksData = todoList.tasks.filter(task => task.isActive && (!filterValue || task.statusId === filterValue));
+  const tasksData = todolist.tasks.filter(task => task.isActive && (!filterValue || task.statusId === filterValue));
 
   return (
     <div className={styles['list-detail']}>
       <div className="container">
         <ToolbarDetail
-          todolist={todoList}
+          todolist={todolist}
           onEdit={() => onUpdateList()}
           onDelete={() => onDeleteList()}
           onShare={() => onShareList()}
@@ -94,17 +94,17 @@ const ListDetail: FC<Iprops> = ({id}) => {
           onSuccessFavorite={onSuccessFavorite}
         />
         <ListTask
-          list={todoList}
+          list={todolist}
           onCreateUpdateTask={onCreateUpdateTask}
           onDeleteTask={onDeleteTask}
           readonly={readonly}
           setList={setTodoList}
           tasksData={tasksData}
         />
-        <ModalCreateUpdateList open={createUpdateListModal} onClose={onClose} data={todoList} onSuccess={socketUpdateList} />
-        <ModalDelete open={deleteListModal} onClose={onClose} data={selectedTask || todoList} onSuccess={socketUpdateList} />
-        <ModalShare open={shareListModal} onClose={onClose} data={todoList} />
-        <ModalCreateUpdateTask open={createUpdateTaskModal} onClose={onClose} listData={todoList} taskData={selectedTask} onSuccess={socketUpdateList} />
+        <ModalCreateUpdateList open={createUpdateListModal} onClose={onClose} data={todolist} onSuccess={socketUpdateList} />
+        <ModalDelete open={deleteListModal} onClose={onClose} data={selectedTask || todolist} onSuccess={socketUpdateList} />
+        <ModalShare open={shareListModal} onClose={onClose} data={todolist} />
+        <ModalCreateUpdateTask open={createUpdateTaskModal} onClose={onClose} listData={todolist} taskData={selectedTask} onSuccess={socketUpdateList} />
         {selectedTask && <ModalDelete open={deleteTaskModal} onClose={onClose} data={selectedTask} onSuccess={socketUpdateList} />}
         {!readonly && <FloatIcon className="float-icon" onClick={() => onCreateUpdateTask()} />}
       </div>
