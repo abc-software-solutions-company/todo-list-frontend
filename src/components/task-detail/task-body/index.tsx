@@ -60,6 +60,11 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
     updateTaskData();
     setPreviewImages([]);
   };
+
+  const onError = () => {
+    console.log('🚀 ~ file: index.tsx ~ line 67 ~ onError ~ onError', onError);
+    setPreviewImages([]);
+  };
   const onClick = () => setEditDescription(true);
   const taskImages = taskData.taskImages?.filter(e => e.isActive).map(e => e.image);
 
@@ -94,7 +99,7 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
       </div>
       <TaskImages className="task-images" images={taskImages} {...{taskData, updateTaskData}} />
       <TaskImages className="task-images-upload" images={previewImages as IImageResponse[]} />
-      <UploadImage {...{taskData, onUpload, previewImages, onSuccess}} />
+      <UploadImage {...{taskData, onUpload, previewImages, onSuccess, onError}} />
 
       <div className="title">
         <Icon name="ico-message-circle" />

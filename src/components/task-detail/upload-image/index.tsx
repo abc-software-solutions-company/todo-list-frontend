@@ -29,9 +29,10 @@ export interface IUploadImage {
   previewImages: IImage[];
   onUpload: (e: ChangeEvent<HTMLInputElement>) => void;
   onSuccess: () => void;
+  onError: () => void;
 }
 
-const UploadImage: FC<IUploadImage> = ({taskData, onSuccess, onUpload, previewImages, className}) => {
+const UploadImage: FC<IUploadImage> = ({taskData, onSuccess, onUpload, previewImages, className, onError}) => {
   const {register, handleSubmit} = useForm<FormValues>();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -51,6 +52,8 @@ const UploadImage: FC<IUploadImage> = ({taskData, onSuccess, onUpload, previewIm
 
       if (!imageValid(image)) {
         setIsSubmitting(false);
+        onError();
+        previewImages = [];
         return alert('Warning your file must be image and maximum size is 5MB');
       }
       const s3ObjectRequest: PutObjectRequest = {
