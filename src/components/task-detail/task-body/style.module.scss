@@ -2,6 +2,7 @@
   @apply mt-8 bg-gray-50 p-8 shadow-md;
   @apply flex;
   .left {
+    @apply basis-2/3;
     .title {
       @apply mt-5 mb-3 flex items-center gap-2.5 first:mt-0;
       i::before {
@@ -40,6 +41,6 @@
     }
   }
   .right {
-    @apply bg-red-400;
+    @apply basis-1/3 bg-red-400;
   }
 }
