@@ -43,25 +43,16 @@
     .user {
       @apply flex gap-x-3;
     }
-    // @apply flex gap-x-5;
   }
-  // .assigne {
-  //   @apply p-3;
-  //   // @apply bg-cyan-400;
-  // }
+
   .piority {
     .piority-type {
       @apply flex gap-x-3;
     }
-    // @apply bg-blue-500;
   }
-  // .point {
-  //   @apply p-3;
-  //   // @apply bg-yellow-300;
-  // }
+
   .date {
     @apply space-y-5 divide-y;
-    // @apply bg-slate-500;
     .create-update {
       @apply space-y-2 py-2;
     }

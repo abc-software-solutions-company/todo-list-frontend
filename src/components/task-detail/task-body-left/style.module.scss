@@ -22,8 +22,7 @@
       @apply mt-3 flex gap-3 overflow-x-auto bg-blue-100 p-2;
     }
   }
-
-  hr {
-    @apply my-4 bg-amber-300;
+  .inner {
+    @apply space-y-5 divide-y;
   }
 }

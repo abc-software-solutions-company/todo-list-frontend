@@ -36,7 +36,12 @@ export const TaskBodyRight = ({onChange, taskData}: IBodyRightProp) => {
           </div>
           <div className="point">
             <p className="title">Point</p>
-            <input type="number" id="quantity" name="quantity" min="1" max="5" />
+            <select name="point-num" id="cars">
+              <option value="8">8</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
           </div>
           <div className="date">
             <div className="start-due">

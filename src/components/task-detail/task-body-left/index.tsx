@@ -51,17 +51,24 @@ export const TaskBodyLeft = ({taskData, updateTaskData}: ITaskBodyLeftProp) => {
 
   return (
     <div className={style['task-body-left']}>
-      <div className="left">
-        <TaskDescription taskData={taskData} updateTaskData={updateTaskData} />
-        <div className="title">
-          <Icon name="ico-attachment" />
-          <h4>Attachments</h4>
+      <div className="container">
+        <div className="inner">
+          <div className="com-task-description py-5">
+            <TaskDescription taskData={taskData} updateTaskData={updateTaskData} />
+          </div>
+          <div className="com-task-attachment py-5">
+            <div className="title">
+              <Icon name="ico-attachment" />
+              <h4>Attachments</h4>
+            </div>
+            <TaskImages className="task-images" attachments={taskImages} {...{taskData, updateTaskData}} />
+            <TaskImages className="task-images-upload" attachments={previewImages as IAttachmentResponse[]} />
+            <UploadImage {...{taskData, onUpload, previewImages, onSuccess, onError}} />
+          </div>
+          <div className="com-task-comment-form py-5">
+            <TaskCommentForm />
+          </div>
         </div>
-        <TaskImages className="task-images" attachments={taskImages} {...{taskData, updateTaskData}} />
-        <TaskImages className="task-images-upload" attachments={previewImages as IAttachmentResponse[]} />
-        <UploadImage {...{taskData, onUpload, previewImages, onSuccess, onError}} />
-        <hr />
-        <TaskCommentForm />
       </div>
     </div>
   );
