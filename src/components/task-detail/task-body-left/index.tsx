@@ -6,6 +6,7 @@ import useToast from '@/core-ui/toast';
 import {IAttachment, IAttachmentResponse, ITaskResponse} from '@/data/api/types/task.type';
 
 import {TaskCommentForm} from '../task-comment-form';
+import {TaskCommentList} from '../task-comment-list';
 import {TaskDescription} from '../task-description';
 import TaskImages from '../task-images';
 import style from './style.module.scss';
@@ -67,6 +68,9 @@ export const TaskBodyLeft = ({taskData, updateTaskData}: ITaskBodyLeftProp) => {
           </div>
           <div className="com-task-comment-form py-5">
             <TaskCommentForm />
+          </div>
+          <div className="com-task-comment-list py-5">
+            <TaskCommentList />
           </div>
         </div>
       </div>

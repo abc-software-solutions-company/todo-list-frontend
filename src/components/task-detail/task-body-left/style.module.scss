@@ -1,5 +1,8 @@
 .task-body-left :global {
   @apply basis-2/3;
+  .inner {
+    @apply space-y-5 divide-y;
+  }
   .title {
     @apply mt-5 mb-3 flex items-center gap-2.5 first:mt-0;
     i::before {
@@ -21,8 +24,5 @@
     &-upload {
       @apply mt-3 flex gap-3 overflow-x-auto bg-blue-100 p-2;
     }
-  }
-  .inner {
-    @apply space-y-5 divide-y;
   }
 }

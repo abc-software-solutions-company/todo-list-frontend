@@ -1,0 +1,8 @@
+.task-comment-list :global {
+  .user {
+    @apply flex gap-x-2 py-3;
+  }
+  .action {
+    @apply space-x-2 text-gray-600 no-underline;
+  }
+}
