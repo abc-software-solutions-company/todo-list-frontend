@@ -7,6 +7,7 @@ import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
 
 import {useTaskDescription} from './hook';
+import style from './style.module.scss';
 
 interface ITaskDescriptionProp {
   taskData: ITaskResponse;
@@ -35,24 +36,26 @@ export const TaskDescription = ({taskData, updateTaskData}: ITaskDescriptionProp
 
   return (
     <>
-      <div className="title">
-        <Icon name="ico-description" />
-        <h4>Describe</h4>
-        <Button text="Edit" className="edit-btn" onClick={onClick} />
-      </div>
-      {!editDescription ? (
-        <div className="description-text" onClick={onClick}>
-          {taskData.description || 'No description'}
+      <div className={style['task-description']}>
+        <div className="title">
+          <Icon name="ico-description" />
+          <h4>Describe</h4>
+          <Button text="Edit" className="edit-btn" onClick={onClick} />
         </div>
-      ) : (
-        <form className="decsription-form" onSubmit={handleSubmit(submitHandler)}>
-          <TextField className="w-full bg-white" multiline rows={4} {...register('description')} defaultValue={taskData.description} />
-          <div className="mt-4 flex gap-4">
-            <Button className="w-24" variant="contained" color="primary" text="Save" type="submit" loading={isSubmitting} disabled={isSubmitting} />
-            <Button className="w-24" variant="outlined" color="white" text="Cancel" onClick={() => setEditDescription(false)} type="button" />
+        {!editDescription ? (
+          <div className="description-text" onClick={onClick}>
+            {taskData.description || 'No description'}
           </div>
-        </form>
-      )}
+        ) : (
+          <form className="decsription-form" onSubmit={handleSubmit(submitHandler)}>
+            <TextField className="w-full bg-white" multiline rows={4} {...register('description')} defaultValue={taskData.description} />
+            <div className="mt-4 flex gap-4">
+              <Button className="w-24" variant="contained" color="primary" text="Save" type="submit" loading={isSubmitting} disabled={isSubmitting} />
+              <Button className="w-24" variant="outlined" color="white" text="Cancel" onClick={() => setEditDescription(false)} type="button" />
+            </div>
+          </form>
+        )}
+      </div>
     </>
   );
 };

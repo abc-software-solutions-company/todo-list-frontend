@@ -64,28 +64,6 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
 
   return (
     <div className={classNames(style['task-body'], className)}>
-      <div className="left">
-        <TaskDescription taskData={taskData} updateTaskData={updateTaskData} />
-        <div className="title">
-          <Icon name="ico-attachment" />
-          <h4>Attachments</h4>
-        </div>
-        <TaskImages className="task-images" attachments={taskImages} {...{taskData, updateTaskData}} />
-        <TaskImages className="task-images-upload" attachments={previewImages as IAttachmentResponse[]} />
-        <UploadImage {...{taskData, onUpload, previewImages, onSuccess, onError}} />
-        <hr />
-        <div className="title">
-          <Icon name="ico-message-circle" />
-          <h4>Comments</h4>
-        </div>
-        <form className="comments-form">
-          <TextField className=" w-full bg-white" multiline rows={1} />
-          <div className="mt-5 flex gap-5">
-            <Button className="w-24" variant="contained" color="primary" text="Save" type="submit" />
-            <Button className="w-24 text-blue-500" variant="outlined" color="white" text="Close" type="button" />
-          </div>
-        </form>
-      </div>
       <TaskBodyRight onChange={onChangeStatus} taskData={taskData} />
     </div>
   );
