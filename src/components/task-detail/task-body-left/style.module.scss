@@ -12,18 +12,8 @@
     }
   }
   .edit-btn {
-    // @apply bg-slate-100 p-1 text-h6 text-slate-500;
     @apply rounded bg-slate-200 p-1 text-h6 text-slate-500;
   }
-
-  // .description {
-  //   &-text {
-  //     @apply -my-1 break-words py-1 text-h6 text-slate-700 hover:bg-gray-200;
-  //   }
-  //   &-form {
-  //     @apply rounded-xl bg-gray-200 p-5;
-  //   }
-  // }
 
   textarea {
     box-shadow: none;
