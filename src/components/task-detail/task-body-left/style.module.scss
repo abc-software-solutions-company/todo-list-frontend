@@ -1,6 +1,4 @@
 .task-body-left :global {
-  @apply bg-blue-500;
-
   @apply basis-2/3;
   .title {
     @apply mt-5 mb-3 flex items-center gap-2.5 first:mt-0;
