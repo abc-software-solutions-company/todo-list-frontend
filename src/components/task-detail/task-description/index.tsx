@@ -1,12 +1,12 @@
 import {TextField} from '@mui/material';
-import {useState} from 'react';
-import {SubmitHandler, useForm} from 'react-hook-form';
+import {SubmitHandler} from 'react-hook-form';
 
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
-import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
+
+import {useTaskDescription} from './hook';
 
 interface ITaskDescriptionProp {
   taskData: ITaskResponse;
@@ -18,10 +18,7 @@ interface IFormInputs {
 }
 
 export const TaskDescription = ({taskData, updateTaskData}: ITaskDescriptionProp) => {
-  const {handleSubmit, formState, register} = useForm<IFormInputs>({mode: 'onChange'});
-  const {isSubmitting} = formState;
-  const [editDescription, setEditDescription] = useState(false);
-  const toast = useToast();
+  const {editDescription, handleSubmit, isSubmitting, onClick, register, toast, setEditDescription} = useTaskDescription();
 
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
     if (taskData) {
@@ -35,8 +32,6 @@ export const TaskDescription = ({taskData, updateTaskData}: ITaskDescriptionProp
         .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}));
     }
   };
-
-  const onClick = () => setEditDescription(true);
 
   return (
     <>
