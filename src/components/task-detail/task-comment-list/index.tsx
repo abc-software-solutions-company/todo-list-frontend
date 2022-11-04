@@ -1,25 +1,51 @@
 import Link from 'next/link';
-import {FC} from 'react';
 
 import Icon from '@/core-ui/icon';
 
 import style from './style.module.scss';
 
-export const TaskCommentList: FC = () => {
+interface ITaskCommentProp {
+  userName: string;
+  date: string;
+  content: string;
+}
+
+const taskCommentList: ITaskCommentProp[] = [
+  {
+    userName: 'gjlasgnlasjk',
+    date: 'gfknglank',
+    content: '21/1/2000'
+  },
+  {userName: 'Huy', content: 'Task Comment 2', date: '21/1/2000'}
+];
+
+export const TaskCommentList = () => {
+  {
+    console.log(taskCommentList);
+  }
   return (
     <div className={style['task-comment-list']}>
-      <div className="user">
-        <Icon name="ico-user" />
-        <p>Thien</p>
-        <div className="time">24 minutes ago(fixed)</div>
-      </div>
-      <div className="content">
-        <p>Hello where old are you?</p>
-      </div>
-      <div className="action">
-        <Link href={'#'}>Edit</Link>
-        <Link href={'#'}>Delete</Link>
-      </div>
+      {taskCommentList.map(item => {
+        return (
+          <>
+            {' '}
+            <div className="task-comment">
+              <div className="user">
+                <Icon name="ico-user" />
+                <p>{item.userName}</p>
+                <div className="time">{item.date}</div>
+              </div>
+              <div className="content">
+                <p>{item.content}</p>
+              </div>
+              <div className="action">
+                <Link href={'#'}>Edit</Link>
+                <Link href={'#'}>Delete</Link>
+              </div>
+            </div>
+          </>
+        );
+      })}
     </div>
   );
 };
