@@ -2,30 +2,17 @@ import Link from 'next/link';
 
 import Icon from '@/core-ui/icon';
 
+import {ITaskCommentProp} from '../task-body-left';
 import style from './style.module.scss';
 
-interface ITaskCommentProp {
-  userName: string;
-  date: string;
-  content: string;
+interface ITaskCommentList {
+  commentList: ITaskCommentProp[];
 }
 
-const taskCommentList: ITaskCommentProp[] = [
-  {
-    userName: 'gjlasgnlasjk',
-    date: 'gfknglank',
-    content: '21/1/2000'
-  },
-  {userName: 'Huy', content: 'Task Comment 2', date: '21/1/2000'}
-];
-
-export const TaskCommentList = () => {
-  {
-    console.log(taskCommentList);
-  }
+export const TaskCommentList = ({commentList}: ITaskCommentList) => {
   return (
     <div className={style['task-comment-list']}>
-      {taskCommentList.map(item => {
+      {commentList.map(item => {
         return (
           <>
             {' '}

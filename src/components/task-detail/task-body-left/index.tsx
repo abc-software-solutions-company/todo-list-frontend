@@ -16,6 +16,21 @@ interface ITaskBodyLeftProp {
   updateTaskData: () => void;
 }
 
+export interface ITaskCommentProp {
+  userName: string;
+  date: string;
+  content: string;
+}
+
+const taskCommentList: ITaskCommentProp[] = [
+  {
+    userName: 'gjlasgnlasjk',
+    date: 'gfknglank',
+    content: '21/1/2000'
+  },
+  {userName: 'Huy', content: 'Task Comment 2', date: '21/1/2000'}
+];
+
 export const TaskBodyLeft = ({taskData, updateTaskData}: ITaskBodyLeftProp) => {
   const toast = useToast();
 
@@ -70,7 +85,7 @@ export const TaskBodyLeft = ({taskData, updateTaskData}: ITaskBodyLeftProp) => {
             <TaskCommentForm />
           </div>
           <div className="com-task-comment-list py-5">
-            <TaskCommentList />
+            <TaskCommentList commentList={taskCommentList} />
           </div>
         </div>
       </div>
