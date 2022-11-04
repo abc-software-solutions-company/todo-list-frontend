@@ -1,7 +1,6 @@
 import {SelectChangeEvent, TextField} from '@mui/material';
 import classNames from 'classnames';
 import {ChangeEvent, FC, useState} from 'react';
-import {SubmitHandler, useForm} from 'react-hook-form';
 
 import UploadImage from '@/components/task-detail/upload-image';
 import Button from '@/core-ui/button';
@@ -12,6 +11,7 @@ import {IAttachment, IAttachmentResponse, ITaskResponse} from '@/data/api/types/
 import {socketUpdateList} from '@/data/socket';
 
 import {TaskBodyRight} from '../task-body-right';
+import {TaskDescription} from '../task-description';
 import TaskImages from '../task-images';
 import style from './style.module.scss';
 
@@ -21,30 +21,10 @@ interface ITaskBodyProps {
   updateTaskData: () => void;
 }
 
-interface IFormInputs {
-  description: string;
-}
-
 const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => {
   const [previewImages, setPreviewImages] = useState<IAttachment[]>([]);
-  const [editDescription, setEditDescription] = useState(false);
-  const {handleSubmit, formState, register} = useForm<IFormInputs>({mode: 'onChange'});
-  const {isSubmitting} = formState;
 
   const toast = useToast();
-
-  const submitHandler: SubmitHandler<IFormInputs> = formData => {
-    if (taskData) {
-      api.task
-        .update({id: taskData.id, ...formData})
-        .then(() => {
-          updateTaskData();
-          toast.show({type: 'success', title: 'Update Description', content: 'success'});
-        })
-        .then(() => setEditDescription(false))
-        .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}));
-    }
-  };
 
   const onUpload = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
@@ -72,7 +52,6 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
     setPreviewImages([]);
     toast.show({type: 'danger', title: 'Error', content: 'Warning your file must be image and maximum size is 5MB'});
   };
-  const onClick = () => setEditDescription(true);
   const taskImages = taskData.taskAttachments?.filter(e => e.isActive).map(e => e.attachment);
 
   const onChangeStatus = (event: SelectChangeEvent<unknown>) => {
@@ -86,32 +65,7 @@ const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => 
   return (
     <div className={classNames(style['task-body'], className)}>
       <div className="left">
-        <div className="title">
-          <Icon name="ico-description" />
-          <h4>Describe</h4>
-          <Button text="Edit" className="edit-btn" onClick={onClick} />
-          {/* {Boolean(taskData.description) && (
-          <button className={classNames('edit-btn', `${editDescription ? 'hidden' : ''}`)} onClick={onClick}>
-            Edit
-          </button>
-        )} */}
-        </div>
-        {!editDescription ? (
-          <div className="description-text" onClick={onClick}>
-            {taskData.description || 'No description'}
-          </div>
-        ) : (
-          <form className="decsription-form" onSubmit={handleSubmit(submitHandler)}>
-            <TextField className="w-full bg-white" multiline rows={4} {...register('description')} defaultValue={taskData.description} />
-            <div className="mt-4 flex gap-4">
-              <Button className="w-24" variant="contained" color="primary" text="Save" type="submit" loading={isSubmitting} disabled={isSubmitting} />
-              <Button className="w-24" variant="outlined" color="white" text="Cancel" onClick={() => setEditDescription(false)} type="button" />
-            </div>
-          </form>
-        )}
-
-        <hr />
-
+        <TaskDescription taskData={taskData} updateTaskData={updateTaskData} />
         <div className="title">
           <Icon name="ico-attachment" />
           <h4>Attachments</h4>
