@@ -9,6 +9,7 @@ import {IAttachment, IAttachmentResponse, ITaskResponse} from '@/data/api/types/
 
 import {TaskDescription} from '../task-description';
 import TaskImages from '../task-images';
+import style from './style.module.scss';
 
 interface ITaskBodyLeftProp {
   taskData: ITaskResponse;
@@ -50,7 +51,7 @@ export const TaskBodyLeft = ({taskData, updateTaskData}: ITaskBodyLeftProp) => {
   };
 
   return (
-    <div className="task-body-left">
+    <div className={style['task-body-left']}>
       <div className="left">
         <TaskDescription taskData={taskData} updateTaskData={updateTaskData} />
         <div className="title">
