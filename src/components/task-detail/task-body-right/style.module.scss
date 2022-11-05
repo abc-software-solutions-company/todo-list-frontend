@@ -11,7 +11,7 @@
   .status {
     @apply relative  h-full items-center;
     .MuiOutlinedInput-root {
-      @apply h-5 w-5 rounded-full lg:h-8 lg:w-auto lg:rounded;
+      @apply h-8 w-auto rounded;
     }
 
     .MuiSelect-select {
@@ -28,14 +28,14 @@
       }
     }
     .status-name {
-      @apply hidden pl-3 pr-8 lg:block;
+      @apply pl-3 pr-8;
     }
     .MuiOutlinedInput-notchedOutline {
       @apply border-0;
     }
 
     .MuiSelect-icon {
-      @apply hidden fill-white lg:block;
+      @apply fill-white;
     }
   }
 
