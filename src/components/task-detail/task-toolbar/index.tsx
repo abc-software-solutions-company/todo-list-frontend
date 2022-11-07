@@ -39,29 +39,17 @@ const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, className}) => {
 
   const deleteToolProps: IToolProps = {
     icon: <Icon name="ico-trash-2" />,
-    text: 'Delete list',
+    text: 'Delete Task',
     hidden: false,
     onClick: onDelete
   };
   const shareToolProps: IToolProps = {
-    icon: <Icon name="ico-share-2" />,
+    icon: <Icon name="ico-share-3" />,
     text: 'Share',
     onClick: onShare
   };
-  const addTaskToolProps: IToolProps = {
-    icon: <Icon name="ico-plus-circle" />,
-    text: 'Add Task',
-    hidden: false,
-    onClick: onShare
-  };
-  const settingToolProps: IToolProps = {
-    icon: <Icon name="ico-settings" />,
-    text: 'Settings',
-    hidden: false,
-    onClick: onShare
-  };
 
-  const toolMenuItems = [deleteToolProps, shareToolProps, addTaskToolProps, settingToolProps]
+  const toolMenuItems = [deleteToolProps, shareToolProps]
     .filter(item => !item.hidden)
     .map((item, idx) => <Tool key={idx} {...{...item, className: 'flex-row-reverse'}} />);
 
