@@ -14,15 +14,12 @@ const Editor: FC<IEditorProps> = ({onChange, name, value}) => {
   const {CKEditor, ClassicEditor} = editorRef.current || {};
 
   useEffect(() => {
-    editorRef.current = {
-      // ClassicEditor: import(/* webpackChunkName: "vendor.ckclassic" */ '@ckeditor/ckeditor5-build-classic')
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      CKEditor: require('@ckeditor/ckeditor5-react').CKEditor,
-      ClassicEditor: require('@ckeditor/ckeditor5-build-classic')
-    };
-    setTimeout(() => {
+    (async () => {
+      const classic = await import(/* webpackChunkName: "vendor.ckclassic" */ '@ckeditor/ckeditor5-build-classic');
+      const editor = await import(/* webpackChunkName: "vendor.ckeditor" */ '@ckeditor/ckeditor5-react');
+      editorRef.current = {CKEditor: editor.CKEditor, ClassicEditor: classic.default};
       setEditorLoaded(true);
-    }, 3000);
+    })();
   }, []);
 
   return (
