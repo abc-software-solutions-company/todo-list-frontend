@@ -107,7 +107,9 @@ export default function TaskItem({task, onEdit, onDelete, statusList, isSelect, 
           <>
             <IconButton name="ico-edit" className="hidden sm:block" onClick={onEdit} />
             <IconButton name="ico-trash-2" className="hidden sm:block" onClick={onDelete} />
-            <ToolMenu className="sm:hidden" items={toolMenuItems} />
+            <div className="action-mobile">
+              <ToolMenu items={toolMenuItems} />
+            </div>
           </>
         )}
         <IconButton name="ico-chevron-right" className="hidden sm:block" onClick={() => onDetail(task.id)} />

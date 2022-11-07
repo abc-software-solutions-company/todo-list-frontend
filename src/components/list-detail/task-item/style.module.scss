@@ -11,6 +11,9 @@
   }
   .actions {
     @apply flex gap-x-3;
+    .action-mobile {
+      @apply py-3 pr-2 sm:hidden;
+    }
   }
 }
 .status :global {
