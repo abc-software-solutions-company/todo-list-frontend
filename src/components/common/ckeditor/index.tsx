@@ -1,5 +1,7 @@
 import React, {FC, useEffect, useRef, useState} from 'react';
 
+import style from './style.module.scss';
+
 interface IEditorProps {
   name: string;
   value: string;
@@ -24,7 +26,7 @@ const Editor: FC<IEditorProps> = ({onChange, name, value}) => {
   }, []);
 
   return (
-    <div className="mx-8">
+    <div className={style.ckeditor}>
       {editorLoaded ? (
         <CKEditor
           name={name}
