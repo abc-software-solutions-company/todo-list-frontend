@@ -1,8 +1,26 @@
 .task-comment-list :global {
-  .user {
-    @apply flex gap-x-2 py-3;
+  .task-comment {
+    @apply my-4 flex gap-1.5;
   }
-  .action {
-    @apply space-x-2 text-gray-600 no-underline;
+  .user {
+    @apply flex gap-x-2 font-semibold text-slate-700;
+  }
+  .time {
+    @apply font-medium text-slate-500;
+  }
+  .content {
+    @apply mt-2 mb-1 text-slate-700;
+  }
+  .right {
+    @apply w-full;
+  }
+  .actions {
+    @apply flex gap-1;
+    button {
+      @apply text-slate-500 underline;
+    }
+  }
+  .more-comments {
+    @apply text-h7 text-slate-500;
   }
 }

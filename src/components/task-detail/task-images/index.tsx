@@ -17,13 +17,13 @@ import style from './style.module.scss';
 interface ITaskImagesProps {
   className?: string;
   taskData?: ITaskResponse;
-  updateTaskData?: () => void;
+  onSuccess?: () => void;
   attachments: IAttachmentResponse[];
 }
 interface IFormInputs {
   name: string;
 }
-const TaskImages: FC<ITaskImagesProps> = ({attachments, className, taskData, updateTaskData}) => {
+const TaskImages: FC<ITaskImagesProps> = ({attachments, className, taskData, onSuccess}) => {
   const toast = useToast();
   const [imageSelected, setImageSelected] = useState<number>();
 
@@ -48,7 +48,7 @@ const TaskImages: FC<ITaskImagesProps> = ({attachments, className, taskData, upd
     if (taskData && imageSelected)
       api.task
         .update({id: taskData.id, attachment: {update: {id: imageSelected, name}}})
-        .then(updateTaskData)
+        .then(onSuccess)
         .catch(() => toast.show({type: 'danger', title: 'Edit Image', content: 'An error occurred, please try again'}));
     handleClose();
   };
@@ -57,7 +57,7 @@ const TaskImages: FC<ITaskImagesProps> = ({attachments, className, taskData, upd
     if (taskData)
       api.task
         .update({id: taskData.id, attachment: {update: {id: imageId, isActive: false}}})
-        .then(updateTaskData)
+        .then(onSuccess)
         .catch(() => toast.show({type: 'danger', title: 'Delete Image', content: 'An error occurred, please try again'}));
   };
 

@@ -43,9 +43,11 @@ export interface ICommentResponse extends ICommentCreate {
   id: number;
   attachmentId?: number;
   attachments: IAttachmentResponse;
-  isActive: boolean;
   user: IUserResponse;
+  taskId: string;
+  isActive: boolean;
   createdDate: string;
+  updatedDate: string;
 }
 
 //------------------------------

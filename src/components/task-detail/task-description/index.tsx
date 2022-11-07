@@ -1,35 +1,43 @@
 import {TextField} from '@mui/material';
-import {SubmitHandler} from 'react-hook-form';
+import {useState} from 'react';
+import {SubmitHandler, useForm} from 'react-hook-form';
 
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
+import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
 
-import {useTaskDescription} from './hook';
 import style from './style.module.scss';
+
+interface IFormInputs {
+  description: string;
+}
 
 interface ITaskDescriptionProp {
   taskData: ITaskResponse;
-  updateTaskData: () => void;
+  onSuccess?: () => void;
 }
 
 interface IFormInputs {
   description: string;
 }
 
-export const TaskDescription = ({taskData, updateTaskData}: ITaskDescriptionProp) => {
-  const {editDescription, handleSubmit, isSubmitting, onClick, register, toast, setEditDescription} = useTaskDescription();
+export const TaskDescription = ({taskData, onSuccess}: ITaskDescriptionProp) => {
+  const {handleSubmit, formState, register} = useForm<IFormInputs>({mode: 'onChange'});
+  const {isSubmitting} = formState;
+  const [editDescription, setEditDescription] = useState(false);
+  const toast = useToast();
+
+  const onClick = () => setEditDescription(true);
 
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
+    setEditDescription(false);
     if (taskData) {
       api.task
         .update({id: taskData.id, ...formData})
-        .then(() => {
-          updateTaskData();
-          toast.show({type: 'success', title: 'Update Description', content: 'success'});
-        })
-        .then(() => setEditDescription(false))
+        .then(onSuccess)
+        .then(() => toast.show({type: 'success', title: 'Update Description', content: 'success'}))
         .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}));
     }
   };
