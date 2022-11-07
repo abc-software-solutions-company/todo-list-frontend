@@ -6,6 +6,7 @@ import {useRouter} from 'next/router';
 
 import {ROUTES} from '@/configs/routes.config';
 import Checkbox from '@/core-ui/checkbox';
+import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
 import api from '@/data/api/index';
 import {IStatus} from '@/data/api/types/list.type';
@@ -13,6 +14,8 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
 
 import Status from '../status';
+import Tool, {IToolProps} from '../toolbar/tool';
+import ToolMenu from '../toolbar/tool-menu';
 // import style from './style.module.scss';
 import style from './style.module.scss';
 
@@ -54,6 +57,27 @@ export default function TaskItem({task, onEdit, onDelete, statusList, isSelect, 
     router.push(ROUTES.TASK + '/' + taskId);
   };
 
+  const deleteToolProps: IToolProps = {
+    icon: <Icon name="ico-trash-2" />,
+    text: 'Delete',
+    hidden: false,
+    onClick: onDelete
+  };
+  const editToolProps: IToolProps = {
+    icon: <Icon name="ico-edit" />,
+    text: 'Edit',
+    onClick: onEdit
+  };
+  const goDetailToolProps: IToolProps = {
+    icon: <Icon name="ico-chevron-right" />,
+    text: 'Detail',
+    onClick: () => onDetail(task.id)
+  };
+
+  const toolMenuItems = [deleteToolProps, editToolProps, goDetailToolProps]
+    .filter(item => !item.hidden)
+    .map((item, idx) => <Tool key={idx} {...{...item, className: 'flex-row-reverse'}} />);
+
   return (
     <div
       className={classNames(style.task, `item ${isSelect && 'select'}`)}
@@ -81,11 +105,12 @@ export default function TaskItem({task, onEdit, onDelete, statusList, isSelect, 
         {statusList && <Status className={style.status} items={statusList} readOnly={readonly} status={statusValue} onChange={e => onChangeStatus(e)} />}
         {!readonly && (
           <>
-            <IconButton name="ico-edit" onClick={onEdit} />
-            <IconButton name="ico-trash-2" onClick={onDelete} />
+            <IconButton name="ico-edit" className="hidden sm:block" onClick={onEdit} />
+            <IconButton name="ico-trash-2" className="hidden sm:block" onClick={onDelete} />
+            <ToolMenu className="sm:hidden" items={toolMenuItems} />
           </>
         )}
-        <IconButton name="ico-chevron-right" onClick={() => onDetail(task.id)} />
+        <IconButton name="ico-chevron-right" className="hidden sm:block" onClick={() => onDetail(task.id)} />
       </div>
     </div>
   );
