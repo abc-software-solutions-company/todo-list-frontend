@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import Icon from '@/core-ui/icon';
 import {ITodolistResponse} from '@/data/api/types/list.type';
 import {useStateAuth} from '@/states/auth';
+import {MUI_ICON} from '@/utils/mui-icon';
 
 import FavoriteButton from '../../common/favorite-button';
 import style from './style.module.scss';
@@ -66,7 +67,7 @@ export default function ToolbarDetail({todolist, filterValue, onEdit, onDelete, 
         <Tool {...shareToolProps} className={style['tool-outer']} />
         <ToolFilter {...{filterValue, filterList, onFilter}} />
         <Tool {...settingToolProps} className={style['tool-outer']} />
-        <ToolMenu className="sm:hidden" items={toolMenuItems} />
+        <ToolMenu className="sm:hidden" items={toolMenuItems} icon={<MUI_ICON.MENU />} />
       </div>
     </div>
   );

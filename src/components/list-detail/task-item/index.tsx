@@ -12,6 +12,7 @@ import api from '@/data/api/index';
 import {IStatus} from '@/data/api/types/list.type';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
+import {MUI_ICON} from '@/utils/mui-icon';
 
 import Status from '../status';
 import Tool, {IToolProps} from '../toolbar/tool';
@@ -108,7 +109,7 @@ export default function TaskItem({task, onEdit, onDelete, statusList, isSelect, 
             <IconButton name="ico-edit" className="hidden sm:block" onClick={onEdit} />
             <IconButton name="ico-trash-2" className="hidden sm:block" onClick={onDelete} />
             <div className="action-mobile">
-              <ToolMenu items={toolMenuItems} />
+              <ToolMenu icon={<MUI_ICON.MORE_HORIZON />} items={toolMenuItems} />
             </div>
           </>
         )}

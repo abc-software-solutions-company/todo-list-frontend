@@ -2,17 +2,15 @@ import {Button, Menu, MenuItem} from '@mui/material';
 import classNames from 'classnames';
 import {FC, ReactNode, useState} from 'react';
 
-import {MUI_ICON} from '@/utils/mui-icon';
-
 import style from './style.module.scss';
 
 export interface IToolMenuProps {
   className?: string;
   items: ReactNode[];
-  icon?: string;
+  icon: ReactNode;
 }
 
-const ToolMenu: FC<IToolMenuProps> = ({className, items}) => {
+const ToolMenu: FC<IToolMenuProps> = ({className, items, icon}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -34,7 +32,7 @@ const ToolMenu: FC<IToolMenuProps> = ({className, items}) => {
         onClick={handleClick}
         sx={{padding: 0, margin: 0, minWidth: 24}}
       >
-        <MUI_ICON.MENU />
+        {icon}
       </Button>
       <Menu
         id="ToolBarMenu-menu"

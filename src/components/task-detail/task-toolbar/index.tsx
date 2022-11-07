@@ -10,6 +10,7 @@ import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
+import {MUI_ICON} from '@/utils/mui-icon';
 
 import style from './style.module.scss';
 
@@ -72,7 +73,7 @@ const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, className}) => {
             </Button>
           </div>
           <div className="toolbar-mobile">
-            <ToolMenu items={toolMenuItems} />
+            <ToolMenu items={toolMenuItems} icon={<MUI_ICON.MENU />} />
           </div>
         </div>
       </div>
