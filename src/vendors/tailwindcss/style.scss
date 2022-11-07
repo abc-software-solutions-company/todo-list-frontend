@@ -6,6 +6,10 @@
   @import './bases/html';
   @import './bases/body';
   @import './bases/heading';
+  ul,
+  ol {
+    list-style: revert;
+  }
 }
 
 @tailwind components;
