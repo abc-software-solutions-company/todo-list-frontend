@@ -5,9 +5,10 @@
       @apply min-h-fit min-w-fit p-0;
     }
     .left {
-      @apply flex items-center gap-2.5;
+      @apply flex basis-2/3 items-center gap-2.5;
       h2 {
-        @apply font-semibold;
+        @apply text-h5 font-medium lg:text-h2 lg:font-semibold;
+        word-break: break-word;
       }
     }
     .right {
