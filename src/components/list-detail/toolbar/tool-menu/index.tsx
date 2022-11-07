@@ -1,11 +1,10 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import {Button, Menu, MenuItem} from '@mui/material';
 import classNames from 'classnames';
-import {useRouter} from 'next/router';
+// import {useRouter} from 'next/router';
 import {FC, ReactNode, useState} from 'react';
 
-import {ROUTES} from '@/configs/routes.config';
-
+// import {ROUTES} from '@/configs/routes.config';
 import style from './style.module.scss';
 
 export interface IToolMenuProps {
@@ -14,8 +13,8 @@ export interface IToolMenuProps {
 }
 
 const ToolMenu: FC<IToolMenuProps> = ({className, items}) => {
-  const router = useRouter();
-  const isDetailPage = router.asPath.split(ROUTES.LIST + '/')[1].length >= 5;
+  // const router = useRouter();
+  // const isDetailPage = router.asPath.split(ROUTES.LIST + '/')[1].length >= 5;
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -27,7 +26,7 @@ const ToolMenu: FC<IToolMenuProps> = ({className, items}) => {
     setAnchorEl(null);
   };
 
-  if (!isDetailPage) return null;
+  // if (!isDetailPage) return null;
 
   return (
     <div className={classNames(style['tool-menu'], className)}>

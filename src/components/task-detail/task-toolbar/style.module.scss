@@ -11,7 +11,9 @@
       }
     }
     .right {
-      @apply flex gap-4 text-h5;
+      .toolbar-desktop {
+        @apply hidden gap-4 text-h5 md:flex;
+      }
     }
   }
   .info-status {
