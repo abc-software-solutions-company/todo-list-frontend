@@ -7,8 +7,11 @@ import FloatIcon from '@/core-ui/float-icon';
 import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
 import {ITodolistResponse} from '@/data/api/types/list.type';
+import {MUI_ICON} from '@/utils/mui-icon';
 
 import FavoriteButton from '../common/favorite-button';
+import Tool, {IToolProps} from '../list-detail/toolbar/tool';
+import ToolMenu from '../list-detail/toolbar/tool-menu';
 import ModalCreateUpdateList from '../modal/modal-create-update-list';
 import ModalDelete from '../modal/modal-delete';
 import ModalShare from '../modal/modal-share';
@@ -47,6 +50,32 @@ export default function List() {
     updateFavoriteList();
   };
 
+  const toolMenuMobile = (list: ITodolistResponse) => {
+    const editToolProps: IToolProps = {
+      icon: <Icon name="ico-edit" />,
+      text: 'Edit',
+      onClick: () => onCreateUpdate(list)
+    };
+
+    const deleteToolProps: IToolProps = {
+      icon: <Icon name="ico-trash-2" />,
+      text: 'Delete',
+      onClick: () => onDelete(list)
+    };
+
+    const shareToolProps: IToolProps = {
+      icon: <Icon name="ico-share-2" />,
+      text: 'Share',
+      onClick: () => onDelete(list)
+    };
+
+    const toolMenuItems = [editToolProps, deleteToolProps, shareToolProps]
+      .filter(item => !item.hidden)
+      .map((item, idx) => <Tool key={idx} {...{...item, className: 'flex-row-reverse'}} />);
+
+    return toolMenuItems;
+  };
+
   return (
     <>
       <div className={styles['page-list']}>
@@ -76,6 +105,7 @@ export default function List() {
                       <IconButton name="ico-trash-2" onClick={() => onDelete(todolist)} />
                       <IconButton name="ico-share-2 " onClick={() => onShare(todolist)} />
                       <IconButton name="ico-chevron-right" onClick={() => onDetail(todolist.id)} />
+                      <ToolMenu icon={<MUI_ICON.MORE_HORIZON />} items={toolMenuMobile(todolist)} />
                     </div>
                   </div>
                 );
