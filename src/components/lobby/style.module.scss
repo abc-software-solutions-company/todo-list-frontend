@@ -35,6 +35,6 @@
   @apply flex basis-1/2 justify-end;
   // background: aqua;
   svg {
-    @apply h-auto w-96 sm:w-[80%] xl:w-full xl:max-w-full;
+    @apply h-auto w-80 sm:w-[80%] xl:w-full xl:max-w-full;
   }
 }
