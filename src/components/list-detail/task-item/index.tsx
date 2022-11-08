@@ -1,7 +1,9 @@
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import classNames from 'classnames';
+import {useRouter} from 'next/router';
 
+import {ROUTES} from '@/configs/routes.config';
 import Checkbox from '@/core-ui/checkbox';
 import api from '@/data/api/index';
 import {IStatus} from '@/data/api/types/list.type';
@@ -39,6 +41,8 @@ export default function TaskItem(props: ITaskItemProps) {
     opacity: isDragging ? 0.5 : 1
   };
 
+  const router = useRouter();
+
   return (
     <div
       className={classNames(style.task, `item ${isSelect && 'select'}`)}
@@ -59,7 +63,7 @@ export default function TaskItem(props: ITaskItemProps) {
       }}
     >
       <Checkbox checked={task?.isDone} onChange={() => setDone(task.id, task.isDone)} disabled={readonly} />
-      <p className={`h6 ${task.isDone ? 'checked' : ''}`} onClick={() => setDone(task.id, task.isDone)}>
+      <p className={`h6 ${task.isDone ? 'checked' : ''}`} onClick={() => router.push(ROUTES.TASK + '/' + task.id)}>
         {task.name}
       </p>
       <Actions {...props} />
