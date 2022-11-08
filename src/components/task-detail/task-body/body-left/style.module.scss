@@ -1,0 +1,31 @@
+.body-left :global {
+  @apply max-w-2/3 basis-2/3;
+
+  textarea {
+    box-shadow: none;
+  }
+
+  .status {
+    @apply lg:hidden;
+  }
+
+  .description {
+    .description-text {
+      * {
+        @apply w-full break-words;
+      }
+    }
+    .edit-btn {
+      @apply rounded bg-slate-200 p-1 text-h6 text-slate-500;
+    }
+  }
+
+  .attachment {
+    .task-images {
+      @apply flex flex-col gap-3;
+      &-upload {
+        @apply mt-3 flex gap-3 overflow-x-auto bg-blue-100 p-2;
+      }
+    }
+  }
+}

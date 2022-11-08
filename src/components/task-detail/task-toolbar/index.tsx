@@ -40,7 +40,7 @@ const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, className}) => {
 
   const deleteToolProps: IToolProps = {
     icon: <Icon name="ico-trash-2" />,
-    text: 'Delete Task',
+    text: 'Delete',
     hidden: false,
     onClick: onDelete
   };
@@ -65,7 +65,7 @@ const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, className}) => {
           <div className="toolbar-desktop">
             <Button onClick={onDelete}>
               <Icon name="ico-trash-2" />
-              <span> Delete Task</span>
+              <span> Delete</span>
             </Button>
             <Button onClick={onShare}>
               <Icon name="ico-share-3" />
