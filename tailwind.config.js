@@ -36,22 +36,22 @@ module.exports = {
       // Do đó Tailwind cung cấp tính năng mở rộng để tạo thêm cấu hình một cách dễ dàng.
       fontSize: {
         none: ['0', '0'],
-        hero: ['3.5rem', {lineHeight: '4rem', letterSpacing: '0'}],
-        h1: ['2.5rem', {lineHeight: '3rem', letterSpacing: '0'}],
-        h2: ['1.75rem', {lineHeight: '2.25rem', letterSpacing: '0'}],
-        h3: ['1.5rem', {lineHeight: '2rem', letterSpacing: '0'}],
-        h4: ['1.25rem', {lineHeight: '1.75rem', letterSpacing: '0'}],
-        h5: ['1.125rem', {lineHeight: '1.625rem', letterSpacing: '0'}],
-        h6: ['1rem', {lineHeight: '1.5rem', letterSpacing: '0'}],
-        h7: ['0.875rem', {lineHeight: '1.375rem', letterSpacing: '0'}],
-        brand: ['0.75rem', {lineHeight: '1rem', letterSpacing: '0'}],
-        display1: ['5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
-        display2: ['4.5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
-        display3: ['4rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
-        display4: ['3.5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
-        display5: ['3rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
-        display6: ['2.5rem', {lineHeight: '3.5rem', letterSpacing: '0'}],
-        figure: ['0.688rem', {lineHeight: '3.5rem', letterSpacing: '0'}]
+        hero: ['3.5rem', { lineHeight: '4rem', letterSpacing: '0' }],
+        h1: ['2.5rem', { lineHeight: '3rem', letterSpacing: '0' }],
+        h2: ['1.75rem', { lineHeight: '2.25rem', letterSpacing: '0' }],
+        h3: ['1.5rem', { lineHeight: '2rem', letterSpacing: '0' }],
+        h4: ['1.25rem', { lineHeight: '1.75rem', letterSpacing: '0' }],
+        h5: ['1.125rem', { lineHeight: '1.625rem', letterSpacing: '0' }],
+        h6: ['1rem', { lineHeight: '1.5rem', letterSpacing: '0' }],
+        h7: ['0.875rem', { lineHeight: '1.375rem', letterSpacing: '0' }],
+        brand: ['0.75rem', { lineHeight: '1rem', letterSpacing: '0' }],
+        display1: ['5rem', { lineHeight: '3.5rem', letterSpacing: '0' }],
+        display2: ['4.5rem', { lineHeight: '3.5rem', letterSpacing: '0' }],
+        display3: ['4rem', { lineHeight: '3.5rem', letterSpacing: '0' }],
+        display4: ['3.5rem', { lineHeight: '3.5rem', letterSpacing: '0' }],
+        display5: ['3rem', { lineHeight: '3.5rem', letterSpacing: '0' }],
+        display6: ['2.5rem', { lineHeight: '3.5rem', letterSpacing: '0' }],
+        figure: ['0.688rem', { lineHeight: '3.5rem', letterSpacing: '0' }]
       },
       letterSpacing: {
         4: '0.04em', // -4%
@@ -127,22 +127,28 @@ module.exports = {
       },
       keyframes: {
         hLine: {
-          '0%': {width: '0px'},
-          '100%': {width: '100%'}
+          '0%': { width: '0px' },
+          '100%': { width: '100%' }
         },
         zoomIn: {
-          '0%': {transform: 'translateY(0) scale(1, 1)'},
-          '100%': {transform: 'translateY(-20px) scale(1.3, 1.3)'}
+          '0%': { transform: 'translateY(0) scale(1, 1)' },
+          '100%': { transform: 'translateY(-20px) scale(1.3, 1.3)' }
         },
         zoomOut: {
-          '0%': {transform: 'translateY(-20px) scale(1.3, 1.3)'},
-          '100%': {transform: 'translateY(0) scale(1, 1)'}
+          '0%': { transform: 'translateY(-20px) scale(1.3, 1.3)' },
+          '100%': { transform: 'translateY(0) scale(1, 1)' }
         }
       },
       typography: theme => ({
         DEFAULT: {
           css: {
-            maxWidth: theme('maxWidth.full')
+            /* It's a way to reference a value in the theme. */
+            // maxWidth: theme('maxWidth.full')
+            'h1,h2,h3,p': {
+              color: theme('colors.emerald.700'),
+              fontWeight: 'bold',
+              fontFamily: theme('fontFamily.serif')
+            }
           }
         },
         abc: {
@@ -174,12 +180,12 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/line-clamp'),
-    plugin(function ({addUtilities, theme, e}) {
+    plugin(function ({ addUtilities, theme, e }) {
       const animationDelayValues = theme('animationDelay');
       addUtilities(
         Object.entries(animationDelayValues).map(([key, value]) => {
           return {
-            [`.${e(`animate-delay-${key}`)}`]: {animationDelay: `${value}`}
+            [`.${e(`animate-delay-${key}`)}`]: { animationDelay: `${value}` }
           };
         })
       );
