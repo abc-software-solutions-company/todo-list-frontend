@@ -105,7 +105,7 @@ export default function List() {
                       <IconButton name="ico-trash-2" className="action-desktop" onClick={() => onDelete(todolist)} />
                       <IconButton name="ico-share-2 " className="action-desktop" onClick={() => onShare(todolist)} />
                       <IconButton name="ico-chevron-right" onClick={() => onDetail(todolist.id)} />
-                      <ToolMenu icon={<MUI_ICON.MORE_HORIZON />} items={toolMenuMobile(todolist)} />
+                      <ToolMenu icon={<MUI_ICON.MORE_VERT />} items={toolMenuMobile(todolist)} />
                     </div>
                   </div>
                 );

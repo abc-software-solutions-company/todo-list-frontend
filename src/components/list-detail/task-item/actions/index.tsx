@@ -59,8 +59,8 @@ const Actions: FC<ITaskItemProps> = ({task, onEdit, onDelete, statusList, readon
         <>
           <Tool {...editToolProps} className="tool-desktop" />
           <Tool {...deleteToolProps} className="tool-desktop" />
-          <ToolMenu icon={<MUI_ICON.MORE_HORIZON />} items={toolMenuItems} />
           <Tool {...detailToolProps} className="w-3" />
+          <ToolMenu icon={<MUI_ICON.MORE_VERT />} items={toolMenuItems} />
         </>
       )}
     </div>
