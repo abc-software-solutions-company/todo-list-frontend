@@ -6,7 +6,7 @@ import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 import {ITodolistResponse} from '@/data/api/types/list.type';
-import {VisibilityTypes} from '@/utils/constant';
+import {Visibilities} from '@/utils/constant';
 
 import useModalCreateUpdateList from './hook';
 import styles from './style.module.scss';
@@ -36,13 +36,13 @@ const ModalCreateUpdateList: FC<IProps> = prop => {
                 <Select
                   {...register('visibility')}
                   className="input-type"
-                  defaultValue={data?.visibility ? data.visibility : VisibilityTypes.PUBLIC}
+                  defaultValue={data?.visibility ? data.visibility : Visibilities.PUBLIC}
                   sx={{fontFamily: 'inherit'}}
                 >
-                  {Object.keys(VisibilityTypes).map((key, idx) => {
+                  {Object.keys(Visibilities).map((key, idx) => {
                     return (
                       <MenuItem key={key} value={key} sx={{fontFamily: 'inherit'}}>
-                        {Object.values(VisibilityTypes)[idx]}
+                        {Object.values(Visibilities)[idx]}
                       </MenuItem>
                     );
                   })}

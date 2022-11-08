@@ -4,8 +4,8 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 
 import Assignee from './assignee';
 import DueDate from './due-date';
-import Piority from './piority';
 import Point from './point';
+import Priority from './priority';
 import StartDate from './start-date';
 import Status from './status';
 import style from './style.module.scss';
@@ -23,7 +23,7 @@ const TaskBodyRight: FC<IBodyRightProps> = props => {
       <div className="container">
         <Status {...props} />
         <Assignee />
-        <Piority />
+        <Priority {...props} />
         <Point />
         <StartDate />
         <DueDate />

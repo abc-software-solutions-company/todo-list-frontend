@@ -64,6 +64,7 @@ export interface ITaskCreate {
 export interface ITaskUpdate extends ITaskGet {
   name?: string;
   isDone?: boolean;
+  priority?: string;
   attachment?: {
     create?: IAttachmentCreate;
     update?: IAttachmentUpdate;
@@ -91,6 +92,7 @@ export interface ITaskResponse extends ITaskGet, IBaseResponse {
   userId: string;
   isDone: boolean;
   status: IStatus;
+  priority: string;
   attachments: IAttachmentResponse[];
   comments: ICommentResponse[];
   todolist: ITodolistResponse;

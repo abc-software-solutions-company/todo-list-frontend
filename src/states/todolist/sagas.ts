@@ -1,8 +1,8 @@
+import {AxiosResponse} from 'axios';
 import {all, call, put, takeLatest} from 'redux-saga/effects';
 
 import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/list.type';
-import {IAxiosResponse} from '@/types';
 import {getErrorMessage} from '@/utils/error-handle';
 
 import postSlice from './slice';
@@ -10,7 +10,7 @@ import postSlice from './slice';
 function* getTodolist(param: any) {
   console.log('🚀 ~ file: sagas.ts ~ line 10 ~ function*getTodolist ~ param', param.payload);
   try {
-    const response: IAxiosResponse<ITodolistResponse> = yield call(() => api.list.getOne(param));
+    const response: AxiosResponse<ITodolistResponse, any> = yield call(() => api.list.getOne(param));
     console.log(response);
     yield put(postSlice.actions.getTodolistSuccess(response.data));
   } catch (error) {

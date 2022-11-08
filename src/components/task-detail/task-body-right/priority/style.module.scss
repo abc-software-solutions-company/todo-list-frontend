@@ -1,0 +1,10 @@
+.priority :global {
+  .MuiInputBase-root {
+    .MuiSelect-select {
+      @apply p-0;
+    }
+    fieldset {
+      @apply hidden;
+    }
+  }
+}

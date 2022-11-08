@@ -1,4 +1,4 @@
-import {VisibilityTypes} from '@/utils/constant';
+import {Visibilities} from '@/utils/constant';
 
 import {IFavoriteResponse} from './favorite.type';
 import {ITaskResponse} from './task.type';
@@ -14,7 +14,7 @@ export interface IListCreate {
 export interface IListUpdate extends IListGetOne {
   name?: string;
   isActive?: boolean;
-  visibility?: keyof typeof VisibilityTypes;
+  visibility?: keyof typeof Visibilities;
 }
 
 export interface IStatus {
@@ -27,7 +27,7 @@ export interface IStatus {
 export interface ITodolistResponse extends IListGetOne, IListCreate {
   userId: string;
   isActive: boolean;
-  visibility: keyof typeof VisibilityTypes;
+  visibility: keyof typeof Visibilities;
   status: IStatus[];
   tasks: ITaskResponse[];
   favorites: IFavoriteResponse[];

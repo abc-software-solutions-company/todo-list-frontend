@@ -18,6 +18,7 @@ interface ITaskCommentProps {
   commentData: ICommentResponse;
   onSuccess?: () => void;
 }
+
 const TaskComment: FC<ITaskCommentProps> = ({commentData, onSuccess}) => {
   const {id, taskId, comment, user, createdDate, updatedDate} = commentData;
   const toast = useToast();
