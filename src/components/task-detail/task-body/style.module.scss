@@ -1,4 +1,21 @@
 .task-body :global {
-  @apply mt-8 bg-gray-50 p-8 shadow-md;
+  @apply mt-8 bg-gray-50 px-8 py-3 shadow-md;
   @apply gap-x-36 lg:flex;
+
+  .divide {
+    @apply border-b last:border-0;
+  }
+
+  .item {
+    @apply py-5;
+    .title {
+      @apply mb-3 flex items-center gap-2.5;
+      i::before {
+        @apply text-[20px];
+      }
+      span {
+        @apply font-semibold text-slate-700;
+      }
+    }
+  }
 }

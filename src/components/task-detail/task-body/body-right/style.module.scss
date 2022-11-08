@@ -1,0 +1,43 @@
+.body-right :global {
+  @apply basis-1/3;
+
+  .mobile {
+    @apply grid grid-cols-3 lg:block;
+    & > * {
+      @apply last:col-span-2;
+    }
+  }
+
+  .status {
+    @apply hidden lg:block;
+  }
+
+  .assignee {
+    .user {
+      @apply flex gap-x-3;
+    }
+  }
+
+  .priority {
+    .MuiInputBase-root {
+      .MuiSelect-select {
+        @apply py-0 pl-0;
+      }
+      fieldset {
+        @apply hidden;
+      }
+    }
+  }
+
+  .date {
+    @apply space-y-2;
+    .date-value {
+      @apply text-h7 text-slate-700;
+    }
+  }
+
+  .time-state {
+    @apply space-y-2;
+    @apply text-h7 text-slate-600;
+  }
+}

@@ -15,7 +15,7 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
     let req;
     if ((data as any).todolistId)
       req = api.task.update({id, isActive: false}).then(() => {
-        toast.show({type: 'success', title: 'Delete task', content: 'Successful!'});
+        toast.show({type: 'success', title: 'Delete ', content: 'Successful!'});
       });
     else
       req = api.list

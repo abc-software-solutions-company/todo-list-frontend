@@ -3,8 +3,8 @@ import {FC} from 'react';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
 
-import TaskBodyLeft from '../task-body-left';
-import TaskBodyRight from '../task-body-right';
+import BodyLeft from './body-left';
+import BodyRight from './body-right';
 import style from './style.module.scss';
 
 interface ITaskBodyProps {
@@ -13,11 +13,11 @@ interface ITaskBodyProps {
   updateTaskData: () => void;
 }
 
-const TaskBody: FC<ITaskBodyProps> = ({taskData, updateTaskData, className}) => {
+const TaskBody: FC<ITaskBodyProps> = ({className, taskData, updateTaskData}) => {
   return (
     <div className={classNames(style['task-body'], className)}>
-      <TaskBodyLeft taskData={taskData} updateTaskData={updateTaskData} />
-      <TaskBodyRight onSuccess={updateTaskData} taskData={taskData} />
+      <BodyLeft taskData={taskData} onSuccess={updateTaskData} />
+      <BodyRight taskData={taskData} onSuccess={updateTaskData} />
     </div>
   );
 };
