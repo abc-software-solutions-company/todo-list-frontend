@@ -15,7 +15,7 @@ const List: FC<IBodyLeftProps> = ({taskData, onSuccess}) => {
   return (
     <div className={style['task-comment-list']}>
       {comments.map((comment, index) => {
-        if (index < commentsNumber) return <Item key={comment.id} commentData={comment} onSuccess={onSuccess} />;
+        if (index < commentsNumber) return <Item key={comment.id} {...{commentData: comment, onSuccess}} />;
       })}
       {commentsNumber < comments.length && (
         <button className="more-comments" onClick={onClick}>

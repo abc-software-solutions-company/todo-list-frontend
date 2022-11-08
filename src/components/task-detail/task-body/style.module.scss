@@ -1,6 +1,6 @@
 .task-body :global {
   @apply mt-8 bg-gray-50 px-8 py-3 shadow-md;
-  @apply gap-x-36 lg:flex;
+  @apply gap-x-32 lg:flex;
 
   .divide {
     @apply border-b last:border-0;

@@ -47,7 +47,7 @@ const Form: FC<IBodyLeftProps> = ({taskData, onSuccess}) => {
         {!editComment ? (
           <Input className="comment-text" onClick={onClick} placeholder="Write a comment..." readOnly={true} {...commentInput} />
         ) : (
-          <form className="decsription-form" onSubmit={handleSubmit(submitHandler)}>
+          <form onSubmit={handleSubmit(submitHandler)}>
             <Controller
               name="comment"
               rules={{required: true}}
@@ -55,8 +55,8 @@ const Form: FC<IBodyLeftProps> = ({taskData, onSuccess}) => {
               render={({field}) => <Editor name="example" value="" onChange={text => field.onChange(text)} />}
             />
             <div className="mt-4 flex gap-4">
-              <Button className="w-24" variant="contained" color="primary" text="Comment" type="submit" disabled={!editComment} />
-              <Button className="w-24" variant="outlined" color="white" text="Cancel" onClick={() => setEditComment(false)} type="button" />
+              <Button className="h-8 w-20" variant="contained" color="primary" text="Comment" type="submit" disabled={!editComment} />
+              <Button className="h-8 w-20" variant="outlined" color="white" text="Cancel" onClick={() => setEditComment(false)} type="button" />
             </div>
           </form>
         )}

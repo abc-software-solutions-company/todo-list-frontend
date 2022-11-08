@@ -72,7 +72,7 @@ const Item: FC<IItemProps> = ({commentData, onSuccess}) => {
           {!editComment ? (
             <div dangerouslySetInnerHTML={{__html: comment}}></div>
           ) : (
-            <form className="decsription-form" onSubmit={handleSubmit(submitHandler)}>
+            <form onSubmit={handleSubmit(submitHandler)}>
               <Controller
                 name="comment"
                 rules={{required: true}}
@@ -80,8 +80,8 @@ const Item: FC<IItemProps> = ({commentData, onSuccess}) => {
                 render={({field}) => <Editor name="example" value={comment} onChange={text => field.onChange(text)} />}
               />
               <div className="mt-4 flex gap-4">
-                <Button className="w-24" variant="contained" color="primary" text="Comment" type="submit" />
-                <Button className="w-24" variant="outlined" color="white" text="Cancel" onClick={() => setEditComment(false)} type="button" />
+                <Button className="h-8 w-20" variant="contained" color="primary" text="Comment" type="submit" />
+                <Button className="h-8 w-20" variant="outlined" color="white" text="Cancel" onClick={() => setEditComment(false)} type="button" />
               </div>
             </form>
           )}

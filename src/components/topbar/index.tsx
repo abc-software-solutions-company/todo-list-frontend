@@ -46,34 +46,36 @@ const Topbar: FC<IProps> = ({className}) => {
     <div className={cls(styles.topbar, className)}>
       {auth?.name && (
         <div className="container">
-          <Back visibleOn={['/list', '/list/[id]', '/tasks/[id]']} currentPage={currentPage} onClick={() => returnTo(currentPage)} />
-          <div className="authenticated">
-            <Link href={ROUTES.LIST}>
-              <a className="h2 text">My List</a>
-            </Link>
-            {/* Seperator line */}
-            <span className="sep"></span>
-            <span className="h2">
-              <Icon name="ico-user" />
-              {auth && auth.name}
-            </span>
-            {auth?.email == null ? (
-              <span className="unverified" onClick={() => handleSocial()}>
-                (Unverified)
+          <div className="inner">
+            <Back visibleOn={['/list', '/list/[id]', '/tasks/[id]']} currentPage={currentPage} onClick={() => returnTo(currentPage)} />
+            <div className="authenticated">
+              <Link href={ROUTES.LIST}>
+                <a className="h2 text">My List</a>
+              </Link>
+              {/* Seperator line */}
+              <span className="sep"></span>
+              <span className="h2">
+                <Icon name="ico-user" />
+                {auth && auth.name}
               </span>
-            ) : (
-              <span
-                className="logout"
-                onClick={() => {
-                  fireAuthUtils.signOutOfGoogle();
-                  router.reload();
-                }}
-              >
-                <span className="h2">
-                  <Icon name="ico-logout" />
+              {auth?.email == null ? (
+                <span className="unverified" onClick={() => handleSocial()}>
+                  (Unverified)
                 </span>
-              </span>
-            )}
+              ) : (
+                <span
+                  className="logout"
+                  onClick={() => {
+                    fireAuthUtils.signOutOfGoogle();
+                    router.reload();
+                  }}
+                >
+                  <span className="h2">
+                    <Icon name="ico-logout" />
+                  </span>
+                </span>
+              )}
+            </div>
           </div>
         </div>
       )}

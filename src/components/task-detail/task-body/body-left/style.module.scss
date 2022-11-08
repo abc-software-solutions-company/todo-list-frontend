@@ -1,5 +1,5 @@
 .body-left :global {
-  @apply max-w-2/3 basis-2/3;
+  @apply basis-3/4 lg:max-w-[75%];
 
   textarea {
     box-shadow: none;
