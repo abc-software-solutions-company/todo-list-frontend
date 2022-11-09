@@ -13,14 +13,21 @@ const PopUpImageDangerous = ({rawHTML}: IPopUpImgProp) => {
     import(/* webpackChunkName: "vendor.glightbox.style" */ 'glightbox/dist/css/glightbox.min.css');
     glightbox.then(resp => {
       const gLightbox = resp.default;
-      gLightbox({
-        selector: '.glightbox',
-        loop: true
-      });
+      setTimeout(
+        () =>
+          gLightbox({
+            selector: '.glightbox',
+            loop: true
+          }),
+        500
+      );
     });
   }, []);
-  return <div dangerouslySetInnerHTML={{__html: wrapperRawHTML(rawHTML)}}></div>;
-  // return <div>{wrapperRawHTML(rawHTML)}</div>;
+  return (
+    <>
+      <div dangerouslySetInnerHTML={{__html: wrapperRawHTML(rawHTML)}}></div>
+    </>
+  );
 };
 
 export default PopUpImageDangerous;
