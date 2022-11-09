@@ -12,6 +12,8 @@ const customLightboxHTML = `<div id="glightbox-body" class="glightbox-container"
     <div class="goverlay"></div>
     <div class="gcontainer">
     <div id="glightbox-slider" class="gslider"></div>
+    <button class="gnext gbtn" tabindex="0" aria-label="Next" style="display: none;" data-customattribute="example">{nextSVG}</button>
+    <button class="gprev gbtn" tabindex="1" aria-label="Previous" style="display: none;">{prevSVG}</button>
     <button class="gclose gbtn" tabindex="2" aria-label="Close">{closeSVG}</button>
 </div>
 </div>`;
@@ -28,7 +30,8 @@ const PopUpImageDangerous = ({rawHTML}: IPopUpImgProp) => {
           lightboxHTML: customLightboxHTML,
           loop: false,
           keyboardNavigation: false,
-          draggable: false
+          draggable: false,
+          closeOnOutsideClick: true
         });
       }, 500);
     });
