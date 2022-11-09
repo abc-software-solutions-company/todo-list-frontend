@@ -3,7 +3,6 @@ import {FC} from 'react';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
 
-import BodyRight from '../body-right';
 import Status from '../status';
 import Attachments from './attachment';
 import Comment from './comment';
@@ -28,7 +27,6 @@ const BodyLeft: FC<IBodyLeftProps> = ({className, ...rest}) => {
         <Status {...rest} className="divide item" noTitle={true} />
         <Description {...rest} className="divide item" />
         <Attachments {...rest} className="divide item" />
-        <BodyRight {...rest} className="lg:hidden" />
         <Comment {...rest} className="divide item" />
       </div>
     </div>

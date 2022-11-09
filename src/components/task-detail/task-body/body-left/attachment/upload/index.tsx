@@ -57,7 +57,7 @@ const Upload: FC<IUpload> = ({taskData, onSuccess, onUpload, previewAttachments,
       const s3ObjectRequest: PutObjectRequest = {
         Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME!,
         Body: image,
-        Key: `${process.env.NEXT_PUBLIC_AWS_BUCKET_ENV}/${name}`,
+        Key: `${process.env.NEXT_PUBLIC_AWS_BUCKET_ENV || 'data-test'}/${name}`,
         ACL: 'public-read'
       };
       s3.upload(s3ObjectRequest, (err: Error, response: ManagedUpload.SendData) => {

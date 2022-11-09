@@ -3,6 +3,7 @@ import {FC} from 'react';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
 
+import Comment from '../body-left/comment';
 import Status from '../status';
 import Assignee from './assignee';
 import Date from './date';
@@ -24,8 +25,9 @@ const BodyRight: FC<IBodyRightProps> = ({className, ...rest}) => {
         <Status {...rest} className="divide item" />
         <Assignee className="divide item mobile" />
         <Priority {...rest} className="divide item mobile" />
-        <Point className="item mobile" />
+        <Point className="divide item mobile" />
         <Date className="divide item" />
+        <Comment {...rest} className="divide item lg:hidden" />
         <TimeState taskData={rest.taskData} className="item" />
       </div>
     </div>

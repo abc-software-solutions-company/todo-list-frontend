@@ -32,7 +32,9 @@ const Content: FC<Iprops> = ({commentData, onSuccess, show, onClose}) => {
 
   const onSubmit = handleSubmit(submitHandler);
   return (
-    <div className="content prose">{!show ? <div dangerouslySetInnerHTML={{__html: comment}}></div> : <CommentForm {...{form, onSubmit, onClose}} />}</div>
+    <div className="content prose">
+      {!show ? <div dangerouslySetInnerHTML={{__html: comment}}></div> : <CommentForm {...{form, onSubmit, onClose, value: comment}} />}
+    </div>
   );
 };
 export default Content;

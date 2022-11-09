@@ -26,4 +26,8 @@
       }
     }
   }
+
+  .comment {
+    @apply hidden lg:block;
+  }
 }

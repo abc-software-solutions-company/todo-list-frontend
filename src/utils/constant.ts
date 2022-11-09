@@ -6,6 +6,7 @@ export const Visibilities = {
 
 export const Priorities = {lowest: 'Lowest', low: 'Low', medium: 'Medium', high: 'High', highest: 'Highest'};
 export const PriorityColors = {lowest: '#78716C', low: '#8B5CF6', medium: '#22C55E', high: '#F97316', highest: '#EF4444'};
+export const PriorityIcons = {lowest: 'ico-chevrons-down', low: 'ico-chevron-down', medium: 'ico-minus', high: 'ico-chevron-up', highest: 'ico-chevrons-up'};
 
 export const LobbyTexts = {
   TITLE: 'TO-DO LIST',

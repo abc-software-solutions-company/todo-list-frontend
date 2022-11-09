@@ -6,10 +6,6 @@
     @apply col-span-2;
   }
 
-  .body-right-wrapper {
-    @apply hidden lg:block;
-  }
-
   .divide {
     @apply border-b last:border-0;
   }
