@@ -2,7 +2,7 @@ import React from 'react';
 
 import Seo from '@/components/common/seo/seo';
 
-import PopUpImage from './component/popup-img';
+import PopUpImage from '../../components/common/popup-img';
 
 const imageList = [
   'https://biati-digital.github.io/glightbox/demo/img/large/gm1.jpg',
