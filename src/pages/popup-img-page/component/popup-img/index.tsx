@@ -5,9 +5,6 @@ interface IPopUpImgProp {
 }
 
 const PopUpImage = ({imageList}: IPopUpImgProp) => {
-  // Instead of using a selector, define the gallery elements
-  console.log(imageList);
-
   useEffect(() => {
     const glightbox = import(/* webpackChunkName: "vendor.glightbox" */ 'glightbox');
     import(/* webpackChunkName: "vendor.glightbox.style" */ 'glightbox/dist/css/glightbox.min.css');
@@ -21,7 +18,7 @@ const PopUpImage = ({imageList}: IPopUpImgProp) => {
   }, []);
   return (
     <>
-      <a className="open-slide glightbox" href={imageList[0]}>
+      <a className="open-slide glightbox no-underline" href={imageList[0]}>
         Open
       </a>
       <div className="glightbox-list">
