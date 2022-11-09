@@ -1,7 +1,9 @@
+import classNames from 'classnames';
 import {FC} from 'react';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
 
+import BodyRight from '../body-right';
 import Status from '../status';
 import Attachments from './attachment';
 import Comment from './comment';
@@ -19,13 +21,16 @@ export interface IItemProp {
   date: string;
 }
 
-const BodyLeft: FC<IBodyLeftProps> = props => {
+const BodyLeft: FC<IBodyLeftProps> = ({className, ...rest}) => {
   return (
-    <div className={style['body-left']}>
-      <Status {...props} className="divide item" noTitle={true} />
-      <Description {...props} className="divide item" />
-      <Attachments {...props} className="divide item" />
-      <Comment {...props} className="divide item" />
+    <div className={className}>
+      <div className={classNames(style['body-left'], 'body-left')}>
+        <Status {...rest} className="divide item" noTitle={true} />
+        <Description {...rest} className="divide item" />
+        <Attachments {...rest} className="divide item" />
+        <BodyRight {...rest} className="lg:hidden" />
+        <Comment {...rest} className="divide item" />
+      </div>
     </div>
   );
 };

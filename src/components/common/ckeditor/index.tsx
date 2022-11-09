@@ -29,7 +29,7 @@ const Editor: FC<IEditorProps> = ({onChange, name, value}) => {
             const s3ObjectRequest: PutObjectRequest = {
               Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME!,
               Body: file,
-              Key: `data1/${fileName}.png`,
+              Key: `${process.env.NEXT_PUBLIC_AWS_BUCKET_ENV}/${fileName}.png`,
               ACL: 'public-read'
             };
             s3.upload(s3ObjectRequest)
@@ -72,6 +72,9 @@ const Editor: FC<IEditorProps> = ({onChange, name, value}) => {
         {editorLoaded ? (
           <CKEditor
             name={name}
+            onReady={(editor: any) => {
+              editor.focus();
+            }}
             id={'editor'}
             config={{
               extraPlugins: [uploadPlugin]

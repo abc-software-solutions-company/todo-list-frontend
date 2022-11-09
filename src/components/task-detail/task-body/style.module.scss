@@ -1,6 +1,14 @@
 .task-body :global {
   @apply mt-8 bg-gray-50 px-8 py-3 shadow-md;
-  @apply gap-x-32 lg:flex;
+  @apply lg:grid lg:grid-cols-3 lg:gap-x-32;
+
+  .body-left-wrapper {
+    @apply col-span-2;
+  }
+
+  .body-right-wrapper {
+    @apply hidden lg:block;
+  }
 
   .divide {
     @apply border-b last:border-0;

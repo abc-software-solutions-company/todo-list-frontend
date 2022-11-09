@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {FC} from 'react';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
@@ -16,16 +17,17 @@ export interface IBodyRightProps {
   onSuccess?: () => void;
 }
 
-const BodyRight: FC<IBodyRightProps> = props => {
-  const {taskData} = props;
+const BodyRight: FC<IBodyRightProps> = ({className, ...rest}) => {
   return (
-    <div className={style['body-right']}>
-      <Status {...props} className="divide item" />
-      <Assignee className="divide item mobile" />
-      <Priority {...props} className="divide item mobile" />
-      <Point className="item mobile" />
-      <Date className="divide item" />
-      <TimeState taskData={taskData} className="item" />
+    <div className={className}>
+      <div className={classNames(style['body-right'], 'body-right')}>
+        <Status {...rest} className="divide item" />
+        <Assignee className="divide item mobile" />
+        <Priority {...rest} className="divide item mobile" />
+        <Point className="item mobile" />
+        <Date className="divide item" />
+        <TimeState taskData={rest.taskData} className="item" />
+      </div>
     </div>
   );
 };
