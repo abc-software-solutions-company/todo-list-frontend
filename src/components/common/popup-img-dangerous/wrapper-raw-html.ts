@@ -9,7 +9,7 @@ export const wrapperRawHTML = (rawHTML_Text: string) => {
       const endIndex = e.lastIndexOf('"');
       const url = e.substring(startIndex, endIndex);
       const wrapper = `
-      <a class="glightbox" href="${url}">
+      <a class="glightbox-danger" href="${url}">
         <img src="${url}" />
       </a>
       `;
