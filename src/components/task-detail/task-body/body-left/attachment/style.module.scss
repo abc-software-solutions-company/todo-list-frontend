@@ -1,0 +1,6 @@
+.attachment {
+  @apply relative;
+}
+.upload :global {
+  @apply absolute top-0 right-0 sm:static;
+}

@@ -5,6 +5,7 @@ import {ChangeEvent, FC, useState} from 'react';
 import {useForm} from 'react-hook-form';
 
 import Button from '@/core-ui/button';
+import IconButton from '@/core-ui/icon-button';
 import api from '@/data/api';
 import {IAttachment, ITaskResponse} from '@/data/api/types/task.type';
 import {imageValid} from '@/utils/image-valid';
@@ -75,19 +76,24 @@ const Upload: FC<IUpload> = ({taskData, onSuccess, onUpload, previewAttachments,
   });
 
   return (
-    <form className={classNames(style.upload, className)} onSubmit={onSubmit}>
-      <div className="form-body">
-        <Button type="button" className="add">
-          <span>Add atachments</span>
-          <input {...register('attachments', {required: true})} type="file" onChange={onUpload} multiple />
-        </Button>
-        {previewAttachments.length > 0 && (
-          <Button type="submit" color="primary" variant="contained" disabled={isSubmitting} loading={isSubmitting}>
-            Upload
+    <div className={classNames(style.upload, className)}>
+      <div className="upload-body">
+        <div className="upload-button">
+          <Button type="button" className="add-desktop">
+            <span>Add atachments</span>
           </Button>
-        )}
+          <IconButton name="ico-plus-circle" className="add-mobile" />
+          <input {...register('attachments', {required: true})} type="file" onChange={onUpload} multiple />
+        </div>
+        <form onSubmit={onSubmit} className="form-body">
+          {previewAttachments.length > 0 && (
+            <Button type="submit" color="primary" variant="contained" disabled={isSubmitting} loading={isSubmitting}>
+              Upload
+            </Button>
+          )}
+        </form>
       </div>
-    </form>
+    </div>
   );
 };
 

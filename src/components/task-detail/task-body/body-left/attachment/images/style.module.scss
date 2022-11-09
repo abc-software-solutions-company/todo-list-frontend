@@ -1,12 +1,11 @@
 .task-images :global {
   .task-image {
-    @apply flex w-full gap-2.5 rounded-lg hover:bg-white;
-
+    @apply flex gap-2.5 rounded-lg hover:bg-white;
     .image {
       @apply relative h-20 w-28 min-w-[112px] overflow-hidden rounded border bg-white;
     }
     .info {
-      @apply w-[calc(100%-112px)];
+      @apply w-[calc(100%-120px)];
       &-name {
         @apply text-slate-700 hover:break-all;
         &:not(&:hover) {

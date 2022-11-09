@@ -9,6 +9,7 @@ import {IAttachment, IAttachmentResponse} from '@/data/api/types/task.type';
 import Title from '../../title';
 import {IBodyLeftProps} from '..';
 import TaskImages from './images';
+import style from './style.module.scss';
 
 const Attachments: FC<IBodyLeftProps> = props => {
   const {taskData, onSuccess, className} = props;
@@ -43,11 +44,12 @@ const Attachments: FC<IBodyLeftProps> = props => {
   };
 
   return (
-    <div className={classNames('attachment', className)}>
+    <div className={classNames('attachment', className, style.attachment)}>
       <Title icon={<Icon name="ico-paperclip" />} text="Attachments" />
+      <TaskImages className="mb-4 flex sm:hidden" attachments={previewAttachments as IAttachmentResponse[]} />
       <TaskImages className="task-images" {...{attachments, taskData, onSuccess}} />
-      <TaskImages className="task-images-upload" attachments={previewAttachments as IAttachmentResponse[]} />
-      <Upload {...{taskData, onUpload, onSuccess: onUploadSuccess, onError: onUplaodError, previewAttachments}} />
+      <TaskImages className="mt-4 hidden sm:flex" attachments={previewAttachments as IAttachmentResponse[]} />
+      <Upload className={style.upload} {...{taskData, onUpload, onSuccess: onUploadSuccess, onError: onUplaodError, previewAttachments}} />
     </div>
   );
 };

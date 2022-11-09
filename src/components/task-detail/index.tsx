@@ -40,7 +40,7 @@ const TaskDetail: FC<IProps> = ({task}) => {
   LocalStorage.listId.set(taskData.todolistId);
 
   return (
-    <div className="container">
+    <div className="sm:container">
       <TaskToolbar {...{taskData, updateTaskData}} />
       <TaskBody {...{taskData, updateTaskData}} />
     </div>

@@ -1,16 +1,22 @@
 .upload :global {
   @apply mt-3;
-  .form-body {
-    @apply flex gap-2.5;
 
+  .upload-body {
+    @apply flex gap-2.5;
     .abc-btn {
       @apply w-fit cursor-pointer overflow-hidden rounded px-9 py-1 text-h6;
     }
-    .add {
-      @apply relative bg-slate-100 text-slate-500;
+  }
+  .upload-button {
+    @apply relative overflow-hidden;
+    .add-desktop {
+      @apply hidden bg-slate-100 text-slate-500 sm:block;
+    }
+    .add-mobile {
+      @apply text-sky-500 sm:hidden;
     }
     input[name='attachments'] {
-      @apply absolute bottom-0 h-96 w-full cursor-pointer opacity-0;
+      @apply absolute left-0 bottom-0 h-96 w-full cursor-pointer opacity-0;
     }
   }
 }
