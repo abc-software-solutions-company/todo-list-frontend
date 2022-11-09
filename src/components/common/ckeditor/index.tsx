@@ -61,7 +61,10 @@ const Editor: FC<IEditorProps> = ({onChange, name, value}) => {
         <CKEditor
           name={name}
           onReady={(editor: any) => {
-            editor.focus();
+            editor.model.change((writer: any) => {
+              writer.setSelection(editor.model.document.getRoot(), 'end');
+            });
+            editor.editing.view.focus();
           }}
           id={'editor'}
           config={{
