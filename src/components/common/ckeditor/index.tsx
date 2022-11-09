@@ -1,6 +1,8 @@
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {CKEditor} from '@ckeditor/ckeditor5-react';
 import aws from 'aws-sdk';
 import {PutObjectRequest} from 'aws-sdk/clients/s3';
-import React, {FC, useEffect, useRef, useState} from 'react';
+import React, {FC} from 'react';
 
 import style from './styles.module.scss';
 
@@ -53,45 +55,25 @@ const Editor: FC<IEditorProps> = ({onChange, name, value}) => {
     };
   };
 
-  const editorRef = useRef<any>();
-  const [editorLoaded, setEditorLoaded] = useState(false);
-  const {CKEditor, ClassicEditor} = editorRef.current || {};
-
-  useEffect(() => {
-    (async () => {
-      const classic = await import(/* webpackChunkName: "vendor.ckclassic" */ '@ckeditor/ckeditor5-build-classic');
-      const editor = await import(/* webpackChunkName: "vendor.ckeditor" */ '@ckeditor/ckeditor5-react');
-      editorRef.current = {CKEditor: editor.CKEditor, ClassicEditor: classic.default};
-      setEditorLoaded(true);
-    })();
-  }, []);
-
   return (
     <div className={style.ckeditor}>
       <div className="prose">
-        {editorLoaded ? (
-          <CKEditor
-            name={name}
-            onReady={(editor: any) => {
-              editor.focus();
-            }}
-            id={'editor'}
-            config={{
-              extraPlugins: [uploadPlugin]
-            }}
-            onReady={(editor: any) => {
-              editor.focus();
-            }}
-            editor={ClassicEditor}
-            data={value}
-            onChange={(event: any, editor: any) => {
-              const data = editor.getData();
-              onChange(data);
-            }}
-          />
-        ) : (
-          <div>Editor loading...</div>
-        )}
+        <CKEditor
+          name={name}
+          onReady={(editor: any) => {
+            editor.focus();
+          }}
+          id={'editor'}
+          config={{
+            extraPlugins: [uploadPlugin]
+          }}
+          editor={ClassicEditor}
+          data={value}
+          onChange={(event: any, editor: any) => {
+            const data = editor.getData();
+            onChange(data);
+          }}
+        />
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 import classNames from 'classnames';
+import dynamic from 'next/dynamic';
 import {FC, useEffect, useState} from 'react';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 
-import Editor from '@/components/common/ckeditor';
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
@@ -10,6 +10,10 @@ import api from '@/data/api';
 
 import Title from '../../title';
 import {IBodyLeftProps} from '..';
+
+const Editor = dynamic(() => import('@/components/common/ckeditor'), {
+  ssr: false
+});
 
 interface IFormInputs {
   description: string;

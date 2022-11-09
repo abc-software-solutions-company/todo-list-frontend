@@ -1,8 +1,12 @@
+import dynamic from 'next/dynamic';
 import {BaseSyntheticEvent, FC} from 'react';
 import {Controller, UseFormReturn} from 'react-hook-form';
 
-import Editor from '@/components/common/ckeditor';
 import Button from '@/core-ui/button';
+
+const Editor = dynamic(() => import('@/components/common/ckeditor'), {
+  ssr: false
+});
 
 export interface IFormInputs {
   comment: string;
