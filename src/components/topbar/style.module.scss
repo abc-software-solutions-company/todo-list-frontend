@@ -1,7 +1,7 @@
 .topbar :global {
   @apply mt-3 lg:mt-7;
   .inner {
-    @apply flex w-full items-center justify-between px-4 md:p-0;
+    @apply flex w-full items-center justify-between md:p-0;
   }
 
   .authenticated {

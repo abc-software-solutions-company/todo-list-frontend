@@ -1,15 +1,15 @@
 import aws from 'aws-sdk';
 import {ManagedUpload, PutObjectRequest} from 'aws-sdk/clients/s3';
 import classNames from 'classnames';
-import {ChangeEvent, FC, useState} from 'react';
-import {useForm} from 'react-hook-form';
+import {ChangeEvent, FC} from 'react';
 
 import Button from '@/core-ui/button';
 import IconButton from '@/core-ui/icon-button';
+import useToast from '@/core-ui/toast';
 import api from '@/data/api';
-import {IAttachment, ITaskResponse} from '@/data/api/types/task.type';
 import {imageValid} from '@/utils/image-valid';
 
+import {IBodyLeftProps} from '../..';
 import style from './style.module.scss';
 
 aws.config.update({
@@ -20,78 +20,50 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
-type FormValues = {
-  attachments: File[];
-};
+const Upload: FC<IBodyLeftProps> = ({taskData, onSuccess, className}) => {
+  const toast = useToast();
 
-export interface IUpload {
-  className?: string;
-  taskData: ITaskResponse;
-  previewAttachments: IAttachment[];
-  onUpload: (e: ChangeEvent<HTMLInputElement>) => void;
-  onSuccess: () => void;
-  onError: () => void;
-}
+  const onUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log('🚀 ~ file: index.tsx ~ line 56 ~ onUpload ~ onUpload');
 
-const Upload: FC<IUpload> = ({taskData, onSuccess, onUpload, previewAttachments, className, onError}) => {
-  const {register, handleSubmit} = useForm<FormValues>();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+    if (e.target.files?.length) {
+      for (let i = 0; i < e.target.files.length; i++) {
+        const file = e.target.files[i];
+        const name = file.name;
 
-  const onFinally = (isEnd?: boolean) => {
-    if (isEnd) {
-      setIsSubmitting(false);
+        if (!imageValid(file)) {
+          toast.show({type: 'danger', title: 'error', content: `${name} not is a image or weight more than 5 MB `});
+          continue;
+        }
+
+        const s3ObjectRequest: PutObjectRequest = {
+          Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME!,
+          Body: file,
+          Key: `${process.env.NEXT_PUBLIC_AWS_BUCKET_ENV || 'data-test'}/${Date.now() + name}`,
+          ACL: 'public-read'
+        };
+
+        s3.upload(s3ObjectRequest, (err: Error, response: ManagedUpload.SendData) => {
+          if (err) console.log('Error', err);
+          if (response) {
+            api.task
+              .update({id: taskData.id, attachment: {create: {name: name, link: response.Location}}})
+              .then(onSuccess)
+              .then(() => toast.show({type: 'success', title: 'success', content: `Update ${name} Successfull`}));
+          }
+        });
+      }
     }
   };
 
-  const onSubmit = handleSubmit(async ({attachments}) => {
-    if (isSubmitting) return;
-    setIsSubmitting(true);
-    for (let i = 0; i < attachments.length; i++) {
-      const image = attachments[i];
-      const name = Date.now() + image.name;
-
-      if (!imageValid(image)) {
-        setIsSubmitting(false);
-        onError();
-        return;
-      }
-      const s3ObjectRequest: PutObjectRequest = {
-        Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME!,
-        Body: image,
-        Key: `${process.env.NEXT_PUBLIC_AWS_BUCKET_ENV || 'data-test'}/${name}`,
-        ACL: 'public-read'
-      };
-      s3.upload(s3ObjectRequest, (err: Error, response: ManagedUpload.SendData) => {
-        if (err) console.log('Error', err);
-        if (response) {
-          console.log(response);
-          api.task
-            .update({id: taskData.id, attachment: {create: {name: image.name, link: response.Location}}})
-            .then(onSuccess)
-            .catch(error => console.log(error))
-            .finally(() => onFinally(i + 1 === attachments.length));
-        }
-      });
-    }
-  });
-
   return (
     <div className={classNames(style.upload, className)}>
-      <div className="upload-body">
-        <div className="upload-button">
-          <Button type="button" className="add-desktop">
-            <span>Add atachments</span>
-          </Button>
-          <IconButton name="ico-plus-circle" className="add-mobile" />
-          <input {...register('attachments', {required: true})} type="file" onChange={onUpload} multiple />
-        </div>
-        <form onSubmit={onSubmit} className="form-body">
-          {previewAttachments.length > 0 && (
-            <Button type="submit" color="primary" variant="contained" disabled={isSubmitting} loading={isSubmitting}>
-              Upload
-            </Button>
-          )}
-        </form>
+      <div className="upload-button">
+        <Button type="button" className="add-desktop">
+          <span>Add atachments</span>
+        </Button>
+        <IconButton name="ico-plus-circle" className="add-mobile" />
+        <input name="attachments" type="file" onChange={onUpload} multiple />
       </div>
     </div>
   );

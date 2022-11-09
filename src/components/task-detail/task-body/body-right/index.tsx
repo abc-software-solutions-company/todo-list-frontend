@@ -5,9 +5,9 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 
 import Comment from '../body-left/comment';
 import Status from '../status';
-import Assignee from './assignee';
-import Date from './date';
-import Point from './point';
+// import Assignee from './assignee';
+// import Date from './date';
+// import Point from './point';
 import Priority from './priority';
 import style from './style.module.scss';
 import TimeState from './time-state';
@@ -23,10 +23,10 @@ const BodyRight: FC<IBodyRightProps> = ({className, ...rest}) => {
     <div className={className}>
       <div className={classNames(style['body-right'], 'body-right')}>
         <Status {...rest} className="divide item" />
-        <Assignee className="divide item mobile" />
+        {/* <Assignee className="divide item mobile" /> */}
         <Priority {...rest} className="divide item mobile" />
-        <Point className="divide item mobile" />
-        <Date className="divide item" />
+        {/* <Point className="divide item mobile" /> */}
+        {/* <Date className="divide item" /> */}
         <Comment {...rest} className="divide item lg:hidden" />
         <TimeState taskData={rest.taskData} className="item" />
       </div>
