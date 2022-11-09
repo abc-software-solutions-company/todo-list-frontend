@@ -16,8 +16,8 @@ interface ITaskBodyProps {
 const TaskBody: FC<ITaskBodyProps> = ({className, taskData, updateTaskData}) => {
   return (
     <div className={classNames(style['task-body'], className)}>
-      <BodyLeft taskData={taskData} onSuccess={updateTaskData} />
-      <BodyRight taskData={taskData} onSuccess={updateTaskData} />
+      <BodyLeft taskData={taskData} onSuccess={updateTaskData} className="body-left-wrapper" />
+      <BodyRight taskData={taskData} onSuccess={updateTaskData} className="body-right-wrapper" />
     </div>
   );
 };

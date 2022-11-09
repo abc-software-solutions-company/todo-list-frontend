@@ -4,10 +4,12 @@ import {IBodyLeftProps} from '../..';
 import Item from './item';
 import style from './style.module.scss';
 
-const List: FC<IBodyLeftProps> = ({taskData, onSuccess}) => {
-  const comments = taskData?.comments?.filter(e => e.isActive).reverse();
+const CommentList: FC<IBodyLeftProps> = ({taskData, onSuccess}) => {
   const numberStep = 5;
   const [commentsNumber, setCommentsNumber] = useState(numberStep);
+
+  const comments = taskData?.comments?.filter(e => e.isActive).reverse();
+
   const onClick = () => {
     setCommentsNumber(commentsNumber + numberStep);
   };
@@ -25,4 +27,4 @@ const List: FC<IBodyLeftProps> = ({taskData, onSuccess}) => {
     </div>
   );
 };
-export default List;
+export default CommentList;

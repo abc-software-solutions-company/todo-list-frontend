@@ -72,6 +72,9 @@ const Editor: FC<IEditorProps> = ({onChange, name, value}) => {
         {editorLoaded ? (
           <CKEditor
             name={name}
+            onReady={(editor: any) => {
+              editor.focus();
+            }}
             id={'editor'}
             config={{
               extraPlugins: [uploadPlugin]
