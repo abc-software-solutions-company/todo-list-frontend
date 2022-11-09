@@ -2,7 +2,6 @@ import {ButtonBase, Popover} from '@mui/material';
 import {FC, MouseEvent, useState} from 'react';
 
 import Button from '@/core-ui/button';
-import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
 import api from '@/data/api';
 
