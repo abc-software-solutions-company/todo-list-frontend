@@ -1,6 +1,7 @@
 import {FC} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 
+import PopUpImageDangerous from '@/components/common/popup-img-dangerous';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 
@@ -32,9 +33,7 @@ const Content: FC<Iprops> = ({commentData, onSuccess, show, onClose}) => {
 
   const onSubmit = handleSubmit(submitHandler);
   return (
-    <div className="content prose">
-      {!show ? <div dangerouslySetInnerHTML={{__html: comment}}></div> : <CommentForm {...{form, onSubmit, onClose, value: comment}} />}
-    </div>
+    <div className="content prose">{!show ? <PopUpImageDangerous rawHTML={comment} /> : <CommentForm {...{form, onSubmit, onClose, value: comment}} />}</div>
   );
 };
 export default Content;

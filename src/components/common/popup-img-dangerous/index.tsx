@@ -1,6 +1,8 @@
 /* eslint-disable react/no-unknown-property */
 import React, {useEffect} from 'react';
 
+import {wrapperRawHTML} from './wrapper-raw-html';
+
 interface IPopUpImgProp {
   rawHTML: string;
 }
@@ -17,7 +19,8 @@ const PopUpImageDangerous = ({rawHTML}: IPopUpImgProp) => {
       });
     });
   }, []);
-  return <>{rawHTML}</>;
+  return <div dangerouslySetInnerHTML={{__html: wrapperRawHTML(rawHTML)}}></div>;
+  // return <div>{wrapperRawHTML(rawHTML)}</div>;
 };
 
 export default PopUpImageDangerous;
