@@ -70,7 +70,7 @@ const Item: FC<IItemProps> = ({commentData, onSuccess}) => {
         </div>
         <div className="content prose">
           {!editComment ? (
-            <div dangerouslySetInnerHTML={{__html: comment}}></div>
+            <div>{comment}</div>
           ) : (
             <form onSubmit={handleSubmit(submitHandler)}>
               <Controller
