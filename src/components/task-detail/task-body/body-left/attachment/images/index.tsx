@@ -4,6 +4,7 @@ import Image from 'next/image';
 import {FC, MouseEvent, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 
+import PopUpImage from '@/components/common/popup-img';
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
@@ -68,7 +69,9 @@ const TaskImages: FC<ITaskImagesProps> = ({attachments, className, taskData, onS
       {attachments.map((e, idx) => (
         <div key={idx} className={classNames('task-image', `${!taskData ? 'upload' : ''}`)}>
           <div className="image">
-            <Image src={e.link} alt="" objectFit="contain" layout="fill" />
+            <PopUpImage imageList={[e.link]}>
+              <Image src={e.link} alt="" objectFit="contain" layout="fill" />
+            </PopUpImage>
           </div>
           {e.createdDate && (
             <div className="info">
