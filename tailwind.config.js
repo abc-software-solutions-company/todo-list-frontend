@@ -144,10 +144,17 @@ module.exports = {
           css: {
             /* It's a way to reference a value in the theme. */
             // maxWidth: theme('maxWidth.full')
-            'h1,h2,h3,p': {
-              color: theme('colors.emerald.700'),
+            'h1,h2,h3': {
+              color: theme('colors.black'),
               fontWeight: 'bold',
-              fontFamily: theme('fontFamily.serif')
+              margin: '0px'
+            },
+            img: {
+              borderRadius: theme('borderRadius.lg'),
+              maxWidth: '400px'
+            },
+            p: {
+              margin: '0px'
             }
           }
         },

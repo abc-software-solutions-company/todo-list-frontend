@@ -2,6 +2,8 @@ import aws from 'aws-sdk';
 import {PutObjectRequest} from 'aws-sdk/clients/s3';
 import React, {FC, useEffect, useRef, useState} from 'react';
 
+import style from './styles.module.scss';
+
 interface IEditorProps {
   name: string;
   value: string;
@@ -65,24 +67,26 @@ const Editor: FC<IEditorProps> = ({onChange, name, value}) => {
   }, []);
 
   return (
-    <div className="prose">
-      {editorLoaded ? (
-        <CKEditor
-          name={name}
-          id={'editor'}
-          config={{
-            extraPlugins: [uploadPlugin]
-          }}
-          editor={ClassicEditor}
-          data={value}
-          onChange={(event: any, editor: any) => {
-            const data = editor.getData();
-            onChange(data);
-          }}
-        />
-      ) : (
-        <div>Editor loading...</div>
-      )}
+    <div className={style.ckeditor}>
+      <div className="prose">
+        {editorLoaded ? (
+          <CKEditor
+            name={name}
+            id={'editor'}
+            config={{
+              extraPlugins: [uploadPlugin]
+            }}
+            editor={ClassicEditor}
+            data={value}
+            onChange={(event: any, editor: any) => {
+              const data = editor.getData();
+              onChange(data);
+            }}
+          />
+        ) : (
+          <div>Editor loading...</div>
+        )}
+      </div>
     </div>
   );
 };
