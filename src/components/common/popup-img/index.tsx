@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {ReactNode, useEffect} from 'react';
 
 interface IPopUpImgProp {
   imageList: string[];
+  children: ReactNode;
 }
 
-const PopUpImage = ({imageList}: IPopUpImgProp) => {
+const PopUpImage = ({imageList, children}: IPopUpImgProp) => {
   useEffect(() => {
     const glightbox = import(/* webpackChunkName: "vendor.glightbox" */ 'glightbox');
     import(/* webpackChunkName: "vendor.glightbox.style" */ 'glightbox/dist/css/glightbox.min.css');
@@ -19,7 +20,7 @@ const PopUpImage = ({imageList}: IPopUpImgProp) => {
   return (
     <>
       <a className="open-slide glightbox no-underline" href={imageList[0]}>
-        Open
+        {children}
       </a>
       <div className="glightbox-list">
         {imageList.slice(1).map((img, idx) => (

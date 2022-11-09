@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Seo from '@/components/common/seo/seo';
+import Button from '@/core-ui/button';
 
 import PopUpImage from '../../components/common/popup-img';
 
@@ -15,7 +16,9 @@ export default function PagePopupImf() {
   return (
     <>
       <Seo title="Lobby" />
-      <PopUpImage imageList={imageList} />
+      <PopUpImage imageList={imageList}>
+        <Button className="max-w-sm" variant="contained" color="info" text={'Show slideshow'} type="submit" />
+      </PopUpImage>
     </>
   );
 }
