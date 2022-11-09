@@ -20,12 +20,12 @@ const PopUpImage = ({imageList, children}: IPopUpImgProp) => {
   }, []);
   return (
     <>
-      <a className="open-slide glightbox no-underline" glight-box-ref={0} href={imageList[0]}>
+      <a className="open-slide glightbox no-underline" href={imageList[0]}>
         {children}
       </a>
       <div className="glightbox-list">
         {imageList.slice(1).map((img, idx) => (
-          <a href={img} glight-box-ref={idx} className="glightbox hidden" key={idx}>
+          <a href={img} className="glightbox hidden" key={idx}>
             {idx}
           </a>
         ))}
