@@ -76,6 +76,9 @@ const Editor: FC<IEditorProps> = ({onChange, name, value}) => {
             config={{
               extraPlugins: [uploadPlugin]
             }}
+            onReady={(editor: any) => {
+              editor.focus();
+            }}
             editor={ClassicEditor}
             data={value}
             onChange={(event: any, editor: any) => {
