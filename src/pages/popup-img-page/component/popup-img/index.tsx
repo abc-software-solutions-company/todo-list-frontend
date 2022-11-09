@@ -1,7 +1,12 @@
-import React, {FC, useEffect} from 'react';
+import React, {useEffect} from 'react';
 
-const PopUpImage: FC = () => {
+interface IPopUpImgProp {
+  imageList: string[];
+}
+
+const PopUpImage = ({imageList}: IPopUpImgProp) => {
   // Instead of using a selector, define the gallery elements
+  console.log(imageList);
 
   useEffect(() => {
     const glightbox = import(/* webpackChunkName: "vendor.glightbox" */ 'glightbox');
@@ -15,11 +20,18 @@ const PopUpImage: FC = () => {
     });
   }, []);
   return (
-    <div>
-      <a href={'https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png'} className="glightbox">
-        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png" />
+    <>
+      <a className="open-slide glightbox" href={imageList[0]}>
+        Open
       </a>
-    </div>
+      <div className="glightbox-list">
+        {imageList.slice(1).map((img, idx) => (
+          <a href={img} className="glightbox hidden" key={idx}>
+            {idx}
+          </a>
+        ))}
+      </div>
+    </>
   );
 };
 
