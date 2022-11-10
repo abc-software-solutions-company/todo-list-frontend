@@ -1,6 +1,9 @@
 .comment-content :global {
   .content {
-    @apply prose max-w-[96%] break-words;
+    @apply max-w-[96%] break-words;
     @apply -my-5;
+  }
+  img {
+    @apply my-2 w-full max-w-[200px] bg-amber-200;
   }
 }
