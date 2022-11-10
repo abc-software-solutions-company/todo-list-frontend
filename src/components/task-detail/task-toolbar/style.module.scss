@@ -7,9 +7,6 @@
     }
     .left {
       @apply flex grow items-start gap-2.5;
-      .ico-task {
-        @apply mt-[-3px] hidden sm:block;
-      }
       h2 {
         @apply text-h4 font-semibold lg:text-h2;
         word-break: break-word;

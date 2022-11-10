@@ -30,8 +30,8 @@ const PrioritySelect: FC = () => {
     <Select onChange={onChange} value={value} IconComponent={KeyboardArrowDownIcon} sx={{fontFamily: 'inherit'}}>
       {list.map((e, index) => (
         <MenuItem key={index} value={e} sx={{fontFamily: 'inherit', padding: '4px 20px'}}>
-          <div className="relative flex items-center">
-            <Icon name={icons[index]} className="mr-3" style={{color: colors[index]}} />
+          <div className="relative mr-2 flex items-center">
+            <Icon name={icons[index]} className="mr-1" style={{color: colors[index]}} />
             <span className="priority-name text-h6 font-medium text-slate-700">{e}</span>
           </div>
         </MenuItem>

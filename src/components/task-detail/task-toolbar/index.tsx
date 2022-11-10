@@ -55,7 +55,6 @@ const TaskToolbar: FC<IBaseProps> = ({className}) => {
     <div className={classNames(style.toolbar, className)}>
       <div className="header">
         <div className="left">
-          <Icon name="ico-task" size={32} />
           <h2 className="text-h2"> {task.name}</h2>
         </div>
         <div className="right">

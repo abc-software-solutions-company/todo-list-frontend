@@ -18,7 +18,7 @@
   .actions {
     @apply flex gap-1;
     button {
-      @apply text-xs font-normal text-slate-500 underline;
+      @apply text-sm font-normal text-slate-500 underline;
     }
   }
   .more-comments {
