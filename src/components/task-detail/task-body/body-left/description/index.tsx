@@ -55,7 +55,7 @@ const Description: FC<IBodyLeftProps> = ({taskData, onSuccess, className}) => {
         rightBtn={!editDescription && <Button text="Edit" className="edit-btn" onClick={onClick} />}
       />
       {!editDescription ? (
-        <div className="description-text prose" onClick={onClick} dangerouslySetInnerHTML={{__html: taskData.description}}></div>
+        <div className="description-text prose max-w-full" onClick={onClick} dangerouslySetInnerHTML={{__html: taskData.description}}></div>
       ) : (
         <form className="decsription-form" onSubmit={handleSubmit(submitHandler)}>
           <Controller
