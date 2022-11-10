@@ -1,30 +1,30 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {ITaskResponse} from '@/data/api/types/task.type';
 
 export type IAction = PayloadAction<{id: string}>;
 
-const todolistSlice = createSlice({
+const taskSlice = createSlice({
   name: 'post',
   initialState: {
     loading: false,
-    todolist: undefined as unknown as ITodolistResponse,
+    task: undefined as unknown as ITaskResponse,
     error: null
   },
   reducers: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getTodolistRequest: (state, {payload}: IAction) => {
+    getTaskRequest: (state, {payload}: IAction) => {
       state.loading = true;
     },
-    getTodolistSuccess: (state, {payload}) => {
+    getTaskSuccess: (state, {payload}) => {
       state.loading = false;
-      state.todolist = payload;
+      state.task = payload;
     },
-    getTodolistFailure: (state, {payload}) => {
+    getTaskFailure: (state, {payload}) => {
       state.loading = false;
       state.error = payload;
     }
   }
 });
 
-export default todolistSlice;
+export default taskSlice;

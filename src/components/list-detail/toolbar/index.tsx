@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import Icon from '@/core-ui/icon';
-import {ITodolistResponse} from '@/data/api/types/list.type';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {useStateAuth} from '@/states/auth';
 import {MUI_ICON} from '@/utils/mui-icon';
 

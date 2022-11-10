@@ -3,7 +3,7 @@ import React, {FC} from 'react';
 
 import Button from '@/core-ui/button';
 import {Modal} from '@/core-ui/modal';
-import {ITodolistResponse} from '@/data/api/types/list.type';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {ITaskResponse} from '@/data/api/types/task.type';
 
 import useModalDelete from './hook';

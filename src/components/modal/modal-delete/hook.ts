@@ -18,7 +18,7 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
         toast.show({type: 'success', title: 'Delete ', content: 'Successful!'});
       });
     else
-      req = api.list
+      req = api.todolist
         .update({id, isActive: false})
         .then(() => {
           toast.show({type: 'success', title: 'Delete list', content: 'Successful!'});

@@ -1,7 +1,7 @@
 import {IBaseResponse} from '@/types';
 
 import {IUserResponse} from './auth.type';
-import {IStatus, ITodolistResponse} from './list.type';
+import {IStatus, ITodolistResponse} from './todolist.type';
 
 export interface IAttachment {
   name: string;

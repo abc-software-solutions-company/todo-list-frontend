@@ -4,7 +4,7 @@ import {FC, useEffect} from 'react';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
-import {ITodolistResponse} from '@/data/api/types/list.type';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {ITaskResponse} from '@/data/api/types/task.type';
 
 import useModalCreateUpdateTask from './hook';

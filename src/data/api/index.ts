@@ -3,8 +3,8 @@ import http from '@/utils/http';
 
 import {IAuthLogin, IAuthResponse, IAuthUpdate, IUserResponse} from './types/auth.type';
 import {IFavoriteCreate, IFavoriteResponse, IFavoriteUpdate} from './types/favorite.type';
-import {IListCreate, IListGetOne, IListUpdate, ITodolistResponse} from './types/list.type';
 import {ITaskCreate, ITaskGet, ITaskReindex, ITaskResponse, ITaskUpdate} from './types/task.type';
+import {IListCreate, IListGetOne, IListUpdate, ITodolistResponse} from './types/todolist.type';
 
 const api = {
   auth: {
@@ -12,7 +12,7 @@ const api = {
     verify: () => http.get<IUserResponse>(API_ENDPOINTS.AUTH + '/verify'),
     update: (data: IAuthUpdate) => http.patch<IUserResponse>(API_ENDPOINTS.AUTH, data)
   },
-  list: {
+  todolist: {
     get: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST),
     getOne: ({id}: IListGetOne) => http.get<ITodolistResponse>(API_ENDPOINTS.LIST + '/' + id),
     getByUser: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST + '/user'),

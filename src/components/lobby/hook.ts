@@ -26,7 +26,7 @@ export default function useLobbyHook() {
 
   const submitHandler: SubmitHandler<IFormInputs> = data => {
     const id = detectIdOrLink(data.idOrLink).trim();
-    API.list
+    api.todolist
       .getOne({id})
       .then(res => {
         toast.show({type: 'success', title: 'Success', content: 'Join List Successfull'});

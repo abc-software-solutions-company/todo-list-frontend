@@ -6,7 +6,7 @@ import Button from '@/core-ui/button';
 import FloatIcon from '@/core-ui/float-icon';
 import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
-import {ITodolistResponse} from '@/data/api/types/list.type';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {MUI_ICON} from '@/utils/mui-icon';
 
 import FavoriteButton from '../common/favorite-button';

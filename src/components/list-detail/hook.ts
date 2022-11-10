@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
 import api from '@/data/api';
-import {ITodolistResponse} from '@/data/api/types/list.type';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import socket from '@/data/socket';
 import {SOCKET_EVENTS} from '@/data/socket/type';
 import {useStateAuth} from '@/states/auth';
@@ -20,7 +20,7 @@ export default function useListDetail({id}: Iprops) {
   const [todolist, setTodoList] = useState<ITodolistResponse>();
 
   const updateList = () => {
-    api.list
+    api.todolist
       .getOne({id})
       .then(res => setTodoList(res.data))
       .catch(() => router.push(ROUTES.LIST));

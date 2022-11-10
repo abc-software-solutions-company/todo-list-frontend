@@ -5,7 +5,7 @@ import {useState} from 'react';
 
 import TaskItem from '@/components/list-detail/task-item';
 import api from '@/data/api';
-import {ITodolistResponse} from '@/data/api/types/list.type';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';

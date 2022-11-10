@@ -4,7 +4,7 @@ import {MenuItem, Select, SelectProps} from '@mui/material';
 import classNames from 'classnames';
 import {FC, forwardRef} from 'react';
 
-import {IStatus} from '@/data/api/types/list.type';
+import {IStatus} from '@/data/api/types/todolist.type';
 
 interface IProps extends SelectProps {
   className?: string;

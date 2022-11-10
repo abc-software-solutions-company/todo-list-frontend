@@ -37,11 +37,11 @@ export default function useModalCreateUpdateList({onClose, onSuccess, data}: IPr
     let req;
     if (data?.id) {
       const {id} = data;
-      req = api.list.update({id, name, visibility}).then(() => {
+      req = api.todolist.update({id, name, visibility}).then(() => {
         toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
       });
     } else
-      req = api.list.create({name}).then(res => {
+      req = api.todolist.create({name}).then(res => {
         toast.show({type: 'success', title: 'Create List', content: 'Successful!'});
         router.push(ROUTES.LIST + '/' + res.data.id);
       });

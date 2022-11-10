@@ -4,7 +4,7 @@ import {FC} from 'react';
 import IconButton from '@/core-ui/icon-button';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
-import {ITodolistResponse} from '@/data/api/types/list.type';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {useStateAuth} from '@/states/auth';
 
 import style from './style.module.scss';

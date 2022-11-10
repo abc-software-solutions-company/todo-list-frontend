@@ -1,7 +1,7 @@
 import {all, fork} from 'redux-saga/effects';
 
-import postSagas from './todolist/sagas';
+import taskSaga from './task/saga';
 
 export default function* root() {
-  yield all([fork(postSagas)]);
+  yield all([fork(taskSaga)]);
 }

@@ -1,14 +1,14 @@
 import {useEffect, useState} from 'react';
 
 import api from '@/data/api/index';
-import {ITodolistResponse} from '@/data/api/types/list.type';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 
 export default function useList() {
   const [yourList, setYourList] = useState<ITodolistResponse[]>([]);
   const [favoriteList, setFavoriteList] = useState<ITodolistResponse[]>([]);
 
   const updateYourList = () => {
-    api.list
+    api.todolist
       .getByUser()
       .then(res => {
         setYourList(res.data);
@@ -17,7 +17,7 @@ export default function useList() {
   };
 
   const updateFavoriteList = () => {
-    api.list
+    api.todolist
       .getFavorite()
       .then(res => {
         setFavoriteList(res.data);

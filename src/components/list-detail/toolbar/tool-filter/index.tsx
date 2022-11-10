@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import {FC} from 'react';
 
 import Icon from '@/core-ui/icon';
-import {IStatus} from '@/data/api/types/list.type';
+import {IStatus} from '@/data/api/types/todolist.type';
 
 import style from './style.module.scss';
 
