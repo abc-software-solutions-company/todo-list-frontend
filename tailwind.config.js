@@ -151,7 +151,7 @@ module.exports = {
             },
             img: {
               borderRadius: theme('borderRadius.lg'),
-              maxWidth: '400px',
+              maxWidth: '200px',
               width: '100%'
             },
             p: {

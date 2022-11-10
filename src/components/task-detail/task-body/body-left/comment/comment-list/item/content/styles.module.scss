@@ -1,0 +1,6 @@
+.comment-content :global {
+  .content {
+    @apply prose max-w-[96%] break-words;
+    @apply -my-5;
+  }
+}
