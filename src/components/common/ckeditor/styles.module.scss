@@ -1,5 +1,8 @@
 .ckeditor :global {
   /* ckeditor5-image/theme/image.css */
+  .prose {
+    @apply max-w-full;
+  }
   .ck-content .image img {
     display: block;
     margin: 0 auto;
