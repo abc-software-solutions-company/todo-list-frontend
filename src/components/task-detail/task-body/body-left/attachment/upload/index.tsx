@@ -61,7 +61,7 @@ const Upload: FC<IBaseProps> = ({className}) => {
     <div className={classNames(style.upload, className)}>
       <div className="upload-button">
         <Button type="button" className="add-desktop">
-          <span>Add atachments</span>
+          <span>Add attachments</span>
         </Button>
         <IconButton name="ico-plus-circle" className="add-mobile" />
         <input name="attachments" type="file" onChange={onUpload} multiple />

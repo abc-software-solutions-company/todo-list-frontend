@@ -60,11 +60,11 @@ const TaskToolbar: FC<IBaseProps> = ({className}) => {
         <div className="right">
           <div className="toolbar-desktop">
             <Button onClick={onDelete}>
-              <Icon name="ico-trash-2" />
+              <Icon name="ico-trash-2" size={20} />
               <span> Delete</span>
             </Button>
             <Button onClick={onShare}>
-              <Icon name="ico-share-3" />
+              <Icon name="ico-share-3" size={20} />
               <span> Share </span>
             </Button>
           </div>

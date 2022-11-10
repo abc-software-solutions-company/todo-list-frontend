@@ -54,7 +54,7 @@ const Description: FC<IBaseProps> = ({className}) => {
     <div className={classNames('description', className)}>
       <Title
         icon={<Icon name="ico-description" />}
-        text="Describe"
+        text="Description"
         rightBtn={!editDescription && <Button text="Edit" className="edit-btn" onClick={onClick} />}
       />
       {!editDescription ? (
