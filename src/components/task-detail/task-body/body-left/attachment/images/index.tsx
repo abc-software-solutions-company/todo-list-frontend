@@ -23,7 +23,7 @@ interface IFormInputs {
 const TaskImages: FC<IBaseProps> = ({className}) => {
   const toast = useToast();
   const [imageSelected, setImageSelected] = useState<number>();
-  const {task, update} = useTask();
+  const {task, write, update} = useTask();
 
   const attachments = task.attachments.filter(e => e.isActive);
 
@@ -75,33 +75,35 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
             <div className="info">
               <div className="info-name">{e.name}</div>
               <div className="info-date"> {'Added ' + getDate(new Date(e.createdDate))}</div>
-              <div className="info-actions">
-                <ButtonBase aria-describedby={editButtonId} onClick={event => onClick(event, e)}>
-                  Rename
-                </ButtonBase>
-                <Popover
-                  id={editButtonId}
-                  open={open}
-                  anchorEl={anchorEl}
-                  onClose={onClose}
-                  onFocus={() => setFocus('name', {shouldSelect: true})}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left'
-                  }}
-                >
-                  <form className="relative p-5 text-h7" onSubmit={handleSubmit(submitHandler)}>
-                    <IconButton name="ico-x" className="absolute right-3 top-3" onClick={onClose} />
-                    <div className="border-b pb-4 text-center font-medium text-slate-500">Edit attachment</div>
-                    <div className="mt-3 font-bold text-slate-700">Name</div>
-                    <Input className="my-2 min-w-[300px] p-1" {...register('name', {required: true})} />
-                    <Button color="primary" variant="contained" className="h-8 w-full" type="submit">
-                      Update
-                    </Button>
-                  </form>
-                </Popover>
-                <button onClick={() => onDelete(e.id)}>Delete</button>
-              </div>
+              {write && (
+                <div className="info-actions">
+                  <ButtonBase aria-describedby={editButtonId} onClick={event => onClick(event, e)}>
+                    Rename
+                  </ButtonBase>
+                  <Popover
+                    id={editButtonId}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={onClose}
+                    onFocus={() => setFocus('name', {shouldSelect: true})}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left'
+                    }}
+                  >
+                    <form className="relative p-5 text-h7" onSubmit={handleSubmit(submitHandler)}>
+                      <IconButton name="ico-x" className="absolute right-3 top-3" onClick={onClose} />
+                      <div className="border-b pb-4 text-center font-medium text-slate-500">Edit attachment</div>
+                      <div className="mt-3 font-bold text-slate-700">Name</div>
+                      <Input className="my-2 min-w-[300px] p-1" {...register('name', {required: true})} />
+                      <Button color="primary" variant="contained" className="h-8 w-full" type="submit">
+                        Update
+                      </Button>
+                    </form>
+                  </Popover>
+                  <button onClick={() => onDelete(e.id)}>Delete</button>
+                </div>
+              )}
             </div>
           )}
         </div>

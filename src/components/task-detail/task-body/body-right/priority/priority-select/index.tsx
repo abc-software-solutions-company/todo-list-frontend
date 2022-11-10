@@ -1,5 +1,5 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import {MenuItem, Select, SelectChangeEvent} from '@mui/material';
+import {MenuItem, Select, SelectChangeEvent, SelectProps} from '@mui/material';
 import {FC} from 'react';
 
 import useTask from '@/components/task-detail/hooks/use-task';
@@ -8,7 +8,7 @@ import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {Priorities, PriorityColors, PriorityIcons} from '@/utils/constant';
 
-const PrioritySelect: FC = () => {
+const PrioritySelect: FC<SelectProps> = props => {
   const {task, update} = useTask();
   const {id, priority} = task;
   const toast = useToast();
@@ -27,7 +27,7 @@ const PrioritySelect: FC = () => {
   };
 
   return (
-    <Select onChange={onChange} value={value} IconComponent={KeyboardArrowDownIcon} sx={{fontFamily: 'inherit'}}>
+    <Select onChange={onChange} value={value} IconComponent={KeyboardArrowDownIcon} sx={{fontFamily: 'inherit'}} {...props}>
       {list.map((e, index) => (
         <MenuItem key={index} value={e} sx={{fontFamily: 'inherit', padding: '4px 20px'}}>
           <div className="relative mr-2 flex items-center">

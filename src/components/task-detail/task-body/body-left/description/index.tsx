@@ -21,19 +21,19 @@ interface IFormInputs {
 }
 
 const Description: FC<IBaseProps> = ({className}) => {
-  const {task, update} = useTask();
+  const {task, write, update} = useTask();
   const {id, description} = task;
   const {handleSubmit, formState, control} = useForm<IFormInputs>({mode: 'onChange', defaultValues: {description: ''}});
   const {isSubmitting} = formState;
-  const [editDescription, setEditDescription] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const toast = useToast();
 
   const onClick = () => {
-    setEditDescription(true);
+    if (write) setIsEditing(true);
   };
 
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
-    setEditDescription(false);
+    setIsEditing(false);
     if (task) {
       api.task
         .update({id, ...formData})
@@ -45,7 +45,7 @@ const Description: FC<IBaseProps> = ({className}) => {
 
   useEffect(() => {
     if (task && !description) {
-      setEditDescription(true);
+      setIsEditing(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -55,10 +55,10 @@ const Description: FC<IBaseProps> = ({className}) => {
       <Title
         icon={<Icon name="ico-description" />}
         text="Description"
-        rightBtn={!editDescription && <Button text="Edit" className="edit-btn" onClick={onClick} />}
+        rightBtn={!isEditing && write && <Button text="Edit" className="edit-btn" onClick={onClick} />}
       />
-      {!editDescription ? (
-        <div className="description-text prose max-w-full" onClick={onClick} dangerouslySetInnerHTML={{__html: description}}></div>
+      {!isEditing ? (
+        <div className="description-text prose" onClick={onClick} dangerouslySetInnerHTML={{__html: description}}></div>
       ) : (
         <form className="decsription-form" onSubmit={handleSubmit(submitHandler)}>
           <Controller
@@ -78,14 +78,7 @@ const Description: FC<IBaseProps> = ({className}) => {
               loading={isSubmitting}
               disabled={isSubmitting}
             />
-            <Button
-              className="max-w-20 h-8 px-2 text-sm"
-              variant="outlined"
-              color="white"
-              text="Cancel"
-              onClick={() => setEditDescription(false)}
-              type="button"
-            />
+            <Button className="max-w-20 h-8 px-2 text-sm" variant="outlined" color="white" text="Cancel" onClick={() => setIsEditing(false)} type="button" />
           </div>
         </form>
       )}

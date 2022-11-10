@@ -1,17 +1,19 @@
 import classNames from 'classnames';
 import {FC} from 'react';
 
+import useTask from '@/components/task-detail/hooks/use-task';
 import {IBaseProps} from '@/types';
 
 import Title from '../../title';
 import PrioritySelect from './priority-select';
 
 export const Priority: FC<IBaseProps> = ({className}) => {
+  const {write} = useTask();
   return (
     <div className={classNames('priority', className)}>
       <Title text="Priority" />
       <div className="select">
-        <PrioritySelect />
+        <PrioritySelect readOnly={!write} />
       </div>
     </div>
   );
