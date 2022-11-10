@@ -1,7 +1,9 @@
 import classNames from 'classnames';
-import {FC, HTMLAttributes} from 'react';
+import {FC} from 'react';
 
-const StartDate: FC<HTMLAttributes<HTMLDivElement>> = ({className}) => {
+import {IBaseProps} from '@/types';
+
+const StartDate: FC<IBaseProps> = ({className}) => {
   return (
     <div className={classNames('start-date', className)}>
       <p className="title">Start date</p>

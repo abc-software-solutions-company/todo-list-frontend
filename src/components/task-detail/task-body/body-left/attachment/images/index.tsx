@@ -5,28 +5,27 @@ import {FC, MouseEvent, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 
 import PopUpImage from '@/components/common/popup-img';
+import useTask from '@/components/task-detail/hooks/use-task';
 import Button from '@/core-ui/button';
 import IconButton from '@/core-ui/icon-button';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
-import {IAttachmentResponse, ITaskResponse} from '@/data/api/types/task.type';
+import {IAttachmentResponse} from '@/data/api/types/task.type';
+import {IBaseProps} from '@/types';
 import {getDate} from '@/utils/get-date';
 
 import style from './style.module.scss';
 
-interface ITaskImagesProps {
-  className?: string;
-  taskData?: ITaskResponse;
-  onSuccess?: () => void;
-  attachments: IAttachmentResponse[];
-}
 interface IFormInputs {
   name: string;
 }
-const TaskImages: FC<ITaskImagesProps> = ({attachments, className, taskData, onSuccess}) => {
+const TaskImages: FC<IBaseProps> = ({className}) => {
   const toast = useToast();
   const [imageSelected, setImageSelected] = useState<number>();
+  const {task, update} = useTask();
+
+  const attachments = task.attachments.filter(e => e.isActive);
 
   const {handleSubmit, setValue, setFocus, register} = useForm<IFormInputs>({mode: 'onChange', defaultValues: {name: ''}});
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -34,30 +33,30 @@ const TaskImages: FC<ITaskImagesProps> = ({attachments, className, taskData, onS
   const open = Boolean(anchorEl);
   const editButtonId = open ? 'simple-popover' : undefined;
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement>, {id, name}: IAttachmentResponse) => {
+  const onClick = (event: MouseEvent<HTMLButtonElement>, {id, name}: IAttachmentResponse) => {
     setAnchorEl(event.currentTarget);
     setImageSelected(id);
     setValue('name', name);
   };
 
-  const handleClose = () => {
+  const onClose = () => {
     setAnchorEl(null);
   };
 
   const submitHandler: SubmitHandler<IFormInputs> = ({name}) => {
-    if (taskData && imageSelected)
+    if (task && imageSelected)
       api.task
-        .update({id: taskData.id, attachment: {update: {id: imageSelected, name}}})
-        .then(onSuccess)
+        .update({id: task.id, attachment: {update: {id: imageSelected, name}}})
+        .then(update)
         .catch(() => toast.show({type: 'danger', title: 'Edit Image', content: 'An error occurred, please try again'}));
-    handleClose();
+    onClose();
   };
 
   const onDelete = (imageId: number) => {
-    if (taskData)
+    if (task)
       api.task
-        .update({id: taskData.id, attachment: {update: {id: imageId, isActive: false}}})
-        .then(onSuccess)
+        .update({id: task.id, attachment: {update: {id: imageId, isActive: false}}})
+        .then(update)
         .catch(() => toast.show({type: 'danger', title: 'Delete Image', content: 'An error occurred, please try again'}));
   };
 
@@ -66,7 +65,7 @@ const TaskImages: FC<ITaskImagesProps> = ({attachments, className, taskData, onS
   return (
     <div className={classNames(className, style['task-images'])}>
       {attachments.map((e, idx) => (
-        <div key={idx} className={classNames('task-image', `${!taskData ? 'upload' : ''}`)}>
+        <div key={idx} className={classNames('task-image', `${!task ? 'upload' : ''}`)}>
           <div className="image">
             <PopUpImage imageList={[e.link]}>
               <Image src={e.link} alt="" objectFit="contain" layout="fill" />
@@ -77,14 +76,14 @@ const TaskImages: FC<ITaskImagesProps> = ({attachments, className, taskData, onS
               <div className="info-name">{e.name}</div>
               <div className="info-date"> {'Added ' + getDate(new Date(e.createdDate))}</div>
               <div className="info-actions">
-                <ButtonBase aria-describedby={editButtonId} onClick={event => handleClick(event, e)}>
+                <ButtonBase aria-describedby={editButtonId} onClick={event => onClick(event, e)}>
                   Rename
                 </ButtonBase>
                 <Popover
                   id={editButtonId}
                   open={open}
                   anchorEl={anchorEl}
-                  onClose={handleClose}
+                  onClose={onClose}
                   onFocus={() => setFocus('name', {shouldSelect: true})}
                   anchorOrigin={{
                     vertical: 'bottom',
@@ -92,7 +91,7 @@ const TaskImages: FC<ITaskImagesProps> = ({attachments, className, taskData, onS
                   }}
                 >
                   <form className="relative p-5 text-h7" onSubmit={handleSubmit(submitHandler)}>
-                    <IconButton name="ico-x" className="absolute right-3 top-3" onClick={handleClose} />
+                    <IconButton name="ico-x" className="absolute right-3 top-3" onClick={onClose} />
                     <div className="border-b pb-4 text-center font-medium text-slate-500">Edit attachment</div>
                     <div className="mt-3 font-bold text-slate-700">Name</div>
                     <Input className="my-2 min-w-[300px] p-1" {...register('name', {required: true})} />

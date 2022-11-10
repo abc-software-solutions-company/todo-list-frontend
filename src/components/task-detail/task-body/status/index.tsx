@@ -4,24 +4,24 @@ import {FC} from 'react';
 
 import StatusSelect from '@/components/common/statusSelect';
 import api from '@/data/api';
-import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
+import {IBaseProps} from '@/types';
 
+import useTask from '../../hooks/use-task';
 import Title from '../title';
 import style from './style.module.scss';
 
-interface StatusProps {
-  className?: string;
-  taskData: ITaskResponse;
+interface StatusProps extends IBaseProps {
   noTitle?: boolean;
-  onSuccess?: () => void;
 }
 
-const Status: FC<StatusProps> = ({taskData, onSuccess, className, noTitle}) => {
+const Status: FC<StatusProps> = ({className, noTitle}) => {
+  const {task, update} = useTask();
+  const {id, status, todolist} = task;
   const onChange = (event: SelectChangeEvent<unknown>) => {
     api.task
-      .update({id: taskData.id, statusId: Number(event.target.value)})
-      .then(onSuccess)
+      .update({id, statusId: Number(event.target.value)})
+      .then(update)
       .then(socketUpdateList)
       .catch(() => {});
   };
@@ -29,7 +29,7 @@ const Status: FC<StatusProps> = ({taskData, onSuccess, className, noTitle}) => {
   return (
     <div className={classNames('status', className)}>
       {!noTitle && <Title text="Status" />}
-      <StatusSelect className={style.status} status={taskData.status} items={taskData.todolist.status} onChange={onChange} />
+      <StatusSelect className={style.status} status={status} items={todolist.status} onChange={onChange} />
     </div>
   );
 };

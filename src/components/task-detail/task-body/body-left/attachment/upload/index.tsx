@@ -3,13 +3,14 @@ import {ManagedUpload, PutObjectRequest} from 'aws-sdk/clients/s3';
 import classNames from 'classnames';
 import {ChangeEvent, FC} from 'react';
 
+import useTask from '@/components/task-detail/hooks/use-task';
 import Button from '@/core-ui/button';
 import IconButton from '@/core-ui/icon-button';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
+import {IBaseProps} from '@/types';
 import {imageValid} from '@/utils/image-valid';
 
-import {IBodyLeftProps} from '../..';
 import style from './style.module.scss';
 
 aws.config.update({
@@ -20,12 +21,12 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
-const Upload: FC<IBodyLeftProps> = ({taskData, onSuccess, className}) => {
+const Upload: FC<IBaseProps> = ({className}) => {
   const toast = useToast();
+  const {task, update} = useTask();
+  const {id} = task;
 
   const onUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('🚀 ~ file: index.tsx ~ line 56 ~ onUpload ~ onUpload');
-
     if (e.target.files?.length) {
       for (let i = 0; i < e.target.files.length; i++) {
         const file = e.target.files[i];
@@ -47,8 +48,8 @@ const Upload: FC<IBodyLeftProps> = ({taskData, onSuccess, className}) => {
           if (err) console.log('Error', err);
           if (response) {
             api.task
-              .update({id: taskData.id, attachment: {create: {name: name, link: response.Location}}})
-              .then(onSuccess)
+              .update({id, attachment: {create: {name: name, link: response.Location}}})
+              .then(update)
               .then(() => toast.show({type: 'success', title: 'success', content: `Update ${name} Successfull`}));
           }
         });

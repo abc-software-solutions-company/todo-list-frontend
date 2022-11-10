@@ -1,7 +1,9 @@
 import classNames from 'classnames';
-import {FC, HTMLAttributes} from 'react';
+import {FC} from 'react';
 
-const DueDate: FC<HTMLAttributes<HTMLDivElement>> = ({className}) => {
+import {IBaseProps} from '@/types';
+
+const DueDate: FC<IBaseProps> = ({className}) => {
   return (
     <div className={classNames('due-date', className)}>
       <p className="title">Due date</p>

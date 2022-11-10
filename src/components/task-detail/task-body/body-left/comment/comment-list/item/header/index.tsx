@@ -4,10 +4,11 @@ import {getDate} from '@/utils/get-date';
 
 import {IItemProps} from '..';
 
-const Header: FC<IItemProps> = ({commentData: {user, createdDate, updatedDate}}) => {
+const Header: FC<IItemProps> = ({comment: {user, createdDate, updatedDate}}) => {
   const date = getDate(new Date(createdDate));
 
   const time = createdDate !== updatedDate ? date + ' (edited)' : date;
+
   return (
     <div className="user">
       <span>{user.name}</span>
@@ -15,4 +16,5 @@ const Header: FC<IItemProps> = ({commentData: {user, createdDate, updatedDate}})
     </div>
   );
 };
+
 export default Header;

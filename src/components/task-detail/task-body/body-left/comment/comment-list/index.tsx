@@ -1,23 +1,27 @@
+import classNames from 'classnames';
 import {FC, useState} from 'react';
 
-import {IBodyLeftProps} from '../..';
+import useTask from '@/components/task-detail/hooks/use-task';
+import {IBaseProps} from '@/types';
+
 import Item from './item';
 import style from './style.module.scss';
 
-const CommentList: FC<IBodyLeftProps> = ({taskData, onSuccess}) => {
+const CommentList: FC<IBaseProps> = ({className}) => {
+  const {task} = useTask();
   const numberStep = 5;
   const [commentsNumber, setCommentsNumber] = useState(numberStep);
 
-  const comments = taskData?.comments?.filter(e => e.isActive).reverse();
+  const comments = task?.comments?.filter(e => e.isActive).reverse();
 
   const onClick = () => {
     setCommentsNumber(commentsNumber + numberStep);
   };
 
   return (
-    <div className={style['task-comment-list']}>
+    <div className={classNames(style['task-comment-list'], className)}>
       {comments.map((comment, index) => {
-        if (index < commentsNumber) return <Item key={comment.id} {...{commentData: comment, onSuccess}} />;
+        if (index < commentsNumber) return <Item key={index} comment={comment} />;
       })}
       {commentsNumber < comments.length && (
         <button className="more-comments" onClick={onClick}>
@@ -27,4 +31,5 @@ const CommentList: FC<IBodyLeftProps> = ({taskData, onSuccess}) => {
     </div>
   );
 };
+
 export default CommentList;

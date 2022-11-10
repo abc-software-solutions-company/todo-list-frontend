@@ -1,13 +1,11 @@
-import {FC, useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {FC, useEffect} from 'react';
 
-import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import socket from '@/data/socket';
 import {useStateAuth} from '@/states/auth';
-import {RootState, taskSlice} from '@/states/store';
 import LocalStorage from '@/utils/local-storage';
 
+import useTask from './hooks/use-task';
 import TaskBody from './task-body';
 import TaskToolbar from './task-toolbar';
 
@@ -15,48 +13,29 @@ interface IProps {
   task: ITaskResponse;
 }
 
-const TaskDetail: FC<IProps> = ({task}) => {
-  const [taskData, setTaskData] = useState<ITaskResponse>();
+const TaskDetail: FC<IProps> = ({task: {id, todolistId}}) => {
   const auth = useStateAuth();
-  const taskState = useSelector((state: RootState) => state.task);
-  const dispatch = useDispatch();
-
-  const updateTaskData = () => {
-    api.task.getOne({id: task.id}).then(res => {
-      setTaskData(res.data);
-    });
-  };
+  const {task, initial} = useTask();
 
   useEffect(() => {
-    updateTaskData();
-
+    initial(id);
+    LocalStorage.listId.set(todolistId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (taskData) {
-      dispatch(taskSlice.actions.getTaskRequest({id: taskData.id}));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [taskData]);
-
-  useEffect(() => {
     if (auth) {
-      socket.auth = {...auth, listID: task.todolistId};
+      socket.auth = {...auth, listID: todolistId};
       socket.connect();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth]);
 
-  console.log('🚀 ~ file: index.tsx ~ line 22 ~ taskState', taskState);
-
-  if (!taskData) return null;
-  LocalStorage.listId.set(taskData.todolistId);
-
+  if (!task) return null;
   return (
     <div className="sm:container">
-      <TaskToolbar {...{taskData, updateTaskData}} />
-      <TaskBody {...{taskData, updateTaskData}} />
+      <TaskToolbar />
+      <TaskBody />
     </div>
   );
 };

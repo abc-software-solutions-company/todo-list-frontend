@@ -1,6 +1,7 @@
 import {ButtonBase, Popover} from '@mui/material';
 import {FC, MouseEvent, useState} from 'react';
 
+import useTask from '@/components/task-detail/hooks/use-task';
 import Button from '@/core-ui/button';
 import IconButton from '@/core-ui/icon-button';
 import api from '@/data/api';
@@ -12,13 +13,17 @@ interface Iprops extends IItemProps {
   onEdit: () => void;
 }
 
-const Actions: FC<Iprops> = ({commentData: {id, taskId}, onSuccess, onEdit, show}) => {
+const Actions: FC<Iprops> = ({comment: {id, taskId}, onEdit, show}) => {
+  const {update} = useTask();
+
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
   const open = Boolean(anchorEl);
+
   const editButtonId = open ? 'simple-popover' : undefined;
 
   const handleDelete = () => {
-    api.task.update({id: taskId, comment: {update: {id, isActive: false}}}).then(onSuccess);
+    api.task.update({id: taskId, comment: {update: {id, isActive: false}}}).then(update);
   };
 
   const onDelete = (event: MouseEvent<HTMLButtonElement>) => {
@@ -28,6 +33,7 @@ const Actions: FC<Iprops> = ({commentData: {id, taskId}, onSuccess, onEdit, show
   const onCloseDelete = () => {
     setAnchorEl(null);
   };
+
   if (!show) return null;
   return (
     <div className="actions">
@@ -60,4 +66,5 @@ const Actions: FC<Iprops> = ({commentData: {id, taskId}, onSuccess, onEdit, show
     </div>
   );
 };
+
 export default Actions;

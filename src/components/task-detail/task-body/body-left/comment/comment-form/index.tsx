@@ -11,6 +11,7 @@ const Editor = dynamic(() => import('@/components/common/ckeditor'), {
 export interface IFormInputs {
   comment: string;
 }
+
 interface Iprops {
   form: UseFormReturn<IFormInputs, any>;
   onClose: () => void;
@@ -36,4 +37,5 @@ const CommentForm: FC<Iprops> = ({form, onSubmit, onClose, value}) => {
     </form>
   );
 };
+
 export default CommentForm;

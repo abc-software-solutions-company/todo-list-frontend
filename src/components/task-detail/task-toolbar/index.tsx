@@ -8,18 +8,15 @@ import ModalDelete from '@/components/modal/modal-delete';
 import ModalShare from '@/components/modal/modal-share';
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
-import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
+import {IBaseProps} from '@/types';
 import {MUI_ICON} from '@/utils/mui-icon';
 
+import useTask from '../hooks/use-task';
 import style from './style.module.scss';
 
-interface ITaskToolbarProps {
-  className?: string;
-  taskData: ITaskResponse;
-}
-
-const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, className}) => {
+const TaskToolbar: FC<IBaseProps> = ({className}) => {
+  const {task} = useTask();
   const [deleteModal, setDeleteModel] = useState(false);
   const [shareModal, setShareModel] = useState(false);
 
@@ -59,7 +56,7 @@ const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, className}) => {
       <div className="header">
         <div className="left">
           <Icon name="ico-task" size={32} />
-          <h2 className="text-h2"> {taskData.name}</h2>
+          <h2 className="text-h2"> {task.name}</h2>
         </div>
         <div className="right">
           <div className="toolbar-desktop">
@@ -80,13 +77,13 @@ const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, className}) => {
       <ModalDelete
         open={deleteModal}
         onClose={onClose}
-        data={taskData}
+        data={task}
         onSuccess={() => {
           socketUpdateList();
           router.back();
         }}
       />
-      <ModalShare open={shareModal} onClose={onClose} data={taskData} />
+      <ModalShare open={shareModal} onClose={onClose} data={task} />
     </div>
   );
 };

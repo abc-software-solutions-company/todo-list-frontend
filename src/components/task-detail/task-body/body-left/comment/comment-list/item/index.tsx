@@ -9,13 +9,12 @@ import Content from './content';
 import Header from './header';
 
 export interface IItemProps {
-  commentData: ICommentResponse;
-  onSuccess?: () => void;
+  comment: ICommentResponse;
 }
 
 const Item: FC<IItemProps> = props => {
-  const {commentData, onSuccess} = props;
-  const {user} = commentData;
+  const {comment} = props;
+  const {user} = comment;
 
   const auth = useStateAuth();
 
@@ -34,7 +33,7 @@ const Item: FC<IItemProps> = props => {
       <div className="right">
         <Header {...props} />
         <Content {...{...props, isEditing, onClose}} />
-        <Actions {...{commentData, onSuccess, onEdit, show: showActions}} />
+        <Actions {...{...props, onEdit, show: showActions}} />
       </div>
     </div>
   );

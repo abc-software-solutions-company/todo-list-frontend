@@ -1,23 +1,17 @@
 import classNames from 'classnames';
 import {FC} from 'react';
 
-import {ITaskResponse} from '@/data/api/types/task.type';
+import {IBaseProps} from '@/types';
 
 import BodyLeft from './body-left';
 import BodyRight from './body-right';
 import style from './style.module.scss';
 
-interface ITaskBodyProps {
-  className?: string;
-  taskData: ITaskResponse;
-  updateTaskData: () => void;
-}
-
-const TaskBody: FC<ITaskBodyProps> = ({className, taskData, updateTaskData}) => {
+const TaskBody: FC<IBaseProps> = ({className}) => {
   return (
     <div className={classNames(style['task-body'], className)}>
-      <BodyLeft taskData={taskData} onSuccess={updateTaskData} className="body-left-wrapper" />
-      <BodyRight taskData={taskData} onSuccess={updateTaskData} className="body-right-wrapper" />
+      <BodyLeft className="body-left-wrapper" />
+      <BodyRight className="body-right-wrapper" />
     </div>
   );
 };
