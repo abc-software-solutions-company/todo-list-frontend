@@ -19,7 +19,7 @@ const ToolFilter: FC<IToolFilterProps> = ({className, filterValue, filterList, o
   return (
     <div className={classNames(style['tool-filter'], className)}>
       <div className="filter-icon">
-        <Icon name="ico-filter" />
+        <Icon name="ico-filter" size={20} />
       </div>
       <Select value={filterValue} sx={{fontFamily: 'inherit'}} onChange={e => onFilter(e.target.value as number)}>
         <MenuItem key={0} value={0} sx={{color: '#000000', ...sxMenuItem}}>

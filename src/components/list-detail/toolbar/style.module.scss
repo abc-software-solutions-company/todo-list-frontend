@@ -1,6 +1,6 @@
 .toolbar {
   @apply flex justify-between;
-  @apply mt-4 gap-x-4 lg:mt-6 lg:gap-x-6;
+  @apply mt-4 gap-x-4 lg:mt-4 lg:gap-x-5;
 }
 .tools {
   @apply flex h-full items-center;
@@ -9,11 +9,11 @@
   @apply items-start gap-2.5;
 }
 .title {
-  @apply text-h4 lg:mt-0 lg:text-h2;
+  @apply text-h4 font-semibold lg:mt-0 lg:text-h2;
   word-break: break-word;
 }
 .right {
-  @apply gap-4 lg:gap-6;
+  @apply gap-4 lg:gap-5;
 }
 .tool-outer {
   @apply hidden sm:flex;

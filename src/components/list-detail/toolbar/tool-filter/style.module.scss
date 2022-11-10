@@ -8,6 +8,9 @@
     svg {
       @apply hidden;
     }
+    .abc-icon.size-24:before {
+      @apply text-[20px] md:text-2xl;
+    }
   }
   .MuiSelect-select {
     @apply h-6 p-0 pl-5;
