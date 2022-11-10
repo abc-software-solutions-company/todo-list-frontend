@@ -2,6 +2,11 @@
   .content {
     @apply max-w-[96%] break-words;
   }
+  ul,
+  ol {
+    list-style: revert;
+    margin-left: 16px;
+  }
   img {
     @apply my-2 w-full max-w-[200px] bg-amber-200;
   }

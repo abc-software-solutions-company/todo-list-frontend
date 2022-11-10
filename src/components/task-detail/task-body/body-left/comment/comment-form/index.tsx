@@ -32,7 +32,7 @@ const CommentForm: FC<Iprops> = ({form, onSubmit, onClose, value}) => {
       />
       <div className="mt-4 flex gap-4">
         <Button className="max-w-20 h-8 px-2 text-sm" variant="contained" color="primary" text={value ? 'Save' : 'Comment'} type="submit" />
-        <Button className="max-w-20 h-8 text-sm" variant="outlined" color="white" text="Cancel" type="button" onClick={onClose} />
+        <Button className="max-w-20 h-8 px-2 text-sm" variant="outlined" color="white" text="Cancel" type="button" onClick={onClose} />
       </div>
     </form>
   );
