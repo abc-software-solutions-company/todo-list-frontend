@@ -7,7 +7,7 @@
     }
   }
   .status {
-    @apply relative flex h-full items-center;
+    @apply relative mr-1 flex h-full items-center;
     .MuiOutlinedInput-root {
       @apply h-5 w-5 rounded-full lg:h-auto lg:w-auto lg:rounded;
     }
