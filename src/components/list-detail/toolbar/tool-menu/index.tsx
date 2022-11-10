@@ -8,9 +8,10 @@ export interface IToolMenuProps {
   className?: string;
   items: ReactNode[];
   icon: ReactNode;
+  margin?: number;
 }
 
-const ToolMenu: FC<IToolMenuProps> = ({className, items, icon}) => {
+const ToolMenu: FC<IToolMenuProps> = ({className, items, icon, margin}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -30,7 +31,7 @@ const ToolMenu: FC<IToolMenuProps> = ({className, items, icon}) => {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        sx={{padding: 0, margin: 0, minWidth: 24}}
+        sx={{padding: 0, margin: margin || 0, minWidth: 24}}
       >
         {icon}
       </Button>
