@@ -8,6 +8,7 @@ import api from '@/data/api';
 
 import CommentForm from '../../../comment-form';
 import {IItemProps} from '..';
+import style from './styles.module.scss';
 
 interface IFormInputs {
   comment: string;
@@ -36,8 +37,14 @@ const Content: FC<Iprops> = ({comment, isEditing, onClose}) => {
   const onSubmit = handleSubmit(submitHandler);
 
   return (
-    <div className="content prose">
-      {!isEditing ? <PopUpImageDangerous rawHTML={content} /> : <CommentForm {...{form, onSubmit, onClose, value: content}} />}
+    <div className={style['comment-content']}>
+      {!isEditing ? (
+        <div className="content">
+          <PopUpImageDangerous rawHTML={content} />
+        </div>
+      ) : (
+        <CommentForm {...{form, onSubmit, onClose, value: content}} />
+      )}
     </div>
   );
 };
