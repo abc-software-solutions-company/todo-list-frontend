@@ -14,7 +14,7 @@ interface Iprops extends IItemProps {
 }
 
 const Actions: FC<Iprops> = ({comment: {id, taskId}, onEdit, show}) => {
-  const {update} = useTask();
+  const {write, update} = useTask();
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
@@ -34,7 +34,7 @@ const Actions: FC<Iprops> = ({comment: {id, taskId}, onEdit, show}) => {
     setAnchorEl(null);
   };
 
-  if (!show) return null;
+  if (!show || !write) return null;
   return (
     <div className="actions">
       <button onClick={onEdit}>Edit</button>

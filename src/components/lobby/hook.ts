@@ -5,7 +5,7 @@ import * as yup from 'yup';
 
 import {ROUTES} from '@/configs/routes.config';
 import useToast from '@/core-ui/toast';
-import API from '@/data/api';
+import api from '@/data/api';
 import detectIdOrLink from '@/utils/detect-id-or-link';
 
 interface IFormInputs {

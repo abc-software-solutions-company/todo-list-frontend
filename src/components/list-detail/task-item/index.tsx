@@ -6,8 +6,8 @@ import {useRouter} from 'next/router';
 import {ROUTES} from '@/configs/routes.config';
 import Checkbox from '@/core-ui/checkbox';
 import api from '@/data/api/index';
-import {IStatus} from '@/data/api/types/todolist.type';
 import {ITaskResponse} from '@/data/api/types/task.type';
+import {IStatus} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 
 import Actions from './actions';

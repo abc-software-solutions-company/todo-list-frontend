@@ -13,7 +13,7 @@ const CommentButton: FC = () => {
   const {reset, handleSubmit} = form;
   const toast = useToast();
   const [isEditing, setIsEditing] = useState(false);
-  const {task, update} = useTask();
+  const {task, write, update} = useTask();
 
   const onClick = () => setIsEditing(true);
 
@@ -32,6 +32,7 @@ const CommentButton: FC = () => {
 
   const onSubmit = handleSubmit(submitHandler);
 
+  if (!write) return null;
   if (isEditing) return <CommentForm {...{form, onSubmit, onClose}} />;
   else return <Input className="comment-btn" onClick={onClick} placeholder="Write a comment..." readOnly={true} />;
 };

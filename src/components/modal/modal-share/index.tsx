@@ -5,8 +5,8 @@ import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {ITaskResponse} from '@/data/api/types/task.type';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 
 import useModalShare from './hook';
 import styles from './style.module.scss';

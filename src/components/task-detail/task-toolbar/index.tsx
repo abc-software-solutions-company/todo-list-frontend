@@ -16,7 +16,7 @@ import useTask from '../hooks/use-task';
 import style from './style.module.scss';
 
 const TaskToolbar: FC<IBaseProps> = ({className}) => {
-  const {task} = useTask();
+  const {task, write} = useTask();
   const [deleteModal, setDeleteModel] = useState(false);
   const [shareModal, setShareModel] = useState(false);
 
@@ -58,21 +58,23 @@ const TaskToolbar: FC<IBaseProps> = ({className}) => {
           <Icon name="ico-task" size={32} />
           <h2 className="text-h2"> {task.name}</h2>
         </div>
-        <div className="right">
-          <div className="toolbar-desktop">
-            <Button onClick={onDelete}>
-              <Icon name="ico-trash-2" />
-              <span> Delete</span>
-            </Button>
-            <Button onClick={onShare}>
-              <Icon name="ico-share-3" />
-              <span> Share </span>
-            </Button>
+        {write && (
+          <div className="right">
+            <div className="toolbar-desktop">
+              <Button onClick={onDelete}>
+                <Icon name="ico-trash-2" />
+                <span> Delete</span>
+              </Button>
+              <Button onClick={onShare}>
+                <Icon name="ico-share-3" />
+                <span> Share </span>
+              </Button>
+            </div>
+            <div className="toolbar-mobile">
+              <ToolMenu items={toolMenuItems} icon={<MUI_ICON.MORE_VERT />} />
+            </div>
           </div>
-          <div className="toolbar-mobile">
-            <ToolMenu items={toolMenuItems} icon={<MUI_ICON.MORE_VERT />} />
-          </div>
-        </div>
+        )}
       </div>
       <ModalDelete
         open={deleteModal}

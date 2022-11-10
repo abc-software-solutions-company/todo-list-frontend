@@ -4,7 +4,7 @@ import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
 import useLoginHandler from '@/components/login/hooks/login-handler';
-import API from '@/data/api';
+import api from '@/data/api';
 
 import useLoginGoogle from './login-google';
 
@@ -30,7 +30,7 @@ export default function useGuestLoginHook() {
   });
   // Form Login Onsubmit handler
   const submitHandler: SubmitHandler<IFormInputs> = data => {
-    API.auth
+    api.auth
       .login(data)
       .then(res => {
         loginSuccess(res.data);
