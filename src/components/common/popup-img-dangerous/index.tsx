@@ -31,7 +31,8 @@ const PopUpImageDangerous = ({rawHTML}: IPopUpImgProp) => {
           loop: false,
           keyboardNavigation: false,
           draggable: false,
-          closeOnOutsideClick: true
+          closeOnOutsideClick: true,
+          touchNavigation: false
         });
       }, 500);
     });
