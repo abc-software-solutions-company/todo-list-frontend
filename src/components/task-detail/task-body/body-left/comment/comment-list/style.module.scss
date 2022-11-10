@@ -4,10 +4,10 @@
   }
   .user {
     @apply flex gap-x-2 font-semibold text-slate-700;
-    @apply mb-4;
   }
   .time {
-    @apply font-medium text-slate-500;
+    @apply font-normal text-slate-500;
+    @apply text-xs leading-[2.1];
   }
   .content {
     @apply mt-2 mb-1 text-slate-700;
@@ -18,7 +18,7 @@
   .actions {
     @apply flex gap-1;
     button {
-      @apply text-slate-500 underline;
+      @apply text-xs font-normal text-slate-500 underline;
     }
   }
   .more-comments {
