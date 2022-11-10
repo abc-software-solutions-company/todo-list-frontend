@@ -23,7 +23,7 @@ const s3 = new aws.S3();
 
 const Upload: FC<IBaseProps> = ({className}) => {
   const toast = useToast();
-  const {task, update} = useTask();
+  const {task, write, update} = useTask();
   const {id} = task;
 
   const onUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -59,13 +59,15 @@ const Upload: FC<IBaseProps> = ({className}) => {
 
   return (
     <div className={classNames(style.upload, className)}>
-      <div className="upload-button">
-        <Button type="button" className="add-desktop">
-          <span>Add atachments</span>
-        </Button>
-        <IconButton name="ico-plus-circle" className="add-mobile" />
-        <input name="attachments" type="file" onChange={onUpload} multiple />
-      </div>
+      {write && (
+        <div className="upload-button">
+          <Button type="button" className="add-desktop">
+            <span>Add atachments</span>
+          </Button>
+          <IconButton name="ico-plus-circle" className="add-mobile" />
+          <input name="attachments" type="file" onChange={onUpload} multiple />
+        </div>
+      )}
     </div>
   );
 };

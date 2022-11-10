@@ -15,7 +15,7 @@ interface IProps {
 
 const TaskDetail: FC<IProps> = ({task: {id, todolistId}}) => {
   const auth = useStateAuth();
-  const {task, initial} = useTask();
+  const {task, assest, initial} = useTask();
 
   useEffect(() => {
     initial(id);
@@ -32,6 +32,9 @@ const TaskDetail: FC<IProps> = ({task: {id, todolistId}}) => {
   }, [auth]);
 
   if (!task) return null;
+
+  if (!assest) return <h1 className="p-10 text-center text-red-500">Task not existed</h1>;
+
   return (
     <div className="sm:container">
       <TaskToolbar />
