@@ -8,18 +8,6 @@
       @apply w-[calc(100%-120px)] text-h7;
       &-name {
         @apply relative truncate font-semibold text-slate-700;
-        // &:hover {
-        //   @apply break-all;
-        // }
-        // &:not(&:hover) {
-        //   @apply truncate;
-        // }
-        span {
-          @apply font-medium;
-        }
-        i {
-          @apply absolute;
-        }
       }
       &-date {
         @apply my-1 text-slate-600;

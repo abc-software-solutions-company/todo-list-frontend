@@ -6,7 +6,6 @@ import {SubmitHandler, useForm} from 'react-hook-form';
 
 import PopUpImage from '@/components/common/popup-img';
 import Button from '@/core-ui/button';
-import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
@@ -75,10 +74,7 @@ const TaskImages: FC<ITaskImagesProps> = ({attachments, className, taskData, onS
           </div>
           {e.createdDate && (
             <div className="info">
-              <div className="info-name">
-                <span>{e.name}</span>
-                <Icon name="ico-arrow-up-right" size={20} />
-              </div>
+              <div className="info-name">{e.name}</div>
               <div className="info-date"> {'Added ' + getDate(new Date(e.createdDate))}</div>
               <div className="info-actions">
                 <ButtonBase aria-describedby={editButtonId} onClick={event => handleClick(event, e)}>

@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import {FC} from 'react';
 
-import {getDateFormat} from '@/utils/get-date';
+import {getDate, getDateFormat} from '@/utils/get-date';
 
 import {IBodyRightProps} from '..';
 
 const TimeState: FC<IBodyRightProps> = ({taskData, className}) => {
   const createdDate = getDateFormat(new Date(taskData.createdDate));
-  const updatedDate = getDateFormat(new Date(taskData.updatedDate));
+  const updatedDate = getDate(new Date(taskData.updatedDate));
   return (
     <div className={classNames('time-state', className)}>
       <div className="created-date">
