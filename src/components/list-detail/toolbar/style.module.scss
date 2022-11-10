@@ -1,6 +1,6 @@
 .toolbar {
   @apply flex justify-between;
-  @apply mt-4 gap-x-6 lg:mt-6;
+  @apply mt-4 gap-x-3 sm:gap-x-6 lg:mt-6;
 }
 .tools {
   @apply flex h-full items-center;
