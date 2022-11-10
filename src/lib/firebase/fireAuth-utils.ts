@@ -1,6 +1,6 @@
 import {getAuth, GoogleAuthProvider, signInWithPopup, signOut} from 'firebase/auth';
 
-import API from '@/data/api/index';
+import api from '@/data/api/index';
 import {initFirebase} from '@/lib/firebase/initFirebase';
 import LocalStorage from '@/utils/local-storage';
 
@@ -13,7 +13,7 @@ export class FireAuthUtils {
       LocalStorage.firebaseAuthData.set(JSON.stringify(user));
       if (user?.email) {
         const email = user.email;
-        await API.auth
+        await api.auth
           .login({name: '', email: email})
           .then(() => {})
           .catch(() => {});
