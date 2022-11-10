@@ -73,7 +73,7 @@ const TaskToolbar: FC<ITaskToolbarProps> = ({taskData, className}) => {
             </Button>
           </div>
           <div className="toolbar-mobile">
-            <ToolMenu items={toolMenuItems} icon={<MUI_ICON.MORE_VERT />} />
+            <ToolMenu items={toolMenuItems} icon={<MUI_ICON.MORE_VERT />} margin={-1} />
           </div>
         </div>
       </div>

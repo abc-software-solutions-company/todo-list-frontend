@@ -56,7 +56,7 @@ const Editor: FC<IEditorProps> = ({onChange, name, value}) => {
   };
 
   return (
-    <div className={style.ckeditor}>
+    <div className={style['ck-editor']}>
       <div className="prose max-w-full">
         <CKEditor
           name={name}

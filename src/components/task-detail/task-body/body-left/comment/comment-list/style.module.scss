@@ -4,6 +4,7 @@
   }
   .user {
     @apply flex gap-x-2 font-semibold text-slate-700;
+    @apply mb-4;
   }
   .time {
     @apply font-medium text-slate-500;
