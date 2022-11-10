@@ -104,8 +104,10 @@ export default function List() {
                       <IconButton name="ico-edit" className="action-desktop" onClick={() => onCreateUpdate(todolist)} />
                       <IconButton name="ico-trash-2" className="action-desktop" onClick={() => onDelete(todolist)} />
                       <IconButton name="ico-share-2 " className="action-desktop" onClick={() => onShare(todolist)} />
-                      <IconButton name="ico-chevron-right" onClick={() => onDetail(todolist.id)} />
-                      <ToolMenu icon={<MUI_ICON.MORE_VERT />} items={toolMenuMobile(todolist)} />
+                      <Button className="w-3" onClick={() => onDetail(todolist.id)}>
+                        <Icon name="ico-chevron-right" />
+                      </Button>
+                      <ToolMenu icon={<MUI_ICON.MORE_VERT />} items={toolMenuMobile(todolist)} margin={-1} />
                     </div>
                   </div>
                 );
@@ -128,10 +130,13 @@ export default function List() {
                     </p>
                     <div className="actions">
                       <FavoriteButton todolist={todolist} onSuccess={onSuccessFavorite} />
-                      <IconButton name="ico-edit" onClick={() => onCreateUpdate(todolist)} />
-                      <IconButton name="ico-trash-2" onClick={() => onDelete(todolist)} />
-                      <IconButton name="ico-share-2 " onClick={() => onShare(todolist)} />
-                      <IconButton name="ico-chevron-right" onClick={() => onDetail(todolist.id)} />
+                      <IconButton name="ico-edit" className="action-desktop" onClick={() => onCreateUpdate(todolist)} />
+                      <IconButton name="ico-trash-2" className="action-desktop" onClick={() => onDelete(todolist)} />
+                      <IconButton name="ico-share-2 " className="action-desktop" onClick={() => onShare(todolist)} />
+                      <Button className="w-3" onClick={() => onDetail(todolist.id)}>
+                        <Icon name="ico-chevron-right" />
+                      </Button>
+                      <ToolMenu icon={<MUI_ICON.MORE_VERT />} items={toolMenuMobile(todolist)} margin={-1} />
                     </div>
                   </div>
                 );
