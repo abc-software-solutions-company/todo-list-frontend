@@ -8,7 +8,7 @@
   .upload-button {
     @apply relative overflow-hidden;
     .add-desktop {
-      @apply hidden bg-slate-100 text-slate-500 sm:block;
+      @apply hidden bg-slate-100  px-3 text-slate-500 sm:block;
     }
     .add-mobile {
       @apply text-sky-500 sm:hidden;
