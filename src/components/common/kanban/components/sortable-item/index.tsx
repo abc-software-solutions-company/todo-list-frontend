@@ -17,9 +17,11 @@ const SortableItem = ({id}: ISortableItemProp) => {
   };
 
   return (
-    <li style={style} ref={setNodeRef} {...attributes} {...listeners}>
-      <Item id={id} dragOverlay={undefined} />
-    </li>
+    <>
+      <li style={style} ref={setNodeRef} {...attributes} {...listeners}>
+        <Item id={id} dragOverlay={undefined} />
+      </li>
+    </>
   );
 };
 
