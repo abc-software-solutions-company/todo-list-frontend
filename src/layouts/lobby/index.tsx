@@ -16,7 +16,7 @@ export default function LobbyLayout({children}: React.PropsWithChildren<Record<s
       <div className={styles['layout-lobby']}>
         <TopBarLobby />
         <main>{children}</main>
-        <div className="bg-white">
+        <div className="bg-transparent">
           <Footer />
         </div>
       </div>
