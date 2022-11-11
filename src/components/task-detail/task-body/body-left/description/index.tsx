@@ -1,87 +1,34 @@
 import classNames from 'classnames';
-import dynamic from 'next/dynamic';
-import {FC, useEffect, useState} from 'react';
-import {Controller, SubmitHandler, useForm} from 'react-hook-form';
+import {FC, useState} from 'react';
+import {useForm} from 'react-hook-form';
 
 import useTask from '@/components/task-detail/hooks/use-task';
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
-import useToast from '@/core-ui/toast';
-import api from '@/data/api';
 import {IBaseProps} from '@/types';
 
 import Title from '../../title';
-
-const Editor = dynamic(() => import('@/components/common/ckeditor'), {
-  ssr: false
-});
-
-interface IFormInputs {
-  description: string;
-}
+import DescriptionButton from './description-button';
+import DescriptionForm, {IDescriptionForm} from './description-form';
 
 const Description: FC<IBaseProps> = ({className}) => {
-  const {task, write, update} = useTask();
-  const {id, description} = task;
-  const {handleSubmit, formState, control} = useForm<IFormInputs>({mode: 'onChange', defaultValues: {description: ''}});
-  const {isSubmitting} = formState;
+  const {write} = useTask();
+  const form = useForm<IDescriptionForm>({mode: 'onChange', defaultValues: {description: ''}});
   const [isEditing, setIsEditing] = useState(false);
-  const toast = useToast();
 
   const onClick = () => {
     if (write) setIsEditing(true);
   };
-
-  const submitHandler: SubmitHandler<IFormInputs> = formData => {
-    setIsEditing(false);
-    if (task) {
-      api.task
-        .update({id, ...formData})
-        .then(update)
-        .then(() => toast.show({type: 'success', title: 'Update Description', content: 'success'}))
-        .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}));
-    }
+  const onClose = () => {
+    if (write) setIsEditing(false);
   };
 
-  useEffect(() => {
-    if (task && !description) {
-      setIsEditing(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const editBtn = !isEditing && write && <Button text="Edit" className="edit-btn" onClick={onClick} />;
 
   return (
     <div className={classNames('description', className)}>
-      <Title
-        icon={<Icon name="ico-description" />}
-        text="Description"
-        rightBtn={!isEditing && write && <Button text="Edit" className="edit-btn" onClick={onClick} />}
-      />
-      {!isEditing ? (
-        <div className="description-text prose" onClick={onClick} dangerouslySetInnerHTML={{__html: description}}></div>
-      ) : (
-        <form className="decsription-form" onSubmit={handleSubmit(submitHandler)}>
-          <Controller
-            name="description"
-            control={control}
-            rules={{required: false}}
-            defaultValue={description}
-            render={({field}) => <Editor name="example" value={description} onChange={text => field.onChange(text)} />}
-          />
-          <div className="mt-4 flex gap-4">
-            <Button
-              className="max-w-20 h-8 px-2 text-sm"
-              variant="contained"
-              color="primary"
-              text="Save"
-              type="submit"
-              loading={isSubmitting}
-              disabled={isSubmitting}
-            />
-            <Button className="max-w-20 h-8 px-2 text-sm" variant="outlined" color="white" text="Cancel" onClick={() => setIsEditing(false)} type="button" />
-          </div>
-        </form>
-      )}
+      <Title icon={<Icon name="ico-description" />} text="Description" rightBtn={editBtn} />
+      {!isEditing ? <DescriptionButton {...{onClick}} /> : <DescriptionForm {...{form, onClose}} />}
     </div>
   );
 };

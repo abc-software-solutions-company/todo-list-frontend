@@ -47,10 +47,7 @@ const Upload: FC<IBaseProps> = ({className}) => {
         s3.upload(s3ObjectRequest, (err: Error, response: ManagedUpload.SendData) => {
           if (err) console.log('Error', err);
           if (response) {
-            api.task
-              .update({id, attachment: {create: {name: name, link: response.Location}}})
-              .then(update)
-              .then(() => toast.show({type: 'success', title: 'success', content: `Update ${name} Successfull`}));
+            api.task.update({id, attachment: {create: {name: name, link: response.Location}}}).then(update);
           }
         });
       }
