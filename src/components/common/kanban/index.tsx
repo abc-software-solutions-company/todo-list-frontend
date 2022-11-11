@@ -7,14 +7,15 @@ import React, {useState} from 'react';
 import Droppable from './components/droppable';
 import Item from './components/item';
 import style from './style.module.scss';
+import {IHandleDragEnd, IHandleDragOver, IHandleDragStart} from './type';
 import {arrayMove, insertAtIndex, removeAtIndex} from './utils/array';
 
-function Kanban() {
-  const [itemGroups, setItemGroups] = useState<any>({
-    group1: ['1', '2', '3'],
-    group2: ['4', '5', '6'],
-    group3: ['7', '8', '9']
-  });
+interface IKanbanProp {
+  data: any;
+}
+
+function Kanban({data}: IKanbanProp) {
+  const [itemGroups, setItemGroups] = useState<any>(data);
   const [activeId, setActiveId] = useState(null);
 
   const sensors = useSensors(
@@ -25,11 +26,11 @@ function Kanban() {
     })
   );
 
-  const handleDragStart = ({active}) => setActiveId(active.id);
+  const handleDragStart = ({active}: IHandleDragStart) => setActiveId(active.id);
 
   const handleDragCancel = () => setActiveId(null);
 
-  const handleDragOver = ({active, over}) => {
+  const handleDragOver = ({active, over}: IHandleDragOver) => {
     const overId = over?.id;
 
     if (!overId) {
@@ -49,7 +50,7 @@ function Kanban() {
     }
   };
 
-  const handleDragEnd = ({active, over}) => {
+  const handleDragEnd = ({active, over}: IHandleDragEnd) => {
     if (!over) {
       setActiveId(null);
       return;
