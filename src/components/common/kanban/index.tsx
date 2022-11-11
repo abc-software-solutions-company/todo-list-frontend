@@ -1,11 +1,12 @@
-import './App.css';
-
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable @typescript-eslint/no-shadow */
 import {DndContext, DragOverlay, KeyboardSensor, MouseSensor, TouchSensor, useSensor, useSensors} from '@dnd-kit/core';
 import {sortableKeyboardCoordinates} from '@dnd-kit/sortable';
 import React, {useState} from 'react';
 
-import Droppable from './components/Droppable';
-import Item from './components/Item';
+import Droppable from './components/droppable';
+import Item from './components/item';
+// import style from './style.module.css';
 import {arrayMove, insertAtIndex, removeAtIndex} from './utils/array';
 
 function Kanban() {

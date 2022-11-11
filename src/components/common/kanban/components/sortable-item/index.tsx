@@ -2,7 +2,7 @@ import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import React from 'react';
 
-import Item from './Item';
+import Item from '../item';
 
 interface ISortableItemProp {
   id: any;

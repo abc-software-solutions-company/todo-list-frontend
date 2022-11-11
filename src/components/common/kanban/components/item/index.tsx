@@ -1,6 +1,6 @@
-import './Item.css';
-
 import React from 'react';
+
+import style from './style.module.scss';
 
 interface IItemKanbanProp {
   id: any;
@@ -8,12 +8,12 @@ interface IItemKanbanProp {
 }
 
 const Item = ({id, dragOverlay}: IItemKanbanProp) => {
-  const style = {
+  const styleOverLay = {
     cursor: dragOverlay ? 'grabbing' : 'grab'
   };
 
   return (
-    <div style={style} className="item">
+    <div style={styleOverLay} className={style['item-kanban']}>
       Item {id}
     </div>
   );
