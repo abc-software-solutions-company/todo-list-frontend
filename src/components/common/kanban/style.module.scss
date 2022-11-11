@@ -1,0 +1,6 @@
+.container :global {
+  display: flex;
+  * {
+    margin: 5px;
+  }
+}
