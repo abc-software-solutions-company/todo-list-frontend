@@ -37,7 +37,7 @@ const ModalCreateUpdateList: FC<IProps> = prop => {
                   {...register('visibility')}
                   className="input-type"
                   defaultValue={data?.visibility ? data.visibility : Visibilities.PUBLIC}
-                  sx={{fontFamily: 'inherit'}}
+                  sx={{fontFamily: 'inherit', color: '#334155'}}
                 >
                   {Object.keys(Visibilities).map((key, idx) => {
                     return (
