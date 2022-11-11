@@ -6,11 +6,11 @@ import React, {useState} from 'react';
 
 import Droppable from './components/droppable';
 import Item from './components/item';
-// import style from './style.module.css';
+import style from './style.module.scss';
 import {arrayMove, insertAtIndex, removeAtIndex} from './utils/array';
 
 function Kanban() {
-  const [itemGroups, setItemGroups] = useState({
+  const [itemGroups, setItemGroups] = useState<any>({
     group1: ['1', '2', '3'],
     group2: ['4', '5', '6'],
     group3: ['7', '8', '9']
@@ -40,7 +40,7 @@ function Kanban() {
     const overContainer = over.data.current?.sortable.containerId || over.id;
 
     if (activeContainer !== overContainer) {
-      setItemGroups(itemGroups => {
+      setItemGroups((itemGroups: {[x: string]: string | any[]}) => {
         const activeIndex = active.data.current.sortable.index;
         const overIndex = over.id in itemGroups ? itemGroups[overContainer].length + 1 : over.data.current.sortable.index;
 
@@ -61,7 +61,7 @@ function Kanban() {
       const activeIndex = active.data.current.sortable.index;
       const overIndex = over.id in itemGroups ? itemGroups[overContainer].length + 1 : over.data.current.sortable.index;
 
-      setItemGroups(itemGroups => {
+      setItemGroups((itemGroups: {[x: string]: any}) => {
         let newItems;
         if (activeContainer === overContainer) {
           newItems = {
@@ -79,7 +79,14 @@ function Kanban() {
     setActiveId(null);
   };
 
-  const moveBetweenContainers = (items, activeContainer, activeIndex, overContainer, overIndex, item) => {
+  const moveBetweenContainers = (
+    items: {[x: string]: any},
+    activeContainer: string | number,
+    activeIndex: any,
+    overContainer: string | number,
+    overIndex: any,
+    item: any
+  ) => {
     return {
       ...items,
       [activeContainer]: removeAtIndex(items[activeContainer], activeIndex),
@@ -89,7 +96,7 @@ function Kanban() {
 
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragCancel={handleDragCancel} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
-      <div className="container">
+      <div className={style.container}>
         {Object.keys(itemGroups).map(group => (
           <Droppable id={group} items={itemGroups[group]} activeId={activeId} key={group} />
         ))}
