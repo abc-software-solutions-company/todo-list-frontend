@@ -8,7 +8,7 @@ import Droppable from './components/Droppable';
 import Item from './components/Item';
 import {arrayMove, insertAtIndex, removeAtIndex} from './utils/array';
 
-function App() {
+function Kanban() {
   const [itemGroups, setItemGroups] = useState({
     group1: ['1', '2', '3'],
     group2: ['4', '5', '6'],
@@ -98,4 +98,4 @@ function App() {
   );
 }
 
-export default App;
+export default Kanban;
