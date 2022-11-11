@@ -8,6 +8,7 @@ import style from './style.module.scss';
 interface IDroppableProp {
   id: any;
   items: any;
+  activeId: any;
 }
 
 const Droppable = ({id, items}: IDroppableProp) => {
