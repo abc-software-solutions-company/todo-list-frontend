@@ -100,9 +100,7 @@ function Kanban({data}: IKanbanProp) {
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragCancel={handleDragCancel} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
       <div className={style.container}>
         {Object.keys(itemGroups).map((group, idx) => (
-          <>
-            <Droppable id={group} items={itemGroups[group]} activeId={activeId} key={group} columnName={Object.keys(itemGroups)[idx]} />
-          </>
+          <Droppable id={group} items={itemGroups[group]} activeId={activeId} key={group} columnName={Object.keys(itemGroups)[idx]} />
         ))}
       </div>
       <DragOverlay>{activeId ? <Item id={activeId} dragOverlay /> : null}</DragOverlay>

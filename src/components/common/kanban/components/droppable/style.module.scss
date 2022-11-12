@@ -1,7 +1,11 @@
-.droppable :global {
-  min-width: 110px;
-  padding: 20px 10px;
-  border: 1px solid black;
-  border-radius: 5px;
-  list-style-type: none;
+.droppable {
+  // min-width: 110px;
+  // padding: 20px 10px;
+  // border: 1px solid black;
+  // border-radius: 5px;
+  // list-style-type: none;
+  @apply mx-2 list-none rounded-md border border-slate-500 px-1;
+}
+.columnName {
+  @apply text-center text-red-500;
 }

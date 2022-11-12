@@ -1,6 +1,3 @@
 .container :global {
-  display: flex;
-  * {
-    margin: 5px;
-  }
+  @apply m-1 flex;
 }

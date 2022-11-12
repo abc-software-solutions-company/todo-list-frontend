@@ -18,7 +18,7 @@ const Droppable = ({id, items, columnName}: IDroppableProp) => {
   return (
     <SortableContext id={id} items={items} strategy={rectSortingStrategy}>
       <ul className={style.droppable} ref={setNodeRef}>
-        <p>{columnName}</p>
+        <p className={style.columnName}>{columnName}</p>
         {items.map((item: React.Key | null | undefined) => (
           <SortableItem key={item} id={item} />
         ))}
