@@ -12,6 +12,7 @@ import {arrayMove, insertAtIndex, removeAtIndex} from './utils/array';
 
 interface IKanbanProp {
   data: any;
+  callApi: void;
 }
 
 function Kanban({data}: IKanbanProp) {
@@ -98,9 +99,9 @@ function Kanban({data}: IKanbanProp) {
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragCancel={handleDragCancel} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
       <div className={style.container}>
-        {Object.keys(itemGroups).map(group => (
+        {Object.keys(itemGroups).map((group, idx) => (
           <>
-            a
+            {Object.keys(itemGroups)[idx]}
             <Droppable id={group} items={itemGroups[group]} activeId={activeId} key={group} />
           </>
         ))}
