@@ -73,7 +73,7 @@ function Kanban({data}: IKanbanProp) {
         } else {
           newItems = moveBetweenContainers(itemGroups, activeContainer, activeIndex, overContainer, overIndex, active.id);
         }
-
+        console.log(newItems);
         return newItems;
       });
     }
@@ -101,8 +101,7 @@ function Kanban({data}: IKanbanProp) {
       <div className={style.container}>
         {Object.keys(itemGroups).map((group, idx) => (
           <>
-            {Object.keys(itemGroups)[idx]}
-            <Droppable id={group} items={itemGroups[group]} activeId={activeId} key={group} />
+            <Droppable id={group} items={itemGroups[group]} activeId={activeId} key={group} columnName={Object.keys(itemGroups)[idx]} />
           </>
         ))}
       </div>
