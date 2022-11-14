@@ -31,11 +31,11 @@ const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
 
   const submitHandler: SubmitHandler<IDescriptionForm> = formData => {
     const listImage = extractImageLinks(formData.description);
-    console.log('list image from task description');
-    task.attachments.forEach(e => {
-      console.log(e.link);
+    listImage.forEach(e => {
+      api.task.update({id, attachment: {create: {name: `${e}.png`, link: e}}}).then(update);
+      console.log(e);
+      console.log('Upload ok');
     });
-
     if (task) {
       api.task
         .update({id, ...formData})
