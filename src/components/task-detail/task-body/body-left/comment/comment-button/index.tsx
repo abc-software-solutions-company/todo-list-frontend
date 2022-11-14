@@ -5,7 +5,7 @@ import useTask from '@/components/task-detail/hooks/use-task';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
-import {syncAttachments} from '@/utils/attachment-sync';
+import {syncAttachments} from '@/utils/sync-attachment';
 
 import CommentForm, {IFormInputs} from '../comment-form';
 

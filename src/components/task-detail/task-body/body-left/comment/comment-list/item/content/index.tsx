@@ -5,7 +5,7 @@ import PopUpImageDangerous from '@/components/common/popup-img-dangerous';
 import useTask from '@/components/task-detail/hooks/use-task';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
-import {syncAttachments} from '@/utils/attachment-sync';
+import {syncAttachments} from '@/utils/sync-attachment';
 
 import CommentForm from '../../../comment-form';
 import {IItemProps} from '..';
@@ -31,10 +31,11 @@ const Content: FC<Iprops> = ({comment, isEditing, onClose}) => {
     api.task
       .update({id: taskId, comment: {update: {id, comment: formData.comment}}})
       .then(update)
-      .then(() => reset())
       .then(() => {
         syncAttachments({id: task.id, listAttachment: task.attachments, rawHTML: formData.comment, update});
       })
+      .then(() => reset())
+
       .catch(() => toast.show({type: 'danger', title: 'Comment', content: 'An error occurred, please try again'}));
   };
 
