@@ -6,9 +6,7 @@ import useTask from '@/components/task-detail/hooks/use-task';
 import Button from '@/core-ui/button';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
-
-import {extractImageLinks} from '../../../../../../utils/attachment-sync/extract-image-link';
-import {syncAttachments} from '../../../../../../utils/attachment-sync/sync-attachment';
+import {syncAttachments} from '@/utils/attachment-sync';
 
 const Editor = dynamic(() => import('@/components/common/ckeditor'), {
   ssr: false

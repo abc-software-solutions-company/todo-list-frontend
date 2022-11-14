@@ -5,6 +5,7 @@ import useTask from '@/components/task-detail/hooks/use-task';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
+import {syncAttachments} from '@/utils/attachment-sync';
 
 import CommentForm, {IFormInputs} from '../comment-form';
 
@@ -25,6 +26,9 @@ const CommentButton: FC = () => {
       api.task
         .update({id: task.id, comment: {create: formData}})
         .then(update)
+        .then(() => {
+          syncAttachments({id: task.id, listAttachment: task.attachments, rawHTML: formData.comment, update});
+        })
         .then(() => reset())
         .catch(() => toast.show({type: 'danger', title: 'Comment', content: 'An error occurred, please try again'}));
     }
