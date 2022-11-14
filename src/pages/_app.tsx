@@ -4,6 +4,8 @@ import '@/vendors/menu/style.scss';
 import '@/vendors/abc-icons/dist/abc.scss';
 import 'nprogress/nprogress.css';
 
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import type {AppProps} from 'next/app';
 import {useRouter} from 'next/router';
 import {appWithTranslation} from 'next-i18next';
@@ -51,7 +53,9 @@ const CustomApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) =>
       <AuthProvider>
         <Provider store={store}>
           <Layout pageProps={pageProps}>
-            <Component {...pageProps} key={router.route} />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Component {...pageProps} key={router.route} />
+            </LocalizationProvider>
           </Layout>
         </Provider>
       </AuthProvider>

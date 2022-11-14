@@ -1,30 +1,39 @@
 import classNames from 'classnames';
 import {FC} from 'react';
-import {Controller, SubmitHandler, useForm} from 'react-hook-form';
+import {Controller, useForm} from 'react-hook-form';
 
 import DatePicker from '@/components/common/date-picker';
 import {IBaseProps} from '@/types';
 
 interface IProps extends IBaseProps {
-  startDate?: string;
+  startDate: Date;
 }
 
 const StartDate: FC<IProps> = ({className, startDate}) => {
-  const {handleSubmit, control} = useForm<IProps>();
-  const onSubmit: SubmitHandler<IProps> = data => alert(data.startDate);
+  const {control} = useForm<IProps>();
+  const handleSubmit = (data: any) => {
+    console.log(data);
+  };
 
   return (
     <div className={classNames('start-date', className)}>
       <p className="title">Start date</p>
-      {/* <p>3/11/2022</p> */}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form>
         <Controller
           name="startDate"
           rules={{required: true}}
           control={control}
-          render={({field}) => <DatePicker data={startDate || ''} onChange={text => field.onChange(text)} />}
+          render={({field}) => (
+            <DatePicker
+              format="DD/MM/YYYY"
+              value={startDate}
+              onChange={text => {
+                field.onChange(text);
+                handleSubmit(text);
+              }}
+            />
+          )}
         />
-        <input type="submit" />
       </form>
     </div>
   );
