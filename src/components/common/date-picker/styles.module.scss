@@ -1,8 +1,10 @@
 .date-picker :global {
-  .date-picker-desktop {
-    @apply hidden lg:block;
-  }
-  .date-picker-mobile {
-    @apply block lg:hidden;
+  .box {
+    .MuiInputBase-input {
+      @apply py-2 px-0;
+    }
+    .MuiOutlinedInput-notchedOutline {
+      @apply border-none focus:border-none;
+    }
   }
 }
