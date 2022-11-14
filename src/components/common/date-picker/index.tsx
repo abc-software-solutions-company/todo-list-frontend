@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField';
-import {MobileDatePicker} from '@mui/x-date-pickers/MobileDatePicker';
+import {MobileDateTimePicker} from '@mui/x-date-pickers/MobileDateTimePicker';
 import dayjs, {Dayjs} from 'dayjs';
 import {useState} from 'react';
 
@@ -7,11 +7,10 @@ import style from './styles.module.scss';
 
 interface IDatePickerProp {
   value: Date;
-  format?: string;
   onChange: (value?: Date) => void;
 }
 
-const DatePicker = ({value, format = 'MM/DD/YYYY', onChange}: IDatePickerProp) => {
+const DatePicker = ({value, onChange}: IDatePickerProp) => {
   const [day, setDay] = useState<Dayjs | null>(dayjs(value));
 
   const handleChange = (newDay: Dayjs | null) => {
@@ -20,9 +19,9 @@ const DatePicker = ({value, format = 'MM/DD/YYYY', onChange}: IDatePickerProp) =
 
   return (
     <div className={style['date-picker']}>
-      <MobileDatePicker
+      <MobileDateTimePicker
         className="box"
-        inputFormat={format}
+        inputFormat={'DD/MM/YYYY HH:MM'}
         value={day}
         onChange={handleChange}
         onAccept={() => onChange(day?.toDate())}
