@@ -1,0 +1,8 @@
+.date-picker :global {
+  .date-picker-desktop {
+    @apply hidden lg:block;
+  }
+  .date-picker-mobile {
+    @apply block lg:hidden;
+  }
+}
