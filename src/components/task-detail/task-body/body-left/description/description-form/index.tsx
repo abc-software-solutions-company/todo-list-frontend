@@ -31,10 +31,16 @@ const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
 
   const submitHandler: SubmitHandler<IDescriptionForm> = formData => {
     const listImage = extractImageLinks(formData.description);
+    const currentAttachments: string[] = [];
+    task.attachments.forEach(e => {
+      currentAttachments.push(e.link);
+    });
+
     listImage.forEach(e => {
-      api.task.update({id, attachment: {create: {name: `${e}.png`, link: e}}}).then(update);
-      console.log(e);
-      console.log('Upload ok');
+      if (!currentAttachments.includes(e)) {
+        api.task.update({id, attachment: {create: {name: `${e}.png`, link: e}}}).then(update);
+        console.log('Upload ok');
+      }
     });
     if (task) {
       api.task
