@@ -61,7 +61,6 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
   };
 
   if (!attachments || attachments.length < 1) return null;
-  console.log(attachments);
 
   return (
     <div className={classNames(className, style['task-images'])}>

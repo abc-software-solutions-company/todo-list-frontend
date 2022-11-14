@@ -39,9 +39,6 @@ const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
         .then(() => toast.show({type: 'success', title: 'Update Description', content: 'success'}))
         .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}));
     }
-    // This area we  will use other function from other file
-    //  In order to get all url image from formData, an then call api to save image link to attachment.
-    // When update,if any image have link existed in attachment (or in first time description created), don't push it to api
     onClose();
   };
 
