@@ -21,6 +21,7 @@ const DatePicker = ({value, onChange}: IDatePickerProp) => {
     <div className={style['date-picker']}>
       <MobileDateTimePicker
         className="box"
+        inputFormat={'DD/MM/YYYY HH:MM'}
         value={day}
         onChange={handleChange}
         onAccept={() => onChange(day?.toDate())}
