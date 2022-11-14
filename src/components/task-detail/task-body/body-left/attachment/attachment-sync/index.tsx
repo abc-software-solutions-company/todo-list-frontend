@@ -1,10 +1,13 @@
-import {dataTestAttachmentSync} from './utils/data-test';
 import {extractImageLinks} from './utils/extract-image-link';
 
-const AttachmentSync = () => {
-  console.log(extractImageLinks(dataTestAttachmentSync));
+interface IProp {
+  value: string;
+}
 
-  return <>AttachmentSync</>;
+const AttachmentSync = ({value}: IProp) => {
+  const result = extractImageLinks(value);
+
+  return result;
 };
 
 export default AttachmentSync;

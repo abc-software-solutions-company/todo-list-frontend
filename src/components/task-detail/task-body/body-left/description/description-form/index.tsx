@@ -7,6 +7,8 @@ import Button from '@/core-ui/button';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 
+import {extractImageLinks} from '../../attachment/attachment-sync/utils/extract-image-link';
+
 const Editor = dynamic(() => import('@/components/common/ckeditor'), {
   ssr: false
 });
@@ -28,6 +30,12 @@ const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
   const {isSubmitting} = formState;
 
   const submitHandler: SubmitHandler<IDescriptionForm> = formData => {
+    const listImage = extractImageLinks(formData.description);
+    console.log('list image from task description');
+    task.attachments.forEach(e => {
+      console.log(e.link);
+    });
+
     if (task) {
       api.task
         .update({id, ...formData})
