@@ -7,8 +7,8 @@ import Button from '@/core-ui/button';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 
-import {extractImageLinks} from '../../attachment/attachment-sync/utils/extract-image-link';
-import {syncAttachments} from '../../attachment/attachment-sync/utils/sync-attachment';
+import {extractImageLinks} from '../../../../../../utils/attachment-sync/extract-image-link';
+import {syncAttachments} from '../../../../../../utils/attachment-sync/sync-attachment';
 
 const Editor = dynamic(() => import('@/components/common/ckeditor'), {
   ssr: false
@@ -31,18 +31,6 @@ const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
   const {isSubmitting} = formState;
 
   const submitHandler: SubmitHandler<IDescriptionForm> = formData => {
-    // const listImage = extractImageLinks(formData.description);
-    // const currentAttachments: string[] = [];
-    // task.attachments.forEach(e => {
-    //   currentAttachments.push(e.link);
-    // });
-
-    // listImage.forEach(e => {
-    //   if (!currentAttachments.includes(e)) {
-    //     api.task.update({id, attachment: {create: {name: `${e}.png`, link: e}}}).then(update);
-    //     console.log('Upload ok');
-    //   }
-    // });
     syncAttachments({id, listAttachment: task.attachments, rawHTML: formData.description, update});
     if (task) {
       api.task

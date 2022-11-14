@@ -11,7 +11,6 @@ interface ISyncAtachments {
 }
 
 export const syncAttachments = ({rawHTML, listAttachment, id, update}: ISyncAtachments) => {
-  // console.log('Sync Attachments');
   const listImage = extractImageLinks(rawHTML);
   const currentAttachments: string[] = [];
   listAttachment.forEach(e => {
