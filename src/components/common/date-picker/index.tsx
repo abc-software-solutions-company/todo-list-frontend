@@ -8,10 +8,16 @@ import {FC, useState} from 'react';
 
 import style from './styles.module.scss';
 
-const DatePicker: FC = () => {
-  const [value, setValue] = useState<Dayjs | null>(dayjs('2014-08-18T21:11:54'));
+interface IDatePickerProp {
+  data: string;
+  handle: () => void;
+}
+
+const DatePicker: FC = ({data, handle}: IDatePickerProp) => {
+  const [value, setValue] = useState<Dayjs | null>(dayjs(data || '2014-08-18T21:11:54'));
   const handleChange = (newValue: Dayjs | null) => {
     setValue(newValue);
+    handle();
   };
   return (
     <div className={style['date-picker']}>
