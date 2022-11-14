@@ -10,6 +10,7 @@ const TimeState: FC<IBaseProps> = ({className}) => {
   const {createdDate, updatedDate} = task;
   const created = getDateFormat(new Date(createdDate));
   const updated = getDate(new Date(updatedDate));
+
   return (
     <div className={classNames('time-state', className)}>
       <div className="created-date">

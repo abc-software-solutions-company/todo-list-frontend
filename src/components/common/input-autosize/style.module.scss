@@ -1,0 +1,10 @@
+.default-css {
+  @apply w-full rounded border-transparent bg-transparent px-1 py-0.5;
+  resize: none;
+  &:focus:not(&:read-only) {
+    @apply bg-white;
+  }
+  &:read-only {
+    @apply border-transparent ring-0;
+  }
+}

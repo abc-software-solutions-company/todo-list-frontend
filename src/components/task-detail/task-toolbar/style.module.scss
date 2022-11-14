@@ -10,9 +10,6 @@
       .name-form {
         @apply flex w-full items-center gap-2.5;
       }
-      .name-input {
-        @apply w-full max-w-sm rounded border px-1 py-0.5;
-      }
       h2 {
         @apply text-h4 font-semibold lg:text-h2;
         word-break: break-word;

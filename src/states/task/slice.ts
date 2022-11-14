@@ -7,22 +7,24 @@ export type IAction = PayloadAction<{id: string}>;
 const taskSlice = createSlice({
   name: 'post',
   initialState: {
-    loading: false,
-    task: undefined as unknown as ITaskResponse,
-    error: null
+    task: {
+      loading: false,
+      data: undefined as unknown as ITaskResponse,
+      error: null
+    }
   },
   reducers: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getTaskRequest: (state, {payload}: IAction) => {
-      state.loading = true;
+      state.task.loading = true;
     },
     getTaskSuccess: (state, {payload}) => {
-      state.loading = false;
-      state.task = payload;
+      state.task.loading = false;
+      state.task.data = payload;
     },
     getTaskFailure: (state, {payload}) => {
-      state.loading = false;
-      state.error = payload;
+      state.task.loading = false;
+      state.task.error = payload;
     }
   }
 });

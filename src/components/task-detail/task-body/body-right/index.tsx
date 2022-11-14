@@ -5,11 +5,11 @@ import {IBaseProps} from '@/types';
 
 import Comment from '../body-left/comment';
 import Status from '../status';
-// import Assignee from './assignee';
-import TaskDate from './date';
-import Point from './point';
 import Priority from './priority';
+import StoryPoint from './story-point';
+// import Assignee from './assignee';
 import style from './style.module.scss';
+import TaskDate from './task-date';
 import TimeState from './time-state';
 
 const BodyRight: FC<IBaseProps> = ({className}) => {
@@ -19,8 +19,8 @@ const BodyRight: FC<IBaseProps> = ({className}) => {
         <Status className="divide item" />
         {/* <Assignee className="divide item mobile" /> */}
         <Priority className="divide item mobile" />
-        <Point className="divide item mobile" />
         <TaskDate className="divide item" />
+        <StoryPoint className="divide item mobile" />
         <Comment className="divide item lg:hidden" />
         <TimeState className="item" />
       </div>
