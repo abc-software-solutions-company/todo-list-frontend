@@ -29,11 +29,13 @@ const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
   const {isSubmitting} = formState;
 
   const submitHandler: SubmitHandler<IDescriptionForm> = formData => {
-    syncAttachments({id, listAttachment: task.attachments, rawHTML: formData.description, update});
     if (task) {
       api.task
         .update({id, ...formData})
         .then(update)
+        .then(() => {
+          syncAttachments({id, listAttachment: task.attachments, rawHTML: formData.description, update});
+        })
         .then(() => toast.show({type: 'success', title: 'Update Description', content: 'success'}))
         .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}));
     }

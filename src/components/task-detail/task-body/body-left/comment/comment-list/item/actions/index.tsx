@@ -23,7 +23,10 @@ const Actions: FC<Iprops> = ({comment: {id, taskId}, onEdit, show}) => {
   const editButtonId = open ? 'simple-popover' : undefined;
 
   const handleDelete = () => {
-    api.task.update({id: taskId, comment: {update: {id, isActive: false}}}).then(update);
+    api.task
+      .update({id: taskId, comment: {update: {id, isActive: false}}})
+      .then(update)
+      .then();
   };
 
   const onDelete = (event: MouseEvent<HTMLButtonElement>) => {
