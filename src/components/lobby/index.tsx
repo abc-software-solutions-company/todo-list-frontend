@@ -1,18 +1,17 @@
+import {useRouter} from 'next/router';
 import {FC, useState} from 'react';
 
+import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
-import Input from '@/core-ui/input';
 
 import LobbyDecor from '../common/vector/lobby-decor';
 import ModalCreateUpdateList from '../modal/modal-create-update-list';
-import useLobbyHook from './hook';
 import styles from './style.module.scss';
 import LobbyTitle from './title';
 
 const Lobby: FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const {onSubmit, register, formState} = useLobbyHook();
-  const {errors, isSubmitting} = formState;
+  const router = useRouter();
   return (
     <>
       <div className={styles['page-lobby']}>
@@ -21,22 +20,9 @@ const Lobby: FC = () => {
             <LobbyTitle />
             <div className={styles.actions}>
               <div className="item">
-                <Button
-                  variant="contained"
-                  className="h-[50px] w-full font-medium xl:h-full"
-                  color="info"
-                  onClick={() => setModalOpen(true)}
-                  text=" Create New List"
-                />
+                <Button variant="contained" className="w-full py-3 font-medium" color="info" onClick={() => setModalOpen(true)} text=" Create New List" />
               </div>
-              <form onSubmit={onSubmit}>
-                <Input
-                  groupEnd={<Button className="px-5 font-medium" color="info" variant="contained" text="Join" type="submit" disabled={isSubmitting} />}
-                  placeholder="Enter Link or ID"
-                  error={errors.idOrLink?.message}
-                  {...register('idOrLink')}
-                />
-              </form>
+              <Button variant="contained" className="w-full py-3 font-medium" color="info" onClick={() => router.push(ROUTES.LIST)} text=" My List" />
             </div>
           </div>
           <div className={styles.decor}>
