@@ -20,19 +20,18 @@ export const uploadImageOnline = (rawHTML: string) => {
   const listImageOnline = listImageOriginal.filter(x => !x.includes(s3BaseURL));
 
   listImageOnline.forEach(item => {
-    console.log(item);
     axios({
       url: item,
       method: 'GET',
       responseType: 'blob'
     }).then(res => {
-      console.log(res.data);
       const s3ObjectRequest: PutObjectRequest = {
         Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME!,
         Body: res.data,
-        Key: `${process.env.NEXT_PUBLIC_AWS_BUCKET_ENV}/${item.split('/').pop}.png`,
+        Key: `${process.env.NEXT_PUBLIC_AWS_BUCKET_ENV}/${item.split('/').pop()}.png`,
         ACL: 'public-read'
       };
+
       s3.upload(s3ObjectRequest)
         .promise()
         .then(fileRes => {
