@@ -1,6 +1,6 @@
 import {TextareaAutosize} from '@mui/material';
 import classNames from 'classnames';
-import {FC, FocusEvent, KeyboardEvent} from 'react';
+import {FC, FocusEvent, KeyboardEvent, useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 
 import {IBaseProps} from '@/types';
@@ -20,7 +20,11 @@ export interface IProps extends IBaseProps {
 }
 
 const InputAutosize: FC<IProps> = ({className, value, handleSave, write, navive, placeholder}) => {
-  const {register, setValue} = useForm<IInputAutosizeInputs>({defaultValues: {text: value}});
+  const {register, setValue} = useForm<IInputAutosizeInputs>();
+  useEffect(() => {
+    setValue('text', value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   const onSave = (text: string) => {
     if (text !== value) handleSave(text);
@@ -44,7 +48,7 @@ const InputAutosize: FC<IProps> = ({className, value, handleSave, write, navive,
   return (
     <TextareaAutosize
       className={classNames(className, navive ? '' : style['default-css'])}
-      {...register('text', {value: value})}
+      {...register('text', {value})}
       placeholder={placeholder}
       onBlur={onBlur}
       onKeyDown={onKeyDown}

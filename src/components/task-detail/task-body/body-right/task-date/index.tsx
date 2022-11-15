@@ -7,7 +7,7 @@ import api from '@/data/api';
 import PickDateTime from './pick-date-time';
 
 const TaskDate: FC<HTMLAttributes<HTMLDivElement>> = ({className}) => {
-  const {task} = useTask();
+  const {task, write} = useTask();
   const handleSaveStartDate = (date: Date) => {
     api.task.update({id: task.id, startDate: date});
   };
@@ -16,8 +16,8 @@ const TaskDate: FC<HTMLAttributes<HTMLDivElement>> = ({className}) => {
   };
   return (
     <div className={classNames('date', className)}>
-      <PickDateTime className="start-date" title="Start Date" value={task.startDate} handleSave={handleSaveStartDate} />
-      <PickDateTime className="due-date" title="Due Date" value={task.dueDate} handleSave={handleSaveDueDate} />
+      <PickDateTime readonly={!write} className="start-date" title="Start Date" value={task.startDate} handleSave={handleSaveStartDate} />
+      <PickDateTime readonly={!write} className="due-date" title="Due Date" value={task.dueDate} handleSave={handleSaveDueDate} />
     </div>
   );
 };
