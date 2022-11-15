@@ -6,6 +6,7 @@ import useTask from '@/components/task-detail/hooks/use-task';
 import Button from '@/core-ui/button';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
+import {syncAttachments} from '@/utils/sync-attachment';
 
 const Editor = dynamic(() => import('@/components/common/ckeditor'), {
   ssr: false
@@ -32,6 +33,9 @@ const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
       api.task
         .update({id, ...formData})
         .then(update)
+        .then(() => {
+          syncAttachments({id, listAttachment: task.attachments, rawHTML: formData.description, update});
+        })
         .then(() => toast.show({type: 'success', title: 'Update Description', content: 'success'}))
         .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}));
     }
