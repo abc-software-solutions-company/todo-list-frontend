@@ -37,7 +37,6 @@ const Editor: FC<IEditorProps> = ({onChange, name, value}) => {
             s3.upload(s3ObjectRequest)
               .promise()
               .then(res => {
-                console.log('here');
                 resolve({default: `${res.Location}`});
               })
               .catch(err => {
