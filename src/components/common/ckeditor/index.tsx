@@ -1,9 +1,9 @@
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {CKEditor} from '@ckeditor/ckeditor5-react';
 import aws from 'aws-sdk';
 import {PutObjectRequest} from 'aws-sdk/clients/s3';
 import React, {FC} from 'react';
 
-import CKEditor from './ckeditor';
+import ClassicEditor from './ckeditor';
 import style from './styles.module.scss';
 
 interface IEditorProps {
