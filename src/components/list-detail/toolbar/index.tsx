@@ -27,12 +27,16 @@ export default function ToolbarDetail({todolist, filterValue, onEdit, onDelete, 
   const filterList = status.sort((a, b) => a.index - b.index);
   const auth = useStateAuth();
   const isInteractive = visibility === 'PUBLIC' || auth?.id === userId;
-  const isListOwner = visibility === 'PUBLIC' && auth?.id === userId;
+  const isListOwner = () => {
+    if (visibility === 'READ_ONLY' && auth?.id === userId) return true;
+    if (visibility === 'PUBLIC' && auth?.id === userId) return true;
+    return false;
+  };
 
   const deleteToolProps: IToolProps = {
     icon: <Icon name="ico-trash-2" />,
     text: 'Delete',
-    hidden: !isListOwner,
+    hidden: !isListOwner(),
     onClick: onDelete
   };
   const shareToolProps: IToolProps = {
