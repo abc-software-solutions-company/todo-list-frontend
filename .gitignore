@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+src/pages/dnd
+src/components/kanban
 
 # testing
 /coverage
