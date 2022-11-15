@@ -22,7 +22,7 @@ const Lobby: FC = () => {
               <div className="item">
                 <Button variant="contained" className="w-full py-3 font-medium" color="info" onClick={() => setModalOpen(true)} text=" Create New List" />
               </div>
-              <Button variant="contained" className="w-full py-3 font-medium" color="info" onClick={() => router.push(ROUTES.LIST)} text=" My List" />
+              <Button variant="contained" className="w-full py-3 font-medium" color="info" onClick={() => router.push(ROUTES.LIST)} text="My List" />
             </div>
           </div>
           <div className={styles.decor}>
