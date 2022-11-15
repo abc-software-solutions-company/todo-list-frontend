@@ -1,6 +1,7 @@
 import {ButtonBase, Popover} from '@mui/material';
 import classNames from 'classnames';
 import Image from 'next/image';
+import Link from 'next/link';
 import {FC, MouseEvent, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 
@@ -102,6 +103,9 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
                     </form>
                   </Popover>
                   <button onClick={() => onDelete(e.id)}>Delete</button>
+                  <button>
+                    <Link href={e.link}>Download Original Image</Link>
+                  </button>
                 </div>
               )}
             </div>
