@@ -2,12 +2,12 @@ import dynamic from 'next/dynamic';
 import {FC} from 'react';
 import {Controller, SubmitHandler, UseFormReturn} from 'react-hook-form';
 
-import {uploadImageOnline} from '@/components/common/ckeditor/upload-image-online';
 import useTask from '@/components/task-detail/hooks/use-task';
 import Button from '@/core-ui/button';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {syncAttachments} from '@/utils/sync-attachment';
+import {replaceOnlineLinkToS3Link} from '@/utils/upload-image-online/replace-online-link-to-s3-link';
 
 const Editor = dynamic(() => import('@/components/common/ckeditor'), {
   ssr: false
@@ -30,15 +30,17 @@ const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
   const {isSubmitting} = formState;
 
   const submitHandler: SubmitHandler<IDescriptionForm> = formData => {
+    // replaceOnlineLinkToS3Link(formData.description);
+
     if (task) {
+      // formData.description = replaceOnlineLinkToS3Link(formData.description);
+      console.log(replaceOnlineLinkToS3Link(formData.description));
+
       api.task
         .update({id, ...formData})
         .then(update)
         .then(() => {
           syncAttachments({id, listAttachment: task.attachments, rawHTML: formData.description, update});
-        })
-        .then(() => {
-          uploadImageOnline(formData.description);
         })
         .then(() => toast.show({type: 'success', title: 'Update Description', content: 'success'}))
         .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}));

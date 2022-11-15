@@ -1,13 +1,13 @@
 import {FC, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 
-import {uploadImageOnline} from '@/components/common/ckeditor/upload-image-online';
 import useTask from '@/components/task-detail/hooks/use-task';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {syncAttachments} from '@/utils/sync-attachment';
 
+// import {replaceOnlineLinkToS3Link} from '@/utils/upload-image-online/replace-online-link-to-s3-link';
 import CommentForm, {IFormInputs} from '../comment-form';
 
 const CommentButton: FC = () => {
@@ -23,15 +23,13 @@ const CommentButton: FC = () => {
 
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
     onClose();
+    // formData.comment = replaceOnlineLinkToS3Link(formData.comment);
     if (task) {
       api.task
         .update({id: task.id, comment: {create: formData}})
         .then(update)
         .then(() => {
           syncAttachments({id: task.id, listAttachment: task.attachments, rawHTML: formData.comment, update});
-        })
-        .then(() => {
-          uploadImageOnline(formData.comment);
         })
         .then(() => reset())
         .catch(() => toast.show({type: 'danger', title: 'Comment', content: 'An error occurred, please try again'}));

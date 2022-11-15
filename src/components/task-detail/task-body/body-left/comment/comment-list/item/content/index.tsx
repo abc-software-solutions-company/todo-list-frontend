@@ -1,12 +1,12 @@
 import {FC} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 
-import {uploadImageOnline} from '@/components/common/ckeditor/upload-image-online';
 import PopUpImageDangerous from '@/components/common/popup-img-dangerous';
 import useTask from '@/components/task-detail/hooks/use-task';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {syncAttachments} from '@/utils/sync-attachment';
+import {uploadImageOnline} from '@/utils/upload-image-online/img-online-to-s3';
 
 import CommentForm from '../../../comment-form';
 import {IItemProps} from '..';
