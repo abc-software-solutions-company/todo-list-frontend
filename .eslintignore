@@ -17,3 +17,4 @@ jest.setup.js
 tailwind.config.js
 *.d.ts
 cypress.config.ts
+src/components/common/ckeditor/ckeditor.js
