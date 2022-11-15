@@ -1,6 +1,7 @@
 import {FC, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 
+import {uploadImageOnline} from '@/components/common/ckeditor/upload-image-online';
 import useTask from '@/components/task-detail/hooks/use-task';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
@@ -28,6 +29,9 @@ const CommentButton: FC = () => {
         .then(update)
         .then(() => {
           syncAttachments({id: task.id, listAttachment: task.attachments, rawHTML: formData.comment, update});
+        })
+        .then(() => {
+          uploadImageOnline(formData.comment);
         })
         .then(() => reset())
         .catch(() => toast.show({type: 'danger', title: 'Comment', content: 'An error occurred, please try again'}));

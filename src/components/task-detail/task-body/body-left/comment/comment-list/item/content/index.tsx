@@ -1,6 +1,7 @@
 import {FC} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 
+import {uploadImageOnline} from '@/components/common/ckeditor/upload-image-online';
 import PopUpImageDangerous from '@/components/common/popup-img-dangerous';
 import useTask from '@/components/task-detail/hooks/use-task';
 import useToast from '@/core-ui/toast';
@@ -33,6 +34,9 @@ const Content: FC<Iprops> = ({comment, isEditing, onClose}) => {
       .then(update)
       .then(() => {
         syncAttachments({id: task.id, listAttachment: task.attachments, rawHTML: formData.comment, update});
+      })
+      .then(() => {
+        uploadImageOnline(formData.comment);
       })
       .then(() => reset())
 

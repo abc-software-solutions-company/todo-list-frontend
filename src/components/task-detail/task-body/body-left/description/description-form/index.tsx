@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import {FC} from 'react';
 import {Controller, SubmitHandler, UseFormReturn} from 'react-hook-form';
 
+import {uploadImageOnline} from '@/components/common/ckeditor/upload-image-online';
 import useTask from '@/components/task-detail/hooks/use-task';
 import Button from '@/core-ui/button';
 import useToast from '@/core-ui/toast';
@@ -35,6 +36,9 @@ const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
         .then(update)
         .then(() => {
           syncAttachments({id, listAttachment: task.attachments, rawHTML: formData.description, update});
+        })
+        .then(() => {
+          uploadImageOnline(formData.description);
         })
         .then(() => toast.show({type: 'success', title: 'Update Description', content: 'success'}))
         .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}));
