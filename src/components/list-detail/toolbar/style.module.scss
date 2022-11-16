@@ -1,16 +1,12 @@
 .toolbar {
-  @apply flex justify-between;
+  @apply flex;
   @apply mt-4 gap-x-4 lg:mt-4 lg:gap-x-5;
 }
 .tools {
   @apply flex h-full items-center;
 }
 .left {
-  @apply gap-2.5;
-}
-.title {
-  @apply text-h4 font-semibold lg:mt-0 lg:text-h2;
-  word-break: break-word;
+  @apply grow items-center gap-2.5;
 }
 .right {
   @apply gap-4 lg:gap-5;

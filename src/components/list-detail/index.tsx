@@ -11,6 +11,7 @@ import {SOCKET_EVENTS} from '@/data/socket/type';
 import {useStateAuth} from '@/states/auth';
 import useTodolist from '@/states/todolist/useTodolist';
 
+import ErrorInformation from '../common/404';
 import ListTask from './list-task';
 import styles from './style.module.scss';
 
@@ -19,7 +20,7 @@ export interface Iprops {
 }
 
 const ListDetail: FC<Iprops> = ({id}) => {
-  const {todolist, selectedTask, isOpenModal, write, owner, initial, setIsOpenModal, update} = useTodolist();
+  const {todolist, selectedTask, isOpenModal, write, assest, owner, initial, setIsOpenModal, update} = useTodolist();
   const auth = useStateAuth();
 
   const onClickFloatIcon = () => {
@@ -57,6 +58,8 @@ const ListDetail: FC<Iprops> = ({id}) => {
     initial(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (!assest) return <ErrorInformation />;
 
   if (!todolist) return null;
 

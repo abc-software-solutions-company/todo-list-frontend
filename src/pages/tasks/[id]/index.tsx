@@ -13,9 +13,10 @@ export {getStaticPaths, getStaticProps};
 export default function PageTask({task}: InferGetStaticPropsType<typeof getStaticProps>) {
   const {name, todolist} = task;
   const auth = useStateAuth();
+
   const assest = Boolean(task) ? todolist.visibility !== 'PRIVATE' || Boolean(auth && auth.id === todolist.userId) : false;
 
-  if (!name || !assest)
+  if (!assest)
     return (
       <>
         <Seo title={'Task Not Found'} />

@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import {FC} from 'react';
 
+import InputAutosize from '@/components/common/input-autosize';
 import Icon from '@/core-ui/icon';
+import api from '@/data/api';
 import useTodolist from '@/states/todolist/useTodolist';
 import {MUI_ICON} from '@/utils/mui-icon';
 
@@ -14,7 +16,11 @@ import ToolMenu from './tool-menu';
 const ToolbarDetail: FC = () => {
   const {todolist, write, owner, setIsOpenModal, setSelectedTask, update} = useTodolist();
 
-  const {name} = todolist;
+  const {id, name} = todolist;
+
+  const handleSave = (value: string) => {
+    api.todolist.update({id, name: value});
+  };
 
   const onAddTask = () => {
     setSelectedTask();
@@ -55,10 +61,8 @@ const ToolbarDetail: FC = () => {
   return (
     <div className={style.toolbar}>
       <div className={classNames(style.tools, style.left)}>
-        <div className={style.title}>
-          {name + ' '}
-          <FavoriteButton onSuccess={update} todolist={todolist} />
-        </div>
+        <FavoriteButton onSuccess={update} todolist={todolist} />
+        <InputAutosize value={name} handleSave={handleSave} />
       </div>
       <div className={classNames(style.tools, style.right)}>
         <Tool {...addTaskToolProps} className={style['tool-outer']} />
