@@ -2,7 +2,7 @@
   .box {
     @apply my-2;
     label {
-      @apply text-black;
+      @apply text-h5 font-semibold text-slate-700;
     }
     input {
       @apply p-4;
