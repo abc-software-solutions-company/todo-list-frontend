@@ -4,6 +4,8 @@ import {FC} from 'react';
 import DatePicker from '@/components/common/date-picker';
 import {IBaseProps} from '@/types';
 
+import Title from '../../../title';
+
 interface IProps extends IBaseProps {
   title: string;
   value: Date;
@@ -18,6 +20,7 @@ const PickDateTime: FC<IProps> = ({className, value, title, handleSave, readonly
 
   return (
     <div className={classNames(className)}>
+      <Title text={title} />
       <DatePicker
         title={title}
         value={value}

@@ -8,5 +8,8 @@
       @apply p-4;
       --tw-ring-shadow: 0 0 #000 !important;
     }
+    .MuiTextField-root {
+      font-family: inherit;
+    }
   }
 }

@@ -30,7 +30,7 @@ const DatePicker = ({value, onChange, readonly, title}: IDatePickerProp) => {
         readOnly={readonly}
         onChange={handleChange}
         onAccept={() => onChange(day?.toDate())}
-        renderInput={params => <TextField focused={false} {...params} />}
+        renderInput={params => <TextField sx={{fontFamily: 'inherit'}} focused={false} {...params} />}
       />
     </div>
   );
