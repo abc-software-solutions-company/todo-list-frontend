@@ -1,31 +1,32 @@
 import {FC, useEffect} from 'react';
 
-import api from '@/data/api';
-import {IKanbanColumn} from '@/states/kanban/types';
+import useTodolist from '@/states/todolist/use-todolist';
 
-import useKanban from './hooks';
-
-const Kanban: FC = () => {
-  const {columns, setColumns} = useKanban();
+interface IProps {
+  id: string;
+}
+const Kanban: FC<IProps> = ({id}) => {
+  const {todolist, initial} = useTodolist();
 
   useEffect(() => {
-    api.todolist.getOne({id: '1hjzi'}).then(res => {
-      if (res) setColumns(res.data.status as IKanbanColumn[]);
-    });
+    initial(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (!todolist) return null;
+  const columns = todolist.status;
+
   return (
-    <div className="grid auto-cols-fr grid-flow-col">
+    <div className="container my-5 grid auto-cols-fr grid-flow-col">
       {columns.length > 0 &&
         columns.map(status => {
           return (
             <div key={status.id}>
-              <div className="border">{status.name}</div>
+              <div className="border p-2 text-center">{status.name}</div>
               <div>
                 {status.tasks.map(task => {
                   return (
-                    <div key={task.id} className="border">
+                    <div key={task.id} className="border p-2 text-center">
                       {task.name}
                     </div>
                   );
