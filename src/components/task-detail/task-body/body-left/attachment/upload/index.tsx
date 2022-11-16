@@ -3,11 +3,11 @@ import {ManagedUpload, PutObjectRequest} from 'aws-sdk/clients/s3';
 import classNames from 'classnames';
 import {ChangeEvent, FC} from 'react';
 
-import useTask from '@/components/task-detail/hooks/use-task';
 import Button from '@/core-ui/button';
 import IconButton from '@/core-ui/icon-button';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
+import useTask from '@/states/task/use-task';
 import {IBaseProps} from '@/types';
 import {imageValid} from '@/utils/image-valid';
 

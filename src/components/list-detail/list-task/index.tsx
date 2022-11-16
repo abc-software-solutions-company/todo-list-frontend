@@ -9,7 +9,7 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
-import useTodolist from '@/states/todolist/useTodolist';
+import useTodolist from '@/states/todolist/use-todolist';
 
 const ListTask = () => {
   const {todolist, statusFilter, write, setTodolist} = useTodolist();

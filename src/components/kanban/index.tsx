@@ -12,6 +12,7 @@ const Kanban: FC = () => {
     api.todolist.getOne({id: '1hjzi'}).then(res => {
       if (res) setColumns(res.data.status as IKanbanColumn[]);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -4,7 +4,7 @@ import {FC} from 'react';
 import InputAutosize from '@/components/common/input-autosize';
 import Icon from '@/core-ui/icon';
 import api from '@/data/api';
-import useTodolist from '@/states/todolist/useTodolist';
+import useTodolist from '@/states/todolist/use-todolist';
 import {MUI_ICON} from '@/utils/mui-icon';
 
 import FavoriteButton from '../../common/favorite-button';

@@ -5,7 +5,7 @@ import socket from '@/data/socket';
 import {useStateAuth} from '@/states/auth';
 import LocalStorage from '@/utils/local-storage';
 
-import useTask from './hooks/use-task';
+import useTask from '../../states/task/use-task';
 import TaskBody from './task-body';
 import TaskToolbar from './task-toolbar';
 

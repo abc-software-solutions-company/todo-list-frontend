@@ -2,10 +2,10 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {MenuItem, Select, SelectChangeEvent, SelectProps} from '@mui/material';
 import {FC} from 'react';
 
-import useTask from '@/components/task-detail/hooks/use-task';
 import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
+import useTask from '@/states/task/use-task';
 import {Priorities, PriorityColors, PriorityIcons} from '@/utils/constant';
 
 const PrioritySelect: FC<SelectProps> = props => {

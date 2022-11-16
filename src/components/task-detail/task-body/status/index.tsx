@@ -7,7 +7,7 @@ import api from '@/data/api';
 import {socketUpdateList} from '@/data/socket';
 import {IBaseProps} from '@/types';
 
-import useTask from '../../hooks/use-task';
+import useTask from '../../../../states/task/use-task';
 import Title from '../title';
 import style from './style.module.scss';
 

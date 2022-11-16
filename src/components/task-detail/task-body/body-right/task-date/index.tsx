@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import {FC, HTMLAttributes} from 'react';
 
-import useTask from '@/components/task-detail/hooks/use-task';
 import api from '@/data/api';
+import useTask from '@/states/task/use-task';
 
 import PickDateTime from './pick-date-time';
 

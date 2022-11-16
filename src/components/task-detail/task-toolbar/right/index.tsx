@@ -10,7 +10,7 @@ import {socketUpdateList} from '@/data/socket';
 import {IBaseProps} from '@/types';
 import {MUI_ICON} from '@/utils/mui-icon';
 
-import useTask from '../../hooks/use-task';
+import useTask from '../../../../states/task/use-task';
 
 const Right: FC<IBaseProps> = ({className}) => {
   const router = useRouter();

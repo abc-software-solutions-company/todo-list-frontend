@@ -6,13 +6,13 @@ import {FC, MouseEvent, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 
 import PopUpImage from '@/components/common/popup-img';
-import useTask from '@/components/task-detail/hooks/use-task';
 import Button from '@/core-ui/button';
 import IconButton from '@/core-ui/icon-button';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {IAttachmentResponse} from '@/data/api/types/task.type';
+import useTask from '@/states/task/use-task';
 import {IBaseProps} from '@/types';
 import {getDate} from '@/utils/get-date';
 
