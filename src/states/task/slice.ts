@@ -5,7 +5,7 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 export type IAction = PayloadAction<{id: string}>;
 
 const taskSlice = createSlice({
-  name: 'post',
+  name: 'task',
   initialState: {
     task: {
       loading: false,

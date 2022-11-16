@@ -3,10 +3,12 @@ import React, {FC} from 'react';
 
 interface IProps {
   className?: string;
+  hidden?: boolean;
   onClick?: () => void;
 }
 
-const FloatIcon: FC<IProps> = ({className, onClick}) => {
+const FloatIcon: FC<IProps> = ({className, onClick, hidden}) => {
+  if (hidden) return null;
   return (
     <div className={classnames('abc-btn-float', className)} onClick={onClick}>
       <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,112 +1,75 @@
-import {FC, useState} from 'react';
+import {FC, useEffect} from 'react';
 
-import ErrorInformation from '@/components/common/404';
 import ToolbarDetail from '@/components/list-detail/toolbar';
 import ModalCreateUpdateList from '@/components/modal/modal-create-update-list';
 import ModalCreateUpdateTask from '@/components/modal/modal-create-update-task';
 import ModalDelete from '@/components/modal/modal-delete';
 import ModalShare from '@/components/modal/modal-share';
 import FloatIcon from '@/core-ui/float-icon';
-import {ITaskResponse} from '@/data/api/types/task.type';
-import {socketUpdateList} from '@/data/socket';
+import socket, {socketUpdateList} from '@/data/socket';
+import {SOCKET_EVENTS} from '@/data/socket/type';
+import {useStateAuth} from '@/states/auth';
+import useTodolist from '@/states/todolist/useTodolist';
 
-import useListDetail from './hook';
 import ListTask from './list-task';
 import styles from './style.module.scss';
 
 export interface Iprops {
   id: string;
 }
+
 const ListDetail: FC<Iprops> = ({id}) => {
-  const {setTodoList, todolist, auth, isReadOnly, updateList} = useListDetail({id});
-  const [filterValue, SetFilterValue] = useState(0);
-  const readonly = isReadOnly();
+  const {todolist, selectedTask, isOpenModal, write, owner, initial, setIsOpenModal, update} = useTodolist();
+  const auth = useStateAuth();
 
-  const [createUpdateListModal, setCreateUpdateListModal] = useState(false);
-  const [deleteListModal, setDeleteListModal] = useState(false);
-  const [shareListModal, setShareListModal] = useState(false);
-
-  const [selectedTask, setSelectedTask] = useState<ITaskResponse>();
-  const [createUpdateTaskModal, setCreateUpdateTaskModal] = useState(false);
-  const [deleteTaskModal, setDeleteTaskModal] = useState(false);
-
-  const onUpdateList = () => {
-    setCreateUpdateListModal(true);
-  };
-
-  const onDeleteList = () => {
-    setDeleteListModal(true);
-  };
-
-  const onShareList = () => {
-    setShareListModal(true);
-  };
-
-  const onCreateUpdateTask = (task?: ITaskResponse) => {
-    setSelectedTask(task);
-    setCreateUpdateTaskModal(true);
-  };
-
-  const onDeleteTask = (task: ITaskResponse) => {
-    setSelectedTask(task);
-    setDeleteTaskModal(true);
-  };
-
-  const isPrivate = () => {
-    if (todolist?.visibility === 'PRIVATE' && todolist.userId !== auth?.id) return true;
-    return false;
+  const onClickFloatIcon = () => {
+    setIsOpenModal('task');
   };
 
   const onClose = () => {
-    if (createUpdateListModal) setCreateUpdateListModal(false);
-    if (createUpdateTaskModal) setCreateUpdateTaskModal(false);
-    if (deleteListModal) setDeleteListModal(false);
-    if (shareListModal) setShareListModal(false);
-    if (deleteTaskModal) setDeleteTaskModal(false);
-    if (selectedTask) setSelectedTask(undefined);
+    setIsOpenModal(null);
   };
 
-  const onFilter = (e: number) => {
-    SetFilterValue(e);
-  };
-  const onSuccessFavorite = () => {
-    updateList();
-  };
+  useEffect(() => {
+    if (auth) {
+      socket.auth = {...auth, listID: id};
+      socket.connect();
+    }
 
-  if (!todolist || !id) return null;
+    socket.on(SOCKET_EVENTS.reconnect, attempt => {
+      console.log('SocketIO', SOCKET_EVENTS.reconnect, attempt);
+      update();
+    });
 
-  if (isPrivate()) {
-    return <ErrorInformation />;
-  }
-  const tasksData = todolist.tasks.filter(task => task.isActive && (!filterValue || task.statusId === filterValue));
+    socket.on(SOCKET_EVENTS.updateList, () => {
+      console.log('SocketIO', SOCKET_EVENTS.updateList);
+      update();
+    });
+
+    return () => {
+      socket.off(SOCKET_EVENTS.reconnect);
+      socket.off(SOCKET_EVENTS.updateList);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth]);
+
+  useEffect(() => {
+    initial(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (!todolist) return null;
 
   return (
     <div className={styles['list-detail']}>
       <div className="container">
-        <ToolbarDetail
-          todolist={todolist}
-          onEdit={() => onUpdateList()}
-          onDelete={() => onDeleteList()}
-          onShare={() => onShareList()}
-          onAddTask={() => onCreateUpdateTask()}
-          filterValue={filterValue}
-          onFilter={onFilter}
-          onSuccessFavorite={onSuccessFavorite}
-        />
-        <ListTask
-          list={todolist}
-          onCreateUpdateTask={onCreateUpdateTask}
-          onDeleteTask={onDeleteTask}
-          readonly={readonly}
-          setList={setTodoList}
-          tasksData={tasksData}
-        />
-        <ModalCreateUpdateList open={createUpdateListModal} onClose={onClose} data={todolist} onSuccess={socketUpdateList} />
-        <ModalDelete open={deleteListModal} onClose={onClose} data={selectedTask || todolist} onSuccess={socketUpdateList} />
-        <ModalShare open={shareListModal} onClose={onClose} data={todolist} />
-        <ModalCreateUpdateTask open={createUpdateTaskModal} onClose={onClose} listData={todolist} taskData={selectedTask} onSuccess={socketUpdateList} />
-        {selectedTask && <ModalDelete open={deleteTaskModal} onClose={onClose} data={selectedTask} onSuccess={socketUpdateList} />}
-        {!readonly && <FloatIcon className="float-icon" onClick={() => onCreateUpdateTask()} />}
+        <ToolbarDetail />
+        <ListTask />
+        <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />
+        <ModalCreateUpdateList open={isOpenModal.settings} onClose={onClose} data={todolist} onSuccess={socketUpdateList} hiddenVisibility={!owner} />
+        <ModalDelete open={isOpenModal.delete} onClose={onClose} data={selectedTask || todolist} onSuccess={socketUpdateList} />
+        <ModalShare open={isOpenModal.share} onClose={onClose} data={todolist} />
+        <ModalCreateUpdateTask open={isOpenModal.task} onClose={onClose} listData={todolist} taskData={selectedTask} onSuccess={socketUpdateList} />
       </div>
     </div>
   );

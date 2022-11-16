@@ -1,8 +1,8 @@
 import classNames from 'classnames';
+import {FC} from 'react';
 
 import Icon from '@/core-ui/icon';
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
-import {useStateAuth} from '@/states/auth';
+import useTodolist from '@/states/todolist/useTodolist';
 import {MUI_ICON} from '@/utils/mui-icon';
 
 import FavoriteButton from '../../common/favorite-button';
@@ -11,32 +11,23 @@ import Tool, {IToolProps} from './tool';
 import ToolFilter from './tool-filter';
 import ToolMenu from './tool-menu';
 
-interface IProp {
-  todolist: ITodolistResponse;
-  onEdit: () => void;
-  onDelete: () => void;
-  onShare: () => void;
-  onAddTask: () => void;
-  filterValue: number;
-  onFilter: (value: number) => void;
-  onSuccessFavorite: () => void;
-}
+const ToolbarDetail: FC = () => {
+  const {todolist, write, owner, setIsOpenModal, setSelectedTask, update} = useTodolist();
 
-export default function ToolbarDetail({todolist, filterValue, onEdit, onDelete, onShare, onAddTask, onFilter, onSuccessFavorite}: IProp) {
-  const {name, status, visibility, userId} = todolist;
-  const filterList = status.sort((a, b) => a.index - b.index);
-  const auth = useStateAuth();
-  const isInteractive = visibility === 'PUBLIC' || auth?.id === userId;
-  const isListOwner = () => {
-    if (visibility === 'READ_ONLY' && auth?.id === userId) return true;
-    if (visibility === 'PUBLIC' && auth?.id === userId) return true;
-    return false;
+  const {name} = todolist;
+
+  const onAddTask = () => {
+    setSelectedTask();
+    setIsOpenModal('task');
   };
+  const onDelete = () => setIsOpenModal('delete');
+  const onShare = () => setIsOpenModal('share');
+  const onSetting = () => setIsOpenModal('settings');
 
   const deleteToolProps: IToolProps = {
     icon: <Icon name="ico-trash-2" />,
     text: 'Delete',
-    hidden: !isListOwner(),
+    hidden: !owner,
     onClick: onDelete
   };
   const shareToolProps: IToolProps = {
@@ -47,14 +38,14 @@ export default function ToolbarDetail({todolist, filterValue, onEdit, onDelete, 
   const addTaskToolProps: IToolProps = {
     icon: <Icon name="ico-plus-circle" />,
     text: 'Add Task',
-    hidden: !isInteractive,
+    hidden: !write,
     onClick: onAddTask
   };
   const settingToolProps: IToolProps = {
     icon: <Icon name="ico-settings" />,
     text: 'Settings',
-    hidden: !isInteractive,
-    onClick: onEdit
+    hidden: !write,
+    onClick: onSetting
   };
 
   const toolMenuItems = [deleteToolProps, shareToolProps, addTaskToolProps, settingToolProps]
@@ -65,16 +56,17 @@ export default function ToolbarDetail({todolist, filterValue, onEdit, onDelete, 
     <div className={style.toolbar}>
       <div className={classNames(style.tools, style.left)}>
         <div className={style.title}>{name}</div>
-        <FavoriteButton onSuccess={onSuccessFavorite} todolist={todolist} />
+        <FavoriteButton onSuccess={update} todolist={todolist} />
       </div>
       <div className={classNames(style.tools, style.right)}>
         <Tool {...addTaskToolProps} className={style['tool-outer']} />
         <Tool {...deleteToolProps} className={style['tool-outer']} />
         <Tool {...shareToolProps} className={style['tool-outer']} />
-        <ToolFilter {...{filterValue, filterList, onFilter}} />
+        <ToolFilter />
         <Tool {...settingToolProps} className={style['tool-outer']} />
         <ToolMenu className="sm:hidden" items={toolMenuItems} icon={<MUI_ICON.MENU />} />
       </div>
     </div>
   );
-}
+};
+export default ToolbarDetail;
