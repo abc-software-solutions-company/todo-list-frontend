@@ -22,16 +22,19 @@ const Actions: FC<Iprops> = ({comment: {id, taskId}, onEdit, show}) => {
 
   const editButtonId = open ? 'simple-popover' : undefined;
 
+  const onCloseDelete = () => {
+    setAnchorEl(null);
+  };
+
   const handleDelete = () => {
-    api.task.update({id: taskId, comment: {update: {id, isActive: false}}}).then(update);
+    api.task
+      .update({id: taskId, comment: {update: {id, isActive: false}}})
+      .then(update)
+      .then(onCloseDelete);
   };
 
   const onDelete = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
-  };
-
-  const onCloseDelete = () => {
-    setAnchorEl(null);
   };
 
   if (!show || !write) return null;
