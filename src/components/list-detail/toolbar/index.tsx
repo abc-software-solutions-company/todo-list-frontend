@@ -55,8 +55,10 @@ const ToolbarDetail: FC = () => {
   return (
     <div className={style.toolbar}>
       <div className={classNames(style.tools, style.left)}>
-        <div className={style.title}>{name}</div>
-        <FavoriteButton onSuccess={update} todolist={todolist} />
+        <div className={style.title}>
+          {name + ' '}
+          <FavoriteButton onSuccess={update} todolist={todolist} />
+        </div>
       </div>
       <div className={classNames(style.tools, style.right)}>
         <Tool {...addTaskToolProps} className={style['tool-outer']} />
