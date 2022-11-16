@@ -1,10 +1,9 @@
-// .date-picker :global {
-//   .box {
-//     .MuiInputBase-input {
-//       @apply py-2 px-0;
-//     }
-//     .MuiOutlinedInput-notchedOutline {
-//       @apply focus:border-none;
-//     }
-//   }
-// }
+.date-picker :global {
+  .box {
+    @apply my-2;
+    input {
+      @apply p-4;
+      --tw-ring-shadow: 0 0 #000 !important;
+    }
+  }
+}

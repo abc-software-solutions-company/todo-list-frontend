@@ -9,9 +9,10 @@ interface IDatePickerProp {
   value: Date;
   onChange: (value?: Date) => void;
   readonly?: boolean;
+  title: string;
 }
 
-const DatePicker = ({value, onChange, readonly}: IDatePickerProp) => {
+const DatePicker = ({value, onChange, readonly, title}: IDatePickerProp) => {
   const [day, setDay] = useState<Dayjs | null>(dayjs(value));
 
   const handleChange = (newDay: Dayjs | null) => {
@@ -24,10 +25,11 @@ const DatePicker = ({value, onChange, readonly}: IDatePickerProp) => {
         className="box"
         inputFormat={'DD/MM/YYYY HH:MM'}
         value={day}
+        label={title}
         readOnly={readonly}
         onChange={handleChange}
         onAccept={() => onChange(day?.toDate())}
-        renderInput={params => <TextField {...params} />}
+        renderInput={params => <TextField focused={false} {...params} />}
       />
     </div>
   );
