@@ -1,10 +1,14 @@
-.date-picker :global {
-  .box {
-    .MuiInputBase-input {
-      @apply py-2 px-0;
+.date-time-picker :global {
+  .date-input {
+    @apply my-2;
+    label {
+      @apply text-h5 font-semibold text-slate-700;
     }
-    .MuiOutlinedInput-notchedOutline {
-      @apply border-none focus:border-none;
+    input {
+      @apply p-4 ring-0;
+    }
+    .MuiInputBase-root {
+      font-family: inherit;
     }
   }
 }

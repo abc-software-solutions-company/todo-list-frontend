@@ -104,7 +104,7 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
                   </Popover>
                   <button onClick={() => onDelete(e.id)}>Delete</button>
                   <button>
-                    <Link href={e.link}>Download Original Image</Link>
+                    <Link href={e.link}>Download</Link>
                   </button>
                 </div>
               )}

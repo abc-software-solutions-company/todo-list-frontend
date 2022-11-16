@@ -22,6 +22,7 @@ const PickDateTime: FC<IProps> = ({className, value, title, handleSave, readonly
     <div className={classNames(className)}>
       <Title text={title} />
       <DatePicker
+        title={title}
         value={value}
         readonly={readonly}
         onChange={date => {

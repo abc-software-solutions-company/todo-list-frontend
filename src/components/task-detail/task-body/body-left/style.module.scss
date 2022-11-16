@@ -10,7 +10,7 @@
   .description {
     .description-text {
       * {
-        @apply w-full break-words;
+        @apply break-words;
       }
       ul,
       ol {
@@ -18,7 +18,7 @@
         margin-left: 16px;
       }
       img {
-        @apply my-2 w-full;
+        @apply my-2;
       }
     }
     .edit-btn {
