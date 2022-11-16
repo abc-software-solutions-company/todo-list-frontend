@@ -30,12 +30,13 @@ const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
   const {isSubmitting} = formState;
 
   const submitHandler: SubmitHandler<IDescriptionForm> = formData => {
-    // replaceOnlineLinkToS3Link(formData.description);
-
+    // console.log(replaceOnlineLinkToS3Link(formData.description));
+    const data = replaceOnlineLinkToS3Link(formData.description);
+    data.then(res => {
+      console.log(res);
+    });
+    console.log('here');
     if (task) {
-      // formData.description = replaceOnlineLinkToS3Link(formData.description);
-      console.log(replaceOnlineLinkToS3Link(formData.description));
-
       api.task
         .update({id, ...formData})
         .then(update)

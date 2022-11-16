@@ -22,7 +22,9 @@ const nextConfig = {
       'strapiv4cms.stage.abcsoftwarecompany.com',
       'abc-cms-stage.s3.ap-southeast-1.amazonaws.com',
       'abc-cms-production.s3.ap-southeast-1.amazonaws.com',
-      'todo-list-website-production.s3.ap-southeast-1.amazonaws.com'
+      'todo-list-website-production.s3.ap-southeast-1.amazonaws.com',
+      'images.unsplash.com',
+      'plus.unsplash.com'
     ]
   },
   webpack: config => {
