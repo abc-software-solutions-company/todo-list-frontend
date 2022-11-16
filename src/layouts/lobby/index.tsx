@@ -8,7 +8,9 @@ import styles from './style.module.scss';
 export default function LobbyLayout({children}: React.PropsWithChildren<Record<string, unknown>>) {
   useEffect(() => {
     if (window !== undefined) {
-      document.getElementsByTagName('body')[0].classList.add("bg-[url('/image/bg-lobby.png')]", 'bg-cover', 'bg-center');
+      document
+        .getElementsByTagName('body')[0]
+        .classList.add("bg-[url('/image/bg-lobby-mobile.png')]", "sm:bg-[url('/image/bg-lobby.png')]", 'bg-cover', 'bg-center');
     }
   });
   return (
