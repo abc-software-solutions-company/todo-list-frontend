@@ -64,8 +64,10 @@ export default function ToolbarDetail({todolist, filterValue, onEdit, onDelete, 
   return (
     <div className={style.toolbar}>
       <div className={classNames(style.tools, style.left)}>
-        <div className={style.title}>{name}</div>
-        <FavoriteButton onSuccess={onSuccessFavorite} todolist={todolist} />
+        <div className={style.title}>
+          {name + ' '}
+          <FavoriteButton onSuccess={onSuccessFavorite} todolist={todolist} />
+        </div>
       </div>
       <div className={classNames(style.tools, style.right)}>
         <Tool {...addTaskToolProps} className={style['tool-outer']} />
