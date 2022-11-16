@@ -13,7 +13,7 @@ interface IDatePickerProp {
 }
 
 const DatePicker = ({value, onChange, readonly, title}: IDatePickerProp) => {
-  const [day, setDay] = useState<Dayjs | null>(dayjs(value));
+  const [day, setDay] = useState<Dayjs | null>(dayjs(value || new Date(Date.now)));
 
   const handleChange = (newDay: Dayjs | null) => {
     setDay(newDay);
@@ -24,6 +24,7 @@ const DatePicker = ({value, onChange, readonly, title}: IDatePickerProp) => {
       <DateTimePicker
         className="box"
         inputFormat={'DD/MM/YYYY HH:MM'}
+        showToolbar={true}
         value={day}
         label={title}
         readOnly={readonly}
