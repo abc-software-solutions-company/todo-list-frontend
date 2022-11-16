@@ -11,7 +11,6 @@ import {IGetTodolistPayloadAction} from './types';
 function* getTodolist({payload}: IGetTodolistPayloadAction) {
   try {
     const response: AxiosResponse<ITodolistResponse, any> = yield call(() => api.todolist.getOne(payload));
-    console.log(response);
     yield put(todolistSlice.actions.getTodolistSuccess(response.data));
   } catch (error) {
     yield put(todolistSlice.actions.getTodolistFailure(getErrorMessage(error)));
