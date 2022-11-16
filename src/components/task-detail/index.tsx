@@ -6,6 +6,7 @@ import {useStateAuth} from '@/states/auth';
 import LocalStorage from '@/utils/local-storage';
 
 import useTask from '../../states/task/use-task';
+import ErrorInformation from '../common/404';
 import TaskBody from './task-body';
 import TaskToolbar from './task-toolbar';
 
@@ -15,7 +16,7 @@ interface IProps {
 
 const TaskDetail: FC<IProps> = ({task: {id, todolistId}}) => {
   const auth = useStateAuth();
-  const {task, initial} = useTask();
+  const {task, assest, initial} = useTask();
 
   useEffect(() => {
     initial(id);
@@ -32,6 +33,8 @@ const TaskDetail: FC<IProps> = ({task: {id, todolistId}}) => {
   }, [auth]);
 
   if (!task) return null;
+
+  if (!assest) return <ErrorInformation />;
 
   return (
     <div className="sm:container">

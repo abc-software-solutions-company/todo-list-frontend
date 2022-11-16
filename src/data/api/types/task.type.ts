@@ -63,6 +63,7 @@ export interface ITaskCreate {
 
 export interface ITaskUpdate extends ITaskGet {
   name?: string;
+  index?: number;
   isDone?: boolean;
   priority?: string;
   storyPoint?: string;
@@ -81,10 +82,8 @@ export interface ITaskUpdate extends ITaskGet {
   statusId?: number;
 }
 
-export interface ITaskReindex {
-  taskFirstId?: string;
-  taskReorderId: string;
-  taskSecondId?: string;
+export interface ITaskReindexAll {
+  todolistId: string;
 }
 
 export interface ITaskResponse extends ITaskGet, IBaseResponse {
@@ -99,6 +98,7 @@ export interface ITaskResponse extends ITaskGet, IBaseResponse {
   startDate: Date;
   dueDate: Date;
   priority: string;
+  index: number;
   attachments: IAttachmentResponse[];
   comments: ICommentResponse[];
   todolist: ITodolistResponse;

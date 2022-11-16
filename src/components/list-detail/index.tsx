@@ -52,16 +52,15 @@ const ListDetail: FC<Iprops> = ({id}) => {
       socket.off(SOCKET_EVENTS.updateList);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth]);
+  }, [auth, todolist]);
 
   useEffect(() => {
     initial(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!assest) return <ErrorInformation />;
-
   if (!todolist) return null;
+  if (!assest) return <ErrorInformation />;
 
   return (
     <div className={styles['list-detail']}>
