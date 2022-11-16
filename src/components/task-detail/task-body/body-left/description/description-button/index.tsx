@@ -1,7 +1,7 @@
 import {FC} from 'react';
 
-import useTask from '@/components/task-detail/hooks/use-task';
 import Input from '@/core-ui/input';
+import useTask from '@/states/task/use-task';
 
 interface IDescriptionButtonProps {
   onClick: () => void;

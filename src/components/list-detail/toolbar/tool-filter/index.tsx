@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import {FC} from 'react';
 
 import Icon from '@/core-ui/icon';
-import useTodolist from '@/states/todolist/useTodolist';
+import useTodolist from '@/states/todolist/use-todolist';
 import {IBaseProps} from '@/types';
 
 import style from './style.module.scss';

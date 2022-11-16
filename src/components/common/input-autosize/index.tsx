@@ -19,7 +19,7 @@ export interface IProps extends IBaseProps {
   navive?: boolean;
 }
 
-const InputAutosize: FC<IProps> = ({className, value, handleSave, write, navive, placeholder}) => {
+const InputAutosize: FC<IProps> = ({className, value, handleSave, write = true, navive, placeholder}) => {
   const {register, setValue} = useForm<IInputAutosizeInputs>();
   useEffect(() => {
     setValue('text', value);

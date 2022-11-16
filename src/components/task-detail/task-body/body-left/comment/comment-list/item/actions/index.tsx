@@ -1,10 +1,10 @@
 import {ButtonBase, Popover} from '@mui/material';
 import {FC, MouseEvent, useState} from 'react';
 
-import useTask from '@/components/task-detail/hooks/use-task';
 import Button from '@/core-ui/button';
 import IconButton from '@/core-ui/icon-button';
 import api from '@/data/api';
+import useTask from '@/states/task/use-task';
 
 import {IItemProps} from '..';
 

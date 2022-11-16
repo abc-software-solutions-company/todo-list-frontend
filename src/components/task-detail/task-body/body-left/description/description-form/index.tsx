@@ -2,10 +2,10 @@ import dynamic from 'next/dynamic';
 import {FC} from 'react';
 import {Controller, SubmitHandler, UseFormReturn} from 'react-hook-form';
 
-import useTask from '@/components/task-detail/hooks/use-task';
 import Button from '@/core-ui/button';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
+import useTask from '@/states/task/use-task';
 import {syncAttachments} from '@/utils/sync-attachment';
 
 const Editor = dynamic(() => import('@/components/common/ckeditor'), {

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import {FC} from 'react';
 
-import useTask from '@/components/task-detail/hooks/use-task';
+import useTask from '@/states/task/use-task';
 import {IBaseProps} from '@/types';
 
 import Title from '../../title';

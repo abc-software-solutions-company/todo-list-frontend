@@ -8,7 +8,7 @@ import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 import api from '@/data/api';
 import {socketUpdateList} from '@/data/socket';
-import useTodolist from '@/states/todolist/useTodolist';
+import useTodolist from '@/states/todolist/use-todolist';
 import {MUI_ICON} from '@/utils/mui-icon';
 
 import Tool, {IToolProps} from '../../toolbar/tool';

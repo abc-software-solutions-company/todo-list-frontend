@@ -2,9 +2,9 @@ import {FC} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 
 import PopUpImageDangerous from '@/components/common/popup-img-dangerous';
-import useTask from '@/components/task-detail/hooks/use-task';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
+import useTask from '@/states/task/use-task';
 import {syncAttachments} from '@/utils/sync-attachment';
 
 import CommentForm from '../../../comment-form';
