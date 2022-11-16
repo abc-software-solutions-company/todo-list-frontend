@@ -2,7 +2,6 @@ import {API_ENDPOINTS} from '@/configs/endpoint.config';
 import http from '@/utils/http';
 
 import {IAuthLogin, IAuthResponse, IAuthUpdate, IUserResponse} from './types/auth.type';
-import {IFavoriteCreate, IFavoriteResponse, IFavoriteUpdate} from './types/favorite.type';
 import {ITaskCreate, ITaskGet, ITaskReindex, ITaskResponse, ITaskUpdate} from './types/task.type';
 import {IListCreate, IListGetOne, IListUpdate, ITodolistResponse} from './types/todolist.type';
 
@@ -26,10 +25,6 @@ const api = {
     create: (data: ITaskCreate) => http.post<ITaskResponse>(API_ENDPOINTS.TASK, data),
     update: (data: ITaskUpdate) => http.patch<ITaskResponse>(API_ENDPOINTS.TASK, data),
     reindex: (data: ITaskReindex) => http.patch(API_ENDPOINTS.TASK + '/reindex', data)
-  },
-  favorite: {
-    create: (data: IFavoriteCreate) => http.post<IFavoriteResponse>(API_ENDPOINTS.FAVORITE, data),
-    update: (data: IFavoriteUpdate) => http.patch<IFavoriteResponse>(API_ENDPOINTS.FAVORITE, data)
   }
 };
 
