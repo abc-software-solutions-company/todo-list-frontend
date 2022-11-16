@@ -1,6 +1,6 @@
 .comment-content :global {
   .content {
-    @apply max-w-[96%] break-words;
+    @apply break-words;
   }
   ul,
   ol {
@@ -8,6 +8,6 @@
     margin-left: 16px;
   }
   img {
-    @apply my-2 w-full max-w-[100%];
+    @apply my-2;
   }
 }
