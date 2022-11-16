@@ -26,7 +26,7 @@ const DatePicker = ({value, onChange, readonly, title}: IDatePickerProp) => {
         inputFormat={'DD/MM/YYYY HH:MM'}
         showToolbar={true}
         value={day || '14/11/2022 14:11'}
-        label={title}
+        toolbarTitle={title}
         readOnly={readonly}
         onChange={handleChange}
         onAccept={() => onChange(day?.toDate())}
