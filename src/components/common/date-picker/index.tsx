@@ -20,9 +20,9 @@ const DatePicker = ({value, onChange, readonly, title}: IDatePickerProp) => {
   };
 
   return (
-    <div className={style['date-picker']}>
+    <div className={style['date-time-picker']}>
       <DateTimePicker
-        className="box"
+        className="date-input"
         inputFormat={'DD/MM/YYYY HH:MM'}
         showToolbar={true}
         value={day || '14/11/2022 14:11'}
@@ -30,7 +30,7 @@ const DatePicker = ({value, onChange, readonly, title}: IDatePickerProp) => {
         readOnly={readonly}
         onChange={handleChange}
         onAccept={() => onChange(day?.toDate())}
-        renderInput={params => <TextField sx={{fontFamily: 'inherit'}} focused={false} {...params} />}
+        renderInput={params => <TextField focused={false} {...params} />}
       />
     </div>
   );

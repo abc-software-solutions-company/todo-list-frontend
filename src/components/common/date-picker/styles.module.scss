@@ -1,14 +1,13 @@
-.date-picker :global {
-  .box {
+.date-time-picker :global {
+  .date-input {
     @apply my-2;
     label {
       @apply text-h5 font-semibold text-slate-700;
     }
     input {
-      @apply p-4;
-      --tw-ring-shadow: 0 0 #000 !important;
+      @apply p-4 ring-0;
     }
-    .MuiTextField-root {
+    .MuiInputBase-root {
       font-family: inherit;
     }
   }
