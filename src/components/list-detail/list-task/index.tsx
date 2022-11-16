@@ -10,6 +10,7 @@ import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useTodolist from '@/states/todolist/use-todolist';
+import {IndexStep} from '@/utils/constant';
 
 const ListTask = () => {
   const {todolist, statusFilter, write, setTodolist} = useTodolist();
@@ -18,7 +19,7 @@ const ListTask = () => {
   const sensors = useSensorGroup();
   const modifiers = [restrictToVerticalAxis];
 
-  const tasks = todolist.tasks.filter(e => e.isActive && (!statusFilter || e.statusId == statusFilter));
+  const tasks = todolist.tasks.filter(e => e.isActive && (!statusFilter || e.statusId == statusFilter)).reverse();
 
   const onDragCancel = () => setActiveId(null);
   const onDragStart = ({active}: DragStartEvent) => {
@@ -31,20 +32,38 @@ const ListTask = () => {
       const taskList: ITaskResponse[] = todolist.tasks;
       const oldIndex = taskList?.findIndex(item => active.id === item.id);
       const newIndex = taskList?.findIndex(item => over.id === item.id);
-      const arrangeTask = arrayMove(todolist.tasks, oldIndex!, newIndex!);
+      const arrangeTask = arrayMove(todolist.tasks, oldIndex, newIndex);
       const newTodoList = {...todolist};
       newTodoList.tasks = arrangeTask;
       setTodolist(newTodoList as ITodolistResponse);
 
       arrangeTask.forEach((element, index) => {
         if (element.id === active.id) {
-          const taskFirstId = arrangeTask[index - 1]?.id;
-          const taskReorderId = arrangeTask[index].id!;
-          const taskSecondId = arrangeTask[index + 1]?.id;
+          let newTaskIndex: number | undefined;
+          let reindexAll = false;
+          const limitDifferenceIndex = 32;
+          const listIndex = tasks.map(e => e.index);
+          const maxIndex = Math.max(...listIndex);
+          const minIndex = Math.min(...listIndex);
+          const taskBefore = arrangeTask[index - 1];
+          const task = arrangeTask[index];
+          const taskAfter = arrangeTask[index + 1];
+          if (!taskBefore || !taskAfter) {
+            const taskNext = taskBefore || taskAfter;
+            if (taskNext.index == minIndex) newTaskIndex = Math.round(minIndex / 2);
+            if (taskNext.index == maxIndex) newTaskIndex = maxIndex + IndexStep;
+            if (newTaskIndex && newTaskIndex <= limitDifferenceIndex) reindexAll = true;
+          } else {
+            newTaskIndex = Math.round((taskBefore.index + taskAfter.index) / 2);
+            if (Math.abs(taskBefore.index - taskAfter.index) < limitDifferenceIndex * 2) reindexAll = true;
+          }
+
           api.task
-            .reindex({taskFirstId, taskReorderId, taskSecondId})
-            .then(socketUpdateList)
-            .catch(() => {});
+            .update({id: task.id, index: newTaskIndex})
+            .then(() => {
+              if (reindexAll) api.task.reindexAll({todolistId: todolist.id});
+            })
+            .then(socketUpdateList);
         }
       });
     }
