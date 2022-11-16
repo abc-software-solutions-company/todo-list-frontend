@@ -1,4 +1,4 @@
-import {DndContext, DragEndEvent, DragOverlay, UniqueIdentifier} from '@dnd-kit/core';
+import {DndContext, DragEndEvent, DragOverlay, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
 import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {useState} from 'react';
@@ -9,31 +9,32 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
+import useTodolist from '@/states/todolist/useTodolist';
 
-interface IProp {
-  list: ITodolistResponse;
-  setList: (list: ITodolistResponse) => void;
-  tasksData: ITaskResponse[];
-  readonly: boolean;
-  onCreateUpdateTask: (task: ITaskResponse) => void;
-  onDeleteTask: (task: ITaskResponse) => void;
-}
-
-const ListTask = ({list, setList, tasksData, readonly, onCreateUpdateTask, onDeleteTask}: IProp) => {
+const ListTask = () => {
+  const {todolist, statusFilter, write, setTodolist} = useTodolist();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const sensor = useSensorGroup();
 
-  function handleDragEnd({active, over}: DragEndEvent) {
+  const sensors = useSensorGroup();
+  const modifiers = [restrictToVerticalAxis];
+
+  const tasks = todolist.tasks.filter(e => e.isActive && (!statusFilter || e.statusId == statusFilter));
+
+  const onDragCancel = () => setActiveId(null);
+  const onDragStart = ({active}: DragStartEvent) => {
+    if (active) setActiveId(active.id);
+  };
+  function onDragEnd({active, over}: DragEndEvent) {
     setActiveId(null);
     if (!over) return;
     if (active.id !== over.id) {
-      const taskList: ITaskResponse[] = list!.tasks;
+      const taskList: ITaskResponse[] = todolist.tasks;
       const oldIndex = taskList?.findIndex(item => active.id === item.id);
       const newIndex = taskList?.findIndex(item => over.id === item.id);
-      const arrangeTask = arrayMove(list!.tasks, oldIndex!, newIndex!);
-      const newTodoList = {...list};
+      const arrangeTask = arrayMove(todolist.tasks, oldIndex!, newIndex!);
+      const newTodoList = {...todolist};
       newTodoList.tasks = arrangeTask;
-      setList(newTodoList as ITodolistResponse);
+      setTodolist(newTodoList as ITodolistResponse);
 
       arrangeTask.forEach((element, index) => {
         if (element.id === active.id) {
@@ -50,42 +51,19 @@ const ListTask = ({list, setList, tasksData, readonly, onCreateUpdateTask, onDel
   }
 
   return (
-    <>
-      <DndContext
-        sensors={sensor}
-        modifiers={[restrictToVerticalAxis]}
-        onDragCancel={() => setActiveId(null)}
-        onDragStart={({active}) => {
-          if (!active) {
-            return;
-          }
-          setActiveId(active.id);
-        }}
-        onDragEnd={handleDragEnd}
-      >
-        <div className="tasks">
-          {tasksData.length === 0 && <span className="empty">Empty list</span>}
-          {tasksData.length > 0 && (
-            <SortableContext disabled={readonly} items={tasksData.map(task => task.id!)} strategy={verticalListSortingStrategy}>
-              {tasksData.map(task => (
-                <TaskItem
-                  readonly={readonly}
-                  key={task.id}
-                  task={task}
-                  onEdit={() => onCreateUpdateTask(task)}
-                  onDelete={() => onDeleteTask(task)}
-                  statusList={list.status}
-                  isSelect={false}
-                />
-              ))}
-            </SortableContext>
-          )}
-          <DragOverlay>
-            {activeId ? <TaskItem readonly={readonly} statusList={list.status} task={tasksData.filter(e => e.id === activeId)[0]} isSelect={true} /> : null}
-          </DragOverlay>
-        </div>
-      </DndContext>
-    </>
+    <DndContext {...{sensors, modifiers, onDragCancel, onDragEnd, onDragStart}}>
+      <div className="tasks">
+        {tasks.length === 0 && <span className="empty">Empty list</span>}
+        {tasks.length > 0 && (
+          <SortableContext disabled={!write} items={tasks.map(task => task.id)} strategy={verticalListSortingStrategy}>
+            {tasks.map(task => (
+              <TaskItem key={task.id} task={task} />
+            ))}
+          </SortableContext>
+        )}
+        <DragOverlay>{activeId ? <TaskItem task={tasks.filter(e => e.id === activeId)[0]} isSelect={true} /> : null}</DragOverlay>
+      </div>
+    </DndContext>
   );
 };
 

@@ -14,7 +14,7 @@ import {IProps} from '.';
 
 interface IFormInputs {
   name: string;
-  visibility: keyof typeof Visibilities;
+  visibility?: keyof typeof Visibilities;
 }
 
 const Schema = yup.object().shape({
@@ -32,6 +32,7 @@ export default function useModalCreateUpdateList({onClose, onSuccess, data}: IPr
   const router = useRouter();
 
   const submitHandler: SubmitHandler<IFormInputs> = async formData => {
+    console.log('🚀 ~ file: hook.ts ~ line 35 ~ useModalCreateUpdateList ~ formData', formData);
     if (isSubmitting) return;
     const {name, visibility} = formData;
     let req;

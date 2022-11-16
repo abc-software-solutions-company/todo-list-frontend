@@ -13,6 +13,7 @@ export interface IListCreate {
 
 export interface IListUpdate extends IListGetOne {
   name?: string;
+  favorite?: boolean;
   isActive?: boolean;
   visibility?: keyof typeof Visibilities;
 }

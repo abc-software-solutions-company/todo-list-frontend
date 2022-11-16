@@ -7,25 +7,29 @@ import {ROUTES} from '@/configs/routes.config';
 import Checkbox from '@/core-ui/checkbox';
 import api from '@/data/api/index';
 import {ITaskResponse} from '@/data/api/types/task.type';
-import {IStatus} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
+import useTodolist from '@/states/todolist/useTodolist';
 
 import Actions from './actions';
 import style from './style.module.scss';
 
 export interface ITaskItemProps {
   task: ITaskResponse;
-  onEdit?: () => void;
-  onDelete?: () => void;
-  statusList: IStatus[];
-  isSelect: boolean;
-  readonly: boolean;
+  isSelect?: boolean;
 }
 
 export default function TaskItem(props: ITaskItemProps) {
-  const {task, statusList, isSelect, readonly} = props;
-  const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task!.id!});
-  statusList?.sort((a, b) => a.id - b.id);
+  const {write} = useTodolist();
+
+  const {task, isSelect} = props;
+
+  const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task.id});
+
+  const styleDnd = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1
+  };
 
   const setDone = (id: string, isDone: boolean) => {
     if (!id) return;
@@ -35,13 +39,10 @@ export default function TaskItem(props: ITaskItemProps) {
       .catch(() => {});
   };
 
-  const styleDnd = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1
-  };
-
   const router = useRouter();
+
+  const onChange = () => setDone(task.id, task.isDone);
+  const onClick = () => router.push(ROUTES.TASK + '/' + task.id);
 
   return (
     <div
@@ -62,8 +63,8 @@ export default function TaskItem(props: ITaskItemProps) {
         }
       }}
     >
-      <Checkbox checked={task?.isDone} onChange={() => setDone(task.id, task.isDone)} disabled={readonly} />
-      <p className={`h6 ${task.isDone ? 'checked' : ''}`} onClick={() => router.push(ROUTES.TASK + '/' + task.id)}>
+      <Checkbox checked={task?.isDone} onChange={onChange} disabled={!write} />
+      <p className={`h6 ${task.isDone ?? 'checked'}`} onClick={onClick}>
         {task.name}
       </p>
       <Actions {...props} />

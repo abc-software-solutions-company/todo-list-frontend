@@ -15,12 +15,14 @@ export interface IProps {
   open: boolean;
   onClose: () => void;
   onSuccess?: () => void;
+  hiddenVisibility?: boolean;
   data?: ITodolistResponse;
 }
 
-const ModalCreateUpdateList: FC<IProps> = prop => {
-  const {open, onClose, data} = prop;
-  const {onSubmit, register, errors, isSubmitting} = useModalCreateUpdateList(prop);
+const ModalCreateUpdateList: FC<IProps> = props => {
+  const {open, onClose, data, hiddenVisibility} = props;
+  const defaultValue = hiddenVisibility ? undefined : data?.visibility ? data.visibility : Visibilities.PUBLIC;
+  const {onSubmit, register, errors, isSubmitting} = useModalCreateUpdateList(props);
 
   return (
     <>
@@ -32,13 +34,8 @@ const ModalCreateUpdateList: FC<IProps> = prop => {
             </Modal.Header>
             <Modal.Body>
               <Input error={errors.name?.message} value={data?.name} autoFocus={true} placeholder={'Enter your list name'} {...register('name')} />
-              {data && (
-                <Select
-                  {...register('visibility')}
-                  className="input-type"
-                  defaultValue={data?.visibility ? data.visibility : Visibilities.PUBLIC}
-                  sx={{fontFamily: 'inherit', color: '#334155'}}
-                >
+              {data && !hiddenVisibility && (
+                <Select {...register('visibility')} className="input-type" defaultValue={defaultValue} sx={{fontFamily: 'inherit', color: '#334155'}}>
                   {Object.keys(Visibilities).map((key, idx) => {
                     return (
                       <MenuItem key={key} value={key} sx={{fontFamily: 'inherit'}}>

@@ -5,18 +5,19 @@ import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {getErrorMessage} from '@/utils/error-handle';
 
-import postSlice, {IAction} from './slice';
+import todolistSlice from './slice';
+import {IGetTodolistPayloadAction} from './types';
 
-function* getTodolist({payload}: IAction) {
+function* getTodolist({payload}: IGetTodolistPayloadAction) {
   try {
     const response: AxiosResponse<ITodolistResponse, any> = yield call(() => api.todolist.getOne(payload));
     console.log(response);
-    yield put(postSlice.actions.getTodolistSuccess(response.data));
+    yield put(todolistSlice.actions.getTodolistSuccess(response.data));
   } catch (error) {
-    yield put(postSlice.actions.getTodolistFailure(getErrorMessage(error)));
+    yield put(todolistSlice.actions.getTodolistFailure(getErrorMessage(error)));
   }
 }
 
 export default function* todolistSaga() {
-  yield all([takeLatest(postSlice.actions.getTodolistRequest, getTodolist)]);
+  yield all([takeLatest(todolistSlice.actions.getTodolistRequest, getTodolist)]);
 }
