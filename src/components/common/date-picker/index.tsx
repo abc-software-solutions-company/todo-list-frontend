@@ -10,12 +10,11 @@ interface IDatePickerProp {
   onChange: (value?: Date) => void;
   readonly?: boolean;
   title: string;
-  minDateTime: Date;
+  minDateTime?: Date;
 }
 
 const DatePicker = ({value, onChange, readonly, title, minDateTime}: IDatePickerProp) => {
   const [day, setDay] = useState<Dayjs | null>(dayjs(value));
-
   const handleChange = (newDay: Dayjs | null) => {
     setDay(newDay);
   };
@@ -29,7 +28,7 @@ const DatePicker = ({value, onChange, readonly, title, minDateTime}: IDatePicker
         value={day || '14/11/2022 14:11'}
         toolbarTitle={title}
         readOnly={readonly}
-        minDateTime={dayjs(minDateTime)}
+        minDateTime={dayjs(minDateTime || '14/11/1990 14:11')}
         onChange={handleChange}
         onAccept={() => onChange(day?.toDate())}
         renderInput={params => <TextField focused={false} {...params} />}

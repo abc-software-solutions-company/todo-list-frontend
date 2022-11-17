@@ -16,14 +16,7 @@ const TaskDate: FC<HTMLAttributes<HTMLDivElement>> = ({className}) => {
   };
   return (
     <div className={classNames('date', className)}>
-      <PickDateTime
-        minDateTime={task.startDate}
-        readonly={!write}
-        className="start-date"
-        title="Start Date"
-        value={task.startDate}
-        handleSave={handleSaveStartDate}
-      />
+      <PickDateTime readonly={!write} className="start-date" title="Start Date" value={task.startDate} handleSave={handleSaveStartDate} />
       <PickDateTime
         minDateTime={task.startDate}
         readonly={!write}
