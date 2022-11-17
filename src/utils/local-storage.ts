@@ -9,7 +9,6 @@ const LocalStorage = {
   accessToken: generateLocalStorage('accessToken'),
   listId: generateLocalStorage('listId'),
   previousPage: generateLocalStorage('previousPage'),
-  firebaseAuthData: generateLocalStorage('firebaseAuthData'),
-  anonymous: generateLocalStorage('anonymous')
+  firebaseAuthData: generateLocalStorage('firebaseAuthData')
 };
 export default LocalStorage;
