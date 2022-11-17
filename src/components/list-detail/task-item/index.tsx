@@ -63,8 +63,8 @@ export default function TaskItem(props: ITaskItemProps) {
         }
       }}
     >
-      <Checkbox checked={task?.isDone} onChange={onChange} disabled={!write} />
-      <p className={`h6 ${task.isDone ?? 'checked'}`} onClick={onClick}>
+      <Checkbox checked={task.isDone} onChange={onChange} disabled={!write} />
+      <p className={`h6 ${task.isDone && 'checked'}`} onClick={onClick}>
         {task.name}
       </p>
       <Actions {...props} />
