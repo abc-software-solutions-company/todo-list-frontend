@@ -50,20 +50,22 @@ const ListTask = () => {
           const taskAfter = arrangeTask[index + 1];
           if (!taskBefore || !taskAfter) {
             const taskNext = taskBefore || taskAfter;
-            if (taskNext.index == minIndex) newTaskIndex = Math.round(minIndex / 2);
-            if (taskNext.index == maxIndex) newTaskIndex = maxIndex + IndexStep;
+            const indexNext = Number(taskNext.index);
+            if (indexNext === minIndex) newTaskIndex = Math.round(minIndex / 2);
+            if (indexNext === maxIndex) newTaskIndex = maxIndex + IndexStep;
             if (newTaskIndex && newTaskIndex <= limitDifferenceIndex) reindexAll = true;
           } else {
-            newTaskIndex = Math.round((taskBefore.index + taskAfter.index) / 2);
+            const indexBefore = Number(taskBefore.index);
+            const indexAfter = Number(taskAfter.index);
+            newTaskIndex = Math.round((indexBefore + indexAfter) / 2);
             if (Math.abs(taskBefore.index - taskAfter.index) < limitDifferenceIndex * 2) reindexAll = true;
           }
 
-          api.task
-            .update({id: task.id, index: newTaskIndex})
-            .then(() => {
-              if (reindexAll) api.task.reindexAll({todolistId: todolist.id});
-            })
-            .then(socketUpdateList);
+          const resetIndex = () => {
+            if (reindexAll) api.task.reindexAll({todolistId: todolist.id});
+          };
+
+          api.task.update({id: task.id, index: newTaskIndex}).then(resetIndex).then(socketUpdateList);
         }
       });
     }
