@@ -6,6 +6,13 @@
     @apply col-span-2;
   }
 
+  .point {
+    @apply w-full lg:w-[65%];
+    textarea {
+      @apply pt-0;
+    }
+  }
+
   .divide {
     @apply border-b last:border-0;
   }
