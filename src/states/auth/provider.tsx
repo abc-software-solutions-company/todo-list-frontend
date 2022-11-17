@@ -42,17 +42,18 @@ const Authentication: FC<IProps> = ({children}) => {
           }
         })
         .catch(() => {
-          const isAnonymous = LocalStorage.anonymous.get();
-          if (!isAnonymous) {
-            api.auth.login({name: 'Anonymous'}).then(res => {
-              const {user} = res.data;
-              authDispatch(AuthActions.login(user));
-              LocalStorage.accessToken.set(res.data.accessToken);
-              LocalStorage.anonymous.set('yes');
-            });
-          } else {
-            router.push(ROUTES.LOGIN);
-          }
+          // const isAnonymous = LocalStorage.anonymous.get();
+          // if (!isAnonymous) {
+          //   api.auth.login({name: 'Anonymous'}).then(res => {
+          //     const {user} = res.data;
+          //     authDispatch(AuthActions.login(user));
+          //     LocalStorage.accessToken.set(res.data.accessToken);
+          //     LocalStorage.anonymous.set('yes');
+          //   });
+          // } else {
+          //   router.push(ROUTES.LOGIN);
+          // }
+          console.log(router.asPath);
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
