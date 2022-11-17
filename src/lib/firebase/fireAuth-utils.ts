@@ -10,7 +10,6 @@ const auth = getAuth();
 export class FireAuthUtils {
   saveAuthProfile = () => {
     auth.onAuthStateChanged(async user => {
-      LocalStorage.firebaseAuthData.set(JSON.stringify(user));
       if (user?.email) {
         const email = user.email;
         await api.auth
@@ -19,10 +18,6 @@ export class FireAuthUtils {
           .catch(() => {});
       }
     });
-  };
-
-  removeAuthProfile = () => {
-    LocalStorage.firebaseAuthData.remove();
   };
 
   signInWithGoogle = () => {
@@ -40,7 +35,7 @@ export class FireAuthUtils {
   signOutOfGoogle = () => {
     signOut(auth)
       .then(() => {
-        this.removeAuthProfile();
+        indexedDB.deleteDatabase('firebaseLocalStorageDb');
         LocalStorage.accessToken.remove();
         LocalStorage.previousPage.remove();
       })

@@ -3,7 +3,7 @@ import React, {FC, ReactNode, useEffect, useReducer} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
 import api from '@/data/api/index';
-// import useLoginHandler from '@/hooks/login/workflow/login-handler';
+import {anonymousAllow} from '@/utils/anonymous-allow';
 import LocalStorage from '@/utils/local-storage';
 
 import {AuthActions} from '.';
@@ -21,7 +21,6 @@ const Authentication: FC<IProps> = ({children}) => {
   const asPath = router.asPath;
   const isLoginPage = asPath.includes(ROUTES.LOGIN);
   const authDispatch = useDispatchAuth();
-  // const {loginSuccess} = useLoginHandler();
 
   let showPage = false;
   useEffect(() => {
@@ -42,16 +41,14 @@ const Authentication: FC<IProps> = ({children}) => {
           }
         })
         .catch(() => {
-          const isAnonymous = LocalStorage.anonymous.get();
-          if (!isAnonymous) {
+          const anonyAllow = anonymousAllow(asPath);
+          if (!anonyAllow) router.push(ROUTES.LOGIN);
+          if (anonyAllow) {
             api.auth.login({name: 'Anonymous'}).then(res => {
               const {user} = res.data;
               authDispatch(AuthActions.login(user));
               LocalStorage.accessToken.set(res.data.accessToken);
-              LocalStorage.anonymous.set('yes');
             });
-          } else {
-            router.push(ROUTES.LOGIN);
           }
         });
     }

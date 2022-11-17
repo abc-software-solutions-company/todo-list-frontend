@@ -1,3 +1,4 @@
+import {useRouter} from 'next/router';
 import {FC, useEffect} from 'react';
 
 import ToolbarDetail from '@/components/list-detail/toolbar';
@@ -20,6 +21,7 @@ export interface Iprops {
 }
 
 const ListDetail: FC<Iprops> = ({id}) => {
+  const router = useRouter();
   const {todolist, selectedTask, isOpenModal, write, assest, owner, initial, setIsOpenModal} = useTodolist();
   const auth = useStateAuth();
 
@@ -60,6 +62,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
   }, []);
 
   if (!todolist) return null;
+  if (!router.asPath.includes(todolist.id)) return null;
   if (!assest) return <ErrorInformation />;
 
   return (

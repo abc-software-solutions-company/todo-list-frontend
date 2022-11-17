@@ -1,7 +1,7 @@
 import {SelectChangeEvent} from '@mui/material';
 import classNames from 'classnames';
 import {useRouter} from 'next/router';
-import {FC} from 'react';
+import {FC, useEffect, useState} from 'react';
 
 import StatusSelect from '@/components/common/statusSelect';
 import {ROUTES} from '@/configs/routes.config';
@@ -18,6 +18,12 @@ import style from './style.module.scss';
 
 const Actions: FC<ITaskItemProps> = ({task}) => {
   const {todolist, write, setIsOpenModal, setSelectedTask} = useTodolist();
+  const [statusId, setStatusId] = useState(task.statusId);
+
+  useEffect(() => {
+    setStatusId(task.statusId);
+  }, [task.statusId]);
+
   const router = useRouter();
 
   const onDelete = () => {
@@ -30,7 +36,11 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
     setIsOpenModal('task');
   };
 
-  const onChange = (event: SelectChangeEvent<unknown>) => api.task.update({id: task.id, statusId: Number(event.target.value)}).then(socketUpdateList);
+  const onChange = (event: SelectChangeEvent<number>) => {
+    const newStatusId = Number(event.target.value);
+    setStatusId(newStatusId);
+    api.task.update({id: task.id, statusId: newStatusId}).then(socketUpdateList);
+  };
 
   const onDetail = (taskId: string) => router.push(ROUTES.TASK + '/' + taskId);
 
@@ -57,7 +67,7 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
 
   return (
     <div className={classNames('actions', style.actions)}>
-      <StatusSelect className="status" items={todolist.status} readOnly={!write} status={task.status} onChange={onChange} />
+      <StatusSelect className="status" id={statusId} list={todolist.status} readonly={!write} onChange={onChange} />
       {write && (
         <>
           <Tool {...editToolProps} className="tool-desktop" />

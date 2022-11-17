@@ -8,8 +8,6 @@ const generateLocalStorage = (name: string) => {
 const LocalStorage = {
   accessToken: generateLocalStorage('accessToken'),
   listId: generateLocalStorage('listId'),
-  previousPage: generateLocalStorage('previousPage'),
-  firebaseAuthData: generateLocalStorage('firebaseAuthData'),
-  anonymous: generateLocalStorage('anonymous')
+  previousPage: generateLocalStorage('previousPage')
 };
 export default LocalStorage;

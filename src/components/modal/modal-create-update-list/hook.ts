@@ -7,8 +7,9 @@ import * as yup from 'yup';
 import {ROUTES} from '@/configs/routes.config';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import useTodolist from '@/states/todolist/use-todolist';
 import {Visibilities} from '@/utils/constant';
-import iosAutoFocus from '@/utils/ios-autofocus';
 
 import {IProps} from '.';
 
@@ -22,6 +23,8 @@ const Schema = yup.object().shape({
 });
 
 export default function useModalCreateUpdateList({onClose, onSuccess, data}: IProps) {
+  const router = useRouter();
+  const {todolist, setTodolist} = useTodolist();
   const {handleSubmit, formState, reset, setValue, getValues, setFocus, ...rest} = useForm<IFormInputs>({
     resolver: yupResolver(Schema),
     mode: 'onChange'
@@ -29,35 +32,37 @@ export default function useModalCreateUpdateList({onClose, onSuccess, data}: IPr
 
   const {errors, isSubmitting} = formState;
   const toast = useToast();
-  const router = useRouter();
 
   const submitHandler: SubmitHandler<IFormInputs> = async formData => {
-    console.log('🚀 ~ file: hook.ts ~ line 35 ~ useModalCreateUpdateList ~ formData', formData);
     if (isSubmitting) return;
     const {name, visibility} = formData;
     let req;
-    if (data?.id) {
-      const {id} = data;
-      req = api.todolist.update({id, name, visibility}).then(() => {
-        toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
-      });
-    } else
+    if (!data) {
       req = api.todolist.create({name}).then(res => {
         toast.show({type: 'success', title: 'Create List', content: 'Successful!'});
         router.push(ROUTES.LIST + '/' + res.data.id);
       });
+    } else {
+      const {id} = data;
+      req = api.todolist.update({id, name, visibility}).then(() => {
+        if (router.asPath.includes(ROUTES.LIST)) {
+          const newTodolist: ITodolistResponse = JSON.parse(JSON.stringify(todolist));
+          newTodolist.name = name;
+          setTodolist(newTodolist);
+        }
+        toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
+      });
+    }
+
     req
       .then(onSuccess)
       .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}))
-      .finally(() => {
-        onClose();
-        reset();
-      });
+      .finally(() => reset());
+    onClose();
   };
 
   useEffect(() => {
     setValue('name', data?.name || '');
-    iosAutoFocus();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 

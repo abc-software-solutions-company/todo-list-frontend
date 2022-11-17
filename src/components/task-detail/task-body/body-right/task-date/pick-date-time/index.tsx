@@ -11,9 +11,10 @@ interface IProps extends IBaseProps {
   value: Date;
   handleSave: (date: Date) => void;
   readonly?: boolean;
+  minDateTime?: Date;
 }
 
-const PickDateTime: FC<IProps> = ({className, value, title, handleSave, readonly}) => {
+const PickDateTime: FC<IProps> = ({className, value, title, handleSave, readonly, minDateTime}) => {
   const onSave = (date?: Date) => {
     if (date) handleSave(date);
   };
@@ -28,6 +29,7 @@ const PickDateTime: FC<IProps> = ({className, value, title, handleSave, readonly
         onChange={date => {
           onSave(date);
         }}
+        minDateTime={minDateTime}
       />
     </div>
   );

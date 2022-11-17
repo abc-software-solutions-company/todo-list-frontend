@@ -1,6 +1,7 @@
 import {InferGetStaticPropsType} from 'next';
 import React from 'react';
 
+import PreLoadCKEditor from '@/components/common/ckeditor/preload';
 import Seo from '@/components/common/seo/seo';
 import TaskDetail from '@/components/task-detail';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/tasks.ssr';
@@ -17,6 +18,7 @@ export default function PageTask({task}: InferGetStaticPropsType<typeof getStati
 
   return (
     <>
+      <PreLoadCKEditor />
       {assest ? <Seo title={'Task ' + name} description={`Task ${name}`} /> : <Seo title={'Task Not Found'} />}
       <TaskDetail task={task} />
     </>
