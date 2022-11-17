@@ -1,28 +1,31 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import {MenuItem, Select, SelectProps} from '@mui/material';
+import {MenuItem, Select, SelectChangeEvent} from '@mui/material';
 import classNames from 'classnames';
-import {FC, forwardRef} from 'react';
+import {FC} from 'react';
 
 import {IStatus} from '@/data/api/types/todolist.type';
+import {IBaseProps} from '@/types';
 
-interface IProps extends SelectProps {
-  className?: string;
-  items: IStatus[];
-  status: IStatus;
+interface IProps extends IBaseProps {
+  id: number;
+  list: IStatus[];
+  onChange: (event: SelectChangeEvent<number>) => void;
+  readonly?: boolean;
 }
 
-const StatusSelect: FC<IProps> = forwardRef(({items, className, status, ...rest}, ref) => {
+const StatusSelect: FC<IProps> = ({id: statusId, list, className, onChange, readonly = false}) => {
+  const status = list.filter(e => e.id == statusId)[0] || list[0];
   return (
     <div className={classNames(className, 'text-h6')}>
       <Select
-        ref={ref}
-        {...rest}
         value={status.id}
+        onChange={onChange}
         IconComponent={KeyboardArrowDownIcon}
+        readOnly={readonly}
         sx={{color: '#FFFFFF', backgroundColor: status.color, fontFamily: 'inherit'}}
       >
-        {items.map(({id, name, color}) => {
+        {list.map(({id, name, color}) => {
           return (
             <MenuItem key={id} value={id} sx={{color, justifyContent: 'end', fontFamily: 'inherit', padding: '4px 16px'}}>
               <div className="relative">
@@ -39,7 +42,6 @@ const StatusSelect: FC<IProps> = forwardRef(({items, className, status, ...rest}
       </Select>
     </div>
   );
-});
-StatusSelect.displayName = 'StatusSelect';
+};
 
 export default StatusSelect;

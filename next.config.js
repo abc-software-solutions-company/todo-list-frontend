@@ -1,7 +1,7 @@
 const path = require('path');
 const withPlugins = require('next-compose-plugins');
 const CopyPlugin = require('copy-webpack-plugin');
-const { i18n } = require('./next-i18next.config');
+const {i18n} = require('./next-i18next.config');
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
@@ -9,7 +9,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   i18n,
   images: {
     domains: [
