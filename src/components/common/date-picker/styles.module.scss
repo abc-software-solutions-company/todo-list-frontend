@@ -1,13 +1,13 @@
 .date-time-picker :global {
   .date-input {
-    @apply my-2;
     label {
       @apply text-h5 font-semibold text-slate-700;
     }
     input {
-      @apply p-4 ring-0;
+      @apply p-2 ring-0;
     }
     .MuiInputBase-root {
+      @apply w-[80%] pr-3;
       font-family: inherit;
     }
   }

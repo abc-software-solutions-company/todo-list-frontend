@@ -4,6 +4,9 @@
     & > * {
       @apply last:col-span-2;
     }
+    .select {
+      @apply h-5;
+    }
   }
 
   .status {
@@ -36,7 +39,7 @@
   }
 
   .date {
-    @apply space-y-2;
+    @apply space-y-5;
     .date-value {
       @apply text-h7 text-slate-700;
     }

@@ -6,6 +6,10 @@
     @apply col-span-2;
   }
 
+  .point {
+    @apply w-[65%];
+  }
+
   .divide {
     @apply border-b last:border-0;
   }
