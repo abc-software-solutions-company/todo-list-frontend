@@ -34,24 +34,24 @@ export default function useModalCreateUpdateTask({onClose, onSuccess, listData, 
 
     const {name} = formData;
     let req: Promise<any>;
+    const newTodolist: ITodolistResponse = JSON.parse(JSON.stringify(todolist));
 
     if (!taskData) {
-      req = api.task.create({name, todolistId: listData.id}).then(() => {
+      req = api.task.create({name, todolistId: listData.id}).then(res => {
+        newTodolist.tasks.push(res.data);
         toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
       });
     } else {
       const {id} = taskData;
       req = api.task.update({id, name}).then(() => {
         if (router.asPath.includes(ROUTES.LIST) && todolist) {
-          const newTodolist: ITodolistResponse = JSON.parse(JSON.stringify(todolist));
           newTodolist.tasks.filter(e => e.id === id)[0].name = name;
-          setTodolist(newTodolist);
         }
         toast.show({type: 'success', title: 'Update To-Do', content: 'Successful!'});
       });
     }
-
     req
+      .then(() => setTodolist(newTodolist))
       .then(onSuccess)
       .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}))
       .finally(() => reset());
