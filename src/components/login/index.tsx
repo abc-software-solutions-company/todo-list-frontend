@@ -19,6 +19,8 @@ const Login: FC = () => {
   const dispatchAuth = useDispatchAuth();
   useEffect(() => {
     dispatchAuth(AuthActions.login(undefined));
+    // clear firebaseDB incase user try to delete accessToken via developer tool
+    indexedDB.deleteDatabase('firebaseLocalStorageDb');
     LocalStorage.accessToken.remove();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
