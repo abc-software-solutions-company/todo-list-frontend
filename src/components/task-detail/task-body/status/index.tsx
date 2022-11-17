@@ -17,8 +17,8 @@ interface StatusProps extends IBaseProps {
 
 const Status: FC<StatusProps> = ({className, noTitle}) => {
   const {task, write, update} = useTask();
-  const {id, status, todolist} = task;
-  const onChange = (event: SelectChangeEvent<unknown>) => {
+  const {id, statusId, todolist} = task;
+  const onChange = (event: SelectChangeEvent<number>) => {
     api.task
       .update({id, statusId: Number(event.target.value)})
       .then(update)
@@ -29,7 +29,7 @@ const Status: FC<StatusProps> = ({className, noTitle}) => {
   return (
     <div className={classNames('status', className)}>
       {!noTitle && <Title text="Status" />}
-      <StatusSelect className={style.status} status={status} items={todolist.status} onChange={onChange} readOnly={!write} />
+      <StatusSelect className={style.status} id={statusId} list={todolist.status} onChange={onChange} readonly={!write} />
     </div>
   );
 };
