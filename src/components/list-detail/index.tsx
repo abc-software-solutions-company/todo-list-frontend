@@ -20,7 +20,7 @@ export interface Iprops {
 }
 
 const ListDetail: FC<Iprops> = ({id}) => {
-  const {todolist, selectedTask, isOpenModal, write, assest, owner, initial, setIsOpenModal, update} = useTodolist();
+  const {todolist, selectedTask, isOpenModal, write, assest, owner, initial, setIsOpenModal} = useTodolist();
   const auth = useStateAuth();
 
   const onClickFloatIcon = () => {
@@ -39,12 +39,12 @@ const ListDetail: FC<Iprops> = ({id}) => {
 
     socket.on(SOCKET_EVENTS.reconnect, attempt => {
       console.log('SocketIO', SOCKET_EVENTS.reconnect, attempt);
-      update();
+      initial(id);
     });
 
     socket.on(SOCKET_EVENTS.updateList, () => {
       console.log('SocketIO', SOCKET_EVENTS.updateList);
-      update();
+      initial(id);
     });
 
     return () => {
@@ -52,7 +52,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
       socket.off(SOCKET_EVENTS.updateList);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth, todolist]);
+  }, [auth]);
 
   useEffect(() => {
     initial(id);
