@@ -6,10 +6,12 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 
 interface IItemProps {
   data: ITaskResponse;
+  disable?: boolean;
 }
-const Item: FC<IItemProps> = ({data}) => {
+const Item: FC<IItemProps> = ({data, disable = false}) => {
   const {id, name} = data;
-  const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id});
+  const sortAble = useSortable({id});
+  const {attributes, listeners, setNodeRef, transform, transition} = sortAble;
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -17,7 +19,7 @@ const Item: FC<IItemProps> = ({data}) => {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div ref={!disable ? setNodeRef : undefined} style={style} {...attributes} {...listeners}>
       <div className="rounded border bg-sky-300 py-3 text-center">{name}</div>
     </div>
   );
