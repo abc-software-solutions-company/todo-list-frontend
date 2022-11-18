@@ -23,15 +23,24 @@ const DatePicker = ({value, onChange, readonly, title, minDateTime}: IDatePicker
     <div className={style['date-time-picker']}>
       <DateTimePicker
         className="date-input"
-        inputFormat={'DD/MM/YYYY HH:MM'}
+        inputFormat={'MM/DD/YYYY HH:MM'}
         showToolbar={true}
-        value={day || '14/11/2022 14:11'}
+        value={day}
         toolbarTitle={title}
         readOnly={readonly}
         minDateTime={dayjs(minDateTime || '14/11/1990 14:11')}
         onChange={handleChange}
         onAccept={() => onChange(day?.toDate())}
-        renderInput={params => <TextField focused={false} {...params} />}
+        renderInput={params => (
+          <TextField
+            focused={false}
+            {...params}
+            inputProps={{
+              ...params.inputProps,
+              placeholder: 'None'
+            }}
+          />
+        )}
       />
     </div>
   );
