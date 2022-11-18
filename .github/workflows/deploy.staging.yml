@@ -1,3 +1,7 @@
+# Now Github Action Workflow is safety than before
+# If your code build failed, it will not stop your web application, your website will work normally
+# When Code build complete, Server will only restart (temporary down) in just one or few second
+# To improve your Web application quality after each build. I suggest to integrate E2E Test Headless like cypress or Unit test.
 name: Deploy to Staging
 
 on:
