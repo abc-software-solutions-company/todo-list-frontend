@@ -37,7 +37,7 @@ http.interceptors.response.use(
         window.location.href = ROUTES.LOGIN;
       }
     }
-    return Promise.reject(error).catch(err => console.log(err));
+    return Promise.reject(error);
   }
 );
 

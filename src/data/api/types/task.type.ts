@@ -77,6 +77,9 @@ export interface ITaskUpdate extends ITaskGet {
     create?: ICommentCreate;
     update?: ICommentUpdate;
   };
+  assignee?: {
+    email: string | null;
+  };
   description?: string;
   isActive?: boolean;
   statusId?: number;
@@ -85,6 +88,12 @@ export interface ITaskUpdate extends ITaskGet {
 export interface ITaskReindexAll {
   todolistId: string;
 }
+
+export interface ITaskUsers {
+  user: IUserResponse;
+}
+
+export type IAssignee = IUserResponse | null;
 
 export interface ITaskResponse extends ITaskGet, IBaseResponse {
   name: string;
@@ -101,6 +110,7 @@ export interface ITaskResponse extends ITaskGet, IBaseResponse {
   index: number;
   attachments: IAttachmentResponse[];
   comments: ICommentResponse[];
+  assignee: IAssignee;
   todolist: ITodolistResponse;
   isActive: boolean;
 }

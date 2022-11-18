@@ -11,6 +11,7 @@ import {socketUpdateList} from '@/data/socket';
 import useTodolist from '@/states/todolist/use-todolist';
 import {MUI_ICON} from '@/utils/mui-icon';
 
+import AssigneeIcon from '../../../common/assignee-icon';
 import Tool, {IToolProps} from '../../toolbar/tool';
 import ToolMenu from '../../toolbar/tool-menu';
 import {ITaskItemProps} from '..';
@@ -67,6 +68,7 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
 
   return (
     <div className={classNames('actions', style.actions)}>
+      <AssigneeIcon data={task.assignee} />
       <StatusSelect className="status" id={statusId} list={todolist.status} readonly={!write} onChange={onChange} />
       {write && (
         <>

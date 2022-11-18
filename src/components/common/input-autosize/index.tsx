@@ -12,14 +12,17 @@ export interface IInputAutosizeInputs {
 }
 
 export interface IProps extends IBaseProps {
-  value: string;
+  value?: string;
   handleSave: (text: string) => void;
+  autoFocus?: boolean;
+  onClick?: () => void;
+  onBlur?: (e: FocusEvent<HTMLTextAreaElement, Element>) => void;
   placeholder?: string;
   write?: boolean;
   navive?: boolean;
 }
 
-const InputAutosize: FC<IProps> = ({className, value, handleSave, write = true, navive, placeholder}) => {
+const InputAutosize: FC<IProps> = ({className, value = '', handleSave, write = true, navive, placeholder, onClick, onBlur: onBlurExtend, autoFocus}) => {
   const {register, setValue} = useForm<IInputAutosizeInputs>();
   useEffect(() => {
     setValue('text', value);
@@ -32,6 +35,7 @@ const InputAutosize: FC<IProps> = ({className, value, handleSave, write = true, 
 
   const onBlur = (e: FocusEvent<HTMLTextAreaElement, Element>) => {
     onSave(e.currentTarget.value as string);
+    onBlurExtend?.(e);
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -41,7 +45,6 @@ const InputAutosize: FC<IProps> = ({className, value, handleSave, write = true, 
     }
     if (e.key === 'Enter') {
       e.currentTarget.blur();
-      onSave(e.currentTarget.value as string);
     }
   };
 
@@ -50,9 +53,11 @@ const InputAutosize: FC<IProps> = ({className, value, handleSave, write = true, 
       className={classNames(className, navive ? '' : style['default-css'])}
       {...register('text', {value})}
       placeholder={placeholder}
+      onClick={onClick}
       onBlur={onBlur}
       onKeyDown={onKeyDown}
       readOnly={!write}
+      autoFocus={autoFocus}
     />
   );
 };
