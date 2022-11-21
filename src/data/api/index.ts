@@ -1,15 +1,19 @@
 import {API_ENDPOINTS} from '@/configs/endpoint.config';
 import http from '@/utils/http';
 
-import {IAuthLogin, IAuthResponse, IAuthUpdate, IUserResponse} from './types/auth.type';
+import {IAuthLogin, IAuthResponse, IAuthUpdate} from './types/auth.type';
 import {ITaskCreate, ITaskGet, ITaskReindexAll, ITaskResponse, ITaskUpdate} from './types/task.type';
 import {IListCreate, IListGetOne, IListUpdate, ITodolistResponse} from './types/todolist.type';
+import {IUserResponse} from './types/user.type';
 
 const api = {
   auth: {
     login: (data: IAuthLogin) => http.post<IAuthResponse>(API_ENDPOINTS.AUTH, data),
     verify: () => http.get<IUserResponse>(API_ENDPOINTS.AUTH + '/verify'),
     update: (data: IAuthUpdate) => http.patch<IUserResponse>(API_ENDPOINTS.AUTH, data)
+  },
+  user: {
+    getIndentify: () => http.get<IUserResponse[]>(API_ENDPOINTS.USER + '/identify')
   },
   todolist: {
     get: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST),

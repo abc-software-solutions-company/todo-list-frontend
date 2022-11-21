@@ -17,6 +17,11 @@
     .user {
       @apply flex gap-x-3;
     }
+    .MuiAutocomplete-root {
+      input {
+        @apply ring-0;
+      }
+    }
   }
 
   .priority {
