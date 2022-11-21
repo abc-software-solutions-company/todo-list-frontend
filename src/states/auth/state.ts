@@ -1,4 +1,4 @@
-import {IUserResponse} from '@/data/api/types/auth.type';
+import {IUserResponse} from '@/data/api/types/user.type';
 
 export type IState = IUserResponse | undefined;
 
