@@ -14,8 +14,13 @@
   }
 
   .assignee {
-    .user {
-      @apply flex gap-x-3;
+    .assignee-user {
+      @apply flex cursor-pointer items-center gap-2.5;
+    }
+    .MuiAutocomplete-root {
+      input {
+        @apply ring-0;
+      }
     }
   }
 

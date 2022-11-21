@@ -1,7 +1,7 @@
 import {IBaseResponse} from '@/types';
 
-import {IUserResponse} from './auth.type';
 import {IStatus, ITodolistResponse} from './todolist.type';
+import {IUserResponse} from './user.type';
 
 export interface IAttachment {
   name: string;
@@ -78,7 +78,8 @@ export interface ITaskUpdate extends ITaskGet {
     update?: ICommentUpdate;
   };
   assignee?: {
-    email: string | null;
+    add?: string[];
+    remove?: string[];
   };
   description?: string;
   isActive?: boolean;
@@ -92,8 +93,12 @@ export interface ITaskReindexAll {
 export interface ITaskUsers {
   user: IUserResponse;
 }
-
-export type IAssignee = IUserResponse | null;
+export interface IAssigneeResponse {
+  userId: string;
+  taskId: string;
+  user: IUserResponse;
+  isActive: boolean;
+}
 
 export interface ITaskResponse extends ITaskGet, IBaseResponse {
   name: string;
@@ -110,7 +115,7 @@ export interface ITaskResponse extends ITaskGet, IBaseResponse {
   index: number;
   attachments: IAttachmentResponse[];
   comments: ICommentResponse[];
-  assignee: IAssignee;
+  assignees: IAssigneeResponse[];
   todolist: ITodolistResponse;
   isActive: boolean;
 }

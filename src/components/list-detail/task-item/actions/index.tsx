@@ -9,6 +9,7 @@ import Icon from '@/core-ui/icon';
 import api from '@/data/api';
 import {socketUpdateList} from '@/data/socket';
 import useTodolist from '@/states/todolist/use-todolist';
+import {JoinerBgColos} from '@/utils/constant';
 import {MUI_ICON} from '@/utils/mui-icon';
 
 import AssigneeIcon from '../../../common/assignee-icon';
@@ -20,6 +21,12 @@ import style from './style.module.scss';
 const Actions: FC<ITaskItemProps> = ({task}) => {
   const {todolist, write, setIsOpenModal, setSelectedTask} = useTodolist();
   const [statusId, setStatusId] = useState(task.statusId);
+  const assignee = task.assignees.filter(e => e.isActive)[0];
+  const todolistAssignees = todolist.tasks
+    .map(e => e.assignees.filter(ele => ele.isActive)[0])
+    .filter(e => e)
+    .map(e => e.userId);
+  const bg = assignee ? JoinerBgColos[(todolistAssignees.indexOf(assignee.userId) + 1) % JoinerBgColos.length] : undefined;
 
   useEffect(() => {
     setStatusId(task.statusId);
@@ -68,7 +75,7 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
 
   return (
     <div className={classNames('actions', style.actions)}>
-      <AssigneeIcon data={task.assignee} />
+      {task.assignees.length > 0 && <AssigneeIcon data={assignee} bg={bg} />}
       <StatusSelect className="status" id={statusId} list={todolist.status} readonly={!write} onChange={onChange} />
       {write && (
         <>

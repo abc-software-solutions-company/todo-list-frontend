@@ -1,20 +1,24 @@
 import classNames from 'classnames';
-import {FC, HTMLAttributes} from 'react';
+import {FC, HTMLAttributes, ReactNode} from 'react';
 
-import {IAssignee} from '@/data/api/types/task.type';
-import {JoinerBgColos} from '@/utils/constant';
+import Icon from '@/core-ui/icon';
+import {IAssigneeResponse} from '@/data/api/types/task.type';
 import {shortName} from '@/utils/function';
 
+import style from './style.module.scss';
+
 interface IAssigneeIconProps extends HTMLAttributes<HTMLDivElement> {
-  data: IAssignee;
+  data: IAssigneeResponse;
+  bg?: string;
 }
 
-const AssigneeIcon: FC<IAssigneeIconProps> = ({data, ...rest}) => {
-  if (!data) return null;
-  const bg = JoinerBgColos[0];
-  const name = shortName(data.name);
+const AssigneeIcon: FC<IAssigneeIconProps> = ({data, bg = 'bg-slate-300', ...rest}) => {
+  let name: ReactNode = <Icon name="ico-plus" size={16} />;
+  if (data) {
+    name = shortName(data.user.name);
+  }
   return (
-    <div {...rest} className={classNames(bg, 'flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold text-white')}>
+    <div {...rest} className={classNames(bg, style['assignee-icon'])}>
       {name}
     </div>
   );
