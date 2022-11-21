@@ -68,7 +68,7 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
 
   return (
     <div className={classNames('actions', style.actions)}>
-      <AssigneeIcon data={task.assignee} />
+      {task.assignees.length > 0 && <AssigneeIcon data={task.assignees} />}
       <StatusSelect className="status" id={statusId} list={todolist.status} readonly={!write} onChange={onChange} />
       {write && (
         <>
