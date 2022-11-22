@@ -94,6 +94,8 @@ export interface ITaskUsers {
   user: IUserResponse;
 }
 export interface IAssigneeResponse {
+  userId: string;
+  taskId: string;
   user: IUserResponse;
   isActive: boolean;
 }
