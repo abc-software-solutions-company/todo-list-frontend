@@ -3,7 +3,7 @@ import http from '@/utils/http';
 
 import {IAuthLogin, IAuthResponse, IAuthUpdate} from './types/auth.type';
 import {ITaskCreate, ITaskGet, ITaskReindexAll, ITaskResponse, ITaskUpdate} from './types/task.type';
-import {IListCreate, IListGetOne, IListUpdate, ITodolistResponse} from './types/todolist.type';
+import {ITodolistCreate, ITodolistGetOne, ITodolistResponse, ITodolistUpdate} from './types/todolist.type';
 import {IUserResponse} from './types/user.type';
 
 const api = {
@@ -17,11 +17,11 @@ const api = {
   },
   todolist: {
     get: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST),
-    getOne: ({id}: IListGetOne) => http.get<ITodolistResponse>(API_ENDPOINTS.LIST + '/' + id),
+    getOne: ({id}: ITodolistGetOne) => http.get<ITodolistResponse>(API_ENDPOINTS.LIST + '/' + id),
     getByUser: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST + '/user'),
     getFavorite: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST + '/favorite'),
-    create: (data: IListCreate) => http.post<ITodolistResponse>(API_ENDPOINTS.LIST, data),
-    update: (data: IListUpdate) => http.patch<ITodolistResponse>(API_ENDPOINTS.LIST, data)
+    create: (data: ITodolistCreate) => http.post<ITodolistResponse>(API_ENDPOINTS.LIST, data),
+    update: (data: ITodolistUpdate) => http.patch<ITodolistResponse>(API_ENDPOINTS.LIST, data)
   },
   task: {
     get: () => http.get<ITaskResponse[]>(API_ENDPOINTS.TASK),

@@ -22,11 +22,8 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
   const {todolist, write, setIsOpenModal, setSelectedTask} = useTodolist();
   const [statusId, setStatusId] = useState(task.statusId);
   const assignee = task.assignees.filter(e => e.isActive)[0];
-  const todolistAssignees = todolist.tasks
-    .map(e => e.assignees.filter(ele => ele.isActive)[0])
-    .filter(e => e)
-    .map(e => e.userId);
-  const bg = assignee ? JoinerBgColos[(todolistAssignees.indexOf(assignee.userId) + 1) % JoinerBgColos.length] : undefined;
+  const idOptions = todolist.members.filter(e => e.isActive).map(e => e.userId);
+  const bg = assignee ? JoinerBgColos[(idOptions.indexOf(assignee.userId) + 1) % JoinerBgColos.length] : undefined;
 
   useEffect(() => {
     setStatusId(task.statusId);
