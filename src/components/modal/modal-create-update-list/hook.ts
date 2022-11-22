@@ -16,6 +16,7 @@ import {IProps} from '.';
 interface IFormInputs {
   name: string;
   visibility?: keyof typeof Visibilities;
+  member: {emails: string[]};
 }
 
 const Schema = yup.object().shape({
@@ -34,8 +35,9 @@ export default function useModalCreateUpdateList({onClose, onSuccess, data}: IPr
   const toast = useToast();
 
   const submitHandler: SubmitHandler<IFormInputs> = async formData => {
+    console.log('🚀 ~ file: hook.ts ~ line 37 ~ useModalCreateUpdateList ~ formData', formData);
     if (isSubmitting) return;
-    const {name, visibility} = formData;
+    const {name, visibility, member} = formData;
     let req;
     if (!data) {
       req = api.todolist.create({name}).then(res => {
@@ -44,7 +46,7 @@ export default function useModalCreateUpdateList({onClose, onSuccess, data}: IPr
       });
     } else {
       const {id} = data;
-      req = api.todolist.update({id, name, visibility}).then(() => {
+      req = api.todolist.update({id, name, visibility, member}).then(() => {
         if (router.asPath.includes(ROUTES.LIST)) {
           const newTodolist: ITodolistResponse = JSON.parse(JSON.stringify(todolist));
           newTodolist.name = name;
@@ -66,5 +68,5 @@ export default function useModalCreateUpdateList({onClose, onSuccess, data}: IPr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  return {onSubmit: handleSubmit(submitHandler), errors, isSubmitting, ...rest};
+  return {onSubmit: handleSubmit(submitHandler), errors, isSubmitting, setValue, ...rest};
 }
