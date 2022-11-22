@@ -20,7 +20,17 @@ const DatePicker = ({value, onChange, readonly, title, minDateTime}: IDatePicker
   const handleChange = (newDay: Dayjs | null) => {
     setDay(newDay);
   };
-
+  const onBlur = (e: any) => {
+    if (!e.relatedTarget) {
+      setActive(false);
+    }
+  };
+  const onFocus = () => {
+    setActive(true);
+  };
+  const onClose = () => {
+    setActive(false);
+  };
   const placeholderChange = () => {
     return active ? 'MM/DD/YYYY' : 'None';
   };
@@ -36,16 +46,13 @@ const DatePicker = ({value, onChange, readonly, title, minDateTime}: IDatePicker
         readOnly={readonly}
         minDateTime={dayjs(minDateTime || '14/11/1990 14:11')}
         onChange={handleChange}
+        onClose={onClose}
         onAccept={() => onChange(day?.toDate())}
         renderInput={params => (
           <TextField
-            onBlur={() => {
-              setActive(false);
-            }}
-            onClick={() => {
-              setActive(true);
-            }}
             focused={false}
+            onBlur={e => onBlur(e)}
+            onFocus={() => onFocus()}
             {...params}
             inputProps={{
               ...params.inputProps,

@@ -11,7 +11,7 @@
       font-family: inherit;
     }
     .MuiIconButton-root {
-      @apply hidden;
+      @apply invisible;
     }
     fieldset {
       border-color: #bfc0c1 !important;
@@ -19,7 +19,7 @@
   }
   .active {
     .MuiIconButton-root {
-      @apply block;
+      @apply visible;
     }
   }
 }
