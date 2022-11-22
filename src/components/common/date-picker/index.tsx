@@ -13,27 +13,21 @@ interface IDatePickerProp {
   minDateTime?: Date;
 }
 
-function useOutsideAlerter(ref) {
+const useOutsideAlerter = (ref: any) => {
   useEffect(() => {
-    /**
-     * Alert if clicked on outside of element
-     */
-    function handleClickOutside(event) {
+    const handleClickOutside = (event: Event) => {
       if (ref.current && !ref.current.contains(event.target)) {
         alert('You clicked outside of me!');
       } else {
         alert('You click inside of me');
       }
-    }
-
-    // Bind the event listener
+    };
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      // Unbind the event listener on clean up
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [ref]);
-}
+};
 
 const DatePicker = ({value, onChange, readonly, title, minDateTime}: IDatePickerProp) => {
   const [day, setDay] = useState<Dayjs | null>(dayjs(value));
@@ -44,10 +38,7 @@ const DatePicker = ({value, onChange, readonly, title, minDateTime}: IDatePicker
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
   return (
-    <div className={style['date-time-picker']}>
-      <div ref={wrapperRef}>
-        <p>Testting</p>
-      </div>
+    <div className={style['date-time-picker']} ref={wrapperRef}>
       <DateTimePicker
         className="date-input"
         inputFormat={'MM/DD/YYYY HH:MM'}
