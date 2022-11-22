@@ -1,10 +1,9 @@
 import {Autocomplete, Box, TextField} from '@mui/material';
 import classNames from 'classnames';
-import {FC, FocusEvent, useEffect, useState} from 'react';
+import {FC, FocusEvent, useState} from 'react';
 
 import AssigneeIcon from '@/components/common/assignee-icon';
 import api from '@/data/api';
-import {IUserResponse} from '@/data/api/types/user.type';
 import useTask from '@/states/task/use-task';
 import {IBaseProps} from '@/types';
 import {JoinerBgColos} from '@/utils/constant';
@@ -14,15 +13,11 @@ import Title from '../../title';
 const Assignee: FC<IBaseProps> = ({className}) => {
   const {task, update} = useTask();
   const {id, assignees} = task;
-  const userHasBeen = assignees.map(e => e.user.id);
+  const options = task.todolist.members.filter(e => e.isActive).map(e => e.user);
   const assignee = assignees.filter(e => e.isActive)[0];
-  const todolistAssignees = task.todolist.tasks
-    .map(e => e.assignees.filter(ele => ele.isActive)[0])
-    .filter(e => e)
-    .map(e => e.userId);
-  const bg = assignee ? JoinerBgColos[(todolistAssignees.indexOf(assignee.userId) + 1) % JoinerBgColos.length] : undefined;
+  const idOptions = options.map(e => e.id);
+  const bg = assignee ? JoinerBgColos[(idOptions.indexOf(assignee.userId) + 1) % JoinerBgColos.length] : undefined;
   const [isEdting, setEditing] = useState(false);
-  const [options, setOptions] = useState<IUserResponse[]>([]);
 
   const onClick = () => setEditing(true);
   const onClose = () => setEditing(false);
@@ -33,15 +28,6 @@ const Assignee: FC<IBaseProps> = ({className}) => {
       api.task.update({id, assignee: {add: [email]}}).then(update);
     }
   };
-
-  useEffect(() => {
-    api.user.getIndentify().then(res => {
-      if (res && res.status == 200) {
-        setOptions(res.data.sort(a => (userHasBeen.includes(a.id) ? -1 : 1)));
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className={classNames('assignee', className)}>
