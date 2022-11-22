@@ -10,4 +10,11 @@
   img {
     @apply my-2;
   }
+  table {
+    @apply prose border-collapse;
+    th,
+    td {
+      @apply border px-2;
+    }
+  }
 }

@@ -10,5 +10,16 @@
       @apply w-[85%] pr-3;
       font-family: inherit;
     }
+    .MuiIconButton-root {
+      @apply invisible;
+    }
+    fieldset {
+      border-color: #bfc0c1 !important;
+    }
+  }
+  .active {
+    .MuiIconButton-root {
+      @apply visible;
+    }
   }
 }
