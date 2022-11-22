@@ -1,7 +1,7 @@
 import TextField from '@mui/material/TextField';
 import {DateTimePicker} from '@mui/x-date-pickers';
 import dayjs, {Dayjs} from 'dayjs';
-import {useState} from 'react';
+import {FocusEvent, useState} from 'react';
 
 import style from './styles.module.scss';
 
@@ -20,7 +20,7 @@ const DatePicker = ({value, onChange, readonly, title, minDateTime}: IDatePicker
   const handleChange = (newDay: Dayjs | null) => {
     setDay(newDay);
   };
-  const onBlur = (e: any) => {
+  const onBlur = (e: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
     if (!e.relatedTarget) {
       setActive(false);
     }
@@ -51,8 +51,8 @@ const DatePicker = ({value, onChange, readonly, title, minDateTime}: IDatePicker
         renderInput={params => (
           <TextField
             focused={false}
-            onBlur={e => onBlur(e)}
-            onFocus={() => onFocus()}
+            onBlur={onBlur}
+            onFocus={onFocus}
             {...params}
             inputProps={{
               ...params.inputProps,
