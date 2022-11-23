@@ -52,6 +52,7 @@ const Assignee: FC<IBaseProps> = ({className}) => {
           getOptionLabel={option => (option as any).name}
           open={true}
           onBlur={onClose}
+          fullWidth={true}
           renderInput={params => {
             return <TextField {...params} placeholder="Search People" autoFocus className="ring-0" />;
           }}
@@ -59,9 +60,9 @@ const Assignee: FC<IBaseProps> = ({className}) => {
             return (
               <Box component="li" {...props} onClick={() => onSelect(option.email || '')}>
                 <br />
-                <div className="flex gap-x-8">
+                <div className="flex w-full justify-between gap-x-8">
                   <div className="name">{option.email?.includes(auth?.email || '  ') ? `${option.name} (Assign to me)` : option.name}</div>
-                  <div className="active">{assignee?.user.email === option.email && '✅'}</div>
+                  <div className="active">{assignee?.user.email === option.email && <div className="ico-check text-base text-blue-700"></div>}</div>
                 </div>
               </Box>
             );
