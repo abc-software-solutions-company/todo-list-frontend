@@ -47,7 +47,6 @@ const Assignee: FC<IBaseProps> = ({className}) => {
     const assignToMeIndex = options.findIndex(e => e.email == auth?.email);
     return arrayMove(options, assignToMeIndex, 1);
   };
-
   return (
     <div className={classNames('assignee', className)}>
       <Title text="Assignee" />
@@ -64,9 +63,9 @@ const Assignee: FC<IBaseProps> = ({className}) => {
           renderOption={(props, option) => {
             return (
               <Box component="li" {...props}>
-                {option.email !== 'null' && option.email}
                 <br />
                 {option.email?.includes(auth?.email || '  ') ? `${option.name} (Assign to me)` : option.name}
+                {assignee?.user.email === option.email && '✅'}
               </Box>
             );
           }}
