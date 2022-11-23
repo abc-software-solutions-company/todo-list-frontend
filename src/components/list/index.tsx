@@ -83,7 +83,7 @@ export default function List() {
           <div className="my-list">
             <div className="toolbar">
               <div className="left">
-                <ListTitle tilte="MY LIST" />
+                <ListTitle tilte="MY LISTS" />
               </div>
               <div className="right">
                 <Button className="btn-create-new" startIcon={<Icon name="ico-plus-circle" size={28} />} onClick={() => onCreateUpdate()}>
