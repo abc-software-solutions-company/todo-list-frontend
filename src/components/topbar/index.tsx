@@ -50,7 +50,7 @@ const Topbar: FC<IProps> = ({className}) => {
             <Back visibleOn={['/list', '/list/[id]', '/tasks/[id]']} currentPage={currentPage} onClick={() => returnTo(currentPage)} />
             <div className="authenticated">
               <Link href={ROUTES.LIST}>
-                <a className="h2 text">My List</a>
+                <a className="h2 text">My Lists</a>
               </Link>
               {/* Seperator line */}
               <span className="sep"></span>

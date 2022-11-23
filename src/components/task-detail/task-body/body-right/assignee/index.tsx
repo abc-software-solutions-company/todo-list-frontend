@@ -18,12 +18,11 @@ const Assignee: FC<IBaseProps> = ({className}) => {
   const {id, assignees} = task;
   const options = task.todolist.members.filter(e => e.isActive).map(e => e.user);
   const assignee = assignees.filter(e => e.isActive)[0];
-  if (assignee)
-    options.unshift({
-      email: 'null',
-      name: 'UnAssigned',
-      id: 'unassigned'
-    });
+  options.unshift({
+    email: 'null',
+    name: 'UnAssigned',
+    id: 'unassigned'
+  });
   const idOptions = options.map(e => e.id);
   const bg = assignee ? JoinerBgColos[(idOptions.indexOf(assignee.userId) + 1) % JoinerBgColos.length] : undefined;
   const [isEdting, setEditing] = useState(false);
@@ -41,6 +40,7 @@ const Assignee: FC<IBaseProps> = ({className}) => {
     const assignToMeIndex = options.findIndex(e => e.email == auth?.email);
     return arrayMove(options, assignToMeIndex, 0);
   };
+  const optionChecked = <div className="ico-check text-base font-extrabold text-blue-700"></div>;
   return (
     <div className={classNames('assignee', className)}>
       <Title text="Assignee" />
@@ -49,9 +49,10 @@ const Assignee: FC<IBaseProps> = ({className}) => {
           disablePortal
           options={optionAssignToMe()}
           noOptionsText={'Searching...'}
-          getOptionLabel={option => (option as any).email}
+          getOptionLabel={option => (option as any).name}
           open={true}
           onBlur={onClose}
+          fullWidth={true}
           renderInput={params => {
             return <TextField {...params} placeholder="Search People" autoFocus className="ring-0" />;
           }}
@@ -59,9 +60,12 @@ const Assignee: FC<IBaseProps> = ({className}) => {
             return (
               <Box component="li" {...props} onClick={() => onSelect(option.email || '')}>
                 <br />
-                <div className="flex gap-x-8">
+                <div className="flex w-full justify-between gap-x-8">
                   <div className="name">{option.email?.includes(auth?.email || '  ') ? `${option.name} (Assign to me)` : option.name}</div>
-                  <div className="active">{assignee?.user.email === option.email && '✅'}</div>
+                  <div className="active">
+                    {assignee?.user.email === option.email && optionChecked}
+                    {!assignee && option.email == 'null' && optionChecked}
+                  </div>
                 </div>
               </Box>
             );
