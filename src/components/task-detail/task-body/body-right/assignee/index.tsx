@@ -32,18 +32,14 @@ const Assignee: FC<IBaseProps> = ({className}) => {
   const onClose = () => setEditing(false);
   const onSelect = (email: string) => {
     onClose();
-    if (email.length > 5) {
-      api.task.update({id, assignee: {add: [email]}}).then(update);
-    }
-    if (email === 'null') {
-      api.task.update({id, assignee: {remove: ['']}}).then(update);
-    }
+    if (email.length > 5) api.task.update({id, assignee: {add: [email]}}).then(update);
+    if (email === 'null') api.task.update({id, assignee: {remove: ['']}}).then(update);
   };
 
   const optionAssignToMe = () => {
     if (options.length == 0) return [];
     const assignToMeIndex = options.findIndex(e => e.email == auth?.email);
-    return arrayMove(options, assignToMeIndex, 1);
+    return arrayMove(options, assignToMeIndex, 0);
   };
   return (
     <div className={classNames('assignee', className)}>
@@ -51,19 +47,22 @@ const Assignee: FC<IBaseProps> = ({className}) => {
       {isEdting ? (
         <Autocomplete
           disablePortal
-          freeSolo
           options={optionAssignToMe()}
+          noOptionsText={'Searching...'}
           getOptionLabel={option => (option as any).email}
           open={true}
+          onBlur={onClose}
           renderInput={params => {
-            return <TextField {...params} label="User" autoFocus className="ring-0" />;
+            return <TextField {...params} placeholder="Search People" autoFocus className="ring-0" />;
           }}
           renderOption={(props, option) => {
             return (
               <Box component="li" {...props} onClick={() => onSelect(option.email || '')}>
                 <br />
-                {option.email?.includes(auth?.email || '  ') ? `${option.name} (Assign to me)` : option.name}
-                {assignee?.user.email === option.email && '✅'}
+                <div className="flex gap-x-8">
+                  <div className="name">{option.email?.includes(auth?.email || '  ') ? `${option.name} (Assign to me)` : option.name}</div>
+                  <div className="active">{assignee?.user.email === option.email && '✅'}</div>
+                </div>
               </Box>
             );
           }}
