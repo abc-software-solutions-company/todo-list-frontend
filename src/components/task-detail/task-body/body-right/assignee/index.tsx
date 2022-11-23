@@ -1,9 +1,11 @@
+import {arrayMove} from '@dnd-kit/sortable';
 import {Autocomplete, Box, TextField} from '@mui/material';
 import classNames from 'classnames';
 import {FC, FocusEvent, useState} from 'react';
 
 import AssigneeIcon from '@/components/common/assignee-icon';
 import api from '@/data/api';
+import {useStateAuth} from '@/states/auth';
 import useTask from '@/states/task/use-task';
 import {IBaseProps} from '@/types';
 import {JoinerBgColos} from '@/utils/constant';
@@ -11,6 +13,7 @@ import {JoinerBgColos} from '@/utils/constant';
 import Title from '../../title';
 
 const Assignee: FC<IBaseProps> = ({className}) => {
+  const auth = useStateAuth();
   const {task, update} = useTask();
   const {id, assignees} = task;
   const options = task.todolist.members.filter(e => e.isActive).map(e => e.user);
@@ -29,6 +32,12 @@ const Assignee: FC<IBaseProps> = ({className}) => {
     }
   };
 
+  const optionAssignToMe = () => {
+    if (options.length == 0) return [];
+    const assignToMeIndex = options.findIndex(e => e.email == auth?.email);
+    return arrayMove(options, assignToMeIndex, 0);
+  };
+
   return (
     <div className={classNames('assignee', className)}>
       <Title text="Assignee" />
@@ -36,7 +45,7 @@ const Assignee: FC<IBaseProps> = ({className}) => {
         <Autocomplete
           disablePortal
           freeSolo
-          options={options}
+          options={optionAssignToMe()}
           getOptionLabel={option => (option as any).email}
           onBlur={onClose}
           renderInput={params => {
@@ -47,7 +56,7 @@ const Assignee: FC<IBaseProps> = ({className}) => {
               <Box component="li" {...props}>
                 {option.email}
                 <br />
-                {option.name}
+                {option.email?.includes(auth?.email || '') ? `${option.name} (Assign to me)` : option.name}
               </Box>
             );
           }}
