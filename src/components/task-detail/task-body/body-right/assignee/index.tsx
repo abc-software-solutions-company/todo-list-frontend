@@ -57,6 +57,7 @@ const Assignee: FC<IBaseProps> = ({className}) => {
           options={optionAssignToMe()}
           getOptionLabel={option => (option as any).email}
           onBlur={onClose}
+          open={true}
           renderInput={params => {
             return <TextField {...params} label="User" onBlur={onBlur} autoFocus className="ring-0" />;
           }}
