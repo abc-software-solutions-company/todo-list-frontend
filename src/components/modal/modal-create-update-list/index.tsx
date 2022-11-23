@@ -1,11 +1,13 @@
-import {MenuItem, Select} from '@mui/material';
+import {Autocomplete, MenuItem, Select, TextField} from '@mui/material';
 import cls from 'classnames';
-import {FC} from 'react';
+import {FC, useEffect, useState} from 'react';
 
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
+import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {IUserResponse} from '@/data/api/types/user.type';
 import {Visibilities} from '@/utils/constant';
 
 import useModalCreateUpdateList from './hook';
@@ -22,7 +24,21 @@ export interface IProps {
 const ModalCreateUpdateList: FC<IProps> = props => {
   const {open, onClose, data, hiddenVisibility} = props;
   const defaultValue = hiddenVisibility ? undefined : data?.visibility ? data.visibility : Visibilities.PUBLIC;
-  const {onSubmit, register, errors, isSubmitting} = useModalCreateUpdateList(props);
+  const {onSubmit, register, errors, isSubmitting, setValue} = useModalCreateUpdateList(props);
+  const [options, setOptions] = useState<IUserResponse[]>([]);
+  const [defaultMember, setDefaultMember] = useState<IUserResponse[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      setDefaultMember(data.members.filter(e => e.isActive).map(e => e.user));
+    }
+    api.user.getIndentify().then(res => {
+      if (res && res.status == 200) {
+        setOptions(res.data);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -44,6 +60,20 @@ const ModalCreateUpdateList: FC<IProps> = props => {
                     );
                   })}
                 </Select>
+              )}
+              {data && !hiddenVisibility && (
+                <Autocomplete
+                  multiple
+                  freeSolo
+                  className="mt-4"
+                  defaultValue={[...defaultMember]}
+                  onChange={(e, value) => setValue('member', {emails: value.map(u => (u as any).email)})}
+                  options={options}
+                  disableCloseOnSelect
+                  getOptionLabel={option => (option as any).email}
+                  renderOption={(prop, option) => <li {...prop}>{(option as any).email}</li>}
+                  renderInput={params => <TextField {...params} label="member" placeholder="Add members..." />}
+                />
               )}
             </Modal.Body>
             <Modal.Footer>

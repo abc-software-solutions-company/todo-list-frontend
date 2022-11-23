@@ -1,20 +1,24 @@
 import {Visibilities} from '@/utils/constant';
 
 import {ITaskResponse} from './task.type';
+import {IUserResponse} from './user.type';
 
-export interface IListGetOne {
+export interface ITodolistGetOne {
   id: string;
 }
 
-export interface IListCreate {
+export interface ITodolistCreate {
   name: string;
 }
 
-export interface IListUpdate extends IListGetOne {
+export interface ITodolistUpdate extends ITodolistGetOne {
   name?: string;
   favorite?: boolean;
-  isActive?: boolean;
   visibility?: keyof typeof Visibilities;
+  member?: {
+    emails: string[];
+  };
+  isActive?: boolean;
 }
 
 export interface IStatus {
@@ -31,11 +35,18 @@ interface IFavoriteResponse {
   isActive: boolean;
 }
 
-export interface ITodolistResponse extends IListGetOne, IListCreate {
+interface IMemberResponse {
+  userId: string;
+  user: IUserResponse;
+  isActive: boolean;
+}
+
+export interface ITodolistResponse extends ITodolistGetOne, ITodolistCreate {
   userId: string;
   isActive: boolean;
   visibility: keyof typeof Visibilities;
   status: IStatus[];
   tasks: ITaskResponse[];
   favorites: IFavoriteResponse[];
+  members: IMemberResponse[];
 }
