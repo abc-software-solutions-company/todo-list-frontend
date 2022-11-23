@@ -51,7 +51,7 @@ const Assignee: FC<IBaseProps> = ({className}) => {
           noOptionsText={'Searching...'}
           getOptionLabel={option => (option as any).name}
           open={true}
-          onBlur={onClose}
+          // onBlur={onClose}
           fullWidth={true}
           renderInput={params => {
             return <TextField {...params} placeholder="Search People" autoFocus className="ring-0" />;
