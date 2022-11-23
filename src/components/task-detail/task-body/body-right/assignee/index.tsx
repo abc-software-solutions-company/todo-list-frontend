@@ -1,7 +1,7 @@
 import {arrayMove} from '@dnd-kit/sortable';
 import {Autocomplete, Box, TextField} from '@mui/material';
 import classNames from 'classnames';
-import {FC, FocusEvent, useState} from 'react';
+import {FC, useState} from 'react';
 
 import AssigneeIcon from '@/components/common/assignee-icon';
 import api from '@/data/api';
@@ -17,7 +17,6 @@ const Assignee: FC<IBaseProps> = ({className}) => {
   const {task, update} = useTask();
   const {id, assignees} = task;
   const options = task.todolist.members.filter(e => e.isActive).map(e => e.user);
-
   const assignee = assignees.filter(e => e.isActive)[0];
   if (assignee)
     options.unshift({
@@ -31,8 +30,7 @@ const Assignee: FC<IBaseProps> = ({className}) => {
 
   const onClick = () => setEditing(true);
   const onClose = () => setEditing(false);
-  const onBlur = (e: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
-    const email = e.target.value;
+  const onSelect = (email: string) => {
     onClose();
     if (email.length > 5) {
       api.task.update({id, assignee: {add: [email]}}).then(update);
@@ -56,14 +54,13 @@ const Assignee: FC<IBaseProps> = ({className}) => {
           freeSolo
           options={optionAssignToMe()}
           getOptionLabel={option => (option as any).email}
-          onBlur={onClose}
           open={true}
           renderInput={params => {
-            return <TextField {...params} label="User" onBlur={onBlur} autoFocus className="ring-0" />;
+            return <TextField {...params} label="User" autoFocus className="ring-0" />;
           }}
           renderOption={(props, option) => {
             return (
-              <Box component="li" {...props}>
+              <Box component="li" {...props} onClick={() => onSelect(option.email || '')}>
                 <br />
                 {option.email?.includes(auth?.email || '  ') ? `${option.name} (Assign to me)` : option.name}
                 {assignee?.user.email === option.email && '✅'}
