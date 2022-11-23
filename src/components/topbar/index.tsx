@@ -30,11 +30,11 @@ const Topbar: FC<IProps> = ({className}) => {
 
   const returnTo = (curPage: string) => {
     switch (curPage) {
-      case '/list':
+      case '/lists':
         router.push(ROUTES.HOME);
         break;
       case '/list/[id]':
-        router.push(ROUTES.LIST);
+        router.push(ROUTES.MY_LISTS);
         break;
       case '/tasks/[id]':
         router.push(ROUTES.LIST + '/' + LocalStorage.listId.get());
@@ -47,9 +47,9 @@ const Topbar: FC<IProps> = ({className}) => {
       {auth?.name && (
         <div className="container">
           <div className="inner">
-            <Back visibleOn={['/list', '/list/[id]', '/tasks/[id]']} currentPage={currentPage} onClick={() => returnTo(currentPage)} />
+            <Back visibleOn={['/lists', '/list/[id]', '/tasks/[id]']} currentPage={currentPage} onClick={() => returnTo(currentPage)} />
             <div className="authenticated">
-              <Link href={ROUTES.LIST}>
+              <Link href={ROUTES.MY_LISTS}>
                 <a className="h2 text">My Lists</a>
               </Link>
               {/* Seperator line */}

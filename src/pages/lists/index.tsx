@@ -7,7 +7,7 @@ import LayoutDefault from '@/layouts/default';
 export default function ListPage() {
   return (
     <>
-      <Seo title="My List" />
+      <Seo title="My Lists" />
       <List />
     </>
   );

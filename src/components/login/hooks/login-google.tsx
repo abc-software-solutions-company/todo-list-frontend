@@ -24,7 +24,7 @@ export default function useLoginGoogle() {
       .then(res => {
         const {accessToken, user} = res.data;
         loginSuccess({accessToken, user});
-        if (router.asPath === ROUTES.LIST) router.reload();
+        if (router.asPath === ROUTES.MY_LISTS) router.reload();
       })
       .catch(() => {});
   };
