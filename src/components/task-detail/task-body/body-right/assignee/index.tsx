@@ -49,7 +49,7 @@ const Assignee: FC<IBaseProps> = ({className}) => {
           disablePortal
           options={optionAssignToMe()}
           noOptionsText={'Searching...'}
-          getOptionLabel={option => (option as any).email}
+          getOptionLabel={option => (option as any).name}
           open={true}
           onBlur={onClose}
           renderInput={params => {
