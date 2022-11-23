@@ -17,12 +17,14 @@ const Assignee: FC<IBaseProps> = ({className}) => {
   const {task, update} = useTask();
   const {id, assignees} = task;
   const options = task.todolist.members.filter(e => e.isActive).map(e => e.user);
-  options.unshift({
-    email: 'null',
-    name: 'UnAssigned',
-    id: 'unassigned'
-  });
+
   const assignee = assignees.filter(e => e.isActive)[0];
+  if (assignee)
+    options.unshift({
+      email: 'null',
+      name: 'UnAssigned',
+      id: 'unassigned'
+    });
   const idOptions = options.map(e => e.id);
   const bg = assignee ? JoinerBgColos[(idOptions.indexOf(assignee.userId) + 1) % JoinerBgColos.length] : undefined;
   const [isEdting, setEditing] = useState(false);
@@ -35,9 +37,9 @@ const Assignee: FC<IBaseProps> = ({className}) => {
     if (email.length > 5) {
       api.task.update({id, assignee: {add: [email]}}).then(update);
     }
-  };
-  const unassigned = () => {
-    api.task.update({id, assignee: {remove: ['']}}).then(update);
+    if (email === 'null') {
+      api.task.update({id, assignee: {remove: ['']}}).then(update);
+    }
   };
 
   const optionAssignToMe = () => {
@@ -62,9 +64,9 @@ const Assignee: FC<IBaseProps> = ({className}) => {
           renderOption={(props, option) => {
             return (
               <Box component="li" {...props}>
-                {option.email}
+                {option.email !== 'null' && option.email}
                 <br />
-                {option.email?.includes(auth?.email || 'null') ? `${option.name} (Assign to me)` : option.name}
+                {option.email?.includes(auth?.email || '  ') ? `${option.name} (Assign to me)` : option.name}
               </Box>
             );
           }}
