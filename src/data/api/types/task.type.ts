@@ -78,7 +78,7 @@ export interface ITaskUpdate extends ITaskGet {
     update?: ICommentUpdate;
   };
   assignee?: {
-    emails?: string[];
+    ids?: string[];
   };
   description?: string;
   isActive?: boolean;

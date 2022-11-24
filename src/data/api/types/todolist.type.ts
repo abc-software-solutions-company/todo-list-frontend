@@ -29,13 +29,13 @@ export interface IStatus {
   tasks: ITaskResponse[];
 }
 
-interface IFavoriteResponse {
+export interface IFavoriteResponse {
   userId: string;
   todolistId: string;
   isActive: boolean;
 }
 
-interface IMemberResponse {
+export interface IMemberResponse {
   userId: string;
   user: IUserResponse;
   isActive: boolean;

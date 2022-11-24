@@ -1,14 +1,14 @@
-import {arrayMove} from '@dnd-kit/sortable';
 import {Autocomplete, Box, TextField} from '@mui/material';
 import classNames from 'classnames';
-import {FC, useState} from 'react';
+import {FC, SyntheticEvent, useState} from 'react';
 
 import AssigneeIcon from '@/components/common/assignee-icon';
 import api from '@/data/api';
+import {IUserResponse} from '@/data/api/types/user.type';
+import useMemberOptions from '@/hooks/useMemberOptions';
 import {useStateAuth} from '@/states/auth';
 import useTask from '@/states/task/use-task';
 import {IBaseProps} from '@/types';
-import {JoinerBgColos} from '@/utils/constant';
 
 import Title from '../../title';
 
@@ -16,32 +16,24 @@ const Assignee: FC<IBaseProps> = ({className}) => {
   const auth = useStateAuth();
   const {task, update} = useTask();
   const {id, assignees} = task;
-  const options = task.todolist.members.filter(e => e.isActive).map(e => e.user);
+
   const assignee = assignees.filter(e => e.isActive)[0];
-  options.unshift({
-    email: 'null',
-    name: 'UnAssigned',
-    id: 'unassigned'
-  });
-  const idOptions = options.map(e => e.id);
-  const bg = assignee ? JoinerBgColos[(idOptions.indexOf(assignee.userId) + 1) % JoinerBgColos.length] : undefined;
+
+  const {options, optionActive} = useMemberOptions(task.todolist.members, assignee?.userId);
+
   const [isEdting, setEditing] = useState(false);
 
   const onClick = () => setEditing(true);
   const onClose = () => setEditing(false);
-  const onSelect = (email: string) => {
-    onClose();
-    if (email.length > 5) api.task.update({id, assignee: {emails: [email]}}).then(update);
-    if (email === 'null') api.task.update({id, assignee: {emails: []}}).then(update);
-  };
 
-  const optionAssignToMe = () => {
-    if (options.length == 0) return [];
-    const assignToMeIndex = options.findIndex(e => e.email == auth?.email);
-    return arrayMove(options, assignToMeIndex, 0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const onChange = (event: SyntheticEvent<Element, Event>, value: IUserResponse | null) => {
+    if (value) {
+      if (value.id !== 'Unassigned') api.task.update({id, assignee: {ids: [value.id]}}).then(update);
+      else api.task.update({id, assignee: {ids: []}}).then(update);
+      onClose();
+    }
   };
-
-  const optionChecked = <div className="ico-check text-base font-extrabold text-blue-700"></div>;
 
   return (
     <div className={classNames('assignee', className)}>
@@ -49,25 +41,21 @@ const Assignee: FC<IBaseProps> = ({className}) => {
       {isEdting ? (
         <Autocomplete
           disablePortal
-          options={optionAssignToMe()}
+          options={options}
           noOptionsText={'Searching...'}
-          getOptionLabel={option => (option as any).name}
+          getOptionLabel={option => option.name}
           open={true}
+          onChange={onChange}
           onBlur={onClose}
-          fullWidth={true}
-          renderInput={params => {
-            return <TextField {...params} placeholder="Search People" autoFocus className="ring-0" />;
-          }}
-          renderOption={(props, option) => {
+          defaultValue={optionActive || options[0]}
+          renderInput={params => <TextField {...params} placeholder="Search People" autoFocus className="ring-0" />}
+          renderOption={(props, option, {selected}) => {
             return (
-              <Box component="li" {...props} onClick={() => onSelect(option.email || '')}>
-                <br />
-                <div className="flex w-full justify-between gap-x-8">
-                  <div className="name">{option.email?.includes(auth?.email || '  ') ? `${option.name} (Assign to me)` : option.name}</div>
-                  <div className="active">
-                    {assignee?.user.email === option.email && optionChecked}
-                    {!assignee && option.email == 'null' && optionChecked}
-                  </div>
+              <Box component="li" {...props}>
+                <div className="flex w-full items-center gap-x-2.5">
+                  <AssigneeIcon name={option.name} bg={option.bg} />
+                  <div className="name grow">{auth && auth.id === option.id ? 'Me' : option.name}</div>
+                  <div className="active">{selected && <i className="ico-check text-base font-extrabold text-blue-700" />}</div>
                 </div>
               </Box>
             );
@@ -75,7 +63,7 @@ const Assignee: FC<IBaseProps> = ({className}) => {
         />
       ) : (
         <div className="assignee-user" onClick={onClick}>
-          <AssigneeIcon data={assignee} bg={bg} />
+          <AssigneeIcon name={optionActive?.name} bg={optionActive?.bg} />
         </div>
       )}
     </div>

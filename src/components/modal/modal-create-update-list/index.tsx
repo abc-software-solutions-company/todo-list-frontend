@@ -2,6 +2,7 @@ import {Autocomplete, MenuItem, Select, TextField} from '@mui/material';
 import cls from 'classnames';
 import {FC, useEffect, useState} from 'react';
 
+import AssigneeIcon from '@/components/common/assignee-icon';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
@@ -23,15 +24,14 @@ export interface IProps {
 
 const ModalCreateUpdateList: FC<IProps> = props => {
   const {open, onClose, data, hiddenVisibility} = props;
-  const defaultValue = hiddenVisibility ? undefined : data?.visibility ? data.visibility : Visibilities.PUBLIC;
+  const visibilityDefaultValue = hiddenVisibility ? undefined : data?.visibility ? data.visibility : Visibilities.PUBLIC;
   const {onSubmit, register, errors, isSubmitting, setValue} = useModalCreateUpdateList(props);
   const [options, setOptions] = useState<IUserResponse[]>([]);
-  const [defaultMember, setDefaultMember] = useState<IUserResponse[]>([]);
+  const defaultMember = data ? data.members.filter(e => e.isActive).map(e => e.user) : [];
+  const defaultMemberIds = defaultMember.map(e => e.id);
+  const memberDefaultValue = options.filter(e => defaultMemberIds.includes(e.id));
 
   useEffect(() => {
-    if (data) {
-      setDefaultMember(data.members.filter(e => e.isActive).map(e => e.user));
-    }
     api.user.getIndentify().then(res => {
       if (res && res.status == 200) {
         setOptions(res.data);
@@ -51,7 +51,7 @@ const ModalCreateUpdateList: FC<IProps> = props => {
             <Modal.Body>
               <Input error={errors.name?.message} value={data?.name} autoFocus={true} placeholder={'Enter your list name'} {...register('name')} />
               {data && !hiddenVisibility && (
-                <Select {...register('visibility')} className="input-type" defaultValue={defaultValue} sx={{color: '#334155'}}>
+                <Select {...register('visibility')} className="input-type" defaultValue={visibilityDefaultValue} sx={{color: '#334155'}}>
                   {Object.keys(Visibilities).map((key, idx) => {
                     return (
                       <MenuItem key={key} value={key}>
@@ -64,15 +64,25 @@ const ModalCreateUpdateList: FC<IProps> = props => {
               {data && !hiddenVisibility && (
                 <Autocomplete
                   multiple
-                  freeSolo
-                  className="mt-4"
-                  defaultValue={[...defaultMember]}
+                  className="input-members"
+                  defaultValue={[...memberDefaultValue]}
                   onChange={(e, value) => setValue('member', {emails: value.map(u => (u as any).email)})}
                   options={options}
                   disableCloseOnSelect
-                  getOptionLabel={option => (option as any).email}
-                  renderOption={(prop, option) => <li {...prop}>{(option as any).email}</li>}
-                  renderInput={params => <TextField {...params} label="member" placeholder="Add members..." />}
+                  getOptionLabel={option => option.email || 'no email'}
+                  renderOption={(prop, option, state) => {
+                    const {selected} = state;
+                    if (!selected)
+                      return (
+                        <li {...prop} className="m-2 flex items-center gap-x-2.5">
+                          <AssigneeIcon name={option.name} />
+                          <span>
+                            {option?.email} ({option?.name})
+                          </span>
+                        </li>
+                      );
+                  }}
+                  renderInput={params => <TextField {...params} className="members-textfield" label="member" placeholder="Add members..." />}
                 />
               )}
             </Modal.Body>

@@ -2,24 +2,19 @@ import classNames from 'classnames';
 import {FC, HTMLAttributes, ReactNode} from 'react';
 
 import Icon from '@/core-ui/icon';
-import {IAssigneeResponse} from '@/data/api/types/task.type';
 import {shortName} from '@/utils/function';
 
 import style from './style.module.scss';
 
 interface IAssigneeIconProps extends HTMLAttributes<HTMLDivElement> {
-  data: IAssigneeResponse;
+  name?: string;
   bg?: string;
 }
 
-const AssigneeIcon: FC<IAssigneeIconProps> = ({data, bg = 'bg-slate-300', ...rest}) => {
-  let name: ReactNode = <Icon name="ico-plus" size={16} />;
-  if (data) {
-    name = shortName(data.user.name);
-  }
+const AssigneeIcon: FC<IAssigneeIconProps> = ({name, bg = 'bg-slate-300', ...rest}) => {
   return (
     <div {...rest} className={classNames(bg, style['assignee-icon'])}>
-      {name}
+      {name ? shortName(name) : <Icon name="ico-plus" size={16} />}
     </div>
   );
 };

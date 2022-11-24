@@ -22,6 +22,9 @@
         @apply ring-0;
       }
     }
+    .MuiSvgIcon-root {
+      @apply hidden;
+    }
   }
 
   .priority {

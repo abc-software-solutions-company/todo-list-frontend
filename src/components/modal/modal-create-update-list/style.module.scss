@@ -18,4 +18,13 @@
       @apply hidden;
     }
   }
+  .input-members {
+    @apply mt-4;
+    .MuiSvgIcon-root[data-testid='ArrowDropDownIcon'] {
+      @apply hidden;
+    }
+    .MuiInputBase-input {
+      @apply ring-0;
+    }
+  }
 }

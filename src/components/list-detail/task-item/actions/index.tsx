@@ -10,8 +10,8 @@ import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {socketUpdateList} from '@/data/socket';
+import useMemberOptions from '@/hooks/useMemberOptions';
 import useTodolist from '@/states/todolist/use-todolist';
-import {JoinerBgColos} from '@/utils/constant';
 import {MUI_ICON} from '@/utils/mui-icon';
 
 import AssigneeIcon from '../../../common/assignee-icon';
@@ -25,8 +25,7 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
   const toast = useToast();
   const [statusId, setStatusId] = useState(task.statusId);
   const assignee = task.assignees.filter(e => e.isActive)[0];
-  const idOptions = todolist.members.filter(e => e.isActive).map(e => e.userId);
-  const bg = assignee ? JoinerBgColos[(idOptions.indexOf(assignee.userId) + 1) % JoinerBgColos.length] : undefined;
+  const {optionActive} = useMemberOptions(todolist.members, assignee?.userId);
 
   useEffect(() => {
     setStatusId(task.statusId);
@@ -82,7 +81,7 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
 
   return (
     <div className={classNames('actions', style.actions)}>
-      {assignee && <AssigneeIcon data={assignee} bg={bg} />}
+      {optionActive && <AssigneeIcon name={optionActive?.name} bg={optionActive?.bg} />}
       <StatusSelect className="status" id={statusId} list={todolist.status} readonly={!write} onChange={onChange} />
       {write && (
         <>
