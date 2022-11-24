@@ -23,7 +23,7 @@ const TaskPiority: FC<ITaskPriorityProp> = ({onChange, task}) => {
     <Select onChange={onChange} value={value} IconComponent={KeyboardArrowDownIcon}>
       {list.map((e, index) => (
         <MenuItem key={index} value={e} sx={{padding: '4px 20px'}}>
-          <div className="relative mr-2 flex items-center">
+          <div className="inner relative mr-2 flex items-center">
             <Icon name={icons[index]} className="mr-1" style={{color: colors[index]}} />
             <span className="priority-name text-h6 font-medium text-slate-700">{e}</span>
           </div>
