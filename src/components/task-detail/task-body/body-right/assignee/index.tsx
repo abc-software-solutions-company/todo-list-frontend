@@ -31,8 +31,8 @@ const Assignee: FC<IBaseProps> = ({className}) => {
   const onClose = () => setEditing(false);
   const onSelect = (email: string) => {
     onClose();
-    if (email.length > 5) api.task.update({id, assignee: {add: [email]}}).then(update);
-    if (email === 'null') api.task.update({id, assignee: {remove: ['']}}).then(update);
+    if (email.length > 5) api.task.update({id, assignee: {emails: [email]}}).then(update);
+    if (email === 'null') api.task.update({id, assignee: {emails: []}}).then(update);
   };
 
   const optionAssignToMe = () => {
@@ -40,7 +40,9 @@ const Assignee: FC<IBaseProps> = ({className}) => {
     const assignToMeIndex = options.findIndex(e => e.email == auth?.email);
     return arrayMove(options, assignToMeIndex, 0);
   };
+
   const optionChecked = <div className="ico-check text-base font-extrabold text-blue-700"></div>;
+
   return (
     <div className={classNames('assignee', className)}>
       <Title text="Assignee" />
