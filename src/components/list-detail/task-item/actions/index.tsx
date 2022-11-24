@@ -81,16 +81,16 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
 
   return (
     <div className={classNames('actions', style.actions)}>
-      {optionActive && <AssigneeIcon name={optionActive?.name} bg={optionActive?.bg} />}
       <StatusSelect className="status" id={statusId} list={todolist.status} readonly={!write} onChange={onChange} />
+      <AssigneeIcon name={optionActive?.name} bg={optionActive?.bg} />
+      <div className="priority">
+        <TaskPiority task={task} readOnly={!write} onChange={onChangePriority} />
+      </div>
       {write && (
         <>
           <Tool {...editToolProps} className="tool-desktop" />
           <Tool {...deleteToolProps} className="tool-desktop" />
           <Tool {...detailToolProps} className="w-3" />
-          <div className="priority">
-            <TaskPiority task={task} readOnly={!write} onChange={onChangePriority} />
-          </div>
           <ToolMenu icon={<MUI_ICON.MORE_VERT />} items={toolMenuItems} margin={-1} />
         </>
       )}

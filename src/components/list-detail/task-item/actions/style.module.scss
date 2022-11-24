@@ -37,7 +37,7 @@
     }
   }
   .priority {
-    @apply w-6 lg:w-24;
+    @apply w-fit;
     .MuiInputBase-root {
       .MuiSelect-select {
         @apply p-0;
@@ -46,9 +46,14 @@
     svg {
       @apply hidden;
     }
-    .priority-name,
     fieldset {
       @apply hidden lg:block;
+    }
+    .priority-name {
+      @apply hidden;
+    }
+    .inner {
+      @apply mr-0;
     }
   }
 }
