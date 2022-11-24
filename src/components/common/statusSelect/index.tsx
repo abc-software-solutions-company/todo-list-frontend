@@ -23,11 +23,11 @@ const StatusSelect: FC<IProps> = ({id: statusId, list, className, onChange, read
         onChange={onChange}
         IconComponent={KeyboardArrowDownIcon}
         readOnly={readonly}
-        sx={{color: '#FFFFFF', backgroundColor: status.color, fontFamily: 'inherit'}}
+        sx={{color: '#FFFFFF', backgroundColor: status.color}}
       >
         {list.map(({id, name, color}) => {
           return (
-            <MenuItem key={id} value={id} sx={{color, justifyContent: 'end', fontFamily: 'inherit', padding: '4px 16px'}}>
+            <MenuItem key={id} value={id} sx={{color, justifyContent: 'end', padding: '4px 16px'}}>
               <div className="relative">
                 <span className="status-name inline-block rounded px-2 py-0.5 text-h6" style={{backgroundColor: color + '32'}}>
                   {name}

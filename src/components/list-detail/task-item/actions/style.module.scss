@@ -36,4 +36,19 @@
       @apply hidden fill-white lg:block;
     }
   }
+  .priority {
+    @apply w-6 lg:w-24;
+    .MuiInputBase-root {
+      .MuiSelect-select {
+        @apply p-0;
+      }
+    }
+    svg {
+      @apply hidden;
+    }
+    .priority-name,
+    fieldset {
+      @apply hidden lg:block;
+    }
+  }
 }

@@ -51,10 +51,10 @@ const ModalCreateUpdateList: FC<IProps> = props => {
             <Modal.Body>
               <Input error={errors.name?.message} value={data?.name} autoFocus={true} placeholder={'Enter your list name'} {...register('name')} />
               {data && !hiddenVisibility && (
-                <Select {...register('visibility')} className="input-type" defaultValue={defaultValue} sx={{fontFamily: 'inherit', color: '#334155'}}>
+                <Select {...register('visibility')} className="input-type" defaultValue={defaultValue} sx={{color: '#334155'}}>
                   {Object.keys(Visibilities).map((key, idx) => {
                     return (
-                      <MenuItem key={key} value={key} sx={{fontFamily: 'inherit'}}>
+                      <MenuItem key={key} value={key}>
                         {Object.values(Visibilities)[idx]}
                       </MenuItem>
                     );

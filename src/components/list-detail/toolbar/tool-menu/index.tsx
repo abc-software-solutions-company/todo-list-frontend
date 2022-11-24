@@ -46,7 +46,7 @@ const ToolMenu: FC<IToolMenuProps> = ({className, items, icon, margin}) => {
         }}
       >
         {items.map((item, idx) => (
-          <MenuItem key={idx} onClick={handleClose} sx={{justifyContent: 'end', fontFamily: 'inherit'}}>
+          <MenuItem key={idx} onClick={handleClose} sx={{justifyContent: 'end'}}>
             {item}
           </MenuItem>
         ))}
