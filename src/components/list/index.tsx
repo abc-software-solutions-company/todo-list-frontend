@@ -45,7 +45,7 @@ export default function List() {
     if (deleteModal) setDeleteModal(false);
     if (shareModal) setShareModal(false);
   };
-  const onSuccessFavorite = () => {
+  const onSuccess = () => {
     updateYourList();
     updateFavoriteList();
   };
@@ -100,7 +100,7 @@ export default function List() {
                       {todolist.name}
                     </p>
                     <div className="actions">
-                      <FavoriteButton todolist={todolist} onSuccess={onSuccessFavorite} />
+                      <FavoriteButton todolist={todolist} onSuccess={onSuccess} />
                       <IconButton name="ico-edit" className="action-desktop" onClick={() => onCreateUpdate(todolist)} />
                       <IconButton name="ico-trash-2" className="action-desktop" onClick={() => onDelete(todolist)} />
                       <IconButton name="ico-share-2 " className="action-desktop" onClick={() => onShare(todolist)} />
@@ -129,8 +129,7 @@ export default function List() {
                       {todolist.name}
                     </p>
                     <div className="actions">
-                      <FavoriteButton todolist={todolist} onSuccess={onSuccessFavorite} />
-                      <IconButton name="ico-edit" className="action-desktop" onClick={() => onCreateUpdate(todolist)} />
+                      <FavoriteButton todolist={todolist} onSuccess={onSuccess} />
                       <IconButton name="ico-share-2 " className="action-desktop" onClick={() => onShare(todolist)} />
                       <Button className="w-3" onClick={() => onDetail(todolist.id)}>
                         <Icon name="ico-chevron-right" />
@@ -144,10 +143,10 @@ export default function List() {
           </div>
         </div>
         <FloatIcon className="float-icon" onClick={() => onCreateUpdate()} />
-        <ModalCreateUpdateList open={createUpdateModel} onClose={onClose} data={selectedList} onSuccess={updateYourList} />
+        <ModalCreateUpdateList open={createUpdateModel} onClose={onClose} data={selectedList} onSuccess={onSuccess} />
         {selectedList && (
           <>
-            <ModalDelete open={deleteModal} onClose={onClose} data={selectedList} onSuccess={updateYourList} />
+            <ModalDelete open={deleteModal} onClose={onClose} data={selectedList} onSuccess={onSuccess} />
             <ModalShare open={shareModal} onClose={onClose} data={selectedList} />
           </>
         )}
