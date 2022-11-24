@@ -6,7 +6,6 @@ import {FC, useState} from 'react';
 import ModalThirdPartyLogin from '@/components/modal/modal-third-party-login';
 import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
-import {FireAuthUtils} from '@/lib/firebase/fireAuth-utils';
 import {useStateAuth} from '@/states/auth/context';
 import LocalStorage from '@/utils/local-storage';
 
@@ -16,8 +15,6 @@ import styles from './style.module.scss';
 interface IProps {
   className?: string;
 }
-
-const fireAuthUtils = new FireAuthUtils();
 
 const Topbar: FC<IProps> = ({className}) => {
   const router = useRouter();
@@ -66,8 +63,7 @@ const Topbar: FC<IProps> = ({className}) => {
                 <span
                   className="logout"
                   onClick={() => {
-                    fireAuthUtils.signOutOfGoogle();
-                    router.reload();
+                    router.push(ROUTES.LOGIN);
                   }}
                 >
                   <span className="h2">
