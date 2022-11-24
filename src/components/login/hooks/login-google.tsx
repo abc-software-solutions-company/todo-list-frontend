@@ -17,7 +17,6 @@ export default function useLoginGoogle() {
 
   const googleProvider = new GoogleAuthProvider();
   const signInWithGoogle = () => signInWithPopup(fireAuth, googleProvider);
-
   const loginWithGmail = ({email, name}: IAuthLogin) => {
     api.auth
       .login({email, name})
@@ -30,8 +29,10 @@ export default function useLoginGoogle() {
   };
 
   const openGooglePopUp = () => {
-    signInWithGoogle().catch(() => {});
-    fireAuth.onAuthStateChanged(user => {
+    signInWithGoogle()
+      .then(() => {})
+      .catch(() => {});
+    fireAuth.beforeAuthStateChanged(user => {
       if (user?.email && user?.displayName) {
         loginWithGmail({name: user.displayName, email: user.email});
       }
