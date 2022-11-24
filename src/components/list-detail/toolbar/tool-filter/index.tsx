@@ -15,14 +15,14 @@ const ToolFilter: FC<IBaseProps> = ({className}) => {
     setStatusFilter(Number(e.target.value));
   };
 
-  const sxMenuItem: SxProps<Theme> = {justifyContent: 'end', fontFamily: 'inherit', padding: '4px 16px', height: 36, minHeight: 36};
+  const sxMenuItem: SxProps<Theme> = {justifyContent: 'end', padding: '4px 16px', height: 36, minHeight: 36};
 
   return (
     <div className={classNames(style['tool-filter'], className)}>
       <div className="filter-icon">
         <Icon name="ico-filter" size={20} />
       </div>
-      <Select value={statusFilter} sx={{fontFamily: 'inherit'}} onChange={onChange}>
+      <Select value={statusFilter} onChange={onChange}>
         <MenuItem key={0} value={0} sx={{color: '#000000', ...sxMenuItem}}>
           <div className="dropdown-item">
             <span className="dropdown-name inline-block h-7 rounded px-2 py-0.5 text-h6 font-medium" style={{backgroundColor: '#F1F5F9'}}>
