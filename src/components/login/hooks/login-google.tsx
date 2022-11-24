@@ -30,8 +30,10 @@ export default function useLoginGoogle() {
   };
 
   const openGooglePopUp = () => {
-    signInWithGoogle().catch(() => {});
-    fireAuth.onAuthStateChanged(user => {
+    signInWithGoogle().catch(err => {
+      console.log(err);
+    });
+    fireAuth.beforeAuthStateChanged(user => {
       if (user?.email && user?.displayName) {
         loginWithGmail({name: user.displayName, email: user.email});
       }
