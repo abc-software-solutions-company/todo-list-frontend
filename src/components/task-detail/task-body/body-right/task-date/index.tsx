@@ -9,13 +9,21 @@ import PickDateTime from './pick-date-time';
 const TaskDate: FC<HTMLAttributes<HTMLDivElement>> = ({className}) => {
   const {task, write} = useTask();
   const [minDateTime, setMinDateTime] = useState<Date>(task.startDate);
-
-  const handleSaveStartDate = (date: Date) => {
-    api.task.update({id: task.id, startDate: date}).then(() => setMinDateTime(date));
-  };
   const handleSaveDueDate = (date: Date) => {
     api.task.update({id: task.id, dueDate: date});
   };
+  const handleSaveStartDate = (date: Date) => {
+    api.task
+      .update({id: task.id, startDate: date})
+      .then(() => setMinDateTime(date))
+      .then(() => {
+        if (task.startDate > task.dueDate) {
+          const newDate = new Date();
+          newDate.setDate(date.getDate() + 1);
+        }
+      });
+  };
+
   return (
     <div className={classNames('date', className)}>
       <PickDateTime readonly={!write} className="start-date" title="Start Date" value={task.startDate} handleSave={handleSaveStartDate} />
