@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {FC, HTMLAttributes, ReactNode} from 'react';
+import {FC, HTMLAttributes} from 'react';
 
 import Icon from '@/core-ui/icon';
 import {shortName} from '@/utils/function';
