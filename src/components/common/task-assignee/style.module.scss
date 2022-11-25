@@ -1,0 +1,8 @@
+.task-assignee :global {
+  .MuiInputBase-input {
+    @apply ring-0;
+  }
+  .MuiSvgIcon-root[data-testid='ArrowDropDownIcon'] {
+    @apply hidden;
+  }
+}

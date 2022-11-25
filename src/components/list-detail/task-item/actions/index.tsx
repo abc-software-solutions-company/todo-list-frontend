@@ -4,17 +4,16 @@ import {useRouter} from 'next/router';
 import {FC, useEffect, useState} from 'react';
 
 import StatusSelect from '@/components/common/statusSelect';
+import TaskAssignee from '@/components/common/task-assignee';
 import TaskPiority from '@/components/common/task-priority';
 import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {socketUpdateList} from '@/data/socket';
-import useMemberOptions from '@/hooks/useMemberOptions';
 import useTodolist from '@/states/todolist/use-todolist';
 import {MUI_ICON} from '@/utils/mui-icon';
 
-import AssigneeIcon from '../../../common/assignee-icon';
 import Tool, {IToolProps} from '../../toolbar/tool';
 import ToolMenu from '../../toolbar/tool-menu';
 import {ITaskItemProps} from '..';
@@ -24,8 +23,7 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
   const {todolist, write, setIsOpenModal, setSelectedTask} = useTodolist();
   const toast = useToast();
   const [statusId, setStatusId] = useState(task.statusId);
-  const assignee = task.assignees.filter(e => e.isActive)[0];
-  const {optionActive} = useMemberOptions(todolist.members, assignee?.userId);
+  const assigneeList = todolist.members;
 
   useEffect(() => {
     setStatusId(task.statusId);
@@ -82,7 +80,7 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
   return (
     <div className={classNames('actions', style.actions)}>
       <StatusSelect className="status" id={statusId} list={todolist.status} readonly={!write} onChange={onChange} />
-      <AssigneeIcon name={optionActive?.name} bg={optionActive?.bg} />
+      <TaskAssignee {...{task, onSuccess: socketUpdateList, assigneeList}} />
       <div className="priority">
         <TaskPiority task={task} readOnly={!write} onChange={onChangePriority} />
       </div>

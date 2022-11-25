@@ -17,14 +17,6 @@
     .assignee-user {
       @apply flex cursor-pointer items-center gap-2.5;
     }
-    .MuiAutocomplete-root {
-      input {
-        @apply ring-0;
-      }
-    }
-    .MuiSvgIcon-root {
-      @apply hidden;
-    }
   }
 
   .priority {
