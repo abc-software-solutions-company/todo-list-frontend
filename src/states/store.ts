@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import globalSlice from './global/slice';
 import kanbanSlice from './kanban/slice';
+import listsSlice from './lists/slice';
 import saga from './saga';
 import taskSlice from './task/slice';
 import todolistSlice from './todolist/slice';
@@ -15,6 +16,7 @@ const store = configureStore({
     global: globalSlice.reducer,
     task: taskSlice.reducer,
     todolist: todolistSlice.reducer,
+    lists: listsSlice.reducer,
     kanban: kanbanSlice.reducer
   }
 });

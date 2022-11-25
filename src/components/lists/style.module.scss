@@ -1,12 +1,9 @@
 .page-list :global {
-  .container {
-    @apply px-4;
-  }
-  .favorite-list {
-    @apply mt-8;
-  }
   .toolbar {
     @apply mt-3 flex justify-between lg:mt-3;
+    .title {
+      @apply flex items-center;
+    }
     .left {
       @apply flex items-center;
       .icon-btn {
@@ -16,9 +13,7 @@
         }
       }
     }
-    .title {
-      @apply flex items-center;
-    }
+
     .right {
       @apply hidden md:flex;
       .abc-btn {
@@ -29,6 +24,7 @@
       }
     }
   }
+
   .list {
     @apply mt-3 lg:mt-4;
     .empty {
