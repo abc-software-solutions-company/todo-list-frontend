@@ -47,7 +47,7 @@ export default function useModalCreateUpdateList({onClose, onSuccess, data}: IPr
     } else {
       const {id} = data;
       req = api.todolist.update({id, name, visibility, member}).then(() => {
-        if (router.asPath.includes(ROUTES.MY_LISTS)) {
+        if (router.asPath.includes(ROUTES.LIST)) {
           const newTodolist: ITodolistResponse = JSON.parse(JSON.stringify(todolist));
           newTodolist.name = name;
           setTodolist(newTodolist);
