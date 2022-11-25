@@ -32,7 +32,7 @@ export default function useLoginGoogle() {
     } else {
       if (email) {
         api.todolist
-          .syncTodolist({email, userName: name})
+          .syncTodolist({email, name})
           .then(res => onLoginSuccess(res))
           .catch(() => {});
       }

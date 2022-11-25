@@ -3,7 +3,7 @@ import http from '@/utils/http';
 
 import {IAuthLogin, IAuthResponse, IAuthUpdate} from './types/auth.type';
 import {ITaskCreate, ITaskGet, ITaskReindexAll, ITaskResponse, ITaskUpdate} from './types/task.type';
-import {ISyncTodolist, ITodolistCreate, ITodolistGetOne, ITodolistResponse, ITodolistUpdate} from './types/todolist.type';
+import {ITodolistCreate, ITodolistGetOne, ITodolistResponse, ITodolistSync, ITodolistUpdate} from './types/todolist.type';
 import {IUserResponse} from './types/user.type';
 
 const api = {
@@ -22,7 +22,7 @@ const api = {
     getFavorite: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST + '/favorite'),
     create: (data: ITodolistCreate) => http.post<ITodolistResponse>(API_ENDPOINTS.LIST, data),
     update: (data: ITodolistUpdate) => http.patch<ITodolistResponse>(API_ENDPOINTS.LIST, data),
-    syncTodolist: (data: ISyncTodolist) => http.post<IAuthResponse>(API_ENDPOINTS.LIST + '/sync-todolist', data)
+    syncTodolist: (data: ITodolistSync) => http.post<IAuthResponse>(API_ENDPOINTS.LIST + '/sync', data)
   },
   task: {
     get: () => http.get<ITaskResponse[]>(API_ENDPOINTS.TASK),

@@ -51,7 +51,7 @@ export interface ITodolistResponse extends ITodolistGetOne, ITodolistCreate {
   members: IMemberResponse[];
 }
 
-export interface ISyncTodolist {
+export interface ITodolistSync {
   email: string;
-  userName: string;
+  name: string;
 }
