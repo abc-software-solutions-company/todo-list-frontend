@@ -44,7 +44,11 @@ const Topbar: FC<IProps> = ({className}) => {
       {auth?.name && (
         <div className="container">
           <div className="inner">
-            <Back visibleOn={['/lists', '/list/[id]', '/tasks/[id]']} currentPage={currentPage} onClick={() => returnTo(currentPage)} />
+            <Back
+              visibleOn={[`${ROUTES.LIST}`, `${ROUTES.LIST}/[id]`, `${ROUTES.TASK}/[id]`]}
+              currentPage={currentPage}
+              onClick={() => returnTo(currentPage)}
+            />
             <div className="authenticated">
               <Link href={ROUTES.LIST}>
                 <a className="h2 text">My Lists</a>
