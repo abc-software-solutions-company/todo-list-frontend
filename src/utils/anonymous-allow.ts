@@ -7,6 +7,6 @@ export const anonymousAllow = (path: string) => {
     case '/list':
       return null;
     default:
-      return !path.includes(ROUTES.MY_LISTS || ROUTES.TASK);
+      return !path.includes(ROUTES.LIST || ROUTES.TASK);
   }
 };

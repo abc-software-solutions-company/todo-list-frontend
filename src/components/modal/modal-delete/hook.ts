@@ -29,7 +29,7 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
       req = api.todolist.update({id, isActive: false}).then(() => {
         toast.show({type: 'success', title: 'Delete list', content: 'Successful!'});
         if (router.asPath.includes(ROUTES.LIST + '/' + id)) {
-          router.push(ROUTES.MY_LISTS);
+          router.push(ROUTES.LIST);
         }
       });
     req.then(onSuccess).catch(() =>

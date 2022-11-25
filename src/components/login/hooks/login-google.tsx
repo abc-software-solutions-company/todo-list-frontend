@@ -20,7 +20,7 @@ export default function useLoginGoogle() {
   const onLoginSuccess = (res: AxiosResponse<IAuthResponse, any>) => {
     const {accessToken, user} = res.data;
     loginSuccess({accessToken, user});
-    if (router.asPath === ROUTES.MY_LISTS) router.reload();
+    if (router.asPath === ROUTES.LIST) router.reload();
   };
 
   const loginWithGmail = ({email, name}: IAuthLogin) => {
