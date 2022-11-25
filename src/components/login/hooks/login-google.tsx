@@ -15,13 +15,11 @@ const fireAuth = getAuth();
 export default function useLoginGoogle() {
   const router = useRouter();
   const {loginSuccess} = useLoginHandler();
-
   const googleProvider = new GoogleAuthProvider();
   googleProvider.setCustomParameters({
     prompt: 'select_account'
   });
   const signInWithGoogle = () => signInWithPopup(fireAuth, googleProvider);
-
   const onLoginSuccess = (res: AxiosResponse<IAuthResponse, any>) => {
     const {accessToken, user} = res.data;
     loginSuccess({accessToken, user});
