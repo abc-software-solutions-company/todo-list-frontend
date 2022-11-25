@@ -50,3 +50,8 @@ export interface ITodolistResponse extends ITodolistGetOne, ITodolistCreate {
   favorites: IFavoriteResponse[];
   members: IMemberResponse[];
 }
+
+export interface ITodolistSync {
+  email: string;
+  name: string;
+}
