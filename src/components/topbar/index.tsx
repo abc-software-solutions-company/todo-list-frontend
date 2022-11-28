@@ -26,15 +26,14 @@ const Topbar: FC<IProps> = ({className}) => {
   const currentPage = router.pathname;
 
   const returnTo = (curPage: string) => {
-    console.log(curPage);
     switch (curPage) {
-      case '/lists':
+      case `${ROUTES.LIST}`:
         router.push(ROUTES.HOME);
         break;
-      case '/list/[id]':
+      case `${ROUTES.LIST}/[id]`:
         router.push(ROUTES.LIST);
         break;
-      case '/tasks/[id]':
+      case `${ROUTES.TASK}/[id]`:
         router.push(ROUTES.LIST + '/' + LocalStorage.listId.get());
         break;
     }
