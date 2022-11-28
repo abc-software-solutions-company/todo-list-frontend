@@ -16,7 +16,7 @@ import {IProps} from '.';
 interface IFormInputs {
   name: string;
   visibility?: keyof typeof Visibilities;
-  member: {emails: string[]};
+  member: {ids: string[]};
 }
 
 const Schema = yup.object().shape({

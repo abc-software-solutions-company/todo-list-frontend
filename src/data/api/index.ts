@@ -22,7 +22,7 @@ const api = {
     getFavorite: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST + '/favorite'),
     create: (data: ITodolistCreate) => http.post<ITodolistResponse>(API_ENDPOINTS.LIST, data),
     update: (data: ITodolistUpdate) => http.patch<ITodolistResponse>(API_ENDPOINTS.LIST, data),
-    syncTodolist: (data: ITodolistSync) => http.post<IAuthResponse>(API_ENDPOINTS.LIST + '/sync', data)
+    sync: (data: ITodolistSync) => http.post<IAuthResponse>(API_ENDPOINTS.LIST + '/sync', data)
   },
   task: {
     get: () => http.get<ITaskResponse[]>(API_ENDPOINTS.TASK),

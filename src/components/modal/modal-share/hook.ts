@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 
+import {ROUTES} from '@/configs/routes.config';
 import useToast from '@/core-ui/toast';
 
 import {IProps} from '.';
@@ -16,8 +17,8 @@ export default function useModalShare({data}: IProps) {
   };
 
   useEffect(() => {
-    if (role === 'list') setLink(window.location.origin + `/list/${id}`);
-    else setLink(window.location.origin + `/tasks/${id}`);
+    if (role === 'list') setLink(window.location.origin + `${ROUTES.LIST}/${id}`);
+    else setLink(window.location.origin + `${ROUTES.TASK}/${id}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
