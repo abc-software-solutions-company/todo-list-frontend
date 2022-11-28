@@ -61,8 +61,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!todolist) return null;
-  if (!router.asPath.includes(todolist.id)) return null;
+  if (todolist && !router.asPath.includes(todolist.id)) return null;
   if (!assest) return <ErrorInformation />;
 
   return (
