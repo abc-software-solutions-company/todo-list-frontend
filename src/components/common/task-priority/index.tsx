@@ -6,6 +6,8 @@ import Icon from '@/core-ui/icon';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {Priorities, PriorityColors, PriorityIcons} from '@/utils/constant';
 
+import style from './style.module.scss';
+
 interface ITaskPriorityProp extends SelectProps {
   onChange: (event: SelectChangeEvent<unknown>) => void;
   task: ITaskResponse;
@@ -20,12 +22,12 @@ const TaskPiority: FC<ITaskPriorityProp> = ({onChange, task}) => {
   const value = list.includes(priority) ? priority : Priorities.medium;
 
   return (
-    <Select onChange={onChange} value={value} IconComponent={KeyboardArrowDownIcon}>
+    <Select onChange={onChange} value={value} IconComponent={KeyboardArrowDownIcon} className={style['task-priority']}>
       {list.map((e, index) => (
-        <MenuItem key={index} value={e} sx={{padding: '4px 20px'}}>
-          <div className="inner relative mr-2 flex items-center">
-            <Icon name={icons[index]} className="mr-1" style={{color: colors[index]}} />
-            <span className="priority-name text-h6 font-medium text-slate-700">{e}</span>
+        <MenuItem key={index} value={e}>
+          <div className={style.inner}>
+            <Icon name={icons[index]} className={style.icon} style={{color: colors[index]}} />
+            <span className={style['priority-name']}>{e}</span>
           </div>
         </MenuItem>
       ))}
