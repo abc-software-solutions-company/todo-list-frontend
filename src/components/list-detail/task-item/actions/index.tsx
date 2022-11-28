@@ -1,12 +1,10 @@
 import {SelectChangeEvent} from '@mui/material';
 import classNames from 'classnames';
-import {useRouter} from 'next/router';
 import {FC, useEffect, useState} from 'react';
 
 import StatusSelect from '@/components/common/statusSelect';
 import TaskAssignee from '@/components/common/task-assignee';
 import TaskPiority from '@/components/common/task-priority';
-import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
@@ -29,8 +27,6 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
     setStatusId(task.statusId);
   }, [task.statusId]);
 
-  const router = useRouter();
-
   const onDelete = () => {
     setSelectedTask(task);
     setIsOpenModal('delete');
@@ -46,8 +42,6 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
     setStatusId(newStatusId);
     api.task.update({id: task.id, statusId: newStatusId}).then(socketUpdateList);
   };
-
-  const onDetail = (taskId: string) => router.push(ROUTES.TASK + '/' + taskId);
 
   const onChangePriority = (event: SelectChangeEvent<unknown>) => {
     api.task
@@ -68,11 +62,6 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
     onClick: onEdit
   };
 
-  const detailToolProps: IToolProps = {
-    icon: <Icon name="ico-chevron-right" />,
-    onClick: () => onDetail(task.id)
-  };
-
   const toolMenuItems = [deleteToolProps, editToolProps]
     .filter(item => !item.hidden)
     .map((item, idx) => <Tool key={idx} {...{...item, className: 'flex-row-reverse'}} />);
@@ -88,7 +77,6 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
         <>
           <Tool {...editToolProps} className="tool-desktop" />
           <Tool {...deleteToolProps} className="tool-desktop" />
-          <Tool {...detailToolProps} className="w-3" />
           <ToolMenu icon={<MUI_ICON.MORE_VERT />} items={toolMenuItems} margin={-1} />
         </>
       )}
