@@ -1,7 +1,7 @@
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import aws from 'aws-sdk';
 import {PutObjectRequest} from 'aws-sdk/clients/s3';
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 
 import ClassicEditor from './ckeditor';
 import style from './styles.module.scss';
@@ -13,6 +13,8 @@ interface IEditorProps {
 }
 
 const Editor: FC<IEditorProps> = ({onChange, name, value}) => {
+  const [isUpload, setIsUpload] = useState<boolean>(false);
+
   aws.config.update({
     accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,

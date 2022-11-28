@@ -39,7 +39,11 @@ const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
         .then(() => toast.show({type: 'success', title: 'Update Description', content: 'success'}))
         .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}));
     }
-    onClose();
+    if (formData.description.includes('<img>')) {
+      alert('Your image is still upload, please waiting');
+    } else {
+      onClose();
+    }
   };
 
   return (
