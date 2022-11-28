@@ -16,7 +16,7 @@ export default function useModalShare({data}: IProps) {
   };
 
   useEffect(() => {
-    if (role === 'list') setLink(window.location.origin + `/list/${id}`);
+    if (role === 'list') setLink(window.location.origin + `/lists/${id}`);
     else setLink(window.location.origin + `/tasks/${id}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
