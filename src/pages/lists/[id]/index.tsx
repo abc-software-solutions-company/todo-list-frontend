@@ -12,6 +12,7 @@ export {getStaticPaths, getStaticProps};
 
 export default function PageListDetail({list}: InferGetStaticPropsType<typeof getStaticProps>) {
   const {id, name, tasks} = list;
+  console.log('🚀 ~ file: index.tsx ~ line 15 ~ PageListDetail ~ tasks', tasks);
   const auth = useStateAuth();
   if (!list) return <ErrorInformation />;
   const description = `${tasks[0]?.name || ''} ${tasks[1]?.name || ''} ${tasks[2]?.name || ''}`;

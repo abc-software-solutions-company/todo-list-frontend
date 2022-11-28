@@ -16,7 +16,7 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
 
   const onClick = () => {
     let req;
-    if ((data as any).todolistId)
+    if ((data as any).statusId)
       req = api.task.update({id, isActive: false}).then(() => {
         if (router.asPath.includes(ROUTES.LIST)) {
           const newTodolist: ITodolistResponse = JSON.parse(JSON.stringify(todolist));

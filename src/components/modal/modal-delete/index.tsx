@@ -26,7 +26,7 @@ const ModalDelete: FC<IProps> = props => {
         <Modal className={cls(styles['com-modal-todo-confirm-delete'], 'max-w-xl')} variant="center" open={open} onClose={onClose}>
           <Modal.Header>
             <h3 className="title">
-              <span className="block text-center">Are you sure you want to delete {`${(data as any).todolistId ? 'task' : 'list'}`}:</span>
+              <span className="block text-center">Are you sure you want to delete {`${(data as any).statusId ? 'task' : 'list'}`}:</span>
               <i className="block text-center">{data.name}</i>
             </h3>
           </Modal.Header>

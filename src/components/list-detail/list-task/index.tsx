@@ -19,7 +19,7 @@ const ListTask = () => {
   const sensors = useSensorGroup();
   const modifiers = [restrictToVerticalAxis];
 
-  const tasks = todolist.tasks.filter(e => e.isActive && (!statusFilter || e.statusId == statusFilter)).reverse();
+  const tasks = todolist.tasks.filter(e => !statusFilter || e.statusId == statusFilter);
 
   const onDragCancel = () => setActiveId(null);
   const onDragStart = ({active}: DragStartEvent) => {
