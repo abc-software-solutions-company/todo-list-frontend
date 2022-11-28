@@ -21,7 +21,10 @@ const CommentButton: FC = () => {
   const onClose = () => setIsEditing(false);
 
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
-    onClose();
+    if (formData.comment.includes('<img>')) {
+      toast.show({type: 'warning', title: 'Warning', content: 'Image is still upload, please be patient'});
+      return;
+    }
     if (task) {
       api.task
         .update({id: task.id, comment: {create: formData}})
@@ -30,6 +33,7 @@ const CommentButton: FC = () => {
           syncAttachments({id: task.id, listAttachment: task.attachments, rawHTML: formData.comment, update});
         })
         .then(() => reset())
+        .then(() => onClose())
         .catch(() => toast.show({type: 'danger', title: 'Comment', content: 'An error occurred, please try again'}));
     }
   };
