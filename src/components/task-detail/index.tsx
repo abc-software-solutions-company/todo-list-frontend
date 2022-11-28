@@ -1,3 +1,4 @@
+import {useRouter} from 'next/router';
 import {FC, useEffect} from 'react';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
@@ -15,6 +16,7 @@ interface IProps {
 }
 
 const TaskDetail: FC<IProps> = ({task: {id, todolistId}}) => {
+  const router = useRouter();
   const auth = useStateAuth();
   const {task, assest, initial} = useTask();
 
@@ -33,7 +35,7 @@ const TaskDetail: FC<IProps> = ({task: {id, todolistId}}) => {
   }, [auth]);
 
   if (!task) return null;
-
+  if (!router.asPath.includes(task.id)) return null;
   if (!assest) return <ErrorInformation />;
 
   return (
