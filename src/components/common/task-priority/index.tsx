@@ -27,7 +27,7 @@ const TaskPiority: FC<ITaskPriorityProp> = ({onChange, task, hideTitle}) => {
       {list.map((e, index) => (
         <MenuItem key={index} value={e}>
           <div className={`${style.inner} ${hideTitle ? '' : 'mr-2'}`}>
-            <Icon name={icons[index]} className={`${style.icon} ${hideTitle ? '' : 'mr-1'}`} style={{color: colors[index]}} />
+            <Icon name={icons[index]} className={`${hideTitle ? '' : 'mr-1'}`} style={{color: colors[index]}} />
             <span className={style[`priority-name`]}>{hideTitle ? '' : e}</span>
           </div>
         </MenuItem>
