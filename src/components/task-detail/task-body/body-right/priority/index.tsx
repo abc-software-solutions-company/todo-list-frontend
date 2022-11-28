@@ -23,7 +23,7 @@ export const Priority: FC<IBaseProps> = ({className}) => {
     <div className={classNames('priority', className)}>
       <Title text="Priority" />
       <div className="select">
-        <TaskPiority task={task} onChange={onChange} readOnly={!write} />
+        <TaskPiority task={task} onChange={onChange} readOnly={!write} hideTitle={false} />
       </div>
     </div>
   );
