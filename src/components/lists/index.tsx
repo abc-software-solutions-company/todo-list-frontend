@@ -31,7 +31,9 @@ const Lists: FC = () => {
         <Toolbar title="My List" showActions={true} />
         <List list={myList} />
         <Toolbar title="Favorite List" className="mt-8" />
-        <List list={favoriteList} />
+        <div className="favorite-list">
+          <List list={favoriteList} />
+        </div>
       </div>
       <FloatIcon className="float-icon" onClick={onNew} />
       <ModalCreateUpdateList open={isOpenModal.edit} onClose={onClose} data={selectedTodolist} onSuccess={get} />
