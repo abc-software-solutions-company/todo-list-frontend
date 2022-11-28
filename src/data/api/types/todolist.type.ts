@@ -16,7 +16,7 @@ export interface ITodolistUpdate extends ITodolistGetOne {
   favorite?: boolean;
   visibility?: keyof typeof Visibilities;
   member?: {
-    emails: string[];
+    ids: string[];
   };
   isActive?: boolean;
 }

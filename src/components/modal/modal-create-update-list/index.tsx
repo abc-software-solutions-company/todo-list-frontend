@@ -66,7 +66,7 @@ const ModalCreateUpdateList: FC<IProps> = props => {
                   multiple
                   className="input-members"
                   defaultValue={[...memberDefaultValue]}
-                  onChange={(e, value) => setValue('member', {emails: value.map(u => (u as any).email)})}
+                  onChange={(e, value) => setValue('member', {ids: value.map(u => u.id)})}
                   options={options}
                   disableCloseOnSelect
                   getOptionLabel={option => option.email || 'no email'}
