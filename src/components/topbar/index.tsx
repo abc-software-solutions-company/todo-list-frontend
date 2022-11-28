@@ -26,6 +26,7 @@ const Topbar: FC<IProps> = ({className}) => {
   const currentPage = router.pathname;
 
   const returnTo = (curPage: string) => {
+    console.log(curPage);
     switch (curPage) {
       case '/lists':
         router.push(ROUTES.HOME);
