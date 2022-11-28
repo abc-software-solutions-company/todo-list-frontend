@@ -29,6 +29,10 @@ const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
   const {isSubmitting} = formState;
 
   const submitHandler: SubmitHandler<IDescriptionForm> = formData => {
+    if (formData.description.includes('<img>')) {
+      toast.show({type: 'warning', title: 'Error', content: 'Image is still upload, please be patient'});
+      return;
+    }
     if (task) {
       api.task
         .update({id, ...formData})
@@ -37,12 +41,8 @@ const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
           syncAttachments({id, listAttachment: task.attachments, rawHTML: formData.description, update});
         })
         .then(() => toast.show({type: 'success', title: 'Update Description', content: 'success'}))
+        .then(() => onClose())
         .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}));
-    }
-    if (formData.description.includes('<img>')) {
-      alert('Your image is still upload, please waiting');
-    } else {
-      onClose();
     }
   };
 
