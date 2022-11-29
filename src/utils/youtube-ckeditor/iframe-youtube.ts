@@ -15,7 +15,7 @@ export const iframeYoutube = (url: string) => {
   width: 100%;
   height: 100%;
   border: none;
-"></iframe>
+" frameborder="0" allowfullscreen></iframe>
 </div>
 `;
 };
