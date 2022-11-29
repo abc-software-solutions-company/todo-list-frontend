@@ -6,7 +6,7 @@ import {useRouter} from 'next/router';
 import {ROUTES} from '@/configs/routes.config';
 import Checkbox from '@/core-ui/checkbox';
 import api from '@/data/api/index';
-import {ITask} from '@/data/api/types/todolist.type';
+import { ITaskResponse } from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
 import useTodolist from '@/states/todolist/use-todolist';
 
@@ -14,7 +14,7 @@ import Actions from './actions';
 import style from './style.module.scss';
 
 export interface ITaskItemProps {
-  task: ITask;
+  task: ITaskResponse;
   isSelect?: boolean;
 }
 

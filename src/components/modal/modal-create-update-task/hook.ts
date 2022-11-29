@@ -7,7 +7,8 @@ import * as yup from 'yup';
 import {ROUTES} from '@/configs/routes.config';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
-import {ITask, ITodolistResponse} from '@/data/api/types/todolist.type';
+import {ITaskResponse} from '@/data/api/types/task.type';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import useTodolist from '@/states/todolist/use-todolist';
 import iosAutoFocus from '@/utils/ios-autofocus';
 
@@ -38,7 +39,7 @@ export default function useModalCreateUpdateTask({onClose, onSuccess, todolistDa
 
     if (!taskData) {
       req = api.task.create({name, todolistId: todolistData.id}).then(res => {
-        newTodolist.tasks.push({...res.data} as ITask);
+        newTodolist.tasks.push({...res.data} as ITaskResponse);
         toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
       });
     } else {
