@@ -9,7 +9,6 @@ export const wrapperIFrameYoutube = (data: string) => {
   arrayTag.forEach(e => {
     if (isIFrameYoutube(e)) {
       const url = getYoutubeLink(e);
-      console.log(url);
       const iframe = iframeYoutube(url);
       newRawHTML.push(iframe);
     } else {
