@@ -14,7 +14,7 @@ interface IDatePickerProp {
 }
 
 const DatePicker = ({value, onChange, readonly, title, minDate}: IDatePickerProp) => {
-  const inputFormat = 'MM/DD/YYYY';
+  const inputFormat = 'DD/MM/YYYY';
   const [day, setDay] = useState<Dayjs | null>(dayjs(value));
   const handleChange = (newDay: Dayjs | null) => {
     setDay(newDay);

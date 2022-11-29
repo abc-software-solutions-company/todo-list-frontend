@@ -39,7 +39,7 @@ const DescriptionForm: FC<Iprops> = ({form, onClose, beforeChange}) => {
   };
 
   const afterChange = (data: string) => {
-    const imagesOld = extractImageLinks(beforeChange!);
+    const imagesOld = extractImageLinks(beforeChange || '');
     const imagesNew = extractImageLinks(data);
     const imagesRemove = imagesOld.filter(e => !imagesNew.includes(e));
     task.attachments.forEach(e => {
