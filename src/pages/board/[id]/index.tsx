@@ -3,7 +3,7 @@ import React from 'react';
 
 import Seo from '@/components/common/seo/seo';
 import Kanban from '@/components/kanban';
-import {getStaticPaths, getStaticProps} from '@/data/ssr/list.ssr';
+import {getStaticPaths, getStaticProps} from '@/data/ssr/lists.ssr';
 import LayoutDefault from '@/layouts/default';
 import {useStateAuth} from '@/states/auth';
 

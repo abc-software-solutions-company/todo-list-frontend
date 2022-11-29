@@ -1,7 +1,7 @@
 import {DndContext, DragEndEvent, DragOverlay, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
 import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import TaskItem from '@/components/list-detail/task-item';
 import api from '@/data/api';
@@ -18,17 +18,23 @@ const ListTask = () => {
 
   const getTasks = () => {
     if (statusFilter) return todolist.tasks.filter(e => !statusFilter || e.statusId == statusFilter);
-    return [...todolist.tasks.filter(e => !e.isDone)];
+    return todolist.tasks.filter(e => !e.isDone);
   };
 
-  const tasks = getTasks();
+  const [tasks, setTasks] = useState(() => getTasks());
+
+  useEffect(() => {
+    setTasks(getTasks());
+  }, [todolist.tasks, statusFilter]);
 
   const sensors = useSensorGroup();
   const modifiers = [restrictToVerticalAxis];
+
   const onDragCancel = () => setActiveId(null);
   const onDragStart = ({active}: DragStartEvent) => {
     if (active) setActiveId(active.id);
   };
+
   function onDragEnd({active, over}: DragEndEvent) {
     setActiveId(null);
     if (!over) return;

@@ -2,23 +2,25 @@ import {GetStaticPaths, GetStaticProps} from 'next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 
 import api from '../api';
-import {ITodolistResponse} from '../api/types/todolist.type';
+import {ISeo} from '../api/types/commom';
 
 type ParsedQueryParams = {
   id: string;
 };
 
 type PageProps = {
-  list: ITodolistResponse;
+  id: string;
+  seo: ISeo;
 };
 
 export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = async ({locale, params}) => {
   try {
     const {id} = params!;
-    const list = (await api.todolist.getOne({id})).data;
+    const seo = (await api.todolist.seoOne({id})).data;
     return {
       props: {
-        list,
+        id,
+        seo,
         ...(await serverSideTranslations(locale!, ['common']))
       }
     };

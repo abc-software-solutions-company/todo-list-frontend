@@ -16,7 +16,7 @@ interface IProps {
 const FavoriteButton: FC<IProps> = ({className, todolist, onSuccess}) => {
   const auth = useStateAuth();
   const {id, favorites} = todolist;
-  const isFavorited = favorites.filter(e => e.isActive && e.userId === auth?.id).length === 1;
+  const isFavorited = favorites.filter(e => e.userId === auth?.id).length === 1;
 
   const onClick = () => api.todolist.update({id, favorite: !isFavorited}).then(onSuccess);
   const iconName = isFavorited ? 'ico-star-filled' : 'ico-star';

@@ -2,6 +2,7 @@ import {API_ENDPOINTS} from '@/configs/endpoint.config';
 import http from '@/utils/http';
 
 import {IAuthLogin, IAuthResponse, IAuthUpdate} from './types/auth.type';
+import {ISeo} from './types/commom';
 import {ITaskCreate, ITaskGet, ITaskReindexAll, ITaskResponse, ITaskUpdate} from './types/task.type';
 import {ITodolistCreate, ITodolistGetOne, ITodolistResponse, ITodolistSync, ITodolistUpdate} from './types/todolist.type';
 import {IUserResponse} from './types/user.type';
@@ -17,6 +18,7 @@ const api = {
   },
   todolist: {
     get: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST),
+    seoOne: ({id}: ITodolistGetOne) => http.get<ISeo>(API_ENDPOINTS.LIST + '/seo/' + id),
     getOne: ({id}: ITodolistGetOne) => http.get<ITodolistResponse>(API_ENDPOINTS.LIST + '/' + id),
     getByUser: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST + '/user'),
     getFavorite: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST + '/favorite'),
