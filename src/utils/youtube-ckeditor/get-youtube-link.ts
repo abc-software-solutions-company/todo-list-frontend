@@ -1,3 +1,7 @@
+import {convertYoutubeEmbed} from './convert_youtube_embed';
+
 export const getYoutubeLink = (data: string) => {
-  return data.split(' ')[1].slice(5, -12);
+  const startIndex = data.indexOf(`http`);
+  const endIndex = data.lastIndexOf(`"`);
+  return convertYoutubeEmbed(data.slice(startIndex, endIndex));
 };
