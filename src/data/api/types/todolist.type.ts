@@ -1,5 +1,7 @@
 import {Priorities, Visibilities} from '@/utils/constant';
 
+import {ITaskResponse} from './task.type';
+
 export interface ITodolistGetOne {
   id: string;
 }
@@ -52,6 +54,6 @@ export interface ITodolistResponse {
   favorite: boolean;
   visibility: keyof typeof Visibilities;
   status: IStatus[];
-  tasks: ITask[];
+  tasks: ITaskResponse[];
   members: IMember[];
 }
