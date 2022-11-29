@@ -16,11 +16,15 @@ const ListTask = () => {
   const {todolist, statusFilter, write, setTodolist} = useTodolist();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
+  const getTasks = () => {
+    if (statusFilter) return todolist.tasks.filter(e => !statusFilter || e.statusId == statusFilter);
+    return [...todolist.tasks.filter(e => !e.isDone)];
+  };
+
+  const tasks = getTasks();
+
   const sensors = useSensorGroup();
   const modifiers = [restrictToVerticalAxis];
-
-  const tasks = todolist.tasks.filter(e => !statusFilter || e.statusId == statusFilter);
-
   const onDragCancel = () => setActiveId(null);
   const onDragStart = ({active}: DragStartEvent) => {
     if (active) setActiveId(active.id);
