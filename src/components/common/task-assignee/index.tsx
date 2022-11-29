@@ -4,8 +4,7 @@ import {FC, SyntheticEvent, useState} from 'react';
 import AssigneeIcon from '@/components/common/assignee-icon';
 import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
-import {IMemberResponse} from '@/data/api/types/todolist.type';
-import {IUserResponse} from '@/data/api/types/user.type';
+import {IMember} from '@/data/api/types/todolist.type';
 import useMemberOptions from '@/hooks/useMemberOptions';
 import {useStateAuth} from '@/states/auth';
 
@@ -14,7 +13,7 @@ import style from './style.module.scss';
 interface ITaskAssigneeProps {
   task: ITaskResponse;
   onSuccess?: () => void;
-  assigneeList?: IMemberResponse[];
+  assigneeList?: IMember[];
 }
 
 const TaskAssignee: FC<ITaskAssigneeProps> = ({task, assigneeList = [], onSuccess}) => {
@@ -30,7 +29,7 @@ const TaskAssignee: FC<ITaskAssigneeProps> = ({task, assigneeList = [], onSucces
   const onClose = () => setEditing(false);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const onChange = (event: SyntheticEvent<Element, Event>, value: IUserResponse | null) => {
+  const onChange = (event: SyntheticEvent<Element, Event>, value: IMember | null) => {
     if (value) {
       if (value.id !== 'Unassigned') api.task.update({id, assignee: {ids: [value.id]}}).then(onSuccess);
       else api.task.update({id, assignee: {ids: []}}).then(onSuccess);

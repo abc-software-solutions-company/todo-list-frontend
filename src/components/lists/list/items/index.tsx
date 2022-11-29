@@ -1,9 +1,9 @@
 import {useRouter} from 'next/router';
 import {FC} from 'react';
 
-import FavoriteButton from '@/components/common/favorite-button';
-import Tool, {IToolProps} from '@/components/list-detail/toolbar/tool';
-import ToolMenu from '@/components/list-detail/toolbar/tool-menu';
+import TodolistFavorite from '@/components/common/todolist-favorite';
+import Tool, {IToolProps} from '@/components/lists-detail/toolbar/tool';
+import ToolMenu from '@/components/lists-detail/toolbar/tool-menu';
 import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
@@ -15,6 +15,7 @@ interface IItemProps {
 }
 
 const Item: FC<IItemProps> = ({todolist}) => {
+  const {id, name, favorite} = todolist;
   const router = useRouter();
 
   const {setSelectedTodolist, setIsOpenModal, get: onSuccess} = useLists();
@@ -59,11 +60,11 @@ const Item: FC<IItemProps> = ({todolist}) => {
 
   return (
     <div className="item">
-      <p className="title" onClick={() => onDetail(todolist.id)}>
-        {todolist.name}
+      <p className="title" onClick={() => onDetail(id)}>
+        {name}
       </p>
       <div className="actions">
-        <FavoriteButton todolist={todolist} onSuccess={onSuccess} />
+        <TodolistFavorite id={id} favorite={favorite} onSuccess={onSuccess} />
         {tools.map((e, index) => (
           <Tool key={index} icon={e.icon} onClick={e.onClick} className="hidden sm:block" />
         ))}

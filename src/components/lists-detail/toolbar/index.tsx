@@ -7,16 +7,16 @@ import api from '@/data/api';
 import useTodolist from '@/states/todolist/use-todolist';
 import {MUI_ICON} from '@/utils/mui-icon';
 
-import FavoriteButton from '../../common/favorite-button';
+import TodolistFavorite from '../../common/todolist-favorite';
 import style from './style.module.scss';
 import Tool, {IToolProps} from './tool';
 import ToolFilter from './tool-filter';
 import ToolMenu from './tool-menu';
 
 const ToolbarDetail: FC = () => {
-  const {todolist, write, owner, setIsOpenModal, setSelectedTask, update} = useTodolist();
+  const {todolist, write, owner, setIsOpenModal, setSelectedTask} = useTodolist();
 
-  const {id, name} = todolist;
+  const {id, name, favorite} = todolist;
 
   const handleSave = (value: string) => {
     api.todolist.update({id, name: value});
@@ -61,7 +61,7 @@ const ToolbarDetail: FC = () => {
   return (
     <div className={style.toolbar}>
       <div className={classNames(style.tools, style.left)}>
-        <FavoriteButton onSuccess={update} todolist={todolist} />
+        <TodolistFavorite id={id} favorite={favorite} />
         <InputAutosize value={name} handleSave={handleSave} role="title" />
       </div>
       <div className={classNames(style.tools, style.right)}>

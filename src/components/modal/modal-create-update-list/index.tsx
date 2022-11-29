@@ -27,8 +27,7 @@ const ModalCreateUpdateList: FC<IProps> = props => {
   const visibilityDefaultValue = hiddenVisibility ? undefined : data?.visibility ? data.visibility : Visibilities.PUBLIC;
   const {onSubmit, register, errors, isSubmitting, setValue} = useModalCreateUpdateList(props);
   const [options, setOptions] = useState<IUserResponse[]>([]);
-  const defaultMember = data ? data.members.map(e => e.user) : [];
-  const defaultMemberIds = defaultMember.map(e => e.id);
+  const defaultMemberIds = data?.members.map(e => e.id) || [];
   const memberDefaultValue = options.filter(e => defaultMemberIds.includes(e.id));
 
   useEffect(() => {
