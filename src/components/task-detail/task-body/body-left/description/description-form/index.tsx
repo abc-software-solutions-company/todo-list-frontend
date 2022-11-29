@@ -7,6 +7,7 @@ import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import useTask from '@/states/task/use-task';
 import {syncAttachments} from '@/utils/sync-attachment';
+import {extractImageLinks} from '@/utils/sync-attachment/extract-image-link';
 
 const Editor = dynamic(() => import('@/components/common/ckeditor'), {
   ssr: false
@@ -29,7 +30,10 @@ const DescriptionForm: FC<Iprops> = ({form, onClose, beforeChange}) => {
   const {handleSubmit, formState, control} = form;
   const {isSubmitting} = formState;
 
-  const afterChange = () => {};
+  const afterChange = () => {
+    const listImageOld = extractImageLinks(beforeChange!);
+    console.log(listImageOld);
+  };
 
   const submitHandler: SubmitHandler<IDescriptionForm> = formData => {
     if (formData.description.includes('<img>')) {
