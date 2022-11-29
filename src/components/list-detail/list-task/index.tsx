@@ -5,7 +5,6 @@ import {useState} from 'react';
 
 import TaskItem from '@/components/list-detail/task-item';
 import api from '@/data/api';
-import {ITaskResponse} from '@/data/api/types/task.type';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
@@ -18,24 +17,25 @@ const ListTask = () => {
 
   const getTasks = () => {
     if (statusFilter) return todolist.tasks.filter(e => !statusFilter || e.statusId == statusFilter);
-    return [...todolist.tasks.filter(e => !e.isDone)];
+    return todolist.tasks.filter(e => !e.isDone);
   };
 
   const tasks = getTasks();
 
   const sensors = useSensorGroup();
   const modifiers = [restrictToVerticalAxis];
+
   const onDragCancel = () => setActiveId(null);
   const onDragStart = ({active}: DragStartEvent) => {
     if (active) setActiveId(active.id);
   };
+
   function onDragEnd({active, over}: DragEndEvent) {
     setActiveId(null);
     if (!over) return;
     if (active.id !== over.id) {
-      const taskList: ITaskResponse[] = todolist.tasks;
-      const oldIndex = taskList?.findIndex(item => active.id === item.id);
-      const newIndex = taskList?.findIndex(item => over.id === item.id);
+      const oldIndex = todolist.tasks?.findIndex(item => active.id === item.id);
+      const newIndex = todolist.tasks?.findIndex(item => over.id === item.id);
       const arrangeTask = arrayMove(todolist.tasks, oldIndex, newIndex);
       const newTodoList = {...todolist};
       newTodoList.tasks = arrangeTask;

@@ -5,12 +5,7 @@
     {
       "files": ["src/__tests__/*.test.[jt]s?(x)", "src/**/?(*.)+(spec|test).[jt]s?(x)"],
       "plugins": ["jest", "jest-formatting", "testing-library", "jest-dom"],
-      "extends": [
-        "plugin:jest/recommended",
-        "plugin:jest-formatting/recommended",
-        "plugin:testing-library/react",
-        "plugin:jest-dom/recommended"
-      ]
+      "extends": ["plugin:jest/recommended", "plugin:jest-formatting/recommended", "plugin:testing-library/react", "plugin:jest-dom/recommended"]
     },
     {
       "files": ["src/**/*.{js,jsx,ts,tsx}"],
@@ -30,6 +25,7 @@
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
+    "react-hooks/exhaustive-deps": "off",
     // sort import
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
