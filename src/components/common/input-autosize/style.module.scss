@@ -1,4 +1,4 @@
-.default-css {
+.input-autosize {
   @apply w-full rounded border-transparent bg-transparent px-1 py-0.5;
   resize: none;
   &:focus:not(&:read-only) {
@@ -7,4 +7,8 @@
   &:read-only {
     @apply border-transparent ring-0;
   }
+}
+
+.title {
+  @apply align-middle text-xl font-semibold;
 }
