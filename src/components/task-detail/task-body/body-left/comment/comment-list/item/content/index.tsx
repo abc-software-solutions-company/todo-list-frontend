@@ -6,6 +6,7 @@ import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import useTask from '@/states/task/use-task';
 import {syncAttachments} from '@/utils/sync-attachment';
+import {wrapperIFrameYoutube} from '@/utils/youtube-ckeditor/wrapper-iframe-youtube';
 
 import CommentForm from '../../../comment-form';
 import {IItemProps} from '..';
@@ -48,7 +49,7 @@ const Content: FC<Iprops> = ({comment, isEditing, onClose}) => {
     <div className={style['comment-content']}>
       {!isEditing ? (
         <div className="content">
-          <PopUpImageDangerous rawHTML={content} />
+          <PopUpImageDangerous rawHTML={wrapperIFrameYoutube(content)} />
         </div>
       ) : (
         <CommentForm {...{form, onSubmit, onClose, value: content}} />
