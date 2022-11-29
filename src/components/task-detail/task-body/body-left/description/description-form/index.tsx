@@ -50,6 +50,8 @@ const DescriptionForm: FC<Iprops> = ({form, onClose, beforeChange}) => {
   };
 
   const submitHandler: SubmitHandler<IDescriptionForm> = formData => {
+    console.log(formData);
+
     if (formData.description.includes('<img>')) {
       toast.show({type: 'warning', title: 'Warning', content: 'Image is still upload, please be patient'});
       return;
