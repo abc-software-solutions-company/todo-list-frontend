@@ -86,7 +86,9 @@ const ListTask = () => {
             ))}
           </SortableContext>
         )}
-        <DragOverlay>{activeId ? <TaskItem task={tasks.filter(e => e.id === activeId)[0]} isSelect={true} /> : null}</DragOverlay>
+        <DragOverlay>
+          {activeId ? <TaskItem key={tasks.filter(e => e.id === activeId)[0].id} task={tasks.filter(e => e.id === activeId)[0]} isSelect={true} /> : null}
+        </DragOverlay>
       </div>
     </DndContext>
   );

@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField';
-import {DateTimePicker} from '@mui/x-date-pickers';
+import {DesktopDatePicker} from '@mui/x-date-pickers';
 import dayjs, {Dayjs} from 'dayjs';
 import {useState} from 'react';
 
@@ -10,11 +10,11 @@ interface IDatePickerProp {
   onChange: (value?: Date) => void;
   readonly?: boolean;
   title: string;
-  minDateTime?: Date;
+  minDate?: Date;
 }
 
-const DatePicker = ({value, onChange, readonly, title, minDateTime}: IDatePickerProp) => {
-  const inputFormat = 'MM/DD/YYYY HH:MM';
+const DatePicker = ({value, onChange, readonly, title, minDate}: IDatePickerProp) => {
+  const inputFormat = 'MM/DD/YYYY';
   const [day, setDay] = useState<Dayjs | null>(dayjs(value));
   const handleChange = (newDay: Dayjs | null) => {
     setDay(newDay);
@@ -22,14 +22,13 @@ const DatePicker = ({value, onChange, readonly, title, minDateTime}: IDatePicker
 
   return (
     <div className={style['date-time-picker']}>
-      <DateTimePicker
+      <DesktopDatePicker
         className={`date-input`}
         inputFormat={inputFormat}
-        showToolbar={true}
         value={day}
         toolbarTitle={title}
         readOnly={readonly}
-        minDateTime={dayjs(minDateTime || '14/11/1990 14:11')}
+        minDate={dayjs(minDate || '14/11/1990')}
         onChange={handleChange}
         onAccept={() => onChange(day?.toDate())}
         renderInput={params => <TextField focused={false} {...params} />}

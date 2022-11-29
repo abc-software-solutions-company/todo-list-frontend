@@ -7,6 +7,7 @@ import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import useTask from '@/states/task/use-task';
 import {syncAttachments} from '@/utils/sync-attachment';
+import {extractImageLinks} from '@/utils/sync-attachment/extract-image-link';
 
 const Editor = dynamic(() => import('@/components/common/ckeditor'), {
   ssr: false
@@ -19,14 +20,34 @@ export interface IDescriptionForm {
 interface Iprops {
   form: UseFormReturn<IDescriptionForm, any>;
   onClose: () => void;
+  beforeChange?: string;
 }
 
-const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
+const DescriptionForm: FC<Iprops> = ({form, onClose, beforeChange}) => {
   const {task, update} = useTask();
   const {id, description} = task;
   const toast = useToast();
   const {handleSubmit, formState, control} = form;
   const {isSubmitting} = formState;
+
+  const onDelete = (imageId: number) => {
+    if (task)
+      api.task
+        .update({id: task.id, attachment: {update: {id: imageId, isActive: false}}})
+        .then(update)
+        .catch(() => toast.show({type: 'danger', title: 'Delete Image', content: 'An error occurred, please try again'}));
+  };
+
+  const afterChange = (data: string) => {
+    const imagesOld = extractImageLinks(beforeChange!);
+    const imagesNew = extractImageLinks(data);
+    const imagesRemove = imagesOld.filter(e => !imagesNew.includes(e));
+    task.attachments.forEach(e => {
+      if (imagesRemove.includes(e.link)) {
+        onDelete(e.id);
+      }
+    });
+  };
 
   const submitHandler: SubmitHandler<IDescriptionForm> = formData => {
     if (formData.description.includes('<img>')) {
@@ -41,6 +62,7 @@ const DescriptionForm: FC<Iprops> = ({form, onClose}) => {
           syncAttachments({id, listAttachment: task.attachments, rawHTML: formData.description, update});
         })
         .then(() => toast.show({type: 'success', title: 'Update Description', content: 'success'}))
+        .then(() => afterChange(formData.description))
         .then(() => onClose())
         .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}));
     }

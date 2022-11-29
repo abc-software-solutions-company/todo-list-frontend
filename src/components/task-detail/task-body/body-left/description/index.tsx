@@ -15,9 +15,10 @@ const Description: FC<IBaseProps> = ({className}) => {
   const {write, task} = useTask();
   const form = useForm<IDescriptionForm>({mode: 'onChange', defaultValues: {description: ''}});
   const [isEditing, setIsEditing] = useState(false);
-
+  const [beforeChange, setBeforeChange] = useState<string>(task.description || '');
   const onClick = () => {
     if (write) setIsEditing(true);
+    setBeforeChange(task.description);
   };
   const onClose = () => {
     if (write) setIsEditing(false);
@@ -28,7 +29,7 @@ const Description: FC<IBaseProps> = ({className}) => {
   return (
     <div className={classNames('description', className)}>
       <Title icon={<Icon name="ico-description" />} text="Description" rightBtn={editBtn} />
-      {!isEditing ? <DescriptionButton {...{onClick}} /> : <DescriptionForm {...{form, onClose}} />}
+      {!isEditing ? <DescriptionButton {...{onClick}} /> : <DescriptionForm beforeChange={beforeChange} {...{form, onClose}} />}
     </div>
   );
 };
