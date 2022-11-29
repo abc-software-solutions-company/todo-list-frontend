@@ -3,7 +3,7 @@ import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {useState} from 'react';
 
-import TaskItem from '@/components/list-detail/task-item';
+import TaskItem from '@/components/lists-detail/task-item';
 import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';

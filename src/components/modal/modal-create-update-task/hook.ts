@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import {ROUTES} from '@/configs/routes.config';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {ITask, ITodolistResponse} from '@/data/api/types/todolist.type';
 import useTodolist from '@/states/todolist/use-todolist';
 import iosAutoFocus from '@/utils/ios-autofocus';
 
@@ -21,7 +21,7 @@ interface IFormInputs {
   name: string;
 }
 
-export default function useModalCreateUpdateTask({onClose, onSuccess, listData, taskData}: IProps) {
+export default function useModalCreateUpdateTask({onClose, onSuccess, todolistData, taskData}: IProps) {
   const {todolist, setTodolist} = useTodolist();
   const router = useRouter();
   const toast = useToast();
@@ -37,8 +37,8 @@ export default function useModalCreateUpdateTask({onClose, onSuccess, listData, 
     const newTodolist: ITodolistResponse = JSON.parse(JSON.stringify(todolist));
 
     if (!taskData) {
-      req = api.task.create({name, todolistId: listData.id}).then(res => {
-        newTodolist.tasks.push({...res.data, assignees: []});
+      req = api.task.create({name, todolistId: todolistData.id}).then(res => {
+        newTodolist.tasks.push({...res.data} as ITask);
         toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
       });
     } else {

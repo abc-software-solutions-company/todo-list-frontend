@@ -1,7 +1,4 @@
-import {Visibilities} from '@/utils/constant';
-
-import {ITaskResponse} from './task.type';
-import {IUserResponse} from './user.type';
+import {Priorities, Visibilities} from '@/utils/constant';
 
 export interface ITodolistGetOne {
   id: string;
@@ -21,37 +18,40 @@ export interface ITodolistUpdate extends ITodolistGetOne {
   isActive?: boolean;
 }
 
+export interface ITodolistSync {
+  email: string;
+  name: string;
+}
+
 export interface IStatus {
   id: number;
   name: string;
   color: string;
   index: number;
-  tasks: ITaskResponse[];
 }
 
-export interface IFavoriteResponse {
-  userId: string;
-  todolistId: string;
-  isActive: boolean;
+export interface IMember {
+  id: string;
+  name: string;
+  email?: string;
 }
 
-export interface IMemberResponse {
-  userId: string;
-  user: IUserResponse;
-  isActive: boolean;
+export interface ITask {
+  id: string;
+  name: string;
+  isDone: boolean;
+  statusId: number;
+  index: number;
+  priority: keyof typeof Priorities;
 }
 
-export interface ITodolistResponse extends ITodolistGetOne, ITodolistCreate {
+export interface ITodolistResponse {
+  id: string;
+  name: string;
   userId: string;
-  isActive: boolean;
+  favorite: boolean;
   visibility: keyof typeof Visibilities;
   status: IStatus[];
-  tasks: ITaskResponse[];
-  favorites: IFavoriteResponse[];
-  members: IMemberResponse[];
-}
-
-export interface ITodolistSync {
-  email: string;
-  name: string;
+  tasks: ITask[];
+  members: IMember[];
 }

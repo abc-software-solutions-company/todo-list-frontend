@@ -1,8 +1,8 @@
 import {useRouter} from 'next/router';
 import {FC, useState} from 'react';
 
-import Tool, {IToolProps} from '@/components/list-detail/toolbar/tool';
-import ToolMenu from '@/components/list-detail/toolbar/tool-menu';
+import Tool, {IToolProps} from '@/components/lists-detail/toolbar/tool';
+import ToolMenu from '@/components/lists-detail/toolbar/tool-menu';
 import ModalDelete from '@/components/modal/modal-delete';
 import ModalShare from '@/components/modal/modal-share';
 import Icon from '@/core-ui/icon';

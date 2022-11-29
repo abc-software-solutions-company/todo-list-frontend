@@ -15,7 +15,7 @@ export interface IProps {
   onClose: () => void;
   onSuccess?: () => void;
   taskData?: ITaskResponse;
-  listData: ITodolistResponse;
+  todolistData: ITodolistResponse;
 }
 const ModalCreateUpdateTask: FC<IProps> = props => {
   const {open, onClose, taskData} = props;

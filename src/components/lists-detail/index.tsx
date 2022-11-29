@@ -1,7 +1,7 @@
 import {useRouter} from 'next/router';
 import {FC, useEffect} from 'react';
 
-import ToolbarDetail from '@/components/list-detail/toolbar';
+import ToolbarDetail from '@/components/lists-detail/toolbar';
 import ModalCreateUpdateList from '@/components/modal/modal-create-update-list';
 import ModalCreateUpdateTask from '@/components/modal/modal-create-update-task';
 import ModalDelete from '@/components/modal/modal-delete';
@@ -73,7 +73,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
           <ModalCreateUpdateList open={isOpenModal.settings} onClose={onClose} data={todolist} onSuccess={socketUpdateList} hiddenVisibility={!owner} />
           <ModalDelete open={isOpenModal.delete} onClose={onClose} data={selectedTask || todolist} onSuccess={socketUpdateList} />
           <ModalShare open={isOpenModal.share} onClose={onClose} data={todolist} />
-          <ModalCreateUpdateTask open={isOpenModal.task} onClose={onClose} listData={todolist} taskData={selectedTask} onSuccess={socketUpdateList} />
+          <ModalCreateUpdateTask open={isOpenModal.task} onClose={onClose} todolistData={todolist} taskData={selectedTask} onSuccess={socketUpdateList} />
         </div>
       </div>
     </>

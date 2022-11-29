@@ -18,4 +18,5 @@ const Assignee: FC<IBaseProps> = ({className}) => {
     </div>
   );
 };
+
 export default Assignee;
