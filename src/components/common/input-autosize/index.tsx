@@ -19,10 +19,20 @@ export interface IProps extends IBaseProps {
   onBlur?: (e: FocusEvent<HTMLTextAreaElement, Element>) => void;
   placeholder?: string;
   write?: boolean;
-  navive?: boolean;
+  role?: 'point' | 'title';
 }
 
-const InputAutosize: FC<IProps> = ({className, value = '', handleSave, write = true, navive, placeholder, onClick, onBlur: onBlurExtend, autoFocus}) => {
+const InputAutosize: FC<IProps> = ({
+  className,
+  value = '',
+  handleSave,
+  write = true,
+  role = 'point',
+  placeholder,
+  onClick,
+  onBlur: onBlurExtend,
+  autoFocus
+}) => {
   const {register, setValue} = useForm<IInputAutosizeInputs>();
   useEffect(() => {
     setValue('text', value);
@@ -50,7 +60,7 @@ const InputAutosize: FC<IProps> = ({className, value = '', handleSave, write = t
 
   return (
     <TextareaAutosize
-      className={classNames(className, navive ? '' : style['default-css'])}
+      className={classNames(className, style['input-autosize'], role === 'title' ? style.title : '')}
       {...register('text', {value})}
       placeholder={placeholder}
       onClick={onClick}
