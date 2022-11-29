@@ -42,7 +42,11 @@ const DescriptionForm: FC<Iprops> = ({form, onClose, beforeChange}) => {
     const imagesOld = extractImageLinks(beforeChange!);
     const imagesNew = extractImageLinks(data);
     const imagesRemove = imagesOld.filter(e => !imagesNew.includes(e));
-    console.log(imagesRemove);
+    task.attachments.forEach(e => {
+      if (imagesRemove.includes(e.link)) {
+        onDelete(e.id);
+      }
+    });
   };
 
   const submitHandler: SubmitHandler<IDescriptionForm> = formData => {
@@ -57,8 +61,8 @@ const DescriptionForm: FC<Iprops> = ({form, onClose, beforeChange}) => {
         .then(() => {
           syncAttachments({id, listAttachment: task.attachments, rawHTML: formData.description, update});
         })
-        .then(() => afterChange(formData.description))
         .then(() => toast.show({type: 'success', title: 'Update Description', content: 'success'}))
+        .then(() => afterChange(formData.description))
         .then(() => onClose())
         .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}));
     }

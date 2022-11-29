@@ -19,7 +19,6 @@ const Description: FC<IBaseProps> = ({className}) => {
   const onClick = () => {
     if (write) setIsEditing(true);
     setBeforeChange(task.description);
-    // This is where we need capture data before editing for compare list of picture need remove
   };
   const onClose = () => {
     if (write) setIsEditing(false);
