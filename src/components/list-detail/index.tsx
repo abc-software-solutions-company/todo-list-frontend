@@ -22,9 +22,9 @@ export interface Iprops {
 }
 
 const ListDetail: FC<Iprops> = ({id}) => {
-  const router = useRouter();
-  const {todolist, selectedTask, isOpenModal, write, assest, owner, initial, setIsOpenModal} = useTodolist();
+  const {todolist, error, selectedTask, isOpenModal, write, assest, owner, initial, setIsOpenModal} = useTodolist();
   const auth = useStateAuth();
+  const router = useRouter();
 
   const onClickFloatIcon = () => {
     setIsOpenModal('task');
@@ -57,10 +57,10 @@ const ListDetail: FC<Iprops> = ({id}) => {
     };
   }, [auth]);
 
-  if ((todolist as any) === '') return <ErrorInformation />;
-  if (!todolist) return null;
-  if (!router.asPath.includes(todolist.id)) return null;
-  if (!assest) return <ErrorInformation />;
+  if (todolist) {
+    if (error || !assest) return <ErrorInformation />;
+    if (!router.asPath.includes(id)) return null;
+  } else return null;
 
   return (
     <>

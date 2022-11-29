@@ -10,7 +10,7 @@ import {ISetIsOpenModalPayload} from './types';
 export default function useTodolist() {
   const todolistState = useSelector((root: RootState) => root.todolist);
   const {todolist, ...rest} = todolistState;
-  const data = todolist.data;
+  const {data, ...restTodolist} = todolist;
   const auth = useStateAuth();
   const dispatch = useDispatch();
 
@@ -27,5 +27,5 @@ export default function useTodolist() {
   const write = Boolean(data) ? data.visibility === 'PUBLIC' || Boolean(auth && auth.id === data.userId) : false;
   const owner = Boolean(data) ? Boolean(auth && auth.id === data.userId) : false;
 
-  return {todolist: data, ...rest, assest, write, owner, initial, update, setStatusFilter, setSelectedTask, setIsOpenModal, setTodolist};
+  return {todolist: data, ...restTodolist, ...rest, assest, write, owner, initial, update, setStatusFilter, setSelectedTask, setIsOpenModal, setTodolist};
 }
