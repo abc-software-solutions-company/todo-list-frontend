@@ -73,13 +73,7 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
       <div className="piority">
         <TaskPiority task={task} readOnly={!write} onChange={onChangePriority} hideTitle={true} />
       </div>
-      {write && (
-        <>
-          <Tool {...editToolProps} className="tool-desktop" />
-          <Tool {...deleteToolProps} className="tool-desktop" />
-          <ToolMenu icon={<MUI_ICON.MORE_VERT />} items={toolMenuItems} margin={-1} />
-        </>
-      )}
+      {write && <ToolMenu display="alway" icon={<MUI_ICON.MORE_VERT />} items={toolMenuItems} margin={-1} />}
     </div>
   );
 };

@@ -60,7 +60,7 @@ const Right: FC<IBaseProps> = ({className}) => {
         <Tool {...shareToolProps} />
       </div>
       <div className="toolbar-mobile">
-        <ToolMenu items={toolMenuItems} icon={<MUI_ICON.MORE_VERT />} />
+        <ToolMenu display="mobile" items={toolMenuItems} icon={<MUI_ICON.MORE_VERT />} />
       </div>
       <ModalDelete open={deleteModal} onClose={onClose} data={task} onSuccess={onDeleteSuccess} />
       <ModalShare open={shareModal} onClose={onClose} data={task} />

@@ -26,7 +26,7 @@ const ToolFilter: FC<IBaseProps> = ({className}) => {
         <MenuItem key={0} value={0} sx={{color: '#000000', ...sxMenuItem}}>
           <div className="dropdown-item">
             <span className="dropdown-name inline-block h-7 rounded px-2 py-0.5 text-h6 font-semibold text-slate-500" style={{backgroundColor: '#F1F5F9'}}>
-              No Done
+              Not Done
             </span>
           </div>
         </MenuItem>

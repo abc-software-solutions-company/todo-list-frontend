@@ -1,11 +1,5 @@
 .actions :global {
   @apply flex items-center gap-x-2.5;
-  .tool-desktop {
-    @apply hidden h-6 sm:block;
-    span {
-      @apply hidden;
-    }
-  }
   .status {
     @apply relative mr-1 flex h-full items-center;
     .MuiOutlinedInput-root {

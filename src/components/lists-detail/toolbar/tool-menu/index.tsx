@@ -9,9 +9,10 @@ export interface IToolMenuProps {
   items: ReactNode[];
   icon: ReactNode;
   margin?: number;
+  display?: 'mobile' | 'alway';
 }
 
-const ToolMenu: FC<IToolMenuProps> = ({className, items, icon, margin}) => {
+const ToolMenu: FC<IToolMenuProps> = ({className, items, icon, margin, display = 'mobile'}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -23,7 +24,7 @@ const ToolMenu: FC<IToolMenuProps> = ({className, items, icon, margin}) => {
   };
 
   return (
-    <div className={classNames(style['tool-menu'], className)}>
+    <div className={classNames(style[`${display === 'mobile' ? 'tool-menu' : ''}`], className)}>
       <Button
         id="ToolBarMenu-button"
         className={classNames(style['menu-btn'])}
@@ -38,7 +39,7 @@ const ToolMenu: FC<IToolMenuProps> = ({className, items, icon, margin}) => {
       <Menu
         id="ToolBarMenu-menu"
         anchorEl={anchorEl}
-        className={classNames(style.menu)}
+        className={classNames(display === 'mobile' ? 'menu' : '')}
         open={open}
         onClose={handleClose}
         MenuListProps={{
