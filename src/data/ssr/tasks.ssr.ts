@@ -1,5 +1,4 @@
 import {GetStaticPaths, GetStaticProps} from 'next';
-import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 
 import api from '../api';
 import {ITaskResponse} from '../api/types/task.type';
@@ -12,14 +11,13 @@ type PageProps = {
   task: ITaskResponse;
 };
 
-export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = async ({locale, params}) => {
+export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = async ({params}) => {
   try {
     const {id} = params!;
     const task = (await api.task.getOne({id})).data;
     return {
       props: {
-        task,
-        ...(await serverSideTranslations(locale!, ['common']))
+        task
       }
     };
   } catch (error) {
