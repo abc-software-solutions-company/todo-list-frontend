@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://todooy.com
-
-# Sitemaps
-Sitemap: https://todooy.com/sitemap.xml
