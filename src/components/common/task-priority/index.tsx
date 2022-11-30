@@ -14,7 +14,7 @@ interface ITaskPriorityProp extends SelectProps {
   hideTitle: boolean;
 }
 
-const TaskPiority: FC<ITaskPriorityProp> = ({onChange, task, hideTitle}) => {
+const TaskPiority: FC<ITaskPriorityProp> = ({onChange, task, hideTitle, ...rest}) => {
   const {priority} = task;
 
   const list = Object.values(Priorities).reverse();
@@ -23,7 +23,7 @@ const TaskPiority: FC<ITaskPriorityProp> = ({onChange, task, hideTitle}) => {
   const value = list.includes(priority) ? priority : Priorities.medium;
 
   return (
-    <Select onChange={onChange} value={value} IconComponent={KeyboardArrowDownIcon} className={style['task-priority']}>
+    <Select onChange={onChange} value={value} IconComponent={KeyboardArrowDownIcon} className={style['task-priority']} {...rest}>
       {list.map((e, index) => (
         <MenuItem key={index} value={e}>
           <div className={`${style.inner} ${hideTitle ? '' : 'mr-2'}`}>

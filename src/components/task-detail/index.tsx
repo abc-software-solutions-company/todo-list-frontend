@@ -23,7 +23,6 @@ const TaskDetail: FC<IProps> = ({task: {id, todolistId}}) => {
   useEffect(() => {
     initial(id);
     LocalStorage.listId.set(todolistId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -31,7 +30,6 @@ const TaskDetail: FC<IProps> = ({task: {id, todolistId}}) => {
       socket.auth = {...auth, listID: todolistId};
       socket.connect();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth]);
 
   if (!task) return null;

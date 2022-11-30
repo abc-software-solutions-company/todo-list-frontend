@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://sharetodolist.com
-
-# Sitemaps
-Sitemap: https://sharetodolist.com/sitemap.xml
