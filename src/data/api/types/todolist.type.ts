@@ -33,6 +33,7 @@ export interface IStatus {
 }
 
 export interface IMember {
+  user?: any;
   id: string;
   name: string;
   email?: string;

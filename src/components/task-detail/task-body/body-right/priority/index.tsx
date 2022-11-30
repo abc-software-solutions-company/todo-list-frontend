@@ -12,7 +12,6 @@ import Title from '../../title';
 
 export const Priority: FC<IBaseProps> = ({className}) => {
   const {write, task, update} = useTask();
-  console.log('🚀 ~ file: index.tsx ~ line 15 ~ write', write);
   const toast = useToast();
   const onChange = (event: SelectChangeEvent<unknown>) => {
     api.task

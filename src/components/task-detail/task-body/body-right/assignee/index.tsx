@@ -9,7 +9,7 @@ import Title from '../../title';
 
 const Assignee: FC<IBaseProps> = ({className}) => {
   const {task, update: onSuccess} = useTask();
-  const assigneeList = task.todolist.members;
+  const assigneeList = task.todolist.members.map(e => e.user);
 
   return (
     <div className={classNames('assignee', className)}>
