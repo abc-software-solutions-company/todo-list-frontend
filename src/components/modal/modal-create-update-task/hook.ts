@@ -39,7 +39,7 @@ export default function useModalCreateUpdateTask({onClose, onSuccess, todolistDa
 
     if (!taskData) {
       req = api.task.create({name, todolistId: todolistData.id}).then(res => {
-        newTodolist.tasks.push({...res.data} as ITaskResponse);
+        newTodolist.tasks.push({...res.data, assignees: []} as ITaskResponse);
         toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
       });
     } else {
