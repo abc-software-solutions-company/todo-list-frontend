@@ -30,15 +30,16 @@ const ToolFilter: FC<IBaseProps> = ({className}) => {
             </span>
           </div>
         </MenuItem>
-        {todolist.status.map(({id, name, color}) => (
-          <MenuItem key={id} value={id} sx={{color, ...sxMenuItem}}>
-            <div>
-              <span className="dropdown-name inline-block h-7 rounded px-2 py-0.5 text-h6" style={{color, backgroundColor: color + '32'}}>
-                {name}
-              </span>
-            </div>
-          </MenuItem>
-        ))}
+        {todolist.status &&
+          todolist.status.map(({id, name, color}) => (
+            <MenuItem key={id} value={id} sx={{color, ...sxMenuItem}}>
+              <div>
+                <span className="dropdown-name inline-block h-7 rounded px-2 py-0.5 text-h6" style={{color, backgroundColor: color + '32'}}>
+                  {name}
+                </span>
+              </div>
+            </MenuItem>
+          ))}
       </Select>
     </div>
   );
