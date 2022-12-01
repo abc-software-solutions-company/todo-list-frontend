@@ -14,9 +14,10 @@ interface ITaskAssigneeProps {
   task: ITaskResponse;
   onSuccess?: () => void;
   assigneeList?: IMember[];
+  readonly?: boolean;
 }
 
-const TaskAssignee: FC<ITaskAssigneeProps> = ({task, assigneeList = [], onSuccess}) => {
+const TaskAssignee: FC<ITaskAssigneeProps> = ({task, assigneeList = [], onSuccess, readonly}) => {
   const auth = useStateAuth();
   const {id, assignees} = task;
   const assigneeId = assignees.filter(e => e.isActive)[0]?.userId;
@@ -25,10 +26,11 @@ const TaskAssignee: FC<ITaskAssigneeProps> = ({task, assigneeList = [], onSucces
 
   const [isEdting, setEditing] = useState(false);
 
-  const onClick = () => setEditing(true);
+  const onClick = () => {
+    if (readonly) setEditing(true);
+  };
   const onClose = () => setEditing(false);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onChange = (event: SyntheticEvent<Element, Event>, value: IMember | null) => {
     if (value) {
       if (value.id !== 'Unassigned') api.task.update({id, assignee: {ids: [value.id]}}).then(onSuccess);
