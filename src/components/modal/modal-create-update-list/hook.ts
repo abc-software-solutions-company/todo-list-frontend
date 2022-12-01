@@ -25,7 +25,7 @@ const Schema = yup.object().shape({
 
 export default function useModalCreateUpdateList({onClose, onSuccess, data}: IProps) {
   const router = useRouter();
-  const {todolist, setTodolist} = useTodolist();
+  const {setTodolist} = useTodolist();
   const {handleSubmit, formState, reset, setValue, getValues, setFocus, ...rest} = useForm<IFormInputs>({
     resolver: yupResolver(Schema),
     mode: 'onChange'
@@ -35,7 +35,6 @@ export default function useModalCreateUpdateList({onClose, onSuccess, data}: IPr
   const toast = useToast();
 
   const submitHandler: SubmitHandler<IFormInputs> = async formData => {
-    console.log('🚀 ~ file: hook.ts ~ line 37 ~ useModalCreateUpdateList ~ formData', formData);
     if (isSubmitting) return;
     const {name, visibility, member} = formData;
     let req;
@@ -46,9 +45,9 @@ export default function useModalCreateUpdateList({onClose, onSuccess, data}: IPr
       });
     } else {
       const {id} = data;
-      req = api.todolist.update({id, name, visibility, member}).then(() => {
+      req = api.todolist.update({id, name, visibility, member}).then(res => {
         if (router.asPath.includes(ROUTES.LIST)) {
-          const newTodolist: ITodolistResponse = JSON.parse(JSON.stringify(todolist));
+          const newTodolist: ITodolistResponse = res.data;
           newTodolist.name = name;
           setTodolist(newTodolist);
         }
@@ -58,7 +57,10 @@ export default function useModalCreateUpdateList({onClose, onSuccess, data}: IPr
 
     req
       .then(onSuccess)
-      .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}))
+      .catch(e => {
+        console.log(e);
+        toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'});
+      })
       .finally(() => reset());
     onClose();
   };
