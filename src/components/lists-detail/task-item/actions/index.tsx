@@ -69,7 +69,7 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
   return (
     <div className={classNames('actions', style.actions)}>
       <StatusSelect className="status" id={statusId} list={todolist.status} readonly={!write} onChange={onChange} />
-      <TaskAssignee {...{task, onSuccess: socketUpdateList, assigneeList}} />
+      <TaskAssignee {...{task, onSuccess: socketUpdateList, assigneeList}} readonly={write} />
       <div className="piority">
         <TaskPiority task={task} readOnly={!write} onChange={onChangePriority} hideTitle={true} />
       </div>
