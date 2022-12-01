@@ -2,10 +2,9 @@ import classNames from 'classnames';
 import {FC} from 'react';
 
 import TaskAssignee from '@/components/common/task-assignee';
+import Title from '@/components/task-detail/task-body/title';
 import useTask from '@/states/task/use-task';
 import {IBaseProps} from '@/types';
-
-import Title from '../../title';
 
 const Assignee: FC<IBaseProps> = ({className}) => {
   const {task, update: onSuccess} = useTask();
