@@ -17,7 +17,7 @@ const ListTask = () => {
 
   const getTasks = () => {
     if (statusFilter) return todolist.tasks.filter(e => !statusFilter || e.statusId == statusFilter);
-    return todolist.tasks.filter(e => !e.isDone);
+    return todolist.tasks?.filter(e => !e.isDone);
   };
 
   const tasks = getTasks();
@@ -78,8 +78,8 @@ const ListTask = () => {
   return (
     <DndContext {...{sensors, modifiers, onDragCancel, onDragEnd, onDragStart}}>
       <div className="tasks">
-        {tasks.length === 0 && <span className="empty">Empty list</span>}
-        {tasks.length > 0 && (
+        {tasks && tasks.length === 0 && <span className="empty">Empty list</span>}
+        {tasks && tasks.length > 0 && (
           <SortableContext disabled={!write} items={tasks.map(task => task.id)} strategy={verticalListSortingStrategy}>
             {tasks.map(task => (
               <TaskItem key={task.id} task={task} />
