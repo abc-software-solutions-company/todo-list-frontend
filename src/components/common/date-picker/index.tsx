@@ -11,11 +11,13 @@ interface IDatePickerProp {
   readonly?: boolean;
   title: string;
   minDate?: Date;
+  maxDate?: Date;
 }
 
-const DatePicker = ({value, onChange, readonly, title, minDate}: IDatePickerProp) => {
+const DatePicker = ({value, onChange, readonly, title, minDate, maxDate}: IDatePickerProp) => {
   const inputFormat = 'DD/MM/YYYY';
   const [day, setDay] = useState<Dayjs | null>(dayjs(value));
+  const [open, setOpen] = useState<boolean>(false);
   const handleChange = (newDay: Dayjs | null) => {
     setDay(newDay);
     onChange(dayjs(newDay).toDate());
@@ -27,9 +29,13 @@ const DatePicker = ({value, onChange, readonly, title, minDate}: IDatePickerProp
         className={`date-input`}
         inputFormat={inputFormat}
         value={day}
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
         toolbarTitle={title}
         readOnly={readonly}
         minDate={dayjs(minDate || '14/11/1990')}
+        maxDate={dayjs(maxDate || '31/12/2099')}
         onChange={date => handleChange(date)}
         renderInput={params => <TextField focused={false} {...params} />}
       />
