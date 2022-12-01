@@ -37,7 +37,7 @@ const DatePicker = ({value, onChange, readonly, title, minDate, maxDate}: IDateP
         minDate={dayjs(minDate || '14/11/1990')}
         maxDate={dayjs(maxDate || '31/12/2099')}
         onChange={date => handleChange(date)}
-        renderInput={params => <TextField focused={false} {...params} />}
+        renderInput={params => <TextField focused={false} {...params} onClick={() => setOpen(true)} />}
       />
     </div>
   );
