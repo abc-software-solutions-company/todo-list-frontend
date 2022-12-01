@@ -16,7 +16,6 @@ interface IProps extends IBaseProps {
 
 const PickDateTime: FC<IProps> = ({className, value, title, handleSave, readonly, minDate}) => {
   const onSave = (date?: Date) => {
-    console.log('🚀 ~ file: index.tsx:19 ~ onSave ~ date', date);
     if (date) handleSave(date);
   };
 
