@@ -13,15 +13,7 @@ const TaskDate: FC<HTMLAttributes<HTMLDivElement>> = ({className}) => {
     api.task.update({id: task.id, dueDate: date});
   };
   const handleSaveStartDate = (date: Date) => {
-    api.task
-      .update({id: task.id, startDate: date})
-      .then(() => setMinDate(date))
-      .then(() => {
-        if (task.startDate > task.dueDate) {
-          const newDate = new Date();
-          newDate.setDate(date.getDate() + 1);
-        }
-      });
+    api.task.update({id: task.id, startDate: date}).then(() => setMinDate(date));
   };
 
   return (
