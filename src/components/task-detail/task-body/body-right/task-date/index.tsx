@@ -12,9 +12,10 @@ const TaskDate: FC<HTMLAttributes<HTMLDivElement>> = ({className}) => {
   const toast = useToast();
 
   const [minDate, setMinDate] = useState<Date>(task.startDate);
+  const [maxDate, setMaxDate] = useState<Date>(task.dueDate);
 
   const handleSaveDueDate = (date: Date) => {
-    api.task.update({id: task.id, dueDate: date});
+    api.task.update({id: task.id, dueDate: date}).then(() => setMaxDate(date));
   };
 
   const handleSaveStartDate = (date: Date) => {
@@ -31,7 +32,7 @@ const TaskDate: FC<HTMLAttributes<HTMLDivElement>> = ({className}) => {
 
   return (
     <div className={classNames('date', className)}>
-      <PickDateTime readonly={!write} className="start-date" title="Start Date" value={task.startDate} handleSave={handleSaveStartDate} />
+      <PickDateTime maxDate={maxDate} readonly={!write} className="start-date" title="Start Date" value={task.startDate} handleSave={handleSaveStartDate} />
       <PickDateTime minDate={minDate} readonly={!write} className="due-date" title="Due Date" value={task.dueDate} handleSave={handleSaveDueDate} />
     </div>
   );
