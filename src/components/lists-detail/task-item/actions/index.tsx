@@ -8,6 +8,7 @@ import TaskPiority from '@/components/common/task-priority';
 import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import useTodolist from '@/states/todolist/use-todolist';
 import {MUI_ICON} from '@/utils/mui-icon';
@@ -18,11 +19,18 @@ import ToolMenu from '../../toolbar/tool-menu';
 import {ITaskItemProps} from '..';
 import style from './style.module.scss';
 
-const Actions: FC<ITaskItemProps> = ({task}) => {
-  const {todolist, write, setIsOpenModal, setSelectedTask} = useTodolist();
+interface IActionsProps extends ITaskItemProps {
+  todolist: ITodolistResponse;
+  write?: boolean;
+}
+
+const Actions: FC<IActionsProps> = ({task, todolist, write = false}) => {
+  const {setIsOpenModal, setSelectedTask} = useTodolist();
   const toast = useToast();
   const [statusId, setStatusId] = useState(task.statusId);
   const assigneeList = todolist.members;
+
+  console.log(assigneeList);
 
   useEffect(() => {
     setStatusId(task.statusId);

@@ -22,6 +22,7 @@ const api = {
     getOne: ({id}: ITodolistGetOne) => http.get<ITodolistResponse>(API_ENDPOINTS.LIST + '/' + id),
     getByUser: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST + '/user'),
     getFavorite: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST + '/favorite'),
+    getMyTask: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST + '/my-task'),
     create: (data: ITodolistCreate) => http.post<ITodolistResponse>(API_ENDPOINTS.LIST, data),
     update: (data: ITodolistUpdate) => http.patch<ITodolistResponse>(API_ENDPOINTS.LIST, data),
     sync: (data: ITodolistSync) => http.post<IAuthResponse>(API_ENDPOINTS.LIST + '/sync', data)
