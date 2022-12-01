@@ -62,7 +62,7 @@ const ToolbarDetail: FC = () => {
     <div className={style.toolbar}>
       <div className={classNames(style.tools, style.left)}>
         <TodolistFavorite id={id} favorite={favorite} />
-        <InputAutosize value={name} handleSave={handleSave} role="title" />
+        <InputAutosize value={name} handleSave={handleSave} role="title" write={write} />
       </div>
       <div className={classNames(style.tools, style.right)}>
         <Tool {...addTaskToolProps} className={style['tool-outer']} />

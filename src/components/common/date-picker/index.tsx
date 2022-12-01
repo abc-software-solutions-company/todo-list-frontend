@@ -18,6 +18,7 @@ const DatePicker = ({value, onChange, readonly, title, minDate}: IDatePickerProp
   const [day, setDay] = useState<Dayjs | null>(dayjs(value));
   const handleChange = (newDay: Dayjs | null) => {
     setDay(newDay);
+    onChange(dayjs(newDay).toDate());
   };
 
   return (
@@ -29,8 +30,7 @@ const DatePicker = ({value, onChange, readonly, title, minDate}: IDatePickerProp
         toolbarTitle={title}
         readOnly={readonly}
         minDate={dayjs(minDate || '14/11/1990')}
-        onChange={handleChange}
-        onAccept={() => onChange(day?.toDate())}
+        onChange={date => handleChange(date)}
         renderInput={params => <TextField focused={false} {...params} />}
       />
     </div>
