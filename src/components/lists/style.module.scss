@@ -50,15 +50,6 @@
       }
     }
   }
-  .favorite-list {
-    .abc-btn,
-    .MuiButtonBase-root {
-      @apply hidden;
-    }
-    .actions {
-      @apply gap-0;
-    }
-  }
   .float-icon {
     @apply flex cursor-pointer md:hidden;
   }
