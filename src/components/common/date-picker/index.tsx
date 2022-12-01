@@ -17,6 +17,7 @@ interface IDatePickerProp {
 const DatePicker = ({value, onChange, readonly, title, minDate, maxDate}: IDatePickerProp) => {
   const inputFormat = 'DD/MM/YYYY';
   const [day, setDay] = useState<Dayjs | null>(dayjs(value));
+  const [open, setOpen] = useState<boolean>(false);
   const handleChange = (newDay: Dayjs | null) => {
     setDay(newDay);
     onChange(dayjs(newDay).toDate());
@@ -28,6 +29,9 @@ const DatePicker = ({value, onChange, readonly, title, minDate, maxDate}: IDateP
         className={`date-input`}
         inputFormat={inputFormat}
         value={day}
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
         toolbarTitle={title}
         readOnly={readonly}
         minDate={dayjs(minDate || '14/11/1990')}
