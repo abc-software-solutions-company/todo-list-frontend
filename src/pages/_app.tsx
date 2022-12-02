@@ -51,7 +51,6 @@ const CustomApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) =>
       router.events.off('routeChangeComplete', doneProgress);
       router.events.off('routeChangeError', doneProgress);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>

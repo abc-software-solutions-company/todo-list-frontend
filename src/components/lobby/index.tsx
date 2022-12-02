@@ -12,6 +12,10 @@ import LobbyTitle from './title';
 const Lobby: FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const router = useRouter();
+  const buttonText = {
+    CREATE: ' Create New List ',
+    MY_LISTS: 'My Lists'
+  };
   return (
     <>
       <div className={styles['page-lobby']}>
@@ -20,9 +24,9 @@ const Lobby: FC = () => {
             <LobbyTitle />
             <div className={styles.actions}>
               <div className="item">
-                <Button variant="contained" className="w-full py-3 font-medium" color="info" onClick={() => setModalOpen(true)} text=" Create New List" />
+                <Button variant="contained" className={styles.button} color="info" onClick={() => setModalOpen(true)} text={buttonText.CREATE} />
               </div>
-              <Button variant="contained" className="w-full py-3 font-medium" color="info" onClick={() => router.push(ROUTES.LIST)} text="My Lists" />
+              <Button variant="contained" className={styles.button} color="info" onClick={() => router.push(ROUTES.LIST)} text={buttonText.MY_LISTS} />
             </div>
           </div>
           <div className={styles.decor}>

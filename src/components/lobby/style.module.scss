@@ -31,12 +31,13 @@
   @apply mt-8 w-full;
 }
 
+.button {
+  @apply w-full py-3 font-medium;
+}
+
 .decor {
   @apply flex basis-1/2 justify-end;
-  // background: aqua;
   svg {
     @apply h-auto w-80 sm:w-[80%] md:w-[60%] xl:w-full;
-    // @apply sm:bg-teal-400 md:bg-blue-500 lg:bg-amber-300;
-    // @apply h-[500px] w-[700px];
   }
 }
