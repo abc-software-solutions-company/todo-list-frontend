@@ -44,14 +44,14 @@ const TaskAssignee: FC<ITaskAssigneeProps> = ({task, assigneeList = [], onSucces
       {isEdting ? (
         <Autocomplete
           className={style['task-assignee']}
-          disablePortal
+          disablePortal={true}
           options={options}
           noOptionsText={'Searching...'}
           getOptionLabel={option => option.name}
           open={true}
           onChange={onChange}
           onBlur={onClose}
-          sx={{minWidth: 240}}
+          sx={{minWidth: 240, position: 'absolute', zIndex: '40'}}
           size="small"
           defaultValue={optionActive || options[0]}
           renderInput={params => <TextField {...params} placeholder="Search People" autoFocus />}
