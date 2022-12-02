@@ -9,7 +9,6 @@ import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import type {AppProps} from 'next/app';
 import {useRouter} from 'next/router';
-import {appWithTranslation} from 'next-i18next';
 import nProgress from 'nprogress';
 import {useEffect} from 'react';
 import {Provider} from 'react-redux';
@@ -72,4 +71,4 @@ const CustomApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) =>
   );
 };
 
-export default appWithTranslation(CustomApp);
+export default CustomApp;
