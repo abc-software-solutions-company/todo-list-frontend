@@ -30,14 +30,24 @@ const DatePicker = ({value, onChange, readonly, title, minDate, maxDate}: IDateP
         inputFormat={inputFormat}
         value={day}
         open={open}
-        onOpen={() => setOpen(true)}
+        onOpen={() => {
+          if (!readonly) setOpen(true);
+        }}
         onClose={() => setOpen(false)}
         toolbarTitle={title}
         readOnly={readonly}
         minDate={dayjs(minDate || '14/11/1990')}
         maxDate={dayjs(maxDate || '31/12/2099')}
         onChange={date => handleChange(date)}
-        renderInput={params => <TextField focused={false} {...params} onClick={() => setOpen(true)} />}
+        renderInput={params => (
+          <TextField
+            focused={false}
+            {...params}
+            onClick={() => {
+              if (!readonly) setOpen(true);
+            }}
+          />
+        )}
       />
     </div>
   );
