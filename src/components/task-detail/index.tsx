@@ -31,6 +31,7 @@ const TaskDetail: FC<IProps> = ({task: {id, todolistId}}) => {
       socket.connect();
     }
   }, [auth]);
+  console.log(router.asPath);
 
   if (!task) return null;
   if (!router.asPath.includes(task.id)) return null;

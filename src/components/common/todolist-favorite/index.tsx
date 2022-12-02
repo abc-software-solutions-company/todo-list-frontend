@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {FC, useState} from 'react';
+import {FC, useEffect, useState} from 'react';
 
 import IconButton from '@/core-ui/icon-button';
 import api from '@/data/api';
@@ -24,6 +24,9 @@ const TodolistFavorite: FC<IProps> = ({className, id, favorite = false, onSucces
         .then(() => setFavoriteState(!favoriteState))
         .then(onSuccess);
   };
+  useEffect(() => {
+    setFavoriteState(favorite);
+  }, [favorite]);
 
   return <IconButton className={classNames(style.icon, className)} name={iconName} onClick={onClick} />;
 };
