@@ -29,7 +29,7 @@ const Description: FC<IBaseProps> = ({className}) => {
   return (
     <div className={classNames('description', className)}>
       <Title icon={<Icon name="ico-description" />} text="Description" rightBtn={editBtn} />
-      {!isEditing ? <DescriptionButton {...{onClick}} /> : <DescriptionForm beforeChange={beforeChange} {...{form, onClose}} />}
+      {!isEditing ? <DescriptionButton write={write} {...{onClick}} /> : <DescriptionForm beforeChange={beforeChange} {...{form, onClose}} />}
     </div>
   );
 };
