@@ -6,14 +6,15 @@ import {wrapperIFrameYoutube} from '@/utils/youtube-ckeditor/wrapper-iframe-yout
 
 interface IDescriptionButtonProps {
   onClick: () => void;
+  write?: boolean;
 }
 
-const DescriptionButton: FC<IDescriptionButtonProps> = ({onClick}) => {
+const DescriptionButton: FC<IDescriptionButtonProps> = ({onClick, write = true}) => {
   const {task} = useTask();
   const {description} = task;
 
   if (description) return <div className="description-text" onClick={onClick} dangerouslySetInnerHTML={{__html: wrapperIFrameYoutube(description)}}></div>;
-  else return <Input className="border-0 bg-slate-100" onClick={onClick} placeholder="Add a description..." readOnly />;
+  else return <>{write && <Input className="border-0 bg-slate-100" onClick={onClick} placeholder="Add a description..." readOnly />}</>;
 };
 
 export default DescriptionButton;
