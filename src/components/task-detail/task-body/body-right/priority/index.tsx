@@ -7,6 +7,7 @@ import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import useTask from '@/states/task/use-task';
 import {IBaseProps} from '@/types';
+import {ToastContents} from '@/utils/toast-content';
 
 import Title from '../../title';
 
@@ -17,7 +18,7 @@ export const Priority: FC<IBaseProps> = ({className}) => {
     api.task
       .update({id: task.id, priority: event.target.value as string})
       .then(update)
-      .catch(() => toast.show({type: 'danger', title: 'Priority', content: 'An Error occurrd, please try again'}));
+      .catch(() => toast.show({type: 'danger', title: 'Priority', content: ToastContents.ERROR}));
   };
   return (
     <div className={classNames('priority', className)}>

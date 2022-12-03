@@ -10,6 +10,7 @@ import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import useTodolist from '@/states/todolist/use-todolist';
 import {Visibilities} from '@/utils/constant';
+import {ToastContents} from '@/utils/toast-content';
 
 import {IProps} from '.';
 
@@ -38,9 +39,10 @@ export default function useModalCreateUpdateList({onClose, onSuccess, data}: IPr
     if (isSubmitting) return;
     const {name, visibility, member} = formData;
     let req;
+
     if (!data) {
       req = api.todolist.create({name}).then(res => {
-        toast.show({type: 'success', title: 'Create List', content: 'Successful!'});
+        toast.show({type: 'success', title: 'Create List', content: ToastContents.SUCCESS});
         router.push(ROUTES.LIST + '/' + res.data.id);
       });
     } else {
@@ -51,7 +53,7 @@ export default function useModalCreateUpdateList({onClose, onSuccess, data}: IPr
           newTodolist.name = name;
           setTodolist(newTodolist);
         }
-        toast.show({type: 'success', title: 'Update List', content: 'Successful!'});
+        toast.show({type: 'success', title: 'Update List', content: ToastContents.SUCCESS});
       });
     }
 
@@ -59,7 +61,7 @@ export default function useModalCreateUpdateList({onClose, onSuccess, data}: IPr
       .then(onSuccess)
       .catch(e => {
         console.log(e);
-        toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'});
+        toast.show({type: 'danger', title: 'Error', content: ToastContents.ERROR});
       })
       .finally(() => reset());
     onClose();

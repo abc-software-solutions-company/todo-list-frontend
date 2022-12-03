@@ -36,7 +36,6 @@ const ModalCreateUpdateList: FC<IProps> = props => {
         setOptions(res.data);
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -48,9 +47,20 @@ const ModalCreateUpdateList: FC<IProps> = props => {
               <h3 className="title">{data ? 'Settings' : 'Create New List'}</h3>
             </Modal.Header>
             <Modal.Body>
-              <Input error={errors.name?.message} value={data?.name} autoFocus={true} placeholder={'Enter your list name'} {...register('name')} />
+              <Input
+                error={errors.name?.message}
+                value={data?.name}
+                autoFocus={true}
+                placeholder={'Enter your list name'}
+                {...register('name')}
+              />
               {data && !hiddenVisibility && (
-                <Select {...register('visibility')} className="input-type" defaultValue={visibilityDefaultValue} sx={{color: '#334155'}}>
+                <Select
+                  {...register('visibility')}
+                  className="input-type"
+                  defaultValue={visibilityDefaultValue}
+                  sx={{color: '#334155'}}
+                >
                   {Object.keys(Visibilities).map((key, idx) => {
                     return (
                       <MenuItem key={key} value={key}>
@@ -73,7 +83,7 @@ const ModalCreateUpdateList: FC<IProps> = props => {
                     const {selected} = state;
                     if (!selected)
                       return (
-                        <li {...prop} className="m-2 flex items-center gap-x-2.5">
+                        <li {...prop} className={styles['assignee-item']}>
                           <AssigneeIcon name={option.name} />
                           <span>
                             {option?.email} ({option?.name})
@@ -81,7 +91,9 @@ const ModalCreateUpdateList: FC<IProps> = props => {
                         </li>
                       );
                   }}
-                  renderInput={params => <TextField {...params} className="members-textfield" label="member" placeholder="Add members..." />}
+                  renderInput={params => (
+                    <TextField {...params} className="members-textfield" label="member" placeholder="Add members..." />
+                  )}
                 />
               )}
             </Modal.Body>

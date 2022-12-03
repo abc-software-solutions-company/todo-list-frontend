@@ -6,6 +6,7 @@ import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import useTask from '@/states/task/use-task';
 import {syncAttachments} from '@/utils/sync-attachment';
+import {ToastContents} from '@/utils/toast-content';
 
 import CommentForm, {IFormInputs} from '../comment-form';
 
@@ -34,7 +35,7 @@ const CommentButton: FC = () => {
         })
         .then(() => reset())
         .then(() => onClose())
-        .catch(() => toast.show({type: 'danger', title: 'Comment', content: 'An error occurred, please try again'}));
+        .catch(() => toast.show({type: 'danger', title: 'Comment', content: ToastContents.ERROR}));
     }
   };
 

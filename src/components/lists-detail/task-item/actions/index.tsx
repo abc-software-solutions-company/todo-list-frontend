@@ -11,6 +11,7 @@ import api from '@/data/api';
 import {socketUpdateList} from '@/data/socket';
 import useTodolist from '@/states/todolist/use-todolist';
 import {MUI_ICON} from '@/utils/mui-icon';
+import {ToastContents} from '@/utils/toast-content';
 
 import Tool, {IToolProps} from '../../toolbar/tool';
 import ToolMenu from '../../toolbar/tool-menu';
@@ -47,7 +48,7 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
     api.task
       .update({id: task.id, priority: event.target.value as string})
       .then(socketUpdateList)
-      .catch(() => toast.show({type: 'danger', title: 'Priority', content: 'An Error occurrd, please try again'}));
+      .catch(() => toast.show({type: 'danger', title: 'Priority', content: ToastContents.ERROR}));
   };
 
   const deleteToolProps: IToolProps = {
@@ -69,7 +70,12 @@ const Actions: FC<ITaskItemProps> = ({task}) => {
   return (
     <div className={classNames('actions', style.actions)}>
       <StatusSelect className="status" id={statusId} list={todolist.status} readonly={!write} onChange={onChange} />
-      <TaskAssignee {...{task, onSuccess: socketUpdateList, assigneeList}} readonly={write} sx={{position: 'absolute'}} hideIconWhenClick={false} />
+      <TaskAssignee
+        {...{task, onSuccess: socketUpdateList, assigneeList}}
+        readonly={write}
+        sx={{position: 'absolute'}}
+        hideIconWhenClick={false}
+      />
       <div className="piority">
         <TaskPiority task={task} readOnly={!write} onChange={onChangePriority} hideTitle={true} />
       </div>
