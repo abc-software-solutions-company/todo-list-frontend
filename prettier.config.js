@@ -5,7 +5,7 @@ module.exports = {
   htmlWhitespaceSensitivity: 'css',
   insertPragma: false,
   jsxSingleQuote: false,
-  printWidth: 160,
+  printWidth: 120,
   proseWrap: 'always',
   quoteProps: 'as-needed',
   requirePragma: false,
@@ -23,11 +23,11 @@ module.exports = {
     },
     {
       files: '.editorconfig',
-      options: {parser: 'yaml'}
+      options: { parser: 'yaml' }
     },
     {
       files: 'LICENSE',
-      options: {parser: 'markdown'}
+      options: { parser: 'markdown' }
     }
   ],
 

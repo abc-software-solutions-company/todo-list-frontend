@@ -7,6 +7,7 @@ import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import useTask from '@/states/task/use-task';
 import {Priorities, PriorityColors, PriorityIcons} from '@/utils/constant';
+import {ToastContents} from '@/utils/toast-content';
 
 const PrioritySelect: FC<SelectProps> = props => {
   const {task, update} = useTask();
@@ -22,7 +23,7 @@ const PrioritySelect: FC<SelectProps> = props => {
     api.task
       .update({id: id, priority: event.target.value as string})
       .then(update)
-      .catch(() => toast.show({type: 'danger', title: 'Priority', content: 'An Error occurrd, please try again'}));
+      .catch(() => toast.show({type: 'danger', title: 'Priority', content: ToastContents.ERROR}));
   };
 
   return (

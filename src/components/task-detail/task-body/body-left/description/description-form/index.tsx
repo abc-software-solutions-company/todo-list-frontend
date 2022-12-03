@@ -8,6 +8,7 @@ import api from '@/data/api';
 import useTask from '@/states/task/use-task';
 import {syncAttachments} from '@/utils/sync-attachment';
 import {extractImageLinks} from '@/utils/sync-attachment/extract-image-link';
+import {ToastContents} from '@/utils/toast-content';
 
 const Editor = dynamic(() => import('@/components/common/ckeditor'), {
   ssr: false
@@ -35,7 +36,7 @@ const DescriptionForm: FC<Iprops> = ({form, onClose, beforeChange}) => {
       api.task
         .update({id: task.id, attachment: {update: {id: imageId, isActive: false}}})
         .then(update)
-        .catch(() => toast.show({type: 'danger', title: 'Delete Image', content: 'An error occurred, please try again'}));
+        .catch(() => toast.show({type: 'danger', title: 'Delete Image', content: ToastContents.ERROR}));
   };
 
   const afterChange = (data: string) => {
@@ -64,7 +65,7 @@ const DescriptionForm: FC<Iprops> = ({form, onClose, beforeChange}) => {
         .then(() => toast.show({type: 'success', title: 'Update Description', content: 'success'}))
         .then(() => afterChange(formData.description))
         .then(() => onClose())
-        .catch(() => toast.show({type: 'danger', title: 'Error', content: 'An error occurred, please try again'}));
+        .catch(() => toast.show({type: 'danger', title: 'Error', content: ToastContents.ERROR}));
     }
   };
 
@@ -87,7 +88,14 @@ const DescriptionForm: FC<Iprops> = ({form, onClose, beforeChange}) => {
           loading={isSubmitting}
           disabled={isSubmitting}
         />
-        <Button className="max-w-20 h-8 px-2 text-sm" variant="outlined" color="white" text="Cancel" onClick={onClose} type="button" />
+        <Button
+          className="max-w-20 h-8 px-2 text-sm"
+          variant="outlined"
+          color="white"
+          text="Cancel"
+          onClick={onClose}
+          type="button"
+        />
       </div>
     </form>
   );

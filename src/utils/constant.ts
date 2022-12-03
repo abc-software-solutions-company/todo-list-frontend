@@ -25,5 +25,7 @@ export const PriorityIcons = {lowest: 'ico-chevrons-down', low: 'ico-chevron-dow
 export const LobbyTexts = {
   TITLE: 'TO-DO LIST',
   HEADLINE: 'Make Estimating Agile Projects Accurate & Fun',
-  QUOTE: "Organize your life and complete tasks more reliably by using the right to-do app. These are the top performers we've tested."
+  QUOTE: "Organize your life and complete tasks more reliably by using the right to-do app. These are the top performers we've tested.",
+  CREATE: ' Create New List ',
+  MY_LISTS: 'My Lists'
 };

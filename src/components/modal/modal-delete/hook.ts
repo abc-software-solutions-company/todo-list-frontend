@@ -5,6 +5,7 @@ import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import useTodolist from '@/states/todolist/use-todolist';
+import {ToastContents} from '@/utils/toast-content';
 
 import {IProps} from '.';
 
@@ -23,11 +24,11 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
           newTodolist.tasks = newTodolist.tasks.filter(e => e.id !== id);
           setTodolist(newTodolist);
         }
-        toast.show({type: 'success', title: 'Delete ', content: 'Successful!'});
+        toast.show({type: 'success', title: 'Delete ', content: ToastContents.SUCCESS});
       });
     else
       req = api.todolist.update({id, isActive: false}).then(() => {
-        toast.show({type: 'success', title: 'Delete list', content: 'Successful!'});
+        toast.show({type: 'success', title: 'Delete list', content: ToastContents.SUCCESS});
         if (router.asPath.includes(ROUTES.LIST + '/' + id)) {
           router.push(ROUTES.LIST);
         }
@@ -36,7 +37,7 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
       toast.show({
         type: 'danger',
         title: 'Error',
-        content: 'An error occurred, please try again'
+        content: ToastContents.ERROR
       })
     );
     onClose();

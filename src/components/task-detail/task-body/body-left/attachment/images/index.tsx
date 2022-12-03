@@ -15,6 +15,7 @@ import {IAttachmentResponse} from '@/data/api/types/task.type';
 import useTask from '@/states/task/use-task';
 import {IBaseProps} from '@/types';
 import {getDate} from '@/utils/get-date';
+import {ToastContents} from '@/utils/toast-content';
 
 import style from './style.module.scss';
 
@@ -28,7 +29,10 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
 
   const attachments = task.attachments.filter(e => e.isActive);
 
-  const {handleSubmit, setValue, setFocus, register} = useForm<IFormInputs>({mode: 'onChange', defaultValues: {name: ''}});
+  const {handleSubmit, setValue, setFocus, register} = useForm<IFormInputs>({
+    mode: 'onChange',
+    defaultValues: {name: ''}
+  });
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const open = Boolean(anchorEl);
@@ -49,7 +53,7 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
       api.task
         .update({id: task.id, attachment: {update: {id: imageSelected, name}}})
         .then(update)
-        .catch(() => toast.show({type: 'danger', title: 'Edit Image', content: 'An error occurred, please try again'}));
+        .catch(() => toast.show({type: 'danger', title: 'Edit Image', content: ToastContents.ERROR}));
     onClose();
   };
 
@@ -58,7 +62,7 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
       api.task
         .update({id: task.id, attachment: {update: {id: imageId, isActive: false}}})
         .then(update)
-        .catch(() => toast.show({type: 'danger', title: 'Delete Image', content: 'An error occurred, please try again'}));
+        .catch(() => toast.show({type: 'danger', title: 'Delete Image', content: ToastContents.ERROR}));
   };
 
   if (!attachments || attachments.length < 1) return null;
