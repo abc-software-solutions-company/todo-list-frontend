@@ -49,7 +49,6 @@ const ListDetail: FC<Iprops> = ({id}) => {
 
     socket.on(SOCKET_EVENTS.updateList, () => {
       console.log('SocketIO', SOCKET_EVENTS.updateList);
-      if (!todolist) router.push(ROUTES.LIST);
       initial(id);
     });
 
@@ -58,6 +57,19 @@ const ListDetail: FC<Iprops> = ({id}) => {
       socket.off(SOCKET_EVENTS.updateList);
     };
   }, [auth]);
+
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      window.addEventListener('DOMContentLoaded', () => {
+        const mainElm = document.querySelector('main');
+        if (mainElm) {
+          if (mainElm.childNodes.length == 0) {
+            router.push(ROUTES.LIST);
+          }
+        }
+      });
+    }
+  });
 
   if (todolist)
     if (router.asPath.includes(todolist.id))
