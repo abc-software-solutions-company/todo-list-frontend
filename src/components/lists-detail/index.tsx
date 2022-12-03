@@ -12,7 +12,6 @@ import {SOCKET_EVENTS} from '@/data/socket/type';
 import {useStateAuth} from '@/states/auth';
 import useTodolist from '@/states/todolist/use-todolist';
 
-import ErrorInformation from '../common/404';
 import Seo from '../common/seo/seo';
 import ListTask from './list-task';
 import styles from './style.module.scss';
@@ -22,7 +21,7 @@ export interface Iprops {
 }
 
 const ListDetail: FC<Iprops> = ({id}) => {
-  const {todolist, error, selectedTask, isOpenModal, write, assest, owner, initial, setIsOpenModal} = useTodolist();
+  const {todolist, selectedTask, isOpenModal, write, assest, owner, initial, setIsOpenModal} = useTodolist();
   const auth = useStateAuth();
   const router = useRouter();
 
@@ -35,6 +34,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
   };
 
   useEffect(() => {
+    console.log(assest);
     if (auth) {
       socket.auth = {...auth, listID: id};
       socket.connect();
@@ -57,27 +57,41 @@ const ListDetail: FC<Iprops> = ({id}) => {
     };
   }, [auth]);
 
-  if (todolist) {
-    if (error || !assest) return <ErrorInformation />;
-    if (!router.asPath.includes(id)) return null;
-  } else return null;
-
-  return (
-    <>
-      {assest && <Seo title={todolist.name} />}
-      <div className={styles['list-detail']}>
-        <div className="container">
-          <ToolbarDetail />
-          <ListTask />
-          <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />
-          <ModalCreateUpdateList open={isOpenModal.settings} onClose={onClose} data={todolist} onSuccess={socketUpdateList} hiddenVisibility={!owner} />
-          <ModalDelete open={isOpenModal.delete} onClose={onClose} data={selectedTask || todolist} onSuccess={socketUpdateList} />
-          <ModalShare open={isOpenModal.share} onClose={onClose} data={todolist} />
-          <ModalCreateUpdateTask open={isOpenModal.task} onClose={onClose} todolistData={todolist} taskData={selectedTask} onSuccess={socketUpdateList} />
-        </div>
-      </div>
-    </>
-  );
+  if (todolist)
+    if (router.asPath.includes(todolist.id))
+      return (
+        <>
+          {assest && <Seo title={todolist.name} />}
+          <div className={styles['list-detail']}>
+            <div className="container">
+              <ToolbarDetail />
+              <ListTask />
+              <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />
+              <ModalCreateUpdateList
+                open={isOpenModal.settings}
+                onClose={onClose}
+                data={todolist}
+                onSuccess={socketUpdateList}
+                hiddenVisibility={!owner}
+              />
+              <ModalDelete
+                open={isOpenModal.delete}
+                onClose={onClose}
+                data={selectedTask || todolist}
+                onSuccess={socketUpdateList}
+              />
+              <ModalShare open={isOpenModal.share} onClose={onClose} data={todolist} />
+              <ModalCreateUpdateTask
+                open={isOpenModal.task}
+                onClose={onClose}
+                todolistData={todolist}
+                taskData={selectedTask}
+                onSuccess={socketUpdateList}
+              />
+            </div>
+          </div>
+        </>
+      );
 };
 
 export default ListDetail;
