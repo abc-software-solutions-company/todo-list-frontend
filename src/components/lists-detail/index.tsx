@@ -6,6 +6,7 @@ import ModalCreateUpdateList from '@/components/modal/modal-create-update-list';
 import ModalCreateUpdateTask from '@/components/modal/modal-create-update-task';
 import ModalDelete from '@/components/modal/modal-delete';
 import ModalShare from '@/components/modal/modal-share';
+import {ROUTES} from '@/configs/routes.config';
 import FloatIcon from '@/core-ui/float-icon';
 import socket, {socketUpdateList} from '@/data/socket';
 import {SOCKET_EVENTS} from '@/data/socket/type';
@@ -48,6 +49,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
 
     socket.on(SOCKET_EVENTS.updateList, () => {
       console.log('SocketIO', SOCKET_EVENTS.updateList);
+      if (!todolist) router.push(ROUTES.LIST);
       initial(id);
     });
 
@@ -92,6 +94,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
           </div>
         </>
       );
+  return null;
 };
 
 export default ListDetail;
