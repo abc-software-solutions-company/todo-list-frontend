@@ -6,17 +6,18 @@ interface Props {
 
 interface State {
   hasError: boolean;
+  hasNextI18Error: boolean;
 }
-
 class ErrorBoundary extends Component<Props, State> {
   constructor(props: any) {
     super(props);
-    this.state = {hasError: false};
+    this.state = {hasError: false, hasNextI18Error: false};
   }
 
   static getDerivedStateFromError(error: Error) {
     console.log(error);
-    return {hasError: true};
+    if (error.message.includes('i18')) return {hasError: true, hasNextI18Error: true};
+    return {hasError: true, hasNextI18Error: false};
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -24,6 +25,10 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   render() {
+    // If this error is NextI18, automatic reload page
+    if (this.state.hasNextI18Error) {
+      window.location.reload();
+    }
     // Check if the error is thrown
     if (this.state.hasError) {
       // You can render any custom fallback UI
