@@ -44,8 +44,8 @@
       @apply bg-blue-400;
     }
   }
-  .MuiAutocomplete-root,
-  r {
-    @apply z-20 mt-20 -ml-5 w-40 bg-white sm:ml-0 sm:w-60;
+  .MuiAutocomplete-root {
+    @apply z-20 w-[218px] bg-white;
+    @apply -ml-24 mt-20 lg:ml-0;
   }
 }
