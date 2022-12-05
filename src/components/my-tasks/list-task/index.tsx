@@ -17,6 +17,7 @@ const ListTask: FC<IListTaskProps> = ({myTask}) => {
 
   useEffect(() => {
     if (auth) {
+      socket.auth = {...auth};
       socket.connect();
     }
 
