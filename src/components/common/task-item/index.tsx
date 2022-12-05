@@ -6,23 +6,25 @@ import {useRouter} from 'next/router';
 import {ROUTES} from '@/configs/routes.config';
 import Checkbox from '@/core-ui/checkbox';
 import api from '@/data/api/index';
-import { ITaskResponse } from '@/data/api/types/task.type';
+import {ITaskResponse} from '@/data/api/types/task.type';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
-import useTodolist from '@/states/todolist/use-todolist';
+import useTasks from '@/states/tasks/use-tasks';
 
 import Actions from './actions';
 import style from './style.module.scss';
 
 export interface ITaskItemProps {
   task: ITaskResponse;
+  todolist: ITodolistResponse;
   isSelect?: boolean;
+  write?: boolean;
 }
 
 export default function TaskItem(props: ITaskItemProps) {
-  const {write} = useTodolist();
+  const {task, todolist, isSelect, write} = props;
 
-  const {task, isSelect} = props;
-
+  const {getMyTasks} = useTasks();
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task.id});
 
   const styleDnd = {
@@ -35,7 +37,11 @@ export default function TaskItem(props: ITaskItemProps) {
     if (!id) return;
     api.task
       .update({id, isDone: !isDone})
-      .then(socketUpdateList)
+      .then(() => {
+        console.log('socketUpdateList');
+        socketUpdateList();
+      })
+      .then(getMyTasks)
       .catch(() => {});
   };
 
@@ -67,7 +73,7 @@ export default function TaskItem(props: ITaskItemProps) {
       <p className={`h6 ${task.isDone && 'checked'}`} onClick={onClick}>
         {task.name}
       </p>
-      <Actions {...props} />
+      <Actions {...{...props, todolist, write}} />
     </div>
   );
 }

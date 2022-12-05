@@ -1,7 +1,9 @@
 import {FC, useEffect} from 'react';
 
+import {ROUTES} from '@/configs/routes.config';
 import FloatIcon from '@/core-ui/float-icon';
 import useLists from '@/states/lists/use-lists';
+import LocalStorage from '@/utils/local-storage';
 
 import ModalCreateUpdateList from '../modal/modal-create-update-list';
 import ModalDelete from '../modal/modal-delete';
@@ -21,6 +23,7 @@ const Lists: FC = () => {
   const onClose = () => setIsOpenModal(null);
 
   useEffect(() => {
+    LocalStorage.checkPage.set(ROUTES.LIST);
     get();
   }, []);
 
