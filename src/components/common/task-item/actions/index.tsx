@@ -11,7 +11,6 @@ import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {socketUpdateList} from '@/data/socket';
-import useTasks from '@/states/tasks/use-tasks';
 import useTodolist from '@/states/todolist/use-todolist';
 import {MUI_ICON} from '@/utils/mui-icon';
 import {ToastContents} from '@/utils/toast-content';
@@ -25,7 +24,6 @@ interface IActionsProps extends ITaskItemProps {
 
 const Actions: FC<IActionsProps> = ({task, todolist, write = false}) => {
   const {setIsOpenModal, setSelectedTask} = useTodolist();
-  const {getMyTasks} = useTasks();
 
   const toast = useToast();
   const [statusId, setStatusId] = useState(task.statusId);
@@ -48,13 +46,12 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false}) => {
   const onChange = (event: SelectChangeEvent<number>) => {
     const newStatusId = Number(event.target.value);
     setStatusId(newStatusId);
-    api.task.update({id: task.id, statusId: newStatusId}).then(socketUpdateList).then(getMyTasks);
+    api.task.update({id: task.id, statusId: newStatusId}).then(socketUpdateList);
   };
 
   const onChangePriority = (event: SelectChangeEvent<unknown>) => {
     api.task
       .update({id: task.id, priority: event.target.value as string})
-      .then(getMyTasks)
       .then(socketUpdateList)
       .catch(() => toast.show({type: 'danger', title: 'Priority', content: ToastContents.ERROR}));
   };
@@ -81,10 +78,7 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false}) => {
       <TaskAssignee
         {...{
           task,
-          onSuccess: () => {
-            socketUpdateList();
-            getMyTasks();
-          },
+          onSuccess: socketUpdateList,
           assigneeList
         }}
         readonly={write}

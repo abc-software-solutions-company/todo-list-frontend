@@ -1,11 +1,8 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 
 import TaskItem from '@/components/common/task-item';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
-import socket from '@/data/socket';
-import {SOCKET_EVENTS} from '@/data/socket/type';
 import {useStateAuth} from '@/states/auth';
-import useTasks from '@/states/tasks/use-tasks';
 
 interface IListTaskProps {
   myTask: ITodolistResponse[];
@@ -13,28 +10,6 @@ interface IListTaskProps {
 
 const ListTask: FC<IListTaskProps> = ({myTask}) => {
   const auth = useStateAuth();
-  const {getMyTasks} = useTasks();
-
-  useEffect(() => {
-    if (auth) {
-      socket.auth = {...auth};
-      socket.connect();
-    }
-
-    socket.on(SOCKET_EVENTS.reconnect, attempt => {
-      console.log('SocketIO', SOCKET_EVENTS.reconnect, attempt);
-    });
-
-    socket.on(SOCKET_EVENTS.updateList, () => {
-      console.log('SocketIO', SOCKET_EVENTS.updateList);
-      getMyTasks();
-    });
-
-    return () => {
-      socket.off(SOCKET_EVENTS.reconnect);
-      socket.off(SOCKET_EVENTS.updateList);
-    };
-  }, [auth]);
 
   return (
     <>
