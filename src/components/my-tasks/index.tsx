@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react';
 
+import {ROUTES} from '@/configs/routes.config';
 import useTasks from '@/states/tasks/use-tasks';
 import useTodolist from '@/states/todolist/use-todolist';
+import LocalStorage from '@/utils/local-storage';
 
 import Title from '../lists/title';
 import ModalCreateUpdateTask from '../modal/modal-create-update-task';
@@ -18,10 +20,9 @@ const MyTasks = () => {
   };
 
   useEffect(() => {
+    LocalStorage.checkPage.set(ROUTES.TASK);
     getMyTasks();
   }, []);
-
-  console.log(myTasks);
 
   return (
     <>

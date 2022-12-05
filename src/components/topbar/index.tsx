@@ -37,7 +37,13 @@ const Topbar: FC<IProps> = ({className}) => {
         router.push(ROUTES.LIST);
         break;
       case `${ROUTES.TASK}/[id]`:
-        router.push(ROUTES.LIST + '/' + LocalStorage.listId.get());
+        const checkPage = LocalStorage.checkPage.get();
+
+        if (checkPage === '/lists') {
+          router.push(ROUTES.LIST + '/' + LocalStorage.listId.get());
+        } else if (checkPage === '/tasks') {
+          router.push(ROUTES.TASK);
+        }
         break;
       default:
         router.back();
