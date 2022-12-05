@@ -34,7 +34,6 @@ const ListDetail: FC<Iprops> = ({id}) => {
   };
 
   useEffect(() => {
-    console.log(assest);
     if (auth) {
       socket.auth = {...auth, listID: id};
       socket.connect();
