@@ -88,6 +88,8 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false}) => {
           assigneeList
         }}
         readonly={write}
+        sx={{position: 'absolute'}}
+        hideIconWhenClick={false}
       />
       <div className="piority">
         <TaskPiority task={task} readOnly={!write} onChange={onChangePriority} hideTitle={true} />
