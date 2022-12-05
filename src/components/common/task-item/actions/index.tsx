@@ -48,7 +48,7 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false}) => {
   const onChange = (event: SelectChangeEvent<number>) => {
     const newStatusId = Number(event.target.value);
     setStatusId(newStatusId);
-    api.task.update({id: task.id, statusId: newStatusId}).then(socketUpdateList);
+    api.task.update({id: task.id, statusId: newStatusId}).then(socketUpdateList).then(getMyTasks);
   };
 
   const onChangePriority = (event: SelectChangeEvent<unknown>) => {

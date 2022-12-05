@@ -9,6 +9,7 @@ import api from '@/data/api/index';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
+import useTasks from '@/states/tasks/use-tasks';
 
 import Actions from './actions';
 import style from './style.module.scss';
@@ -23,6 +24,7 @@ export interface ITaskItemProps {
 export default function TaskItem(props: ITaskItemProps) {
   const {task, todolist, isSelect, write} = props;
 
+  const {getMyTasks} = useTasks();
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task.id});
 
   const styleDnd = {
@@ -35,7 +37,11 @@ export default function TaskItem(props: ITaskItemProps) {
     if (!id) return;
     api.task
       .update({id, isDone: !isDone})
-      .then(socketUpdateList)
+      .then(() => {
+        console.log('socketUpdateList');
+        socketUpdateList();
+      })
+      .then(getMyTasks)
       .catch(() => {});
   };
 
