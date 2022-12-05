@@ -5,32 +5,30 @@ import {FC, useEffect, useState} from 'react';
 import StatusSelect from '@/components/common/statusSelect';
 import TaskAssignee from '@/components/common/task-assignee';
 import TaskPiority from '@/components/common/task-priority';
+import Tool, {IToolProps} from '@/components/lists-detail/toolbar/tool';
+import ToolMenu from '@/components/lists-detail/toolbar/tool-menu';
 import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
+import useTasks from '@/states/tasks/use-tasks';
 import useTodolist from '@/states/todolist/use-todolist';
 import {MUI_ICON} from '@/utils/mui-icon';
-import {ToastContents} from '@/utils/toast-content';
 
-import Tool, {IToolProps} from '../../toolbar/tool';
-import ToolMenu from '../../toolbar/tool-menu';
 import {ITaskItemProps} from '..';
 import style from './style.module.scss';
 
 interface IActionsProps extends ITaskItemProps {
-  todolist: ITodolistResponse;
   write?: boolean;
 }
 
 const Actions: FC<IActionsProps> = ({task, todolist, write = false}) => {
   const {setIsOpenModal, setSelectedTask} = useTodolist();
+  const {getMyTasks} = useTasks();
+
   const toast = useToast();
   const [statusId, setStatusId] = useState(task.statusId);
   const assigneeList = todolist.members;
-
-  console.log(assigneeList);
 
   useEffect(() => {
     setStatusId(task.statusId);
@@ -55,8 +53,9 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false}) => {
   const onChangePriority = (event: SelectChangeEvent<unknown>) => {
     api.task
       .update({id: task.id, priority: event.target.value as string})
+      .then(getMyTasks)
       .then(socketUpdateList)
-      .catch(() => toast.show({type: 'danger', title: 'Priority', content: ToastContents.ERROR}));
+      .catch(() => toast.show({type: 'danger', title: 'Priority', content: 'An Error occurrd, please try again'}));
   };
 
   const deleteToolProps: IToolProps = {
@@ -79,10 +78,15 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false}) => {
     <div className={classNames('actions', style.actions)}>
       <StatusSelect className="status" id={statusId} list={todolist.status} readonly={!write} onChange={onChange} />
       <TaskAssignee
-        {...{task, onSuccess: socketUpdateList, assigneeList}}
+        {...{
+          task,
+          onSuccess: () => {
+            socketUpdateList();
+            getMyTasks();
+          },
+          assigneeList
+        }}
         readonly={write}
-        sx={{position: 'absolute'}}
-        hideIconWhenClick={false}
       />
       <div className="piority">
         <TaskPiority task={task} readOnly={!write} onChange={onChangePriority} hideTitle={true} />

@@ -3,7 +3,7 @@ import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {useState} from 'react';
 
-import TaskItem from '@/components/lists-detail/task-item';
+import TaskItem from '@/components/common/task-item';
 import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
@@ -82,12 +82,14 @@ const ListTask = () => {
         {tasks && tasks.length > 0 && (
           <SortableContext disabled={!write} items={tasks.map(task => task.id)} strategy={verticalListSortingStrategy}>
             {tasks.map(task => (
-              <TaskItem key={task.id} task={task} />
+              <TaskItem key={task.id} task={task} todolist={todolist} write={write} />
             ))}
           </SortableContext>
         )}
         <DragOverlay>
-          {activeId ? <TaskItem key={tasks.filter(e => e.id === activeId)[0].id} task={tasks.filter(e => e.id === activeId)[0]} isSelect={true} /> : null}
+          {activeId ? (
+            <TaskItem key={tasks.filter(e => e.id === activeId)[0].id} task={tasks.filter(e => e.id === activeId)[0]} isSelect={true} todolist={todolist} />
+          ) : null}
         </DragOverlay>
       </div>
     </DndContext>

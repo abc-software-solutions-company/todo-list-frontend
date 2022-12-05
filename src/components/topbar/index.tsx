@@ -30,12 +30,17 @@ const Topbar: FC<IProps> = ({className}) => {
       case `${ROUTES.LIST}`:
         router.push(ROUTES.HOME);
         break;
+      case `${ROUTES.TASK}`:
+        router.push(ROUTES.LIST);
+        break;
       case `${ROUTES.LIST}/[id]`:
         router.push(ROUTES.LIST);
         break;
       case `${ROUTES.TASK}/[id]`:
         router.push(ROUTES.LIST + '/' + LocalStorage.listId.get());
         break;
+      default:
+        router.back();
     }
   };
 
@@ -45,11 +50,15 @@ const Topbar: FC<IProps> = ({className}) => {
         <div className="container">
           <div className="inner">
             <Back
-              visibleOn={[`${ROUTES.LIST}`, `${ROUTES.LIST}/[id]`, `${ROUTES.TASK}/[id]`]}
+              visibleOn={[`${ROUTES.LIST}`, `${ROUTES.LIST}/[id]`, `${ROUTES.TASK}`, `${ROUTES.TASK}/[id]`]}
               currentPage={currentPage}
               onClick={() => returnTo(currentPage)}
             />
             <div className="authenticated">
+              <Link href={ROUTES.TASK}>
+                <a className="h2 text">My Tasks</a>
+              </Link>
+              <span className="sep"></span>
               <Link href={ROUTES.LIST}>
                 <a className="h2 text">My Lists</a>
               </Link>
