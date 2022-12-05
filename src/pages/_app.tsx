@@ -31,11 +31,11 @@ const CustomApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) =>
         <AuthProvider>
           <Provider store={store}>
             <MuiThemeProvider>
-              <Layout pageProps={pageProps}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <Layout pageProps={pageProps}>
                   <Component {...pageProps} key={router.route} />
-                </LocalizationProvider>
-              </Layout>
+                </Layout>
+              </LocalizationProvider>
             </MuiThemeProvider>
           </Provider>
         </AuthProvider>

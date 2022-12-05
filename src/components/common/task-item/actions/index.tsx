@@ -14,6 +14,7 @@ import {socketUpdateList} from '@/data/socket';
 import useTasks from '@/states/tasks/use-tasks';
 import useTodolist from '@/states/todolist/use-todolist';
 import {MUI_ICON} from '@/utils/mui-icon';
+import {ToastContents} from '@/utils/toast-content';
 
 import {ITaskItemProps} from '..';
 import style from './style.module.scss';
@@ -55,7 +56,7 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false}) => {
       .update({id: task.id, priority: event.target.value as string})
       .then(getMyTasks)
       .then(socketUpdateList)
-      .catch(() => toast.show({type: 'danger', title: 'Priority', content: 'An Error occurrd, please try again'}));
+      .catch(() => toast.show({type: 'danger', title: 'Priority', content: ToastContents.ERROR}));
   };
 
   const deleteToolProps: IToolProps = {
