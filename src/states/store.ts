@@ -6,6 +6,7 @@ import kanbanSlice from './kanban/slice';
 import listsSlice from './lists/slice';
 import saga from './saga';
 import taskSlice from './task/slice';
+import tasksSlice from './tasks/slice';
 import todolistSlice from './todolist/slice';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -17,7 +18,8 @@ const store = configureStore({
     task: taskSlice.reducer,
     todolist: todolistSlice.reducer,
     lists: listsSlice.reducer,
-    kanban: kanbanSlice.reducer
+    kanban: kanbanSlice.reducer,
+    tasks: tasksSlice.reducer
   }
 });
 

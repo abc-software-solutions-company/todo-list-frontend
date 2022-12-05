@@ -8,6 +8,7 @@ const generateLocalStorage = (name: string) => {
 const LocalStorage = {
   accessToken: generateLocalStorage('accessToken'),
   listId: generateLocalStorage('listId'),
-  previousPage: generateLocalStorage('previousPage')
+  previousPage: generateLocalStorage('previousPage'),
+  checkPage: generateLocalStorage('checkPage')
 };
 export default LocalStorage;
