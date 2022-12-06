@@ -1,9 +1,9 @@
 .actions :global {
   @apply flex items-center gap-x-2.5;
   .status {
-    @apply relative mr-1 flex h-full items-center;
+    @apply relative flex h-full items-center;
     .MuiOutlinedInput-root {
-      @apply h-5 w-5 rounded-full lg:h-auto lg:w-auto lg:rounded;
+      @apply h-6 w-6 rounded-full lg:h-auto lg:w-auto lg:rounded;
     }
 
     .MuiSelect-select {
