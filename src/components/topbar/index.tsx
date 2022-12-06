@@ -1,15 +1,12 @@
 import cls from 'classnames';
 import Link from 'next/link';
-import {useRouter} from 'next/router';
-import {FC, useState} from 'react';
+import {FC} from 'react';
 
 import ModalThirdPartyLogin from '@/components/modal/modal-third-party-login';
-import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
-import {useStateAuth} from '@/states/auth/context';
-import LocalStorage from '@/utils/local-storage';
 
 import Back from '../common/back';
+import useTopbar from './hook';
 import styles from './style.module.scss';
 
 interface IProps {
@@ -17,38 +14,7 @@ interface IProps {
 }
 
 const Topbar: FC<IProps> = ({className}) => {
-  const router = useRouter();
-
-  const auth = useStateAuth();
-
-  const [socialOpen, setSocialOpen] = useState(false);
-  const handleSocial = () => setSocialOpen(true);
-  const currentPage = router.pathname;
-
-  const returnTo = (curPage: string) => {
-    const checkPage = LocalStorage.checkPage.get();
-    switch (curPage) {
-      case `${ROUTES.LIST}`:
-        router.push(ROUTES.HOME);
-        break;
-      case `${ROUTES.TASK}`:
-        router.push(ROUTES.LIST);
-        break;
-      case `${ROUTES.LIST}/[id]`:
-        if (checkPage === '/tasks') router.push(ROUTES.TASK);
-        else router.push(ROUTES.LIST);
-        break;
-      case `${ROUTES.TASK}/[id]`:
-        if (checkPage === '/lists') {
-          router.push(ROUTES.LIST + '/' + LocalStorage.listId.get());
-        } else if (checkPage === '/tasks') {
-          router.push(ROUTES.TASK);
-        }
-        break;
-      default:
-        router.back();
-    }
-  };
+  const {auth, currentPage, handleSocial, returnTo, socialOpen, router, setSocialOpen, ROUTES} = useTopbar();
 
   return (
     <div className={cls(styles.topbar, className)}>
@@ -62,11 +28,11 @@ const Topbar: FC<IProps> = ({className}) => {
             />
             <div className="authenticated">
               <Link href={ROUTES.TASK}>
-                <a className="h2 text">My Tasks</a>
+                <a className={`h2 text ${currentPage === ROUTES.TASK && 'active'}`}>My Tasks</a>
               </Link>
               <span className="sep"></span>
               <Link href={ROUTES.LIST}>
-                <a className="h2 text">My Lists</a>
+                <a className={`h2 text ${currentPage === ROUTES.LIST && 'active'}`}>My Lists</a>
               </Link>
               {/* Seperator line */}
               <span className="sep"></span>

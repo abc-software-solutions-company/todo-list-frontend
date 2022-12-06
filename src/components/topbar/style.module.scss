@@ -12,6 +12,9 @@
     .abc-icon.size-24:before {
       @apply text-xl md:text-2xl;
     }
+    .active {
+      @apply mt-1 border-b-[1.5px] border-b-blue-500;
+    }
   }
   .ico-user {
     @apply ml-auto mr-2;
