@@ -19,7 +19,14 @@ interface ITaskAssigneeProps {
   hideIconWhenClick?: boolean;
 }
 
-const TaskAssignee: FC<ITaskAssigneeProps> = ({task, assigneeList = [], onSuccess, readonly, sx = {minWidth: 240}, hideIconWhenClick = true}) => {
+const TaskAssignee: FC<ITaskAssigneeProps> = ({
+  task,
+  assigneeList = [],
+  onSuccess,
+  readonly,
+  sx = {minWidth: 240},
+  hideIconWhenClick = true
+}) => {
   const auth = useStateAuth();
   const {id, assignees} = task;
   const assigneeId = assignees.filter(e => e.isActive)[0]?.userId;
@@ -62,8 +69,10 @@ const TaskAssignee: FC<ITaskAssigneeProps> = ({task, assigneeList = [], onSucces
                 <Box component="li" {...props}>
                   <div className="flex w-full items-center gap-x-2.5">
                     <AssigneeIcon name={option.name} bg={option.bg} />
-                    <div className="name grow">{auth && auth.id === option.id ? 'Me' : option.name}</div>
-                    <div className="active">{selected && <i className="ico-check text-base font-extrabold text-blue-700" />}</div>
+                    <div className="name grow">{auth && auth.id === option.id ? 'Assign To Me' : option.name}</div>
+                    <div className="active">
+                      {selected && <i className="ico-check text-base font-extrabold text-blue-700" />}
+                    </div>
                   </div>
                 </Box>
               );

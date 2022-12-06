@@ -32,7 +32,7 @@ const ToolMenu: FC<IToolMenuProps> = ({className, items, icon, margin, display =
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        sx={{padding: 0, margin: margin || 0, minWidth: 24}}
+        sx={{padding: 0, margin: margin || 0, minWidth: 24, marginTop: -1.5}}
       >
         {icon}
       </Button>

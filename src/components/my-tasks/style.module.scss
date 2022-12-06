@@ -1,13 +1,13 @@
 .list-task :global {
   .container {
     @apply px-4;
+    .empty {
+      @apply -mt-1 flex justify-center;
+    }
   }
   .tasks {
     .item {
       @apply first:rounded-t-lg first:border-t last:rounded-b-lg;
-    }
-    .empty {
-      @apply -mt-1 flex justify-center;
     }
   }
   .error-private-list {
