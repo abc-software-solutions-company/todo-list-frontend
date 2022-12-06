@@ -69,7 +69,7 @@ const TaskAssignee: FC<ITaskAssigneeProps> = ({
                 <Box component="li" {...props}>
                   <div className="flex w-full items-center gap-x-2.5">
                     <AssigneeIcon name={option.name} bg={option.bg} />
-                    <div className="name grow">{auth && auth.id === option.id ? 'Me' : option.name}</div>
+                    <div className="name grow">{auth && auth.id === option.id ? 'Assign To Me' : option.name}</div>
                     <div className="active">
                       {selected && <i className="ico-check text-base font-extrabold text-blue-700" />}
                     </div>
