@@ -55,7 +55,7 @@ const MyTasks = () => {
         <div className="h-[22px]"></div>
         <div className="container">
           <Title tilte={'My Tasks'} />
-          {myTasks.length == 0 && <span className="empty">Empty list</span>}
+          {myTasks?.length == 0 && <span className="empty">Empty list</span>}
           {myTasks && <ListTask myTask={myTasks} />}
           {selectedTask && (
             <ModalDelete open={isOpenModal.delete} onClose={onClose} data={selectedTask} onSuccess={socketUpdateList} />
