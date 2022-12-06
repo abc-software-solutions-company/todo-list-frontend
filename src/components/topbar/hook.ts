@@ -36,7 +36,8 @@ const useTopbar = () => {
         router.back();
     }
   };
-  return {returnTo, currentPage, auth, socialOpen, handleSocial, router, setSocialOpen};
+
+  return {returnTo, currentPage, ROUTES, auth, socialOpen, handleSocial, router, setSocialOpen};
 };
 
 export default useTopbar;

@@ -3,7 +3,6 @@ import Link from 'next/link';
 import {FC} from 'react';
 
 import ModalThirdPartyLogin from '@/components/modal/modal-third-party-login';
-import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 
 import Back from '../common/back';
@@ -15,7 +14,7 @@ interface IProps {
 }
 
 const Topbar: FC<IProps> = ({className}) => {
-  const {auth, currentPage, handleSocial, returnTo, socialOpen, router, setSocialOpen} = useTopbar();
+  const {auth, currentPage, handleSocial, returnTo, socialOpen, router, setSocialOpen, ROUTES} = useTopbar();
 
   return (
     <div className={cls(styles.topbar, className)}>
@@ -29,11 +28,11 @@ const Topbar: FC<IProps> = ({className}) => {
             />
             <div className="authenticated">
               <Link href={ROUTES.TASK}>
-                <a className="h2 text">My Tasks</a>
+                <a className={`h2 text ${currentPage === ROUTES.TASK && 'active'}`}>My Tasks</a>
               </Link>
               <span className="sep"></span>
               <Link href={ROUTES.LIST}>
-                <a className="h2 text">My Lists</a>
+                <a className={`h2 text ${currentPage === ROUTES.LIST && 'active'}`}>My Lists</a>
               </Link>
               {/* Seperator line */}
               <span className="sep"></span>
