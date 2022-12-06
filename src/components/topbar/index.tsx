@@ -26,6 +26,7 @@ const Topbar: FC<IProps> = ({className}) => {
   const currentPage = router.pathname;
 
   const returnTo = (curPage: string) => {
+    const checkPage = LocalStorage.checkPage.get();
     switch (curPage) {
       case `${ROUTES.LIST}`:
         router.push(ROUTES.HOME);
@@ -34,11 +35,10 @@ const Topbar: FC<IProps> = ({className}) => {
         router.push(ROUTES.LIST);
         break;
       case `${ROUTES.LIST}/[id]`:
-        router.push(ROUTES.LIST);
+        if (checkPage === '/tasks') router.push(ROUTES.TASK);
+        else router.push(ROUTES.LIST);
         break;
       case `${ROUTES.TASK}/[id]`:
-        const checkPage = LocalStorage.checkPage.get();
-
         if (checkPage === '/lists') {
           router.push(ROUTES.LIST + '/' + LocalStorage.listId.get());
         } else if (checkPage === '/tasks') {

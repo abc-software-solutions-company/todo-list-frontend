@@ -1,6 +1,8 @@
+import Link from 'next/link';
 import React, {FC} from 'react';
 
 import TaskItem from '@/components/common/task-item';
+import {ROUTES} from '@/configs/routes.config';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {useStateAuth} from '@/states/auth';
 
@@ -20,7 +22,9 @@ const ListTask: FC<IListTaskProps> = ({myTask}) => {
         return (
           <div key={todolist.id}>
             <div className="h-7"></div>
-            <h4 className="text-h4 font-semibold">{todolist.name}</h4>
+            <Link href={ROUTES.LIST + `/${todolist.id}`}>
+              <h4 className="w-fit cursor-pointer text-h4 font-semibold">{todolist.name}</h4>
+            </Link>
             <div className="h-4"></div>{' '}
             <div className="tasks">
               {todolist?.tasks.map(task => (
