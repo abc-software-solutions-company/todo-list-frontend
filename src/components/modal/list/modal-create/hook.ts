@@ -1,5 +1,6 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useRouter} from 'next/router';
+import {useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -18,7 +19,7 @@ const Schema = yup.object().shape({
   name: yup.string().required('Please enter your list name.')
 });
 
-export default function useModalCreateList({onClose, onSuccess}: IProps) {
+export default function useModalCreateList({open, onClose, onSuccess}: IProps) {
   const router = useRouter();
   const toast = useToast();
 
@@ -26,6 +27,10 @@ export default function useModalCreateList({onClose, onSuccess}: IProps) {
     resolver: yupResolver(Schema),
     mode: 'onChange'
   });
+
+  useEffect(() => {
+    reset();
+  }, [open]);
 
   const {errors, isSubmitting} = formState;
 

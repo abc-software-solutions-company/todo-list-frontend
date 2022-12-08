@@ -24,7 +24,7 @@ const Schema = yup.object().shape({
   name: yup.string().required('Please enter your list name.')
 });
 
-export default function useModalUpdateList({onClose, onSuccess, data}: IProps) {
+export default function useModalUpdateList({data, open, onClose, onSuccess}: IProps) {
   const router = useRouter();
   const toast = useToast();
   const {setTodolist} = useTodolist();
@@ -35,6 +35,11 @@ export default function useModalUpdateList({onClose, onSuccess, data}: IProps) {
   });
 
   const {errors, isSubmitting} = formState;
+
+  useEffect(() => {
+    reset();
+    setValue('name', data?.name || '');
+  }, [data, open, setValue]);
 
   const submitHandler: SubmitHandler<IFormInputs> = async formData => {
     if (isSubmitting) return;
