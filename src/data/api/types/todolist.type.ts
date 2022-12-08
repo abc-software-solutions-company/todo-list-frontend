@@ -58,8 +58,3 @@ export interface ITodolistResponse {
   tasks: ITaskResponse[];
   members: IMember[];
 }
-
-export interface ITodolistSync {
-  email: string;
-  name: string;
-}
