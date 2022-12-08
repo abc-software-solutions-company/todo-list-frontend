@@ -44,7 +44,7 @@ const MyTasks = () => {
   return (
     <>
       <div className={styles['list-task']}>
-        <div className="h-[22px]"></div>
+        <div className="h-[12px]"></div>
         <div className="container">
           <Title tilte={'My Tasks'} />
           {myTasks?.filter(x => x !== null).length == 0 && <span className="empty">Empty task</span>}
