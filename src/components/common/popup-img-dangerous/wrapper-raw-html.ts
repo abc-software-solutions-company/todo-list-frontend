@@ -1,7 +1,7 @@
 export const wrapperRawHTML = (rawHTML_Text: string) => {
   const listLinkRaw = rawHTML_Text.replaceAll('><', '>\n<');
   const arrayTag = listLinkRaw.split('\n');
-  // console.log(arrayTag);
+
   const newRawHTML: string[] = [];
   arrayTag.forEach(e => {
     if (e.startsWith('<img')) {
