@@ -36,8 +36,7 @@ const ModalCreateUpdateTask: FC<IProps> = props => {
     register,
     reset,
     setFocus,
-    setValue,
-    formState: {errors, isSubmitted, isSubmitting}
+    formState: {errors, isSubmitSuccessful, isSubmitting}
   } = useForm<IFormInputs>({
     resolver: yupResolver(Schema),
     mode: 'onChange'
@@ -47,16 +46,12 @@ const ModalCreateUpdateTask: FC<IProps> = props => {
 
   useEffect(() => {
     reset();
-  }, [isSubmitted]);
+  }, [isSubmitSuccessful]);
 
   useEffect(() => {
     setFocus('name');
     iosAutoFocus();
   }, [setFocus]);
-
-  useEffect(() => {
-    setValue('name', taskData?.name || '');
-  }, [taskData, setValue]);
 
   return (
     <>
