@@ -7,6 +7,7 @@ import Comment from '../body-left/comment';
 import Status from '../status';
 import Assignee from './assignee';
 import Priority from './priority';
+import Reporter from './reporter';
 import StoryPoint from './story-point';
 import style from './style.module.scss';
 import TaskDate from './task-date';
@@ -19,6 +20,7 @@ const BodyRight: FC<IBaseProps> = ({className}) => {
         <Status className="divide item" />
         <Assignee className="divide item mobile" />
         <Priority className="divide item mobile" />
+        <Reporter className="divide item mobile" />
         <StoryPoint className="divide item mobile" />
         <TaskDate className="divide item" />
         <Comment className="divide item lg:hidden" />

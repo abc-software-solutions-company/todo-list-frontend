@@ -13,13 +13,12 @@ export {getStaticPaths, getStaticProps};
 
 export default function PageTask({task}: InferGetStaticPropsType<typeof getStaticProps>) {
   const auth = useStateAuth();
-  const {name, todolist, user} = task;
+  const {name, todolist} = task;
   if (!task) return <ErrorInformation />;
   const assest = Boolean(task) ? todolist.visibility !== 'PRIVATE' || todolist.userId === auth?.id : false;
 
   return (
     <>
-      <p>{user?.name || ''}</p>
       <PreLoadCKEditor />
       {assest ? <Seo title={'Task ' + name} description={`Task ${name}`} /> : <Seo title={'Task Not Found'} />}
       <TaskDetail task={task} />
