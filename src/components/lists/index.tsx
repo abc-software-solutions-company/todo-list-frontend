@@ -29,7 +29,8 @@ const Lists: FC = () => {
       <div className="container">
         <Toolbar title="My Lists" showActions={true} />
         <List list={myList} />
-        <Toolbar title="Favorite Lists" className="mt-8" />
+        <div className="h-6 lg:h-7"></div>
+        <Toolbar title="Favorite Lists" />
         <List list={favoriteList} hiddenDelete={true} hiddenEdit={true} />
       </div>
       <FloatIcon className="float-icon" onClick={onNew} />
