@@ -1,9 +1,10 @@
 import cls from 'classnames';
-import {FC} from 'react';
+import {FC, useEffect} from 'react';
 
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
+import iosAutoFocus from '@/utils/ios-autofocus';
 
 import styles from '../style-create-upate.module.scss';
 import {IProps} from '../types-create-update';
@@ -11,7 +12,12 @@ import useModalCreateList from './hook';
 
 const ModalCreateList: FC<IProps> = props => {
   const {open, onClose} = props;
-  const {isSubmitting, errors, onSubmit, register} = useModalCreateList(props);
+  const {isSubmitting, errors, onSubmit, register, setFocus} = useModalCreateList(props);
+
+  useEffect(() => {
+    setFocus('name');
+    iosAutoFocus();
+  }, [setFocus]);
 
   return (
     <>
@@ -27,7 +33,12 @@ const ModalCreateList: FC<IProps> = props => {
               <h3 className="title">Create New List</h3>
             </Modal.Header>
             <Modal.Body>
-              <Input error={errors.name?.message} placeholder={'Enter your list name'} {...register('name')} />
+              <Input
+                autoFocus={true}
+                error={errors.name?.message}
+                placeholder={'Enter your list name'}
+                {...register('name')}
+              />
             </Modal.Body>
             <Modal.Footer>
               <div className="content">
