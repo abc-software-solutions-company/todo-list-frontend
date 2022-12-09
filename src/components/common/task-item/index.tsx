@@ -51,7 +51,7 @@ export default function TaskItem(props: ITaskItemProps) {
 
   return (
     <div
-      className={classNames(style.task, `item ${isSelect && 'select'}`)}
+      className={classNames(style.task, `item ${isSelect && 'select'}`, 'hover:bg-blue-100')}
       ref={setNodeRef}
       style={styleDnd}
       {...attributes}
