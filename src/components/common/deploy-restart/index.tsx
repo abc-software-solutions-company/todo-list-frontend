@@ -11,11 +11,8 @@ export default function DeployRestart({children}: IDeployRestartProp) {
   const router = useRouter();
   const serverBuildID = process.env.NEXT_PUBLIC_GIT_COMMIT_SHA || 'serverID';
   const clientBuildID = (typeof window !== 'undefined' && LocalStorage.buildID.get()) || 'clientID';
+
   useEffect(() => {
-    console.log(
-      '🚀 ~ file: index.tsx:16 ~ useEffect ~ clientBuildID !== serverBuildID',
-      clientBuildID !== serverBuildID
-    );
     if (clientBuildID !== serverBuildID) {
       LocalStorage.buildID.set(serverBuildID);
       router.reload();
