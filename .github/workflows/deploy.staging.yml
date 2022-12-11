@@ -30,13 +30,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Set outputs
-        id: vars
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-
-      - name: Check outputs
-        run: echo ${{ steps.vars.outputs.sha_short }}
-
       - name: Delete old env file
         run: rm -r -f .env
 
@@ -48,6 +41,13 @@ jobs:
 
       - name: Replace space character with break-line in .env file
         run: sed 's/ /\n/g' .env_temp >> .env
+
+      - name: Set Github Commit SHA ID
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Check outputs
+        run: echo NEXT_PUBLIC_GIT_COMMIT_SHA=${{ steps.vars.outputs.sha_short }} >> .env
 
       - name: Remove .env_temp file
         run: rm -r -f .env_temp
