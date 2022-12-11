@@ -8,7 +8,6 @@ const serverBuildID = (
     };
   }
 ) => {
-  console.log('🚀 ~ file: index.ts:2 ~ serverBuildID ~ req', req);
   res.status(200).json({serverBuildID: process.env.NEXT_PUBLIC_GIT_COMMIT_SHA});
 };
 export default serverBuildID;
