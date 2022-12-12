@@ -19,8 +19,9 @@ export default function DeployRestart({children}: IDeployRestartProp) {
   const serverBuildID = data.serverBuildID;
   const clientBuildID = process.env.NEXT_PUBLIC_GIT_COMMIT_SHA || 'clientID';
 
-  if (serverBuildID !== clientBuildID) {
-    router.reload();
+  if (serverBuildID !== clientBuildID && typeof window !== 'undefined') {
+    const modalDOM = document.querySelector('.abc-modal.scrollbar.abc-modal-center');
+    if (!modalDOM) router.reload();
     return <></>;
   }
 
