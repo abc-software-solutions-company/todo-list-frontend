@@ -60,6 +60,9 @@ const Actions: FC<Iprops> = ({comment: {id, taskId}, onEdit, show}) => {
           <p className="border-b pb-4 text-center text-slate-500">{`You want to delete comment?`}</p>
           <p className="mt-3 text-slate-700">{`Comment will be permanently deleted and you won't be able to undo them`}</p>
           <div className="mt-2 flex justify-center gap-5">
+            <Button color="white" variant="outlined" className="h-10 w-full" type="submit" onClick={onCloseDelete}>
+              No
+            </Button>
             <Button color="primary" variant="contained" className="h-10 w-full" type="submit" onClick={handleDelete}>
               Yes
             </Button>

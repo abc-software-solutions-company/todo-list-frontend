@@ -119,7 +119,6 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
                       </Button>
                     </form>
                   </Popover>
-                  {/* <button onClick={onDelete}>Delete</button> */}
                   <ButtonBase aria-describedby={deleteButtonId} onClick={event => onClick(event, e, 'delete')}>
                     Delete
                   </ButtonBase>
@@ -138,6 +137,15 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
                       <p className="border-b pb-4 text-center text-slate-500">{`You want to delete attachment?`}</p>
                       <p className="mt-3 text-slate-700">{`Attachment will be permanently deleted and you won't be able to undo them`}</p>
                       <div className="mt-2 flex justify-center gap-5">
+                        <Button
+                          color="white"
+                          variant="outlined"
+                          className="h-10 w-full"
+                          type="submit"
+                          onClick={onCloseDelete}
+                        >
+                          No
+                        </Button>
                         <Button
                           color="primary"
                           variant="contained"
