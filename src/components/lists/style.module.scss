@@ -41,7 +41,7 @@
       @apply mr-2 w-full cursor-pointer truncate py-3;
     }
     .actions {
-      @apply flex items-center gap-x-3;
+      @apply flex items-baseline gap-x-3;
       .action-desktop {
         @apply hidden sm:block;
       }
