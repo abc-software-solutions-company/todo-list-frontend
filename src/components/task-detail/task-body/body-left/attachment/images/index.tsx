@@ -57,12 +57,17 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
     onClose();
   };
 
-  const onDelete = (imageId: number) => {
+  const handleDelete = (imageId: number) => {
     if (task)
       api.task
         .update({id: task.id, attachment: {update: {id: imageId, isActive: false}}})
         .then(update)
+        .then(onClose)
         .catch(() => toast.show({type: 'danger', title: 'Delete Image', content: ToastContents.ERROR}));
+  };
+
+  const onDelete = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
   };
 
   if (!attachments || attachments.length < 1) return null;
@@ -106,7 +111,34 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
                       </Button>
                     </form>
                   </Popover>
-                  <button onClick={() => onDelete(e.id)}>Delete</button>
+                  <button onClick={onDelete}>Delete</button>
+                  <Popover
+                    id={editButtonId}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={onClose}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left'
+                    }}
+                  >
+                    <div className="relative max-w-[320px] p-5 text-h7">
+                      <IconButton name="ico-x" className="absolute top-3 right-3" onClick={onClose} />
+                      <p className="border-b pb-4 text-center text-slate-500">{`You want to delete comment?`}</p>
+                      <p className="mt-3 text-slate-700">{`Comment will be permanently deleted and you won&apos;t be able to undo them`}</p>
+                      <div className="mt-2 flex justify-center gap-5">
+                        <Button
+                          color="primary"
+                          variant="contained"
+                          className="h-10 w-full"
+                          type="submit"
+                          onClick={() => handleDelete(e.id)}
+                        >
+                          Yes
+                        </Button>
+                      </div>
+                    </div>
+                  </Popover>
                   <button>
                     <Link href={e.link}>Download</Link>
                   </button>

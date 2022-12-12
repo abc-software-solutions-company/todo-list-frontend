@@ -33,7 +33,7 @@ const Item: FC<IItemProps> = props => {
       <div className="right">
         <Header {...props} />
         <Content {...{...props, isEditing, onClose}} />
-        <Actions {...{...props, onEdit, show: showActions}} text={'Comment'} />
+        <Actions {...{...props, onEdit, show: showActions}} />
       </div>
     </div>
   );

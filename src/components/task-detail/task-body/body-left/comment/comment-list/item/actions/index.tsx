@@ -10,11 +10,10 @@ import {IItemProps} from '..';
 
 interface Iprops extends IItemProps {
   show: boolean;
-  text: string;
   onEdit: () => void;
 }
 
-const Actions: FC<Iprops> = ({comment: {id, taskId}, onEdit, show, text}) => {
+const Actions: FC<Iprops> = ({comment: {id, taskId}, onEdit, show}) => {
   const {write, update} = useTask();
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -58,8 +57,8 @@ const Actions: FC<Iprops> = ({comment: {id, taskId}, onEdit, show, text}) => {
       >
         <div className="relative max-w-[320px] p-5 text-h7">
           <IconButton name="ico-x" className="absolute top-3 right-3" onClick={onCloseDelete} />
-          <p className="border-b pb-4 text-center text-slate-500">{`You want to delete ${text}?`}</p>
-          <p className="mt-3 text-slate-700">{`${text} will be permanently deleted and you won&apos;t be able to undo them`}</p>
+          <p className="border-b pb-4 text-center text-slate-500">{`You want to delete comment?`}</p>
+          <p className="mt-3 text-slate-700">{`Comment will be permanently deleted and you won&apos;t be able to undo them`}</p>
           <div className="mt-2 flex justify-center gap-5">
             <Button color="primary" variant="contained" className="h-10 w-full" type="submit" onClick={handleDelete}>
               Yes
