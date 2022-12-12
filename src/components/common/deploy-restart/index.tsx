@@ -21,7 +21,7 @@ export default function DeployRestart({children}: IDeployRestartProp) {
 
   if (serverBuildID !== clientBuildID && typeof window !== 'undefined') {
     const modalDOM = document.querySelector('.abc-modal.scrollbar.abc-modal-center');
-    if (!modalDOM) router.reload();
+    if (modalDOM == null) router.reload();
     return <></>;
   }
 
