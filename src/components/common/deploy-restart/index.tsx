@@ -10,7 +10,7 @@ const fetcher = (url: RequestInfo | URL) => fetch(url).then(res => res.json());
 const apiRoute = `${process.env.NEXT_PUBLIC_SITE_URL}/api/server-build-id`;
 
 export default function DeployRestart({children}: IDeployRestartProp) {
-  const {data, error} = useSWR(`${apiRoute}`, fetcher);
+  const {data, error} = useSWR(`${apiRoute}`, fetcher, {revalidateOnMount: false});
   const router = useRouter();
 
   if (error) return <p>Sorry, Todooy is inprogress of update or caught error.</p>;
