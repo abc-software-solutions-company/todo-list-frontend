@@ -22,10 +22,10 @@ export default function DeployRestart({children}: IDeployRestartProp) {
   const clientBuildID = process.env.NEXT_PUBLIC_GIT_COMMIT_SHA || 'clientID';
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const {isOpenModal} = useModals();
+  console.log('🚀 ~ file: index.tsx:25 ~ DeployRestart ~ isOpenModal', isOpenModal);
 
   if (serverBuildID !== clientBuildID) {
-    if (isOpenModal) router.reload();
-    console.log('🚀 ~ file: index.tsx:28 ~ DeployRestart ~ isOpenModal', isOpenModal);
+    if (Object.values(isOpenModal).every(e => e == false)) router.reload();
     return <></>;
   }
 
