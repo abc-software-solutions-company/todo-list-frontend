@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import {ButtonBase, Popover} from '@mui/material';
 import classNames from 'classnames';
 import Image from 'next/image';
@@ -33,19 +34,30 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
     mode: 'onChange',
     defaultValues: {name: ''}
   });
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [anchorRenameEl, setAnchorRenameEl] = useState<HTMLButtonElement | null>(null);
+  const [anchorDeleteEl, setAnchorDeleteEl] = useState<HTMLButtonElement | null>(null);
 
-  const open = Boolean(anchorEl);
-  const editButtonId = open ? 'simple-popover' : undefined;
+  const openName = Boolean(anchorRenameEl);
+  const editButtonId = openName ? 'simple-popover' : undefined;
 
-  const onClick = (event: MouseEvent<HTMLButtonElement>, {id, name}: IAttachmentResponse) => {
-    setAnchorEl(event.currentTarget);
-    setImageSelected(id);
-    setValue('name', name);
+  const openDelete = Boolean(anchorDeleteEl);
+  const deleteButtonId = openDelete ? 'simple-popover' : undefined;
+
+  const onClick = (event: MouseEvent<HTMLButtonElement>, {id, name}: IAttachmentResponse, type: string) => {
+    if (type == 'rename') {
+      setAnchorRenameEl(event.currentTarget);
+      setImageSelected(id);
+      setValue('name', name);
+    }
+    if (type == 'delete') setAnchorDeleteEl(event.currentTarget);
   };
 
-  const onClose = () => {
-    setAnchorEl(null);
+  const onCloseRename = () => {
+    setAnchorRenameEl(null);
+  };
+
+  const onCloseDelete = () => {
+    setAnchorDeleteEl(null);
   };
 
   const submitHandler: SubmitHandler<IFormInputs> = ({name}) => {
@@ -54,7 +66,7 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
         .update({id: task.id, attachment: {update: {id: imageSelected, name}}})
         .then(update)
         .catch(() => toast.show({type: 'danger', title: 'Edit Image', content: ToastContents.ERROR}));
-    onClose();
+    onCloseRename();
   };
 
   const handleDelete = (imageId: number) => {
@@ -62,12 +74,8 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
       api.task
         .update({id: task.id, attachment: {update: {id: imageId, isActive: false}}})
         .then(update)
-        .then(onClose)
+        .then(onCloseDelete)
         .catch(() => toast.show({type: 'danger', title: 'Delete Image', content: ToastContents.ERROR}));
-  };
-
-  const onDelete = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
   };
 
   if (!attachments || attachments.length < 1) return null;
@@ -87,14 +95,14 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
               <div className="info-date"> {'Added ' + getDate(new Date(e.createdDate))}</div>
               {write && (
                 <div className="info-actions">
-                  <ButtonBase aria-describedby={editButtonId} onClick={event => onClick(event, e)}>
+                  <ButtonBase aria-describedby={editButtonId} onClick={event => onClick(event, e, 'rename')}>
                     Rename
                   </ButtonBase>
                   <Popover
                     id={editButtonId}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={onClose}
+                    open={openName}
+                    anchorEl={anchorRenameEl}
+                    onClose={onCloseRename}
                     onFocus={() => setFocus('name', {shouldSelect: true})}
                     anchorOrigin={{
                       vertical: 'bottom',
@@ -102,7 +110,7 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
                     }}
                   >
                     <form className="relative p-5 text-h7" onSubmit={handleSubmit(submitHandler)}>
-                      <IconButton name="ico-x" className="absolute right-3 top-3" onClick={onClose} />
+                      <IconButton name="ico-x" className="absolute right-3 top-3" onClick={onCloseRename} />
                       <div className="border-b pb-4 text-center font-medium text-slate-500">Edit attachment</div>
                       <div className="mt-3 font-bold text-slate-700">Name</div>
                       <Input className="my-2 min-w-[300px] p-1" {...register('name', {required: true})} />
@@ -111,21 +119,24 @@ const TaskImages: FC<IBaseProps> = ({className}) => {
                       </Button>
                     </form>
                   </Popover>
-                  <button onClick={onDelete}>Delete</button>
+                  {/* <button onClick={onDelete}>Delete</button> */}
+                  <ButtonBase aria-describedby={deleteButtonId} onClick={event => onClick(event, e, 'delete')}>
+                    Delete
+                  </ButtonBase>
                   <Popover
                     id={editButtonId}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={onClose}
+                    open={openDelete}
+                    anchorEl={anchorDeleteEl}
+                    onClose={onCloseDelete}
                     anchorOrigin={{
                       vertical: 'bottom',
                       horizontal: 'left'
                     }}
                   >
                     <div className="relative max-w-[320px] p-5 text-h7">
-                      <IconButton name="ico-x" className="absolute top-3 right-3" onClick={onClose} />
-                      <p className="border-b pb-4 text-center text-slate-500">{`You want to delete comment?`}</p>
-                      <p className="mt-3 text-slate-700">{`Comment will be permanently deleted and you won&apos;t be able to undo them`}</p>
+                      <IconButton name="ico-x" className="absolute top-3 right-3" onClick={onCloseDelete} />
+                      <p className="border-b pb-4 text-center text-slate-500">{`You want to delete attachment?`}</p>
+                      <p className="mt-3 text-slate-700">{`Attachment will be permanently deleted and you won't be able to undo them`}</p>
                       <div className="mt-2 flex justify-center gap-5">
                         <Button
                           color="primary"
