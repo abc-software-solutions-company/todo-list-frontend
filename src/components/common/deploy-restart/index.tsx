@@ -2,6 +2,8 @@ import {useRouter} from 'next/router';
 import {ReactNode} from 'react';
 import useSWR from 'swr';
 
+import useModals from '@/states/modals/use-modals';
+
 interface IDeployRestartProp {
   children: ReactNode;
 }
@@ -18,9 +20,12 @@ export default function DeployRestart({children}: IDeployRestartProp) {
 
   const serverBuildID = data.serverBuildID;
   const clientBuildID = process.env.NEXT_PUBLIC_GIT_COMMIT_SHA || 'clientID';
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const {isOpenModal} = useModals();
 
   if (serverBuildID !== clientBuildID) {
-    router.reload();
+    if (isOpenModal) router.reload();
+    console.log('🚀 ~ file: index.tsx:28 ~ DeployRestart ~ isOpenModal', isOpenModal);
     return <></>;
   }
 

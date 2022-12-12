@@ -26,11 +26,11 @@ const CustomApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) =>
   const Layout = (Component as any).Layout || Noop;
 
   return (
-    <DeployRestart>
-      <NProgres>
-        <DefaultSeo />
-        <AuthProvider>
-          <Provider store={store}>
+    <NProgres>
+      <DefaultSeo />
+      <AuthProvider>
+        <Provider store={store}>
+          <DeployRestart>
             <MuiThemeProvider>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <Layout pageProps={pageProps}>
@@ -39,10 +39,10 @@ const CustomApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) =>
                 </Layout>
               </LocalizationProvider>
             </MuiThemeProvider>
-          </Provider>
-        </AuthProvider>
-      </NProgres>
-    </DeployRestart>
+          </DeployRestart>
+        </Provider>
+      </AuthProvider>
+    </NProgres>
   );
 };
 
