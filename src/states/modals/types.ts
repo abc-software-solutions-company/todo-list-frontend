@@ -16,6 +16,7 @@ export interface IInitialState {
     settings: boolean;
     shareList: boolean;
     shareTask: boolean;
+    updateUser: boolean;
     updateTask: boolean;
   };
 }

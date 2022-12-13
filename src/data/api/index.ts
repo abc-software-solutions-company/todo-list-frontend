@@ -20,7 +20,8 @@ const api = {
     update: (data: IAuthUpdate) => http.patch<IUserResponse>(API_ENDPOINTS.AUTH, data)
   },
   user: {
-    getIndentify: () => http.get<IUserResponse[]>(API_ENDPOINTS.USER + '/identify')
+    getIndentify: () => http.get<IUserResponse[]>(API_ENDPOINTS.USER + '/identify'),
+    update: (data: IUserResponse) => http.patch<IUserResponse>(API_ENDPOINTS.USER, data)
   },
   todolist: {
     get: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST),

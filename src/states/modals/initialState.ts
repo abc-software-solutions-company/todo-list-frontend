@@ -8,6 +8,7 @@ export const isOpenModal = {
   settings: false,
   shareList: false,
   shareTask: false,
+  updateUser: false,
   updateTask: false
 };
 

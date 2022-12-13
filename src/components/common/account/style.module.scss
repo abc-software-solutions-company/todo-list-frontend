@@ -1,0 +1,26 @@
+.account :global {
+  p {
+    @apply text-h7 text-slate-700;
+    &.bland {
+      @apply text-slate-500;
+    }
+  }
+  .ico-pen-edit {
+    @apply -mt-[2px] font-light;
+  }
+  .wrapper {
+    @apply rounded bg-white px-5 shadow-md;
+  }
+  .title {
+    @apply py-4 text-center;
+  }
+  .info {
+    @apply flex items-center gap-x-3;
+    .email {
+      @apply text-xs;
+    }
+  }
+  .action {
+    @apply my-3 space-y-3;
+  }
+}

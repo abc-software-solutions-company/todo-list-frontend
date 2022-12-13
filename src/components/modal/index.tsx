@@ -14,6 +14,7 @@ import ModalCreateTask from './task/modal-create';
 import ModalDeleteTask from './task/modal-delete';
 import ModalShareTask from './task/modal-share';
 import ModalUpdateTask from './task/modal-update';
+import ModalUpdateUser from './user/modal-update';
 
 const Modal = () => {
   const auth = useStateAuth();
@@ -47,6 +48,9 @@ const Modal = () => {
 
   return (
     <>
+      {/* Modal user */}
+      {auth && <ModalUpdateUser open={isOpenModal.updateUser} onClose={onClose} data={auth} />}
+
       {/* Modal list */}
       <ModalCreateList open={isOpenModal.createList} onClose={onClose} />
       {selectedTodolist && (
