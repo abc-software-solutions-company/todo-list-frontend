@@ -26,6 +26,20 @@ export default function useTodolist() {
   const assest = Boolean(data) ? data.visibility !== 'PRIVATE' || Boolean(auth && auth.id === data.userId) : false;
   const write = Boolean(data) ? data.visibility === 'PUBLIC' || Boolean(auth && auth.id === data.userId) : false;
   const owner = Boolean(data) ? Boolean(auth && auth.id === data.userId) : false;
-
-  return {todolist: data, ...restTodolist, ...rest, assest, write, owner, initial, update, setStatusFilter, setSelectedTask, setIsOpenModal, setTodolist};
+  const error = todolist.error;
+  return {
+    todolist: data,
+    ...restTodolist,
+    ...rest,
+    assest,
+    write,
+    owner,
+    error,
+    initial,
+    update,
+    setStatusFilter,
+    setSelectedTask,
+    setIsOpenModal,
+    setTodolist
+  };
 }

@@ -18,9 +18,10 @@ const todolistSlice = createSlice({
       state.todolist.loading = false;
       state.todolist.data = payload;
     },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getTodolistFailure: (state, {payload}) => {
       state.todolist.loading = false;
-      state.todolist.error = payload;
+      state.todolist.error = true;
     },
     setTodolist: (state, {payload}: PayloadAction<ITodolistResponse>) => {
       state.todolist.data = payload;

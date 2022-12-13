@@ -9,6 +9,7 @@ import {useStateAuth} from '@/states/auth';
 import useModals from '@/states/modals/use-modals';
 import useTodolist from '@/states/todolist/use-todolist';
 
+import ErrorInformation from '../common/404';
 import Seo from '../common/seo/seo';
 import ListTask from './list-task';
 import styles from './style.module.scss';
@@ -21,7 +22,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
   const auth = useStateAuth();
   const router = useRouter();
 
-  const {todolist, write, assest, initial} = useTodolist();
+  const {todolist, write, assest, error, initial} = useTodolist();
   const {setIsOpenModal, setSelectedTodolist} = useModals();
 
   const onClickFloatIcon = () => {
@@ -66,6 +67,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
           </div>
         </>
       );
+  if (error) return <ErrorInformation />;
 
   return null;
 };
