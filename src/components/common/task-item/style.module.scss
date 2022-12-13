@@ -4,7 +4,7 @@
   @apply min-h-[48px] w-full;
   .h6 {
     @apply mx-3 w-full cursor-pointer py-3 leading-5;
-    @apply truncate;
+    word-break: break-word;
   }
   .checked {
     @apply line-through opacity-50;
