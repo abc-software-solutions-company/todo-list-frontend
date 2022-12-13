@@ -27,7 +27,7 @@ const Schema = yup.object().shape({
 export default function useModalUpdateList({data, open, onClose, onSuccess}: IProps) {
   const router = useRouter();
   const toast = useToast();
-  const {setTodolist} = useTodolist();
+  const {setTodolist, owner} = useTodolist();
 
   const {formState, handleSubmit, reset, setValue, ...rest} = useForm<IFormInputs>({
     resolver: yupResolver(Schema),
@@ -73,5 +73,5 @@ export default function useModalUpdateList({data, open, onClose, onSuccess}: IPr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  return {errors, isSubmitting, setValue, onSubmit: handleSubmit(submitHandler), ...rest};
+  return {errors, isSubmitting, setValue, onSubmit: handleSubmit(submitHandler), owner, ...rest};
 }

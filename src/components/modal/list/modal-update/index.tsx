@@ -16,7 +16,7 @@ import useModalUpdateList from './hook';
 
 const ModalUpdateList: FC<IProps> = props => {
   const {data, open, hiddenVisibility, onClose} = props;
-  const {errors, onSubmit, register, setValue} = useModalUpdateList(props);
+  const {errors, onSubmit, register, setValue, owner} = useModalUpdateList(props);
   const [options, setOptions] = useState<IUserResponse[]>([]);
   const defaultMemberIds = data?.members?.map(e => e.id) || [];
   const memberDefaultValue = options.filter(e => defaultMemberIds.includes(e.id));
@@ -55,7 +55,7 @@ const ModalUpdateList: FC<IProps> = props => {
                 placeholder={'Enter your list name'}
                 {...register('name')}
               />
-              {data && !hiddenVisibility && (
+              {data && owner && (
                 <Select
                   {...register('visibility')}
                   className="input-type"
@@ -71,7 +71,7 @@ const ModalUpdateList: FC<IProps> = props => {
                   })}
                 </Select>
               )}
-              {data && !hiddenVisibility && (
+              {data && owner && (
                 <Autocomplete
                   multiple
                   className="input-members"
