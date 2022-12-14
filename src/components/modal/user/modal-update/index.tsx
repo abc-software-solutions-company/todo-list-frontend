@@ -31,7 +31,7 @@ const ModalUpdateUser: FC<IProps> = props => {
         >
           <form onSubmit={onSubmit}>
             <Modal.Header>
-              <h3 className="title">Edit user&apos;s name</h3>
+              <h3 className="title">Edit name</h3>
             </Modal.Header>
             <Modal.Body>
               <Input

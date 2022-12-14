@@ -47,7 +47,7 @@ const Account: FC<IAccountProps> = props => {
                 </div>
               </div>
               <div className="action">
-                <p className="cursor-pointer">Change Account</p>
+                {/* <p className="cursor-pointer">Change Account</p> */}
                 <p
                   className="cursor-pointer"
                   onClick={() => {

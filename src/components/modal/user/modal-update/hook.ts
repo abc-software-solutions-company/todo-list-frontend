@@ -7,6 +7,7 @@ import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {AuthActions} from '@/states/auth';
 import {useDispatchAuth} from '@/states/auth/context';
+import useTasks from '@/states/tasks/use-tasks';
 import {ToastContents} from '@/utils/toast-content';
 
 import {IProps} from '.';
@@ -21,6 +22,7 @@ const Schema = yup.object().shape({
 
 export default function useModalUpdateUser({data, open, onClose}: IProps) {
   const toast = useToast();
+  const {getMyTasks} = useTasks();
   const authDispatch = useDispatchAuth();
 
   const {
@@ -51,6 +53,7 @@ export default function useModalUpdateUser({data, open, onClose}: IProps) {
             toast.show({type: 'success', title: "Update user's name", content: 'Successful!'});
           })
           .then(() => {
+            getMyTasks();
             authDispatch(AuthActions.login({id, name, email}));
           })
       );

@@ -4,7 +4,6 @@ import Link from 'next/link';
 import {FC, useState} from 'react';
 
 import ModalThirdPartyLogin from '@/components/modal/modal-third-party-login';
-import Icon from '@/core-ui/icon';
 
 import Account from '../common/account';
 import AssigneeIcon from '../common/assignee-icon';
@@ -17,7 +16,7 @@ interface IProps {
 }
 
 const Topbar: FC<IProps> = ({className}) => {
-  const {auth, currentPage, handleSocial, returnTo, socialOpen, router, setSocialOpen, ROUTES} = useTopbar();
+  const {auth, currentPage, handleSocial, returnTo, socialOpen, setSocialOpen, ROUTES} = useTopbar();
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
@@ -55,7 +54,7 @@ const Topbar: FC<IProps> = ({className}) => {
                 {auth && (
                   <>
                     <button onClick={handleClick}>
-                      <AssigneeIcon name={auth.name} />
+                      <AssigneeIcon name={auth.name} bg="bg-sky-500" />
                     </button>
                     <Popover
                       open={open}
@@ -81,20 +80,9 @@ const Topbar: FC<IProps> = ({className}) => {
                   </>
                 )}
               </span>
-              {auth?.email == null ? (
+              {auth?.email == null && (
                 <span className="unverified" onClick={() => handleSocial()}>
                   (Unverified)
-                </span>
-              ) : (
-                <span
-                  className="logout"
-                  onClick={() => {
-                    router.push(ROUTES.LOGIN);
-                  }}
-                >
-                  <span className="h2">
-                    <Icon name="ico-logout" />
-                  </span>
                 </span>
               )}
             </div>
