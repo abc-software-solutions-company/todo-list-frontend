@@ -32,14 +32,17 @@ const Account: FC<IAccountProps> = props => {
         <>
           <div className={cls(style.account)}>
             <div className="wrapper">
-              <p className="title bland">My Account</p>
+              <div className="relative">
+                <p className="title bland">My Account</p>
+                <Icon className="cursor-pointer" name="ico-x" size={24} onClick={handleClosePopover} />
+              </div>
               <hr className="pb-3" />
               <div className="info">
                 <div className="left">
                   <AssigneeIcon name={user.name} onClick={onUpdate} bg="bg-sky-500" />
                 </div>
                 <div className="right">
-                  <div className="flex items-center gap-x-1">
+                  <div className="flex w-40 items-center gap-x-1">
                     <p className="name">{user.name}</p>
                     <Icon className="cursor-pointer" name="ico-pen-edit" size={12} onClick={onUpdate} />
                   </div>
@@ -49,7 +52,7 @@ const Account: FC<IAccountProps> = props => {
               <div className="action">
                 {/* <p className="cursor-pointer">Change Account</p> */}
                 <p
-                  className="cursor-pointer"
+                  className="logout"
                   onClick={() => {
                     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                     handleClosePopover && handleClosePopover();
