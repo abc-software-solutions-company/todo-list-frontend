@@ -1,38 +1,11 @@
 import React, {useState} from 'react';
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
-import uuid from 'uuid/v4';
 
-const itemsFromBackend = [
-  {id: uuid(), content: 'First task'},
-  {id: uuid(), content: 'Second task'},
-  {id: uuid(), content: 'Third task'},
-  {id: uuid(), content: 'Fourth task'},
-  {id: uuid(), content: 'Fifth task'},
-  {id: uuid(), content: 'Eight task'},
-  {id: uuid(), content: 'Eight task'},
-  {id: uuid(), content: 'Eight task'},
-  {id: uuid(), content: 'Eight task'}
-];
-console.log('🚀 ~ file: index.tsx:16 ~ itemsFromBackend', itemsFromBackend);
+import {ITaskResponse} from '@/data/api/types/task.type';
 
-const columnsFromBackend = {
-  [uuid()]: {
-    name: 'Requested',
-    items: itemsFromBackend
-  },
-  [uuid()]: {
-    name: 'To do',
-    items: []
-  },
-  [uuid()]: {
-    name: 'In Progress',
-    items: []
-  },
-  [uuid()]: {
-    name: 'Done',
-    items: []
-  }
-};
+interface IKanbanProp {
+  itemsFromBackend: ITaskResponse[];
+}
 
 const onDragEnd = (result, columns, setColumns) => {
   if (!result.destination) return;
@@ -71,7 +44,34 @@ const onDragEnd = (result, columns, setColumns) => {
   }
 };
 
-const ReactBeautifullDND = () => {
+const ReactBeautifullDND = ({itemsFromBackend}: IKanbanProp) => {
+  const columnsFromBackend = {
+    [1]: {
+      name: 'Requested',
+      items: itemsFromBackend.filter(x => x.statusId == 1)
+    },
+    [2]: {
+      name: 'To-Do',
+      items: itemsFromBackend.filter(x => x.statusId == 2)
+    },
+    [3]: {
+      name: 'In-progress',
+      items: itemsFromBackend.filter(x => x.statusId == 3)
+    },
+    [4]: {
+      name: 'In-review',
+      items: itemsFromBackend.filter(x => x.statusId == 4)
+    },
+    [5]: {
+      name: 'In-QA',
+      items: itemsFromBackend.filter(x => x.statusId == 5)
+    },
+    [6]: {
+      name: 'Done',
+      items: itemsFromBackend.filter(x => x.statusId == 6)
+    }
+  };
+
   const [columns, setColumns] = useState(columnsFromBackend);
   console.log('🚀 ~ file: index.tsx:76 ~ ReactBeautifullDND ~ columns', Object.entries(columns));
   return (
@@ -121,7 +121,7 @@ const ReactBeautifullDND = () => {
                                       ...provided.draggableProps.style
                                     }}
                                   >
-                                    {item.content}
+                                    {item.name}
                                   </div>
                                 );
                               }}
