@@ -17,6 +17,7 @@ const onDragEnd = (result: any, columns: any, setColumns: any) => {
     const sourceColumn = columns[source.droppableId];
     const destColumn = columns[destination.droppableId];
     const sourceItems = [...sourceColumn.items];
+    console.log('🚀 ~ file: index.tsx:20 ~ onDragEnd ~ sourceItems', sourceItems);
     const destItems = [...destColumn.items];
     const [removed] = sourceItems.splice(source.index, 1);
     destItems.splice(destination.index, 0, removed);
@@ -47,7 +48,7 @@ const onDragEnd = (result: any, columns: any, setColumns: any) => {
 };
 
 const Kanban: FC<IProps> = () => {
-  const {todolist, initial, error} = useTodolist();
+  const {todolist, initial, error, loading} = useTodolist();
   const [columns, setColumns] = useState({});
 
   const router = useRouter();
@@ -55,70 +56,44 @@ const Kanban: FC<IProps> = () => {
 
   useEffect(() => {
     initial(id as string);
-    if (todolist)
-      setColumns({
-        [1]: {
-          name: 'Backlog',
-          items: todolist?.tasks.filter(x => x.statusId == 1)
-        },
-        [2]: {
-          name: 'To-Do',
-          items: todolist?.tasks.filter(x => x.statusId == 2)
-        },
-        [3]: {
-          name: 'In-progress',
-          items: todolist?.tasks.filter(x => x.statusId == 3)
-        },
-        [4]: {
-          name: 'In-review',
-          items: todolist?.tasks.filter(x => x.statusId == 4)
-        },
-        [5]: {
-          name: 'In-QA',
-          items: todolist?.tasks.filter(x => x.statusId == 5)
-        },
-        [6]: {
-          name: 'Done',
-          items: todolist?.tasks.filter(x => x.statusId == 6)
-        }
-      });
-  }, [todolist]);
+    console.log('🚀 ~ file: index.tsx:51 ~ loading', loading);
+  }, []);
 
   if (!todolist) return <p>Loading</p>;
   if (error) return <p>Error</p>;
-  if (todolist)
+
+  if (todolist) {
     return (
       <div>
         Kanban loaded
-        {JSON.stringify({
-          [1]: {
-            name: 'Backlog',
-            items: todolist?.tasks.filter(x => x.statusId == 1)
-          },
-          [2]: {
-            name: 'To-Do',
-            items: todolist?.tasks.filter(x => x.statusId == 2)
-          },
-          [3]: {
-            name: 'In-progress',
-            items: todolist?.tasks.filter(x => x.statusId == 3)
-          },
-          [4]: {
-            name: 'In-review',
-            items: todolist?.tasks.filter(x => x.statusId == 4)
-          },
-          [5]: {
-            name: 'In-QA',
-            items: todolist?.tasks.filter(x => x.statusId == 5)
-          },
-          [6]: {
-            name: 'Done',
-            items: todolist?.tasks.filter(x => x.statusId == 6)
-          }
-        })}
         <div style={{display: 'flex', justifyContent: 'center', height: '100%'}}>
           <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
-            {Object.entries(columns).map(([columnId, column], index) => {
+            {Object.entries({
+              [1]: {
+                name: 'Backlog',
+                items: todolist.tasks.filter(x => x.statusId == 1)
+              },
+              [2]: {
+                name: 'To-Do',
+                items: todolist.tasks.filter(x => x.statusId == 2)
+              },
+              [3]: {
+                name: 'In-progress',
+                items: todolist.tasks.filter(x => x.statusId == 3)
+              },
+              [4]: {
+                name: 'In-review',
+                items: todolist.tasks.filter(x => x.statusId == 4)
+              },
+              [5]: {
+                name: 'In-QA',
+                items: todolist.tasks.filter(x => x.statusId == 5)
+              },
+              [6]: {
+                name: 'Done',
+                items: todolist.tasks.filter(x => x.statusId == 6)
+              }
+            }).map(([columnId, column], index) => {
               return (
                 <div
                   style={{
@@ -182,6 +157,7 @@ const Kanban: FC<IProps> = () => {
         </div>
       </div>
     );
+  }
 };
 
 export default Kanban;

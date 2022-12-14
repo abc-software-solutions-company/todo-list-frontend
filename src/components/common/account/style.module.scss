@@ -5,6 +5,9 @@
       @apply text-slate-500;
     }
   }
+  .ico-x {
+    @apply absolute top-2 right-0;
+  }
   .ico-pen-edit {
     @apply -mt-[2px] font-light;
   }
@@ -17,7 +20,7 @@
   .info {
     @apply flex items-center gap-x-3;
     .name {
-      @apply w-40 truncate;
+      @apply truncate;
     }
     .email {
       @apply text-xs;
@@ -25,5 +28,9 @@
   }
   .action {
     @apply my-3 space-y-3;
+    .logout {
+      @apply w-fit cursor-pointer px-1;
+      @apply hover:rounded hover:ring-1 hover:ring-blue-400;
+    }
   }
 }

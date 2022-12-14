@@ -27,6 +27,7 @@ export default function useTodolist() {
   const write = Boolean(data) ? data.visibility === 'PUBLIC' || Boolean(auth && auth.id === data.userId) : false;
   const owner = Boolean(data) ? Boolean(auth && auth.id === data.userId) : false;
   const error = todolist.error;
+  const loading = todolist.loading;
   return {
     todolist: data,
     ...restTodolist,
@@ -34,6 +35,7 @@ export default function useTodolist() {
     assest,
     write,
     owner,
+    loading,
     error,
     initial,
     update,
