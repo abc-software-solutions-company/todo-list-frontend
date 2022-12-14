@@ -16,6 +16,9 @@
   }
   .info {
     @apply flex items-center gap-x-3;
+    .name {
+      @apply w-40 truncate;
+    }
     .email {
       @apply text-xs;
     }
