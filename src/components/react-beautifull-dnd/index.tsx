@@ -13,6 +13,7 @@ const itemsFromBackend = [
   {id: uuid(), content: 'Eight task'},
   {id: uuid(), content: 'Eight task'}
 ];
+console.log('🚀 ~ file: index.tsx:16 ~ itemsFromBackend', itemsFromBackend);
 
 const columnsFromBackend = {
   [uuid()]: {
@@ -72,6 +73,7 @@ const onDragEnd = (result, columns, setColumns) => {
 
 const ReactBeautifullDND = () => {
   const [columns, setColumns] = useState(columnsFromBackend);
+  console.log('🚀 ~ file: index.tsx:76 ~ ReactBeautifullDND ~ columns', Object.entries(columns));
   return (
     <div style={{display: 'flex', justifyContent: 'center', height: '100%'}}>
       <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>

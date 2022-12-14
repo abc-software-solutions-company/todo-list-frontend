@@ -1,47 +1,187 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import {useRouter} from 'next/router';
-import {FC, useEffect} from 'react';
+import {FC, useEffect, useState} from 'react';
+import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
 
 import useTodolist from '@/states/todolist/use-todolist';
 
 interface IProps {
   id: string;
 }
+
+const onDragEnd = (result: any, columns: any, setColumns: any) => {
+  if (!result.destination) return;
+  const {source, destination} = result;
+
+  if (source.droppableId !== destination.droppableId) {
+    const sourceColumn = columns[source.droppableId];
+    const destColumn = columns[destination.droppableId];
+    const sourceItems = [...sourceColumn.items];
+    const destItems = [...destColumn.items];
+    const [removed] = sourceItems.splice(source.index, 1);
+    destItems.splice(destination.index, 0, removed);
+    setColumns({
+      ...columns,
+      [source.droppableId]: {
+        ...sourceColumn,
+        items: sourceItems
+      },
+      [destination.droppableId]: {
+        ...destColumn,
+        items: destItems
+      }
+    });
+  } else {
+    const column = columns[source.droppableId];
+    const copiedItems = [...column.items];
+    const [removed] = copiedItems.splice(source.index, 1);
+    copiedItems.splice(destination.index, 0, removed);
+    setColumns({
+      ...columns,
+      [source.droppableId]: {
+        ...column,
+        items: copiedItems
+      }
+    });
+  }
+};
+
 const Kanban: FC<IProps> = () => {
   const {todolist, initial, error} = useTodolist();
-  console.log('🚀 ~ file: index.tsx:9 ~ todolist', todolist);
+  const [columns, setColumns] = useState({});
+
   const router = useRouter();
   const {id} = router.query;
+
   useEffect(() => {
     initial(id as string);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (todolist)
+      setColumns({
+        [1]: {
+          name: 'Backlog',
+          items: todolist?.tasks.filter(x => x.statusId == 1)
+        },
+        [2]: {
+          name: 'To-Do',
+          items: todolist?.tasks.filter(x => x.statusId == 2)
+        },
+        [3]: {
+          name: 'In-progress',
+          items: todolist?.tasks.filter(x => x.statusId == 3)
+        },
+        [4]: {
+          name: 'In-review',
+          items: todolist?.tasks.filter(x => x.statusId == 4)
+        },
+        [5]: {
+          name: 'In-QA',
+          items: todolist?.tasks.filter(x => x.statusId == 5)
+        },
+        [6]: {
+          name: 'Done',
+          items: todolist?.tasks.filter(x => x.statusId == 6)
+        }
+      });
+  }, [todolist]);
 
-  if (!todolist || error) return null;
-  const columns = todolist.status;
-
-  return (
-    <div className="container my-5 grid auto-cols-fr grid-flow-col">
-      {columns.length > 0 &&
-        columns.map(status => {
-          return (
-            <div key={status.id}>
-              <div className="border p-2 text-center">{status.name}</div>
-              <div>
-                {todolist.tasks
-                  .filter(x => x.statusId == status.id)
-                  .map(task => {
-                    return (
-                      <div key={task.id} className="border p-2 text-center">
-                        {task.name}
-                      </div>
-                    );
-                  })}
-              </div>
-            </div>
-          );
+  if (!todolist) return <p>Loading</p>;
+  if (error) return <p>Error</p>;
+  if (todolist)
+    return (
+      <div>
+        Kanban loaded
+        {JSON.stringify({
+          [1]: {
+            name: 'Backlog',
+            items: todolist?.tasks.filter(x => x.statusId == 1)
+          },
+          [2]: {
+            name: 'To-Do',
+            items: todolist?.tasks.filter(x => x.statusId == 2)
+          },
+          [3]: {
+            name: 'In-progress',
+            items: todolist?.tasks.filter(x => x.statusId == 3)
+          },
+          [4]: {
+            name: 'In-review',
+            items: todolist?.tasks.filter(x => x.statusId == 4)
+          },
+          [5]: {
+            name: 'In-QA',
+            items: todolist?.tasks.filter(x => x.statusId == 5)
+          },
+          [6]: {
+            name: 'Done',
+            items: todolist?.tasks.filter(x => x.statusId == 6)
+          }
         })}
-    </div>
-  );
+        <div style={{display: 'flex', justifyContent: 'center', height: '100%'}}>
+          <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
+            {Object.entries(columns).map(([columnId, column], index) => {
+              return (
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center'
+                  }}
+                  key={columnId}
+                >
+                  <h2>{column.name}</h2>
+                  <div style={{margin: 8}}>
+                    <Droppable droppableId={columnId} key={columnId}>
+                      {(provided, snapshot) => {
+                        return (
+                          <div
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                            style={{
+                              background: snapshot.isDraggingOver ? 'lightblue' : 'lightgrey',
+                              padding: 4,
+                              width: 250,
+                              minHeight: 500
+                            }}
+                          >
+                            {column.items.map((item, index) => {
+                              return (
+                                <Draggable key={item.id} draggableId={item.id} index={index}>
+                                  {(provided, snapshot) => {
+                                    return (
+                                      <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        style={{
+                                          userSelect: 'none',
+                                          padding: 16,
+                                          margin: '0 0 8px 0',
+                                          minHeight: '50px',
+                                          backgroundColor: snapshot.isDragging ? '#263B4A' : '#456C86',
+                                          color: 'white',
+                                          ...provided.draggableProps.style
+                                        }}
+                                      >
+                                        {item.name}
+                                      </div>
+                                    );
+                                  }}
+                                </Draggable>
+                              );
+                            })}
+                            {provided.placeholder}
+                          </div>
+                        );
+                      }}
+                    </Droppable>
+                  </div>
+                </div>
+              );
+            })}
+          </DragDropContext>
+        </div>
+      </div>
+    );
 };
 
 export default Kanban;
