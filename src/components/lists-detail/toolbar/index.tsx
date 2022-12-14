@@ -9,9 +9,9 @@ import useTodolist from '@/states/todolist/use-todolist';
 import {MUI_ICON} from '@/utils/mui-icon';
 
 import TodolistFavorite from '../../common/todolist-favorite';
+import ToolFilter from '../../common/tool-filter';
 import style from './style.module.scss';
 import Tool, {IToolProps} from './tool';
-import ToolFilter from './tool-filter';
 import ToolMenu from './tool-menu';
 
 const ToolbarDetail: FC = () => {
