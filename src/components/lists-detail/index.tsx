@@ -18,9 +18,10 @@ import styles from './style.module.scss';
 
 export interface Iprops {
   id: string;
+  kanban?: boolean;
 }
 
-const ListDetail: FC<Iprops> = ({id}) => {
+const ListDetail: FC<Iprops> = ({id, kanban = false}) => {
   const auth = useStateAuth();
   const router = useRouter();
 
@@ -61,7 +62,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
         <>
           {assest && <Seo title={todolist.name} />}
           <div className={styles['list-detail']}>
-            <div className="container">
+            <div className={`${kanban ? 'container-kanban' : 'container'}`}>
               <ToolbarDetail />
               {router.asPath.includes(ROUTES.KANBAN) ? <ListTaskKanban /> : <ListTask />}
               <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />

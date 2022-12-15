@@ -41,7 +41,6 @@ const ToolbarDetail: FC = () => {
     setSelectedTodolist(todolist);
     setIsOpenModal('settings');
   };
-
   const deleteToolProps: IToolProps = {
     icon: <Icon name="ico-trash-2" />,
     text: 'Delete',
@@ -82,6 +81,7 @@ const ToolbarDetail: FC = () => {
         <Tool {...shareToolProps} className={style['tool-outer']} />
         <ToolFilter />
         <Tool {...settingToolProps} className={style['tool-outer']} />
+
         <ToolMenu className="sm:hidden" items={toolMenuItems} icon={<MUI_ICON.MENU />} />
       </div>
     </div>

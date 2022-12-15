@@ -1,5 +1,4 @@
 import {SelectChangeEvent} from '@mui/material';
-import classNames from 'classnames';
 import {FC, useEffect, useState} from 'react';
 
 import StatusSelect from '@/components/common/statusSelect';
@@ -20,9 +19,10 @@ import style from './style.module.scss';
 
 interface IActionsProps extends ITaskItemProps {
   write?: boolean;
+  kanban?: boolean;
 }
 
-const Actions: FC<IActionsProps> = ({task, todolist, write = false}) => {
+const Actions: FC<IActionsProps> = ({task, todolist, write = false, kanban = false}) => {
   const {setIsOpenModal, setSelectedTask} = useModals();
 
   const toast = useToast();
@@ -73,7 +73,7 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false}) => {
     .map((item, idx) => <Tool key={idx} {...{...item, className: 'flex-row-reverse'}} />);
 
   return (
-    <div className={classNames('actions', style.actions)}>
+    <div className={kanban ? style['actions-kanban'] : style.actions}>
       <StatusSelect className="status" id={statusId} list={todolist.status} readonly={!write} onChange={onChange} />
       <TaskAssignee
         {...{

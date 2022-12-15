@@ -8,7 +8,7 @@ interface IKanBanColumnHeader {
 export default function KanbanColumnHeader({children, name}: IKanBanColumnHeader) {
   return (
     <div className="kanban-header">
-      <h2>{name}</h2>
+      <h3 className="text-center">{name}</h3>
       {children}
     </div>
   );

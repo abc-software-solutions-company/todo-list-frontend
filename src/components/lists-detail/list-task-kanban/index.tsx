@@ -13,6 +13,7 @@ const ListTaskKanban = () => {
 
   const tasks = getTasks();
   const statusArr = todolist.status;
+  console.log('🚀 ~ file: index.tsx:16 ~ ListTaskKanban ~ statusArr', statusArr);
 
   return (
     <>

@@ -5,5 +5,5 @@ interface IKanbanContainer {
 }
 
 export default function KanbanContainer({children}: IKanbanContainer) {
-  return <div className="kanban-container flex">{children}</div>;
+  return <div className="kanban-container grid grid-cols-6 gap-x-4 pt-6">{children}</div>;
 }

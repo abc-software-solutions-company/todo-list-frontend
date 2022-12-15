@@ -89,7 +89,7 @@ export default function KanbanColumn({tasks, write, todolist, setTodolist}: IKan
               strategy={verticalListSortingStrategy}
             >
               {tasks.map(task => (
-                <TaskItem key={task.id} task={task} todolist={todolist} write={write} />
+                <TaskItem key={task.id} task={task} todolist={todolist} write={write} kanban={true} />
               ))}
             </SortableContext>
           )}
@@ -100,6 +100,7 @@ export default function KanbanColumn({tasks, write, todolist, setTodolist}: IKan
                 task={tasks.filter(e => e.id === activeId)[0]}
                 isSelect={true}
                 todolist={todolist}
+                kanban={true}
               />
             ) : null}
           </DragOverlay>

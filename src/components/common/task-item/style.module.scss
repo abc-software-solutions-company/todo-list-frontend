@@ -10,3 +10,17 @@
     @apply line-through opacity-50;
   }
 }
+
+.task-kanban :global {
+  @apply pb-4;
+  @apply relative border border-t-0 bg-white px-4;
+  @apply items-center justify-between;
+  @apply min-h-[48px] w-full;
+  .h6 {
+    @apply mx-3 w-full cursor-pointer py-3 leading-5;
+    word-break: break-word;
+  }
+  .checked {
+    @apply line-through opacity-50;
+  }
+}

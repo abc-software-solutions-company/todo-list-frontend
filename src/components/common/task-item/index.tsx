@@ -19,10 +19,11 @@ export interface ITaskItemProps {
   todolist: ITodolistResponse;
   isSelect?: boolean;
   write?: boolean;
+  kanban?: boolean;
 }
 
 export default function TaskItem(props: ITaskItemProps) {
-  const {task, todolist, isSelect, write} = props;
+  const {task, todolist, isSelect, write, kanban = false} = props;
 
   const {getMyTasks} = useTasks();
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task.id});
@@ -50,29 +51,57 @@ export default function TaskItem(props: ITaskItemProps) {
   const onClick = () => router.push(ROUTES.TASK + '/' + task.id);
 
   return (
-    <div
-      className={classNames(style.task, `item ${isSelect && 'select'}`, 'hover:bg-blue-100')}
-      ref={setNodeRef}
-      style={styleDnd}
-      {...attributes}
-      {...listeners}
-      onClick={e => {
-        const elmCheckbox = e.currentTarget.querySelector('.form-checkbox') as HTMLInputElement | null;
-        const elmText = e.currentTarget.querySelector('h6')?.classList;
-        if (task?.isDone) {
-          elmText?.remove('checked');
-          elmCheckbox?.removeAttribute('checked');
-        } else {
-          elmText?.add('checked');
-          elmCheckbox?.setAttribute('checked', '');
-        }
-      }}
-    >
-      <Checkbox checked={task.isDone} onChange={onChange} disabled={!write} />
-      <p className={`h6 ${task.isDone && 'checked'}`} onClick={onClick}>
-        {task.name}
-      </p>
-      <Actions {...{...props, todolist, write}} />
-    </div>
+    <>
+      {kanban ? (
+        <div
+          className={classNames(style['task-kanban'], `item ${isSelect && 'select'}`, 'hover:bg-blue-100')}
+          ref={setNodeRef}
+          style={styleDnd}
+          {...attributes}
+          {...listeners}
+          onClick={e => {
+            const elmCheckbox = e.currentTarget.querySelector('.form-checkbox') as HTMLInputElement | null;
+            const elmText = e.currentTarget.querySelector('h6')?.classList;
+            if (task?.isDone) {
+              elmText?.remove('checked');
+              elmCheckbox?.removeAttribute('checked');
+            } else {
+              elmText?.add('checked');
+              elmCheckbox?.setAttribute('checked', '');
+            }
+          }}
+        >
+          <p className={`h6 ${task.isDone && 'checked'}`} onClick={onClick}>
+            {task.name}
+          </p>
+          <Actions {...{...props, todolist, write}} kanban={true} />
+        </div>
+      ) : (
+        <div
+          className={classNames(style.task, `item ${isSelect && 'select'}`, 'hover:bg-blue-100')}
+          ref={setNodeRef}
+          style={styleDnd}
+          {...attributes}
+          {...listeners}
+          onClick={e => {
+            const elmCheckbox = e.currentTarget.querySelector('.form-checkbox') as HTMLInputElement | null;
+            const elmText = e.currentTarget.querySelector('h6')?.classList;
+            if (task?.isDone) {
+              elmText?.remove('checked');
+              elmCheckbox?.removeAttribute('checked');
+            } else {
+              elmText?.add('checked');
+              elmCheckbox?.setAttribute('checked', '');
+            }
+          }}
+        >
+          <Checkbox checked={task.isDone} onChange={onChange} disabled={!write} />
+          <p className={`h6 ${task.isDone && 'checked'}`} onClick={onClick}>
+            {task.name}
+          </p>
+          <Actions {...{...props, todolist, write}} />
+        </div>
+      )}
+    </>
   );
 }
