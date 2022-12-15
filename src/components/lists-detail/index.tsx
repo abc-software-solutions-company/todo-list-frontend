@@ -11,7 +11,7 @@ import useTodolist from '@/states/todolist/use-todolist';
 
 import ErrorInformation from '../common/404';
 import Seo from '../common/seo/seo';
-import ListTask from './list-task';
+import ListTaskKanban from './list-task-kanban';
 import styles from './style.module.scss';
 
 export interface Iprops {
@@ -61,7 +61,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
           <div className={styles['list-detail']}>
             <div className="container">
               <ToolbarDetail />
-              <ListTask />
+              <ListTaskKanban />
               <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />
             </div>
           </div>
