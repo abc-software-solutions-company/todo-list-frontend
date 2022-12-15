@@ -1,24 +1,34 @@
 import useTodolist from '@/states/todolist/use-todolist';
 
 import KanbanColumn from './column';
+import KanbanContainer from './column/container';
+import KanbanColumnHeader from './column/header';
 
 const ListTaskKanban = () => {
-  const {todolist, statusFilter, write, setTodolist} = useTodolist();
+  const {todolist, write, setTodolist} = useTodolist();
 
   const getTasks = () => {
-    if (statusFilter) return todolist.tasks.filter(e => !statusFilter || e.statusId == statusFilter);
-    return todolist.tasks?.filter(e => !e.isDone);
+    return todolist.tasks;
   };
 
   const tasks = getTasks();
+  const statusArr = todolist.status;
 
   return (
-    <KanbanColumn
-      setTodolist={setTodolist}
-      tasks={tasks.filter(e => e.statusId == todolist.status[0].id)}
-      todolist={todolist}
-      write={write}
-    />
+    <>
+      <KanbanContainer>
+        {statusArr.map((status, idx) => (
+          <KanbanColumnHeader name={status.name} key={idx}>
+            <KanbanColumn
+              setTodolist={setTodolist}
+              tasks={tasks.filter(task => task.statusId == status.id)}
+              todolist={todolist}
+              write={write}
+            />
+          </KanbanColumnHeader>
+        ))}
+      </KanbanContainer>
+    </>
   );
 };
 

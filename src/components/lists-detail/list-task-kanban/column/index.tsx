@@ -88,11 +88,9 @@ export default function KanbanColumn({tasks, write, todolist, setTodolist}: IKan
               items={tasks.map(task => task.id)}
               strategy={verticalListSortingStrategy}
             >
-              {tasks
-                .filter(i => i.statusId == todolist.status[0].id)
-                .map(task => (
-                  <TaskItem key={task.id} task={task} todolist={todolist} write={write} />
-                ))}
+              {tasks.map(task => (
+                <TaskItem key={task.id} task={task} todolist={todolist} write={write} />
+              ))}
             </SortableContext>
           )}
           <DragOverlay>
