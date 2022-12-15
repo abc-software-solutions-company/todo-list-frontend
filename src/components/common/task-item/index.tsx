@@ -71,7 +71,7 @@ export default function TaskItem(props: ITaskItemProps) {
             }
           }}
         >
-          <p className={`h6 ${task.isDone && 'checked'}`} onClick={onClick}>
+          <p className="h6" onClick={onClick}>
             {task.name}
           </p>
           <Actions {...{...props, todolist, write}} kanban={true} />
