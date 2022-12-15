@@ -2,6 +2,7 @@ import {useRouter} from 'next/router';
 import {FC, useEffect} from 'react';
 
 import ToolbarDetail from '@/components/lists-detail/toolbar';
+import {ROUTES} from '@/configs/routes.config';
 import FloatIcon from '@/core-ui/float-icon';
 import socket from '@/data/socket';
 import {SOCKET_EVENTS} from '@/data/socket/type';
@@ -11,6 +12,7 @@ import useTodolist from '@/states/todolist/use-todolist';
 
 import ErrorInformation from '../common/404';
 import Seo from '../common/seo/seo';
+import ListTask from './list-task';
 import ListTaskKanban from './list-task-kanban';
 import styles from './style.module.scss';
 
@@ -61,7 +63,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
           <div className={styles['list-detail']}>
             <div className="container">
               <ToolbarDetail />
-              <ListTaskKanban />
+              {router.asPath.includes(ROUTES.KANBAN) ? <ListTaskKanban /> : <ListTask />}
               <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />
             </div>
           </div>

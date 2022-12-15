@@ -2,5 +2,6 @@ export const ROUTES = {
   LOGIN: '/login',
   HOME: '/',
   LIST: '/lists',
-  TASK: '/tasks'
+  TASK: '/tasks',
+  KANBAN: '/board'
 };
