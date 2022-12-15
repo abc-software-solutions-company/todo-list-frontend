@@ -19,7 +19,7 @@ const ListTaskKanban = () => {
     <>
       <KanbanContainer>
         {statusArr.map((status, idx) => (
-          <KanbanColumnHeader name={status.name} key={idx}>
+          <KanbanColumnHeader todolist={todolist} name={status.name} key={idx} statusId={status.id}>
             <KanbanColumn
               setTodolist={setTodolist}
               tasks={tasks.filter(task => task.statusId == status.id)}

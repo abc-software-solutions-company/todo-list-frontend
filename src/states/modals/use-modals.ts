@@ -17,6 +17,7 @@ export default function useModals() {
   const setIsOpenModal = (value: ISetIsOpenModalPayload) => dispatch(actions.setIsOpenModal(value));
   const setSelectedTask = (value?: ITaskResponse) => dispatch(actions.setSelectedTask(value));
   const setSelectedTodolist = (value?: ITodolistResponse) => dispatch(actions.setSelectedTodolist(value));
+  const setSelectedStatusId = (value?: number) => dispatch(actions.setSelectedStatusId(value));
 
-  return {...modals, setIsOpenModal, setSelectedTask, setSelectedTodolist};
+  return {...modals, setIsOpenModal, setSelectedTask, setSelectedTodolist, setSelectedStatusId};
 }

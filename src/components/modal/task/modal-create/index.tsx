@@ -11,16 +11,18 @@ import ModalCreateUpdateTask from '../index-create-update';
 export interface IProps {
   open: boolean;
   todolistData?: ITodolistResponse;
+  statusId?: number;
   onClose: () => void;
   onSuccess?: () => void;
 }
 
 interface IFormInputs {
   name: string;
+  statusId?: number;
 }
 
 const ModalCreateTask: FC<IProps> = props => {
-  const {open, todolistData, onClose, onSuccess} = props;
+  const {open, todolistData, onClose, onSuccess, statusId} = props;
   const toast = useToast();
 
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
@@ -29,7 +31,7 @@ const ModalCreateTask: FC<IProps> = props => {
 
     if (todolistData) {
       req.push(
-        api.task.create({name, todolistId: todolistData.id}).then(() => {
+        api.task.create({name, todolistId: todolistData.id, statusId}).then(() => {
           toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
         })
       );

@@ -59,6 +59,7 @@ export interface ITaskGet {
 export interface ITaskCreate {
   todolistId: string;
   name: string;
+  statusId?: number;
 }
 
 export interface ITaskUpdate extends ITaskGet {

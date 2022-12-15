@@ -15,6 +15,7 @@ export const isOpenModal = {
 const initialState: IInitialState = {
   selectedTask: undefined,
   selectedTodolist: undefined,
+  selectedStatusId: undefined,
   isOpenModal
 };
 

@@ -8,6 +8,7 @@ export type ISetIsOpenModalPayload = keyof typeof isOpenModal | null;
 export interface IInitialState {
   selectedTask?: ITaskResponse;
   selectedTodolist?: ITodolistResponse;
+  selectedStatusId?: number;
   isOpenModal: {
     createList: boolean;
     createTask: boolean;

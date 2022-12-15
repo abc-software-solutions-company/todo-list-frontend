@@ -22,6 +22,9 @@ const modalsSlice = createSlice({
     },
     setSelectedTodolist: (state, {payload}: PayloadAction<ITodolistResponse | undefined>) => {
       state.selectedTodolist = payload;
+    },
+    setSelectedStatusId: (state, {payload}: PayloadAction<number | undefined>) => {
+      state.selectedStatusId = payload;
     }
   }
 });

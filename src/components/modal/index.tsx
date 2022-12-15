@@ -20,7 +20,7 @@ const Modal = () => {
   const auth = useStateAuth();
   const {get} = useLists();
   const {isOpenModal, setIsOpenModal} = useModals();
-  const {selectedTask, selectedTodolist} = useModals();
+  const {selectedTask, selectedTodolist, selectedStatusId} = useModals();
 
   const onClose = () => {
     setIsOpenModal(null);
@@ -75,6 +75,7 @@ const Modal = () => {
         onClose={onClose}
         onSuccess={socketUpdateList}
         todolistData={selectedTodolist}
+        statusId={selectedStatusId}
       />
       {selectedTask && (
         <ModalUpdateTask
