@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import {useEffect} from 'react';
+
 import {IKanbanColumn} from '@/states/kanban/types';
 import useKanban from '@/states/kanban/use-kanban';
 import useTodolist from '@/states/todolist/use-todolist';
@@ -10,32 +12,19 @@ import KanbanColumnHeader from './column/header';
 
 const ListTaskKanban = () => {
   const {todolist} = useTodolist();
-  const {setColumns} = useKanban();
-  const dataColumn: IKanbanColumn[] = [];
+  const {setColumns, kanban} = useKanban();
 
-  const getTasks = () => {
-    return todolist.tasks;
-  };
-
-  const tasks = getTasks();
-  const statusArr = todolist.status;
-  console.log('ok');
-
-  if (tasks) {
-    statusArr.map(status => {
-      dataColumn.push({tasks: tasks.filter(task => task.statusId == status.id), ...status});
-      console.log('🚀 ~ file: index.tsx:15 ~ ListTaskKanban ~ dataColumn', dataColumn);
-    });
-    // setColumns(dataColumn);
-  }
+  useEffect(() => {
+    if (todolist) setColumns(todolist);
+  }, []);
 
   return (
     <>
       <KanbanContainer>
-        {statusArr.map((status, idx) => (
+        {kanban.map((column, idx) => (
           <KanbanColumn key={idx}>
-            <KanbanColumnHeader name={status.name} key={idx} statusId={status.id} />
-            <KanbanColumnBody tasks={tasks.filter(task => task.statusId == status.id)} />
+            <KanbanColumnHeader name={column.name} key={idx} statusId={column.id} />
+            <KanbanColumnBody tasks={column.tasks} />
           </KanbanColumn>
         ))}
       </KanbanContainer>
