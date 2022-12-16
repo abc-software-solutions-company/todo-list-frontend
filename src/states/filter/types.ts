@@ -1,3 +1,4 @@
 export interface IInitialState {
-  statusFilter: number;
+  statusFilterInList: number;
+  statusFilterInMytask: number[];
 }

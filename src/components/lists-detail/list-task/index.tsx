@@ -1,22 +1,24 @@
 import {DndContext, DragEndEvent, DragOverlay, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
 import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import TaskItem from '@/components/common/task-item';
 import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
+import useFilter from '@/states/filter/use-filter';
 import useTodolist from '@/states/todolist/use-todolist';
 import {IndexStep} from '@/utils/constant';
 
 const ListTask = () => {
-  const {todolist, statusFilter, write, setTodolist} = useTodolist();
+  const {todolist, write, setTodolist} = useTodolist();
+  const {statusFilterInList, setStatusFilterInList} = useFilter();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   const getTasks = () => {
-    if (statusFilter) return todolist.tasks.filter(e => !statusFilter || e.statusId == statusFilter);
+    if (statusFilterInList) return todolist.tasks.filter(e => !statusFilterInList || e.statusId == statusFilterInList);
     return todolist.tasks?.filter(e => !e.isDone);
   };
 
@@ -75,6 +77,10 @@ const ListTask = () => {
     }
   }
 
+  useEffect(() => {
+    setStatusFilterInList(0);
+  }, []);
+
   return (
     <DndContext {...{sensors, modifiers, onDragCancel, onDragEnd, onDragStart}}>
       <div className="tasks">
@@ -88,7 +94,12 @@ const ListTask = () => {
         )}
         <DragOverlay>
           {activeId ? (
-            <TaskItem key={tasks.filter(e => e.id === activeId)[0].id} task={tasks.filter(e => e.id === activeId)[0]} isSelect={true} todolist={todolist} />
+            <TaskItem
+              key={tasks.filter(e => e.id === activeId)[0].id}
+              task={tasks.filter(e => e.id === activeId)[0]}
+              isSelect={true}
+              todolist={todolist}
+            />
           ) : null}
         </DragOverlay>
       </div>

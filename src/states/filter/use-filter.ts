@@ -5,11 +5,12 @@ import filterSlice from './slice';
 
 export default function useFilter() {
   const filterState = useSelector((root: RootState) => root.filter);
-  const {statusFilter} = filterState;
+  const {statusFilterInList, statusFilterInMytask} = filterState;
   const {actions} = filterSlice;
 
   const dispatch = useDispatch();
-  const setStatusFilter = (value: number) => dispatch(actions.setStatusFilter(value));
+  const setStatusFilterInList = (value: number) => dispatch(actions.setStatusFilterInList(value));
+  const setStatusFilterInMyTask = (value: number[]) => dispatch(actions.setStatusFilterInMyTask(value));
 
-  return {statusFilter, setStatusFilter};
+  return {statusFilterInList, statusFilterInMytask, setStatusFilterInList, setStatusFilterInMyTask};
 }

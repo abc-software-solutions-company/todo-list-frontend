@@ -1,7 +1,8 @@
 import {IInitialState} from './types';
 
 const initialState: IInitialState = {
-  statusFilter: 0
+  statusFilterInList: 0,
+  statusFilterInMytask: []
 };
 
 export default initialState;

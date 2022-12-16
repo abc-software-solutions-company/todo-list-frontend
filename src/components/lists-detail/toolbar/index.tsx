@@ -79,7 +79,7 @@ const ToolbarDetail: FC = () => {
         <Tool {...addTaskToolProps} className={style['tool-outer']} />
         <Tool {...deleteToolProps} className={style['tool-outer']} />
         <Tool {...shareToolProps} className={style['tool-outer']} />
-        <ToolFilter />
+        <ToolFilter todolist={todolist} />
         <Tool {...settingToolProps} className={style['tool-outer']} />
 
         <ToolMenu className="sm:hidden" items={toolMenuItems} icon={<MUI_ICON.MENU />} />

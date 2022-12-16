@@ -1,6 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 
+import filterSlice from './filter/slice';
 import globalSlice from './global/slice';
 import kanbanSlice from './kanban/slice';
 import listsSlice from './lists/slice';
@@ -21,7 +22,8 @@ const store = configureStore({
     lists: listsSlice.reducer,
     kanban: kanbanSlice.reducer,
     tasks: tasksSlice.reducer,
-    modals: modalsSlice.reducer
+    modals: modalsSlice.reducer,
+    filter: filterSlice.reducer
   }
 });
 

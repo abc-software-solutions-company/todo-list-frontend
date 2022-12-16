@@ -6,8 +6,11 @@ const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    setStatusFilter: (state, {payload}: PayloadAction<number>) => {
-      state.statusFilter = payload;
+    setStatusFilterInList: (state, {payload}: PayloadAction<number>) => {
+      state.statusFilterInList = payload;
+    },
+    setStatusFilterInMyTask: (state, {payload}: PayloadAction<number[]>) => {
+      state.statusFilterInMytask = payload;
     }
   }
 });
