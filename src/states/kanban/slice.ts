@@ -13,6 +13,7 @@ export const kanbanSlice = createSlice({
     setColumns: (state, action: PayloadAction<IKanbanColumn[]>) => {
       const {payload} = action;
       state.columns = payload;
+      console.log('set columns for kanban');
     }
   }
 });

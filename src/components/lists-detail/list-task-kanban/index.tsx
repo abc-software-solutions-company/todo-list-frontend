@@ -1,11 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import {IKanbanColumn} from '@/states/kanban/types';
+import useKanban from '@/states/kanban/use-kanban';
 import useTodolist from '@/states/todolist/use-todolist';
 
 import KanbanColumn from './column';
+import KanbanColumnBody from './column/body';
 import KanbanContainer from './column/container';
 import KanbanColumnHeader from './column/header';
 
 const ListTaskKanban = () => {
-  const {todolist, write, setTodolist} = useTodolist();
+  const {todolist} = useTodolist();
+  const {setColumns} = useKanban();
+  const dataColumn: IKanbanColumn[] = [];
 
   const getTasks = () => {
     return todolist.tasks;
@@ -13,20 +19,22 @@ const ListTaskKanban = () => {
 
   const tasks = getTasks();
   const statusArr = todolist.status;
-  console.log('🚀 ~ file: index.tsx:16 ~ ListTaskKanban ~ statusArr', statusArr);
+  console.log('ok');
+
+  if (tasks) {
+    statusArr.map(status => {
+      dataColumn.push({tasks: tasks.filter(task => task.statusId == status.id), ...status});
+    });
+  }
 
   return (
     <>
       <KanbanContainer>
         {statusArr.map((status, idx) => (
-          <KanbanColumnHeader todolist={todolist} name={status.name} key={idx} statusId={status.id}>
-            <KanbanColumn
-              setTodolist={setTodolist}
-              tasks={tasks.filter(task => task.statusId == status.id)}
-              todolist={todolist}
-              write={write}
-            />
-          </KanbanColumnHeader>
+          <KanbanColumn key={idx}>
+            <KanbanColumnHeader name={status.name} key={idx} statusId={status.id} />
+            <KanbanColumnBody tasks={tasks.filter(task => task.statusId == status.id)} />
+          </KanbanColumn>
         ))}
       </KanbanContainer>
     </>
