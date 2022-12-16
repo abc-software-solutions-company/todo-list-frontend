@@ -24,7 +24,9 @@ const ListTaskKanban = () => {
   if (tasks) {
     statusArr.map(status => {
       dataColumn.push({tasks: tasks.filter(task => task.statusId == status.id), ...status});
+      console.log('🚀 ~ file: index.tsx:15 ~ ListTaskKanban ~ dataColumn', dataColumn);
     });
+    // setColumns(dataColumn);
   }
 
   return (

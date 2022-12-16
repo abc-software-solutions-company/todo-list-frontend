@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 import {IInitialState, IKanbanColumn} from './types';
 
@@ -10,10 +10,9 @@ export const kanbanSlice = createSlice({
   name: 'kanban',
   initialState,
   reducers: {
-    setColumns: (state, action: PayloadAction<IKanbanColumn[]>) => {
-      const {payload} = action;
+    setColumns: (state, {payload}) => {
       state.columns = payload;
-      console.log('set columns for kanban');
+      console.log(state.columns);
     }
   }
 });
