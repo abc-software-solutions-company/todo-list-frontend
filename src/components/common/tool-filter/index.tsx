@@ -33,12 +33,12 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
   const {setStatusFilterInList, setStatusFilterInMyTask} = useFilter();
   const [select, setSelect] = useState<number>(0);
 
-  const temp0: {id: number[]; name: string; color: string} = {id: [], name: 'Backlog', color: '#78716C'};
-  const temp1: {id: number[]; name: string; color: string} = {id: [], name: 'To-Do', color: '#0EA5E9'};
-  const temp2: {id: number[]; name: string; color: string} = {id: [], name: 'In-progress', color: '#F59E0B'};
-  const temp3: {id: number[]; name: string; color: string} = {id: [], name: 'In-review', color: '#F43F5E'};
-  const temp4: {id: number[]; name: string; color: string} = {id: [], name: 'In-QA', color: '#8B5CF6'};
-  const temp5: {id: number[]; name: string; color: string} = {id: [], name: 'Done', color: '#22C55E'};
+  const temp0: {id: number[]; color: string} = {id: [], color: '#78716C'};
+  const temp1: {id: number[]; color: string} = {id: [], color: '#0EA5E9'};
+  const temp2: {id: number[]; color: string} = {id: [], color: '#F59E0B'};
+  const temp3: {id: number[]; color: string} = {id: [], color: '#F43F5E'};
+  const temp4: {id: number[]; color: string} = {id: [], color: '#8B5CF6'};
+  const temp5: {id: number[]; color: string} = {id: [], color: '#22C55E'};
 
   if (myTasks) {
     // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -71,7 +71,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
     });
   }
 
-  const myTasksStatus: {id: number[]; name: string; color: string}[] = [];
+  const myTasksStatus: {id: number[]; color: string}[] = [];
   myTasksStatus.push(temp0, temp1, temp2, temp3, temp4, temp5);
 
   const onChange = (e: SelectChangeEvent<number>) => {
