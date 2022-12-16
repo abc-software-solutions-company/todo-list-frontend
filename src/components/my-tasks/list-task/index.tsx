@@ -44,9 +44,11 @@ const ListTask: FC = () => {
           return (
             <div key={todolist.id}>
               <div className="h-6 lg:h-7"></div>
-              <Link href={ROUTES.LIST + `/${todolist.id}`}>
-                <h4 className="w-fit cursor-pointer text-base font-semibold md:text-h4">{todolist.name}</h4>
-              </Link>
+              {todolist.tasks.length > 0 && (
+                <Link href={ROUTES.LIST + `/${todolist.id}`}>
+                  <h4 className="w-fit cursor-pointer text-base font-semibold md:text-h4">{todolist.name}</h4>
+                </Link>
+              )}
               <div className="h-3 lg:h-4"></div>{' '}
               <div className="tasks">
                 {todolist?.tasks.map(task => (
