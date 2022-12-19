@@ -1,6 +1,5 @@
 import {useRouter} from 'next/router';
 
-import {ROUTES} from '@/configs/routes.config';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
@@ -19,11 +18,10 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
     let req;
     if (data.statusId) {
       req = api.task.update({id, isActive: false}).then(() => {
-        if (router.asPath.includes(ROUTES.LIST)) {
+        if (router.asPath.includes(id)) {
           const newTodolist: ITodolistResponse = JSON.parse(JSON.stringify(todolist));
           newTodolist.tasks = newTodolist.tasks.filter(e => e.id !== id);
           setTodolist(newTodolist);
-        } else {
           router.back();
         }
         toast.show({type: 'success', title: 'Delete ', content: ToastContents.SUCCESS});

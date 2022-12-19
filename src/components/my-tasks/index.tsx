@@ -49,7 +49,7 @@ const MyTasks = () => {
         <div className="container">
           <div className="flex items-center justify-between">
             <Title tilte={'My Tasks'} />
-            <ToolFilter myTasks={myTasks} />
+            {myTasks?.map(e => e.tasks.length).reduce((a, b) => a + b, 0) != 0 && <ToolFilter myTasks={myTasks} />}
           </div>
           <ListTask />
         </div>
