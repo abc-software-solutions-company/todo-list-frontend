@@ -6,6 +6,10 @@ export interface ITodolistGetOne {
   id: string;
 }
 
+export interface ITodolistGetOneKanban {
+  id: string;
+}
+
 export interface ITodolistCreate {
   name: string;
 }
@@ -30,6 +34,7 @@ export interface IStatus {
   name: string;
   color: string;
   index: number;
+  tasks?: ITaskResponse[];
 }
 
 export interface IMember {
@@ -56,5 +61,15 @@ export interface ITodolistResponse {
   visibility: keyof typeof Visibilities;
   status: IStatus[];
   tasks: ITaskResponse[];
+  members: IMember[];
+}
+
+export interface ITodolistKanbanResponse {
+  id: string;
+  name: string;
+  userId: string;
+  favorite: boolean;
+  visibility: keyof typeof Visibilities;
+  status: IStatus[];
   members: IMember[];
 }

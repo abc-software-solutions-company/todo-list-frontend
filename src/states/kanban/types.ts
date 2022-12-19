@@ -1,4 +1,4 @@
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {ITodolistKanbanResponse} from '@/data/api/types/todolist.type';
 
 import {isOpenModal} from './initialState';
 
@@ -7,15 +7,14 @@ export type ISetIsOpenModalPayload = keyof typeof isOpenModal | null;
 export interface IInitialState {
   myList: {
     loading: boolean;
-    data: ITodolistResponse[];
+    data: ITodolistKanbanResponse[];
     error: any;
   };
   favoriteList: {
     loading: boolean;
-    data: ITodolistResponse[];
+    data: ITodolistKanbanResponse[];
     error: any;
   };
-  selectedTodolist?: ITodolistResponse;
   isOpenModal: {
     edit: boolean;
     delete: boolean;

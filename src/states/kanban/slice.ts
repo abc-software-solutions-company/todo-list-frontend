@@ -1,12 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
-
 import initialState, {isOpenModal} from './initialState';
 import {ISetIsOpenModalPayload} from './types';
 
-const listsSlice = createSlice({
-  name: 'lists',
+const kanbanSlice = createSlice({
+  name: 'kanban',
   initialState,
   reducers: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -32,9 +30,6 @@ const listsSlice = createSlice({
       state.favoriteList.loading = false;
       state.favoriteList.error = payload;
     },
-    setSelectedTodolist: (state, {payload}: PayloadAction<ITodolistResponse | undefined>) => {
-      state.selectedTodolist = payload;
-    },
     setIsOpenModal: (state, {payload}: PayloadAction<ISetIsOpenModalPayload>) => {
       const newIsOpenModal = {...isOpenModal};
       Object.keys(newIsOpenModal).map(e => {
@@ -45,4 +40,4 @@ const listsSlice = createSlice({
   }
 });
 
-export default listsSlice;
+export default kanbanSlice;

@@ -1,4 +1,4 @@
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {ITodolistKanbanResponse} from '@/data/api/types/todolist.type';
 
 import {IInitialState} from './types';
 
@@ -11,15 +11,14 @@ export const isOpenModal = {
 const initialState: IInitialState = {
   myList: {
     loading: false,
-    data: [] as ITodolistResponse[],
+    data: [] as ITodolistKanbanResponse[],
     error: null
   },
   favoriteList: {
     loading: false,
-    data: [] as ITodolistResponse[],
+    data: [] as ITodolistKanbanResponse[],
     error: null
   },
-  selectedTodolist: undefined,
   isOpenModal
 };
 
