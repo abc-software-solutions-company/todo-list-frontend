@@ -3,22 +3,20 @@ import {ITodolistKanbanResponse} from '@/data/api/types/todolist.type';
 import {IInitialState} from './types';
 
 export const isOpenModal = {
-  edit: false,
+  settings: false,
+  task: false,
   delete: false,
   share: false
 };
 
 const initialState: IInitialState = {
-  myList: {
+  todolistKanban: {
     loading: false,
-    data: [] as ITodolistKanbanResponse[],
+    data: undefined as unknown as ITodolistKanbanResponse,
     error: null
   },
-  favoriteList: {
-    loading: false,
-    data: [] as ITodolistKanbanResponse[],
-    error: null
-  },
+  statusFilter: 0,
+  selectedTask: undefined,
   isOpenModal
 };
 
