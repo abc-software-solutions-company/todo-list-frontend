@@ -70,7 +70,7 @@ const Topbar: FC<IProps> = ({className}) => {
                       }}
                       sx={{
                         maxWidth: 333,
-                        left: 30,
+                        left: 0,
                         top: 7,
                         zIndex: 50
                       }}
