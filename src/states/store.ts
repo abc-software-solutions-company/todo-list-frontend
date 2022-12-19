@@ -3,7 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import filterSlice from './filter/slice';
 import globalSlice from './global/slice';
-import kanbanSlice from './kanban/slice';
+import kanbanSlice from './kanban_bak/slice';
 import listsSlice from './lists/slice';
 import modalsSlice from './modals/slice';
 import saga from './saga';

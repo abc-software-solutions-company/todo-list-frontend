@@ -1,10 +1,24 @@
-import {ITaskResponse} from '@/data/api/types/task.type';
-import {IStatus} from '@/data/api/types/todolist.type';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 
-export interface IKanbanColumn extends IStatus {
-  tasks: ITaskResponse[];
-}
+import {isOpenModal} from './initialState';
+
+export type ISetIsOpenModalPayload = keyof typeof isOpenModal | null;
 
 export interface IInitialState {
-  columns: IKanbanColumn[];
+  myList: {
+    loading: boolean;
+    data: ITodolistResponse[];
+    error: any;
+  };
+  favoriteList: {
+    loading: boolean;
+    data: ITodolistResponse[];
+    error: any;
+  };
+  selectedTodolist?: ITodolistResponse;
+  isOpenModal: {
+    edit: boolean;
+    delete: boolean;
+    share: boolean;
+  };
 }
