@@ -26,7 +26,7 @@ const ListTask: FC = () => {
     }
   };
 
-  const temp = filterMyTasks();
+  const onAfterFilter = filterMyTasks();
 
   useEffect(() => {
     setStatusFilterInMyTask([]);
@@ -34,15 +34,15 @@ const ListTask: FC = () => {
 
   return (
     <>
-      {temp?.map(e => e.tasks.length).reduce((a, b) => a + b, 0) == 0 && (
+      {onAfterFilter?.map(e => e.tasks.length).reduce((a, b) => a + b, 0) == 0 && (
         <>
           <div className="h-6 lg:h-7"></div>
           <span className="empty">Empty Tasks</span>
         </>
       )}
-      {temp &&
-        temp.length > 0 &&
-        temp.map(todolist => {
+      {onAfterFilter &&
+        onAfterFilter.length > 0 &&
+        onAfterFilter.map(todolist => {
           const write = Boolean(todolist)
             ? todolist.visibility === 'PUBLIC' || Boolean(auth && auth.id === todolist.userId)
             : false;
