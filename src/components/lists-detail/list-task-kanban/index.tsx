@@ -1,36 +1,24 @@
-import useTodolist from '@/states/todolist/use-todolist';
+import {useEffect} from 'react';
 
-import KanbanColumn from './column';
-import KanbanContainer from './column/container';
-import KanbanColumnHeader from './column/header';
+import ErrorInformation from '@/components/common/404';
+import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 
-const ListTaskKanban = () => {
-  const {todolist, write, setTodolist} = useTodolist();
+import KanbanContainer from './container';
 
-  const getTasks = () => {
-    return todolist.tasks;
-  };
+interface IListTaskKanban {
+  id: string;
+}
 
-  const tasks = getTasks();
-  const statusArr = todolist.status;
-  console.log('🚀 ~ file: index.tsx:16 ~ ListTaskKanban ~ statusArr', statusArr);
+const ListTaskKanban = ({id}: IListTaskKanban) => {
+  const {todolistKanban, initial, error, loading} = useTodolistKanban();
+  useEffect(() => {
+    initial(id);
+  }, [id]);
+  if (error) return <ErrorInformation />;
+  if (!loading) return <></>;
+  if (todolistKanban) return <KanbanContainer />;
 
-  return (
-    <>
-      <KanbanContainer>
-        {statusArr.map((status, idx) => (
-          <KanbanColumnHeader todolist={todolist} name={status.name} key={idx} statusId={status.id}>
-            <KanbanColumn
-              setTodolist={setTodolist}
-              tasks={tasks.filter(task => task.statusId == status.id)}
-              todolist={todolist}
-              write={write}
-            />
-          </KanbanColumnHeader>
-        ))}
-      </KanbanContainer>
-    </>
-  );
+  return <></>;
 };
 
 export default ListTaskKanban;

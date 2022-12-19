@@ -64,7 +64,7 @@ const ListDetail: FC<Iprops> = ({id, kanban = false}) => {
           <div className={styles['list-detail']}>
             <div className={`${kanban ? 'container-kanban' : 'container'}`}>
               <ToolbarDetail />
-              {router.asPath.includes(ROUTES.KANBAN) ? <ListTaskKanban /> : <ListTask />}
+              {router.asPath.includes(ROUTES.KANBAN) ? <ListTaskKanban id={id} /> : <ListTask />}
               <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />
             </div>
           </div>

@@ -7,7 +7,7 @@ import {RootState, todolistKanbanSlice} from '@/states/store';
 
 import {ISetIsOpenModalPayload} from './types';
 
-export default function useTodolist() {
+export default function useTodolistKanban() {
   const todolistKanbanState = useSelector((root: RootState) => root.todolistKanban);
   const {todolistKanban, ...rest} = todolistKanbanState;
   const {data, ...restTodolistKanban} = todolistKanban;
