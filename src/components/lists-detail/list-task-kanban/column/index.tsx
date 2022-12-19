@@ -11,7 +11,7 @@ interface IKanbanColumn {
 export default function KanbanColumn({statusId, name}: IKanbanColumn) {
   return (
     <div className="kanban-column">
-      <KanbanColumnHeader name={name} />
+      <KanbanColumnHeader name={name} statusId={statusId} />
       <KanbanColumnBody statusId={statusId} />
     </div>
   );
