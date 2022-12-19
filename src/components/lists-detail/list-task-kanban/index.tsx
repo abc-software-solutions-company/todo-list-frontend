@@ -1,6 +1,7 @@
 import {useEffect} from 'react';
 
 import ErrorInformation from '@/components/common/404';
+import Loading from '@/components/common/loading';
 import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 
 import KanbanContainer from './container';
@@ -15,7 +16,7 @@ const ListTaskKanban = ({id}: IListTaskKanban) => {
     initial(id);
   }, [id]);
   if (error) return <ErrorInformation />;
-  if (loading) return <>Loading</>;
+  if (loading) return <Loading />;
   if (todolistKanban) return <KanbanContainer />;
 
   return <></>;
