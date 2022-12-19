@@ -5,12 +5,12 @@ import tasksSlice from './slice';
 
 export default function useTasks() {
   const tasksState = useSelector((root: RootState) => root.tasks);
-  const {myTasks} = tasksState;
+  const {myTasks, ...restState} = tasksState;
   const {data} = myTasks;
   const {actions} = tasksSlice;
 
   const dispatch = useDispatch();
   const getMyTasks = () => dispatch(actions.getMyTasksRequest());
 
-  return {myTasks: data, getMyTasks};
+  return {myTasks: data, getMyTasks, ...restState};
 }

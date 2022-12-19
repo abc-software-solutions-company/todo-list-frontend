@@ -19,8 +19,8 @@ const ListTask: FC = () => {
           ...todolist,
           tasks:
             statusFilterInMytask.length != 0
-              ? todolist.tasks.filter(e => !statusFilterInMytask[index] || e.statusId == statusFilterInMytask[index])
-              : todolist.tasks.filter(e => !e.isDone)
+              ? todolist?.tasks.filter(e => !statusFilterInMytask[index] || e.statusId == statusFilterInMytask[index])
+              : todolist?.tasks.filter(e => !e.isDone)
         };
       });
     }
@@ -34,7 +34,7 @@ const ListTask: FC = () => {
 
   return (
     <>
-      {onAfterFilter?.map(e => e.tasks.length).reduce((a, b) => a + b, 0) == 0 && (
+      {onAfterFilter?.map(e => e.tasks?.length).reduce((a, b) => a + b, 0) == 0 && (
         <>
           <div className="h-6 lg:h-7"></div>
           <span className="empty">Empty Tasks</span>
@@ -48,7 +48,7 @@ const ListTask: FC = () => {
             : false;
           return (
             <div key={todolist.id}>
-              {todolist.tasks.length > 0 && (
+              {todolist.tasks?.length > 0 && (
                 <>
                   <div className="h-6 lg:h-7"></div>
                   <Link href={ROUTES.LIST + `/${todolist.id}`}>

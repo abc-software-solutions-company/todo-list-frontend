@@ -43,7 +43,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
   if (myTasks) {
     // eslint-disable-next-line @typescript-eslint/no-shadow
     myTasks.forEach(todolist => {
-      todolist.status.forEach(e => {
+      todolist?.status.forEach(e => {
         const {id, color} = e;
         switch (color) {
           case '#78716C':

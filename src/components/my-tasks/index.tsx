@@ -7,6 +7,7 @@ import {useStateAuth} from '@/states/auth';
 import useTasks from '@/states/tasks/use-tasks';
 import LocalStorage from '@/utils/local-storage';
 
+import Loading from '../common/loading';
 import ToolFilter from '../common/tool-filter';
 import Title from '../lists/title';
 import ListTask from './list-task';
@@ -41,21 +42,27 @@ const MyTasks = () => {
       socket.off(SOCKET_EVENTS.updateList);
     };
   }, [auth]);
+  if (myTasks == undefined) return <Loading />;
+  if (myTasks) console.log('🚀 ~ file: index.tsx:62 ~ MyTasks ~ myTasks', myTasks);
 
-  return (
-    <>
-      <div className={styles['list-task']}>
-        <div className="h-[12px]"></div>
-        <div className="container">
-          <div className="flex items-center justify-between">
-            <Title tilte={'My Tasks'} />
-            {myTasks?.map(e => e.tasks.length).reduce((a, b) => a + b, 0) != 0 && <ToolFilter myTasks={myTasks} />}
+  if (myTasks)
+    return (
+      <>
+        <div className={styles['list-task']}>
+          <div className="h-[12px]"></div>
+          <div className="container">
+            <div className="flex items-center justify-between">
+              <Title tilte={'My Tasks'} />
+              {myTasks
+                ?.filter(x => x != null)
+                .map(e => e.tasks.length)
+                .reduce((a, b) => a + b, 0) != 0 && <ToolFilter myTasks={myTasks} />}
+            </div>
+            <ListTask />
           </div>
-          <ListTask />
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
 };
 
 export default MyTasks;
