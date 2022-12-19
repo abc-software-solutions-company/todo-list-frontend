@@ -3,11 +3,16 @@ import React from 'react';
 import KanbanColumnBody from './body';
 import KanbanColumnHeader from './header';
 
-export default function KanbanColumn() {
+interface IKanbanColumn {
+  statusId: number;
+  name: string;
+}
+
+export default function KanbanColumn({statusId, name}: IKanbanColumn) {
   return (
     <div className="kanban-column">
-      <KanbanColumnHeader />
-      <KanbanColumnBody statusId={0} />
+      <KanbanColumnHeader name={name} />
+      <KanbanColumnBody statusId={statusId} />
     </div>
   );
 }

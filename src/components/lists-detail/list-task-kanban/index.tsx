@@ -15,7 +15,7 @@ const ListTaskKanban = ({id}: IListTaskKanban) => {
     initial(id);
   }, [id]);
   if (error) return <ErrorInformation />;
-  if (!loading) return <></>;
+  if (loading) return <>Loading</>;
   if (todolistKanban) return <KanbanContainer />;
 
   return <></>;
