@@ -4,7 +4,7 @@ import * as React from 'react';
 
 export default function Loading() {
   return (
-    <Box sx={{display: 'flex'}}>
+    <Box sx={{display: 'flex', position: 'absolute', top: '50%', left: '50%', margin: '0 auto'}}>
       <CircularProgress />
     </Box>
   );
