@@ -28,13 +28,25 @@ export default function KanbanColumnBody({tasks, onDragEnd, onDragStart}: IKanba
           {tasks && tasks.length > 0 && (
             <SortableContext disabled={!write} items={tasks.map(task => task.id)}>
               {tasks.map(task => (
-                <KanbanTaskItem key={task.id} columnId={task.statusId} name={task.name} id={task.id} />
+                <KanbanTaskItem
+                  thumbnail={'https://www.w3schools.com/html/pic_trulli.jpg'}
+                  dueDate={task.dueDate || new Date('2022-03-25')}
+                  key={task.id}
+                  columnId={task.statusId}
+                  name={task.name}
+                  id={task.id}
+                />
               ))}
             </SortableContext>
           )}
           <DragOverlay>
             {activeId ? (
               <KanbanTaskItem
+                dueDate={tasks!.filter(e => e.id === activeId)[0].dueDate || new Date('2022-03-25')}
+                thumbnail={
+                  tasks!.filter(e => e.id === activeId)[0].attachments[0].link ||
+                  'https://www.w3schools.com/html/pic_trulli.jpg'
+                }
                 name={tasks!.filter(e => e.id === activeId)[0].name}
                 id={tasks!.filter(e => e.id === activeId)[0].id}
                 columnId={tasks!.filter(e => e.id === activeId)[0].statusId}
