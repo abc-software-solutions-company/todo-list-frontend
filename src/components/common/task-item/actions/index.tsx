@@ -86,7 +86,7 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false, kanban = fal
         hideIconWhenClick={false}
       />
       <div className="piority">
-        <TaskPiority task={task} readOnly={!write} onChange={onChangePriority} hideTitle={true} />
+        <TaskPiority priority={task.priority} readOnly={!write} onChange={onChangePriority} hideTitle={true} />
       </div>
       {write && <ToolMenu display="alway" icon={<MUI_ICON.MORE_VERT />} items={toolMenuItems} margin={-1} />}
     </div>

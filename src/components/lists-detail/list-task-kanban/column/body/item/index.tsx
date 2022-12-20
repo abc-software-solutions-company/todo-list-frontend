@@ -5,6 +5,7 @@ import React from 'react';
 import {IAssigneeResponse} from '@/data/api/types/task.type';
 
 import KanbanTaskDueDate from './due-date';
+import KanbanTaskPriority from './priority';
 import style from './style.module.scss';
 import KanbanTaskName from './task-name';
 import KanbanTaskThumbnail from './thumbnail';
@@ -15,18 +16,18 @@ interface IKanbanTaskItem {
   columnId: number;
   thumbnail: string;
   dueDate: Date;
-  priority?: string;
+  priority: string;
   storyPoint?: string;
   assignees?: IAssigneeResponse[];
 }
 
-const KanbanTaskItem = ({name, id, dueDate}: IKanbanTaskItem) => {
+const KanbanTaskItem = ({name, id, dueDate, priority}: IKanbanTaskItem) => {
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: id});
 
   const styleDnd = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1
+    zIndex: isDragging ? 0.5 : 1
   };
 
   return (
@@ -36,6 +37,7 @@ const KanbanTaskItem = ({name, id, dueDate}: IKanbanTaskItem) => {
       <div className="actions">
         <div className="left">
           <KanbanTaskDueDate date={dueDate} />
+          <KanbanTaskPriority priority={priority} taskId={id} />
         </div>
         <div className="right"></div>
       </div>

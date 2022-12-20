@@ -29,6 +29,7 @@ export default function KanbanColumnBody({tasks, onDragEnd, onDragStart}: IKanba
             <SortableContext disabled={!write} items={tasks.map(task => task.id)}>
               {tasks.map(task => (
                 <KanbanTaskItem
+                  priority={task.priority}
                   thumbnail={'https://www.w3schools.com/html/pic_trulli.jpg'}
                   dueDate={task.dueDate || new Date('2022-03-25')}
                   key={task.id}
@@ -42,6 +43,7 @@ export default function KanbanColumnBody({tasks, onDragEnd, onDragStart}: IKanba
           <DragOverlay>
             {activeId ? (
               <KanbanTaskItem
+                priority={tasks!.filter(e => e.id === activeId)[0].priority}
                 dueDate={tasks!.filter(e => e.id === activeId)[0].dueDate || new Date('2022-03-25')}
                 thumbnail={
                   tasks!.filter(e => e.id === activeId)[0].attachments[0].link ||

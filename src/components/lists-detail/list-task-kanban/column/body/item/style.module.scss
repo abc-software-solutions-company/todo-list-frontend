@@ -8,10 +8,10 @@
   .actions {
     @apply flex gap-x-2;
     .left {
-      @apply basis-1/2;
+      @apply flex basis-2/3 gap-x-2;
     }
     .right {
-      @apply basis-1/2;
+      @apply basis-1/3;
     }
   }
 }
