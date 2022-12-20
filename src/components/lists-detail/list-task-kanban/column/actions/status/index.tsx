@@ -14,7 +14,7 @@ interface IProps extends IBaseProps {
   readonly?: boolean;
 }
 
-const StatusSelect: FC<IProps> = ({id: statusId, list, className, onChange, readonly = false}) => {
+const TaskKanbanStatusSelect: FC<IProps> = ({id: statusId, list, className, onChange, readonly = false}) => {
   const status = list.filter(e => e.id == statusId)[0] || list[0];
   return (
     <div className={classNames(className, 'text-h6')}>
@@ -30,7 +30,7 @@ const StatusSelect: FC<IProps> = ({id: statusId, list, className, onChange, read
             <MenuItem key={id} value={id} sx={{color, justifyContent: 'end', padding: '4px 16px'}}>
               <div className="relative">
                 <span
-                  className="status-name inline-block rounded px-2 py-0.5 text-h6"
+                  className="status-name hidden rounded px-2 py-0.5 pl-3 pr-8 text-h6 lg:block lg:py-1"
                   style={{backgroundColor: color + '32'}}
                 >
                   {name}
@@ -47,4 +47,4 @@ const StatusSelect: FC<IProps> = ({id: statusId, list, className, onChange, read
   );
 };
 
-export default StatusSelect;
+export default TaskKanbanStatusSelect;
