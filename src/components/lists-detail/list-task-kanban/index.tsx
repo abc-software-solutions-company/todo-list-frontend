@@ -4,6 +4,9 @@ import ErrorInformation from '@/components/common/404';
 import Loading from '@/components/common/loading';
 import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 
+import KanbanColumn from './column';
+import KanbanColumnBody from './column/body';
+import KanbanColumnHeader from './column/header';
 import KanbanContainer from './container';
 
 interface IListTaskKanban {
@@ -12,12 +15,25 @@ interface IListTaskKanban {
 
 const ListTaskKanban = ({id}: IListTaskKanban) => {
   const {todolistKanban, initial, error, loading} = useTodolistKanban();
+
   useEffect(() => {
     initial(id);
   }, [id]);
-  if (error) return <ErrorInformation />;
+
   if (loading) return <Loading />;
-  if (todolistKanban) return <KanbanContainer />;
+  if (error) return <ErrorInformation />;
+
+  if (todolistKanban)
+    return (
+      <KanbanContainer>
+        {todolistKanban.status.map(column => (
+          <KanbanColumn key={column.id}>
+            <KanbanColumnHeader name={column.name} key={column.id} />
+            <KanbanColumnBody tasks={column.tasks || []} />
+          </KanbanColumn>
+        ))}
+      </KanbanContainer>
+    );
 
   return <></>;
 };

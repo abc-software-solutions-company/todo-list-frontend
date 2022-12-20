@@ -4,15 +4,9 @@ import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import {SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import React, {useState} from 'react';
 
-import TaskItem from '@/components/common/task-item';
-import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
-import {IStatus, ITodolistResponse} from '@/data/api/types/todolist.type';
-import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
-import useTodolist from '@/states/todolist/use-todolist';
 import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
-import {IndexStep} from '@/utils/constant';
 
 interface IKanbanColumnBody {
   tasks: ITaskResponse[];
