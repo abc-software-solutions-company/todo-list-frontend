@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {ITodolistKanbanResponse, ITodolistResponse} from '@/data/api/types/todolist.type';
 
 import initialState, {isOpenModal} from './initialState';
 import {ISetIsOpenModalPayload} from './types';
@@ -20,10 +20,10 @@ const modalsSlice = createSlice({
     setSelectedTask: (state, {payload}: PayloadAction<ITaskResponse | undefined>) => {
       state.selectedTask = payload;
     },
-    setSelectedTodolist: (state, {payload}: PayloadAction<ITodolistResponse | undefined>) => {
+    setSelectedTodolist: (state, {payload}: PayloadAction<ITodolistResponse | ITodolistKanbanResponse | undefined>) => {
       state.selectedTodolist = payload;
     },
-    setSelectedStatusId: (state, {payload}: PayloadAction<number | undefined>) => {
+    setSelectedColumnId: (state, {payload}: PayloadAction<number | undefined>) => {
       state.selectedStatusId = payload;
     }
   }

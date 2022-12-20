@@ -1,5 +1,5 @@
 import {ITaskResponse} from '@/data/api/types/task.type';
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {ITodolistKanbanResponse, ITodolistResponse} from '@/data/api/types/todolist.type';
 
 import {isOpenModal} from './initialState';
 
@@ -7,7 +7,7 @@ export type ISetIsOpenModalPayload = keyof typeof isOpenModal | null;
 
 export interface IInitialState {
   selectedTask?: ITaskResponse;
-  selectedTodolist?: ITodolistResponse;
+  selectedTodolist?: ITodolistResponse | ITodolistKanbanResponse;
   selectedStatusId?: number;
   isOpenModal: {
     createList: boolean;

@@ -16,7 +16,7 @@ import ToolMenu from './tool-menu';
 
 const ToolbarDetail: FC = () => {
   const {todolist, write, owner} = useTodolist();
-  const {setIsOpenModal, setSelectedTask, setSelectedTodolist, setSelectedStatusId} = useModals();
+  const {setIsOpenModal, setSelectedTask, setSelectedTodolist, setSelectedColumnId} = useModals();
 
   const {id, name, favorite} = todolist;
 
@@ -28,7 +28,7 @@ const ToolbarDetail: FC = () => {
     setSelectedTask();
     setSelectedTodolist(todolist);
     setIsOpenModal('createTask');
-    setSelectedStatusId(undefined);
+    setSelectedColumnId(undefined);
   };
   const onDelete = () => {
     setSelectedTodolist(todolist);
