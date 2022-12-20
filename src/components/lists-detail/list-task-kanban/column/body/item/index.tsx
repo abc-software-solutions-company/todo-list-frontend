@@ -1,3 +1,5 @@
+import {useSortable} from '@dnd-kit/sortable';
+import {CSS} from '@dnd-kit/utilities';
 import {useRouter} from 'next/router';
 import React from 'react';
 
@@ -22,8 +24,16 @@ interface IKanbanTaskItem {
 const KanbanTaskItem = ({name, id, columnId}: IKanbanTaskItem) => {
   const router = useRouter();
   const {todolistKanban, write} = useTodolistKanban();
+  const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: id});
+
+  const styleDnd = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1
+  };
+
   return (
-    <div className={style['kanban-task-item']}>
+    <div className={style['kanban-task-item']} ref={setNodeRef} style={styleDnd} {...attributes} {...listeners}>
       <p className="task-name" onClick={() => router.push(`${ROUTES.TASK}/${id}`)}>
         {name}
       </p>
