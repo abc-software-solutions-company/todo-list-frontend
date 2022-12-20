@@ -1,11 +1,13 @@
-import {DndContext, DragEndEvent, DragOverlay, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import {DndContext, DragOverlay, UniqueIdentifier} from '@dnd-kit/core';
 import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
-import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
+import {SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import React, {useState} from 'react';
 
 import TaskItem from '@/components/common/task-item';
 import api from '@/data/api';
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {ITaskResponse} from '@/data/api/types/task.type';
+import {IStatus, ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useTodolist from '@/states/todolist/use-todolist';
@@ -13,72 +15,22 @@ import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 import {IndexStep} from '@/utils/constant';
 
 interface IKanbanColumnBody {
-  statusId: number;
+  tasks: ITaskResponse[];
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
 }
 
-export default function KanbanColumnBody({statusId}: IKanbanColumnBody) {
-  const {todolistKanban, write} = useTodolistKanban();
-  const {setTodolist, todolist} = useTodolist();
-  const tasks = todolistKanban.status.filter(x => x.id == statusId)[0].tasks;
+export default function KanbanColumnBody({tasks, onDragEnd, onDragStart}: IKanbanColumnBody) {
+  const {write} = useTodolistKanban();
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const modifiers = [restrictToVerticalAxis];
-  const onDragCancel = () => setActiveId(null);
-
-  const onDragStart = ({active}: DragStartEvent) => {
-    if (active) setActiveId(active.id);
-  };
-
-  function onDragEnd({active, over}: DragEndEvent) {
-    setActiveId(null);
-    if (!over) return;
-    if (active.id !== over.id) {
-      const oldIndex = todolist.tasks?.findIndex(item => active.id === item.id);
-      const newIndex = todolist.tasks?.findIndex(item => over.id === item.id);
-      const arrangeTask = arrayMove(todolist.tasks, oldIndex, newIndex);
-      const newTodoList = {...todolist};
-      newTodoList.tasks = arrangeTask;
-      setTodolist(newTodoList as ITodolistResponse);
-
-      arrangeTask.forEach((element, index) => {
-        if (element.id === active.id) {
-          let newTaskIndex: number | undefined;
-          let reindexAll = false;
-          const limitDifferenceIndex = 32;
-          const listIndex = todolist.tasks.map(e => e.index);
-          const maxIndex = Math.max(...listIndex);
-          const minIndex = Math.min(...listIndex);
-          const taskBefore = arrangeTask[index - 1];
-          const task = arrangeTask[index];
-          const taskAfter = arrangeTask[index + 1];
-          if (!taskBefore || !taskAfter) {
-            const taskNext = taskBefore || taskAfter;
-            const indexNext = Number(taskNext.index);
-            if (indexNext === minIndex) newTaskIndex = Math.round(minIndex / 2);
-            if (indexNext === maxIndex) newTaskIndex = maxIndex + IndexStep;
-            if (newTaskIndex && newTaskIndex <= limitDifferenceIndex) reindexAll = true;
-          } else {
-            const indexBefore = Number(taskBefore.index);
-            const indexAfter = Number(taskAfter.index);
-            newTaskIndex = Math.round((indexBefore + indexAfter) / 2);
-            if (Math.abs(taskBefore.index - taskAfter.index) < limitDifferenceIndex * 2) reindexAll = true;
-          }
-
-          const resetIndex = () => {
-            if (reindexAll) api.task.reindexAll({todolistId: todolist.id});
-          };
-
-          api.task.update({id: task.id, index: newTaskIndex}).then(resetIndex).then(socketUpdateList);
-        }
-      });
-    }
-  }
 
   const sensors = useSensorGroup();
 
   return (
     <div className="kanban-column">
-      <DndContext {...{sensors, modifiers, onDragCancel, onDragEnd, onDragStart}}>
+      <DndContext {...{sensors, modifiers, onDragEnd, onDragStart}}>
         <div className="tasks">
           {tasks && tasks.length === 0 && <span className="empty">Empty list</span>}
           {tasks && tasks.length > 0 && (
@@ -88,19 +40,17 @@ export default function KanbanColumnBody({statusId}: IKanbanColumnBody) {
               strategy={verticalListSortingStrategy}
             >
               {tasks.map(task => (
-                <TaskItem key={task.id} task={task} todolist={todolist} write={write} kanban={true} />
+                <>
+                  <p>{task.name}</p>
+                </>
               ))}
             </SortableContext>
           )}
           <DragOverlay>
             {activeId ? (
-              <TaskItem
-                key={tasks?.filter(e => e.id === activeId)[0].id}
-                task={tasks!.filter(e => e.id === activeId)[0]}
-                isSelect={true}
-                todolist={todolist}
-                kanban={true}
-              />
+              <>
+                <p>{tasks!.filter(e => e.id === activeId)[0].name}</p>
+              </>
             ) : null}
           </DragOverlay>
         </div>
