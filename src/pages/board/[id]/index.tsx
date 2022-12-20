@@ -12,7 +12,7 @@ export default function PageListDetailKanban({id, seo}: InferGetStaticPropsType<
   return (
     <>
       <Seo {...seo} />
-      <ListDetail kanban={true} id={id} />
+      <ListDetail id={id} />
     </>
   );
 }

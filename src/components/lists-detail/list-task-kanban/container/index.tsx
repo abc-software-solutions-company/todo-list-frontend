@@ -1,5 +1,7 @@
 import React, {ReactNode} from 'react';
 
+import style from './style.module.scss';
+
 interface IKanbanContainer {
   children: ReactNode;
 }
@@ -7,7 +9,7 @@ interface IKanbanContainer {
 const KanbanContainer = ({children}: IKanbanContainer) => {
   return (
     <>
-      <div className="kanban-container grid grid-cols-6 gap-x-4 pt-6">{children}</div>
+      <div className={style['kanban-container']}>{children}</div>
     </>
   );
 };

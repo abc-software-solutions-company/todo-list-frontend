@@ -11,8 +11,8 @@ import KanbanTaskItem from './item';
 
 interface IKanbanColumnBody {
   tasks: ITaskResponse[];
-  onDragStart?: () => void;
-  onDragEnd?: () => void;
+  onDragStart: () => void;
+  onDragEnd: () => void;
 }
 
 export default function KanbanColumnBody({tasks, onDragEnd, onDragStart}: IKanbanColumnBody) {

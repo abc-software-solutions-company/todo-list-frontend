@@ -1,0 +1,5 @@
+.kanban-column-footer :global {
+  .btn-add-task {
+    @apply flex justify-center hover:cursor-pointer;
+  }
+}

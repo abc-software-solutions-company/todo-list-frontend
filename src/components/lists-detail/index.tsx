@@ -18,10 +18,9 @@ import styles from './style.module.scss';
 
 export interface Iprops {
   id: string;
-  kanban?: boolean;
 }
 
-const ListDetail: FC<Iprops> = ({id, kanban = false}) => {
+const ListDetail: FC<Iprops> = ({id}) => {
   const auth = useStateAuth();
   const router = useRouter();
 
@@ -32,6 +31,8 @@ const ListDetail: FC<Iprops> = ({id, kanban = false}) => {
     setSelectedTodolist(todolist);
     setIsOpenModal('createTask');
   };
+
+  const isKanban = router.asPath.includes(ROUTES.KANBAN);
 
   useEffect(() => {
     if (auth) {
@@ -62,9 +63,9 @@ const ListDetail: FC<Iprops> = ({id, kanban = false}) => {
         <>
           {assest && <Seo title={todolist.name} />}
           <div className={styles['list-detail']}>
-            <div className={`${kanban ? 'container-kanban' : 'container'}`}>
+            <div className={`${isKanban ? 'container-kanban' : 'container'}`}>
               <ToolbarDetail />
-              {router.asPath.includes(ROUTES.KANBAN) ? <ListTaskKanban id={id} /> : <ListTask />}
+              {isKanban ? <ListTaskKanban id={id} /> : <ListTask />}
               <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />
             </div>
           </div>

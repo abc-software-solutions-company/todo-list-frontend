@@ -2,6 +2,8 @@ import React from 'react';
 
 import {IAssigneeResponse} from '@/data/api/types/task.type';
 
+import style from './style.module.scss';
+
 interface IKanbanTaskItem {
   name: string;
   thumbnail?: string;
@@ -13,8 +15,9 @@ interface IKanbanTaskItem {
 
 const KanbanTaskItem = ({name}: IKanbanTaskItem) => {
   return (
-    <div className="kanban-task-item">
+    <div className={style['kanban-task-item']}>
       <p className="task-name">{name}</p>
+      <div className="task-thumbnail"></div>
     </div>
   );
 };

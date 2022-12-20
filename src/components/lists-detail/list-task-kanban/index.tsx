@@ -38,7 +38,7 @@ const ListTaskKanban = ({id}: IListTaskKanban) => {
         {todolistKanban.status?.map(column => (
           <KanbanColumn key={column.id} onDragEnd={() => {}} onDragStart={() => {}} onDragOver={() => {}}>
             <KanbanColumnHeader name={column.name} />
-            <KanbanColumnBody tasks={column.tasks!} />
+            <KanbanColumnBody tasks={column.tasks!} onDragEnd={() => {}} onDragStart={() => {}} />
             <KanbanColumnFooter onAddTask={() => onAddTask(column.id)} />
           </KanbanColumn>
         ))}
