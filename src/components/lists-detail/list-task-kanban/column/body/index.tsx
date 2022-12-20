@@ -29,7 +29,7 @@ export default function KanbanColumnBody({tasks, onDragEnd, onDragStart}: IKanba
             <SortableContext disabled={!write} items={tasks.map(task => task.id)}>
               {tasks.map(task => (
                 <>
-                  <KanbanTaskItem name={task.name} />
+                  <KanbanTaskItem name={task.name} id={task.id} />
                 </>
               ))}
             </SortableContext>
@@ -37,7 +37,10 @@ export default function KanbanColumnBody({tasks, onDragEnd, onDragStart}: IKanba
           <DragOverlay>
             {activeId ? (
               <>
-                <KanbanTaskItem name={tasks!.filter(e => e.id === activeId)[0].name} />
+                <KanbanTaskItem
+                  name={tasks!.filter(e => e.id === activeId)[0].name}
+                  id={tasks!.filter(e => e.id === activeId)[0].id}
+                />
               </>
             ) : null}
           </DragOverlay>
