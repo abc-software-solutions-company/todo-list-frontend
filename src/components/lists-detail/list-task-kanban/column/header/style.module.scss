@@ -1,0 +1,5 @@
+.kanban-column-header :global {
+  .column-name {
+    @apply text-h4 font-semibold;
+  }
+}

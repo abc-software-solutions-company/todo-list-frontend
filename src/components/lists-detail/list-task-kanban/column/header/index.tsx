@@ -1,12 +1,17 @@
 import React from 'react';
 
+import style from './style.module.scss';
+
 interface IKanbanColumnHeader {
   name: string;
+  color: string;
 }
-export default function KanbanColumnHeader({name}: IKanbanColumnHeader) {
+export default function KanbanColumnHeader({name, color}: IKanbanColumnHeader) {
   return (
-    <div className="kanban-column-header">
-      <h3 className="text-center">{name}</h3>
+    <div className={style['kanban-column-header']}>
+      <p className="column-name" style={{color}}>
+        {name}
+      </p>
     </div>
   );
 }
