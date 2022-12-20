@@ -26,9 +26,9 @@ const ListTaskKanban = ({id}: IListTaskKanban) => {
   if (todolistKanban)
     return (
       <KanbanContainer>
-        {todolistKanban.status.map(column => (
-          <KanbanColumn key={column.id}>
-            <KanbanColumnHeader name={column.name} key={column.id} />
+        {todolistKanban.status?.map(column => (
+          <KanbanColumn key={column.id} onDragEnd={() => {}} onDragStart={() => {}} onDragOver={() => {}}>
+            <KanbanColumnHeader name={column.name} />
             <KanbanColumnBody tasks={column.tasks || []} />
           </KanbanColumn>
         ))}

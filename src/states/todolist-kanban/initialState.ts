@@ -12,7 +12,7 @@ export const isOpenModal = {
 const initialState: IInitialState = {
   todolistKanban: {
     loading: false,
-    data: undefined as unknown as ITodolistKanbanResponse,
+    data: [undefined] as unknown as ITodolistKanbanResponse,
     error: null
   },
   statusFilter: 0,
