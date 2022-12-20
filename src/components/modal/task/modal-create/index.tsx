@@ -3,7 +3,7 @@ import {SubmitHandler} from 'react-hook-form';
 
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {ITodolistKanbanResponse, ITodolistResponse} from '@/data/api/types/todolist.type';
 import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 import {ToastContents} from '@/utils/toast-content';
 
@@ -11,7 +11,7 @@ import ModalCreateUpdateTask from '../index-create-update';
 
 export interface IProps {
   open: boolean;
-  todolistData?: ITodolistResponse;
+  todolistData?: ITodolistResponse | ITodolistKanbanResponse;
   statusId?: number;
   onClose: () => void;
   onSuccess?: () => void;

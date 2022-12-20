@@ -3,13 +3,13 @@ import React, {FC} from 'react';
 
 import Button from '@/core-ui/button';
 import {Modal} from '@/core-ui/modal';
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {ITodolistKanbanResponse, ITodolistResponse} from '@/data/api/types/todolist.type';
 
 import useModalDelete from './hook';
 import styles from './style.module.scss';
 
 export interface IProps {
-  data: ITodolistResponse;
+  data: ITodolistResponse | ITodolistKanbanResponse;
   open: boolean;
   onClose: () => void;
   onSuccess?: () => void;

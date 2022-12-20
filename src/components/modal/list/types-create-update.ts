@@ -1,9 +1,9 @@
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {ITodolistKanbanResponse, ITodolistResponse} from '@/data/api/types/todolist.type';
 
 export interface IProps {
   open: boolean;
   onClose: () => void;
   onSuccess?: () => void;
   hiddenVisibility?: boolean;
-  data?: ITodolistResponse;
+  data?: ITodolistResponse | ITodolistKanbanResponse;
 }

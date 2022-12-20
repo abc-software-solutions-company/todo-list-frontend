@@ -6,7 +6,7 @@ import Icon from '@/core-ui/icon';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
 import {ITaskResponse} from '@/data/api/types/task.type';
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {ITodolistKanbanResponse, ITodolistResponse} from '@/data/api/types/todolist.type';
 
 import useModalShare from './hook';
 import styles from './style.module.scss';
@@ -14,7 +14,7 @@ import styles from './style.module.scss';
 export interface IProps {
   open: boolean;
   onClose: () => void;
-  data: ITodolistResponse | ITaskResponse;
+  data: ITodolistResponse | ITodolistKanbanResponse | ITaskResponse;
 }
 const ModalShareList: FC<IProps> = props => {
   const {id, link, copy} = useModalShare(props);
