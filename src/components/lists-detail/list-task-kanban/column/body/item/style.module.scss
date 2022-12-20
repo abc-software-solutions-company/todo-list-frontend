@@ -1,7 +1,17 @@
 .kanban-task-item :global {
-  @apply mb-3 rounded-md border border-slate-200 p-3;
+  @apply rounded-md border border-slate-200;
+  @apply mb-3 p-3;
   .task-name {
     @apply hover:cursor-pointer;
     @apply text-sm font-medium text-blue-900;
+  }
+  .actions {
+    @apply flex gap-x-2;
+    .left {
+      @apply basis-1/2;
+    }
+    .right {
+      @apply basis-1/2;
+    }
   }
 }

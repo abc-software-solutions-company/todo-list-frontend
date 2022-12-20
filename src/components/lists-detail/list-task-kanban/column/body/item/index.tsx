@@ -33,7 +33,12 @@ const KanbanTaskItem = ({name, id, dueDate}: IKanbanTaskItem) => {
     <div className={style['kanban-task-item']} ref={setNodeRef} style={styleDnd} {...attributes} {...listeners}>
       <KanbanTaskThumbnail url={'https://www.w3schools.com/html/pic_trulli.jpg'} />
       <KanbanTaskName id={id} name={name} />
-      <KanbanTaskDueDate date={dueDate} />
+      <div className="actions">
+        <div className="left">
+          <KanbanTaskDueDate date={dueDate} />
+        </div>
+        <div className="right"></div>
+      </div>
       <div className="status-change"></div>
     </div>
   );
