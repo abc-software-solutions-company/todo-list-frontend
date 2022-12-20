@@ -40,7 +40,7 @@ const ListTaskKanban = ({id}: IListTaskKanban) => {
           <KanbanColumnDragWrapper key={column.id}>
             <KanbanColumn onDragEnd={() => {}} onDragStart={() => {}} onDragOver={() => {}}>
               <KanbanColumnHeader name={column.name} color={column.color} />
-              <KanbanColumnBody tasks={column.tasks!} onDragEnd={() => {}} onDragStart={() => {}} />
+              <KanbanColumnBody tasks={column.tasks!} />
               <KanbanColumnFooter onAddTask={() => onAddTask(column.id)} />
             </KanbanColumn>
           </KanbanColumnDragWrapper>

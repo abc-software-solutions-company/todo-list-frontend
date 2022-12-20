@@ -27,7 +27,7 @@ const KanbanTaskItem = ({name, id, dueDate, priority}: IKanbanTaskItem) => {
   const styleDnd = {
     transform: CSS.Transform.toString(transform),
     transition,
-    zIndex: isDragging ? 0.5 : 1
+    opacity: isDragging ? 0.5 : 1
   };
 
   return (

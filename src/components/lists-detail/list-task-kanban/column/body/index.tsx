@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {DndContext, DragOverlay, UniqueIdentifier} from '@dnd-kit/core';
+import {DndContext, DragOverlay, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
 import {SortableContext} from '@dnd-kit/sortable';
 import React, {useState} from 'react';
 
@@ -11,15 +11,19 @@ import KanbanTaskItem from './item';
 
 interface IKanbanColumnBody {
   tasks: ITaskResponse[];
-  onDragStart: () => void;
-  onDragEnd: () => void;
 }
 
-export default function KanbanColumnBody({tasks, onDragEnd, onDragStart}: IKanbanColumnBody) {
+export default function KanbanColumnBody({tasks}: IKanbanColumnBody) {
   const {write} = useTodolistKanban();
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const sensors = useSensorGroup();
+
+  const onDragStart = ({active}: DragStartEvent) => {
+    if (active) setActiveId(active.id);
+  };
+
+  const onDragEnd = () => {};
 
   return (
     <div className="kanban-column">
@@ -45,10 +49,7 @@ export default function KanbanColumnBody({tasks, onDragEnd, onDragStart}: IKanba
               <KanbanTaskItem
                 priority={tasks!.filter(e => e.id === activeId)[0].priority}
                 dueDate={tasks!.filter(e => e.id === activeId)[0].dueDate || new Date('2022-03-25')}
-                thumbnail={
-                  tasks!.filter(e => e.id === activeId)[0].attachments[0].link ||
-                  'https://www.w3schools.com/html/pic_trulli.jpg'
-                }
+                thumbnail={'https://www.w3schools.com/html/pic_trulli.jpg'}
                 name={tasks!.filter(e => e.id === activeId)[0].name}
                 id={tasks!.filter(e => e.id === activeId)[0].id}
                 columnId={tasks!.filter(e => e.id === activeId)[0].statusId}
