@@ -18,12 +18,12 @@ const KanbanTaskItemEmpty = ({statusId}: IKanbanTaskItemEmpty) => {
   return (
     <div
       ref={setNodeRef}
-      className="kanban-task-item-empty absolute h-full bg-amber-300"
+      className="kanban-task-item-empty absolute h-full"
       style={styleDnd}
       {...attributes}
       {...listeners}
     >
-      <>{statusId}</>
+      <div className="text-transparent">{statusId}</div>
     </div>
   );
 };
