@@ -16,6 +16,7 @@ const initialState: IInitialState = {
     error: null
   },
   statusFilter: 0,
+  statusActive: 0,
   selectedTask: undefined,
   isOpenModal
 };

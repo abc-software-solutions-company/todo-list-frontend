@@ -20,6 +20,7 @@ export interface IInitialState {
     error: any;
   };
   statusFilter: number;
+  statusActive: number;
   selectedTask?: ITaskResponse;
   isOpenModal: {
     settings: boolean;

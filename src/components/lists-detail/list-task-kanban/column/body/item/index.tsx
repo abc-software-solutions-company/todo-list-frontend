@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {IMember} from '@/data/api/types/todolist.type';
+import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 
 import KanbanTaskAssignee from './assignee';
 import KanbanTaskCreatedDate from './created-date';
@@ -22,6 +23,7 @@ interface IKanbanTaskItem {
 const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task.id});
   const [showEdiDelete, setShowEditDelete] = useState<boolean>(false);
+  const {setStatusActive} = useTodolistKanban();
 
   const styleDnd = {
     transform: CSS.Transform.toString(transform),
@@ -29,7 +31,10 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
     opacity: isDragging ? 0.5 : 1
   };
 
-  const onMouseOverTask = () => setShowEditDelete(true);
+  const onMouseOverTask = () => {
+    setShowEditDelete(true);
+    setStatusActive(task.statusId);
+  };
   const onMouseOutTask = () => setShowEditDelete(false);
 
   return (

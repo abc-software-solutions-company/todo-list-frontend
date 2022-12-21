@@ -9,7 +9,7 @@ import {ISetIsOpenModalPayload} from './types';
 
 export default function useTodolistKanban() {
   const todolistKanbanState = useSelector((root: RootState) => root.todolistKanban);
-  const {todolistKanban, ...rest} = todolistKanbanState;
+  const {todolistKanban, statusActive, ...rest} = todolistKanbanState;
   const {data, ...restTodolistKanban} = todolistKanban;
   const auth = useStateAuth();
   const dispatch = useDispatch();
@@ -20,6 +20,7 @@ export default function useTodolistKanban() {
   const update = () => dispatch(actions.getTodolistKanbanRequest({id: data.id}));
   const setTodolistKanban = (value: ITodolistKanbanResponse) => dispatch(actions.setTodolistKanban(value));
   const setStatusFilter = (value: number) => dispatch(actions.setStatusFilter(value));
+  const setStatusActive = (value: number) => dispatch(actions.setStatusActive(value));
   const setSelectedTask = (value?: ITaskResponse) => dispatch(actions.setSelectedTask(value));
   const setIsOpenModal = (value: ISetIsOpenModalPayload) => dispatch(actions.setIsOpenModal(value));
 
@@ -31,6 +32,7 @@ export default function useTodolistKanban() {
     todolistKanban: data,
     ...restTodolistKanban,
     ...rest,
+    statusActive,
     assest,
     write,
     owner,
@@ -38,6 +40,7 @@ export default function useTodolistKanban() {
     initial,
     update,
     setStatusFilter,
+    setStatusActive,
     setSelectedTask,
     setIsOpenModal,
     setTodolistKanban

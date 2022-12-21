@@ -15,7 +15,7 @@ interface IKanbanColumnBody {
 }
 
 export default function KanbanColumnBody({tasks, statusId}: IKanbanColumnBody) {
-  const {todolistKanban} = useTodolistKanban();
+  const {todolistKanban, setStatusActive} = useTodolistKanban();
   const {write} = useTodolist();
 
   return (
