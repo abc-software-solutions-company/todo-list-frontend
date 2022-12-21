@@ -75,12 +75,12 @@ const ToolbarDetail: FC = () => {
     onClick: onSetting
   };
   const kanbanToolProps: IToolProps = {
-    icon: <Icon name="ico-settings" />,
+    icon: <Icon name="ico-columns" />,
     text: 'Kanban View',
     onClick: onKanbanView
   };
   const listToolProps: IToolProps = {
-    icon: <Icon name="ico-settings" />,
+    icon: <Icon name="ico-horizontal" />,
     text: 'Lists View',
     onClick: onListsView
   };
