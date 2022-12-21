@@ -1,3 +1,4 @@
 .kanban-container :global {
   @apply grid grid-cols-6 gap-x-4 pt-6;
+  @apply w-[1920px];
 }
