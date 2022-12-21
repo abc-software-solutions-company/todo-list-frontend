@@ -2,11 +2,11 @@ import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import React from 'react';
 
-interface IKanbanTaskItemEmpty {
+interface IKanbanTaskDragToColumn {
   statusId: number;
 }
 
-const KanbanTaskItemEmpty = ({statusId}: IKanbanTaskItemEmpty) => {
+const KanbanTaskDragToColumn = ({statusId}: IKanbanTaskDragToColumn) => {
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: statusId});
 
   const styleDnd = {
@@ -18,7 +18,7 @@ const KanbanTaskItemEmpty = ({statusId}: IKanbanTaskItemEmpty) => {
   return (
     <div
       ref={setNodeRef}
-      className="kanban-task-item-empty absolute h-full"
+      className="kanban-task-drag-to-column absolute h-full"
       style={styleDnd}
       {...attributes}
       {...listeners}
@@ -28,4 +28,4 @@ const KanbanTaskItemEmpty = ({statusId}: IKanbanTaskItemEmpty) => {
   );
 };
 
-export default KanbanTaskItemEmpty;
+export default KanbanTaskDragToColumn;
