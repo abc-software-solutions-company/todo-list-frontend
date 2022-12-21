@@ -11,7 +11,7 @@
       @apply flex basis-2/3 gap-x-2;
     }
     .right {
-      @apply basis-1/3;
+      @apply flex basis-1/3 justify-end;
     }
   }
 }
