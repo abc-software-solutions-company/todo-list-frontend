@@ -1,6 +1,7 @@
 import {Popover} from '@mui/material';
 import cls from 'classnames';
 import Link from 'next/link';
+import {useRouter} from 'next/router';
 import {FC, useState} from 'react';
 
 import ModalThirdPartyLogin from '@/components/modal/modal-third-party-login';
@@ -16,9 +17,15 @@ interface IProps {
 }
 
 const Topbar: FC<IProps> = ({className}) => {
+  const router = useRouter();
   const {auth, currentPage, handleSocial, returnTo, socialOpen, setSocialOpen, ROUTES} = useTopbar();
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+  const isKanban = () => {
+    if (router.asPath.includes(ROUTES.KANBAN)) return true;
+    return false;
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -33,10 +40,16 @@ const Topbar: FC<IProps> = ({className}) => {
   return (
     <div className={cls(styles.topbar, className)}>
       {auth?.name && (
-        <div className="container">
+        <div className={`${isKanban() ? 'px-5' : 'container'} `}>
           <div className="inner">
             <Back
-              visibleOn={[`${ROUTES.LIST}`, `${ROUTES.LIST}/[id]`, `${ROUTES.TASK}`, `${ROUTES.TASK}/[id]`]}
+              visibleOn={[
+                `${ROUTES.LIST}`,
+                `${ROUTES.LIST}/[id]`,
+                `${ROUTES.TASK}`,
+                `${ROUTES.TASK}/[id]`,
+                `${ROUTES.KANBAN}/[id]`
+              ]}
               currentPage={currentPage}
               onClick={() => returnTo(currentPage)}
             />
