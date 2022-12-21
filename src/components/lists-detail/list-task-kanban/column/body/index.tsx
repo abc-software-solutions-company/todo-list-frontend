@@ -6,8 +6,8 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 import useTodolist from '@/states/todolist/use-todolist';
 import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 
-import KanbanTaskItemEmpty from './detect-status';
 import KanbanTaskItem from './item';
+import style from './style.module.scss';
 
 interface IKanbanColumnBody {
   tasks: ITaskResponse[];
@@ -19,17 +19,13 @@ export default function KanbanColumnBody({tasks, statusId}: IKanbanColumnBody) {
   const {write} = useTodolist();
 
   return (
-    <div className="kanban-column">
+    <div className={style['kanban-column']}>
       <div className="tasks">
-        {tasks && tasks.length > 0 ? (
+        {tasks && (
           <SortableContext disabled={!write} items={tasks.map(task => task.id)} strategy={verticalListSortingStrategy}>
             {tasks.map(task => (
               <KanbanTaskItem task={task} assigneeList={todolistKanban.members} key={task.id} />
             ))}
-          </SortableContext>
-        ) : (
-          <SortableContext disabled={!write} items={tasks.map(task => task.id)} strategy={verticalListSortingStrategy}>
-            <KanbanTaskItemEmpty statusId={statusId} />
           </SortableContext>
         )}
       </div>
