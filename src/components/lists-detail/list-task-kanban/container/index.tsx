@@ -5,6 +5,7 @@ import React, {ReactNode, useState} from 'react';
 import api from '@/data/api';
 import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
+import useTodolist from '@/states/todolist/use-todolist';
 import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 import {IndexStep} from '@/utils/constant';
 
@@ -18,6 +19,7 @@ interface IKanbanContainer {
 const KanbanContainer = ({children}: IKanbanContainer) => {
   const sensors = useSensorGroup();
   const {todolistKanban, setTodolistKanban, statusActive, initial} = useTodolistKanban();
+  const {todolist} = useTodolist();
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const onDragStart = ({active}: DragStartEvent) => {
@@ -34,10 +36,9 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
       const newStatusId = tasks![newIndex]?.statusId || over.id;
 
       const arrangeTask = arrayMove(tasks!, oldIndex!, newIndex);
-      console.log(arrangeTask);
-
-      const newKanbanState = todolistKanban;
-      newKanbanState.status.filter(e => e.id == statusActive)[0].tasks = arrangeTask;
+      const newKanbanState = {...todolistKanban};
+      // newKanbanState.status.filter(e => e.id == statusActive)[0].tasks = arrangeTask;
+      newKanbanState.name = 'aaaaa';
 
       setTodolistKanban(newKanbanState);
 
@@ -88,12 +89,9 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
             {activeId ? (
               <KanbanTaskItem
                 assigneeList={todolistKanban.members}
-                task={
-                  todolistKanban.status.filter(e => e.id == statusActive)[0].tasks!.filter(e => e.id === activeId)[0]
-                }
+                task={todolist.tasks.filter(e => e.id === activeId)[0]}
               />
-            ) : // <p>AA</p>
-            null}
+            ) : null}
           </DragOverlay>
         </DndContext>
       </div>
