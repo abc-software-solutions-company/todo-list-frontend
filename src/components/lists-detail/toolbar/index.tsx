@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import {FC} from 'react';
 
 import InputAutosize from '@/components/common/input-autosize';
 import Icon from '@/core-ui/icon';
@@ -13,11 +14,7 @@ import style from './style.module.scss';
 import Tool, {IToolProps} from './tool';
 import ToolMenu from './tool-menu';
 
-interface IToolbarDetail {
-  kanban?: boolean;
-}
-
-const ToolbarDetail = ({kanban = false}: IToolbarDetail) => {
+const ToolbarDetail: FC = () => {
   const {todolist, write, owner} = useTodolist();
   const {setIsOpenModal, setSelectedTask, setSelectedTodolist, setSelectedColumnId} = useModals();
 
@@ -74,7 +71,7 @@ const ToolbarDetail = ({kanban = false}: IToolbarDetail) => {
     .map((item, idx) => <Tool key={idx} {...{...item, className: 'flex-row-reverse'}} />);
 
   return (
-    <div className={`${kanban ? style['toolbar-kanban'] : style.toolbar}`}>
+    <div className={style.toolbar}>
       <div className={classNames(style.tools, style.left)}>
         <TodolistFavorite id={id} favorite={favorite} />
         <InputAutosize value={name} handleSave={handleSave} role="title" write={write} />

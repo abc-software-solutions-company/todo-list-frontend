@@ -14,10 +14,3 @@
 .tool-outer {
   @apply hidden sm:flex;
 }
-
-.toolbar-kanban {
-  @apply w-[1920px];
-  @apply mt-4 gap-x-4 lg:mt-4 lg:gap-x-5;
-
-  @apply flex items-center;
-}

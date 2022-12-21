@@ -64,7 +64,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
           {assest && <Seo title={todolist.name} />}
           <div className={styles['list-detail']}>
             <div className={`${isKanban ? 'container-kanban' : 'container'}`}>
-              {isKanban ? <ToolbarDetail kanban={true} /> : <ToolbarDetail />}
+              <ToolbarDetail />
               {isKanban ? <ListTaskKanban id={id} /> : <ListTask />}
               <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />
             </div>
