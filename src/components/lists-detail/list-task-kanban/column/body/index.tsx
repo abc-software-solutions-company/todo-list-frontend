@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {DndContext, DragEndEvent, DragOverlay, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
-import {arrayMove, SortableContext} from '@dnd-kit/sortable';
+import {arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {rest} from 'lodash-es';
 import React, {useState} from 'react';
 
@@ -88,7 +88,11 @@ export default function KanbanColumnBody({tasks}: IKanbanColumnBody) {
       <DndContext {...{sensors, onDragEnd, onDragStart}}>
         <div className="tasks">
           {taskList && taskList.length > 0 && (
-            <SortableContext disabled={!write} items={taskList.map(task => task.id)}>
+            <SortableContext
+              disabled={!write}
+              items={taskList.map(task => task.id)}
+              strategy={verticalListSortingStrategy}
+            >
               {taskList.map(task => (
                 <KanbanTaskItem task={task} assigneeList={todolistKanban.members} key={task.id} />
               ))}
