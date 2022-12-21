@@ -14,7 +14,7 @@ interface IAssigneeIconProps extends HTMLAttributes<HTMLDivElement> {
 const AssigneeIcon: FC<IAssigneeIconProps> = ({name, bg = 'bg-slate-200', ...rest}) => {
   return (
     <div {...rest} className={classNames(bg, style['assignee-icon'])}>
-      {name ? shortName(name) : <Icon name="ico-plus" size={16} />}
+      {name ? shortName(name) : <Icon name="ico-plus" className="font-medium text-[#64748B]" size={16} />}
     </div>
   );
 };

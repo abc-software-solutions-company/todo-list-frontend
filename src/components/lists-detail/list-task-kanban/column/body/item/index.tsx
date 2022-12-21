@@ -8,6 +8,7 @@ import {IMember} from '@/data/api/types/todolist.type';
 import KanbanTaskAssignee from './assignee';
 import KanbanTaskCreatedDate from './created-date';
 import KanbanTaskPriority from './priority';
+import KanbanTaskStoryPoint from './story-point';
 import style from './style.module.scss';
 import KanbanTaskName from './task-name';
 import KanbanTaskThumbnail from './thumbnail';
@@ -34,6 +35,7 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
         <div className="left">
           <KanbanTaskCreatedDate date={new Date(task.createdDate)} />
           <KanbanTaskPriority priority={task.priority} taskId={task.id} />
+          <KanbanTaskStoryPoint />
         </div>
         <div className="right">
           <KanbanTaskAssignee assignees={task.assignees} id={task.id} assigneeList={assigneeList} />
