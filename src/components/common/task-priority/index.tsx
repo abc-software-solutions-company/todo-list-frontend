@@ -13,7 +13,6 @@ interface ITaskPriorityProp extends SelectProps {
   hideTitle: boolean;
   stylePriorityIcon?: SxProps<Theme> | undefined;
   styleMenuItem?: SxProps<Theme> | undefined;
-  isKanban?: boolean;
 }
 
 const TaskPiority: FC<ITaskPriorityProp> = ({
@@ -22,7 +21,6 @@ const TaskPiority: FC<ITaskPriorityProp> = ({
   hideTitle,
   stylePriorityIcon,
   styleMenuItem,
-  isKanban = false,
   ...rest
 }) => {
   const list = Object.values(Priorities).reverse();
@@ -42,11 +40,7 @@ const TaskPiority: FC<ITaskPriorityProp> = ({
       {list.map((e, index) => (
         <MenuItem key={index} value={e} sx={styleMenuItem}>
           <div className={`${style.inner} ${hideTitle ? '' : 'mr-2'}`}>
-            <Icon
-              name={icons[index]}
-              className={`${hideTitle ? '' : 'mr-1'} ${isKanban && '-ml-3'}`}
-              style={{color: colors[index]}}
-            />
+            <Icon name={icons[index]} className={`${hideTitle ? '' : 'mr-1'}`} style={{color: colors[index]}} />
             <span className={style[`priority-name`]}>{hideTitle ? '' : e}</span>
           </div>
         </MenuItem>

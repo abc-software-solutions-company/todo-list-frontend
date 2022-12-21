@@ -6,6 +6,8 @@ import {IMember} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 
+import style from './style.module.scss';
+
 interface IKanbanTaskAssignee {
   id: string;
   assignees: IAssigneeResponse[];
@@ -13,9 +15,9 @@ interface IKanbanTaskAssignee {
 }
 
 export default function KanbanTaskAssignee({id, assignees, assigneeList}: IKanbanTaskAssignee) {
-  const {write} = useTodolistKanban();
+  const {write, initial, todolistKanban} = useTodolistKanban();
   return (
-    <div className="kanban-task-assignee">
+    <div className={style['kanban-task-assignee']}>
       <TaskAssignee
         {...{
           id,
@@ -26,6 +28,7 @@ export default function KanbanTaskAssignee({id, assignees, assigneeList}: IKanba
         readonly={write}
         sx={{position: 'absolute'}}
         hideIconWhenClick={false}
+        onSuccess={() => initial(todolistKanban.id)}
       />
     </div>
   );

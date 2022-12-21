@@ -51,7 +51,7 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
         <div className="left">
           <KanbanTaskCreatedDate date={new Date(task.createdDate)} />
           <KanbanTaskPriority priority={task.priority} taskId={task.id} />
-          <KanbanTaskStoryPoint />
+          <KanbanTaskStoryPoint point={5} />
         </div>
         <div className="right">
           <KanbanTaskAssignee assignees={task.assignees} id={task.id} assigneeList={assigneeList} />
