@@ -85,29 +85,19 @@ export default function KanbanColumnBody({tasks}: IKanbanColumnBody) {
 
   return (
     <div className="kanban-column">
-      <DndContext {...{sensors, onDragEnd, onDragStart}}>
-        <div className="tasks">
-          {taskList && taskList.length > 0 && (
-            <SortableContext
-              disabled={!write}
-              items={taskList.map(task => task.id)}
-              strategy={verticalListSortingStrategy}
-            >
-              {taskList.map(task => (
-                <KanbanTaskItem task={task} assigneeList={todolistKanban.members} key={task.id} />
-              ))}
-            </SortableContext>
-          )}
-          <DragOverlay>
-            {activeId ? (
-              <KanbanTaskItem
-                assigneeList={todolistKanban.members}
-                task={taskList!.filter(e => e.id === activeId)[0]}
-              />
-            ) : null}
-          </DragOverlay>
-        </div>
-      </DndContext>
+      <div className="tasks">
+        {taskList && taskList.length > 0 && (
+          <SortableContext
+            disabled={!write}
+            items={taskList.map(task => task.id)}
+            strategy={verticalListSortingStrategy}
+          >
+            {taskList.map(task => (
+              <KanbanTaskItem task={task} assigneeList={todolistKanban.members} key={task.id} />
+            ))}
+          </SortableContext>
+        )}
+      </div>
     </div>
   );
 }

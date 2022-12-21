@@ -10,8 +10,6 @@ interface IKanbanTaskCreatedDate {
 }
 
 export default function KanbanTaskCreatedDate({onChange, date}: IKanbanTaskCreatedDate) {
-  console.log(date);
-
   const month = date.toLocaleString('default', {month: 'long'});
   const day = date.getDay().toString();
   return (

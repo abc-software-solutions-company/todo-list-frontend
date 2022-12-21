@@ -28,7 +28,7 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
 
   return (
     <div className={style['kanban-task-item']} ref={setNodeRef} style={styleDnd} {...attributes} {...listeners}>
-      {task.attachments[0] && <KanbanTaskThumbnail url={task.attachments[0].link} />}
+      {task?.attachments?.length > 0 && <KanbanTaskThumbnail url={task.attachments[0].link} />}
       <KanbanTaskName id={task.id} name={task.name} />
       <div className="actions">
         <div className="left">
