@@ -95,7 +95,7 @@ export default function KanbanColumnBody({tasks}: IKanbanColumnBody) {
                   assigneeList={todolistKanban.members}
                   priority={task.priority}
                   thumbnail={'https://www.w3schools.com/html/pic_trulli.jpg'}
-                  dueDate={task.dueDate || new Date('2022-03-25')}
+                  createdDate={new Date(task.createdDate)}
                   key={task.id}
                   columnId={task.statusId}
                   name={task.name}
@@ -110,8 +110,8 @@ export default function KanbanColumnBody({tasks}: IKanbanColumnBody) {
                 assigneeList={todolistKanban.members}
                 assignees={taskList!.filter(e => e.id === activeId)[0].assignees}
                 priority={taskList!.filter(e => e.id === activeId)[0].priority}
-                dueDate={taskList!.filter(e => e.id === activeId)[0].dueDate || new Date('2022-03-25')}
                 thumbnail={'https://www.w3schools.com/html/pic_trulli.jpg'}
+                createdDate={new Date(taskList!.filter(e => e.id === activeId)[0].createdDate)}
                 name={taskList!.filter(e => e.id === activeId)[0].name}
                 id={taskList!.filter(e => e.id === activeId)[0].id}
                 columnId={taskList!.filter(e => e.id === activeId)[0].statusId}

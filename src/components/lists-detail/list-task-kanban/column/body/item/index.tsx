@@ -6,7 +6,7 @@ import {IAssigneeResponse} from '@/data/api/types/task.type';
 import {IMember} from '@/data/api/types/todolist.type';
 
 import KanbanTaskAssignee from './assignee';
-import KanbanTaskDueDate from './due-date';
+import KanbanTaskCreatedDate from './created-date';
 import KanbanTaskPriority from './priority';
 import style from './style.module.scss';
 import KanbanTaskName from './task-name';
@@ -17,14 +17,14 @@ interface IKanbanTaskItem {
   id: string;
   columnId: number;
   thumbnail: string;
-  dueDate: Date;
+  createdDate: Date;
   priority: string;
   storyPoint?: string;
   assignees: IAssigneeResponse[];
   assigneeList: IMember[];
 }
 
-const KanbanTaskItem = ({name, id, dueDate, priority, assignees, assigneeList}: IKanbanTaskItem) => {
+const KanbanTaskItem = ({name, id, createdDate, priority, assignees, assigneeList}: IKanbanTaskItem) => {
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: id});
 
   const styleDnd = {
@@ -39,7 +39,7 @@ const KanbanTaskItem = ({name, id, dueDate, priority, assignees, assigneeList}: 
       <KanbanTaskName id={id} name={name} />
       <div className="actions">
         <div className="left">
-          <KanbanTaskDueDate date={dueDate} />
+          <KanbanTaskCreatedDate date={createdDate} />
           <KanbanTaskPriority priority={priority} taskId={id} />
         </div>
         <div className="right">
