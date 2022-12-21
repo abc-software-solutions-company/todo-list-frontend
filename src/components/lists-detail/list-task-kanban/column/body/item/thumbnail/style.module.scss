@@ -1,3 +1,6 @@
 .task-thumbnail :global {
   @apply mb-3;
+  img {
+    @apply rounded;
+  }
 }
