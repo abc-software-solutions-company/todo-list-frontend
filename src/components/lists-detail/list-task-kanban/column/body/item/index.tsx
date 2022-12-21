@@ -2,7 +2,7 @@ import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import React from 'react';
 
-import {IAssigneeResponse} from '@/data/api/types/task.type';
+import {IAssigneeResponse, IAttachmentResponse} from '@/data/api/types/task.type';
 import {IMember} from '@/data/api/types/todolist.type';
 
 import KanbanTaskAssignee from './assignee';
@@ -20,11 +20,12 @@ interface IKanbanTaskItem {
   createdDate: Date;
   priority: string;
   storyPoint?: string;
+  attachments: IAttachmentResponse[];
   assignees: IAssigneeResponse[];
   assigneeList: IMember[];
 }
 
-const KanbanTaskItem = ({name, id, createdDate, priority, assignees, assigneeList}: IKanbanTaskItem) => {
+const KanbanTaskItem = ({name, id, createdDate, priority, assignees, assigneeList, attachments}: IKanbanTaskItem) => {
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: id});
 
   const styleDnd = {
@@ -35,7 +36,7 @@ const KanbanTaskItem = ({name, id, createdDate, priority, assignees, assigneeLis
 
   return (
     <div className={style['kanban-task-item']} ref={setNodeRef} style={styleDnd} {...attributes} {...listeners}>
-      <KanbanTaskThumbnail url={'https://www.w3schools.com/html/pic_trulli.jpg'} />
+      {attachments[0] && <KanbanTaskThumbnail url={attachments[0].link} />}
       <KanbanTaskName id={id} name={name} />
       <div className="actions">
         <div className="left">

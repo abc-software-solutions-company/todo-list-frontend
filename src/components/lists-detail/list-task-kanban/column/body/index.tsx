@@ -91,6 +91,7 @@ export default function KanbanColumnBody({tasks}: IKanbanColumnBody) {
             <SortableContext disabled={!write} items={taskList.map(task => task.id)}>
               {taskList.map(task => (
                 <KanbanTaskItem
+                  attachments={task.attachments}
                   assignees={task.assignees}
                   assigneeList={todolistKanban.members}
                   priority={task.priority}
@@ -107,6 +108,7 @@ export default function KanbanColumnBody({tasks}: IKanbanColumnBody) {
           <DragOverlay>
             {activeId ? (
               <KanbanTaskItem
+                attachments={taskList!.filter(e => e.id === activeId)[0].attachments}
                 assigneeList={todolistKanban.members}
                 assignees={taskList!.filter(e => e.id === activeId)[0].assignees}
                 priority={taskList!.filter(e => e.id === activeId)[0].priority}

@@ -18,7 +18,6 @@ export default function KanbanTaskCreatedDate({onChange, date}: IKanbanTaskCreat
     <div className={style['kanban-task-created-date']}>
       <Icon name="ico-clock" className="btn-created-date" onClick={onChange} />
       <div className="date">{`${month} ${day}`}</div>
-      {/* <div className="date">{date.toISOString()}</div> */}
     </div>
   );
 }
