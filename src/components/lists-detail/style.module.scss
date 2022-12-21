@@ -6,7 +6,7 @@
     @apply px-4;
   }
   .container-kanban {
-    @apply px-6;
+    @apply px-6 md:px-12;
   }
   .tasks {
     @apply mt-3 lg:mt-5;

@@ -1,4 +1,5 @@
 .kanban-task-created-date {
-  @apply flex items-center gap-x-5 rounded-xl bg-[#F87171] p-1;
+  @apply flex items-center gap-x-2 rounded-lg bg-[#F87171];
   @apply text-sm font-medium text-white;
+  @apply h-[30px] px-1;
 }
