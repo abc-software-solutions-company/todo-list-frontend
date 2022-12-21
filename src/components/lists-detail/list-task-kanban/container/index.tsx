@@ -2,7 +2,6 @@ import {DndContext, DragEndEvent, DragOverlay, DragStartEvent, UniqueIdentifier}
 import {arrayMove} from '@dnd-kit/sortable';
 import React, {ReactNode, useState} from 'react';
 
-import TaskItem from '@/components/common/task-item';
 import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
@@ -20,7 +19,7 @@ interface IKanbanContainer {
 
 const KanbanContainer = ({children}: IKanbanContainer) => {
   const sensors = useSensorGroup();
-  const {todolist, write, setTodolist} = useTodolist();
+  const {todolist, setTodolist} = useTodolist();
   const {todolistKanban, initial} = useTodolistKanban();
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
@@ -29,18 +28,14 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
   };
 
   const onDragEnd = ({active, over}: DragEndEvent) => {
-    console.log('dnd context on kanban container');
-    if (!over) return;
     setActiveId(null);
-    // if (active.id !== over.id) {
-    //   const newIndex = todolist.tasks?.findIndex(item => over.id === item.id);
-    //   console.log(todolist.tasks[newIndex].statusId);
-    // }
+    console.log(over?.id);
+    if (!over) return;
     if (active.id !== over.id) {
       const oldIndex = todolist.tasks?.findIndex(item => active.id === item.id);
       const newIndex = todolist.tasks?.findIndex(item => over.id === item.id);
-      console.log(todolist.tasks[newIndex].name);
-      const newStatusId = todolist.tasks[newIndex].statusId;
+      console.log(todolist.tasks[newIndex]?.name);
+      const newStatusId = todolist.tasks[newIndex]?.statusId || over.id;
 
       const arrangeTask = arrayMove(todolist.tasks, oldIndex, newIndex);
       const newTodoList = {...todolist};
@@ -75,9 +70,8 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
             if (reindexAll) api.task.reindexAll({todolistId: todolist.id});
           };
 
-          // api.task.update({id: task.id, index: newTaskIndex}).then(resetIndex).then(socketUpdateList);
           api.task
-            .update({id: task.id, index: newTaskIndex, statusId: newStatusId})
+            .update({id: task.id, index: newTaskIndex, statusId: parseInt(newStatusId.toString())})
             .then(resetIndex)
             .then(socketUpdateList)
             .then(() => initial(todolist.id));

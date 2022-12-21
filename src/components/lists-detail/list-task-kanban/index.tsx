@@ -7,7 +7,6 @@ import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 
 import KanbanColumn from './column';
 import KanbanColumnBody from './column/body';
-import KanbanColumnDragWrapper from './column/drag-wrapper';
 import KanbanColumnFooter from './column/footer';
 import KanbanColumnHeader from './column/header';
 import KanbanContainer from './container';
@@ -39,7 +38,7 @@ const ListTaskKanban = ({id}: IListTaskKanban) => {
         {todolistKanban.status?.map(column => (
           <KanbanColumn key={column.id} onDragEnd={() => {}} onDragStart={() => {}} onDragOver={() => {}}>
             <KanbanColumnHeader name={column.name} color={column.color} />
-            <KanbanColumnBody tasks={column.tasks!} />
+            <KanbanColumnBody statusId={column.id} tasks={column.tasks!} />
             <KanbanColumnFooter onAddTask={() => onAddTask(column.id)} />
           </KanbanColumn>
         ))}
