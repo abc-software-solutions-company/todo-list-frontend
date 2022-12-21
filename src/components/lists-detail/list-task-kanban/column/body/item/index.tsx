@@ -1,6 +1,6 @@
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
-import React from 'react';
+import React, {useState} from 'react';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {IMember} from '@/data/api/types/todolist.type';
@@ -21,6 +21,7 @@ interface IKanbanTaskItem {
 
 const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task.id});
+  const [showEdiDelete, setShowEditDelete] = useState<boolean>(false);
 
   const styleDnd = {
     transform: CSS.Transform.toString(transform),
@@ -28,9 +29,23 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
     opacity: isDragging ? 0.5 : 1
   };
 
+  const onMouseOverTask = () => setShowEditDelete(true);
+  const onMouseOutTask = () => setShowEditDelete(false);
+
   return (
-    <div className={style['kanban-task-item']} ref={setNodeRef} style={styleDnd} {...attributes} {...listeners}>
+    <div
+      className={style['kanban-task-item']}
+      ref={setNodeRef}
+      style={styleDnd}
+      {...attributes}
+      {...listeners}
+      onMouseOver={onMouseOverTask}
+      onMouseOut={onMouseOutTask}
+    >
       {task?.attachments?.length > 0 && <KanbanTaskThumbnail url={task.attachments[0].link} />}
+      <div className={`action-edit-delete ${showEdiDelete ? 'block' : 'hidden'}`}>
+        <KanbanTaskEditDelete task={task} />
+      </div>
       <KanbanTaskName id={task.id} name={task.name} />
       <div className="actions">
         <div className="left">
@@ -39,7 +54,6 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
           <KanbanTaskStoryPoint />
         </div>
         <div className="right">
-          <KanbanTaskEditDelete task={task} />
           <KanbanTaskAssignee assignees={task.assignees} id={task.id} assigneeList={assigneeList} />
         </div>
       </div>
