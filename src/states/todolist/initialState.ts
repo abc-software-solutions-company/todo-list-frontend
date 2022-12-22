@@ -1,4 +1,4 @@
-import {ITodolistKanbanResponse} from '@/data/api/types/todolist.type';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 
 import {IInitialState} from './types';
 
@@ -12,7 +12,7 @@ export const isOpenModal = {
 const initialState: IInitialState = {
   todolist: {
     loading: false,
-    data: [undefined] as unknown as ITodolistKanbanResponse,
+    data: [undefined] as unknown as ITodolistResponse,
     statusList: [],
     error: null
   },

@@ -63,14 +63,3 @@ export interface ITodolistResponse {
   tasks: ITaskResponse[];
   members: IMember[];
 }
-
-export interface ITodolistKanbanResponse {
-  id: string;
-  name: string;
-  userId: string;
-  favorite: boolean;
-  visibility: keyof typeof Visibilities;
-  status: IStatus[];
-  tasks: ITaskResponse[];
-  members: IMember[];
-}

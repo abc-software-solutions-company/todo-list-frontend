@@ -18,7 +18,7 @@ const ModalUpdateList: FC<IProps> = props => {
   const {data, open, hiddenVisibility, onClose} = props;
   const {errors, onSubmit, register, setValue, owner} = useModalUpdateList(props);
   const [options, setOptions] = useState<IUserResponse[]>([]);
-  const defaultMemberIds = data?.members?.map(e => e.id) || [];
+  const defaultMemberIds = data?.members?.map((e: {id: any}) => e.id) || [];
   const memberDefaultValue = options.filter(e => defaultMemberIds.includes(e.id));
   const visibilityDefaultValue = hiddenVisibility
     ? undefined
