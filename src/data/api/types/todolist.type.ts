@@ -6,10 +6,6 @@ export interface ITodolistGetOne {
   id: string;
 }
 
-export interface ITodolistGetOneKanban {
-  id: string;
-}
-
 export interface ITodolistCreate {
   name: string;
 }
