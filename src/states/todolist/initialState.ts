@@ -13,10 +13,9 @@ const initialState: IInitialState = {
   todolist: {
     loading: false,
     data: [undefined] as unknown as ITodolistResponse,
-    statusList: [],
     error: null
   },
-  kanbanTasks: [],
+  todolistKanban: [],
   kanbanActive: false,
   statusFilter: 0,
   selectedTask: undefined,

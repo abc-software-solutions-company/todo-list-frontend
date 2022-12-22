@@ -18,7 +18,7 @@ const KanbanTaskDragToColumn = ({statusId}: IKanbanTaskDragToColumn) => {
   return (
     <div
       ref={setNodeRef}
-      className="kanban-task-drag-to-column absolute h-full w-32 bg-amber-300"
+      className="kanban-task-drag-to-column absolute h-full w-32"
       style={styleDnd}
       {...attributes}
       {...listeners}

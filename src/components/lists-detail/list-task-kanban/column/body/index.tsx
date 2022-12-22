@@ -15,7 +15,7 @@ interface IKanbanColumnBody {
 }
 
 export default function KanbanColumnBody({tasks, statusId}: IKanbanColumnBody) {
-  const {todolist, setStatusActive} = useTodolist();
+  const {todolist} = useTodolist();
   const {setNodeRef} = useDroppable({
     id: statusId.toString()
   });
