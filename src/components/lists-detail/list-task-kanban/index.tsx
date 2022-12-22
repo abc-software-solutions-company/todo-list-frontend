@@ -16,7 +16,7 @@ interface IListTaskKanban {
 }
 
 const ListTaskKanban = ({id}: IListTaskKanban) => {
-  const {todolistKanban, initial, error, loading} = useTodolistKanban();
+  const {todolistKanban} = useTodolistKanban();
   const {setIsOpenModal, setSelectedTodolist, setSelectedColumnId} = useModals();
 
   const onAddTask = (columnId: number) => {
@@ -24,13 +24,6 @@ const ListTaskKanban = ({id}: IListTaskKanban) => {
     setIsOpenModal('createTask');
     setSelectedColumnId(columnId);
   };
-
-  useEffect(() => {
-    initial(id);
-  }, [id]);
-
-  if (loading) return <Loading />;
-  if (error) return <ErrorInformation />;
 
   if (todolistKanban)
     return (

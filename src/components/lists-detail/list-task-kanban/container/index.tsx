@@ -74,8 +74,7 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
           api.task
             .update({id: task.id, index: newTaskIndex, statusId: parseInt(newStatusId.toString())})
             .then(resetIndex)
-            .then(socketUpdateList)
-            .then(() => initial(todolist.id));
+            .then(socketUpdateList);
         }
       });
     }

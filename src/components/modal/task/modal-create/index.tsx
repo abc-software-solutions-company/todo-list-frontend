@@ -41,7 +41,6 @@ const ModalCreateTask: FC<IProps> = props => {
 
     Promise.allSettled(req)
       .then(onSuccess)
-      .then(() => initial(todolistData?.id || ''))
       .catch(() => toast.show({type: 'danger', title: 'Error', content: ToastContents.ERROR}));
 
     onClose();
