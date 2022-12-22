@@ -28,7 +28,8 @@ const api = {
   todolist: {
     get: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST),
     seoOne: ({id}: ITodolistGetOne) => http.get<ISeo>(API_ENDPOINTS.LIST + '/seo/' + id),
-    getOne: ({id}: ITodolistGetOne) => http.get<ITodolistResponse>(API_ENDPOINTS.LIST + '/' + id),
+    // getOne: ({id}: ITodolistGetOne) => http.get<ITodolistResponse>(API_ENDPOINTS.LIST + '/' + id),
+    getOne: ({id}: ITodolistGetOneKanban) => http.get<ITodolistKanbanResponse>(API_ENDPOINTS.LIST + '/kanban/' + id),
     getOneKanban: ({id}: ITodolistGetOneKanban) =>
       http.get<ITodolistKanbanResponse>(API_ENDPOINTS.LIST + '/kanban/' + id),
     getByUser: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST + '/user'),
