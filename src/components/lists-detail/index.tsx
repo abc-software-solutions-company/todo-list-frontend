@@ -54,6 +54,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
 
   if (loading) return <Loading />;
   if (error) return <ErrorInformation />;
+  if (!todolist) return <></>;
   return (
     <>
       <Seo title={todolist.name} />

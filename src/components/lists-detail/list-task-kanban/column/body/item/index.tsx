@@ -23,7 +23,7 @@ interface IKanbanTaskItem {
 const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task.id});
   const [showEdiDelete, setShowEditDelete] = useState<boolean>(false);
-  const {setStatusActive} = useTodolistKanban();
+  // const {setStatusActive} = useTodolistKanban();
 
   const styleDnd = {
     transform: CSS.Transform.toString(transform),
@@ -33,7 +33,7 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
 
   const onMouseOverTask = () => {
     setShowEditDelete(true);
-    setStatusActive(task.statusId);
+    // setStatusActive(task.statusId);
   };
   const onMouseOutTask = () => setShowEditDelete(false);
 

@@ -1,6 +1,6 @@
 import {FC, useEffect} from 'react';
 
-import ToolbarDetail from '@/components/lists-detail/toolbar';
+// import ToolbarDetail from '@/components/lists-detail/toolbar';
 import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 
 import ErrorInformation from '../common/404';
