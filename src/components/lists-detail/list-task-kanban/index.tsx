@@ -26,7 +26,7 @@ const ListTaskKanban = ({id}: IListTaskKanban) => {
   if (todolistKanban)
     return (
       <KanbanContainer>
-        {statusList.map(column => (
+        {todolist.status.map(column => (
           <KanbanColumn key={column.id}>
             <KanbanColumnHeader name={column.name} color={column.color} />
             <KanbanColumnBody statusId={column.id} tasks={todolist.tasks.filter(e => e.statusId == column.id)} />
