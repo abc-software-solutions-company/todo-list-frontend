@@ -25,7 +25,7 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const onDragStart = ({active}: DragStartEvent) => {
     if (active) setActiveId(active.id);
-    console.log(todolistKanban.status.filter(e => e.id == statusActive)[0].tasks);
+    console.log(todolistKanban.status.filter(e => e.id == statusActive)[0]);
   };
 
   const onDragEnd = ({active, over}: DragEndEvent) => {
