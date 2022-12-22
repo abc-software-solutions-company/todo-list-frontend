@@ -25,7 +25,7 @@ interface IFormInputs {
 const ModalCreateTask: FC<IProps> = props => {
   const {open, todolistData, onClose, onSuccess, statusId} = props;
   const toast = useToast();
-  const {initial} = useTodolistKanban();
+  const {initial, todolistKanban} = useTodolistKanban();
 
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
     const {name} = formData;
@@ -41,6 +41,7 @@ const ModalCreateTask: FC<IProps> = props => {
 
     Promise.allSettled(req)
       .then(onSuccess)
+      .then(() => initial(todolistKanban.id))
       .catch(() => toast.show({type: 'danger', title: 'Error', content: ToastContents.ERROR}));
 
     onClose();

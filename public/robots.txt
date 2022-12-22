@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://todooy.com
+Host: http://localhost:3000
 
 # Sitemaps
-Sitemap: https://todooy.com/sitemap.xml
+Sitemap: http://localhost:3000/sitemap.xml

@@ -70,7 +70,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
           <div className={styles['list-detail']}>
             <div className={`${isKanban ? 'container-kanban' : 'container'}`}>
               <ToolbarDetail />
-              {isKanban ? <ListTaskKanban id={id} /> : <ListTask />}
+              {isKanban ? <ListTaskKanban /> : <ListTask />}
               <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />
             </div>
           </div>

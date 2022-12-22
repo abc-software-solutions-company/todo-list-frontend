@@ -20,7 +20,7 @@ interface IKanbanContainer {
 const KanbanContainer = ({children}: IKanbanContainer) => {
   const sensors = useSensorGroup();
   const {todolist, setTodolist} = useTodolist();
-  const {todolistKanban, statusActive} = useTodolistKanban();
+  const {todolistKanban} = useTodolistKanban();
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const onDragStart = ({active}: DragStartEvent) => {

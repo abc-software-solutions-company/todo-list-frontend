@@ -29,13 +29,16 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
         toast.show({type: 'success', title: 'Delete ', content: ToastContents.SUCCESS});
       });
 
-      req.then(onSuccess).catch(() =>
-        toast.show({
-          type: 'danger',
-          title: 'Error',
-          content: ToastContents.ERROR
-        })
-      );
+      req
+        .then(onSuccess)
+        .then(() => initial(id))
+        .catch(() =>
+          toast.show({
+            type: 'danger',
+            title: 'Error',
+            content: ToastContents.ERROR
+          })
+        );
     }
 
     onClose();
