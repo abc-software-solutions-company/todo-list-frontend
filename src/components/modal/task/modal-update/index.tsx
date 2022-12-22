@@ -5,7 +5,7 @@ import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
-import useTodolistKanban from '@/states/todolist/use-todolist';
+import useTodolist from '@/states/todolist/use-todolist';
 import {ToastContents} from '@/utils/toast-content';
 
 import ModalCreateUpdateTask from '../index-create-update';
@@ -25,7 +25,7 @@ interface IFormInputs {
 const ModalUpdateTask: FC<IProps> = props => {
   const {open, taskData, onClose, onSuccess} = props;
   const toast = useToast();
-  const {todolistKanban, initial} = useTodolistKanban();
+  const {todolist, getTodolist} = useTodolist();
 
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
     const {name} = formData;
@@ -42,7 +42,7 @@ const ModalUpdateTask: FC<IProps> = props => {
 
     Promise.allSettled(req)
       .then(onSuccess)
-      .then(() => initial(todolistKanban.id))
+      .then(() => getTodolist(todolist.id))
       .catch(() => toast.show({type: 'danger', title: 'Error', content: ToastContents.ERROR}));
 
     onClose();
