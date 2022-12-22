@@ -25,7 +25,7 @@ interface IFormInputs {
 const ModalUpdateTask: FC<IProps> = props => {
   const {open, taskData, onClose, onSuccess} = props;
   const toast = useToast();
-  const {initial, todolistKanban} = useTodolistKanban();
+  const {todolistKanban, initial} = useTodolistKanban();
 
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
     const {name} = formData;

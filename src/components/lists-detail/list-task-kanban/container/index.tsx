@@ -1,4 +1,4 @@
-import {DndContext, DragEndEvent, DragOverlay, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
+import {closestCorners, DndContext, DragEndEvent, DragOverlay, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
 import {arrayMove} from '@dnd-kit/sortable';
 import React, {ReactNode, useState} from 'react';
 
@@ -20,28 +20,32 @@ interface IKanbanContainer {
 const KanbanContainer = ({children}: IKanbanContainer) => {
   const sensors = useSensorGroup();
   const {todolist, setTodolist} = useTodolist();
-  const {todolistKanban, initial, statusActive} = useTodolistKanban();
+  const {todolistKanban} = useTodolistKanban();
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const onDragStart = ({active}: DragStartEvent) => {
     if (active) setActiveId(active.id);
-    console.log(todolistKanban.status.filter(e => e.id == statusActive)[0].tasks);
+    console.log('☺️ Active id where is');
+
+    console.log(active.id);
   };
 
   const onDragEnd = ({active, over}: DragEndEvent) => {
     setActiveId(null);
-    console.log(over?.id);
     if (!over) return;
     if (active.id !== over.id) {
       const oldIndex = todolist.tasks?.findIndex(item => active.id === item.id);
       const newIndex = todolist.tasks?.findIndex(item => over.id === item.id);
-      console.log(todolist.tasks[newIndex]?.name);
+      console.log(newIndex);
+      console.log(oldIndex);
+
       const newStatusId = todolist.tasks[newIndex]?.statusId || over.id;
 
       const arrangeTask = arrayMove(todolist.tasks, oldIndex, newIndex);
       const newTodoList = {...todolist};
       newTodoList.tasks = arrangeTask;
       setTodolist(newTodoList as ITodolistResponse);
+      console.log(newTodoList.tasks);
 
       arrangeTask.forEach((element, index) => {
         if (element.id === active.id) {
@@ -73,24 +77,24 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
 
           api.task
             .update({id: task.id, index: newTaskIndex, statusId: parseInt(newStatusId.toString())})
-            .then(resetIndex)
             .then(socketUpdateList)
-            .then(() => initial(todolist.id));
+            .then(resetIndex);
         }
       });
     }
   };
+  const collisionDetection = closestCorners;
 
   return (
     <>
       <div className={style['kanban-container']}>
-        <DndContext {...{sensors, onDragEnd, onDragStart}}>
+        <DndContext {...{sensors, onDragEnd, onDragStart, collisionDetection}}>
           {children}
           <DragOverlay>
             {activeId ? (
               <KanbanTaskItem
                 assigneeList={todolistKanban.members}
-                task={todolistKanban.status.filter(e => e.id == statusActive)[0].tasks![0]}
+                task={todolistKanban.tasks!.filter(e => e.id === activeId)[0]}
               />
             ) : null}
           </DragOverlay>

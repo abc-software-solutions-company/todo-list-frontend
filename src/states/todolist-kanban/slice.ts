@@ -14,9 +14,10 @@ const todolistKanbanSlice = createSlice({
     getTodolistKanbanRequest: (state, {payload}: IGetTodolistKanbanPayloadAction) => {
       state.todolistKanban.loading = true;
     },
-    getTodolistKanbanSuccess: (state, {payload}) => {
+    getTodolistKanbanSuccess: (state, {payload}: PayloadAction<ITodolistKanbanResponse>) => {
       state.todolistKanban.loading = false;
       state.todolistKanban.data = payload;
+      state.todolistKanban.statusList = payload.status;
     },
     getTodolistKanbanFailure: (state, {payload}) => {
       state.todolistKanban.loading = false;

@@ -31,7 +31,7 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
 
       req
         .then(onSuccess)
-        .then(() => initial(todolist.id))
+        .then(() => initial(id))
         .catch(() =>
           toast.show({
             type: 'danger',
