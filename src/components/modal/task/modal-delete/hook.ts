@@ -11,7 +11,7 @@ import {IProps} from '.';
 
 export default function useModalDelete({onClose, onSuccess, data}: IProps) {
   const {todolist, setTodolist} = useTodolist();
-  const {initial} = useTodolistKanban();
+  const {getKanban} = useTodolistKanban();
   const router = useRouter();
   const toast = useToast();
   const {id} = data;
@@ -31,7 +31,7 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
 
       req
         .then(onSuccess)
-        .then(() => initial(todolist.id))
+        .then(() => getKanban(todolist.id))
         .catch(() =>
           toast.show({
             type: 'danger',
