@@ -71,5 +71,6 @@ export interface ITodolistKanbanResponse {
   favorite: boolean;
   visibility: keyof typeof Visibilities;
   status: IStatus[];
+  tasks: ITaskResponse[];
   members: IMember[];
 }

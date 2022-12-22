@@ -1,7 +1,3 @@
-import {useEffect} from 'react';
-
-import ErrorInformation from '@/components/common/404';
-import Loading from '@/components/common/loading';
 import useModals from '@/states/modals/use-modals';
 import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 
