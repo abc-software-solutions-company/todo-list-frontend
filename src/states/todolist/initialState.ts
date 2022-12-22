@@ -19,7 +19,6 @@ const initialState: IInitialState = {
   kanbanTasks: [],
   kanbanActive: false,
   statusFilter: 0,
-  statusActive: 0,
   selectedTask: undefined,
   isOpenModal
 };

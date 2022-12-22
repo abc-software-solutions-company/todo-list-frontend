@@ -23,7 +23,6 @@ export interface IInitialState {
   kanbanTasks: ITaskResponse[];
   kanbanActive: boolean;
   statusFilter: number;
-  statusActive: number;
   selectedTask?: ITaskResponse;
   isOpenModal: {
     settings: boolean;

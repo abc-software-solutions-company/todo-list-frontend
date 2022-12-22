@@ -9,7 +9,7 @@ import {ISetIsOpenModalPayload} from './types';
 
 export default function useTodolist() {
   const todolistState = useSelector((root: RootState) => root.todolist);
-  const {todolist, kanbanActive, statusActive, ...rest} = todolistState;
+  const {todolist, kanbanActive, ...rest} = todolistState;
   const {data, statusList, ...restTodolist} = todolist;
   const auth = useStateAuth();
   const dispatch = useDispatch();
@@ -20,7 +20,6 @@ export default function useTodolist() {
   const update = () => dispatch(actions.getTodolistRequest({id: data.id}));
   const setTodolist = (value: ITodolistResponse) => dispatch(actions.setTodolist(value));
   const setStatusFilter = (value: number) => dispatch(actions.setStatusFilter(value));
-  const setStatusActive = (value: number) => dispatch(actions.setStatusActive(value));
   const setSelectedTask = (value?: ITaskResponse) => dispatch(actions.setSelectedTask(value));
   const setIsOpenModal = (value: ISetIsOpenModalPayload) => dispatch(actions.setIsOpenModal(value));
 
@@ -33,7 +32,6 @@ export default function useTodolist() {
     ...rest,
     ...restTodolist,
     statusList,
-    statusActive,
     kanbanActive,
     assest,
     write,
@@ -42,7 +40,6 @@ export default function useTodolist() {
     getTodolist,
     update,
     setStatusFilter,
-    setStatusActive,
     setSelectedTask,
     setIsOpenModal,
     setTodolist
