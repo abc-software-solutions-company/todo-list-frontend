@@ -20,11 +20,12 @@ interface IKanbanContainer {
 const KanbanContainer = ({children}: IKanbanContainer) => {
   const sensors = useSensorGroup();
   const {todolist, setTodolist} = useTodolist();
-  const {todolistKanban, initial} = useTodolistKanban();
+  const {todolistKanban, initial, statusActive} = useTodolistKanban();
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const onDragStart = ({active}: DragStartEvent) => {
     if (active) setActiveId(active.id);
+    console.log(todolistKanban.status.filter(e => e.id == statusActive)[0].tasks);
   };
 
   const onDragEnd = ({active, over}: DragEndEvent) => {
@@ -89,7 +90,7 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
             {activeId ? (
               <KanbanTaskItem
                 assigneeList={todolistKanban.members}
-                task={todolist.tasks!.filter(e => e.id === activeId)[0]}
+                task={todolistKanban.status.filter(e => e.id == statusActive)[0].tasks![0]}
               />
             ) : null}
           </DragOverlay>
