@@ -27,9 +27,9 @@ const ListDetailKanban: FC<Iprops> = ({id}) => {
   return (
     <>
       <Seo title={todolistKanban.name} />
-      <div className={styles['list-detail']}>
+      <div className={styles['list-detail-kanban']}>
         <div className="container">
-          <ToolbarDetail />
+          {/* <ToolbarDetail /> */}
           <ListTaskKanban />
         </div>
       </div>

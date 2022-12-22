@@ -3,7 +3,7 @@ import React from 'react';
 
 import ErrorInformation from '@/components/common/404';
 import Seo from '@/components/common/seo/seo';
-import ListDetail from '@/components/lists-detail';
+import ListDetailKanban from '@/components/lists-detail-kanban';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/lists.ssr';
 import LayoutDefault from '@/layouts/default';
 
@@ -15,7 +15,7 @@ export default function PageListDetailKanban({id, seo}: InferGetStaticPropsType<
     return (
       <>
         <Seo {...seo} />
-        <ListDetail id={id} />
+        <ListDetailKanban id={id} />
       </>
     );
   return <ErrorInformation />;
