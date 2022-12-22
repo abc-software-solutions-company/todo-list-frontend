@@ -9,7 +9,6 @@ import saga from './saga';
 import taskSlice from './task/slice';
 import tasksSlice from './tasks/slice';
 import todolistSlice from './todolist/slice';
-import todolistKanbanSlice from './todolist-kanban/slice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -19,7 +18,6 @@ const store = configureStore({
     global: globalSlice.reducer,
     task: taskSlice.reducer,
     todolist: todolistSlice.reducer,
-    todolistKanban: todolistKanbanSlice.reducer,
     lists: listsSlice.reducer,
     tasks: tasksSlice.reducer,
     modals: modalsSlice.reducer,
@@ -29,7 +27,7 @@ const store = configureStore({
 
 sagaMiddleware.run(saga);
 
-export {globalSlice, store, taskSlice, todolistKanbanSlice, todolistSlice};
+export {globalSlice, store, taskSlice, todolistSlice};
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {post: postState, comments: CommentsState, users: UsersState}

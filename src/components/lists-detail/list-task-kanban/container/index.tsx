@@ -7,7 +7,6 @@ import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useTodolist from '@/states/todolist/use-todolist';
-import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 import {IndexStep} from '@/utils/constant';
 
 import KanbanTaskItem from '../column/body/item';
@@ -20,7 +19,6 @@ interface IKanbanContainer {
 const KanbanContainer = ({children}: IKanbanContainer) => {
   const sensors = useSensorGroup();
   const {todolist, setTodolist} = useTodolist();
-  const {todolistKanban} = useTodolistKanban();
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const onDragStart = ({active}: DragStartEvent) => {
@@ -85,8 +83,8 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
           <DragOverlay>
             {activeId ? (
               <KanbanTaskItem
-                assigneeList={todolistKanban.members}
-                task={todolistKanban.tasks!.filter(e => e.id === activeId)[0]}
+                assigneeList={todolist.members}
+                task={todolist.tasks!.filter(e => e.id === activeId)[0]}
               />
             ) : null}
           </DragOverlay>

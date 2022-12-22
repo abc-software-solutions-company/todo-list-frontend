@@ -5,7 +5,7 @@ import TaskPiority from '@/components/common/task-priority';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {socketUpdateList} from '@/data/socket';
-import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
+import useTodolistKanban from '@/states/todolist/use-todolist';
 import {ToastContents} from '@/utils/toast-content';
 
 import style from './style.module.scss';

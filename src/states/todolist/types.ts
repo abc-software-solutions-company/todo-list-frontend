@@ -1,7 +1,7 @@
 import {PayloadAction} from '@reduxjs/toolkit';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {IStatus, ITodolistResponse} from '@/data/api/types/todolist.type';
 
 import {isOpenModal} from './initialState';
 
@@ -17,9 +17,12 @@ export interface IInitialState {
   todolist: {
     loading: boolean;
     data: ITodolistResponse;
+    statusList: IStatus[];
     error: any;
   };
+  kanbanActive: boolean;
   statusFilter: number;
+  statusActive: number;
   selectedTask?: ITaskResponse;
   isOpenModal: {
     settings: boolean;

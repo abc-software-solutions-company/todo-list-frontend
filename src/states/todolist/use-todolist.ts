@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {ITodolistKanbanResponse} from '@/data/api/types/todolist.type';
 import {useStateAuth} from '@/states/auth';
 import {RootState, todolistSlice} from '@/states/store';
 
@@ -9,17 +9,18 @@ import {ISetIsOpenModalPayload} from './types';
 
 export default function useTodolist() {
   const todolistState = useSelector((root: RootState) => root.todolist);
-  const {todolist, ...rest} = todolistState;
-  const {data, ...restTodolist} = todolist;
+  const {todolist, kanbanActive, statusActive, ...rest} = todolistState;
+  const {data, statusList, ...restTodolistKanban} = todolist;
   const auth = useStateAuth();
   const dispatch = useDispatch();
 
   const {actions} = todolistSlice;
 
-  const initial = (id: string) => dispatch(actions.getTodolistRequest({id}));
+  const getTodolist = (id: string) => dispatch(actions.getTodolistRequest({id}));
   const update = () => dispatch(actions.getTodolistRequest({id: data.id}));
-  const setTodolist = (value: ITodolistResponse) => dispatch(actions.setTodolist(value));
+  const setTodolist = (value: ITodolistKanbanResponse) => dispatch(actions.setTodolist(value));
   const setStatusFilter = (value: number) => dispatch(actions.setStatusFilter(value));
+  const setStatusActive = (value: number) => dispatch(actions.setStatusActive(value));
   const setSelectedTask = (value?: ITaskResponse) => dispatch(actions.setSelectedTask(value));
   const setIsOpenModal = (value: ISetIsOpenModalPayload) => dispatch(actions.setIsOpenModal(value));
 
@@ -29,15 +30,19 @@ export default function useTodolist() {
   const error = todolist.error;
   return {
     todolist: data,
-    ...restTodolist,
+    ...restTodolistKanban,
     ...rest,
+    statusList,
+    statusActive,
+    kanbanActive,
     assest,
     write,
     owner,
     error,
-    initial,
+    getTodolist,
     update,
     setStatusFilter,
+    setStatusActive,
     setSelectedTask,
     setIsOpenModal,
     setTodolist

@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {useDroppable} from '@dnd-kit/core';
 import {SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
-import React, {useState} from 'react';
+import React from 'react';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
 import useTodolist from '@/states/todolist/use-todolist';
-import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 
 import KanbanTaskDragToColumn from './drag-to-column';
 import KanbanTaskItem from './item';
@@ -16,7 +15,7 @@ interface IKanbanColumnBody {
 }
 
 export default function KanbanColumnBody({tasks, statusId}: IKanbanColumnBody) {
-  const {todolistKanban, setStatusActive} = useTodolistKanban();
+  const {todolist, setStatusActive} = useTodolist();
   const {setNodeRef} = useDroppable({
     id: statusId.toString()
   });
@@ -34,7 +33,7 @@ export default function KanbanColumnBody({tasks, statusId}: IKanbanColumnBody) {
               strategy={verticalListSortingStrategy}
             >
               {tasks.map(task => (
-                <KanbanTaskItem task={task} assigneeList={todolistKanban.members} key={task.id} />
+                <KanbanTaskItem task={task} assigneeList={todolist.members} key={task.id} />
               ))}
             </SortableContext>
             <KanbanTaskDragToColumn statusId={statusId} />

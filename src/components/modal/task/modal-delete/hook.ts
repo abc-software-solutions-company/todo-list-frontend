@@ -4,7 +4,7 @@ import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import useTodolist from '@/states/todolist/use-todolist';
-import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
+import useTodolistKanban from '@/states/todolist/use-todolist';
 import {ToastContents} from '@/utils/toast-content';
 
 import {IProps} from '.';

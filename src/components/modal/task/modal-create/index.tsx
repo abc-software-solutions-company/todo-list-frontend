@@ -4,7 +4,7 @@ import {SubmitHandler} from 'react-hook-form';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {ITodolistKanbanResponse, ITodolistResponse} from '@/data/api/types/todolist.type';
-import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
+import useTodolistKanban from '@/states/todolist/use-todolist';
 import {ToastContents} from '@/utils/toast-content';
 
 import ModalCreateUpdateTask from '../index-create-update';

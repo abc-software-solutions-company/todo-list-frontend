@@ -9,7 +9,6 @@ import {SOCKET_EVENTS} from '@/data/socket/type';
 import {useStateAuth} from '@/states/auth';
 import useModals from '@/states/modals/use-modals';
 import useTodolist from '@/states/todolist/use-todolist';
-import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 
 import ErrorInformation from '../common/404';
 import Seo from '../common/seo/seo';
@@ -25,8 +24,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
   const auth = useStateAuth();
   const router = useRouter();
 
-  const {todolist, write, assest, error, initial} = useTodolist();
-  const {initial: initialKanban} = useTodolistKanban();
+  const {todolist, write, assest, error, getTodolist} = useTodolist();
   const {setIsOpenModal, setSelectedTodolist} = useModals();
 
   const onClickFloatIcon = () => {
@@ -40,20 +38,17 @@ const ListDetail: FC<Iprops> = ({id}) => {
     if (auth) {
       socket.auth = {...auth, listID: id};
       socket.connect();
-      initial(id);
-      initialKanban(id);
+      getTodolist(id);
     }
 
     socket.on(SOCKET_EVENTS.reconnect, attempt => {
       console.log('SocketIO', SOCKET_EVENTS.reconnect, attempt);
-      initial(id);
-      initialKanban(id);
+      getTodolist(id);
     });
 
     socket.on(SOCKET_EVENTS.updateList, () => {
       console.log('SocketIO', SOCKET_EVENTS.updateList);
-      initial(id);
-      initialKanban(id);
+      getTodolist(id);
     });
 
     return () => {

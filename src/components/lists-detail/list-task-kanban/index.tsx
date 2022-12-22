@@ -1,6 +1,5 @@
 import useModals from '@/states/modals/use-modals';
 import useTodolist from '@/states/todolist/use-todolist';
-import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
 
 import KanbanColumn from './column';
 import KanbanColumnBody from './column/body';
@@ -9,17 +8,16 @@ import KanbanColumnHeader from './column/header';
 import KanbanContainer from './container';
 
 const ListTaskKanban = () => {
-  const {todolistKanban, statusList} = useTodolistKanban();
-  const {todolist} = useTodolist();
+  const {todolist, statusList} = useTodolist();
   const {setIsOpenModal, setSelectedTodolist, setSelectedColumnId} = useModals();
 
   const onAddTask = (columnId: number) => {
-    setSelectedTodolist(todolistKanban);
+    setSelectedTodolist(todolist);
     setIsOpenModal('createTask');
     setSelectedColumnId(columnId);
   };
 
-  if (todolistKanban)
+  if (todolist)
     return (
       <KanbanContainer>
         {statusList.map(column => (

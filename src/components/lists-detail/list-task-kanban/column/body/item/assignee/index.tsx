@@ -4,7 +4,7 @@ import TaskAssignee from '@/components/common/task-assignee';
 import {IAssigneeResponse} from '@/data/api/types/task.type';
 import {IMember} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
-import useTodolistKanban from '@/states/todolist-kanban/use-kanban';
+import useTodolistKanban from '@/states/todolist/use-todolist';
 
 import style from './style.module.scss';
 

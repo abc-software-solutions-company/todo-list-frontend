@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
@@ -7,18 +8,17 @@ import initialState, {isOpenModal} from './initialState';
 import {IGetTodolistPayloadAction, ISetIsOpenModalPayload} from './types';
 
 const todolistSlice = createSlice({
-  name: 'todolist',
+  name: 'todolist-',
   initialState,
   reducers: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getTodolistRequest: (state, {payload}: IGetTodolistPayloadAction) => {
       state.todolist.loading = true;
     },
-    getTodolistSuccess: (state, {payload}) => {
+    getTodolistSuccess: (state, {payload}: PayloadAction<ITodolistResponse>) => {
       state.todolist.loading = false;
       state.todolist.data = payload;
+      state.todolist.statusList = payload.status;
     },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getTodolistFailure: (state, {payload}) => {
       state.todolist.loading = false;
       state.todolist.error = true;
@@ -28,6 +28,9 @@ const todolistSlice = createSlice({
     },
     setStatusFilter: (state, {payload}: PayloadAction<number>) => {
       state.statusFilter = payload;
+    },
+    setStatusActive: (state, {payload}: PayloadAction<number>) => {
+      state.statusActive = payload;
     },
     setSelectedTask: (state, {payload}: PayloadAction<ITaskResponse | undefined>) => {
       state.selectedTask = payload;
