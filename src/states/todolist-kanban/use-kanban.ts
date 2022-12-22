@@ -16,7 +16,7 @@ export default function useTodolistKanban() {
 
   const {actions} = todolistKanbanSlice;
 
-  const initial = (id: string) => dispatch(actions.getTodolistKanbanRequest({id}));
+  const getKanban = (id: string) => dispatch(actions.getTodolistKanbanRequest({id}));
   const update = () => dispatch(actions.getTodolistKanbanRequest({id: data.id}));
   const setTodolistKanban = (value: ITodolistKanbanResponse) => dispatch(actions.setTodolistKanban(value));
   const setStatusFilter = (value: number) => dispatch(actions.setStatusFilter(value));
@@ -37,7 +37,7 @@ export default function useTodolistKanban() {
     write,
     owner,
     error,
-    initial,
+    getKanban,
     update,
     setStatusFilter,
     setStatusActive,

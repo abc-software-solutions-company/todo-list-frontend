@@ -20,7 +20,7 @@ interface IKanbanContainer {
 const KanbanContainer = ({children}: IKanbanContainer) => {
   const sensors = useSensorGroup();
   const {todolist, setTodolist} = useTodolist();
-  const {todolistKanban, initial, statusActive} = useTodolistKanban();
+  const {todolistKanban, getKanban, statusActive} = useTodolistKanban();
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const onDragStart = ({active}: DragStartEvent) => {
@@ -75,7 +75,7 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
             .update({id: task.id, index: newTaskIndex, statusId: parseInt(newStatusId.toString())})
             .then(resetIndex)
             .then(socketUpdateList)
-            .then(() => initial(todolist.id));
+            .then(() => getKanban(todolist.id));
         }
       });
     }

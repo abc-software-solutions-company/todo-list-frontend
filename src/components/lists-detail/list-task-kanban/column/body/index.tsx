@@ -11,11 +11,11 @@ import KanbanTaskItem from './item';
 
 interface IKanbanColumnBody {
   tasks: ITaskResponse[];
-  statusId: number;
 }
 
-export default function KanbanColumnBody({tasks, statusId}: IKanbanColumnBody) {
+export default function KanbanColumnBody({tasks}: IKanbanColumnBody) {
   const {todolistKanban, setStatusActive} = useTodolistKanban();
+  const statusId = tasks[0].statusId;
   const {write} = useTodolist();
 
   return (

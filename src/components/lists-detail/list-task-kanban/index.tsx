@@ -16,7 +16,7 @@ interface IListTaskKanban {
 }
 
 const ListTaskKanban = ({id}: IListTaskKanban) => {
-  const {todolistKanban, initial, error, loading} = useTodolistKanban();
+  const {todolistKanban, getKanban, error, loading} = useTodolistKanban();
   const {setIsOpenModal, setSelectedTodolist, setSelectedColumnId} = useModals();
 
   const onAddTask = (columnId: number) => {
@@ -26,26 +26,24 @@ const ListTaskKanban = ({id}: IListTaskKanban) => {
   };
 
   useEffect(() => {
-    initial(id);
+    getKanban(id);
   }, [id]);
 
   if (loading) return <Loading />;
   if (error) return <ErrorInformation />;
+  if (!todolistKanban) return null;
 
-  if (todolistKanban)
-    return (
-      <KanbanContainer>
-        {todolistKanban.status?.map(column => (
-          <KanbanColumn key={column.id} onDragEnd={() => {}} onDragStart={() => {}} onDragOver={() => {}}>
-            <KanbanColumnHeader name={column.name} color={column.color} />
-            <KanbanColumnBody statusId={column.id} tasks={column.tasks!} />
-            <KanbanColumnFooter onAddTask={() => onAddTask(column.id)} />
-          </KanbanColumn>
-        ))}
-      </KanbanContainer>
-    );
-
-  return <></>;
+  return (
+    <KanbanContainer>
+      {todolistKanban.status?.map(column => (
+        <KanbanColumn key={column.id}>
+          <KanbanColumnHeader name={column.name} color={column.color} />
+          <KanbanColumnBody tasks={column.tasks!} />
+          <KanbanColumnFooter onAddTask={() => onAddTask(column.id)} />
+        </KanbanColumn>
+      ))}
+    </KanbanContainer>
+  );
 };
 
 export default ListTaskKanban;

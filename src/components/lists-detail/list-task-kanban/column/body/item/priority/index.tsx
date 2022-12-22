@@ -17,13 +17,13 @@ interface IKanbanTaskPriority {
 
 export default function KanbanTaskPriority({priority, taskId}: IKanbanTaskPriority) {
   const toast = useToast();
-  const {initial, todolistKanban} = useTodolistKanban();
+  const {getKanban, todolistKanban} = useTodolistKanban();
 
   const onChangePriority = (event: SelectChangeEvent<unknown>) => {
     api.task
       .update({id: taskId, priority: event.target.value as string})
       .then(socketUpdateList)
-      .then(() => initial(todolistKanban.id))
+      .then(() => getKanban(todolistKanban.id))
       .catch(() => toast.show({type: 'danger', title: 'Priority', content: ToastContents.ERROR}));
   };
   const {write} = useTodolistKanban();
