@@ -1,0 +1,26 @@
+.list-detail :global {
+  .error-private-list {
+    @apply mt-3 flex justify-center text-red-500;
+  }
+  .container {
+    @apply px-4;
+  }
+  .container-kanban {
+    @apply pl-[20px] pr-[10px];
+  }
+  .tasks {
+    @apply mt-3 lg:mt-5;
+    .item {
+      @apply first:rounded-t-lg first:border-t last:rounded-b-lg;
+      &.select {
+        @apply z-10 scale-105 transform-gpu drop-shadow-lg ease-in-out-back;
+      }
+    }
+    .empty {
+      @apply -mt-1 flex justify-center;
+    }
+  }
+  .float-icon {
+    @apply flex cursor-pointer md:hidden;
+  }
+}
