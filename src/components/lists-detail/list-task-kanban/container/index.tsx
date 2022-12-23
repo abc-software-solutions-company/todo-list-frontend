@@ -27,20 +27,30 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
 
   const onDragEnd = ({active, over}: DragEndEvent) => {
     setActiveId(null);
+    const oldIndex = todolist.tasks?.findIndex(item => active.id === item.id);
+    const currentTask = todolist.tasks[oldIndex];
+    const newTodoList = {...todolist};
+
     if (!over) {
-      console.log('No task on this column');
       console.log(statusActive);
+      const newData = todolist.tasks.map(e => {
+        if (e.name == currentTask.name) {
+          const {statusId, ...rest} = e;
+          return {statusId: statusActive, ...rest};
+        } else {
+          return e;
+        }
+      });
+      newTodoList.tasks = newData;
+      setTodolist(newTodoList as ITodolistResponse);
     }
 
     if (!over) return;
 
     if (active.id !== over.id || statusActive !== 0) {
-      const oldIndex = todolist.tasks?.findIndex(item => active.id === item.id);
-      const currentTask = todolist.tasks[oldIndex];
       const newIndex = todolist.tasks?.findIndex(item => over.id === item.id);
       const newStatusId = todolist.tasks[newIndex]?.statusId || over.id;
       const arrangeTask = arrayMove(todolist.tasks, oldIndex, newIndex);
-      const newTodoList = {...todolist};
 
       newTodoList.tasks = arrangeTask;
       const newData = newTodoList.tasks.map(e => {

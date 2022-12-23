@@ -6,7 +6,6 @@ import React from 'react';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import useTodolist from '@/states/todolist/use-todolist';
 
-import KanbanTaskDragToColumn from './drag-to-column';
 import KanbanTaskItem from './item';
 
 interface IKanbanColumnBody {

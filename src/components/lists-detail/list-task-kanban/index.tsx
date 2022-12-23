@@ -28,10 +28,10 @@ const ListTaskKanban = () => {
           strategy={horizontalListSortingStrategy}
         >
           {todolist.status.map(column => (
-            <KanbanColumn key={column.id}>
+            <KanbanColumn key={column.id} id={column.id}>
               <KanbanColumnHeader name={column.name} color={column.color} />
               <KanbanColumnBody statusId={column.id} tasks={todolist.tasks.filter(e => e.statusId == column.id)} />
-              <KanbanColumnFooter onAddTask={() => onAddTask(column.id)} />
+              <KanbanColumnFooter id={column.id} onAddTask={() => onAddTask(column.id)} />
             </KanbanColumn>
           ))}
         </SortableContext>
