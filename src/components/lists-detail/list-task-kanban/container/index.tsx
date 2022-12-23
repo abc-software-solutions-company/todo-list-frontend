@@ -18,7 +18,7 @@ interface IKanbanContainer {
 
 const KanbanContainer = ({children}: IKanbanContainer) => {
   const sensors = useSensorGroup();
-  const {todolist, setTodolist, statusActive} = useTodolist();
+  const {todolist, setTodolist, statusActive, setStatusActive} = useTodolist();
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const onDragStart = ({active}: DragStartEvent) => {
@@ -94,6 +94,10 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
 
           api.task
             .update({id: task.id, index: newTaskIndex, statusId: parseInt(newStatusId.toString())})
+            .then(() => {
+              console.log('Drag kanban success');
+            })
+            .then(() => setStatusActive(0))
             .then(socketUpdateList)
             .then(resetIndex);
         }
