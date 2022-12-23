@@ -18,7 +18,7 @@ interface IKanbanContainer {
 
 const KanbanContainer = ({children}: IKanbanContainer) => {
   const sensors = useSensorGroup();
-  const {todolist, setTodolist} = useTodolist();
+  const {todolist, setTodolist, statusActive} = useTodolist();
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const onDragStart = ({active}: DragStartEvent) => {
@@ -27,36 +27,22 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
 
   const onDragEnd = ({active, over}: DragEndEvent) => {
     setActiveId(null);
-    if (!over) return;
-    // if (active.id !== over.id) {
-    //   console.log('😂 setTodolist don"t set ');
-    // }
+    if (!over) {
+      console.log('No task on this column');
+      console.log(statusActive);
+    }
 
-    if (active.id !== over.id) {
-      // console.log('🚀 ~ file: index.tsx:36 ~ onDragEnd ~ over', over);
-      // console.log('🚀 ~ file: index.tsx:36 ~ onDragEnd ~ active', active);
+    if (!over) return;
+
+    if (active.id !== over.id || statusActive !== 0) {
       const oldIndex = todolist.tasks?.findIndex(item => active.id === item.id);
       const currentTask = todolist.tasks[oldIndex];
-      // console.log('🚀 ~ file: index.tsx:40 ~ onDragEnd ~ currentTask', currentTask);
-
-      // console.log('🚀 ~ file: index.tsx:39 ~ onDragEnd ~ oldIndex', oldIndex);
       const newIndex = todolist.tasks?.findIndex(item => over.id === item.id);
-      // console.log('🚀 ~ file: index.tsx:41 ~ onDragEnd ~ newIndex', newIndex);
-
       const newStatusId = todolist.tasks[newIndex]?.statusId || over.id;
       const arrangeTask = arrayMove(todolist.tasks, oldIndex, newIndex);
-      // console.log('🚀 ~ file: index.tsx:45 ~ onDragEnd ~ newIndex', newIndex);
       const newTodoList = {...todolist};
 
       newTodoList.tasks = arrangeTask;
-      // newTodoList.tasks.map(e => {
-      //   if (e.name == currentTask.name) {
-      //     e.statusId = newStatusId;
-      //     return e;
-      //   }
-      //   return e;
-      // });
-      console.log(newTodoList);
       const newData = newTodoList.tasks.map(e => {
         if (e.name == currentTask.name) {
           const {statusId, ...rest} = e;
@@ -65,7 +51,6 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
           return e;
         }
       });
-      console.log(newData);
       newTodoList.tasks = newData;
       setTodolist(newTodoList as ITodolistResponse);
 

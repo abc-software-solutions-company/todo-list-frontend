@@ -36,6 +36,9 @@ const todolistSlice = createSlice({
     setStatusList: (state, {payload}: PayloadAction<ITodolistResponse>) => {
       state.statusList = payload.status;
     },
+    setStatusActive: (state, {payload}: PayloadAction<number>) => {
+      state.statusActive = payload;
+    },
     setSelectedTask: (state, {payload}: PayloadAction<ITaskResponse | undefined>) => {
       state.selectedTask = payload;
     },

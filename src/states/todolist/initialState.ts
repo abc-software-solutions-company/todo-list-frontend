@@ -17,6 +17,7 @@ const initialState: IInitialState = {
   },
   todolistKanban: [],
   statusList: [],
+  statusActive: 0,
   kanbanActive: false,
   statusFilter: 0,
   selectedTask: undefined,
