@@ -13,9 +13,9 @@ interface IKanbanColumn {
 export default function KanbanColumn({id, children}: IKanbanColumn) {
   const {setStatusActive} = useTodolist();
   return (
-    <div className="kanban-column">
+    <div className="kanban-column" onMouseLeave={() => setStatusActive(id)}>
       {children}
-      <div className="below-column h-full w-full" onMouseLeave={() => setStatusActive(id)}></div>
+      {/* <div className="below-column h-full w-full bg-amber-300" onMouseLeave={() => setStatusActive(id)}></div> */}
     </div>
   );
 }
