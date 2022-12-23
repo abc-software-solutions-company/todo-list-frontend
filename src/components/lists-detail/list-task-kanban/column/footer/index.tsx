@@ -21,7 +21,7 @@ export default function KanbanColumnFooter({id}: IKanbanColumnFooter) {
   };
 
   return (
-    <div className={style['kanban-column-footer']} onMouseLeave={() => setStatusActive(id)}>
+    <div className={style['kanban-column-footer']} onMouseOver={() => setStatusActive(id)}>
       <Icon name="ico-plus-circle" className="btn-add-task" onClick={() => onAddTask(id)} />
     </div>
   );
