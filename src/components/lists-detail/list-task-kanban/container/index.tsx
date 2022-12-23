@@ -42,6 +42,7 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
         }
       });
       newTodoList.tasks = newData;
+      setStatusActive(0);
       setTodolist(newTodoList as ITodolistResponse);
     }
 
@@ -49,19 +50,20 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
 
     if (active.id !== over.id || statusActive !== 0) {
       const newIndex = todolist.tasks?.findIndex(item => over.id === item.id);
-      const newStatusId = todolist.tasks[newIndex]?.statusId || over.id;
+      const newStatusId = todolist.tasks[newIndex]?.statusId || statusActive;
       const arrangeTask = arrayMove(todolist.tasks, oldIndex, newIndex);
 
       newTodoList.tasks = arrangeTask;
       const newData = newTodoList.tasks.map(e => {
         if (e.name == currentTask.name) {
           const {statusId, ...rest} = e;
-          return {statusId: parseInt(newStatusId.toString()), ...rest};
+          return {statusId: newStatusId, ...rest};
         } else {
           return e;
         }
       });
       newTodoList.tasks = newData;
+      setStatusActive(0);
       setTodolist(newTodoList as ITodolistResponse);
 
       arrangeTask.forEach((element, index) => {
@@ -93,7 +95,7 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
           };
 
           api.task
-            .update({id: task.id, index: newTaskIndex, statusId: parseInt(newStatusId.toString())})
+            .update({id: task.id, index: newTaskIndex, statusId: newStatusId})
             .then(() => {
               console.log('Drag kanban success');
             })
