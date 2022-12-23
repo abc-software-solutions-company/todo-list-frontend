@@ -108,17 +108,19 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
   return (
     <>
       <div className={style['kanban-container']}>
-        <DndContext {...{sensors, onDragEnd, onDragStart}}>
-          {children}
-          <DragOverlay>
-            {activeId ? (
-              <KanbanTaskItem
-                assigneeList={todolist.members}
-                task={todolist.tasks!.filter(e => e.id === activeId)[0]}
-              />
-            ) : null}
-          </DragOverlay>
-        </DndContext>
+        <div className="kanban-container-scroll">
+          <DndContext {...{sensors, onDragEnd, onDragStart}}>
+            {children}
+            <DragOverlay>
+              {activeId ? (
+                <KanbanTaskItem
+                  assigneeList={todolist.members}
+                  task={todolist.tasks!.filter(e => e.id === activeId)[0]}
+                />
+              ) : null}
+            </DragOverlay>
+          </DndContext>
+        </div>
       </div>
     </>
   );
