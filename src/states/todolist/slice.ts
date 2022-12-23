@@ -25,12 +25,16 @@ const todolistSlice = createSlice({
     },
     setTodolist: (state, {payload}: PayloadAction<ITodolistResponse>) => {
       state.todolist.data = payload;
+      console.log('Set local state in todolist-setTodolist actions');
     },
     setTodolistKanban: (state, {payload}: PayloadAction<ITodolistResponse>) => {
       state.todolistKanban = payload.status;
     },
     setStatusFilter: (state, {payload}: PayloadAction<number>) => {
       state.statusFilter = payload;
+    },
+    setStatusList: (state, {payload}: PayloadAction<ITodolistResponse>) => {
+      state.statusList = payload.status;
     },
     setSelectedTask: (state, {payload}: PayloadAction<ITaskResponse | undefined>) => {
       state.selectedTask = payload;

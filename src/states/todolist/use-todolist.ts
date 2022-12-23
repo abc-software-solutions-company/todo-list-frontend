@@ -9,7 +9,7 @@ import {ISetIsOpenModalPayload} from './types';
 
 export default function useTodolist() {
   const todolistState = useSelector((root: RootState) => root.todolist);
-  const {todolist, todolistKanban, kanbanActive, ...rest} = todolistState;
+  const {todolist, statusList, todolistKanban, kanbanActive, ...rest} = todolistState;
   const {data, ...restTodolist} = todolist;
   const auth = useStateAuth();
   const dispatch = useDispatch();
@@ -30,6 +30,7 @@ export default function useTodolist() {
   const error = todolist.error;
   return {
     todolist: data,
+    statusList,
     todolistKanban,
     ...rest,
     ...restTodolist,

@@ -21,6 +21,7 @@ export interface IInitialState {
   };
   todolistKanban: IStatus[];
   kanbanActive: boolean;
+  statusList: IStatus[];
   statusFilter: number;
   selectedTask?: ITaskResponse;
   isOpenModal: {
