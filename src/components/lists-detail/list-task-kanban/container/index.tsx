@@ -53,6 +53,43 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
       });
       newTodoList.tasks = newData;
       setTodolist(newTodoList as ITodolistResponse);
+      newData.forEach((element, index) => {
+        if (element.id === active.id) {
+          let newTaskIndex: number | undefined;
+          let reindexAll = false;
+          const limitDifferenceIndex = 32;
+          const listIndex = todolist.tasks.map(e => e.index);
+          const maxIndex = Math.max(...listIndex);
+          const minIndex = Math.min(...listIndex);
+          const taskBefore = newData[index - 1];
+          const task = newData[index];
+          const taskAfter = newData[index + 1];
+          if (!taskBefore || !taskAfter) {
+            const taskNext = taskBefore || taskAfter;
+            const indexNext = Number(taskNext.index);
+            if (indexNext === minIndex) newTaskIndex = Math.round(minIndex / 2);
+            if (indexNext === maxIndex) newTaskIndex = maxIndex + IndexStep;
+            if (newTaskIndex && newTaskIndex <= limitDifferenceIndex) reindexAll = true;
+          } else {
+            const indexBefore = Number(taskBefore.index);
+            const indexAfter = Number(taskAfter.index);
+            newTaskIndex = Math.round((indexBefore + indexAfter) / 2);
+            if (Math.abs(taskBefore.index - taskAfter.index) < limitDifferenceIndex * 2) reindexAll = true;
+          }
+
+          const resetIndex = () => {
+            if (reindexAll) api.task.reindexAll({todolistId: todolist.id});
+          };
+
+          api.task
+            .update({id: task.id, index: newTaskIndex, statusId: statusActive})
+            .then(() => {
+              console.log('Drag kanban success');
+            })
+            .then(socketUpdateList)
+            .then(resetIndex);
+        }
+      });
     }
 
     if (!over) return;
@@ -74,44 +111,43 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
       newTodoList.tasks = newData;
       setTodolist(newTodoList as ITodolistResponse);
 
-      // arrangeTask.forEach((element, index) => {
-      //   if (element.id === active.id) {
-      //     let newTaskIndex: number | undefined;
-      //     let reindexAll = false;
-      //     const limitDifferenceIndex = 32;
-      //     const listIndex = todolist.tasks.map(e => e.index);
-      //     const maxIndex = Math.max(...listIndex);
-      //     const minIndex = Math.min(...listIndex);
-      //     const taskBefore = arrangeTask[index - 1];
-      //     const task = arrangeTask[index];
-      //     const taskAfter = arrangeTask[index + 1];
-      //     if (!taskBefore || !taskAfter) {
-      //       const taskNext = taskBefore || taskAfter;
-      //       const indexNext = Number(taskNext.index);
-      //       if (indexNext === minIndex) newTaskIndex = Math.round(minIndex / 2);
-      //       if (indexNext === maxIndex) newTaskIndex = maxIndex + IndexStep;
-      //       if (newTaskIndex && newTaskIndex <= limitDifferenceIndex) reindexAll = true;
-      //     } else {
-      //       const indexBefore = Number(taskBefore.index);
-      //       const indexAfter = Number(taskAfter.index);
-      //       newTaskIndex = Math.round((indexBefore + indexAfter) / 2);
-      //       if (Math.abs(taskBefore.index - taskAfter.index) < limitDifferenceIndex * 2) reindexAll = true;
-      //     }
+      arrangeTask.forEach((element, index) => {
+        if (element.id === active.id) {
+          let newTaskIndex: number | undefined;
+          let reindexAll = false;
+          const limitDifferenceIndex = 32;
+          const listIndex = todolist.tasks.map(e => e.index);
+          const maxIndex = Math.max(...listIndex);
+          const minIndex = Math.min(...listIndex);
+          const taskBefore = arrangeTask[index - 1];
+          const task = arrangeTask[index];
+          const taskAfter = arrangeTask[index + 1];
+          if (!taskBefore || !taskAfter) {
+            const taskNext = taskBefore || taskAfter;
+            const indexNext = Number(taskNext.index);
+            if (indexNext === minIndex) newTaskIndex = Math.round(minIndex / 2);
+            if (indexNext === maxIndex) newTaskIndex = maxIndex + IndexStep;
+            if (newTaskIndex && newTaskIndex <= limitDifferenceIndex) reindexAll = true;
+          } else {
+            const indexBefore = Number(taskBefore.index);
+            const indexAfter = Number(taskAfter.index);
+            newTaskIndex = Math.round((indexBefore + indexAfter) / 2);
+            if (Math.abs(taskBefore.index - taskAfter.index) < limitDifferenceIndex * 2) reindexAll = true;
+          }
 
-      //     const resetIndex = () => {
-      //       if (reindexAll) api.task.reindexAll({todolistId: todolist.id});
-      //     };
+          const resetIndex = () => {
+            if (reindexAll) api.task.reindexAll({todolistId: todolist.id});
+          };
 
-      //     api.task
-      //       .update({id: task.id, index: newTaskIndex, statusId: parseInt(newStatusId.toString())})
-      //       .then(() => {
-      //         console.log('Drag kanban success');
-      //       })
-      //       .then(() => setStatusActive(0))
-      //       .then(socketUpdateList)
-      //       .then(resetIndex);
-      //   }
-      // });
+          api.task
+            .update({id: task.id, index: newTaskIndex, statusId: parseInt(newStatusId.toString())})
+            .then(() => {
+              console.log('Drag kanban success');
+            })
+            .then(socketUpdateList)
+            .then(resetIndex);
+        }
+      });
     }
   };
 

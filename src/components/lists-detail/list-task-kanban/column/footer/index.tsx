@@ -11,7 +11,7 @@ interface IKanbanColumnFooter {
 }
 
 export default function KanbanColumnFooter({id}: IKanbanColumnFooter) {
-  const {setStatusActive, todolist} = useTodolist();
+  const {setStatusActive, statusActive, todolist} = useTodolist();
   const {setIsOpenModal, setSelectedTodolist, setSelectedColumnId} = useModals();
 
   const onAddTask = (columnId: number) => {
@@ -21,7 +21,13 @@ export default function KanbanColumnFooter({id}: IKanbanColumnFooter) {
   };
 
   return (
-    <div className={style['kanban-column-footer']} onMouseOver={() => setStatusActive(id)}>
+    <div
+      className={style['kanban-column-footer']}
+      onMouseLeave={() => {
+        setStatusActive(id);
+        console.log(statusActive == id);
+      }}
+    >
       <Icon name="ico-plus-circle" className="btn-add-task" onClick={() => onAddTask(id)} />
     </div>
   );
