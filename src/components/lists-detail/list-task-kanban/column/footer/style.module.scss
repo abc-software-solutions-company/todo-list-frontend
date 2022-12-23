@@ -1,5 +1,5 @@
 .kanban-column-footer :global {
-  @apply h-full w-full;
+  @apply w-full;
   .btn-add-task {
     @apply flex justify-center hover:cursor-pointer;
     @apply rounded-xl border border-dashed;

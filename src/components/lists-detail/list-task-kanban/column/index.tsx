@@ -15,7 +15,7 @@ export default function KanbanColumn({id, children}: IKanbanColumn) {
   return (
     <div className="kanban-column">
       {children}
-      <div className="below-column h-full w-full" onMouseLeave={() => setStatusActive(id)}></div>
+      <div className="below-column w-full" onMouseLeave={() => setStatusActive(id)}></div>
     </div>
   );
 }
