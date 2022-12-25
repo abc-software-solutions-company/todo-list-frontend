@@ -1,5 +1,5 @@
 import {useDroppable} from '@dnd-kit/core';
-import {rectSortingStrategy, SortableContext} from '@dnd-kit/sortable';
+import {SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import React from 'react';
 
 import SortableItem from '../sortable-item';
@@ -15,7 +15,7 @@ const Droppable = ({id, items}: IDroppableProp) => {
   const {setNodeRef} = useDroppable({id});
 
   return (
-    <SortableContext id={id} items={items} strategy={rectSortingStrategy}>
+    <SortableContext id={id} items={items} strategy={verticalListSortingStrategy}>
       <ul className={style.droppable} ref={setNodeRef}>
         {items.map((item: React.Key | null | undefined) => (
           <SortableItem key={item} id={item} />

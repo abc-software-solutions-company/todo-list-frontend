@@ -31,6 +31,8 @@ function Kanban({data}: IKanbanProp) {
   const handleDragCancel = () => setActiveId(null);
 
   const handleDragOver = ({active, over}: IHandleDragOver) => {
+    console.log(over?.data);
+
     const overId = over?.id;
 
     if (!overId) {
@@ -96,11 +98,18 @@ function Kanban({data}: IKanbanProp) {
   };
 
   return (
-    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragCancel={handleDragCancel} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
+    <DndContext
+      autoScroll={true}
+      sensors={sensors}
+      onDragStart={handleDragStart}
+      onDragCancel={handleDragCancel}
+      onDragOver={handleDragOver}
+      onDragEnd={handleDragEnd}
+    >
       <div className={style.container}>
-        {Object.keys(itemGroups).map(group => (
+        {Object.keys(itemGroups).map((group, idx) => (
           <>
-            a
+            {idx}
             <Droppable id={group} items={itemGroups[group]} activeId={activeId} key={group} />
           </>
         ))}
