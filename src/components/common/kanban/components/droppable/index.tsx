@@ -13,6 +13,7 @@ interface IDroppableProp {
 
 const Droppable = ({id, items}: IDroppableProp) => {
   const {setNodeRef} = useDroppable({id});
+  // console.log(items);
 
   return (
     <SortableContext id={id} items={items} strategy={verticalListSortingStrategy}>

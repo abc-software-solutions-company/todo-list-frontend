@@ -19,7 +19,7 @@ export interface IInitialState {
     data: ITodolistResponse;
     error: any;
   };
-  todolistKanban: IStatus[];
+  todolistKanban: any;
   kanbanActive: boolean;
   statusList: IStatus[];
   statusFilter: number;

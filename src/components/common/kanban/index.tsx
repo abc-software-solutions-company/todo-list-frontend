@@ -16,6 +16,7 @@ interface IKanbanProp {
 
 function Kanban({data}: IKanbanProp) {
   const [itemGroups, setItemGroups] = useState<any>(data);
+
   const [activeId, setActiveId] = useState(null);
 
   const sensors = useSensors(
@@ -45,7 +46,8 @@ function Kanban({data}: IKanbanProp) {
     if (activeContainer !== overContainer) {
       setItemGroups((itemGroups: {[x: string]: string | any[]}) => {
         const activeIndex = active.data.current.sortable.index;
-        const overIndex = over.id in itemGroups ? itemGroups[overContainer].length + 1 : over.data.current.sortable.index;
+        const overIndex =
+          over.id in itemGroups ? itemGroups[overContainer].length + 1 : over.data.current.sortable.index;
 
         return moveBetweenContainers(itemGroups, activeContainer, activeIndex, overContainer, overIndex, active.id);
       });
@@ -72,7 +74,14 @@ function Kanban({data}: IKanbanProp) {
             [overContainer]: arrayMove(itemGroups[overContainer], activeIndex, overIndex)
           };
         } else {
-          newItems = moveBetweenContainers(itemGroups, activeContainer, activeIndex, overContainer, overIndex, active.id);
+          newItems = moveBetweenContainers(
+            itemGroups,
+            activeContainer,
+            activeIndex,
+            overContainer,
+            overIndex,
+            active.id
+          );
         }
 
         return newItems;

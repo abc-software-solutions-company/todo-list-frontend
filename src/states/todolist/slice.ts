@@ -17,7 +17,18 @@ const todolistSlice = createSlice({
     getTodolistSuccess: (state, {payload}: PayloadAction<ITodolistResponse>) => {
       state.todolist.loading = false;
       state.todolist.data = payload;
-      state.todolistKanban = payload.status;
+      // state.todolistKanban = payload.status;
+      const dataKanban = {};
+
+      payload.status.map(lists => {
+        const columnData = {
+          [lists.name]: lists.tasks?.map(task => task.name)
+        };
+        Object.assign(dataKanban, columnData);
+      });
+
+      state.todolistKanban = dataKanban;
+      // state.todolistKanban = 2;
     },
     getTodolistFailure: (state, {payload}) => {
       state.todolist.loading = false;
@@ -28,8 +39,7 @@ const todolistSlice = createSlice({
       console.log('Set local state in todolist-setTodolist actions');
     },
     setTodolistKanban: (state, {payload}: PayloadAction<ITodolistResponse>) => {
-      state.todolistKanban = payload.status;
-      console.log(state.todolistKanban);
+      state.todolistKanban = payload;
     },
     setStatusFilter: (state, {payload}: PayloadAction<number>) => {
       state.statusFilter = payload;
