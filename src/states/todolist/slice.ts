@@ -29,6 +29,7 @@ const todolistSlice = createSlice({
     },
     setTodolistKanban: (state, {payload}: PayloadAction<ITodolistResponse>) => {
       state.todolistKanban = payload.status;
+      console.log(state.todolistKanban);
     },
     setStatusFilter: (state, {payload}: PayloadAction<number>) => {
       state.statusFilter = payload;
