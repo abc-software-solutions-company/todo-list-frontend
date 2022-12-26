@@ -145,7 +145,7 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
             {Object.keys(todolistKanban).map((column, idx) => (
               <>
                 <KanbanColumn key={idx}>
-                  <KanbanColumnHeader name={Object.keys(todolistKanban)[idx]} />
+                  {/* <KanbanColumnHeader name={Object.keys(todolistKanban)[idx]} /> */}
                   <KanbanColumnBody id={column} tasks={itemGroups[column]} />
                 </KanbanColumn>
               </>

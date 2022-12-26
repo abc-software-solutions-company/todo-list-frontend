@@ -30,19 +30,15 @@ export default function KanbanColumnBody({id, tasks}: IKanbanColumnBody) {
   console.log(tasks);
 
   return (
-    <div className="kanban-column">
-      <div className="tasks">
-        <SortableContext id={id} items={tasks} strategy={verticalListSortingStrategy}>
-          <ul className={style.droppable} ref={setNodeRef}>
-            {tasks.map((task: React.Key | null | undefined) => (
-              <>
-                {/* <SortableItem key={item} id={item} /> */}
-                <KanbanTaskItem task={task} />
-              </>
-            ))}
-          </ul>
-        </SortableContext>
-      </div>
-    </div>
+    <SortableContext id={id} items={tasks} strategy={verticalListSortingStrategy}>
+      <ul className={style.droppable} ref={setNodeRef}>
+        {tasks.map((task: React.Key | null | undefined) => (
+          <>
+            {/* <SortableItem key={item} id={item} /> */}
+            <KanbanTaskItem task={task} />
+          </>
+        ))}
+      </ul>
+    </SortableContext>
   );
 }

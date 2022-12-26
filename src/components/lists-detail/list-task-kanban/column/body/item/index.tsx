@@ -36,7 +36,7 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
   const taskData = JSON.parse(task);
 
   return (
-    <div
+    <li
       className={style['kanban-task-item']}
       ref={setNodeRef}
       style={styleDnd}
@@ -62,7 +62,7 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
       </div>
       <div className="status-change"></div> */}
       <p>{taskData.name}</p>
-    </div>
+    </li>
   );
 };
 

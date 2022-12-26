@@ -8,5 +8,5 @@ interface IKanbanColumn {
 }
 
 export default function KanbanColumn({children}: IKanbanColumn) {
-  return <ul className="kanban-column">{children}</ul>;
+  return <ul className="kanban-column-container h-full">{children}</ul>;
 }
