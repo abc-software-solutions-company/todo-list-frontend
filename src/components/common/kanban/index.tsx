@@ -4,6 +4,8 @@ import {DndContext, DragOverlay, KeyboardSensor, MouseSensor, TouchSensor, useSe
 import {sortableKeyboardCoordinates} from '@dnd-kit/sortable';
 import React, {useState} from 'react';
 
+import useTodolist from '@/states/todolist/use-todolist';
+
 import Droppable from './components/droppable';
 import Item from './components/item';
 import style from './style.module.scss';
@@ -16,6 +18,7 @@ interface IKanbanProp {
 
 function Kanban({data}: IKanbanProp) {
   const [itemGroups, setItemGroups] = useState<any>(data);
+  const {todolistKanban, setTodolistKanban} = useTodolist();
 
   const [activeId, setActiveId] = useState(null);
 
@@ -32,7 +35,7 @@ function Kanban({data}: IKanbanProp) {
   const handleDragCancel = () => setActiveId(null);
 
   const handleDragOver = ({active, over}: IHandleDragOver) => {
-    console.log(over?.data);
+    // console.log(over?.data);
 
     const overId = over?.id;
 
@@ -44,12 +47,12 @@ function Kanban({data}: IKanbanProp) {
     const overContainer = over.data.current?.sortable.containerId || over.id;
 
     if (activeContainer !== overContainer) {
-      setItemGroups((itemGroups: {[x: string]: string | any[]}) => {
+      setItemGroups((todolistKanban: {[x: string]: string | any[]}) => {
         const activeIndex = active.data.current.sortable.index;
         const overIndex =
-          over.id in itemGroups ? itemGroups[overContainer].length + 1 : over.data.current.sortable.index;
+          over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current.sortable.index;
 
-        return moveBetweenContainers(itemGroups, activeContainer, activeIndex, overContainer, overIndex, active.id);
+        return moveBetweenContainers(todolistKanban, activeContainer, activeIndex, overContainer, overIndex, active.id);
       });
     }
   };
@@ -64,18 +67,19 @@ function Kanban({data}: IKanbanProp) {
       const activeContainer = active.data.current.sortable.containerId;
       const overContainer = over.data.current?.sortable.containerId || over.id;
       const activeIndex = active.data.current.sortable.index;
-      const overIndex = over.id in itemGroups ? itemGroups[overContainer].length + 1 : over.data.current.sortable.index;
+      const overIndex =
+        over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current.sortable.index;
+      let newItems;
 
-      setItemGroups((itemGroups: {[x: string]: any}) => {
-        let newItems;
+      setItemGroups((todolistKanban: {[x: string]: any}) => {
         if (activeContainer === overContainer) {
           newItems = {
-            ...itemGroups,
-            [overContainer]: arrayMove(itemGroups[overContainer], activeIndex, overIndex)
+            ...todolistKanban,
+            [overContainer]: arrayMove(todolistKanban[overContainer], activeIndex, overIndex)
           };
         } else {
           newItems = moveBetweenContainers(
-            itemGroups,
+            todolistKanban,
             activeContainer,
             activeIndex,
             overContainer,
@@ -89,6 +93,7 @@ function Kanban({data}: IKanbanProp) {
     }
 
     setActiveId(null);
+    setTodolistKanban(itemGroups);
   };
 
   const moveBetweenContainers = (
@@ -116,7 +121,7 @@ function Kanban({data}: IKanbanProp) {
       onDragEnd={handleDragEnd}
     >
       <div className={style.container}>
-        {Object.keys(itemGroups).map((group, idx) => (
+        {Object.keys(todolistKanban).map((group, idx) => (
           <>
             {idx}
             <Droppable id={group} items={itemGroups[group]} activeId={activeId} key={group} />

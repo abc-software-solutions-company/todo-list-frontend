@@ -13,7 +13,7 @@ const Item = ({id, dragOverlay}: IItemKanbanProp) => {
   };
 
   return (
-    <div style={styleOverLay} className={style['item-kanban']}>
+    <div style={styleOverLay} className={style['item-kanban bg-blue-300']}>
       Item {id}
     </div>
   );

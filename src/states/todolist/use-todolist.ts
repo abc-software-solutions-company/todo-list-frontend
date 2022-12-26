@@ -19,7 +19,7 @@ export default function useTodolist() {
   const getTodolist = (id: string) => dispatch(actions.getTodolistRequest({id}));
   const update = () => dispatch(actions.getTodolistRequest({id: data.id}));
   const setTodolist = (value: ITodolistResponse) => dispatch(actions.setTodolist(value));
-  const setTodolistKanban = (value: ITodolistResponse) => dispatch(actions.setTodolistKanban(value));
+  const setTodolistKanban = (value: any) => dispatch(actions.setTodolistKanban(value));
   const setStatusFilter = (value: number) => dispatch(actions.setStatusFilter(value));
   const setStatusActive = (value: number) => dispatch(actions.setStatusActive(value));
 

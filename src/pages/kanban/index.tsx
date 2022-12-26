@@ -15,7 +15,6 @@ export default function KanbanPage() {
   }, []);
 
   if (!todolistKanban) return null;
-  console.log(todolistKanban);
 
   if (todolistKanban)
     return (
