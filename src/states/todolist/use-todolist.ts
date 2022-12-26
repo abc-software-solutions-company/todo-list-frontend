@@ -38,9 +38,6 @@ export default function useTodolist() {
     todolist: data,
     statusList,
     statusActive,
-    setStatusActive,
-    setTaskKanbanActive,
-    setTaskKanbanOver,
     todolistKanban,
     ...rest,
     ...restTodolist,
@@ -55,6 +52,11 @@ export default function useTodolist() {
     setSelectedTask,
     setIsOpenModal,
     setTodolist,
-    setTodolistKanban
+    setTodolistKanban,
+    setStatusActive,
+    setTaskKanbanActive,
+    setTaskKanbanOver,
+    taskKanbanActive,
+    taskKanbanOver
   };
 }
