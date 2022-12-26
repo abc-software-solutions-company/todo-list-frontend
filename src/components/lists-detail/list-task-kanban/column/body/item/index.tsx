@@ -2,7 +2,7 @@ import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import React, {useState} from 'react';
 
-import {IMember} from '@/data/api/types/todolist.type';
+import {ITaskResponse} from '@/data/api/types/task.type';
 import useTodolist from '@/states/todolist/use-todolist';
 
 import KanbanTaskAssignee from './assignee';
@@ -33,7 +33,7 @@ const KanbanTaskItem = ({task}: IKanbanTaskItem) => {
     setShowEditDelete(true);
   };
   const onMouseOutTask = () => setShowEditDelete(false);
-  const taskData = JSON.parse(task);
+  const taskData: ITaskResponse = JSON.parse(task);
 
   return (
     <li

@@ -33,7 +33,7 @@ import style from './style.module.scss';
 const KanbanContainer = () => {
   const {todolistKanban, setTodolistKanban} = useTodolist();
   // const [columnGroups, setcolumnGroups] = useState<any>(todolistKanban);
-  const [activeId, setActiveId] = useState(null);
+  const [activeId, setActiveId] = useState<ITaskResponse>(null);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -66,7 +66,7 @@ const KanbanContainer = () => {
     const overContainer = over.data.current?.sortable.containerId || over.id;
 
     if (activeContainer !== overContainer) {
-      const updateState = (todolistKanban: {[x: string]: string | any[]}) => {
+      const data2 = (todolistKanban: {[x: string]: string | any[]}) => {
         const activeIndex = active.data.current?.sortable.index;
         const overIndex =
           over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
@@ -74,7 +74,7 @@ const KanbanContainer = () => {
         return moveBetweenContainers(todolistKanban, activeContainer, activeIndex, overContainer, overIndex, active.id);
       };
 
-      setTodolistKanban(updateState(todolistKanban));
+      setTodolistKanban(data2(todolistKanban));
     }
   };
 
@@ -83,10 +83,41 @@ const KanbanContainer = () => {
       setActiveId(null);
       return;
     }
-    console.log('Active ID');
-    console.log(JSON.parse(active?.id.toString()));
-    console.log('Over ID');
-    console.log(JSON.parse(over?.id.toString()));
+    // console.log('Active ID');
+    // console.log(JSON.parse(active?.id.toString()));
+    // console.log('Over ID');
+    // console.log(JSON.parse(over?.id.toString()));
+    console.log(active.id !== over.id);
+
+    if (active.id !== over.id) {
+      const activeContainer = active.data.current?.sortable.containerId;
+      const overContainer = over.data.current?.sortable.containerId || over.id;
+      const activeIndex = active.data.current?.sortable.index;
+      const overIndex =
+        over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
+      let newItems;
+      const data1 = (todolistKanban: {[x: string]: any}) => {
+        if (activeContainer === overContainer) {
+          newItems = {
+            ...todolistKanban,
+            [overContainer]: arrayMove(todolistKanban[overContainer], activeIndex, overIndex)
+          };
+        } else {
+          newItems = moveBetweenContainers(
+            todolistKanban,
+            activeContainer,
+            activeIndex,
+            overContainer,
+            overIndex,
+            active.id
+          );
+        }
+
+        return newItems;
+      };
+
+      setTodolistKanban(data1(todolistKanban));
+    }
   };
 
   if (todolistKanban)
