@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable @typescript-eslint/no-shadow */
-import {DndContext, DragEndEvent, DragOverEvent, DragOverlay} from '@dnd-kit/core';
+import {DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent} from '@dnd-kit/core';
 import {arrayMove} from '@dnd-kit/sortable';
 import React, {useState} from 'react';
 
-import {IHandleDragStart} from '@/components/common/kanban/type';
 import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
@@ -67,7 +66,7 @@ const KanbanContainer = () => {
       .then(resetIndex);
   };
 
-  const handleDragStart = ({active}: IHandleDragStart) => setActiveId(active.id);
+  const handleDragStart = ({active}: any) => setActiveId(active.id);
 
   const handleDragCancel = () => setActiveId(undefined);
 
