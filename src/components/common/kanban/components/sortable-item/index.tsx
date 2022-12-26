@@ -24,7 +24,6 @@ const SortableItem = ({id}: ISortableItemProp) => {
         {/* <p>{todolist.tasks.filter(e => e.id == id)[0].name}</p> */}
 
         <Item id={id} dragOverlay={undefined} />
-        {id}
       </li>
     </>
   );

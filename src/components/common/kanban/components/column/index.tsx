@@ -12,27 +12,24 @@ import style from './style.module.scss';
 interface IDroppableProp {
   id: any;
   items: any;
+  activeId: any;
 }
 
 const KanbanColumn = ({id, items}: IDroppableProp) => {
   const {statusList} = useTodolist();
 
   const {setNodeRef} = useDroppable({id});
+  console.log(items);
 
   return (
     <SortableContext id={id} items={items} strategy={verticalListSortingStrategy}>
       <ul className={style.droppable} ref={setNodeRef}>
         <KanbanColumnHeader name={id} />
-
-        <div className="column-body">
-          {items.map((item: React.Key | null | undefined) => (
-            <>
-              <div className="task-item">
-                <SortableItem key={item} id={item} />
-              </div>
-            </>
-          ))}
-        </div>
+        {items.map((item: React.Key | null | undefined) => (
+          <>
+            <SortableItem key={item} id={item} />
+          </>
+        ))}
       </ul>
     </SortableContext>
   );
