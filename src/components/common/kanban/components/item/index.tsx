@@ -1,6 +1,5 @@
 import React from 'react';
 
-import KanbanTaskItem from '@/components/lists-detail/list-task-kanban/column/body/item';
 import KanbanTaskAssignee from '@/components/lists-detail/list-task-kanban/column/body/item/assignee';
 import KanbanTaskCreatedDate from '@/components/lists-detail/list-task-kanban/column/body/item/created-date';
 import KanbanTaskPriority from '@/components/lists-detail/list-task-kanban/column/body/item/priority';
