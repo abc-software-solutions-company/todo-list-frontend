@@ -20,7 +20,6 @@ export const syncAttachments = ({rawHTML, listAttachment, id, update}: ISyncAtac
   listImage.forEach(e => {
     if (!currentAttachments.includes(e)) {
       api.task.update({id, attachment: {create: {name: `${e}.png`, link: e}}}).then(update);
-      console.log('Upload ok');
     }
   });
 };

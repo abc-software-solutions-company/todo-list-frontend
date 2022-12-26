@@ -2,7 +2,6 @@ import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import React, {useState} from 'react';
 
-import {ITaskResponse} from '@/data/api/types/task.type';
 import {IMember} from '@/data/api/types/todolist.type';
 
 import KanbanTaskAssignee from './assignee';
@@ -34,7 +33,6 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
   };
   const onMouseOutTask = () => setShowEditDelete(false);
   const taskData = JSON.parse(task);
-  console.log('🚀 ~ file: index.tsx:37 ~ KanbanTaskItem ~ taskData', taskData.createdDate);
 
   return (
     <li

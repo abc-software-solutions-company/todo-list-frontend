@@ -35,8 +35,6 @@ function Kanban({data}: IKanbanProp) {
   const handleDragCancel = () => setActiveId(null);
 
   const handleDragOver = ({active, over}: IHandleDragOver) => {
-    // console.log(over?.data);
-
     const overId = over?.id;
 
     if (!overId) {

@@ -133,8 +133,6 @@ const KanbanContainer = () => {
   if (todolistKanban)
     return (
       <>
-        {JSON.stringify(todolistKanban)}
-
         <div className={style['kanban-container']}>
           <div className="kanban-container-scroll">
             <DndContext

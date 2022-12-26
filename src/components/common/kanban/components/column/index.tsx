@@ -19,7 +19,6 @@ const KanbanColumn = ({id, items}: IDroppableProp) => {
   const {statusList} = useTodolist();
 
   const {setNodeRef} = useDroppable({id});
-  console.log(items);
 
   return (
     <SortableContext id={id} items={items} strategy={verticalListSortingStrategy}>
