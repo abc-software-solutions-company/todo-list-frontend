@@ -1,28 +1,14 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable @typescript-eslint/no-shadow */
-import {
-  DndContext,
-  DragEndEvent,
-  DragOverEvent,
-  DragOverlay,
-  KeyboardSensor,
-  MouseSensor,
-  TouchSensor,
-  useSensor,
-  useSensors
-} from '@dnd-kit/core';
-import {arrayMove, sortableKeyboardCoordinates} from '@dnd-kit/sortable';
+import {DndContext, DragEndEvent, DragOverEvent, DragOverlay} from '@dnd-kit/core';
+import {arrayMove} from '@dnd-kit/sortable';
 import React, {useState} from 'react';
 
 import {IHandleDragStart} from '@/components/common/kanban/type';
-import {insertAtIndex, moveBetweenContainers, removeAtIndex} from '@/components/common/kanban/utils/array';
-import api from '@/data/api';
+import {moveBetweenContainers} from '@/components/common/kanban/utils/array';
 import {ITaskResponse} from '@/data/api/types/task.type';
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
-import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useTodolist from '@/states/todolist/use-todolist';
-import {IndexStep} from '@/utils/constant';
 
 import KanbanColumn from '../column';
 import KanbanColumnBody from '../column/body';
@@ -32,29 +18,13 @@ import style from './style.module.scss';
 
 const KanbanContainer = () => {
   const {todolistKanban, setTodolistKanban} = useTodolist();
-  // const [columnGroups, setcolumnGroups] = useState<any>(todolistKanban);
-  const [activeId, setActiveId] = useState<ITaskResponse>(null);
+  const [activeId, setActiveId] = useState<ITaskResponse>();
 
-  const sensors = useSensors(
-    useSensor(MouseSensor, {
-      activationConstraint: {
-        distance: {y: 10}
-      }
-    }),
-    useSensor(TouchSensor, {
-      activationConstraint: {
-        delay: 250,
-        tolerance: {y: 15, x: 5}
-      }
-    }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates
-    })
-  );
+  const sensors = useSensorGroup();
 
   const handleDragStart = ({active}: IHandleDragStart) => setActiveId(active.id);
 
-  const handleDragCancel = () => setActiveId(null);
+  const handleDragCancel = () => setActiveId(undefined);
 
   const handleDragOver = ({active, over}: DragOverEvent) => {
     const overId = over?.id;
@@ -66,7 +36,9 @@ const KanbanContainer = () => {
     const overContainer = over.data.current?.sortable.containerId || over.id;
 
     if (activeContainer !== overContainer) {
-      const data2 = (todolistKanban: {[x: string]: string | any[]}) => {
+      console.log('Drag to other column');
+
+      const updatePosition = (todolistKanban: {[x: string]: string | any[]}) => {
         const activeIndex = active.data.current?.sortable.index;
         const overIndex =
           over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
@@ -74,22 +46,18 @@ const KanbanContainer = () => {
         return moveBetweenContainers(todolistKanban, activeContainer, activeIndex, overContainer, overIndex, active.id);
       };
 
-      setTodolistKanban(data2(todolistKanban));
+      setTodolistKanban(updatePosition(todolistKanban));
     }
   };
 
   const handleDragEnd = ({active, over}: DragEndEvent) => {
     if (!over) {
-      setActiveId(null);
+      setActiveId(undefined);
       return;
     }
-    // console.log('Active ID');
-    // console.log(JSON.parse(active?.id.toString()));
-    // console.log('Over ID');
-    // console.log(JSON.parse(over?.id.toString()));
-    console.log(active.id !== over.id);
 
     if (active.id !== over.id) {
+      console.log('Drag on the same column');
       const activeContainer = active.data.current?.sortable.containerId;
       const overContainer = over.data.current?.sortable.containerId || over.id;
       const activeIndex = active.data.current?.sortable.index;
