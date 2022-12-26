@@ -7,8 +7,6 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 import useTodolist from '@/states/todolist/use-todolist';
 
 import KanbanTaskItem from './item';
-import KanbanTaskName from './item/task-name';
-import KanbanTaskThumbnail from './item/thumbnail';
 import style from './style.module.scss';
 
 interface IKanbanColumnBody {
