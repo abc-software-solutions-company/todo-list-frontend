@@ -6,13 +6,13 @@ import {arrayMove} from '@dnd-kit/sortable';
 import React, {useState} from 'react';
 
 import {IHandleDragStart} from '@/components/common/kanban/type';
-import {moveBetweenContainers} from '@/components/common/kanban/utils/array';
 import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useTodolist from '@/states/todolist/use-todolist';
 import {IndexStep} from '@/utils/constant';
+import {moveBetweenContainers} from '@/utils/kanban/array';
 
 import KanbanColumn from '../column';
 import KanbanColumnBody from '../column/body';
@@ -21,16 +21,8 @@ import KanbanColumnHeader from '../column/header';
 import style from './style.module.scss';
 
 const KanbanContainer = () => {
-  const {
-    todolistKanban,
-    todolist,
-    setTodolistKanban,
-    setTaskKanbanActive,
-    setTaskKanbanOver,
-    statusList,
-    taskKanbanActive,
-    taskKanbanOver
-  } = useTodolist();
+  const {todolistKanban, todolist, setTodolistKanban, setTaskKanbanActive, setTaskKanbanOver, statusList} =
+    useTodolist();
   const [activeId, setActiveId] = useState<ITaskResponse>();
   const [statusActive, setStatusActive] = useState(0);
 
@@ -110,7 +102,12 @@ const KanbanContainer = () => {
     const taskKanbanActive = JSON.parse(active.id.toString());
 
     if (active.id !== over.id) {
-      const taskKanbanOver = JSON.parse(over.id.toString());
+      let taskKanbanOver;
+      try {
+        taskKanbanOver = JSON.parse(over.id.toString());
+      } catch {
+        taskKanbanOver = over.id;
+      }
       console.log('Drag on the same column');
       const activeContainer = active.data.current?.sortable.containerId;
       const overContainer = over.data.current?.sortable.containerId || over.id;
@@ -160,10 +157,10 @@ const KanbanContainer = () => {
               onDragOver={handleDragOver}
               onDragEnd={handleDragEnd}
             >
-              {Object.keys(todolistKanban).map((column, idx) => (
+              {Object.keys(todolistKanban).map((columnId, idx) => (
                 <KanbanColumn key={idx}>
                   <KanbanColumnHeader name={Object.keys(todolistKanban)[idx]} />
-                  <KanbanColumnBody id={column} tasks={todolistKanban[column]} />
+                  <KanbanColumnBody id={columnId} tasks={todolistKanban[columnId]} />
                 </KanbanColumn>
               ))}
               <DragOverlay>{activeId ? <KanbanTaskItem task={activeId} /> : null}</DragOverlay>

@@ -14,23 +14,19 @@ import KanbanTaskThumbnail from './item/thumbnail';
 import style from './style.module.scss';
 
 interface IKanbanColumnBody {
-  // tasks: ITaskResponse[];
-  tasks: any;
-  id: any;
+  tasks: ITaskResponse[];
+  id: string;
 }
 
 export default function KanbanColumnBody({id, tasks}: IKanbanColumnBody) {
-  const {todolist} = useTodolist();
-
   const {setNodeRef} = useDroppable({id});
 
   const {write} = useTodolist();
   return (
-    <SortableContext id={id} items={tasks} strategy={verticalListSortingStrategy}>
+    <SortableContext disabled={!write} id={id} items={tasks} strategy={verticalListSortingStrategy}>
       <ul className={style.droppable} ref={setNodeRef}>
-        {tasks.map((task: React.Key | null | undefined, idx: React.Key | null | undefined) => (
+        {tasks.map((task, idx: number) => (
           <>
-            {/* <SortableItem key={item} id={item} /> */}
             <KanbanTaskItem key={idx} task={task} />
           </>
         ))}
