@@ -17,12 +17,12 @@ import {moveBetweenContainers} from '@/utils/kanban/array';
 import KanbanColumn from '../column';
 import KanbanColumnBody from '../column/body';
 import KanbanTaskItem from '../column/body/item';
+import KanbanColumnFooter from '../column/footer';
 import KanbanColumnHeader from '../column/header';
 import style from './style.module.scss';
 
 const KanbanContainer = () => {
-  const {todolistKanban, todolist, setTodolistKanban, setTaskKanbanActive, setTaskKanbanOver, statusList} =
-    useTodolist();
+  const {todolistKanban, todolist, setTodolistKanban, statusList} = useTodolist();
   const [activeId, setActiveId] = useState<ITaskResponse>();
   const [statusActive, setStatusActive] = useState(0);
 
@@ -161,6 +161,7 @@ const KanbanContainer = () => {
                 <KanbanColumn key={idx}>
                   <KanbanColumnHeader name={Object.keys(todolistKanban)[idx]} />
                   <KanbanColumnBody id={columnId} tasks={todolistKanban[columnId]} />
+                  <KanbanColumnFooter id={statusList[idx].id} />
                 </KanbanColumn>
               ))}
               <DragOverlay>{activeId ? <KanbanTaskItem task={activeId} /> : null}</DragOverlay>
