@@ -24,7 +24,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
   const auth = useStateAuth();
   const router = useRouter();
 
-  const {todolist, write, assest, error, getTodolist} = useTodolist();
+  const {todolist, todolistKanban, write, assest, error, getTodolist} = useTodolist();
   const {setIsOpenModal, setSelectedTodolist} = useModals();
 
   const onClickFloatIcon = () => {

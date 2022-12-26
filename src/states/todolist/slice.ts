@@ -25,8 +25,6 @@ const todolistSlice = createSlice({
         };
         Object.assign(dataKanban, columnData);
       });
-      // console.log(payload.status);
-
       state.todolistKanban = dataKanban;
     },
     getTodolistFailure: (state, {payload}) => {
@@ -39,6 +37,8 @@ const todolistSlice = createSlice({
     },
     setTodolistKanban: (state, {payload}) => {
       state.todolistKanban = payload;
+      console.log('set to do list in kanban');
+      console.log(payload);
     },
     setStatusFilter: (state, {payload}: PayloadAction<number>) => {
       state.statusFilter = payload;

@@ -14,7 +14,7 @@ import {
   useSensors
 } from '@dnd-kit/core';
 import {arrayMove, sortableKeyboardCoordinates} from '@dnd-kit/sortable';
-import React, {ReactNode, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 
 import {IHandleDragStart} from '@/components/common/kanban/type';
 import {insertAtIndex, removeAtIndex} from '@/components/common/kanban/utils/array';
@@ -32,9 +32,8 @@ import KanbanColumnHeader from '../column/header';
 import style from './style.module.scss';
 
 const KanbanContainer = () => {
-  const {todolistKanban, setTodolistKanban} = useTodolist();
-  const [columnGroups, setcolumnGroups] = useState<any>(todolistKanban);
-
+  const {todolistKanban, setTodolistKanban, loading} = useTodolist();
+  // const [columnGroups, setcolumnGroups] = useState<any>(todolistKanban);
   const [activeId, setActiveId] = useState(null);
 
   const sensors = useSensors(
@@ -68,13 +67,15 @@ const KanbanContainer = () => {
     const overContainer = over.data.current?.sortable.containerId || over.id;
 
     if (activeContainer !== overContainer) {
-      setcolumnGroups((todolistKanban: {[x: string]: string | any[]}) => {
+      const data2 = (todolistKanban: {[x: string]: string | any[]}) => {
         const activeIndex = active.data.current?.sortable.index;
         const overIndex =
           over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
 
         return moveBetweenContainers(todolistKanban, activeContainer, activeIndex, overContainer, overIndex, active.id);
-      });
+      };
+
+      setTodolistKanban(data2(todolistKanban));
     }
   };
 
@@ -91,8 +92,7 @@ const KanbanContainer = () => {
       const overIndex =
         over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
       let newItems;
-
-      setcolumnGroups((todolistKanban: {[x: string]: any}) => {
+      const data1 = (todolistKanban: {[x: string]: any}) => {
         if (activeContainer === overContainer) {
           newItems = {
             ...todolistKanban,
@@ -110,11 +110,9 @@ const KanbanContainer = () => {
         }
 
         return newItems;
-      });
+      };
+      setTodolistKanban(data1(todolistKanban));
     }
-
-    setActiveId(null);
-    setTodolistKanban(columnGroups);
   };
 
   const moveBetweenContainers = (
@@ -132,30 +130,35 @@ const KanbanContainer = () => {
     };
   };
 
-  return (
-    <>
-      <div className={style['kanban-container']}>
-        <div className="kanban-container-scroll">
-          <DndContext
-            autoScroll={true}
-            sensors={sensors}
-            onDragStart={handleDragStart}
-            onDragCancel={handleDragCancel}
-            onDragOver={handleDragOver}
-            onDragEnd={handleDragEnd}
-          >
-            {Object.keys(columnGroups).map((column, idx) => (
-              <KanbanColumn key={idx}>
-                <KanbanColumnHeader name={Object.keys(columnGroups)[idx]} />
-                <KanbanColumnBody id={column} tasks={columnGroups[column]} />
-              </KanbanColumn>
-            ))}
-            <DragOverlay>{activeId ? <KanbanTaskItem task={activeId} /> : null}</DragOverlay>
-          </DndContext>
+  if (todolistKanban)
+    return (
+      <>
+        {JSON.stringify(todolistKanban)}
+
+        <div className={style['kanban-container']}>
+          <div className="kanban-container-scroll">
+            <DndContext
+              autoScroll={true}
+              sensors={sensors}
+              onDragStart={handleDragStart}
+              onDragCancel={handleDragCancel}
+              onDragOver={handleDragOver}
+              onDragEnd={handleDragEnd}
+            >
+              {Object.keys(todolistKanban).map((column, idx) => (
+                <KanbanColumn key={idx}>
+                  <KanbanColumnHeader name={Object.keys(todolistKanban)[idx]} />
+                  <KanbanColumnBody id={column} tasks={todolistKanban[column]} />
+                </KanbanColumn>
+              ))}
+              <DragOverlay>{activeId ? <KanbanTaskItem task={activeId} /> : null}</DragOverlay>
+            </DndContext>
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+
+  return null;
 };
 
 export default KanbanContainer;

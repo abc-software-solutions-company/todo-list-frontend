@@ -25,9 +25,9 @@ export default function KanbanColumnBody({id, tasks}: IKanbanColumnBody) {
   const {setNodeRef} = useDroppable({id});
 
   const {write} = useTodolist();
-  console.log('over here');
+  // console.log('over here');
 
-  console.log(tasks);
+  // console.log(tasks);
 
   return (
     <SortableContext id={id} items={tasks} strategy={verticalListSortingStrategy}>
