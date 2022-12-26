@@ -158,7 +158,7 @@ const KanbanContainer = () => {
             >
               {Object.keys(todolistKanban).map((columnId, idx) => (
                 <KanbanColumn key={idx}>
-                  <KanbanColumnHeader name={Object.keys(todolistKanban)[idx]} />
+                  <KanbanColumnHeader color={statusList[idx].color} name={statusList[idx].name} />
                   <KanbanColumnBody id={columnId} tasks={todolistKanban[columnId]} />
                   <KanbanColumnFooter id={statusList[idx].id} />
                 </KanbanColumn>

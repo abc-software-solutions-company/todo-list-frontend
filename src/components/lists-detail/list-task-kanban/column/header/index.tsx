@@ -4,8 +4,9 @@ import style from './style.module.scss';
 
 interface IKanbanColumnHeader {
   name: string;
+  color: string;
 }
-export default function KanbanColumnHeader({name}: IKanbanColumnHeader) {
+export default function KanbanColumnHeader({name, color}: IKanbanColumnHeader) {
   let normalizeName = '';
   switch (name) {
     case 'In-progress':
@@ -19,7 +20,9 @@ export default function KanbanColumnHeader({name}: IKanbanColumnHeader) {
   }
   return (
     <div className={style['kanban-column-header']}>
-      <p className="column-name">{normalizeName}</p>
+      <p className="column-name" style={{color}}>
+        {normalizeName}{' '}
+      </p>
     </div>
   );
 }
