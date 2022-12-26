@@ -25,6 +25,7 @@ const KanbanContainer = () => {
   const {todolistKanban, todolist, setTodolistKanban, statusList} = useTodolist();
   const [activeId, setActiveId] = useState<ITaskResponse>();
   const [statusActive, setStatusActive] = useState(0);
+  const [isDragToColumn, setIsDragToColumn] = useState(false);
 
   const sensors = useSensorGroup();
 
@@ -91,6 +92,7 @@ const KanbanContainer = () => {
       };
       setTodolistKanban(updatePosition(todolistKanban));
       setStatusActive(statusList.filter(e => e.name == overContainer)[0].id);
+      setIsDragToColumn(true);
     }
   };
 
@@ -101,13 +103,8 @@ const KanbanContainer = () => {
     }
     const taskKanbanActive = JSON.parse(active.id.toString());
 
-    if (active.id !== over.id) {
-      let taskKanbanOver;
-      try {
-        taskKanbanOver = JSON.parse(over.id.toString());
-      } catch {
-        taskKanbanOver = over.id;
-      }
+    if (active.id !== over.id && !isDragToColumn) {
+      const taskKanbanOver = JSON.parse(over.id.toString());
       console.log('Drag on the same column');
       const activeContainer = active.data.current?.sortable.containerId;
       const overContainer = over.data.current?.sortable.containerId || over.id;
@@ -142,6 +139,7 @@ const KanbanContainer = () => {
       const taskKanbanActive = JSON.parse(active.id.toString());
       apiUpdateTaskPosition(taskKanbanActive, null);
     }
+    setIsDragToColumn(false);
   };
 
   if (todolistKanban)
@@ -163,7 +161,13 @@ const KanbanContainer = () => {
                   <KanbanColumnFooter id={statusList[idx].id} />
                 </KanbanColumn>
               ))}
-              <DragOverlay>{activeId ? <KanbanTaskItem task={activeId} /> : null}</DragOverlay>
+              <DragOverlay>
+                {activeId ? (
+                  <div className="task-kanban-overlay list-none">
+                    <KanbanTaskItem task={activeId} />
+                  </div>
+                ) : null}
+              </DragOverlay>
             </DndContext>
           </div>
         </div>
