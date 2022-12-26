@@ -25,7 +25,10 @@ import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useTodolist from '@/states/todolist/use-todolist';
 import {IndexStep} from '@/utils/constant';
 
+import KanbanColumn from '../column';
+import KanbanColumnBody from '../column/body';
 import KanbanTaskItem from '../column/body/item';
+import KanbanColumnHeader from '../column/header';
 import style from './style.module.scss';
 
 interface IKanbanContainer {
@@ -33,7 +36,7 @@ interface IKanbanContainer {
 }
 
 const KanbanContainer = ({children}: IKanbanContainer) => {
-  const {todolistKanban, setTodolistKanban} = useTodolist();
+  const {todolistKanban, setTodolistKanban, statusList} = useTodolist();
   const [itemGroups, setItemGroups] = useState<any>(todolistKanban);
 
   const [activeId, setActiveId] = useState(null);
@@ -139,13 +142,22 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
             onDragOver={handleDragOver}
             onDragEnd={handleDragEnd}
           >
-            {children}
+            {Object.keys(todolistKanban).map((column, idx) => (
+              <>
+                <KanbanColumn key={idx}>
+                  <KanbanColumnHeader name={Object.keys(todolistKanban)[idx]} />
+                  <KanbanColumnBody id={column} tasks={itemGroups[column]} />
+                </KanbanColumn>
+              </>
+            ))}
             <DragOverlay>
               {activeId ? (
-                <KanbanTaskItem
-                  assigneeList={todolistKanban.members}
-                  task={todolistKanban.tasks!.filter(e => e.id === activeId)[0]}
-                />
+                // <KanbanTaskItem
+                //   assigneeList={todolistKanban.members}
+                //   task={todolistKanban.tasks!.filter(e => e.id === activeId)[0]}
+                // />
+                // <p>{'aaa'}</p>
+                <KanbanTaskItem task={activeId} />
               ) : null}
             </DragOverlay>
           </DndContext>

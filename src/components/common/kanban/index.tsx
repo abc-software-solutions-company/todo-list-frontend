@@ -6,7 +6,7 @@ import React, {useState} from 'react';
 
 import useTodolist from '@/states/todolist/use-todolist';
 
-import Droppable from './components/droppable';
+import KanbanColumn from './components/column';
 import Item from './components/item';
 import style from './style.module.scss';
 import {IHandleDragEnd, IHandleDragOver, IHandleDragStart} from './type';
@@ -123,7 +123,7 @@ function Kanban({data}: IKanbanProp) {
       <div className={style.container}>
         {Object.keys(todolistKanban).map(group => (
           <>
-            <Droppable id={group} items={itemGroups[group]} activeId={activeId} key={group} />
+            <KanbanColumn id={group} items={itemGroups[group]} key={group} />
           </>
         ))}
       </div>

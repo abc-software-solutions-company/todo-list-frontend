@@ -15,13 +15,13 @@ import KanbanTaskName from './task-name';
 import KanbanTaskThumbnail from './thumbnail';
 
 interface IKanbanTaskItem {
-  task: ITaskResponse;
+  task: any;
   assigneeList: IMember[];
 }
 
 const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
-  const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task.id});
-  const [showEdiDelete, setShowEditDelete] = useState<boolean>(false);
+  const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task});
+  // const [showEdiDelete, setShowEditDelete] = useState<boolean>(false);
 
   const styleDnd = {
     transform: CSS.Transform.toString(transform),
@@ -29,10 +29,11 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
     opacity: isDragging ? 0.5 : 1
   };
 
-  const onMouseOverTask = () => {
-    setShowEditDelete(true);
-  };
-  const onMouseOutTask = () => setShowEditDelete(false);
+  // const onMouseOverTask = () => {
+  //   setShowEditDelete(true);
+  // };
+  // const onMouseOutTask = () => setShowEditDelete(false);
+  const taskData = JSON.parse(task);
 
   return (
     <div
@@ -41,10 +42,10 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
       style={styleDnd}
       {...attributes}
       {...listeners}
-      onMouseOver={onMouseOverTask}
-      onMouseOut={onMouseOutTask}
+      // onMouseOver={onMouseOverTask}
+      // onMouseOut={onMouseOutTask}
     >
-      {task?.attachments?.length > 0 && <KanbanTaskThumbnail url={task.attachments[0].link} />}
+      {/* {task?.attachments?.length > 0 && <KanbanTaskThumbnail url={task.attachments[0].link} />}
       <div className={`action-edit-delete ${showEdiDelete ? 'block' : 'hidden'}`}>
         <KanbanTaskEditDelete task={task} />
       </div>
@@ -59,7 +60,8 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
           <KanbanTaskAssignee assignees={task.assignees} id={task.id} assigneeList={assigneeList} />
         </div>
       </div>
-      <div className="status-change"></div>
+      <div className="status-change"></div> */}
+      <p>{taskData.name}</p>
     </div>
   );
 };

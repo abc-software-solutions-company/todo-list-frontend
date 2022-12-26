@@ -7,36 +7,40 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 import useTodolist from '@/states/todolist/use-todolist';
 
 import KanbanTaskItem from './item';
+import KanbanTaskName from './item/task-name';
+import KanbanTaskThumbnail from './item/thumbnail';
 
 interface IKanbanColumnBody {
-  tasks: ITaskResponse[];
-  statusId: number;
+  // tasks: ITaskResponse[];
+  tasks: any;
+  id: any;
 }
 
-export default function KanbanColumnBody({tasks, statusId}: IKanbanColumnBody) {
+export default function KanbanColumnBody({id, tasks}: IKanbanColumnBody) {
   const {todolist} = useTodolist();
-  const {setNodeRef} = useDroppable({
-    id: statusId.toString()
-  });
 
   const {write} = useTodolist();
+  console.log('over here');
+
+  console.log(tasks);
 
   return (
     <div className="kanban-column">
       <div className="tasks">
-        {tasks && tasks.length > 0 && (
-          <>
-            <SortableContext
-              disabled={!write}
-              items={tasks.map(task => task.id)}
-              strategy={verticalListSortingStrategy}
-            >
-              {tasks.map(task => (
-                <KanbanTaskItem task={task} assigneeList={todolist.members} key={task.id} />
-              ))}
-            </SortableContext>
-          </>
-        )}
+        <>
+          <SortableContext id={id} disabled={!write} items={tasks} strategy={verticalListSortingStrategy}>
+            {tasks.map(task => (
+              <KanbanTaskItem task={task} assigneeList={todolist.members} key={task.id} />
+            ))}
+            {/* {tasks.map((task: React.Key | null | undefined) => (
+              <>
+                <div className="task-item">
+                  <p>{JSON.stringify(task)}</p>
+                </div>
+              </>
+            ))} */}
+          </SortableContext>
+        </>
       </div>
     </div>
   );
