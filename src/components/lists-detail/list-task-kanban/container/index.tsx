@@ -108,8 +108,9 @@ const KanbanContainer = () => {
       return;
     }
     const taskKanbanActive = JSON.parse(active.id.toString());
-    const taskKanbanOver = JSON.parse(over.id.toString());
+
     if (active.id !== over.id) {
+      const taskKanbanOver = JSON.parse(over.id.toString());
       console.log('Drag on the same column');
       const activeContainer = active.data.current?.sortable.containerId;
       const overContainer = over.data.current?.sortable.containerId || over.id;
