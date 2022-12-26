@@ -21,7 +21,7 @@ const todolistSlice = createSlice({
 
       payload.status.map(lists => {
         const columnData = {
-          [lists.name]: lists.tasks?.map(task => task.name)
+          [lists.name]: lists.tasks?.map(task => task.id)
         };
         Object.assign(dataKanban, columnData);
       });

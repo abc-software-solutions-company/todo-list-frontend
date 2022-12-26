@@ -2,6 +2,7 @@ import {useDroppable} from '@dnd-kit/core';
 import {SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import React from 'react';
 
+// import useTodolist from '@/states/todolist/use-todolist';
 import SortableItem from '../sortable-item';
 import style from './style.module.scss';
 
@@ -12,14 +13,19 @@ interface IDroppableProp {
 }
 
 const Droppable = ({id, items}: IDroppableProp) => {
+  // const {todolist} = useTodolist();
+
   const {setNodeRef} = useDroppable({id});
-  // console.log(items);
+  console.log(items);
 
   return (
     <SortableContext id={id} items={items} strategy={verticalListSortingStrategy}>
       <ul className={style.droppable} ref={setNodeRef}>
         {items.map((item: React.Key | null | undefined) => (
-          <SortableItem key={item} id={item} />
+          <>
+            <SortableItem key={item} id={item} />
+            {/* <p>{todolist.tasks.filter(e => e.id == item)[0].name}</p> */}
+          </>
         ))}
       </ul>
     </SortableContext>

@@ -1,7 +1,23 @@
-import {DndContext, DragEndEvent, DragOverlay, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
-import {arrayMove} from '@dnd-kit/sortable';
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable @typescript-eslint/no-shadow */
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverEvent,
+  DragOverlay,
+  DragStartEvent,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  UniqueIdentifier,
+  useSensor,
+  useSensors
+} from '@dnd-kit/core';
+import {arrayMove, sortableKeyboardCoordinates} from '@dnd-kit/sortable';
 import React, {ReactNode, useState} from 'react';
 
+import {IHandleDragStart} from '@/components/common/kanban/type';
+import {insertAtIndex, removeAtIndex} from '@/components/common/kanban/utils/array';
 import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
@@ -17,105 +33,118 @@ interface IKanbanContainer {
 }
 
 const KanbanContainer = ({children}: IKanbanContainer) => {
-  const sensors = useSensorGroup();
-  const {todolist, setTodolist, statusActive, setStatusActive} = useTodolist();
+  const {todolistKanban, setTodolistKanban} = useTodolist();
+  const [itemGroups, setItemGroups] = useState<any>(todolistKanban);
 
-  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const onDragStart = ({active}: DragStartEvent) => {
-    if (active) setActiveId(active.id);
+  const [activeId, setActiveId] = useState(null);
+
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates
+    })
+  );
+
+  const handleDragStart = ({active}: IHandleDragStart) => setActiveId(active.id);
+
+  const handleDragCancel = () => setActiveId(null);
+
+  const handleDragOver = ({active, over}: DragOverEvent) => {
+    // console.log(over?.data);
+
+    const overId = over?.id;
+
+    if (!overId) {
+      return;
+    }
+
+    const activeContainer = active.data.current?.sortable.containerId;
+    const overContainer = over.data.current?.sortable.containerId || over.id;
+
+    if (activeContainer !== overContainer) {
+      setItemGroups((todolistKanban: {[x: string]: string | any[]}) => {
+        const activeIndex = active.data.current?.sortable.index;
+        const overIndex =
+          over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
+
+        return moveBetweenContainers(todolistKanban, activeContainer, activeIndex, overContainer, overIndex, active.id);
+      });
+    }
   };
 
-  const onDragEnd = ({active, over}: DragEndEvent) => {
-    setActiveId(null);
-    const oldIndex = todolist.tasks?.findIndex(item => active.id === item.id);
-    const currentTask = todolist.tasks[oldIndex];
-    const newTodoList = {...todolist};
-
+  const handleDragEnd = ({active, over}: DragEndEvent) => {
     if (!over) {
-      console.log(statusActive);
-      const newData = todolist.tasks.map(e => {
-        if (e.name == currentTask.name) {
-          const {statusId, ...rest} = e;
-          return {statusId: statusActive, ...rest};
-        } else {
-          return e;
-        }
-      });
-      newTodoList.tasks = newData;
-      setTodolist(newTodoList as ITodolistResponse);
+      setActiveId(null);
+      return;
     }
 
-    if (!over) return;
+    if (active.id !== over.id) {
+      const activeContainer = active.data.current?.sortable.containerId;
+      const overContainer = over.data.current?.sortable.containerId || over.id;
+      const activeIndex = active.data.current?.sortable.index;
+      const overIndex =
+        over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
+      let newItems;
 
-    if (active.id !== over.id || statusActive !== 0) {
-      const newIndex = todolist.tasks?.findIndex(item => over.id === item.id);
-      const newStatusId = todolist.tasks[newIndex]?.statusId || over.id;
-      const arrangeTask = arrayMove(todolist.tasks, oldIndex, newIndex);
-
-      newTodoList.tasks = arrangeTask;
-      const newData = newTodoList.tasks.map(e => {
-        if (e.name == currentTask.name) {
-          const {statusId, ...rest} = e;
-          return {statusId: parseInt(newStatusId.toString()), ...rest};
-        } else {
-          return e;
-        }
-      });
-      newTodoList.tasks = newData;
-      setTodolist(newTodoList as ITodolistResponse);
-
-      arrangeTask.forEach((element, index) => {
-        if (element.id === active.id) {
-          let newTaskIndex: number | undefined;
-          let reindexAll = false;
-          const limitDifferenceIndex = 32;
-          const listIndex = todolist.tasks.map(e => e.index);
-          const maxIndex = Math.max(...listIndex);
-          const minIndex = Math.min(...listIndex);
-          const taskBefore = arrangeTask[index - 1];
-          const task = arrangeTask[index];
-          const taskAfter = arrangeTask[index + 1];
-          if (!taskBefore || !taskAfter) {
-            const taskNext = taskBefore || taskAfter;
-            const indexNext = Number(taskNext.index);
-            if (indexNext === minIndex) newTaskIndex = Math.round(minIndex / 2);
-            if (indexNext === maxIndex) newTaskIndex = maxIndex + IndexStep;
-            if (newTaskIndex && newTaskIndex <= limitDifferenceIndex) reindexAll = true;
-          } else {
-            const indexBefore = Number(taskBefore.index);
-            const indexAfter = Number(taskAfter.index);
-            newTaskIndex = Math.round((indexBefore + indexAfter) / 2);
-            if (Math.abs(taskBefore.index - taskAfter.index) < limitDifferenceIndex * 2) reindexAll = true;
-          }
-
-          const resetIndex = () => {
-            if (reindexAll) api.task.reindexAll({todolistId: todolist.id});
+      setItemGroups((todolistKanban: {[x: string]: any}) => {
+        if (activeContainer === overContainer) {
+          newItems = {
+            ...todolistKanban,
+            [overContainer]: arrayMove(todolistKanban[overContainer], activeIndex, overIndex)
           };
-
-          api.task
-            .update({id: task.id, index: newTaskIndex, statusId: parseInt(newStatusId.toString())})
-            .then(() => {
-              console.log('Drag kanban success');
-            })
-            .then(() => setStatusActive(0))
-            .then(socketUpdateList)
-            .then(resetIndex);
+        } else {
+          newItems = moveBetweenContainers(
+            todolistKanban,
+            activeContainer,
+            activeIndex,
+            overContainer,
+            overIndex,
+            active.id
+          );
         }
+
+        return newItems;
       });
     }
+
+    setActiveId(null);
+    setTodolistKanban(itemGroups);
+  };
+
+  const moveBetweenContainers = (
+    items: {[x: string]: any},
+    activeContainer: string | number,
+    activeIndex: any,
+    overContainer: string | number,
+    overIndex: any,
+    item: any
+  ) => {
+    return {
+      ...items,
+      [activeContainer]: removeAtIndex(items[activeContainer], activeIndex),
+      [overContainer]: insertAtIndex(items[overContainer], overIndex, item)
+    };
   };
 
   return (
     <>
       <div className={style['kanban-container']}>
         <div className="kanban-container-scroll">
-          <DndContext {...{sensors, onDragEnd, onDragStart}}>
+          <DndContext
+            autoScroll={true}
+            sensors={sensors}
+            onDragStart={handleDragStart}
+            onDragCancel={handleDragCancel}
+            onDragOver={handleDragOver}
+            onDragEnd={handleDragEnd}
+          >
             {children}
             <DragOverlay>
               {activeId ? (
                 <KanbanTaskItem
-                  assigneeList={todolist.members}
-                  task={todolist.tasks!.filter(e => e.id === activeId)[0]}
+                  assigneeList={todolistKanban.members}
+                  task={todolistKanban.tasks!.filter(e => e.id === activeId)[0]}
                 />
               ) : null}
             </DragOverlay>

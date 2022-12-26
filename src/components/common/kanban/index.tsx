@@ -121,9 +121,8 @@ function Kanban({data}: IKanbanProp) {
       onDragEnd={handleDragEnd}
     >
       <div className={style.container}>
-        {Object.keys(todolistKanban).map((group, idx) => (
+        {Object.keys(todolistKanban).map(group => (
           <>
-            {idx}
             <Droppable id={group} items={itemGroups[group]} activeId={activeId} key={group} />
           </>
         ))}
