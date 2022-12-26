@@ -17,7 +17,8 @@ import KanbanColumnHeader from '../column/header';
 import style from './style.module.scss';
 
 const KanbanContainer = () => {
-  const {todolistKanban, setTodolistKanban} = useTodolist();
+  const {todolistKanban, setTodolistKanban, setTaskKanbanActive, setTaskKanbanOver, statusList, setStatusActive} =
+    useTodolist();
   const [activeId, setActiveId] = useState<ITaskResponse>();
 
   const sensors = useSensorGroup();
@@ -47,6 +48,9 @@ const KanbanContainer = () => {
       };
 
       setTodolistKanban(updatePosition(todolistKanban));
+      setTaskKanbanActive(JSON.parse(active.id.toString()));
+      setTaskKanbanOver(JSON.parse(over.id.toString()));
+      setStatusActive(statusList.filter(e => e.name == overContainer)[0].id);
     }
   };
 
@@ -85,6 +89,9 @@ const KanbanContainer = () => {
       };
 
       setTodolistKanban(data1(todolistKanban));
+      setTaskKanbanActive(JSON.parse(active.id.toString()));
+      setTaskKanbanOver(JSON.parse(over.id.toString()));
+      setStatusActive(statusList.filter(e => e.name == activeContainer)[0].id);
     }
   };
 

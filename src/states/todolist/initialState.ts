@@ -16,6 +16,8 @@ const initialState: IInitialState = {
     error: null
   },
   todolistKanban: undefined,
+  taskKanbanActive: undefined,
+  taskKanbanOver: undefined,
   statusList: [],
   statusActive: 0,
   kanbanActive: false,

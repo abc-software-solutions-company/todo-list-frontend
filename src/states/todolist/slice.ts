@@ -17,6 +17,8 @@ const todolistSlice = createSlice({
     getTodolistSuccess: (state, {payload}: PayloadAction<ITodolistResponse>) => {
       state.todolist.loading = false;
       state.todolist.data = payload;
+      state.statusList = payload.status;
+
       const dataKanban = {};
 
       payload.status.map(lists => {
@@ -36,6 +38,12 @@ const todolistSlice = createSlice({
     },
     setTodolistKanban: (state, {payload}) => {
       state.todolistKanban = payload;
+    },
+    setTaskKanbanActive: (state, {payload}: PayloadAction<ITaskResponse>) => {
+      state.taskKanbanActive = payload;
+    },
+    setTaskKanbanOver: (state, {payload}: PayloadAction<ITaskResponse>) => {
+      state.taskKanbanOver = payload;
     },
     setStatusFilter: (state, {payload}: PayloadAction<number>) => {
       state.statusFilter = payload;

@@ -9,7 +9,8 @@ import {ISetIsOpenModalPayload} from './types';
 
 export default function useTodolist() {
   const todolistState = useSelector((root: RootState) => root.todolist);
-  const {todolist, statusList, todolistKanban, kanbanActive, statusActive, ...rest} = todolistState;
+  const {todolist, statusList, todolistKanban, kanbanActive, statusActive, taskKanbanActive, taskKanbanOver, ...rest} =
+    todolistState;
   const {data, ...restTodolist} = todolist;
   const auth = useStateAuth();
   const dispatch = useDispatch();
@@ -19,12 +20,15 @@ export default function useTodolist() {
   const getTodolist = (id: string) => dispatch(actions.getTodolistRequest({id}));
   const update = () => dispatch(actions.getTodolistRequest({id: data.id}));
   const setTodolist = (value: ITodolistResponse) => dispatch(actions.setTodolist(value));
-  const setTodolistKanban = (value: any) => dispatch(actions.setTodolistKanban(value));
   const setStatusFilter = (value: number) => dispatch(actions.setStatusFilter(value));
-  const setStatusActive = (value: number) => dispatch(actions.setStatusActive(value));
 
   const setSelectedTask = (value?: ITaskResponse) => dispatch(actions.setSelectedTask(value));
   const setIsOpenModal = (value: ISetIsOpenModalPayload) => dispatch(actions.setIsOpenModal(value));
+
+  const setTodolistKanban = (value: any) => dispatch(actions.setTodolistKanban(value));
+  const setStatusActive = (value: number) => dispatch(actions.setStatusActive(value));
+  const setTaskKanbanActive = (value: any) => dispatch(actions.setTaskKanbanActive(value));
+  const setTaskKanbanOver = (value: any) => dispatch(actions.setTaskKanbanOver(value));
 
   const assest = Boolean(data) ? data.visibility !== 'PRIVATE' || Boolean(auth && auth.id === data.userId) : false;
   const write = Boolean(data) ? data.visibility === 'PUBLIC' || Boolean(auth && auth.id === data.userId) : false;
@@ -35,6 +39,8 @@ export default function useTodolist() {
     statusList,
     statusActive,
     setStatusActive,
+    setTaskKanbanActive,
+    setTaskKanbanOver,
     todolistKanban,
     ...rest,
     ...restTodolist,
