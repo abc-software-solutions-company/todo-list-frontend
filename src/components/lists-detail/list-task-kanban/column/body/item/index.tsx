@@ -21,7 +21,7 @@ interface IKanbanTaskItem {
 
 const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task});
-  // const [showEdiDelete, setShowEditDelete] = useState<boolean>(false);
+  const [showEdiDelete, setShowEditDelete] = useState<boolean>(false);
 
   const styleDnd = {
     transform: CSS.Transform.toString(transform),
@@ -29,11 +29,12 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
     opacity: isDragging ? 0.5 : 1
   };
 
-  // const onMouseOverTask = () => {
-  //   setShowEditDelete(true);
-  // };
-  // const onMouseOutTask = () => setShowEditDelete(false);
+  const onMouseOverTask = () => {
+    setShowEditDelete(true);
+  };
+  const onMouseOutTask = () => setShowEditDelete(false);
   const taskData = JSON.parse(task);
+  console.log('🚀 ~ file: index.tsx:37 ~ KanbanTaskItem ~ taskData', taskData.createdDate);
 
   return (
     <li
@@ -42,26 +43,25 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
       style={styleDnd}
       {...attributes}
       {...listeners}
-      // onMouseOver={onMouseOverTask}
-      // onMouseOut={onMouseOutTask}
+      onMouseOver={onMouseOverTask}
+      onMouseOut={onMouseOutTask}
     >
-      {/* {task?.attachments?.length > 0 && <KanbanTaskThumbnail url={task.attachments[0].link} />}
+      {taskData?.attachments?.length > 0 && <KanbanTaskThumbnail url={taskData.attachments[0].link} />}
       <div className={`action-edit-delete ${showEdiDelete ? 'block' : 'hidden'}`}>
-        <KanbanTaskEditDelete task={task} />
+        <KanbanTaskEditDelete task={taskData} />
       </div>
-      <KanbanTaskName id={task.id} name={task.name} />
+      <KanbanTaskName id={taskData.id} name={taskData.name} />
       <div className="actions">
         <div className="left">
-          <KanbanTaskCreatedDate date={new Date(task.createdDate)} />
-          <KanbanTaskPriority priority={task.priority} taskId={task.id} />
+          <KanbanTaskCreatedDate date={new Date(taskData.createdDate)} />
+          <KanbanTaskPriority priority={taskData.priority} taskId={taskData.id} />
           <KanbanTaskStoryPoint point={5} />
         </div>
         <div className="right">
-          <KanbanTaskAssignee assignees={task.assignees} id={task.id} assigneeList={assigneeList} />
+          <KanbanTaskAssignee assignees={taskData.assignees} id={taskData.id} assigneeList={assigneeList} />
         </div>
       </div>
-      <div className="status-change"></div> */}
-      <p>{taskData.name}</p>
+      <div className="status-change"></div>
     </li>
   );
 };

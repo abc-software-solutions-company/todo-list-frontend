@@ -31,19 +31,24 @@ import KanbanTaskItem from '../column/body/item';
 import KanbanColumnHeader from '../column/header';
 import style from './style.module.scss';
 
-interface IKanbanContainer {
-  children: ReactNode;
-}
-
-const KanbanContainer = ({children}: IKanbanContainer) => {
-  const {todolistKanban, setTodolistKanban, statusList} = useTodolist();
-  const [itemGroups, setItemGroups] = useState<any>(todolistKanban);
+const KanbanContainer = () => {
+  const {todolistKanban, setTodolistKanban} = useTodolist();
+  const [columnGroups, setcolumnGroups] = useState<any>(todolistKanban);
 
   const [activeId, setActiveId] = useState(null);
 
   const sensors = useSensors(
-    useSensor(MouseSensor),
-    useSensor(TouchSensor),
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: {y: 10}
+      }
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: {y: 15, x: 5}
+      }
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates
     })
@@ -54,10 +59,7 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
   const handleDragCancel = () => setActiveId(null);
 
   const handleDragOver = ({active, over}: DragOverEvent) => {
-    // console.log(over?.data);
-
     const overId = over?.id;
-
     if (!overId) {
       return;
     }
@@ -66,7 +68,7 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
     const overContainer = over.data.current?.sortable.containerId || over.id;
 
     if (activeContainer !== overContainer) {
-      setItemGroups((todolistKanban: {[x: string]: string | any[]}) => {
+      setcolumnGroups((todolistKanban: {[x: string]: string | any[]}) => {
         const activeIndex = active.data.current?.sortable.index;
         const overIndex =
           over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
@@ -90,7 +92,7 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
         over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
       let newItems;
 
-      setItemGroups((todolistKanban: {[x: string]: any}) => {
+      setcolumnGroups((todolistKanban: {[x: string]: any}) => {
         if (activeContainer === overContainer) {
           newItems = {
             ...todolistKanban,
@@ -112,7 +114,7 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
     }
 
     setActiveId(null);
-    setTodolistKanban(itemGroups);
+    setTodolistKanban(columnGroups);
   };
 
   const moveBetweenContainers = (
@@ -142,24 +144,13 @@ const KanbanContainer = ({children}: IKanbanContainer) => {
             onDragOver={handleDragOver}
             onDragEnd={handleDragEnd}
           >
-            {Object.keys(todolistKanban).map((column, idx) => (
-              <>
-                <KanbanColumn key={idx}>
-                  {/* <KanbanColumnHeader name={Object.keys(todolistKanban)[idx]} /> */}
-                  <KanbanColumnBody id={column} tasks={itemGroups[column]} />
-                </KanbanColumn>
-              </>
+            {Object.keys(columnGroups).map((column, idx) => (
+              <KanbanColumn key={idx}>
+                <KanbanColumnHeader name={Object.keys(columnGroups)[idx]} />
+                <KanbanColumnBody id={column} tasks={columnGroups[column]} />
+              </KanbanColumn>
             ))}
-            <DragOverlay>
-              {activeId ? (
-                // <KanbanTaskItem
-                //   assigneeList={todolistKanban.members}
-                //   task={todolistKanban.tasks!.filter(e => e.id === activeId)[0]}
-                // />
-                // <p>{'aaa'}</p>
-                <KanbanTaskItem task={activeId} />
-              ) : null}
-            </DragOverlay>
+            <DragOverlay>{activeId ? <KanbanTaskItem task={activeId} /> : null}</DragOverlay>
           </DndContext>
         </div>
       </div>

@@ -25,6 +25,7 @@ const todolistSlice = createSlice({
         };
         Object.assign(dataKanban, columnData);
       });
+      // console.log(payload.status);
 
       state.todolistKanban = dataKanban;
     },
