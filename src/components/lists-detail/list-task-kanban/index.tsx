@@ -19,6 +19,9 @@ const ListTaskKanban = () => {
             <KanbanColumnFooter id={column.id} />
           </KanbanColumn>
         ))}
+        {/* {Object.keys(todolistKanban).map(group => (
+
+        ))} */}
       </KanbanContainer>
     );
 
