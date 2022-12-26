@@ -150,7 +150,6 @@ const KanbanContainer = () => {
         <div className={style['kanban-container']}>
           <div className="kanban-container-scroll">
             <DndContext
-              autoScroll={true}
               sensors={sensors}
               onDragStart={handleDragStart}
               onDragCancel={handleDragCancel}
