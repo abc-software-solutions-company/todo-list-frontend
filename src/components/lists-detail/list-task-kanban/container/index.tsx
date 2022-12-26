@@ -5,20 +5,19 @@ import {
   DragEndEvent,
   DragOverEvent,
   DragOverlay,
-  DragStartEvent,
   KeyboardSensor,
   MouseSensor,
   TouchSensor,
-  UniqueIdentifier,
   useSensor,
   useSensors
 } from '@dnd-kit/core';
 import {arrayMove, sortableKeyboardCoordinates} from '@dnd-kit/sortable';
-import React, {ReactNode, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import {IHandleDragStart} from '@/components/common/kanban/type';
-import {insertAtIndex, removeAtIndex} from '@/components/common/kanban/utils/array';
+import {insertAtIndex, moveBetweenContainers, removeAtIndex} from '@/components/common/kanban/utils/array';
 import api from '@/data/api';
+import {ITaskResponse} from '@/data/api/types/task.type';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
@@ -32,7 +31,7 @@ import KanbanColumnHeader from '../column/header';
 import style from './style.module.scss';
 
 const KanbanContainer = () => {
-  const {todolistKanban, setTodolistKanban, loading} = useTodolist();
+  const {todolistKanban, setTodolistKanban} = useTodolist();
   // const [columnGroups, setcolumnGroups] = useState<any>(todolistKanban);
   const [activeId, setActiveId] = useState(null);
 
@@ -67,7 +66,7 @@ const KanbanContainer = () => {
     const overContainer = over.data.current?.sortable.containerId || over.id;
 
     if (activeContainer !== overContainer) {
-      const data2 = (todolistKanban: {[x: string]: string | any[]}) => {
+      const updateState = (todolistKanban: {[x: string]: string | any[]}) => {
         const activeIndex = active.data.current?.sortable.index;
         const overIndex =
           over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
@@ -75,7 +74,7 @@ const KanbanContainer = () => {
         return moveBetweenContainers(todolistKanban, activeContainer, activeIndex, overContainer, overIndex, active.id);
       };
 
-      setTodolistKanban(data2(todolistKanban));
+      setTodolistKanban(updateState(todolistKanban));
     }
   };
 
@@ -84,50 +83,10 @@ const KanbanContainer = () => {
       setActiveId(null);
       return;
     }
-
-    if (active.id !== over.id) {
-      const activeContainer = active.data.current?.sortable.containerId;
-      const overContainer = over.data.current?.sortable.containerId || over.id;
-      const activeIndex = active.data.current?.sortable.index;
-      const overIndex =
-        over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
-      let newItems;
-      const data1 = (todolistKanban: {[x: string]: any}) => {
-        if (activeContainer === overContainer) {
-          newItems = {
-            ...todolistKanban,
-            [overContainer]: arrayMove(todolistKanban[overContainer], activeIndex, overIndex)
-          };
-        } else {
-          newItems = moveBetweenContainers(
-            todolistKanban,
-            activeContainer,
-            activeIndex,
-            overContainer,
-            overIndex,
-            active.id
-          );
-        }
-
-        return newItems;
-      };
-      setTodolistKanban(data1(todolistKanban));
-    }
-  };
-
-  const moveBetweenContainers = (
-    items: {[x: string]: any},
-    activeContainer: string | number,
-    activeIndex: any,
-    overContainer: string | number,
-    overIndex: any,
-    item: any
-  ) => {
-    return {
-      ...items,
-      [activeContainer]: removeAtIndex(items[activeContainer], activeIndex),
-      [overContainer]: insertAtIndex(items[overContainer], overIndex, item)
-    };
+    console.log('Active ID');
+    console.log(JSON.parse(active?.id.toString()));
+    console.log('Over ID');
+    console.log(JSON.parse(over?.id.toString()));
   };
 
   if (todolistKanban)

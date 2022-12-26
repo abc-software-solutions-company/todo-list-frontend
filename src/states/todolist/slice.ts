@@ -33,12 +33,9 @@ const todolistSlice = createSlice({
     },
     setTodolist: (state, {payload}: PayloadAction<ITodolistResponse>) => {
       state.todolist.data = payload;
-      console.log('Set local state in todolist-setTodolist actions');
     },
     setTodolistKanban: (state, {payload}) => {
       state.todolistKanban = payload;
-      console.log('set to do list in kanban');
-      console.log(payload);
     },
     setStatusFilter: (state, {payload}: PayloadAction<number>) => {
       state.statusFilter = payload;

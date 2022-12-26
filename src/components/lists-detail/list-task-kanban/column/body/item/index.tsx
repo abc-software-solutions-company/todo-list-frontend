@@ -3,6 +3,7 @@ import {CSS} from '@dnd-kit/utilities';
 import React, {useState} from 'react';
 
 import {IMember} from '@/data/api/types/todolist.type';
+import useTodolist from '@/states/todolist/use-todolist';
 
 import KanbanTaskAssignee from './assignee';
 import KanbanTaskCreatedDate from './created-date';
@@ -15,12 +16,12 @@ import KanbanTaskThumbnail from './thumbnail';
 
 interface IKanbanTaskItem {
   task: any;
-  assigneeList: IMember[];
 }
 
-const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
+const KanbanTaskItem = ({task}: IKanbanTaskItem) => {
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task});
   const [showEdiDelete, setShowEditDelete] = useState<boolean>(false);
+  const {todolist} = useTodolist();
 
   const styleDnd = {
     transform: CSS.Transform.toString(transform),
@@ -56,7 +57,7 @@ const KanbanTaskItem = ({task, assigneeList}: IKanbanTaskItem) => {
           <KanbanTaskStoryPoint point={5} />
         </div>
         <div className="right">
-          <KanbanTaskAssignee assignees={taskData.assignees} id={taskData.id} assigneeList={assigneeList} />
+          <KanbanTaskAssignee assignees={taskData.assignees} id={taskData.id} assigneeList={todolist.members} />
         </div>
       </div>
       <div className="status-change"></div>

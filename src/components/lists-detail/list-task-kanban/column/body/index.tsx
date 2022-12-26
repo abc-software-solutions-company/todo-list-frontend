@@ -28,10 +28,10 @@ export default function KanbanColumnBody({id, tasks}: IKanbanColumnBody) {
   return (
     <SortableContext id={id} items={tasks} strategy={verticalListSortingStrategy}>
       <ul className={style.droppable} ref={setNodeRef}>
-        {tasks.map((task: React.Key | null | undefined) => (
+        {tasks.map((task: React.Key | null | undefined, idx: React.Key | null | undefined) => (
           <>
             {/* <SortableItem key={item} id={item} /> */}
-            <KanbanTaskItem task={task} />
+            <KanbanTaskItem key={idx} task={task} />
           </>
         ))}
       </ul>
