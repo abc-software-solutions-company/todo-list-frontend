@@ -1,0 +1,6 @@
+.kanban-task-assignee :global {
+  .MuiAutocomplete-root {
+    @apply z-20 w-[218px] bg-white;
+    @apply -ml-24 mt-8 lg:ml-0;
+  }
+}

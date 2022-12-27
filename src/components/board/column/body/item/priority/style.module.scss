@@ -1,0 +1,9 @@
+.kanban-task-priority {
+  @apply h-[30px];
+  svg {
+    @apply hidden;
+  }
+  i {
+    @apply -ml-3;
+  }
+}
