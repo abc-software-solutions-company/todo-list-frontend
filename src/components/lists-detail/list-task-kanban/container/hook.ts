@@ -14,7 +14,6 @@ export default function useKanbanContainer() {
   const {todolistKanban, todolist, setTodolistKanban, statusList} = useTodolist();
   const [activeId, setActiveId] = useState<ITaskResponse>();
   const [statusActive, setStatusActive] = useState(0);
-  const [isDragToColumn, setIsDragToColumn] = useState(false);
 
   const sensors = useSensorGroup();
 
@@ -81,7 +80,6 @@ export default function useKanbanContainer() {
       };
       setTodolistKanban(updatePosition(todolistKanban));
       setStatusActive(statusList.filter(e => e.name == overContainer)[0].id);
-      setIsDragToColumn(true);
     }
   };
 
@@ -92,7 +90,7 @@ export default function useKanbanContainer() {
     }
     const taskKanbanActive = JSON.parse(active.id.toString());
 
-    if (active.id !== over.id && !isDragToColumn) {
+    if (active.id !== over.id) {
       const taskKanbanOver = JSON.parse(over.id.toString());
       console.log('Drag on the same column');
       const activeContainer = active.data.current?.sortable.containerId;
@@ -128,7 +126,6 @@ export default function useKanbanContainer() {
       const taskKanbanActive = JSON.parse(active.id.toString());
       apiUpdateTaskPosition(taskKanbanActive, null);
     }
-    setIsDragToColumn(false);
   };
 
   return {sensors, handleDragStart, handleDragCancel, handleDragEnd, handleDragOver, activeId};
