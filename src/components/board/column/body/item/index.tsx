@@ -5,7 +5,6 @@ import React, {useState} from 'react';
 import {ITaskResponse} from '@/data/api/types/task.type';
 
 // import useTodolist from '@/states/todolist/use-todolist';
-import KanbanTaskAssignee from './assignee';
 import KanbanTaskCreatedDate from './created-date';
 import KanbanTaskEditDelete from './edit-delete';
 import KanbanTaskPriority from './priority';

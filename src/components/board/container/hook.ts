@@ -8,9 +8,8 @@ import useBoards from '@/states/board/use-boards';
 import {arrayMove, moveBetweenContainers} from '@/utils/kanban/array';
 
 export default function useKanbanContainer() {
-  const {boardData, statusList, setBoard} = useBoards();
+  const {boardData, setBoard} = useBoards();
   const [activeId, setActiveId] = useState<ITaskResponse>();
-  const [statusActive, setStatusActive] = useState(0);
 
   const sensors = useSensorGroup();
 
@@ -76,7 +75,6 @@ export default function useKanbanContainer() {
         return moveBetweenContainers(todolistKanban, activeContainer, activeIndex, overContainer, overIndex, active.id);
       };
       setBoard(updatePosition(boardData));
-      setStatusActive(statusList.filter(e => e.name == overContainer)[0].id);
     }
   };
 
@@ -85,10 +83,10 @@ export default function useKanbanContainer() {
       setActiveId(undefined);
       return;
     }
-    const taskKanbanActive = JSON.parse(active.id.toString());
+    // const taskKanbanActive = JSON.parse(active.id.toString());
 
     if (active.id !== over.id) {
-      const taskKanbanOver = JSON.parse(over.id.toString());
+      // const taskKanbanOver = JSON.parse(over.id.toString());
       console.log('Drag on the same column');
       const activeContainer = active.data.current?.sortable.containerId;
       const overContainer = over.data.current?.sortable.containerId || over.id;
@@ -116,10 +114,10 @@ export default function useKanbanContainer() {
       };
 
       setBoard(updatePosition(boardData));
-      setStatusActive(statusList.filter(e => e.name == activeContainer)[0].id);
+      // setStatusActive(statusList.filter(e => e.name == activeContainer)[0].id);
       // apiUpdateTaskPosition(taskKanbanActive, taskKanbanOver);
     } else {
-      const taskKanbanActive = JSON.parse(active.id.toString());
+      // const taskKanbanActive = JSON.parse(active.id.toString());
       // apiUpdateTaskPosition(taskKanbanActive, null);
     }
   };

@@ -1,6 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
 
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {useStateAuth} from '@/states/auth';
 import {boardSlice, RootState} from '@/states/store';
 
@@ -17,7 +16,7 @@ export default function useBoards() {
 
   const getBoard = (id: string) => dispatch(actions.getBoardRequest({id}));
   const update = () => dispatch(actions.getBoardRequest({id: data.id}));
-  const setBoard = (value: ITodolistResponse) => dispatch(actions.setBoard(value));
+  const setBoard = (value: any) => dispatch(actions.setBoard(value));
   const setStatusFilter = (value: number) => dispatch(actions.setStatusFilter(value));
 
   const setIsOpenModal = (value: ISetIsOpenModalPayload) => dispatch(actions.setIsOpenModal(value));
