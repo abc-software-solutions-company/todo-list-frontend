@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import {DragEndEvent, DragOverEvent, DragStartEvent} from '@dnd-kit/core';
 import {useEffect, useState} from 'react';
+import {number} from 'yup';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {IStatus} from '@/data/api/types/todolist.type';
@@ -23,7 +24,7 @@ export default function useKanbanContainer() {
   };
 
   const [boardState, setBoardState] = useState(() => mapDataKanban(statusList));
-  const [taskActive, setTaskActive] = useState<ITaskResponse>();
+  const [taskActive, setTaskActive] = useState<ITaskResponse | any>();
 
   useEffect(() => {
     setBoardState(() => mapDataKanban(statusList));
@@ -74,15 +75,46 @@ export default function useKanbanContainer() {
   const handleDragCancel = () => setTaskActive(undefined);
 
   const handleDragOver = ({active, over}: DragOverEvent) => {
-    console.log('🚀 ~ file: hook.ts:77 ~ handleDragOver ~ over', over);
-    console.log('🚀 ~ file: hook.ts:77 ~ handleDragOver ~ active', active);
+    // console.log('🚀 ~ file: hook.ts:77 ~ handleDragOver ~ over', over?.data);
+    // console.log('🚀 ~ file: hook.ts:77 ~ handleDragOver ~ active', active.data);
 
-    // const overId = over?.id;
-    // if (!overId) {
-    //   return;
-    // }
-    // const activeContainer = active.data.current?.sortable.containerId;
-    // const overContainer = over.data.current?.sortable.containerId || over.id;
+    const overId = over?.id;
+    if (!overId) {
+      return;
+    }
+    const activeContainer = active.data?.current?.statusId;
+    const overContainer = over.data?.current?.statusId || over.id;
+    console.log(`Active Column is ${active.data?.current?.statusId}`);
+    console.log(`Over Column is ${over.data?.current?.statusId || over.id}`);
+
+    if (activeContainer !== overContainer) {
+      console.log('Drag to other column');
+      console.log(`Find active index  `);
+      // console.log(active.data?.current?.sortable.index);
+      // const overIndex =
+      //   over.id in boardState ? boardState[Number(overContainer)].length + 1 : over.data.current?.sortable.index;
+      // console.log('🚀 ~ file: hook.ts:95 ~ handleDragOver ~ overIndex', overIndex);
+      const activeIndex = active.data.current?.sortable.index;
+      const overIndex =
+        over.id in boardState ? boardState[overContainer].length + 1 : over.data.current?.sortable?.index;
+      const placeholderData = () => {
+        return moveBetweenContainers(
+          boardState,
+          activeContainer,
+          activeIndex,
+          overContainer,
+          overIndex,
+          active.data.current
+        );
+      };
+
+      console.log('🚀 ~ file: hook.ts:101 ~ placeholderData ~ placeholderData', placeholderData());
+      setBoardState(placeholderData());
+
+      // setBoardState(() => {
+      //   return moveBetweenContainers(boardState, activeContainer, activeIndex, overContainer, overIndex, active);
+      // });
+    }
     // if (activeContainer !== overContainer) {
     //   console.log('Drag to other column');
     //   const updatePosition = (todolistKanban: {[x: string]: string | any[]}) => {
@@ -96,13 +128,12 @@ export default function useKanbanContainer() {
   };
 
   const handleDragEnd = ({active, over}: DragEndEvent) => {
-    console.log('🚀 ~ file: hook.ts:99 ~ handleDragEnd ~ over', over);
-    console.log('🚀 ~ file: hook.ts:99 ~ handleDragEnd ~ active', active);
-    // if (!over) {
-    //   setTaskActive(undefined);
-    //   return;
-    // }
-    // const taskKanbanActive = JSON.parse(active.id.toString());
+    console.log('🚀 ~ file: hook.ts:99 ~ handleDragEnd ~ over', over?.data);
+    console.log('🚀 ~ file: hook.ts:99 ~ handleDragEnd ~ active', active.data);
+    if (!over) {
+      setTaskActive(undefined);
+      return;
+    }
     // if (active.id !== over.id) {
     //   // const taskKanbanOver = JSON.parse(over.id.toString());
     //   console.log('Drag on the same column');

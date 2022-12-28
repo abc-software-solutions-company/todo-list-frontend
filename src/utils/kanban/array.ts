@@ -20,6 +20,8 @@ export const moveBetweenContainers = (
   overIndex: any,
   item: any
 ) => {
+  console.log('🚀 ~ file: array.ts:23 ~ items', items);
+
   return {
     ...items,
     [activeContainer]: removeAtIndex(items[activeContainer], activeIndex),
