@@ -1,3 +1,5 @@
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
+
 import {IInitialState} from './types';
 
 export const isOpenModal = {
@@ -10,7 +12,7 @@ export const isOpenModal = {
 const initialState: IInitialState = {
   board: {
     loading: false,
-    data: [],
+    data: [undefined] as unknown as ITodolistResponse,
     error: false
   },
   statusList: [],

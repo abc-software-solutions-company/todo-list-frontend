@@ -15,6 +15,7 @@ const boardSlice = createSlice({
     },
     getBoardSuccess: (state, {payload}: PayloadAction<ITodolistResponse>) => {
       state.board.loading = false;
+      state.board.data = payload;
       state.statusList = payload.status;
     },
     getBoardFailure: (state, {payload}) => {
@@ -23,7 +24,7 @@ const boardSlice = createSlice({
     },
 
     setBoard: (state, {payload}) => {
-      state.board.data = payload;
+      state.statusList = payload;
     },
     setStatusFilter: (state, {payload}: PayloadAction<number>) => {
       state.statusFilter = payload;

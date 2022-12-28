@@ -1,6 +1,6 @@
 import {PayloadAction} from '@reduxjs/toolkit';
 
-import {IStatus} from '@/data/api/types/todolist.type';
+import {IStatus, ITodolistResponse} from '@/data/api/types/todolist.type';
 
 import {isOpenModal} from './initialState';
 
@@ -15,7 +15,7 @@ export type ISetIsOpenModalPayload = keyof typeof isOpenModal | null;
 export interface IInitialState {
   board: {
     loading: boolean;
-    data: any;
+    data: ITodolistResponse;
     error: boolean;
   };
   statusList: IStatus[];

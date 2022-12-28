@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Icon from '@/core-ui/icon';
+import useBoards from '@/states/board/use-boards';
 import useModals from '@/states/modals/use-modals';
-import useTodolist from '@/states/todolist/use-todolist';
 
 import style from './style.module.scss';
 
@@ -11,17 +11,17 @@ interface IKanbanColumnFooter {
 }
 
 export default function KanbanColumnFooter({id}: IKanbanColumnFooter) {
-  const {setStatusActive, todolist} = useTodolist();
+  const {boardData} = useBoards();
   const {setIsOpenModal, setSelectedTodolist, setSelectedColumnId} = useModals();
 
   const onAddTask = (columnId: number) => {
-    setSelectedTodolist(todolist);
+    setSelectedTodolist(boardData);
     setIsOpenModal('createTask');
     setSelectedColumnId(columnId);
   };
 
   return (
-    <div className={style['kanban-column-footer']} onMouseLeave={() => setStatusActive(id)}>
+    <div className={style['kanban-column-footer']}>
       <Icon name="ico-plus-circle" className="btn-add-task" onClick={() => onAddTask(id)} />
     </div>
   );
