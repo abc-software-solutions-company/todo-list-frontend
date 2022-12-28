@@ -7,28 +7,15 @@ import initialState, {isOpenModal} from './initialState';
 import {IGetBoardPayloadAction, ISetIsOpenModalPayload} from './types';
 
 const boardSlice = createSlice({
-  name: 'board-',
+  name: 'board',
   initialState,
   reducers: {
     getBoardRequest: (state, {payload}: IGetBoardPayloadAction) => {
       state.board.loading = true;
     },
     getBoardSuccess: (state, {payload}: PayloadAction<ITodolistResponse>) => {
-      console.log('🚀 ~ file: slice.ts:17 ~ payload', payload);
-      console.log('run getBoardSuccess');
-
       state.board.loading = false;
       state.statusList = payload.status;
-
-      const dataKanban = {};
-
-      payload.status.map(lists => {
-        const columnData = {
-          [lists.name]: lists.tasks?.map(e => JSON.stringify(e))
-        };
-        Object.assign(dataKanban, columnData);
-      });
-      state.board.data = dataKanban;
     },
     getBoardFailure: (state, {payload}) => {
       state.board.loading = false;

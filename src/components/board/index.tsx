@@ -14,7 +14,7 @@ export interface Iprops {
 const KanbanDetail: FC<Iprops> = ({id}) => {
   const auth = useStateAuth();
 
-  const {boardData, getBoard} = useBoards();
+  const {getBoard} = useBoards();
 
   useEffect(() => {
     if (auth) {
@@ -39,7 +39,6 @@ const KanbanDetail: FC<Iprops> = ({id}) => {
     };
   }, [auth]);
 
-  if (!boardData) return null;
   return <KanbanContainer />;
 };
 

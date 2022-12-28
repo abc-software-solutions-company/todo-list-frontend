@@ -9,20 +9,18 @@ import KanbanTaskItem from './item';
 import style from './style.module.scss';
 
 interface IKanbanColumnBody {
-  tasks: ITaskResponse[];
+  tasks?: ITaskResponse[];
   id: string;
 }
 
-export default function KanbanColumnBody({id, tasks}: IKanbanColumnBody) {
+export default function KanbanColumnBody({id, tasks = []}: IKanbanColumnBody) {
   const {setNodeRef} = useDroppable({id});
 
   return (
     <SortableContext id={id} items={tasks} strategy={verticalListSortingStrategy}>
       <ul className={style.droppable} ref={setNodeRef}>
         {tasks.map((task, idx: number) => (
-          <>
-            <KanbanTaskItem key={idx} task={task} />
-          </>
+          <KanbanTaskItem key={idx} task={task} />
         ))}
       </ul>
     </SortableContext>

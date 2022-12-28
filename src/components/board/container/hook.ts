@@ -1,15 +1,33 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import {DragEndEvent, DragOverEvent} from '@dnd-kit/core';
-import {useState} from 'react';
+import {DragEndEvent, DragOverEvent, DragStartEvent} from '@dnd-kit/core';
+import {useEffect, useState} from 'react';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
+import {IStatus} from '@/data/api/types/todolist.type';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useBoards from '@/states/board/use-boards';
 import {arrayMove, moveBetweenContainers} from '@/utils/kanban/array';
 
 export default function useKanbanContainer() {
-  const {boardData, setBoard} = useBoards();
-  const [activeId, setActiveId] = useState<ITaskResponse>();
+  const {boardData, setBoard, statusList} = useBoards();
+
+  const mapDataKanban = (statusList: IStatus[]) => {
+    const boardDataMap: {[x: number]: ITaskResponse[]} = {};
+    statusList.map(lists => {
+      const columnData = {
+        [lists.id]: lists.tasks
+      };
+      Object.assign(boardDataMap, columnData);
+    });
+    return boardDataMap;
+  };
+
+  const [boardState, setBoardState] = useState(() => mapDataKanban(statusList));
+  const [taskActive, setTaskActive] = useState<ITaskResponse>();
+
+  useEffect(() => {
+    setBoardState(() => mapDataKanban(statusList));
+  }, [statusList]);
 
   const sensors = useSensorGroup();
 
@@ -51,76 +69,84 @@ export default function useKanbanContainer() {
   //     .then(resetIndex);
   // };
 
-  const handleDragStart = ({active}: any) => setActiveId(active.id);
+  const handleDragStart = ({active}: DragStartEvent) => setTaskActive(active.data.current);
 
-  const handleDragCancel = () => setActiveId(undefined);
+  const handleDragCancel = () => setTaskActive(undefined);
 
   const handleDragOver = ({active, over}: DragOverEvent) => {
-    const overId = over?.id;
-    if (!overId) {
-      return;
-    }
+    console.log('🚀 ~ file: hook.ts:77 ~ handleDragOver ~ over', over);
+    console.log('🚀 ~ file: hook.ts:77 ~ handleDragOver ~ active', active);
 
-    const activeContainer = active.data.current?.sortable.containerId;
-    const overContainer = over.data.current?.sortable.containerId || over.id;
-
-    if (activeContainer !== overContainer) {
-      console.log('Drag to other column');
-
-      const updatePosition = (todolistKanban: {[x: string]: string | any[]}) => {
-        const activeIndex = active.data.current?.sortable.index;
-        const overIndex =
-          over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
-
-        return moveBetweenContainers(todolistKanban, activeContainer, activeIndex, overContainer, overIndex, active.id);
-      };
-      setBoard(updatePosition(boardData));
-    }
+    // const overId = over?.id;
+    // if (!overId) {
+    //   return;
+    // }
+    // const activeContainer = active.data.current?.sortable.containerId;
+    // const overContainer = over.data.current?.sortable.containerId || over.id;
+    // if (activeContainer !== overContainer) {
+    //   console.log('Drag to other column');
+    //   const updatePosition = (todolistKanban: {[x: string]: string | any[]}) => {
+    //     const activeIndex = active.data.current?.sortable.index;
+    //     const overIndex =
+    //       over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
+    //     return moveBetweenContainers(todolistKanban, activeContainer, activeIndex, overContainer, overIndex, active.id);
+    //   };
+    //   setBoardState(updatePosition(boardState));
+    // }
   };
 
   const handleDragEnd = ({active, over}: DragEndEvent) => {
-    if (!over) {
-      setActiveId(undefined);
-      return;
-    }
+    console.log('🚀 ~ file: hook.ts:99 ~ handleDragEnd ~ over', over);
+    console.log('🚀 ~ file: hook.ts:99 ~ handleDragEnd ~ active', active);
+    // if (!over) {
+    //   setTaskActive(undefined);
+    //   return;
+    // }
     // const taskKanbanActive = JSON.parse(active.id.toString());
-
-    if (active.id !== over.id) {
-      // const taskKanbanOver = JSON.parse(over.id.toString());
-      console.log('Drag on the same column');
-      const activeContainer = active.data.current?.sortable.containerId;
-      const overContainer = over.data.current?.sortable.containerId || over.id;
-      const activeIndex = active.data.current?.sortable.index;
-      const overIndex = over.id in boardData ? boardData[overContainer].length + 1 : over.data.current?.sortable.index;
-      let newItems;
-      const updatePosition = (todolistKanban: {[x: string]: any}) => {
-        if (activeContainer === overContainer) {
-          newItems = {
-            ...todolistKanban,
-            [overContainer]: arrayMove(todolistKanban[overContainer], activeIndex, overIndex)
-          };
-        } else {
-          newItems = moveBetweenContainers(
-            todolistKanban,
-            activeContainer,
-            activeIndex,
-            overContainer,
-            overIndex,
-            active.id
-          );
-        }
-
-        return newItems;
-      };
-
-      setBoard(updatePosition(boardData));
-      // setStatusActive(statusList.filter(e => e.name == activeContainer)[0].id);
-      // apiUpdateTaskPosition(taskKanbanActive, taskKanbanOver);
-    } else {
-      // const taskKanbanActive = JSON.parse(active.id.toString());
-      // apiUpdateTaskPosition(taskKanbanActive, null);
-    }
+    // if (active.id !== over.id) {
+    //   // const taskKanbanOver = JSON.parse(over.id.toString());
+    //   console.log('Drag on the same column');
+    //   const activeContainer = active.data.current?.sortable.containerId;
+    //   const overContainer = over.data.current?.sortable.containerId || over.id;
+    //   const activeIndex = active.data.current?.sortable.index;
+    //   const overIndex = over.id in boardData ? boardData[overContainer].length + 1 : over.data.current?.sortable.index;
+    //   let newItems;
+    //   const updatePosition = (todolistKanban: {[x: string]: any}) => {
+    //     if (activeContainer === overContainer) {
+    //       newItems = {
+    //         ...todolistKanban,
+    //         [overContainer]: arrayMove(todolistKanban[overContainer], activeIndex, overIndex)
+    //       };
+    //     } else {
+    //       newItems = moveBetweenContainers(
+    //         todolistKanban,
+    //         activeContainer,
+    //         activeIndex,
+    //         overContainer,
+    //         overIndex,
+    //         active.id
+    //       );
+    //     }
+    //     return newItems;
+    //   };
+    //   setBoardState(updatePosition(boardState));
+    //   setBoard(updatePosition(boardState));
+    //   // setStatusActive(statusList.filter(e => e.name == activeContainer)[0].id);
+    //   // apiUpdateTaskPosition(taskKanbanActive, taskKanbanOver);
+    // } else {
+    //   // const taskKanbanActive = JSON.parse(active.id.toString());
+    //   // apiUpdateTaskPosition(taskKanbanActive, null);
+    // }
   };
 
-  return {sensors, handleDragStart, handleDragCancel, handleDragEnd, handleDragOver, activeId};
+  return {
+    boardData: boardState,
+    sensors,
+    statusList,
+    handleDragStart,
+    handleDragCancel,
+    handleDragEnd,
+    handleDragOver,
+    taskActive
+  };
 }
