@@ -33,7 +33,7 @@ const KanbanContainer = () => {
               <KanbanColumn key={columnId}>
                 <KanbanColumnHeader name={columnId} color={'red'} />
                 <KanbanColumnBody id={columnId} tasks={boardData[Number(columnId)]} />
-                {/* <KanbanColumnFooter id={Number(columnId)} /> */}
+                <KanbanColumnFooter id={Number(columnId)} />
               </KanbanColumn>
             );
           })}

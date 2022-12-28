@@ -39,7 +39,7 @@ export default function useKanbanContainer() {
 
   const apiUpdateTaskStatus = (task: ITaskResponse) => {
     console.log('update task');
-    // api.task.update({id: task.id, statusId: task.statusId}).then(() => console.log('Update task column success'));
+    api.task.update({id: task.id, statusId: task.statusId}).then(() => console.log('Update task column success'));
   };
 
   const handleDragOver = ({active, over}: DragOverEvent) => {
@@ -68,24 +68,18 @@ export default function useKanbanContainer() {
       const activeContainer = active.data.current?.statusId || active.id;
       const overContainer = over.data.current?.statusId || over.id;
       const activeIndex = active.data.current?.sortable.index;
-      const activeItem = active.data.current as ITaskResponse;
+      const {id, statusId} = active.data.current as ITaskResponse;
       const overIndex = over.data.current?.sortable.index;
 
-      if (activeContainer === overContainer) {
+      if (activeContainer !== overContainer)
         setBoardState({
           ...boardState,
           [overContainer]: arrayMove(boardState[overContainer], activeIndex, overIndex)
         });
-        console.log('on the same column');
-      } else {
-        const kanbanData = moveBetweenContainers(boardState, activeContainer, activeItem, overContainer, overIndex);
-        setBoardState(kanbanData);
-        console.log('on the other column');
-        // apiUpdateTaskStatus(active.data);
-        /* Updating the task status in the database. */
-        const taskToUpdate = active.data as unknown as ITaskResponse;
-        apiUpdateTaskStatus(taskToUpdate);
-      }
+      console.log('on the same column');
+      api.task.update({id, statusId}).then(() => {
+        console.log('Update status task success');
+      });
     }
   };
 

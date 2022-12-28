@@ -1,5 +1,3 @@
-import {arrayMove as dndKitArrayMove} from '@dnd-kit/sortable';
-
 import {ITaskResponse} from '@/data/api/types/task.type';
 
 export const removeItem = (column: ITaskResponse[], item: ITaskResponse) => {
@@ -11,10 +9,6 @@ export const insertItem = (column: ITaskResponse[], item: ITaskResponse, order =
   const arr2 = column.slice(order);
   item.statusId = statusId;
   return [...arr1, item, ...arr2];
-};
-
-export const arrayMove = (array: any, oldIndex: number, newIndex: number) => {
-  return dndKitArrayMove(array, oldIndex, newIndex);
 };
 
 export const moveBetweenContainers = (
