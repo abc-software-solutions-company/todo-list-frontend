@@ -13,7 +13,7 @@ export const insertItem = (column: ITaskResponse[], item: ITaskResponse, order =
   return [...arr1, item, ...arr2];
 };
 
-export const arrayMove = (array: any, oldIndex: any, newIndex: any) => {
+export const arrayMove = (array: any, oldIndex: number, newIndex: number) => {
   return dndKitArrayMove(array, oldIndex, newIndex);
 };
 
