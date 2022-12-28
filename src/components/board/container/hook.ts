@@ -3,6 +3,7 @@ import {DragEndEvent, DragOverEvent, DragStartEvent} from '@dnd-kit/core';
 import {arrayMove} from '@dnd-kit/sortable';
 import {useEffect, useState} from 'react';
 
+import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {IStatus} from '@/data/api/types/todolist.type';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
@@ -36,6 +37,11 @@ export default function useKanbanContainer() {
 
   const handleDragCancel = () => setTaskActive(undefined);
 
+  const apiUpdateTaskStatus = (task: ITaskResponse) => {
+    console.log('update task');
+    // api.task.update({id: task.id, statusId: task.statusId}).then(() => console.log('Update task column success'));
+  };
+
   const handleDragOver = ({active, over}: DragOverEvent) => {
     const overId = over?.id;
     if (!overId) {
@@ -48,10 +54,7 @@ export default function useKanbanContainer() {
       const activeItem = active.data.current as ITaskResponse;
       const overIndex =
         over.id in boardState ? boardState[overContainer].length + 1 : over.data.current?.sortable?.index;
-      const placeholderData = () => {
-        return moveBetweenContainers(boardState, activeContainer, activeItem, overContainer, overIndex);
-      };
-      setBoardState(placeholderData());
+      setBoardState(moveBetweenContainers(boardState, activeContainer, activeItem, overContainer, overIndex));
     }
   };
 
@@ -73,9 +76,15 @@ export default function useKanbanContainer() {
           ...boardState,
           [overContainer]: arrayMove(boardState[overContainer], activeIndex, overIndex)
         });
+        console.log('on the same column');
       } else {
         const kanbanData = moveBetweenContainers(boardState, activeContainer, activeItem, overContainer, overIndex);
         setBoardState(kanbanData);
+        console.log('on the other column');
+        // apiUpdateTaskStatus(active.data);
+        /* Updating the task status in the database. */
+        const taskToUpdate = active.data as unknown as ITaskResponse;
+        apiUpdateTaskStatus(taskToUpdate);
       }
     }
   };
