@@ -62,8 +62,8 @@ export default function useKanbanContainer() {
     }
 
     if (active.id !== over.id) {
-      const activeContainer = active.data.current?.sortable.containerId;
-      const overContainer = over.data.current?.sortable.containerId || over.id;
+      const activeContainer = active.data.current?.statusId || active.id;
+      const overContainer = over.data.current?.statusId || over.id;
       const activeIndex = active.data.current?.sortable.index;
       const activeItem = active.data.current as ITaskResponse;
       const overIndex = over.data.current?.sortable.index;
