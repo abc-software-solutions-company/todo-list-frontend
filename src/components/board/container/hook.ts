@@ -38,7 +38,6 @@ export default function useKanbanContainer() {
   const handleDragCancel = () => setTaskActive(undefined);
 
   const apiUpdateTaskStatus = (id: string, statusId: number) => {
-    console.log('update task');
     api.task.update({id, statusId}).then(() => console.log('Update task column success'));
   };
 
@@ -64,9 +63,7 @@ export default function useKanbanContainer() {
     }
 
     const activeColumn = active.data.current?.sortable.containerId;
-    console.log('🚀 ~ file: hook.ts:67 ~ handleDragEnd ~ activeColumn', activeColumn);
     const overColumn = over.data?.current?.statusId;
-    console.log('🚀 ~ file: hook.ts:69 ~ handleDragEnd ~ overColumn', overColumn);
     if (activeColumn !== overColumn) {
       apiUpdateTaskStatus(active.id.toString(), overColumn);
     }
@@ -89,7 +86,6 @@ export default function useKanbanContainer() {
           [activeContainer]: arrayMove(boardState[activeContainer], activeIndex, overIndex)
         });
       }
-      console.log('on the same column');
     }
   };
 
