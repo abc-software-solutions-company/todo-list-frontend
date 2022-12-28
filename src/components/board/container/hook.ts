@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import {DragEndEvent, DragOverEvent, DragStartEvent} from '@dnd-kit/core';
-import {arrayMove} from '@dnd-kit/sortable';
 import {useEffect, useState} from 'react';
 
 import api from '@/data/api';

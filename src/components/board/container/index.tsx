@@ -31,7 +31,10 @@ const KanbanContainer = () => {
           {Object.keys(boardData).map((columnId, idx) => {
             return (
               <KanbanColumn key={columnId}>
-                <KanbanColumnHeader name={columnId} color={'red'} />
+                <KanbanColumnHeader
+                  name={statusList.filter(e => e.id == Number(columnId))[0].name}
+                  color={statusList.filter(e => e.id == Number(columnId))[0].color}
+                />
                 <KanbanColumnBody id={columnId} tasks={boardData[Number(columnId)]} />
                 <KanbanColumnFooter id={Number(columnId)} />
               </KanbanColumn>
@@ -39,7 +42,7 @@ const KanbanContainer = () => {
           })}
           {taskActive && (
             <DragOverlay>
-              <KanbanTaskItem task={taskActive} isDrag={true} />
+              <KanbanTaskItem task={taskActive} />
             </DragOverlay>
           )}
         </DndContext>

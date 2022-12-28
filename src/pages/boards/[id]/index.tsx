@@ -5,7 +5,7 @@ import KanbanDetail from '@/components/board';
 import ErrorInformation from '@/components/common/404';
 import Seo from '@/components/common/seo/seo';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/lists.ssr';
-import LayoutDefault from '@/layouts/default';
+import NewLayout from '@/layouts/new-layout';
 
 export {getStaticPaths, getStaticProps};
 
@@ -21,4 +21,4 @@ export default function PageListDetailKanban({id, seo}: InferGetStaticPropsType<
   return <ErrorInformation />;
 }
 
-PageListDetailKanban.Layout = LayoutDefault;
+PageListDetailKanban.Layout = NewLayout;

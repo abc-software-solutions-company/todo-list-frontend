@@ -2,12 +2,12 @@ import {useRouter} from 'next/router';
 import React, {useEffect} from 'react';
 
 import Footer from '@/components/footer';
-import Topbar from '@/components/topbar';
+import TopBarNew from '@/components/topbar-new';
 import {ROUTES} from '@/configs/routes.config';
 
 import styles from './style.module.scss';
 
-export default function DefaultLayout({children}: React.PropsWithChildren<Record<string, unknown>>) {
+export default function NewLayout({children}: React.PropsWithChildren<Record<string, unknown>>) {
   useEffect(() => {
     if (window !== undefined) {
       document
@@ -17,8 +17,8 @@ export default function DefaultLayout({children}: React.PropsWithChildren<Record
   });
   const router = useRouter();
   return (
-    <div className={styles['layout-default']}>
-      <Topbar />
+    <div className={styles['new-layout']}>
+      <TopBarNew />
       <main>{children}</main>
       {router.asPath === ROUTES.LOGIN ? (
         <>

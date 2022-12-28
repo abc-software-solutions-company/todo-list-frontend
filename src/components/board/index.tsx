@@ -5,6 +5,7 @@ import {SOCKET_EVENTS} from '@/data/socket/type';
 import {useStateAuth} from '@/states/auth';
 import useBoards from '@/states/board/use-boards';
 
+import ToolBar from '../common/toolbar';
 import KanbanContainer from './container';
 
 export interface Iprops {
@@ -39,7 +40,12 @@ const KanbanDetail: FC<Iprops> = ({id}) => {
     };
   }, [auth]);
 
-  return <KanbanContainer />;
+  return (
+    <>
+      <ToolBar />
+      <KanbanContainer />;
+    </>
+  );
 };
 
 export default KanbanDetail;

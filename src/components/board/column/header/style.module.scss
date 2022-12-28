@@ -1,5 +1,5 @@
 .kanban-column-header :global {
-  @apply sticky top-0 z-10 bg-[#f6fafe];
+  @apply sticky top-0 z-10 bg-[#f6fafe] pb-4;
   .column-name {
     @apply text-h4 font-semibold;
   }

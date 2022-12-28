@@ -18,7 +18,7 @@ export default function KanbanColumnBody({id, tasks = []}: IKanbanColumnBody) {
 
   return (
     <SortableContext id={id} items={tasks} strategy={verticalListSortingStrategy}>
-      <ul className={style.droppable} ref={setNodeRef}>
+      <ul className={style['column-body']} ref={setNodeRef}>
         {tasks.map((task, idx: number) => (
           <KanbanTaskItem key={idx} task={task} />
         ))}
