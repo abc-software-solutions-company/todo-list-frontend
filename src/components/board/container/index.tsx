@@ -39,7 +39,7 @@ const KanbanContainer = () => {
           })}
           {taskActive && (
             <DragOverlay>
-              <KanbanTaskItem task={taskActive} />
+              <KanbanTaskItem task={taskActive} isDrag={true} />
             </DragOverlay>
           )}
         </DndContext>

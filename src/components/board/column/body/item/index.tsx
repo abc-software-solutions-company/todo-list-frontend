@@ -33,7 +33,7 @@ const KanbanTaskItem = ({task}: IKanbanTaskItem) => {
 
   return (
     <li
-      className={style['kanban-task-item']}
+      className={style[`kanban-task-item`]}
       ref={setNodeRef}
       style={styleDnd}
       {...attributes}

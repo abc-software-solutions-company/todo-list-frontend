@@ -37,9 +37,9 @@ export default function useKanbanContainer() {
 
   const handleDragCancel = () => setTaskActive(undefined);
 
-  const apiUpdateTaskStatus = (task: ITaskResponse) => {
+  const apiUpdateTaskStatus = (id: string, statusId: number) => {
     console.log('update task');
-    api.task.update({id: task.id, statusId: task.statusId}).then(() => console.log('Update task column success'));
+    api.task.update({id, statusId}).then(() => console.log('Update task column success'));
   };
 
   const handleDragOver = ({active, over}: DragOverEvent) => {
@@ -52,8 +52,7 @@ export default function useKanbanContainer() {
 
     if (activeContainer !== overContainer) {
       const activeItem = active.data.current as ITaskResponse;
-      const overIndex =
-        over.id in boardState ? boardState[overContainer].length + 1 : over.data.current?.sortable?.index;
+      const overIndex = over.id in boardState ? boardState[overContainer].length : over.data.current?.sortable?.index;
       setBoardState(moveBetweenContainers(boardState, activeContainer, activeItem, overContainer, overIndex));
     }
   };
@@ -64,23 +63,29 @@ export default function useKanbanContainer() {
       return;
     }
 
-    if (active.id !== over.id) {
-      const activeContainer = active.data.current?.statusId || active.id;
-      const overContainer = over.data.current?.statusId || over.id;
-      const activeIndex = active.data.current?.sortable.index;
-      const {id, statusId} = active.data.current as ITaskResponse;
-      const overIndex = over.data.current?.sortable.index;
-
-      if (activeContainer !== overContainer)
-        setBoardState({
-          ...boardState,
-          [overContainer]: arrayMove(boardState[overContainer], activeIndex, overIndex)
-        });
-      console.log('on the same column');
-      api.task.update({id, statusId}).then(() => {
-        console.log('Update status task success');
-      });
+    const activeColumn = active.data.current?.sortable.containerId;
+    console.log('🚀 ~ file: hook.ts:67 ~ handleDragEnd ~ activeColumn', activeColumn);
+    const overColumn = over.data?.current?.statusId;
+    console.log('🚀 ~ file: hook.ts:69 ~ handleDragEnd ~ overColumn', overColumn);
+    if (activeColumn !== overColumn) {
+      apiUpdateTaskStatus(active.id.toString(), overColumn);
     }
+    // if (active.id !== over.id) {
+    //   const activeContainer = active.data.current?.statusId || active.id;
+    //   const overContainer = over.data.current?.statusId || over.id;
+    //   const activeIndex = active.data.current?.sortable.index;
+    //   const activeItem = active.data.current as ITaskResponse;
+    //   const overIndex = over.data.current?.sortable.index;
+
+    //   if (activeContainer !== overContainer)
+    //     setBoardState({
+    //       ...boardState,
+    //       [overContainer]: arrayMove(boardState[overContainer], activeIndex, overIndex)
+    //     });
+    //   console.log('on the same column');
+
+    //   apiUpdateTaskStatus(activeItem);
+    // }
   };
 
   return {
