@@ -40,7 +40,7 @@ const Topbar: FC<IProps> = ({className}) => {
   return (
     <div className={cls(styles.topbar, className)}>
       {auth?.name && (
-        <div className={`${isKanban() ? 'px-5' : 'container'} `}>
+        <div className={`${isKanban() ? '' : 'container'} `}>
           <div className="inner">
             <Back
               visibleOn={[

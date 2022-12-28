@@ -2,7 +2,7 @@ import {useRouter} from 'next/router';
 import React, {useEffect} from 'react';
 
 import Footer from '@/components/footer';
-import TopBarNew from '@/components/topbar-new';
+import Topbar from '@/components/topbar';
 import {ROUTES} from '@/configs/routes.config';
 
 import styles from './style.module.scss';
@@ -18,7 +18,8 @@ export default function NewLayout({children}: React.PropsWithChildren<Record<str
   const router = useRouter();
   return (
     <div className={styles['new-layout']}>
-      <TopBarNew />
+      <Topbar />
+      {/* <TopBarNew /> */}
       <main>{children}</main>
       {router.asPath === ROUTES.LOGIN ? (
         <>
