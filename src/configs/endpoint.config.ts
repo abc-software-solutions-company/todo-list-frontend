@@ -5,5 +5,6 @@ export const API_ENDPOINTS = {
   USER: `${PREFIX}/users`,
   TASK: `${PREFIX}/tasks`,
   LIST: `${PREFIX}/todolists`,
-  FAVORITE: `${PREFIX}/favorites`
+  FAVORITE: `${PREFIX}/favorites`,
+  NOTIFICATION: `${PREFIX}/notifications`
 };

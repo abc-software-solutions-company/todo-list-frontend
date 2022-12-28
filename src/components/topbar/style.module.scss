@@ -22,6 +22,9 @@
   .sep {
     @apply mx-2 mt-[3px] h-4 w-[1px] items-center bg-cyan-800;
   }
+  .sep-none {
+    @apply mx-2;
+  }
   a:hover {
     @apply no-underline;
   }

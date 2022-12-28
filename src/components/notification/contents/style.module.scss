@@ -1,0 +1,39 @@
+.contents :global {
+  @apply w-[406px];
+  .wrapper {
+    @apply px-5 text-h7;
+  }
+  hr {
+    @apply mt-4 mb-3;
+  }
+  .header {
+    @apply mt-4 text-center;
+  }
+  .title {
+    @apply font-normal text-slate-500;
+  }
+  .empty {
+    @apply text-center text-slate-500;
+  }
+  .item {
+    @apply relative mt-3 flex cursor-pointer gap-2;
+    @apply hover:bg-slate-300;
+  }
+  .content {
+    @apply w-[310px] line-clamp-2;
+
+    a {
+      @apply text-slate-700 underline;
+    }
+  }
+  .time {
+    @apply text-xs;
+  }
+  .dot {
+    @apply absolute top-0 right-0;
+    @apply inline-block h-3 w-3 rounded-full bg-sky-500;
+  }
+  .load-more {
+    @apply mt-3 cursor-pointer text-slate-500 underline;
+  }
+}
