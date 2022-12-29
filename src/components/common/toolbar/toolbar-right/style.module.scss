@@ -1,0 +1,15 @@
+.toolbar-right :global {
+  @apply flex gap-x-7;
+  .view-mode {
+    @apply flex gap-x-2;
+  }
+  .btn {
+    @apply leading-tight hover:cursor-pointer;
+  }
+  .sort {
+    @apply flex gap-x-1;
+  }
+  .settings {
+    @apply flex gap-x-1;
+  }
+}
