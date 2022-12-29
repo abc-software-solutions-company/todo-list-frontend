@@ -52,8 +52,8 @@ jobs:
       - name: Remove .env_temp file
         run: rm -r -f .env_temp
 
-      - name: Install Yarn, PM2 (Install first time only, after that this command run quickly)
-        run: npm install -g yarn pm2
+      # - name: Install Yarn, PM2 (Install first time only, after that this command run quickly)
+      #   run: npm install -g yarn pm2
 
       - name: Remove package-lock.json (Prevent error or conflicted version of npm, yarn, etc when developer forgot to delete it in pull request)
         run: rm -r -f package-lock.json
