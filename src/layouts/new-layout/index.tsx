@@ -13,6 +13,8 @@ export default function NewLayout({children}: React.PropsWithChildren<Record<str
       document
         .getElementsByTagName('body')[0]
         .classList.remove("bg-[url('/image/bg-lobby-mobile.png')]", "sm:bg-[url('/image/bg-lobby.png')]");
+
+      document.getElementsByTagName('body')[0].removeAttribute('style');
     }
   });
   const router = useRouter();

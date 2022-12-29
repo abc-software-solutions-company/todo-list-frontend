@@ -55,23 +55,22 @@ const ModalUpdateList: FC<IProps> = props => {
                 placeholder={'Enter your list name'}
                 {...register('name')}
               />
-              {(data && owner) ||
-                (ownerKanban && (
-                  <Select
-                    {...register('visibility')}
-                    className="input-type"
-                    defaultValue={visibilityDefaultValue}
-                    sx={{color: '#334155'}}
-                  >
-                    {Object.keys(Visibilities).map((key, idx) => {
-                      return (
-                        <MenuItem key={key} value={key}>
-                          {Object.values(Visibilities)[idx]}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                ))}
+              {data && (owner || ownerKanban) && (
+                <Select
+                  {...register('visibility')}
+                  className="input-type"
+                  defaultValue={visibilityDefaultValue}
+                  sx={{color: '#334155'}}
+                >
+                  {Object.keys(Visibilities).map((key, idx) => {
+                    return (
+                      <MenuItem key={key} value={key}>
+                        {Object.values(Visibilities)[idx]}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              )}
               {data && (owner || ownerKanban) && (
                 <Autocomplete
                   multiple
