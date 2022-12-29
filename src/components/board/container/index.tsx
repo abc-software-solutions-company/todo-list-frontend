@@ -1,10 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable @typescript-eslint/no-shadow */
-import {DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent} from '@dnd-kit/core';
-import React, {useState} from 'react';
-
-import {ITaskResponse} from '@/data/api/types/task.type';
+import {DndContext, DragOverlay} from '@dnd-kit/core';
+import React from 'react';
 
 import KanbanColumn from '../column';
 import KanbanColumnBody from '../column/body';
@@ -28,7 +23,7 @@ const KanbanContainer = () => {
           onDragOver={handleDragOver}
           onDragEnd={handleDragEnd}
         >
-          {Object.keys(boardData).map((columnId, idx) => {
+          {Object.keys(boardData).map(columnId => {
             return (
               <KanbanColumn key={columnId}>
                 <KanbanColumnHeader

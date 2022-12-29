@@ -3,7 +3,9 @@ import {CSS} from '@dnd-kit/utilities';
 import React, {useState} from 'react';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
+import useBoards from '@/states/board/use-boards';
 
+import KanbanTaskAssignee from './assignee';
 import KanbanTaskCreatedDate from './created-date';
 import KanbanTaskEditDelete from './edit-delete';
 import KanbanTaskPriority from './priority';
@@ -17,6 +19,7 @@ interface IKanbanTaskItem {
 }
 
 const KanbanTaskItem = ({task}: IKanbanTaskItem) => {
+  const {boardData} = useBoards();
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task.id, data: task});
   const [showEdiDelete, setShowEditDelete] = useState<boolean>(false);
 
@@ -53,7 +56,7 @@ const KanbanTaskItem = ({task}: IKanbanTaskItem) => {
           <KanbanTaskStoryPoint point={5} />
         </div>
         <div className="right">
-          {/* <KanbanTaskAssignee assignees={taskData.assignees} id={taskData.id} assigneeList={todolist.members} /> */}
+          <KanbanTaskAssignee assignees={task.assignees} id={task.id} assigneeList={boardData.members} />
         </div>
       </div>
       <div className="status-change"></div>
