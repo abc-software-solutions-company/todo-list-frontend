@@ -81,10 +81,11 @@ export default function useKanbanContainer() {
           [overContainer]: arrayMove(boardState[overContainer], activeIndex, overIndex)
         });
       else {
-        setBoardState({
-          ...boardState,
-          [activeContainer]: arrayMove(boardState[activeContainer], activeIndex, overIndex)
-        });
+        if (active.data != undefined)
+          setBoardState({
+            ...boardState,
+            [activeContainer]: arrayMove(boardState[activeContainer], activeIndex, overIndex)
+          });
       }
     }
   };
