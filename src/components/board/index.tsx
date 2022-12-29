@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import {FC, useEffect} from 'react';
 
 import socket from '@/data/socket';

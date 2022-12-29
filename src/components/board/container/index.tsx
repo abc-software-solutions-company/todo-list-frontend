@@ -1,5 +1,5 @@
 import {DndContext, DragOverlay} from '@dnd-kit/core';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import KanbanColumn from '../column';
 import KanbanColumnBody from '../column/body';
@@ -13,9 +13,19 @@ const KanbanContainer = () => {
   const {boardData, statusList, sensors, handleDragCancel, handleDragEnd, handleDragOver, handleDragStart, taskActive} =
     useKanbanContainer();
 
+  const [windowHeight, setWindowHeight] = useState(650);
+
+  useEffect(() => {
+    if (window) {
+      window.addEventListener('resize', () => {
+        if (windowHeight > 0) setWindowHeight(window.innerHeight * 0.7);
+      });
+    }
+  }, []);
+
   return (
     <div className={style['kanban-container']}>
-      <div className="kanban-container-scroll">
+      <div className="kanban-container-scroll" style={{height: windowHeight}}>
         <DndContext
           sensors={sensors}
           onDragStart={handleDragStart}
