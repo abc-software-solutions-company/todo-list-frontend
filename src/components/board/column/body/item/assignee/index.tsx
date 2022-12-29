@@ -15,7 +15,7 @@ interface IKanbanTaskAssignee {
 }
 
 export default function KanbanTaskAssignee({id, assignees, assigneeList}: IKanbanTaskAssignee) {
-  const {write, getTodolist, todolist} = useTodolist();
+  const {getTodolist, todolist} = useTodolist();
   return (
     <div className={style['kanban-task-assignee']}>
       <TaskAssignee
@@ -25,7 +25,7 @@ export default function KanbanTaskAssignee({id, assignees, assigneeList}: IKanba
           onSuccess: socketUpdateList,
           assigneeList
         }}
-        readonly={write}
+        readonly={true}
         sx={{position: 'absolute'}}
         hideIconWhenClick={false}
         onSuccess={() => getTodolist(todolist.id)}

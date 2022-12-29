@@ -38,18 +38,13 @@ const ToolBarRight: FC = () => {
           />
         </div>
       </div>
-      <div className="sort">
+      <div className="sort hover:cursor-pointer">
         <span>Sort</span>
-        <Icon name="Sort" className="ico-sort leading-tight hover:cursor-pointer" size={16} />
+        <Icon name="Sort" className="ico-sort leading-tight " size={16} />
       </div>
-      <div className="settings">
+      <div className="settings hover:cursor-pointer" onClick={() => onSettingBoard()}>
         <span>Settings</span>
-        <Icon
-          name="Settings"
-          className="ico-settings leading-tight hover:cursor-pointer"
-          onClick={() => onSettingBoard()}
-          size={16}
-        />
+        <Icon name="Settings" className="ico-settings leading-tight hover:cursor-pointer" size={16} />
       </div>
     </div>
   );
