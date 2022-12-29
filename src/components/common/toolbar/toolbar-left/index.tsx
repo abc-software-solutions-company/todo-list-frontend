@@ -1,9 +1,12 @@
 import {FC} from 'react';
 
+import useBoards from '@/states/board/use-boards';
+
 const ToolBarLeft: FC = () => {
+  const {boardData} = useBoards();
   return (
     <div className="toolbar-left">
-      <p>Easy task management</p>
+      <p>{boardData.name}</p>
     </div>
   );
 };

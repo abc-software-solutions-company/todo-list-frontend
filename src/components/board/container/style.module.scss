@@ -1,5 +1,5 @@
 .kanban-container :global {
-  @apply mt-6 overflow-y-auto;
+  @apply mt-6 min-h-screen overflow-x-auto;
   .kanban-container-scroll {
     @apply grid grid-cols-6 gap-x-4;
     @apply w-[1840px];

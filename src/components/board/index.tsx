@@ -43,7 +43,7 @@ const KanbanDetail: FC<Iprops> = ({id}) => {
   return (
     <>
       <ToolBar />
-      <KanbanContainer />;
+      <KanbanContainer />
     </>
   );
 };
