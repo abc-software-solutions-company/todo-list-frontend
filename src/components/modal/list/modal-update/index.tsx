@@ -16,7 +16,7 @@ import useModalUpdateList from './hook';
 
 const ModalUpdateList: FC<IProps> = props => {
   const {data, open, hiddenVisibility, onClose} = props;
-  const {errors, onSubmit, register, setValue, owner} = useModalUpdateList(props);
+  const {errors, onSubmit, register, setValue, owner, ownerKanban} = useModalUpdateList(props);
   const [options, setOptions] = useState<IUserResponse[]>([]);
   const defaultMemberIds = data?.members?.map((e: {id: any}) => e.id) || [];
   const memberDefaultValue = options.filter(e => defaultMemberIds.includes(e.id));
@@ -55,23 +55,24 @@ const ModalUpdateList: FC<IProps> = props => {
                 placeholder={'Enter your list name'}
                 {...register('name')}
               />
-              {data && owner && (
-                <Select
-                  {...register('visibility')}
-                  className="input-type"
-                  defaultValue={visibilityDefaultValue}
-                  sx={{color: '#334155'}}
-                >
-                  {Object.keys(Visibilities).map((key, idx) => {
-                    return (
-                      <MenuItem key={key} value={key}>
-                        {Object.values(Visibilities)[idx]}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              )}
-              {data && owner && (
+              {(data && owner) ||
+                (ownerKanban && (
+                  <Select
+                    {...register('visibility')}
+                    className="input-type"
+                    defaultValue={visibilityDefaultValue}
+                    sx={{color: '#334155'}}
+                  >
+                    {Object.keys(Visibilities).map((key, idx) => {
+                      return (
+                        <MenuItem key={key} value={key}>
+                          {Object.values(Visibilities)[idx]}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                ))}
+              {data && (owner || ownerKanban) && (
                 <Autocomplete
                   multiple
                   className="input-members"

@@ -5,6 +5,7 @@ import TaskPiority from '@/components/common/task-priority';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {socketUpdateList} from '@/data/socket';
+import useBoards from '@/states/board/use-boards';
 import {ToastContents} from '@/utils/toast-content';
 
 import style from './style.module.scss';
@@ -16,6 +17,7 @@ interface IKanbanTaskPriority {
 
 export default function KanbanTaskPriority({priority, taskId}: IKanbanTaskPriority) {
   const toast = useToast();
+  const {write} = useBoards();
 
   const onChangePriority = (event: SelectChangeEvent<unknown>) => {
     api.task
@@ -28,6 +30,7 @@ export default function KanbanTaskPriority({priority, taskId}: IKanbanTaskPriori
       <TaskPiority
         priority={priority}
         hideTitle={true}
+        readOnly={!write}
         onChange={onChangePriority}
         stylePriorityIcon={{height: '30px', width: '30px'}}
       />

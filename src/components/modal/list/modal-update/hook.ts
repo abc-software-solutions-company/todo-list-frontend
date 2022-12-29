@@ -8,6 +8,7 @@ import {ROUTES} from '@/configs/routes.config';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import useBoards from '@/states/board/use-boards';
 import useTodolist from '@/states/todolist/use-todolist';
 import {Visibilities} from '@/utils/constant';
 import {ToastContents} from '@/utils/toast-content';
@@ -28,6 +29,7 @@ export default function useModalUpdateList({data, open, onClose, onSuccess}: IPr
   const router = useRouter();
   const toast = useToast();
   const {setTodolist, owner} = useTodolist();
+  const {owner: ownerKanban} = useBoards();
 
   const {formState, handleSubmit, reset, setValue, ...rest} = useForm<IFormInputs>({
     resolver: yupResolver(Schema),
@@ -73,5 +75,5 @@ export default function useModalUpdateList({data, open, onClose, onSuccess}: IPr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  return {errors, isSubmitting, setValue, onSubmit: handleSubmit(submitHandler), owner, ...rest};
+  return {errors, isSubmitting, setValue, onSubmit: handleSubmit(submitHandler), owner, ownerKanban, ...rest};
 }
