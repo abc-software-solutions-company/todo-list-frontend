@@ -9,6 +9,7 @@ import ModalThirdPartyLogin from '@/components/modal/modal-third-party-login';
 import Account from '../common/account';
 import AssigneeIcon from '../common/assignee-icon';
 import Back from '../common/back';
+import Notification from '../notification';
 import useTopbar from './hook';
 import styles from './style.module.scss';
 
@@ -63,6 +64,8 @@ const Topbar: FC<IProps> = ({className}) => {
               </Link>
               {/* Seperator line */}
               <span className="sep"></span>
+              <Notification />
+              <span className="sep-none"></span>
               <span className="h2">
                 {auth && (
                   <>

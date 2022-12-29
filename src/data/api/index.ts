@@ -3,6 +3,7 @@ import http from '@/utils/http';
 
 import {IAuthLogin, IAuthResponse, IAuthUpdate} from './types/auth.type';
 import {ISeo} from './types/commom';
+import {INotificationResponse} from './types/notification.type';
 import {ITaskCreate, ITaskGet, ITaskReindexAll, ITaskResponse, ITaskUpdate} from './types/task.type';
 import {
   ITodolistCreate,
@@ -40,6 +41,10 @@ const api = {
     create: (data: ITaskCreate) => http.post<ITaskResponse>(API_ENDPOINTS.TASK, data),
     update: (data: ITaskUpdate) => http.patch<ITaskResponse>(API_ENDPOINTS.TASK, data),
     reindexAll: (data: ITaskReindexAll) => http.patch(API_ENDPOINTS.TASK + '/reindex-all', data)
+  },
+  notification: {
+    get: () => http.get<INotificationResponse[]>(API_ENDPOINTS.NOTIFICATION),
+    update: (id: string) => http.patch(API_ENDPOINTS.NOTIFICATION + '/' + id)
   }
 };
 

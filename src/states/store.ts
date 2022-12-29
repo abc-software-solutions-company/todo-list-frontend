@@ -6,6 +6,7 @@ import filterSlice from './filter/slice';
 import globalSlice from './global/slice';
 import listsSlice from './lists/slice';
 import modalsSlice from './modals/slice';
+import notificationsSlice from './notifications/slice';
 import saga from './saga';
 import taskSlice from './task/slice';
 import tasksSlice from './tasks/slice';
@@ -23,7 +24,8 @@ const store = configureStore({
     tasks: tasksSlice.reducer,
     modals: modalsSlice.reducer,
     filter: filterSlice.reducer,
-    board: boardSlice.reducer
+    board: boardSlice.reducer,
+    notifications: notificationsSlice.reducer
   }
 });
 
