@@ -39,11 +39,11 @@ const ToolBarRight: FC = () => {
         </div>
       </div>
       <div className="sort hover:cursor-pointer">
-        <span>Sort</span>
+        <span className="hidden sm:block">Sort</span>
         <Icon name="Sort" className="ico-sort leading-tight " size={16} />
       </div>
       <div className="settings hover:cursor-pointer" onClick={() => onSettingBoard()}>
-        <span>Settings</span>
+        <span className="hidden sm:block">Settings</span>
         <Icon name="Settings" className="ico-settings leading-tight hover:cursor-pointer" size={16} />
       </div>
     </div>
