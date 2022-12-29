@@ -3,12 +3,21 @@ import {FC} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
+import useBoards from '@/states/board/use-boards';
+import useModals from '@/states/modals/use-modals';
 
 import style from './style.module.scss';
 
 const ToolBarRight: FC = () => {
   const router = useRouter();
   const {id} = router.query;
+  const {boardData} = useBoards();
+  const {setIsOpenModal, setSelectedTodolist} = useModals();
+
+  const onSettingBoard = () => {
+    setSelectedTodolist(boardData);
+    setIsOpenModal('settings');
+  };
   return (
     <div className={style['toolbar-right']}>
       <div className="view-mode">
@@ -35,7 +44,12 @@ const ToolBarRight: FC = () => {
       </div>
       <div className="settings">
         <span>Settings</span>
-        <Icon name="Settings" className="ico-settings leading-tight hover:cursor-pointer" size={16} />
+        <Icon
+          name="Settings"
+          className="ico-settings leading-tight hover:cursor-pointer"
+          onClick={() => onSettingBoard()}
+          size={16}
+        />
       </div>
     </div>
   );
