@@ -3,13 +3,13 @@ import {DragEndEvent, DragOverEvent, DragStartEvent} from '@dnd-kit/core';
 import {arrayMove} from '@dnd-kit/sortable';
 import {useEffect, useState} from 'react';
 
-import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {IStatus} from '@/data/api/types/todolist.type';
-import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useBoards from '@/states/board/use-boards';
 import {moveBetweenContainers} from '@/utils/kanban/array';
+
+import {apiUpdateTaskStatus, kanbanAPIHandler} from './api-handler';
 
 export default function useKanbanContainer() {
   const {statusList} = useBoards();
@@ -37,15 +37,6 @@ export default function useKanbanContainer() {
   const handleDragStart = ({active}: DragStartEvent) => setTaskActive(active.data.current);
 
   const handleDragCancel = () => setTaskActive(undefined);
-
-  const apiUpdateTaskStatus = (id: string, statusId: number) => {
-    api.task
-      .update({id, statusId})
-      .then(() => console.log('Update task column success'))
-      .then(() => {
-        socketUpdateList();
-      });
-  };
 
   const handleDragOver = ({active, over}: DragOverEvent) => {
     const overId = over?.id;
@@ -82,17 +73,20 @@ export default function useKanbanContainer() {
       // const activeItem = active.data.current as ITaskResponse;
       const overIndex = over.data.current?.sortable.index || over.id;
 
-      if (activeContainer !== overContainer)
+      if (activeContainer !== overContainer) {
         setBoardState({
           ...boardState,
           [overContainer]: arrayMove(boardState[overContainer], activeIndex, overIndex)
         });
-      else {
-        if (active.data != undefined)
+        kanbanAPIHandler(boardState);
+      } else {
+        if (active.data.current != undefined) {
           setBoardState({
             ...boardState,
             [activeContainer]: arrayMove(boardState[activeContainer], activeIndex, overIndex)
           });
+          kanbanAPIHandler(boardState);
+        }
       }
     }
   };
