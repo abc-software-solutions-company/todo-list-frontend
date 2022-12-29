@@ -1,8 +1,10 @@
 import classNames from 'classnames';
+import {useRouter} from 'next/router';
 // import {useRouter} from 'next/router';
 import {FC} from 'react';
 
 import InputAutosize from '@/components/common/input-autosize';
+import {ROUTES} from '@/configs/routes.config';
 // import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 import api from '@/data/api';
@@ -19,7 +21,7 @@ import ToolMenu from './tool-menu';
 const ToolbarDetail: FC = () => {
   const {todolist, write, owner} = useTodolist();
   const {setIsOpenModal, setSelectedTask, setSelectedTodolist, setSelectedColumnId} = useModals();
-  // const router = useRouter();
+  const router = useRouter();
 
   const {id, name, favorite} = todolist;
 
@@ -30,9 +32,9 @@ const ToolbarDetail: FC = () => {
   // const onListsView = () => {
   //   router.push(`${ROUTES.LIST}/${id}`);
   // };
-  // const onKanbanView = () => {
-  //   router.push(`${ROUTES.KANBAN}/${id}`);
-  // };
+  const onKanbanView = () => {
+    router.push(`${ROUTES.KANBAN}/${id}`);
+  };
   const onAddTask = () => {
     setSelectedTask();
     setSelectedTodolist(todolist);
@@ -74,11 +76,11 @@ const ToolbarDetail: FC = () => {
     hidden: !write,
     onClick: onSetting
   };
-  // const kanbanToolProps: IToolProps = {
-  //   icon: <Icon name="ico-columns" />,
-  //   text: 'Kanban View',
-  //   onClick: onKanbanView
-  // };
+  const kanbanToolProps: IToolProps = {
+    icon: <Icon name="ico-columns" />,
+    text: 'Kanban View',
+    onClick: onKanbanView
+  };
   // const listToolProps: IToolProps = {
   //   icon: <Icon name="ico-horizontal" />,
   //   text: 'Lists View',
@@ -89,8 +91,8 @@ const ToolbarDetail: FC = () => {
     deleteToolProps,
     shareToolProps,
     addTaskToolProps,
-    settingToolProps
-    // kanbanToolProps,
+    settingToolProps,
+    kanbanToolProps
     // listToolProps
   ]
     .filter(item => !item.hidden)
@@ -108,6 +110,7 @@ const ToolbarDetail: FC = () => {
         ) : (
           <Tool {...listToolProps} className={style['tool-outer']} />
         )} */}
+        <Tool {...kanbanToolProps} className={style['tool-outer']} />
         <Tool {...addTaskToolProps} className={style['tool-outer']} />
         <Tool {...deleteToolProps} className={style['tool-outer']} />
         <Tool {...shareToolProps} className={style['tool-outer']} />
