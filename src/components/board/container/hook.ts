@@ -70,7 +70,7 @@ export default function useKanbanContainer() {
       const activeContainer = active.data.current?.statusId || active.id;
       const overContainer = over.data.current?.statusId || over.id;
       const activeIndex = active.data.current?.sortable.index || active.id;
-      // const activeItem = active.data.current as ITaskResponse;
+      const activeItem = active.data.current as ITaskResponse;
       const overIndex = over.data.current?.sortable.index || over.id;
 
       if (activeContainer !== overContainer) {
@@ -78,14 +78,14 @@ export default function useKanbanContainer() {
           ...boardState,
           [overContainer]: arrayMove(boardState[overContainer], activeIndex, overIndex)
         });
-        kanbanAPIHandler(boardState);
+        kanbanAPIHandler(boardState, activeItem);
       } else {
         if (active.data.current != undefined) {
           setBoardState({
             ...boardState,
             [activeContainer]: arrayMove(boardState[activeContainer], activeIndex, overIndex)
           });
-          kanbanAPIHandler(boardState);
+          kanbanAPIHandler(boardState, activeItem);
         }
       }
     }
