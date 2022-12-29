@@ -15,6 +15,7 @@ const initialState: IInitialState = {
     data: [undefined] as unknown as ITodolistResponse,
     error: false
   },
+  listID: '',
   statusList: [],
   statusFilter: 0,
   isOpenModal

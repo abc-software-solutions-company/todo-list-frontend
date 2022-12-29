@@ -6,6 +6,7 @@ import {useEffect, useState} from 'react';
 import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {IStatus} from '@/data/api/types/todolist.type';
+import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useBoards from '@/states/board/use-boards';
 import {moveBetweenContainers} from '@/utils/kanban/array';
@@ -38,7 +39,12 @@ export default function useKanbanContainer() {
   const handleDragCancel = () => setTaskActive(undefined);
 
   const apiUpdateTaskStatus = (id: string, statusId: number) => {
-    api.task.update({id, statusId}).then(() => console.log('Update task column success'));
+    api.task
+      .update({id, statusId})
+      .then(() => console.log('Update task column success'))
+      .then(() => {
+        socketUpdateList();
+      });
   };
 
   const handleDragOver = ({active, over}: DragOverEvent) => {
@@ -46,6 +52,7 @@ export default function useKanbanContainer() {
     if (!overId) {
       return;
     }
+
     const activeContainer = active.data?.current?.statusId || active.id;
     const overContainer = over.data?.current?.statusId || over.id;
 

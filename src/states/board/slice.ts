@@ -17,6 +17,7 @@ const boardSlice = createSlice({
       state.board.loading = false;
       state.board.data = payload;
       state.statusList = payload.status;
+      state.listID = payload.id;
     },
     getBoardFailure: (state, {payload}) => {
       state.board.loading = false;

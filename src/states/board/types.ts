@@ -18,6 +18,7 @@ export interface IInitialState {
     data: ITodolistResponse;
     error: boolean;
   };
+  listID: string;
   statusList: IStatus[];
   statusFilter: number;
   isOpenModal: {
