@@ -37,7 +37,19 @@ const Contents: FC = () => {
                   const result = formatForNotification(item?.createdDate);
                   return (
                     <>
-                      <div className="item" key={item?.link} onClick={() => handleIsRead(item.id)}>
+                      <div
+                        className="item"
+                        key={item?.link}
+                        onClick={e => {
+                          handleIsRead(item.id);
+                          const element = e.target as HTMLElement;
+                          const tagName = element.tagName;
+                          console.log(tagName);
+                          if (tagName === 'A') {
+                            handleIsRead(item.id);
+                          }
+                        }}
+                      >
                         <div className="icon-name">
                           <AssigneeIcon name={item?.sender.name} bg="bg-sky-500" />
                         </div>
