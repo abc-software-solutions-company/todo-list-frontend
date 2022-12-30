@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
 import {DragEndEvent, DragOverEvent, DragStartEvent} from '@dnd-kit/core';
 import {arrayMove} from '@dnd-kit/sortable';
@@ -44,13 +45,13 @@ export default function useKanbanContainer() {
       return;
     }
 
-    const activeContainer = active.data?.current?.statusId || active.id;
-    const overContainer = over.data?.current?.statusId || over.id;
+    const activeColumn = active.data?.current?.statusId || active.id;
+    const overColumn = over.data?.current?.statusId || over.id;
 
-    if (activeContainer !== overContainer) {
+    if (activeColumn !== overColumn) {
       const activeItem = active.data.current as ITaskResponse;
-      const overIndex = over.id in boardState ? boardState[overContainer].length : over.data.current?.sortable?.index;
-      setBoardState(moveBetweenContainers(boardState, activeContainer, activeItem, overContainer, overIndex));
+      const overIndex = over.id in boardState ? boardState[overColumn].length : over.data.current?.sortable?.index;
+      setBoardState(moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex));
     }
   };
 
@@ -59,35 +60,37 @@ export default function useKanbanContainer() {
       setTaskActive(undefined);
       return;
     }
+    let arrangedBoard = {};
+    const activeColumn = active.data.current?.statusId || active.id;
+    const activeItem = active.data.current as ITaskResponse;
+    const activeIndex = active.data.current?.sortable.index || active.id;
 
-    const activeColumn = active.data.current?.sortable.containerId;
-    const overColumn = over.data?.current?.statusId;
-    if (activeColumn !== overColumn) {
-      apiUpdateTaskStatus(active.id.toString(), overColumn);
-    }
+    const overColumn = over.data.current?.statusId || over.id;
+    const overIndex = over.data.current?.sortable.index || over.id;
+
+    console.log(active.id == over.id);
 
     if (active.id !== over.id) {
-      const activeContainer = active.data.current?.statusId || active.id;
-      const overContainer = over.data.current?.statusId || over.id;
-      const activeIndex = active.data.current?.sortable.index || active.id;
-      const activeItem = active.data.current as ITaskResponse;
-      const overIndex = over.data.current?.sortable.index || over.id;
-
-      if (activeContainer !== overContainer) {
-        setBoardState({
+      if (activeColumn !== overColumn) {
+        arrangedBoard = {
           ...boardState,
-          [overContainer]: arrayMove(boardState[overContainer], activeIndex, overIndex)
-        });
-        kanbanAPIHandler(boardState, activeItem);
+          [overColumn]: arrayMove(boardState[overColumn], activeIndex, overIndex)
+        };
+        setBoardState(arrangedBoard);
+        kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
       } else {
         if (active.data.current != undefined) {
-          setBoardState({
+          arrangedBoard = {
             ...boardState,
-            [activeContainer]: arrayMove(boardState[activeContainer], activeIndex, overIndex)
-          });
-          kanbanAPIHandler(boardState, activeItem);
+            [activeColumn]: arrayMove(boardState[activeColumn], activeIndex, overIndex)
+          };
+          setBoardState(arrangedBoard);
+          kanbanAPIHandler(boardState, activeItem, overColumn);
         }
       }
+    } else {
+      arrangedBoard = moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex);
+      kanbanAPIHandler(boardState, activeItem, overColumn);
     }
   };
 
