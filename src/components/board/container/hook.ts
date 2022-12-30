@@ -39,6 +39,8 @@ export default function useKanbanContainer() {
 
   const handleDragCancel = () => setTaskActive(undefined);
 
+  let arrangedBoard = {};
+
   const handleDragOver = ({active, over}: DragOverEvent) => {
     const overId = over?.id;
     if (!overId) {
@@ -60,15 +62,12 @@ export default function useKanbanContainer() {
       setTaskActive(undefined);
       return;
     }
-    let arrangedBoard = {};
     const activeColumn = active.data.current?.statusId || active.id;
     const activeItem = active.data.current as ITaskResponse;
     const activeIndex = active.data.current?.sortable.index || active.id;
 
     const overColumn = over.data.current?.statusId || over.id;
     const overIndex = over.data.current?.sortable.index || over.id;
-
-    console.log(active.id == over.id);
 
     if (active.id !== over.id) {
       if (activeColumn !== overColumn) {
@@ -79,17 +78,16 @@ export default function useKanbanContainer() {
         setBoardState(arrangedBoard);
         kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
       } else {
-        if (active.data.current != undefined) {
-          arrangedBoard = {
-            ...boardState,
-            [activeColumn]: arrayMove(boardState[activeColumn], activeIndex, overIndex)
-          };
-          setBoardState(arrangedBoard);
-          kanbanAPIHandler(boardState, activeItem, overColumn);
-        }
+        arrangedBoard = {
+          ...boardState,
+          [activeColumn]: arrayMove(boardState[activeColumn], activeIndex, overIndex)
+        };
+        setBoardState(arrangedBoard);
+        kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
       }
     } else {
       arrangedBoard = moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex);
+      setBoardState(arrangedBoard);
       kanbanAPIHandler(boardState, activeItem, overColumn);
     }
   };
