@@ -12,7 +12,7 @@ const KanbanContainer = () => {
   const {boardData, statusList, sensors, handleDragCancel, handleDragEnd, handleDragOver, handleDragStart, taskActive} =
     useKanbanContainer();
 
-  const [windowHeight, setWindowHeight] = useState(650);
+  const [windowHeight, setWindowHeight] = useState(750);
 
   useEffect(() => {
     if (window) {
