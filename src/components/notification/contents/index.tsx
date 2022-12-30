@@ -6,11 +6,14 @@ import api from '@/data/api';
 import useNotifications from '@/states/notifications/use-notifications';
 import {formatForNotification} from '@/utils/date-format/notification';
 
+import TypeNotifcations from '../type-notifications';
 import styles from './style.module.scss';
 
 const Contents: FC = () => {
   const {notifications} = useNotifications();
   const [count, setCount] = useState(4);
+
+  console.log(notifications);
 
   const handleCount = () => {
     setCount(-1);
@@ -37,24 +40,12 @@ const Contents: FC = () => {
                   const result = formatForNotification(item?.createdDate);
                   return (
                     <>
-                      <div
-                        className="item"
-                        key={item?.link}
-                        onClick={e => {
-                          handleIsRead(item.id);
-                          const element = e.target as HTMLElement;
-                          const tagName = element.tagName;
-                          console.log(tagName);
-                          if (tagName === 'A') {
-                            handleIsRead(item.id);
-                          }
-                        }}
-                      >
+                      <div className="item" key={item?.link} onClick={() => handleIsRead(item?.id)}>
                         <div className="icon-name">
                           <AssigneeIcon name={item?.sender.name} bg="bg-sky-500" />
                         </div>
                         <div>
-                          <div className="content" dangerouslySetInnerHTML={{__html: item?.content}}></div>
+                          <TypeNotifcations notification={item} />
                           <p className="time">{result}</p>
                         </div>
                         {!item?.isRead && <span className="dot"></span>}
@@ -65,11 +56,10 @@ const Contents: FC = () => {
               )}
               {notifications.length > 4 && (
                 <p className="load-more" onClick={handleCount}>
-                  Load more Notification
+                  Load more
                 </p>
               )}
             </div>
-            <hr />
           </div>
         </div>
       )}

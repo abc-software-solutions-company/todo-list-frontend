@@ -5,7 +5,10 @@ export interface INotificationResponse {
   content: string;
   link: string;
   type: string;
+  before: string;
+  after: string;
   sender: IUserResponse;
+  recipient: IUserResponse;
   isRead: boolean;
   createdDate: string;
 }

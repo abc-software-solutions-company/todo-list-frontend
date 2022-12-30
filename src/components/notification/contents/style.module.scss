@@ -1,13 +1,13 @@
 .contents :global {
   @apply w-[406px];
   .wrapper {
-    @apply px-5 text-h7;
+    @apply py-4 text-h7;
   }
   hr {
-    @apply mt-4 mb-3;
+    @apply mt-4;
   }
   .header {
-    @apply mt-4 text-center;
+    @apply text-center;
   }
   .title {
     @apply font-normal text-slate-500;
@@ -16,8 +16,8 @@
     @apply text-center text-slate-500;
   }
   .item {
-    @apply relative mt-3 flex cursor-pointer gap-2;
-    @apply hover:bg-slate-300;
+    @apply relative flex cursor-pointer gap-2 px-4 pt-1.5;
+    @apply hover:bg-sky-50;
   }
   .content {
     @apply w-[310px] line-clamp-2;
@@ -30,10 +30,11 @@
     @apply text-xs;
   }
   .dot {
-    @apply absolute top-0 right-0;
+    @apply absolute top-2 right-3;
     @apply inline-block h-3 w-3 rounded-full bg-sky-500;
   }
   .load-more {
-    @apply mt-3 cursor-pointer text-slate-500 underline;
+    @apply mt-3 cursor-pointer;
+    @apply text-center text-slate-500 underline;
   }
 }
