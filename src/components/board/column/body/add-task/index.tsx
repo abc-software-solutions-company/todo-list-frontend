@@ -21,7 +21,7 @@ export default function AddTaskKanban({id}: IAddTaskKanban) {
   };
 
   return (
-    <div className={style['kanban-column-footer']}>
+    <div className={style['add-task-kanban']}>
       <Icon name="ico-plus-circle" className="btn-add-task" onClick={() => onAddTask(id)} />
     </div>
   );

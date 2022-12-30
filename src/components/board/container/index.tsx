@@ -1,4 +1,5 @@
-import {DndContext, DragOverlay} from '@dnd-kit/core';
+import {DndContext, DragOverlay, useDroppable} from '@dnd-kit/core';
+import {horizontalListSortingStrategy, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import React, {useEffect, useState} from 'react';
 
 import KanbanColumn from '../column';
@@ -11,6 +12,8 @@ import style from './style.module.scss';
 const KanbanContainer = () => {
   const {boardData, statusList, sensors, handleDragCancel, handleDragEnd, handleDragOver, handleDragStart, taskActive} =
     useKanbanContainer();
+
+  const {setNodeRef} = useDroppable({id: 'drag-column'});
 
   const [windowHeight, setWindowHeight] = useState(750);
 
@@ -32,22 +35,26 @@ const KanbanContainer = () => {
           onDragOver={handleDragOver}
           onDragEnd={handleDragEnd}
         >
-          {Object.keys(boardData).map(columnId => {
-            return (
-              <KanbanColumn key={columnId}>
-                <KanbanColumnHeader
-                  name={statusList.filter(e => e.id == Number(columnId))[0].name}
-                  color={statusList.filter(e => e.id == Number(columnId))[0].color}
-                />
-                <KanbanColumnBody id={columnId} tasks={boardData[Number(columnId)]} />
-              </KanbanColumn>
-            );
-          })}
-          {taskActive && (
-            <DragOverlay>
-              <KanbanTaskItem task={taskActive} />
-            </DragOverlay>
-          )}
+          <SortableContext id="drag-column" items={Object.keys(boardData)} strategy={verticalListSortingStrategy}>
+            {Object.keys(boardData).map(columnId => {
+              return (
+                <div className="kanban-wrapper border" key={columnId} ref={setNodeRef}>
+                  <KanbanColumn>
+                    <KanbanColumnHeader
+                      name={statusList.filter(e => e.id == Number(columnId))[0].name}
+                      color={statusList.filter(e => e.id == Number(columnId))[0].color}
+                    />
+                    <KanbanColumnBody id={columnId} tasks={boardData[Number(columnId)]} />
+                  </KanbanColumn>
+                </div>
+              );
+            })}
+            {taskActive && (
+              <DragOverlay>
+                <KanbanTaskItem task={taskActive} />
+              </DragOverlay>
+            )}
+          </SortableContext>
         </DndContext>
       </div>
     </div>

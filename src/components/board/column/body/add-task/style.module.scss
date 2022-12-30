@@ -1,4 +1,4 @@
-.kanban-column-footer :global {
+.add-task-kanban :global {
   .btn-add-task {
     @apply flex justify-center hover:cursor-pointer;
     @apply rounded-xl border border-dashed;
