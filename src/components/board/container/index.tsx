@@ -4,7 +4,6 @@ import React, {useEffect, useState} from 'react';
 import KanbanColumn from '../column';
 import KanbanColumnBody from '../column/body';
 import KanbanTaskItem from '../column/body/item';
-import KanbanColumnFooter from '../column/footer';
 import KanbanColumnHeader from '../column/header';
 import useKanbanContainer from './hook';
 import style from './style.module.scss';
@@ -41,7 +40,6 @@ const KanbanContainer = () => {
                   color={statusList.filter(e => e.id == Number(columnId))[0].color}
                 />
                 <KanbanColumnBody id={columnId} tasks={boardData[Number(columnId)]} />
-                <KanbanColumnFooter id={Number(columnId)} />
               </KanbanColumn>
             );
           })}
