@@ -35,20 +35,22 @@ const KanbanContainer = () => {
           onDragOver={handleDragOver}
           onDragEnd={handleDragEnd}
         >
-          <SortableContext id="drag-column" items={Object.keys(boardData)} strategy={verticalListSortingStrategy}>
-            {Object.keys(boardData).map(columnId => {
-              return (
-                <div className="kanban-wrapper border" key={columnId} ref={setNodeRef}>
-                  <KanbanColumn>
-                    <KanbanColumnHeader
-                      name={statusList.filter(e => e.id == Number(columnId))[0].name}
-                      color={statusList.filter(e => e.id == Number(columnId))[0].color}
-                    />
-                    <KanbanColumnBody id={columnId} tasks={boardData[Number(columnId)]} />
-                  </KanbanColumn>
-                </div>
-              );
-            })}
+          <SortableContext
+            id="drag-column"
+            items={[...Object.keys(boardData)]}
+            strategy={horizontalListSortingStrategy}
+          >
+            {Object.keys(boardData).map(columnId => (
+              <div className="kanban-wrapper border" key={columnId} ref={setNodeRef}>
+                <KanbanColumn id={Number(columnId)}>
+                  <KanbanColumnHeader
+                    name={statusList.filter(e => e.id == Number(columnId))[0].name}
+                    color={statusList.filter(e => e.id == Number(columnId))[0].color}
+                  />
+                  <KanbanColumnBody id={columnId} tasks={boardData[Number(columnId)]} />
+                </KanbanColumn>
+              </div>
+            ))}
             {taskActive && (
               <DragOverlay>
                 <KanbanTaskItem task={taskActive} />

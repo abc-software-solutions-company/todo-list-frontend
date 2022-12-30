@@ -35,7 +35,7 @@ export const kanbanAPIHandler = (
       console.log('🚀 ~ file: api-handler.ts:33 ~ mergeTasks.forEach ~ taskAfter', taskAfter);
       const newTaskIndex = (Number(taskBefore.index) + Number(taskAfter.index)) / 2;
       console.log(newTaskIndex);
-      api.task.update({id: task.id, index: newTaskIndex, statusId}).then(socketUpdateList);
+      api.task.update({id: task.id, index: parseInt(newTaskIndex.toString()), statusId}).then(socketUpdateList);
     }
   });
 };
