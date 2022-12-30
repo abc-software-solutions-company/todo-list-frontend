@@ -22,6 +22,9 @@ export default function KanbanColumnBody({id, tasks = []}: IKanbanColumnBody) {
         {tasks.map((task, idx: number) => (
           <KanbanTaskItem key={idx} task={task} />
         ))}
+        <div className="add-task">
+          <AddTaskKanban id={Number(id)} />
+        </div>
       </ul>
     </SortableContext>
   );

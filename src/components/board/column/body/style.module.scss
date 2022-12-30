@@ -1,8 +1,6 @@
 .column-body :global {
-  height: inherit;
-  width: 285px;
-  // padding: 20px 10px;
-  // border: 1px solid black;
-  // border-radius: 5px;
-  list-style-type: none;
+  @apply w-[285px] list-none bg-red-600;
+  .add-task {
+    @apply absolute bottom-16 w-[285px] bg-amber-300;
+  }
 }
