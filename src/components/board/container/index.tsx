@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 
 import KanbanColumn from '../column';
 import KanbanColumnBody from '../column/body';
+import AddTaskKanban from '../column/body/add-task';
 import KanbanTaskItem from '../column/body/item';
 import KanbanColumnHeader from '../column/header';
 import useKanbanContainer from './hook';
@@ -12,19 +13,9 @@ const KanbanContainer = () => {
   const {boardData, statusList, sensors, handleDragCancel, handleDragEnd, handleDragOver, handleDragStart, taskActive} =
     useKanbanContainer();
 
-  const [windowHeight, setWindowHeight] = useState(750);
-
-  useEffect(() => {
-    if (window) {
-      window.addEventListener('resize', () => {
-        if (windowHeight > 0) setWindowHeight(window.innerHeight * 0.7);
-      });
-    }
-  }, []);
-
   return (
     <div className={style['kanban-container']}>
-      <div className="kanban-container-scroll" style={{height: windowHeight}}>
+      <div className="kanban-container-scroll">
         <DndContext
           sensors={sensors}
           onDragStart={handleDragStart}
@@ -40,6 +31,7 @@ const KanbanContainer = () => {
                   color={statusList.filter(e => e.id == Number(columnId))[0].color}
                 />
                 <KanbanColumnBody id={columnId} tasks={boardData[Number(columnId)]} />
+                <AddTaskKanban id={Number(columnId)} />
               </KanbanColumn>
             );
           })}

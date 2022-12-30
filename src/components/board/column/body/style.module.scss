@@ -5,4 +5,5 @@
   // border: 1px solid black;
   // border-radius: 5px;
   list-style-type: none;
+  @apply max-h-[650px] overflow-y-auto bg-amber-300;
 }
