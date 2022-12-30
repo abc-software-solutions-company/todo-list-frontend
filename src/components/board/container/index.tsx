@@ -4,7 +4,6 @@ import React from 'react';
 import KanbanColumn from '../column';
 import KanbanColumnBody from '../column/body';
 import KanbanTaskItem from '../column/body/item';
-import KanbanColumnFooter from '../column/footer';
 import KanbanColumnHeader from '../column/header';
 import useKanbanContainer from './hook';
 import style from './style.module.scss';
@@ -12,6 +11,16 @@ import style from './style.module.scss';
 const KanbanContainer = () => {
   const {boardData, statusList, sensors, handleDragCancel, handleDragEnd, handleDragOver, handleDragStart, taskActive} =
     useKanbanContainer();
+
+  const [windowHeight, setWindowHeight] = useState(750);
+
+  useEffect(() => {
+    if (window) {
+      window.addEventListener('resize', () => {
+        if (windowHeight > 0) setWindowHeight(window.innerHeight * 0.7);
+      });
+    }
+  }, []);
 
   return (
     <div className={style['kanban-container']}>
@@ -31,7 +40,6 @@ const KanbanContainer = () => {
                   color={statusList.filter(e => e.id == Number(columnId))[0].color}
                 />
                 <KanbanColumnBody id={columnId} tasks={boardData[Number(columnId)]} />
-                <KanbanColumnFooter id={Number(columnId)} />
               </KanbanColumn>
             );
           })}

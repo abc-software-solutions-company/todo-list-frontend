@@ -5,7 +5,7 @@ import React, {useEffect, useState} from 'react';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
 
-import KanbanColumnFooter from '../footer';
+import AddTaskKanban from './add-task';
 import KanbanTaskItem from './item';
 import style from './style.module.scss';
 
@@ -32,9 +32,7 @@ export default function KanbanColumnBody({id, tasks = []}: IKanbanColumnBody) {
         {tasks.map((task, idx: number) => (
           <KanbanTaskItem key={idx} task={task} />
         ))}
-        <div className="add-task">
-          <KanbanColumnFooter id={Number(id)} />
-        </div>
+        <AddTaskKanban id={Number(id)} />
       </ul>
     </SortableContext>
   );
