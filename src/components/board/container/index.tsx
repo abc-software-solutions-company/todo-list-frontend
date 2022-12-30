@@ -31,7 +31,7 @@ const KanbanContainer = () => {
                   color={statusList.filter(e => e.id == Number(columnId))[0].color}
                 />
                 <KanbanColumnBody id={columnId} tasks={boardData[Number(columnId)]} />
-                <AddTaskKanban id={Number(columnId)} />
+                {/* <AddTaskKanban id={Number(columnId)} /> */}
               </KanbanColumn>
             );
           })}
