@@ -1,5 +1,5 @@
 import {DndContext, DragOverlay} from '@dnd-kit/core';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import KanbanColumn from '../column';
 import KanbanColumnBody from '../column/body';
