@@ -69,7 +69,15 @@ const KanbanContainer = () => {
 
             {columnActive && (
               <DragOverlay>
-                <p>{columnActive}</p>
+                <div className="kanban-wrapper border" key={columnActive} ref={setNodeRef}>
+                  <KanbanColumn id={'column' + columnActive}>
+                    <KanbanColumnHeader
+                      name={statusList.filter(e => e.id == Number(columnActive))[0].name}
+                      color={statusList.filter(e => e.id == Number(columnActive))[0].color}
+                    />
+                    <KanbanColumnBody id={columnActive} tasks={boardData[Number(columnActive)]} />
+                  </KanbanColumn>
+                </div>
               </DragOverlay>
             )}
           </SortableContext>

@@ -46,13 +46,18 @@ export default function useKanbanContainer() {
     console.log('🚀 ~ file: hook.ts:40 ~ handleDragStart ~ id', id);
     console.log('🚀 ~ file: hook.ts:40 ~ handleDragStart ~ data', data);
     if (isColumnSelected(id)) {
+      setTaskActive(undefined);
       setColumnActive(id.toString().replace('column', ''));
     } else {
       setTaskActive(active.data.current);
+      setColumnActive(undefined);
     }
   };
 
-  const handleDragCancel = () => setTaskActive(undefined);
+  const handleDragCancel = () => {
+    setTaskActive(undefined);
+    setColumnActive(undefined);
+  };
 
   const arrangedBoard = {};
 
@@ -76,10 +81,11 @@ export default function useKanbanContainer() {
   };
 
   const handleDragEnd = ({active, over}: DragEndEvent) => {
-    // if (!over) {
-    //   setTaskActive(undefined);
-    //   return;
-    // }
+    if (!over) {
+      setTaskActive(undefined);
+      setColumnActive(undefined);
+      return;
+    }
     // const activeColumn = active.data.current?.statusId || active.id;
     // const activeItem = active.data.current as ITaskResponse;
     // const activeIndex = active.data.current?.sortable.index || active.id;
