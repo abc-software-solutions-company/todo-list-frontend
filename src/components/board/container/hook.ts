@@ -77,15 +77,14 @@ export default function useKanbanContainer() {
 
     // This is code for handle drag task
     if (columnActive == undefined) {
-      const activeColumn = active.data?.current?.statusId || active.id;
-      console.log('🚀 ~ file: hook.ts:80 ~ handleDragOver ~ activeColumn', activeColumn);
-      const overColumn = over.data?.current?.statusId || over.id.toString().replace('column', '');
-      console.log('🚀 ~ file: hook.ts:82 ~ handleDragOver ~ overColumn', overColumn);
+      const taskActiveColumn = active.data?.current?.statusId || active.id;
+      const taskOverColumn = over.data?.current?.statusId || over.id.toString().replace('column', '');
 
-      if (activeColumn !== overColumn) {
+      if (taskActiveColumn !== taskOverColumn) {
         const activeItem = active.data.current as ITaskResponse;
-        const overIndex = over.id in boardState ? boardState[overColumn].length : over.data.current?.sortable?.index;
-        boardUpdateDragEnd = moveToColumn(boardState, activeColumn, activeItem, overColumn, overIndex);
+        const overIndex =
+          over.id in boardState ? boardState[taskOverColumn].length : over.data.current?.sortable?.index;
+        boardUpdateDragEnd = moveToColumn(boardState, taskActiveColumn, activeItem, taskOverColumn, overIndex);
         setBoardState(boardUpdateDragEnd);
       }
     }
@@ -99,8 +98,6 @@ export default function useKanbanContainer() {
     }
     if (over) {
       const {data, id} = over;
-      console.log('🚀 ~ file: hook.ts:114 ~ handleDragEnd ~ id', id);
-      console.log('🚀 ~ file: hook.ts:114 ~ handleDragEnd ~ data', data);
     }
   };
 
