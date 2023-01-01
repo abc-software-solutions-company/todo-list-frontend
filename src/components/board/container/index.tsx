@@ -19,7 +19,8 @@ const KanbanContainer = () => {
     handleDragOver,
     handleDragStart,
     taskActive,
-    columnActive
+    columnActive,
+    columnOrderState
   } = useKanbanContainer();
 
   const {setNodeRef} = useDroppable({id: 'drag-column'});
@@ -44,12 +45,8 @@ const KanbanContainer = () => {
           onDragOver={handleDragOver}
           onDragEnd={handleDragEnd}
         >
-          <SortableContext
-            id="drag-column"
-            items={[...Object.keys(boardData)]}
-            strategy={horizontalListSortingStrategy}
-          >
-            {Object.keys(boardData).map(columnId => (
+          <SortableContext id="drag-column" items={[...columnOrderState]} strategy={horizontalListSortingStrategy}>
+            {columnOrderState.map(columnId => (
               <div className="kanban-wrapper" key={columnId} ref={setNodeRef}>
                 <KanbanColumn id={'column' + columnId}>
                   <KanbanColumnHeader

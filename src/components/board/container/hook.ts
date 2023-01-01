@@ -29,10 +29,12 @@ export default function useKanbanContainer() {
 
   const [boardState, setBoardState] = useState(() => mapDataKanban(statusList));
   const [taskActive, setTaskActive] = useState<ITaskResponse | any>();
+  const [columnOrderState, setColumnOrderState] = useState<any>(statusList.map(e => e.id));
   const [columnActive, setColumnActive] = useState<any>();
 
   useEffect(() => {
     setBoardState(() => mapDataKanban(statusList));
+    setColumnOrderState(statusList.map(e => e.id));
   }, [statusList]);
 
   const sensors = useSensorGroup();
@@ -70,8 +72,6 @@ export default function useKanbanContainer() {
 
     // This is code for handle drag column
     if (columnActive) {
-      console.log(boardState);
-
       const columnActive = active.id.toString().replace('column', '');
       const columnOver = over.data?.current?.statusId || over.id.toString().replace('column', '');
       if (columnActive != columnOver) {
@@ -82,14 +82,15 @@ export default function useKanbanContainer() {
         console.log('🚀 ~ file: hook.ts:79 ~ handleDragOver ~ columnOverIndex', columnOverIndex);
         const reorderColumnIdList = arrayMove(columnIdList, columnActiveIndex, columnOverIndex);
         console.log('🚀 ~ file: hook.ts:84 ~ handleDragOver ~ reorderColumnIdList', reorderColumnIdList);
-        const boardDataMap: {[x: number]: ITaskResponse[]} = {};
-        reorderColumnIdList.map(e => {
-          const columnData = {
-            [e]: boardState[Number(e)]
-          };
-          Object.assign(boardDataMap, columnData);
-        });
-        console.log('🚀 ~ file: hook.ts:85 ~ handleDragOver ~ boardDataMap', boardDataMap);
+        setColumnOrderState(reorderColumnIdList);
+        // const boardDataMap: {[x: number]: ITaskResponse[]} = {};
+        // reorderColumnIdList.map(e => {
+        //   const columnData = {
+        //     [e]: boardState[Number(e)]
+        //   };
+        //   Object.assign(boardDataMap, columnData);
+        // });
+        // console.log('🚀 ~ file: hook.ts:85 ~ handleDragOver ~ boardDataMap', boardDataMap);
 
         // setBoardState(boardDataMap);
         // const updateColumnPosition = arrayMove(boardState, columnActiveIndex, columnOverIndex);
@@ -163,6 +164,7 @@ export default function useKanbanContainer() {
     handleDragEnd,
     handleDragOver,
     taskActive,
-    columnActive
+    columnActive,
+    columnOrderState
   };
 }
