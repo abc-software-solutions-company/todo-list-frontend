@@ -51,7 +51,7 @@ const KanbanContainer = () => {
             strategy={horizontalListSortingStrategy}
           >
             {Object.keys(boardData).map(columnId => (
-              <div className="kanban-wrapper border" key={columnId} ref={setNodeRef}>
+              <div className="kanban-wrapper" key={columnId} ref={setNodeRef}>
                 <KanbanColumn id={'column' + columnId}>
                   <KanbanColumnHeader
                     name={statusList.filter(e => e.id == Number(columnId))[0].name}
@@ -69,7 +69,7 @@ const KanbanContainer = () => {
 
             {columnActive && (
               <DragOverlay>
-                <div className="kanban-wrapper border" key={columnActive} ref={setNodeRef}>
+                <div className="kanban-wrapper" key={columnActive} ref={setNodeRef}>
                   <KanbanColumn id={'column' + columnActive}>
                     <KanbanColumnHeader
                       name={statusList.filter(e => e.id == Number(columnActive))[0].name}

@@ -59,25 +59,25 @@ export default function useKanbanContainer() {
     setColumnActive(undefined);
   };
 
-  const arrangedBoard = {};
+  let arrangedBoard = {};
 
   const handleDragOver = ({active, over}: DragOverEvent) => {
     const overId = over?.id;
     if (!overId) {
       return;
     }
-    console.log(active.data.current);
 
-    console.log(isColumnSelected(active.id));
+    // This is code for handle drag
+    if (columnActive == undefined) {
+      const activeColumn = active.data?.current?.statusId || active.id;
+      const overColumn = over.data?.current?.statusId || over.id;
 
-    // const activeColumn = active.data?.current?.statusId || active.id;
-    // const overColumn = over.data?.current?.statusId || over.id;
-
-    // if (activeColumn !== overColumn) {
-    //   const activeItem = active.data.current as ITaskResponse;
-    //   const overIndex = over.id in boardState ? boardState[overColumn].length : over.data.current?.sortable?.index;
-    //   setBoardState(moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex));
-    // }
+      if (activeColumn !== overColumn) {
+        const activeItem = active.data.current as ITaskResponse;
+        const overIndex = over.id in boardState ? boardState[overColumn].length : over.data.current?.sortable?.index;
+        setBoardState(moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex));
+      }
+    }
   };
 
   const handleDragEnd = ({active, over}: DragEndEvent) => {
@@ -86,32 +86,34 @@ export default function useKanbanContainer() {
       setColumnActive(undefined);
       return;
     }
-    // const activeColumn = active.data.current?.statusId || active.id;
-    // const activeItem = active.data.current as ITaskResponse;
-    // const activeIndex = active.data.current?.sortable.index || active.id;
-    // const overColumn = over.data.current?.statusId || over.id;
-    // const overIndex = over.data.current?.sortable.index || over.id;
-    // if (active.id !== over.id) {
-    //   if (activeColumn !== overColumn) {
-    //     arrangedBoard = {
-    //       ...boardState,
-    //       [overColumn]: arrayMove(boardState[overColumn], activeIndex, overIndex)
-    //     };
-    //     setBoardState(arrangedBoard);
-    //     kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
-    //   } else {
-    //     arrangedBoard = {
-    //       ...boardState,
-    //       [activeColumn]: arrayMove(boardState[activeColumn], activeIndex, overIndex)
-    //     };
-    //     setBoardState(arrangedBoard);
-    //     kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
-    //   }
-    // } else {
-    //   arrangedBoard = moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex);
-    //   setBoardState(arrangedBoard);
-    //   kanbanAPIHandler(boardState, activeItem, overColumn);
-    // }
+    if (columnActive == undefined) {
+      const activeColumn = active.data.current?.statusId || active.id;
+      const activeItem = active.data.current as ITaskResponse;
+      const activeIndex = active.data.current?.sortable.index || active.id;
+      const overColumn = over.data.current?.statusId || over.id;
+      const overIndex = over.data.current?.sortable.index || over.id;
+      if (active.id !== over.id) {
+        if (activeColumn !== overColumn) {
+          arrangedBoard = {
+            ...boardState,
+            [overColumn]: arrayMove(boardState[overColumn], activeIndex, overIndex)
+          };
+          setBoardState(arrangedBoard);
+          kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
+        } else {
+          arrangedBoard = {
+            ...boardState,
+            [activeColumn]: arrayMove(boardState[activeColumn], activeIndex, overIndex)
+          };
+          setBoardState(arrangedBoard);
+          kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
+        }
+      } else {
+        arrangedBoard = moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex);
+        setBoardState(arrangedBoard);
+        kanbanAPIHandler(boardState, activeItem, overColumn);
+      }
+    }
   };
 
   return {
