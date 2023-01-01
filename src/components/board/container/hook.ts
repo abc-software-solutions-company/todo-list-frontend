@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
 import {DragEndEvent, DragOverEvent, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
@@ -68,12 +69,34 @@ export default function useKanbanContainer() {
     }
 
     // This is code for handle drag column
-    // if (columnActive) {
-    //   const columnActive = active.id;
-    //   const columnOver = active.id;
-    // }
+    if (columnActive) {
+      console.log(boardState);
 
-    // This is code for handle drag
+      const columnActive = active.id.toString().replace('column', '');
+      const columnOver = over.data?.current?.statusId || over.id.toString().replace('column', '');
+      if (columnActive != columnOver) {
+        const columnIdList = active.data?.current?.sortable.items as string[];
+        const columnActiveIndex = columnIdList.findIndex(e => e == columnActive);
+        console.log('🚀 ~ file: hook.ts:77 ~ handleDragOver ~ columnActiveIndex', columnActiveIndex);
+        const columnOverIndex = columnIdList.findIndex(e => e == columnOver);
+        console.log('🚀 ~ file: hook.ts:79 ~ handleDragOver ~ columnOverIndex', columnOverIndex);
+        const reorderColumnIdList = arrayMove(columnIdList, columnActiveIndex, columnOverIndex);
+        console.log('🚀 ~ file: hook.ts:84 ~ handleDragOver ~ reorderColumnIdList', reorderColumnIdList);
+        const boardDataMap: {[x: number]: ITaskResponse[]} = {};
+        reorderColumnIdList.map(e => {
+          const columnData = {
+            [e]: boardState[Number(e)]
+          };
+          Object.assign(boardDataMap, columnData);
+        });
+        console.log('🚀 ~ file: hook.ts:85 ~ handleDragOver ~ boardDataMap', boardDataMap);
+
+        // setBoardState(boardDataMap);
+        // const updateColumnPosition = arrayMove(boardState, columnActiveIndex, columnOverIndex);
+      }
+    }
+
+    // This is code for handle drag task
     if (columnActive == undefined) {
       const activeColumn = active.data?.current?.statusId || active.id;
       const overColumn = over.data?.current?.statusId || over.id.toString().replace('column', '');
@@ -134,7 +157,6 @@ export default function useKanbanContainer() {
   return {
     boardData: boardState,
     sensors,
-    isColumnSelected,
     statusList,
     handleDragStart,
     handleDragCancel,

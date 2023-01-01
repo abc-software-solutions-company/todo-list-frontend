@@ -19,7 +19,6 @@ const KanbanContainer = () => {
     handleDragOver,
     handleDragStart,
     taskActive,
-    isColumnSelected,
     columnActive
   } = useKanbanContainer();
 
