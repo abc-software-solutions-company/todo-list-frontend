@@ -41,12 +41,12 @@ export default function useKanbanContainer() {
   };
 
   const handleDragStart = ({active}: DragStartEvent) => {
-    const {id} = active;
+    const {id, data} = active;
     if (isColumnSelected(id)) {
       setTaskActive(undefined);
       setColumnActive(id.toString().replace('column', ''));
     } else {
-      setTaskActive(active.data.current);
+      setTaskActive(data.current);
       setColumnActive(undefined);
     }
   };
@@ -77,13 +77,13 @@ export default function useKanbanContainer() {
     // This is code for handle drag task
     if (columnActive == undefined) {
       const activeColumn = active.data?.current?.statusId || active.id;
+      console.log('🚀 ~ file: hook.ts:80 ~ handleDragOver ~ activeColumn', activeColumn);
       const overColumn = over.data?.current?.statusId || over.id.toString().replace('column', '');
-      console.log('🚀 ~ file: hook.ts:80 ~ handleDragOver ~ overColumn', overColumn);
+      console.log('🚀 ~ file: hook.ts:82 ~ handleDragOver ~ overColumn', overColumn);
 
       if (activeColumn !== overColumn) {
         const activeItem = active.data.current as ITaskResponse;
         let overIndex;
-        console.log(over.id);
         if (over.id.toString().includes('column')) {
           setBoardState(moveToColumn(boardState, activeColumn, activeItem, overColumn, boardState[overColumn].length));
         } else {
