@@ -67,6 +67,12 @@ export default function useKanbanContainer() {
       return;
     }
 
+    // This is code for handle drag column
+    // if (columnActive) {
+    //   const columnActive = active.id;
+    //   const columnOver = active.id;
+    // }
+
     // This is code for handle drag
     if (columnActive == undefined) {
       const activeColumn = active.data?.current?.statusId || active.id;
