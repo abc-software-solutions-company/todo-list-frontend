@@ -62,7 +62,7 @@ export default function useKanbanContainer() {
     setColumnActive(undefined);
   };
 
-  let arrangedBoard = {};
+  const arrangedBoard = {};
 
   const handleDragOver = ({active, over}: DragOverEvent) => {
     const overId = over?.id;
@@ -120,39 +120,40 @@ export default function useKanbanContainer() {
   };
 
   const handleDragEnd = ({active, over}: DragEndEvent) => {
+    console.log('🚀 ~ file: hook.ts:123 ~ handleDragEnd ~ over', over);
     if (!over) {
       setTaskActive(undefined);
       setColumnActive(undefined);
       return;
     }
-    if (columnActive == undefined) {
-      const activeColumn = active.data.current?.statusId || active.id;
-      const activeItem = active.data.current as ITaskResponse;
-      const activeIndex = active.data.current?.sortable.index || active.id;
-      const overColumn = over.data.current?.statusId || over.id.toString().replace('column', '');
-      const overIndex = over.data.current?.sortable.index || over.id.toString().replace('column', '');
-      if (active.id !== over.id && activeItem !== undefined) {
-        if (activeColumn !== overColumn) {
-          arrangedBoard = {
-            ...boardState,
-            [overColumn]: arrayMove(boardState[overColumn], activeIndex, overIndex)
-          };
-          setBoardState(arrangedBoard);
-          kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
-        } else {
-          arrangedBoard = {
-            ...boardState,
-            [activeColumn]: arrayMove(boardState[activeColumn], activeIndex, overIndex)
-          };
-          setBoardState(arrangedBoard);
-          kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
-        }
-      } else {
-        arrangedBoard = moveToColumn(boardState, activeColumn, activeItem, overColumn, overIndex);
-        setBoardState(arrangedBoard);
-        kanbanAPIHandler(boardState, activeItem, overColumn);
-      }
-    }
+    // if (columnActive == undefined) {
+    //   const activeColumn = active.data.current?.statusId || active.id;
+    //   const activeItem = active.data.current as ITaskResponse;
+    //   const activeIndex = active.data.current?.sortable.index || active.id;
+    //   const overColumn = over.data.current?.statusId || over.id.toString().replace('column', '');
+    //   const overIndex = over.data.current?.sortable.index || over.id.toString().replace('column', '');
+    //   if (active.id !== over.id && activeItem !== undefined) {
+    //     if (activeColumn !== overColumn) {
+    //       arrangedBoard = {
+    //         ...boardState,
+    //         [overColumn]: arrayMove(boardState[overColumn], activeIndex, overIndex)
+    //       };
+    //       setBoardState(arrangedBoard);
+    //       kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
+    //     } else {
+    //       arrangedBoard = {
+    //         ...boardState,
+    //         [activeColumn]: arrayMove(boardState[activeColumn], activeIndex, overIndex)
+    //       };
+    //       setBoardState(arrangedBoard);
+    //       kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
+    //     }
+    //   } else {
+    //     arrangedBoard = moveToColumn(boardState, activeColumn, activeItem, overColumn, overIndex);
+    //     setBoardState(arrangedBoard);
+    //     kanbanAPIHandler(boardState, activeItem, overColumn);
+    //   }
+    // }
   };
 
   return {

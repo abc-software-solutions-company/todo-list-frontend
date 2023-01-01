@@ -1,9 +1,10 @@
 import {DndContext, DragOverlay, useDroppable} from '@dnd-kit/core';
 import {horizontalListSortingStrategy, SortableContext} from '@dnd-kit/sortable';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 import KanbanColumn from '../column';
 import KanbanColumnBody from '../column/body';
+import KanbanColumnFooter from '../column/body/add-task';
 import KanbanTaskItem from '../column/body/item';
 import KanbanColumnHeader from '../column/header';
 import useKanbanContainer from './hook';
@@ -25,19 +26,9 @@ const KanbanContainer = () => {
 
   const {setNodeRef} = useDroppable({id: 'drag-column'});
 
-  const [windowHeight, setWindowHeight] = useState(750);
-
-  useEffect(() => {
-    if (window) {
-      window.addEventListener('resize', () => {
-        if (windowHeight > 0) setWindowHeight(window.innerHeight * 0.7);
-      });
-    }
-  }, []);
-
   return (
     <div className={style['kanban-container']}>
-      <div className="kanban-container-scroll" style={{height: windowHeight}}>
+      <div className="inner">
         <DndContext
           sensors={sensors}
           onDragStart={handleDragStart}
@@ -46,7 +37,7 @@ const KanbanContainer = () => {
           onDragEnd={handleDragEnd}
         >
           <SortableContext id="drag-column" items={[...columnOrderState]} strategy={horizontalListSortingStrategy}>
-            {columnOrderState.map(columnId => (
+            {columnOrderState.map((columnId: string) => (
               <div className="kanban-wrapper" key={columnId} ref={setNodeRef}>
                 <KanbanColumn id={'column' + columnId}>
                   <KanbanColumnHeader
@@ -54,6 +45,7 @@ const KanbanContainer = () => {
                     color={statusList.filter(e => e.id == Number(columnId))[0].color}
                   />
                   <KanbanColumnBody id={columnId} tasks={boardData[Number(columnId)]} />
+                  <KanbanColumnFooter id={Number(columnId)} />
                 </KanbanColumn>
               </div>
             ))}
@@ -72,6 +64,7 @@ const KanbanContainer = () => {
                       color={statusList.filter(e => e.id == Number(columnActive))[0].color}
                     />
                     <KanbanColumnBody id={columnActive} tasks={boardData[Number(columnActive)]} />
+                    <KanbanColumnFooter id={Number(columnActive)} />
                   </KanbanColumn>
                 </div>
               </DragOverlay>

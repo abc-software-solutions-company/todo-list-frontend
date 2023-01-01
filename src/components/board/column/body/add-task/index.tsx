@@ -6,11 +6,11 @@ import useModals from '@/states/modals/use-modals';
 
 import style from './style.module.scss';
 
-interface IAddTaskKanban {
+interface IKanbanColumnFooter {
   id: number;
 }
 
-export default function AddTaskKanban({id}: IAddTaskKanban) {
+export default function KanbanColumnFooter({id}: IKanbanColumnFooter) {
   const {boardData} = useBoards();
   const {setIsOpenModal, setSelectedTodolist, setSelectedColumnId} = useModals();
 
