@@ -1,0 +1,19 @@
+.navigation {
+  @apply py-6 text-base font-semibold;
+  @apply text-[#0EA5E9];
+}
+.menu-bar {
+  @apply bg-blue-400;
+  @apply flex justify-between rounded-lg bg-[#F1F5F9] px-3;
+}
+
+.menu-bar-left {
+  @apply flex gap-x-6 py-3;
+}
+
+.menu-bar-right {
+  @apply flex items-center;
+  input {
+    @apply h-8 rounded-lg border px-2;
+  }
+}
