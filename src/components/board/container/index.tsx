@@ -57,7 +57,7 @@ const KanbanContainer = () => {
 
             {columnActive && (
               <DragOverlay>
-                <div className="kanban-wrapper" key={columnActive} ref={setNodeRef}>
+                <div className="kanban-wrapper bg-[#f6fafe]" key={columnActive} ref={setNodeRef}>
                   <KanbanColumn id={'column' + columnActive}>
                     <KanbanColumnHeader
                       name={statusList.filter(e => e.id == Number(columnActive))[0].name}

@@ -1,5 +1,6 @@
 .kanban-container :global {
   @apply mt-6;
+  @apply overflow-x-auto;
   .inner {
     @apply grid grid-cols-6 gap-x-4;
     @apply w-[1840px];
