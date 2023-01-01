@@ -1,6 +1,6 @@
 .tool :global {
   @apply h-full min-w-0 items-center gap-2 p-0;
   span {
-    @apply whitespace-nowrap sm:hidden lg:inline;
+    @apply hidden whitespace-nowrap md:inline;
   }
 }
