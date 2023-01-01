@@ -7,7 +7,7 @@ interface IKanbanColumn {
   onDragEnd?: () => void;
   onDragOver?: () => void;
   children: ReactNode;
-  id: number;
+  id: string;
 }
 
 export default function KanbanColumn({children, id}: IKanbanColumn) {

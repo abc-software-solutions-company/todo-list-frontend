@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
-import {DragEndEvent, DragOverEvent, DragStartEvent} from '@dnd-kit/core';
+import {DragEndEvent, DragOverEvent, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
 import {arrayMove} from '@dnd-kit/sortable';
 import {useEffect, useState} from 'react';
 
@@ -28,6 +28,7 @@ export default function useKanbanContainer() {
 
   const [boardState, setBoardState] = useState(() => mapDataKanban(statusList));
   const [taskActive, setTaskActive] = useState<ITaskResponse | any>();
+  const [columnActive, setColumnActive] = useState<any>();
 
   useEffect(() => {
     setBoardState(() => mapDataKanban(statusList));
@@ -35,71 +36,88 @@ export default function useKanbanContainer() {
 
   const sensors = useSensorGroup();
 
-  const handleDragStart = ({active}: DragStartEvent) => setTaskActive(active.data.current);
+  const isColumnSelected = (id: UniqueIdentifier) => {
+    return id.toString().includes('column') ? true : false;
+  };
+
+  const handleDragStart = ({active}: DragStartEvent) => {
+    const {data, id, rect} = active;
+    console.log('🚀 ~ file: hook.ts:40 ~ handleDragStart ~ rect', rect);
+    console.log('🚀 ~ file: hook.ts:40 ~ handleDragStart ~ id', id);
+    console.log('🚀 ~ file: hook.ts:40 ~ handleDragStart ~ data', data);
+    if (isColumnSelected(id)) {
+      setColumnActive(id.toString().replace('column', ''));
+    } else {
+      setTaskActive(active.data.current);
+    }
+  };
 
   const handleDragCancel = () => setTaskActive(undefined);
 
-  let arrangedBoard = {};
+  const arrangedBoard = {};
 
   const handleDragOver = ({active, over}: DragOverEvent) => {
     const overId = over?.id;
     if (!overId) {
       return;
     }
+    console.log(active.data.current);
 
-    const activeColumn = active.data?.current?.statusId || active.id;
-    const overColumn = over.data?.current?.statusId || over.id;
+    console.log(isColumnSelected(active.id));
 
-    if (activeColumn !== overColumn) {
-      const activeItem = active.data.current as ITaskResponse;
-      const overIndex = over.id in boardState ? boardState[overColumn].length : over.data.current?.sortable?.index;
-      setBoardState(moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex));
-    }
+    // const activeColumn = active.data?.current?.statusId || active.id;
+    // const overColumn = over.data?.current?.statusId || over.id;
+
+    // if (activeColumn !== overColumn) {
+    //   const activeItem = active.data.current as ITaskResponse;
+    //   const overIndex = over.id in boardState ? boardState[overColumn].length : over.data.current?.sortable?.index;
+    //   setBoardState(moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex));
+    // }
   };
 
   const handleDragEnd = ({active, over}: DragEndEvent) => {
-    if (!over) {
-      setTaskActive(undefined);
-      return;
-    }
-    const activeColumn = active.data.current?.statusId || active.id;
-    const activeItem = active.data.current as ITaskResponse;
-    const activeIndex = active.data.current?.sortable.index || active.id;
-
-    const overColumn = over.data.current?.statusId || over.id;
-    const overIndex = over.data.current?.sortable.index || over.id;
-
-    if (active.id !== over.id) {
-      if (activeColumn !== overColumn) {
-        arrangedBoard = {
-          ...boardState,
-          [overColumn]: arrayMove(boardState[overColumn], activeIndex, overIndex)
-        };
-        setBoardState(arrangedBoard);
-        kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
-      } else {
-        arrangedBoard = {
-          ...boardState,
-          [activeColumn]: arrayMove(boardState[activeColumn], activeIndex, overIndex)
-        };
-        setBoardState(arrangedBoard);
-        kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
-      }
-    } else {
-      arrangedBoard = moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex);
-      setBoardState(arrangedBoard);
-      kanbanAPIHandler(boardState, activeItem, overColumn);
-    }
+    // if (!over) {
+    //   setTaskActive(undefined);
+    //   return;
+    // }
+    // const activeColumn = active.data.current?.statusId || active.id;
+    // const activeItem = active.data.current as ITaskResponse;
+    // const activeIndex = active.data.current?.sortable.index || active.id;
+    // const overColumn = over.data.current?.statusId || over.id;
+    // const overIndex = over.data.current?.sortable.index || over.id;
+    // if (active.id !== over.id) {
+    //   if (activeColumn !== overColumn) {
+    //     arrangedBoard = {
+    //       ...boardState,
+    //       [overColumn]: arrayMove(boardState[overColumn], activeIndex, overIndex)
+    //     };
+    //     setBoardState(arrangedBoard);
+    //     kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
+    //   } else {
+    //     arrangedBoard = {
+    //       ...boardState,
+    //       [activeColumn]: arrayMove(boardState[activeColumn], activeIndex, overIndex)
+    //     };
+    //     setBoardState(arrangedBoard);
+    //     kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
+    //   }
+    // } else {
+    //   arrangedBoard = moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex);
+    //   setBoardState(arrangedBoard);
+    //   kanbanAPIHandler(boardState, activeItem, overColumn);
+    // }
   };
 
   return {
     boardData: boardState,
     sensors,
+    isColumnSelected,
     statusList,
     handleDragStart,
     handleDragCancel,
     handleDragEnd,
     handleDragOver,
-    taskActive
+    taskActive,
+    columnActive
   };
 }

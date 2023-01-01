@@ -1,5 +1,5 @@
 import {DndContext, DragOverlay, useDroppable} from '@dnd-kit/core';
-import {horizontalListSortingStrategy, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
+import {horizontalListSortingStrategy, SortableContext} from '@dnd-kit/sortable';
 import React, {useEffect, useState} from 'react';
 
 import KanbanColumn from '../column';
@@ -10,8 +10,18 @@ import useKanbanContainer from './hook';
 import style from './style.module.scss';
 
 const KanbanContainer = () => {
-  const {boardData, statusList, sensors, handleDragCancel, handleDragEnd, handleDragOver, handleDragStart, taskActive} =
-    useKanbanContainer();
+  const {
+    boardData,
+    statusList,
+    sensors,
+    handleDragCancel,
+    handleDragEnd,
+    handleDragOver,
+    handleDragStart,
+    taskActive,
+    isColumnSelected,
+    columnActive
+  } = useKanbanContainer();
 
   const {setNodeRef} = useDroppable({id: 'drag-column'});
 
@@ -42,7 +52,7 @@ const KanbanContainer = () => {
           >
             {Object.keys(boardData).map(columnId => (
               <div className="kanban-wrapper border" key={columnId} ref={setNodeRef}>
-                <KanbanColumn id={Number(columnId)}>
+                <KanbanColumn id={'column' + columnId}>
                   <KanbanColumnHeader
                     name={statusList.filter(e => e.id == Number(columnId))[0].name}
                     color={statusList.filter(e => e.id == Number(columnId))[0].color}
@@ -54,6 +64,12 @@ const KanbanContainer = () => {
             {taskActive && (
               <DragOverlay>
                 <KanbanTaskItem task={taskActive} />
+              </DragOverlay>
+            )}
+
+            {columnActive && (
+              <DragOverlay>
+                <p>{columnActive}</p>
               </DragOverlay>
             )}
           </SortableContext>
