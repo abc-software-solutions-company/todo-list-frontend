@@ -76,12 +76,23 @@ export default function useKanbanContainer() {
     // This is code for handle drag
     if (columnActive == undefined) {
       const activeColumn = active.data?.current?.statusId || active.id;
-      const overColumn = over.data?.current?.statusId || over.id;
+      const overColumn = over.data?.current?.statusId || over.id.toString().replace('column', '');
+      console.log('🚀 ~ file: hook.ts:80 ~ handleDragOver ~ overColumn', overColumn);
 
       if (activeColumn !== overColumn) {
         const activeItem = active.data.current as ITaskResponse;
-        const overIndex = over.id in boardState ? boardState[overColumn].length : over.data.current?.sortable?.index;
-        setBoardState(moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex));
+        let overIndex;
+        // const overIndex = over.id in boardState ? boardState[overColumn].length : over.data.current?.sortable?.index;
+        // console.log('🚀 ~ file: hook.ts:84 ~ handleDragOver ~ overIndex', overIndex);
+        console.log(over.id);
+        if (over.id.toString().includes('column')) {
+          setBoardState(
+            moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, boardState[overColumn].length)
+          );
+        } else {
+          overIndex = over.id in boardState ? boardState[overColumn].length : over.data.current?.sortable?.index;
+          setBoardState(moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex));
+        }
       }
     }
   };
