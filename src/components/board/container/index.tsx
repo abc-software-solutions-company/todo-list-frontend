@@ -35,6 +35,7 @@ const KanbanContainer = () => {
           onDragCancel={handleDragCancel}
           onDragOver={handleDragOver}
           onDragEnd={handleDragEnd}
+          autoScroll={true}
         >
           <SortableContext id="drag-column" items={[...columnOrderState]} strategy={horizontalListSortingStrategy}>
             {columnOrderState.map((columnId: string) => (

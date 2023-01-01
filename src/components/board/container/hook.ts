@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import {DragEndEvent, DragOverEvent, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
 import {arrayMove} from '@dnd-kit/sortable';
-import {useEffect, useState} from 'react';
+import {SetStateAction, useEffect, useState} from 'react';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {IStatus} from '@/data/api/types/todolist.type';
@@ -28,6 +28,7 @@ export default function useKanbanContainer() {
   const [taskActive, setTaskActive] = useState<ITaskResponse | any>();
   const [columnOrderState, setColumnOrderState] = useState<string[]>(statusList.map(e => e.id.toString()));
   const [columnActive, setColumnActive] = useState<string>();
+  let boardUpdateDragEnd: SetStateAction<{[x: number]: ITaskResponse[]}>;
 
   useEffect(() => {
     setBoardState(() => mapDataKanban(statusList));
@@ -83,13 +84,9 @@ export default function useKanbanContainer() {
 
       if (activeColumn !== overColumn) {
         const activeItem = active.data.current as ITaskResponse;
-        let overIndex;
-        if (over.id.toString().includes('column')) {
-          setBoardState(moveToColumn(boardState, activeColumn, activeItem, overColumn, boardState[overColumn].length));
-        } else {
-          overIndex = over.id in boardState ? boardState[overColumn].length : over.data.current?.sortable?.index;
-          setBoardState(moveToColumn(boardState, activeColumn, activeItem, overColumn, overIndex));
-        }
+        const overIndex = over.id in boardState ? boardState[overColumn].length : over.data.current?.sortable?.index;
+        boardUpdateDragEnd = moveToColumn(boardState, activeColumn, activeItem, overColumn, overIndex);
+        setBoardState(boardUpdateDragEnd);
       }
     }
   };
@@ -99,6 +96,11 @@ export default function useKanbanContainer() {
       setTaskActive(undefined);
       setColumnActive(undefined);
       return;
+    }
+    if (over) {
+      const {data, id} = over;
+      console.log('🚀 ~ file: hook.ts:114 ~ handleDragEnd ~ id', id);
+      console.log('🚀 ~ file: hook.ts:114 ~ handleDragEnd ~ data', data);
     }
   };
 
