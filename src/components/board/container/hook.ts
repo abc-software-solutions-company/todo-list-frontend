@@ -107,8 +107,8 @@ export default function useKanbanContainer() {
       const activeColumn = active.data.current?.statusId || active.id;
       const activeItem = active.data.current as ITaskResponse;
       const activeIndex = active.data.current?.sortable.index || active.id;
-      const overColumn = over.data.current?.statusId || over.id;
-      const overIndex = over.data.current?.sortable.index || over.id;
+      const overColumn = over.data.current?.statusId || over.id.toString().replace('column', '');
+      const overIndex = over.data.current?.sortable.index || over.id.toString().replace('column', '');
       if (active.id !== over.id) {
         if (activeColumn !== overColumn) {
           arrangedBoard = {
