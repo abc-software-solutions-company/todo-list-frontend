@@ -11,7 +11,7 @@ export const insertItem = (column: ITaskResponse[], item: ITaskResponse, order =
   return [...arr1, item, ...arr2];
 };
 
-export const moveBetweenContainers = (
+export const moveToColumn = (
   items: {[x: number]: ITaskResponse[]},
   activeContainer: number,
   activeItem: ITaskResponse,

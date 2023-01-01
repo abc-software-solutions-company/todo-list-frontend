@@ -8,7 +8,7 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 import {IStatus} from '@/data/api/types/todolist.type';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useBoards from '@/states/board/use-boards';
-import {moveBetweenContainers} from '@/utils/kanban/array';
+import {moveToColumn} from '@/utils/kanban/array';
 
 import {apiUpdateTaskStatus, kanbanAPIHandler} from './api-handler';
 
@@ -86,12 +86,10 @@ export default function useKanbanContainer() {
         // console.log('🚀 ~ file: hook.ts:84 ~ handleDragOver ~ overIndex', overIndex);
         console.log(over.id);
         if (over.id.toString().includes('column')) {
-          setBoardState(
-            moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, boardState[overColumn].length)
-          );
+          setBoardState(moveToColumn(boardState, activeColumn, activeItem, overColumn, boardState[overColumn].length));
         } else {
           overIndex = over.id in boardState ? boardState[overColumn].length : over.data.current?.sortable?.index;
-          setBoardState(moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex));
+          setBoardState(moveToColumn(boardState, activeColumn, activeItem, overColumn, overIndex));
         }
       }
     }
@@ -109,7 +107,7 @@ export default function useKanbanContainer() {
       const activeIndex = active.data.current?.sortable.index || active.id;
       const overColumn = over.data.current?.statusId || over.id.toString().replace('column', '');
       const overIndex = over.data.current?.sortable.index || over.id.toString().replace('column', '');
-      if (active.id !== over.id) {
+      if (active.id !== over.id && activeItem !== undefined) {
         if (activeColumn !== overColumn) {
           arrangedBoard = {
             ...boardState,
@@ -126,7 +124,7 @@ export default function useKanbanContainer() {
           kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
         }
       } else {
-        arrangedBoard = moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex);
+        arrangedBoard = moveToColumn(boardState, activeColumn, activeItem, overColumn, overIndex);
         setBoardState(arrangedBoard);
         kanbanAPIHandler(boardState, activeItem, overColumn);
       }
