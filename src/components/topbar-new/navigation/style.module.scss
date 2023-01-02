@@ -3,8 +3,8 @@
   @apply text-[#0EA5E9];
 }
 .menu-bar {
-  @apply bg-blue-400;
-  @apply flex justify-between rounded-lg bg-[#F1F5F9] px-3;
+  @apply items-center bg-blue-400;
+  @apply flex h-16 justify-between rounded-lg bg-[#F1F5F9] px-3;
 }
 
 .menu-bar-left {
