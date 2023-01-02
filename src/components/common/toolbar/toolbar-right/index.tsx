@@ -5,6 +5,7 @@ import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 import useBoards from '@/states/board/use-boards';
 import useModals from '@/states/modals/use-modals';
+import useTodolist from '@/states/todolist/use-todolist';
 
 import style from './style.module.scss';
 
@@ -12,10 +13,12 @@ const ToolBarRight: FC = () => {
   const router = useRouter();
   const {id} = router.query;
   const {boardData} = useBoards();
+  const {todolist} = useTodolist();
   const {setIsOpenModal, setSelectedTodolist} = useModals();
 
   const onSettingBoard = () => {
-    setSelectedTodolist(boardData);
+    if (router.asPath.includes(`${ROUTES.LIST}`)) setSelectedTodolist(todolist);
+    if (router.asPath.includes(`${ROUTES.KANBAN}`)) setSelectedTodolist(boardData);
     setIsOpenModal('settings');
   };
   return (
