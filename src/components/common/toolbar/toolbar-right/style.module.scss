@@ -12,4 +12,7 @@
   .settings {
     @apply flex gap-x-1;
   }
+  .list-view-active {
+    @apply rounded border bg-[#E5E7EB] px-1;
+  }
 }

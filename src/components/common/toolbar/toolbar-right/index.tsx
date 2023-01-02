@@ -21,10 +21,12 @@ const ToolBarRight: FC = () => {
     if (router.asPath.includes(`${ROUTES.KANBAN}`)) setSelectedTodolist(boardData);
     setIsOpenModal('settings');
   };
+
+  const isKanbanView = router.asPath.includes(ROUTES.KANBAN) ? true : false;
   return (
     <div className={style['toolbar-right']}>
       <div className="view-mode">
-        <div className="list-view">
+        <div className={`list-view ${!isKanbanView ? 'list-view-active' : ''}`}>
           <Icon
             name="list-view"
             className="ico-vertical leading-tight hover:cursor-pointer"
@@ -32,7 +34,7 @@ const ToolBarRight: FC = () => {
             onClick={() => router.push(`${ROUTES.LIST}/${id}`)}
           />
         </div>
-        <div className="kanban-view rounded border bg-[#E5E7EB] px-1">
+        <div className={`kanban-view ${isKanbanView ? 'list-view-active' : ''}`}>
           <Icon
             name="horizontal"
             className="ico-horizontal leading-tight hover:cursor-pointer"
