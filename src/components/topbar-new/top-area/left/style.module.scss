@@ -1,6 +1,12 @@
 .top-area-left :global {
-  @apply flex gap-x-3 bg-blue-400;
+  @apply flex gap-x-3;
+  .decor {
+    @apply flex h-12 w-12 items-center rounded-xl border border-transparent bg-[#38BDF8];
+  }
   .page-action {
     @apply flex gap-x-2;
+  }
+  .page-title {
+    @apply text-h4 font-semibold;
   }
 }
