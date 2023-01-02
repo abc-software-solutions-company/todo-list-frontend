@@ -10,6 +10,9 @@
 .menu-bar-left {
   @apply flex gap-x-6 py-3;
 }
+.active {
+  @apply border-b-[1.5px] border-b-blue-500 pb-2;
+}
 
 .menu-bar-right {
   @apply flex items-center;
