@@ -7,6 +7,7 @@ import useBoards from '@/states/board/use-boards';
 import useModals from '@/states/modals/use-modals';
 import useTodolist from '@/states/todolist/use-todolist';
 
+import ToolFilter from '../../tool-filter';
 import style from './style.module.scss';
 
 const ToolBarRight: FC = () => {
@@ -20,6 +21,12 @@ const ToolBarRight: FC = () => {
     if (router.asPath.includes(`${ROUTES.LIST}`)) setSelectedTodolist(todolist);
     if (router.asPath.includes(`${ROUTES.KANBAN}`)) setSelectedTodolist(boardData);
     setIsOpenModal('settings');
+  };
+
+  const onDelete = () => {
+    if (router.asPath.includes(`${ROUTES.LIST}`)) setSelectedTodolist(todolist);
+    if (router.asPath.includes(`${ROUTES.KANBAN}`)) setSelectedTodolist(boardData);
+    setIsOpenModal('deleteList');
   };
 
   const isKanbanView = router.asPath.includes(ROUTES.KANBAN) ? true : false;
@@ -40,6 +47,19 @@ const ToolBarRight: FC = () => {
             className="ico-horizontal leading-tight hover:cursor-pointer"
             size={16}
             onClick={() => router.push(`${ROUTES.KANBAN}/${id}`)}
+          />
+        </div>
+        <div className="tool-filter">
+          <ToolFilter todolist={todolist} />
+        </div>
+        <div className="delete">
+          <span className="hidden sm:block">Settings</span>
+
+          <Icon
+            name="Delete list"
+            className="ico-trash-2 leading-tight hover:cursor-pointer"
+            size={16}
+            onClick={onDelete}
           />
         </div>
       </div>

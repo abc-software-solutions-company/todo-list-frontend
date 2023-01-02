@@ -9,7 +9,6 @@ import LocalStorage from '@/utils/local-storage';
 
 import Loading from '../common/loading';
 import ToolFilter from '../common/tool-filter';
-import Title from '../lists/title';
 import ListTask from './list-task';
 import styles from './style.module.scss';
 
@@ -50,16 +49,13 @@ const MyTasks = () => {
       <>
         <div className={styles['list-task']}>
           <div className="h-[12px]"></div>
-          <div className="container">
-            <div className="flex items-center justify-between">
-              <Title tilte={'My Tasks'} />
-              {myTasks
-                ?.filter(x => x != null)
-                .map(e => e.tasks.length)
-                .reduce((a, b) => a + b, 0) != 0 && <ToolFilter myTasks={myTasks} />}
-            </div>
-            <ListTask />
+          <div className="flex items-center justify-end">
+            {myTasks
+              ?.filter(x => x != null)
+              .map(e => e.tasks.length)
+              .reduce((a, b) => a + b, 0) != 0 && <ToolFilter myTasks={myTasks} />}
           </div>
+          <ListTask />
         </div>
       </>
     );

@@ -26,13 +26,11 @@ const Lists: FC = () => {
 
   return (
     <div className={styles['page-list']}>
-      <div className="container">
-        <Toolbar title="My Lists" showActions={true} />
-        <List list={myList} />
-        <div className="h-6 lg:h-7"></div>
-        <Toolbar title="Favorite Lists" />
-        <List list={favoriteList} hiddenDelete={true} hiddenEdit={true} />
-      </div>
+      <Toolbar title="My Lists" showActions={true} />
+      <List list={myList} />
+      <div className="h-6 lg:h-7"></div>
+      <Toolbar title="Favorite Lists" />
+      <List list={favoriteList} hiddenDelete={true} hiddenEdit={true} />
       <FloatIcon className="float-icon" onClick={onNew} />
     </div>
   );

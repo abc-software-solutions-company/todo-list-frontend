@@ -4,7 +4,7 @@
     @apply flex  gap-x-2;
   }
   .btn {
-    @apply leading-tight hover:cursor-pointer;
+    @apply flex items-center px-1 leading-tight hover:cursor-pointer;
   }
   .sort {
     @apply flex gap-x-1;
@@ -12,7 +12,13 @@
   .settings {
     @apply flex gap-x-1;
   }
+  .tool-filter {
+    @apply ml-2;
+  }
+  .delete {
+    @apply flex items-center gap-x-1;
+  }
   .list-view-active {
-    @apply rounded border bg-[#E5E7EB] px-1;
+    @apply rounded border bg-[#E5E7EB];
   }
 }
