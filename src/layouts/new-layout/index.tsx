@@ -20,7 +20,6 @@ export default function NewLayout({children}: React.PropsWithChildren<Record<str
   const router = useRouter();
   return (
     <div className={styles['new-layout']}>
-      {/* <Topbar /> */}
       <TopBarNew />
       <main>{children}</main>
       {router.asPath === ROUTES.LOGIN ? (
