@@ -2,12 +2,9 @@
   .error-private-list {
     @apply mt-3 flex justify-center text-red-500;
   }
-  .container {
-    @apply px-4;
-  }
-  .container-kanban {
-    @apply pl-[20px] pr-[10px];
-  }
+  // .container {
+  //   @apply px-4;
+  // }
   .tasks {
     @apply mt-3 lg:mt-5;
     .item {
