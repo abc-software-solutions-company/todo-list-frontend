@@ -1,0 +1,6 @@
+.top-area-left :global {
+  @apply flex gap-x-3 bg-blue-400;
+  .page-action {
+    @apply flex gap-x-2;
+  }
+}
