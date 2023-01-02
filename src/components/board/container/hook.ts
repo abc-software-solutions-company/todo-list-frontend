@@ -10,6 +10,9 @@ import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useBoards from '@/states/board/use-boards';
 import {moveToColumn} from '@/utils/kanban/array';
 
+import {apiUpdateTaskStatus} from './api-handler';
+import DNDCurrent from './type';
+
 export default function useKanbanContainer() {
   const {statusList} = useBoards();
 
@@ -97,7 +100,21 @@ export default function useKanbanContainer() {
       return;
     }
     if (over) {
-      const {data, id} = over;
+      const overData: DNDCurrent | any = over.data.current;
+      const activeData: DNDCurrent | any = active.data.current;
+
+      const {id: overId, statusId: overStatusId, name: overName} = overData;
+      const {id: activeId, name: activeName} = activeData;
+
+      if (!overName) {
+        console.log('This task is drag to short column area');
+        const newStatus = over.id.toString().replace('column', '');
+        apiUpdateTaskStatus(activeId, parseInt(newStatus));
+      }
+      if (overName) {
+        console.log('This task is drag to column has overflow scroll');
+        apiUpdateTaskStatus(activeId, parseInt(overStatusId));
+      }
     }
   };
 

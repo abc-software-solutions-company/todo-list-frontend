@@ -2,7 +2,6 @@
 import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
-import {IndexStep} from '@/utils/constant';
 
 export const apiUpdateTaskStatus = (id: string, statusId: number) => {
   api.task
@@ -10,6 +9,9 @@ export const apiUpdateTaskStatus = (id: string, statusId: number) => {
     .then(() => console.log('Update task column success'))
     .then(() => {
       socketUpdateList();
+    })
+    .then(() => {
+      console.log('Change status ok');
     });
 };
 
