@@ -32,7 +32,7 @@ const TopAreaLeft: FC = () => {
       </div>
       <div className="page-title">{pageTitle}</div>
       <div className="page-action">
-        <div className="favorite">
+        <div className="favorite-list">
           {todolist && !isBoardPage && <TodolistFavorite id={todolist.id} favorite={todolist.favorite} />}
           {boardData && isBoardPage && <TodolistFavorite id={boardData.id} favorite={boardData.favorite} />}
         </div>

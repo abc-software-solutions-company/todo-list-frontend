@@ -1,4 +1,6 @@
 .top-area :global {
-  // @apply bg-amber-300;
   @apply flex justify-between;
+  .notification {
+    @apply hidden md:block;
+  }
 }

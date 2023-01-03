@@ -10,7 +10,9 @@ const TopAreaRight: FC = () => {
   return (
     <div className={style['top-area-right']}>
       <TopBarShare />
-      <Notification />
+      <div className="notification">
+        <Notification />
+      </div>
       <TopBarAccount />
     </div>
   );

@@ -2,11 +2,18 @@
   @apply flex gap-x-3;
   .decor {
     @apply flex h-12 w-12 items-center rounded-xl border border-transparent bg-[#38BDF8];
+    @apply hidden md:block;
   }
   .page-action {
     @apply flex gap-x-2;
   }
   .page-title {
     @apply text-h4 font-semibold;
+  }
+  .favorite-list {
+    @apply hidden md:block;
+  }
+  .more {
+    @apply hidden md:block;
   }
 }
