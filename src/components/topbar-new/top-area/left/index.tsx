@@ -12,9 +12,11 @@ import style from './style.module.scss';
 
 const TopAreaLeft: FC = () => {
   const router = useRouter();
+  const {id} = router.query;
   const {todolist} = useTodolist();
   const {boardData} = useBoards();
   const isBoardPage = router.asPath.includes(ROUTES.KANBAN);
+  const isListPage = router.asPath.includes(`${ROUTES.LIST}/${id}`);
   const [pageTitle, setPageTitle] = useState('');
   useEffect(() => {
     if (typeof window !== undefined) {
@@ -35,7 +37,7 @@ const TopAreaLeft: FC = () => {
       <div className="page-title">{pageTitle}</div>
       <div className="page-action">
         <div className="favorite-list">
-          {todolist && !isBoardPage && <TodolistFavorite id={todolist.id} favorite={todolist.favorite} />}
+          {todolist && isListPage && <TodolistFavorite id={todolist.id} favorite={todolist.favorite} />}
           {boardData && isBoardPage && <TodolistFavorite id={boardData.id} favorite={boardData.favorite} />}
         </div>
         <div className="more">
