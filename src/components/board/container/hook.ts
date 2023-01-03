@@ -10,7 +10,7 @@ import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useBoards from '@/states/board/use-boards';
 import {moveToColumn} from '@/utils/kanban/array';
 
-import {apiUpdateTaskStatus} from './api-handler';
+import {apiUpdatePositionSameColumn, apiUpdateTaskStatus} from './api-handler';
 import DNDCurrent from './type';
 
 export default function useKanbanContainer() {
@@ -140,22 +140,21 @@ export default function useKanbanContainer() {
       const beforePositionInColumn = activeData.sortable.index;
       const afterPositionInColumn = overData.sortable.index;
       const overContainerId = overData.sortable.containerId;
+      const activeContainerId = activeData.sortable.containerId;
 
       const {id: overId, statusId: overStatusId, name: overName} = overData;
       const {id: activeId, name: activeName} = activeData;
 
-      if (!overName) {
-        console.log('This task is drag to short column area');
+      if (activeContainerId !== overContainerId && !overName) {
         const newStatus = over.id.toString().replace('column', '');
-        // apiUpdateTaskStatus(activeId, parseInt(newStatus));
+        apiUpdateTaskStatus(activeId, parseInt(newStatus));
       }
 
-      if (overName) {
-        console.log('Drag to other column .This task is drag to column has overflow scroll or inside column');
-        // apiUpdateTaskStatus(activeId, parseInt(overStatusId));
+      if (activeContainerId !== overContainerId && overName) {
+        apiUpdateTaskStatus(activeId, parseInt(overStatusId));
       }
 
-      if (overData.sortable.containerId == activeData.sortable.containerId) {
+      if (activeContainerId == overContainerId) {
         console.log('Let move task on the same column');
         setBoardState({
           ...boardState,
@@ -165,6 +164,7 @@ export default function useKanbanContainer() {
             afterPositionInColumn
           )
         });
+        apiUpdatePositionSameColumn(boardState, activeData, activeContainerId);
       }
     }
   };
