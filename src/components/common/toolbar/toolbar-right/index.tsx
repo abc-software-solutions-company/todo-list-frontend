@@ -29,10 +29,26 @@ const ToolBarRight: FC = () => {
     setIsOpenModal('deleteList');
   };
 
+  const onAddTask = () => {
+    setSelectedTodolist(todolist);
+    setIsOpenModal('createTask');
+  };
+
   const isKanbanView = router.asPath.includes(ROUTES.KANBAN) ? true : false;
   return (
     <div className={style['toolbar-right']}>
       <div className="view-mode">
+        {!isKanbanView && (
+          <div className={`add-task`}>
+            <span className="hidden sm:block">Add Task</span>
+            <Icon
+              name="add-task"
+              className="ico-plus-circle leading-tight hover:cursor-pointer"
+              size={16}
+              onClick={onAddTask}
+            />
+          </div>
+        )}
         <div className={`list-view ${!isKanbanView ? 'list-view-active' : ''}`}>
           <Icon
             name="list-view"

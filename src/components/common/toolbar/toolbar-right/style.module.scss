@@ -1,5 +1,8 @@
 .toolbar-right :global {
   @apply flex items-center gap-x-3 sm:gap-x-7;
+  .add-task {
+    @apply flex gap-x-2;
+  }
   .view-mode {
     @apply flex  gap-x-2;
   }
