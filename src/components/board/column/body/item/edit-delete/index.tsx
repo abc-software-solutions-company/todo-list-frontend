@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 
 import Tool, {IToolProps} from '@/components/lists-detail/toolbar/tool';
 import ToolMenu from '@/components/lists-detail/toolbar/tool-menu';
@@ -11,7 +11,7 @@ interface IKanbanTaskEditDelete {
   task: ITaskResponse;
 }
 
-export default function KanbanTaskEditDelete({task}: IKanbanTaskEditDelete) {
+const KanbanTaskEditDelete: FC<IKanbanTaskEditDelete> = ({task}) => {
   const {setIsOpenModal, setSelectedTask} = useModals();
 
   const onDelete = () => {
@@ -44,4 +44,6 @@ export default function KanbanTaskEditDelete({task}: IKanbanTaskEditDelete) {
       <ToolMenu display="alway" icon={<MUI_ICON.MORE_VERT />} items={toolMenuItems} margin={-3} />
     </div>
   );
-}
+};
+
+export default KanbanTaskEditDelete;
