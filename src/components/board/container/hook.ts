@@ -100,8 +100,8 @@ export default function useKanbanContainer() {
       return;
     }
     if (over) {
-      const overData: DNDCurrent | any = over.data.current;
-      const activeData: DNDCurrent | any = active.data.current;
+      const overData: DNDCurrent = over.data.current;
+      const activeData: DNDCurrent = active.data.current;
 
       const {id: overId, statusId: overStatusId, name: overName} = overData;
       const {id: activeId, name: activeName} = activeData;
@@ -109,11 +109,38 @@ export default function useKanbanContainer() {
       if (!overName) {
         console.log('This task is drag to short column area');
         const newStatus = over.id.toString().replace('column', '');
-        apiUpdateTaskStatus(activeId, parseInt(newStatus));
+        // apiUpdateTaskStatus(activeId, parseInt(newStatus));
       }
       if (overName) {
-        console.log('This task is drag to column has overflow scroll');
-        apiUpdateTaskStatus(activeId, parseInt(overStatusId));
+        console.log('This task is drag to column has overflow scroll or inside column');
+        // console.log(over);
+        // console.log('Active data id');
+        // console.log(activeData.id);
+        // console.log(`Active Data Sortable`);
+        // console.log(active);
+
+        // console.log('Over data id');
+        // console.log(overData.id);
+
+        // console.log('Over sotrable items');
+        // console.log(overData.sortable.items);
+        // const columnIdArr = overData.sortable.items;
+        console.log('Active');
+        console.log(active);
+        console.log('Over');
+        console.log(over);
+
+        const beforePositionInColumn = activeData.sortable.index;
+        const afterPositionInColumn = overData.sortable.index;
+        const allIdInColumn = overData.sortable.items;
+        console.log('Let move task id');
+        console.log(arrayMove(allIdInColumn, beforePositionInColumn, afterPositionInColumn));
+
+        // console.log(arrayMove(columnIdArr));
+
+        // This is where we check the task active position and task over position
+
+        // apiUpdateTaskStatus(activeId, parseInt(overStatusId));
       }
     }
   };
