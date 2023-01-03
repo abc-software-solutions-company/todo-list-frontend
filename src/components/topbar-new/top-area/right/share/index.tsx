@@ -21,8 +21,10 @@ const TopBarShare: FC = () => {
   };
   return (
     <div className={style['topbar-share']} onClick={onShare}>
-      <Icon name="Share" className="ico-share-3  text-white" />
-      Share
+      <div className="topbar-share-inner">
+        <Icon name="Share" className="ico-share-3  text-white" />
+        Share
+      </div>
     </div>
   );
 };

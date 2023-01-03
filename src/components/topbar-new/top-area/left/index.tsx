@@ -28,7 +28,9 @@ const TopAreaLeft: FC = () => {
   return (
     <div className={style['top-area-left']}>
       <div className="decor">
-        <Icon name="decor" className="ico-three-line text-white" />
+        <div className="decor-inner">
+          <Icon name="decor" className="ico-three-line text-white" />
+        </div>
       </div>
       <div className="page-title">{pageTitle}</div>
       <div className="page-action">
