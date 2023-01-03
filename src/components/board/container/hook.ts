@@ -170,7 +170,7 @@ export default function useKanbanContainer() {
           )
         });
         //This is where we check the task active position and task over position
-        apiUpdateTaskStatus(activeId, parseInt(overStatusId));
+        apiUpdateTaskStatus(activeData.id, parseInt(overData.statusId));
       }
     }
   };
