@@ -4,6 +4,7 @@ import React, {useEffect} from 'react';
 import Footer from '@/components/footer';
 import TopBarNew from '@/components/topbar-new';
 import {ROUTES} from '@/configs/routes.config';
+import {isBoardPage, isListDetailPage, isMyListPage} from '@/utils/check-routes';
 
 import styles from './style.module.scss';
 
@@ -18,6 +19,14 @@ export default function NewLayout({children}: React.PropsWithChildren<Record<str
     }
   });
   const router = useRouter();
+  const path = router.asPath;
+  const {id} = router.query;
+  console.log('🚀 ~ file: index.tsx:10 ~ ListPage ~ router', id);
+  console.log('🚀 ~ file: index.tsx:10 ~ ListPage ~ router', router);
+  console.log('~~~~ isMyListPage', isMyListPage(path, id as string));
+  console.log(`~~~~~~ isListDetailPage`, isListDetailPage(path, id as string));
+  console.log(`~~~~~~ isKanbanPage`, isBoardPage(path, id as string));
+
   return (
     <div className={styles['new-layout']}>
       <TopBarNew />
