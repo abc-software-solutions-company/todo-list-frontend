@@ -144,7 +144,8 @@ export default function useKanbanContainer() {
       if (!overName) {
         console.log('This task is drag to short column area');
         const newStatus = over.id.toString().replace('column', '');
-        // apiUpdateTaskStatus(activeId, parseInt(newStatus));
+        apiUpdateTaskStatus(activeId, parseInt(newStatus));
+        return;
       }
       if (overName) {
         console.log('This task is drag to column has overflow scroll or inside column');
@@ -167,9 +168,8 @@ export default function useKanbanContainer() {
             afterPositionInColumn
           )
         });
-        // This is where we check the task active position and task over position
-
-        // apiUpdateTaskStatus(activeId, parseInt(overStatusId));
+        //This is where we check the task active position and task over position
+        apiUpdateTaskStatus(activeId, parseInt(overStatusId));
       }
     }
   };
