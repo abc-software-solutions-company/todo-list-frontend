@@ -93,6 +93,41 @@ export default function useKanbanContainer() {
     }
   };
 
+  // const handleDragEnd = ({active, over}: DragEndEvent) => {
+  //   if (!over) {
+  //     setTaskActive(undefined);
+  //     return;
+  //   }
+  //   const activeColumn = active.data.current?.statusId || active.id;
+  //   const activeItem = active.data.current as ITaskResponse;
+  //   const activeIndex = active.data.current?.sortable.index || active.id;
+
+  //   const overColumn = over.data.current?.statusId || over.id;
+  //   const overIndex = over.data.current?.sortable.index || over.id;
+
+  //   if (active.id !== over.id) {
+  //     if (activeColumn !== overColumn) {
+  //       arrangedBoard = {
+  //         ...boardState,
+  //         [overColumn]: arrayMove(boardState[overColumn], activeIndex, overIndex)
+  //       };
+  //       setBoardState(arrangedBoard);
+  //       kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
+  //     } else {
+  //       arrangedBoard = {
+  //         ...boardState,
+  //         [activeColumn]: arrayMove(boardState[activeColumn], activeIndex, overIndex)
+  //       };
+  //       setBoardState(arrangedBoard);
+  //       kanbanAPIHandler(arrangedBoard, activeItem, overColumn);
+  //     }
+  //   } else {
+  //     arrangedBoard = moveBetweenContainers(boardState, activeColumn, activeItem, overColumn, overIndex);
+  //     setBoardState(arrangedBoard);
+  //     kanbanAPIHandler(boardState, activeItem, overColumn);
+  //   }
+  // };
+
   const handleDragEnd = ({active, over}: DragEndEvent) => {
     if (!over) {
       setTaskActive(undefined);
@@ -113,18 +148,6 @@ export default function useKanbanContainer() {
       }
       if (overName) {
         console.log('This task is drag to column has overflow scroll or inside column');
-        // console.log(over);
-        // console.log('Active data id');
-        // console.log(activeData.id);
-        // console.log(`Active Data Sortable`);
-        // console.log(active);
-
-        // console.log('Over data id');
-        // console.log(overData.id);
-
-        // console.log('Over sotrable items');
-        // console.log(overData.sortable.items);
-        // const columnIdArr = overData.sortable.items;
         console.log('Active');
         console.log(active);
         console.log('Over');
@@ -132,17 +155,18 @@ export default function useKanbanContainer() {
 
         const beforePositionInColumn = activeData.sortable.index;
         const afterPositionInColumn = overData.sortable.index;
-        const allIdInColumn = overData.sortable.items;
+        // const allIdInColumn = overData.sortable.items;
         const overContainerId = overData.sortable.containerId;
         console.log('Let move task id');
-        console.log(arrayMove(allIdInColumn, beforePositionInColumn, afterPositionInColumn));
-        console.log('Over container list');
 
-        console.log(boardState[Number(overContainerId)]);
-        const newArrangeTask = {};
-
-        console.log('🚀 ~ file: hook.ts:144 ~ Object.keys ~ boardState', boardState);
-
+        setBoardState({
+          ...boardState,
+          [overContainerId]: arrayMove(
+            boardState[Number(overContainerId)],
+            beforePositionInColumn,
+            afterPositionInColumn
+          )
+        });
         // This is where we check the task active position and task over position
 
         // apiUpdateTaskStatus(activeId, parseInt(overStatusId));
