@@ -133,10 +133,15 @@ export default function useKanbanContainer() {
         const beforePositionInColumn = activeData.sortable.index;
         const afterPositionInColumn = overData.sortable.index;
         const allIdInColumn = overData.sortable.items;
+        const overContainerId = overData.sortable.containerId;
         console.log('Let move task id');
         console.log(arrayMove(allIdInColumn, beforePositionInColumn, afterPositionInColumn));
+        console.log('Over container list');
 
-        // console.log(arrayMove(columnIdArr));
+        console.log(boardState[Number(overContainerId)]);
+        const newArrangeTask = {};
+
+        console.log('🚀 ~ file: hook.ts:144 ~ Object.keys ~ boardState', boardState);
 
         // This is where we check the task active position and task over position
 
