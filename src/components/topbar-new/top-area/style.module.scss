@@ -1,6 +1,3 @@
 .top-area :global {
   @apply flex justify-between;
-  .notification {
-    @apply hidden md:block;
-  }
 }
