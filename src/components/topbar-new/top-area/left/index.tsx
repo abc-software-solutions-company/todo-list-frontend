@@ -1,5 +1,5 @@
 import {useRouter} from 'next/router';
-import {FC} from 'react';
+import {FC, useEffect, useState} from 'react';
 
 import TodolistFavorite from '@/components/common/todolist-favorite';
 import {ROUTES} from '@/configs/routes.config';
@@ -15,13 +15,22 @@ const TopAreaLeft: FC = () => {
   const {todolist} = useTodolist();
   const {boardData} = useBoards();
   const isBoardPage = router.asPath.includes(ROUTES.KANBAN);
+  const [pageTitle, setPageTitle] = useState('');
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      setPageTitle(document.title);
+    }
+    router.events.on('routeChangeComplete', () => {
+      setPageTitle(document.title);
+    });
+  }, []);
 
   return (
     <div className={style['top-area-left']}>
       <div className="decor">
         <Icon name="decor" className="ico-three-line text-white" />
       </div>
-      <div className="page-title">To-do list tasks</div>
+      <div className="page-title">{pageTitle}</div>
       <div className="page-action">
         <div className="favorite">
           {todolist && !isBoardPage && <TodolistFavorite id={todolist.id} favorite={todolist.favorite} />}
