@@ -1,4 +1,4 @@
-export const formatAMPM = (date: Date) => {
+export const formatAmPm = (date: Date) => {
   let hours = date.getHours();
   let minutes = date.getMinutes();
   const ap = hours >= 12 ? 'PM' : 'AM';
