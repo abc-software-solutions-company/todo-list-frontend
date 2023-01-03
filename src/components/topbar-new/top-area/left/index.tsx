@@ -6,7 +6,6 @@ import Icon from '@/core-ui/icon';
 import useBoards from '@/states/board/use-boards';
 import useTodolist from '@/states/todolist/use-todolist';
 import {isBoardPage, isListDetailPage} from '@/utils/check-routes';
-import {MUI_ICON} from '@/utils/mui-icon';
 
 import style from './style.module.scss';
 
@@ -38,9 +37,6 @@ const TopAreaLeft: FC = () => {
         <div className="favorite-list">
           {isListDetailPage(path, id as string) && <TodolistFavorite id={todolist.id} favorite={todolist.favorite} />}
           {isBoardPage(path, id as string) && <TodolistFavorite id={boardData.id} favorite={boardData.favorite} />}
-        </div>
-        <div className="more">
-          <MUI_ICON.MORE_VERT />
         </div>
       </div>
     </div>
