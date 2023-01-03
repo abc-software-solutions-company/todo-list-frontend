@@ -10,7 +10,7 @@ import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useBoards from '@/states/board/use-boards';
 import {moveToColumn} from '@/utils/kanban/array';
 
-import {apiUpdatePositionSameColumn, apiUpdateTaskStatus} from './api-handler';
+import {apiUpdateTaskKanban} from './api-handler';
 import DNDCurrent from './type';
 
 export default function useKanbanContainer() {
@@ -147,11 +147,11 @@ export default function useKanbanContainer() {
 
       if (activeContainerId !== overContainerId && !overName) {
         const newStatus = over.id.toString().replace('column', '');
-        apiUpdateTaskStatus(activeId, parseInt(newStatus));
+        apiUpdateTaskKanban(boardState, activeData, Number(newStatus));
       }
 
       if (activeContainerId !== overContainerId && overName) {
-        apiUpdateTaskStatus(activeId, parseInt(overStatusId));
+        apiUpdateTaskKanban(boardState, activeData, activeContainerId);
       }
 
       if (activeContainerId == overContainerId) {
@@ -164,7 +164,7 @@ export default function useKanbanContainer() {
             afterPositionInColumn
           )
         });
-        apiUpdatePositionSameColumn(boardState, activeData, activeContainerId);
+        apiUpdateTaskKanban(boardState, activeData, activeContainerId);
       }
     }
   };
