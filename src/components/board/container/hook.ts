@@ -135,8 +135,11 @@ export default function useKanbanContainer() {
       return;
     }
     if (over) {
-      const overData: DNDCurrent = over.data.current;
-      const activeData: DNDCurrent = active.data.current;
+      const overData: DNDCurrent | any = over.data.current;
+      const activeData: DNDCurrent | any = active.data.current;
+      const beforePositionInColumn = activeData.sortable.index;
+      const afterPositionInColumn = overData.sortable.index;
+      const overContainerId = overData.sortable.containerId;
 
       const {id: overId, statusId: overStatusId, name: overName} = overData;
       const {id: activeId, name: activeName} = activeData;
@@ -146,19 +149,14 @@ export default function useKanbanContainer() {
         const newStatus = over.id.toString().replace('column', '');
         // apiUpdateTaskStatus(activeId, parseInt(newStatus));
       }
+
       if (overName) {
-        console.log('This task is drag to column has overflow scroll or inside column');
-        console.log('Active');
-        console.log(active);
-        console.log('Over');
-        console.log(over);
+        console.log('Drag to other column .This task is drag to column has overflow scroll or inside column');
+        // apiUpdateTaskStatus(activeId, parseInt(overStatusId));
+      }
 
-        const beforePositionInColumn = activeData.sortable.index;
-        const afterPositionInColumn = overData.sortable.index;
-        // const allIdInColumn = overData.sortable.items;
-        const overContainerId = overData.sortable.containerId;
-        console.log('Let move task id');
-
+      if (overData.sortable.containerId == activeData.sortable.containerId) {
+        console.log('Let move task on the same column');
         setBoardState({
           ...boardState,
           [overContainerId]: arrayMove(
@@ -167,9 +165,6 @@ export default function useKanbanContainer() {
             afterPositionInColumn
           )
         });
-        // This is where we check the task active position and task over position
-
-        // apiUpdateTaskStatus(activeId, parseInt(overStatusId));
       }
     }
   };
