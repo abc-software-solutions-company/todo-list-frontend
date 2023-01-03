@@ -138,16 +138,17 @@ export default function useKanbanContainer() {
       const overData: DNDCurrent = over.data.current;
       const activeData: DNDCurrent = active.data.current;
 
-      const {id: overId, statusId: overStatusId, name: overName} = overData;
-      const {id: activeId, name: activeName} = activeData;
+      // const {id: overId, statusId: overStatusId, name: overName} = overData;
+      // const {id: activeId, name: activeName} = activeData;
+      const isDragBelowColumn = overData.name?.includes('column');
 
-      if (!overName) {
+      if (!isDragBelowColumn) {
         console.log('This task is drag to short column area');
         const newStatus = over.id.toString().replace('column', '');
-        apiUpdateTaskStatus(activeId, parseInt(newStatus));
+        apiUpdateTaskStatus(activeData.id, parseInt(newStatus));
         return;
       }
-      if (overName) {
+      if (isDragBelowColumn) {
         console.log('This task is drag to column has overflow scroll or inside column');
         console.log('Active');
         console.log(active);
