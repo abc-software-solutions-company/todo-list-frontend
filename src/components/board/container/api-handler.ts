@@ -25,6 +25,7 @@ export const apiUpdateTaskKanban = (
 
   const mergeTasks = flatArrr.flat(1);
   mergeTasks.forEach((task, idx) => {
+    // When over column have task
     if (task.id == activeTask.id) {
       prevIndex = mergeTasks[idx - 1]?.index;
       nextIndex = mergeTasks[idx + 1]?.index;
