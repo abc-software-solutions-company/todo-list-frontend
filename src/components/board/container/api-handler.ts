@@ -56,12 +56,7 @@ export const apiUpdateColumnKanban = (
   if (newIndex) {
     const {value, reset} = newIndex;
     api.todolist
-      .update({id: todoListId, statusId: activeColumnId, statusIndex: value})
-      .then(() => {
-        if (reset) {
-          console.log('api reset status index');
-        }
-      })
+      .update({id: todoListId, statusId: activeColumnId, statusIndex: value, resetIndexStatus: reset})
       .then(socketUpdateList);
   }
 };
