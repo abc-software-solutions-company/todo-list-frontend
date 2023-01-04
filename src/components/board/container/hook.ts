@@ -30,7 +30,7 @@ export default function useKanbanContainer() {
   const [boardState, setBoardState] = useState(() => mapDataKanban(statusList));
   const [taskActive, setTaskActive] = useState<ITaskResponse | any>();
   const [columnOrderState, setColumnOrderState] = useState<string[]>(statusList.map(e => e.id.toString()));
-  const [columnActive, setColumnActive] = useState<string>();
+  const [columnDragActive, setColumnDragActive] = useState<string>();
   let boardUpdateDragEnd: SetStateAction<{[x: number]: ITaskResponse[]}>;
 
   useEffect(() => {
@@ -48,16 +48,16 @@ export default function useKanbanContainer() {
     const {id, data} = active;
     if (isColumnSelected(id)) {
       setTaskActive(undefined);
-      setColumnActive(id.toString().replace('column', ''));
+      setColumnDragActive(id.toString().replace('column', ''));
     } else {
       setTaskActive(data.current);
-      setColumnActive(undefined);
+      setColumnDragActive(undefined);
     }
   };
 
   const handleDragCancel = () => {
     setTaskActive(undefined);
-    setColumnActive(undefined);
+    setColumnDragActive(undefined);
   };
 
   const handleDragOver = ({active, over}: DragOverEvent) => {
@@ -67,11 +67,11 @@ export default function useKanbanContainer() {
     }
 
     // This is code for handle drag column
-    if (columnActive) {
-      const columnActive = active.id.toString().replace('column', '');
+    if (columnDragActive) {
+      const columnDragActive = active.id.toString().replace('column', '');
       const columnOver = over.data?.current?.statusId || over.id.toString().replace('column', '');
-      if (columnActive != columnOver) {
-        const columnActiveIndex = columnOrderState.findIndex(e => e == columnActive);
+      if (columnDragActive != columnOver) {
+        const columnActiveIndex = columnOrderState.findIndex(e => e == columnDragActive);
         const columnOverIndex = columnOrderState.findIndex(e => e == columnOver);
         const reorderColumnIdList = arrayMove(columnOrderState, columnActiveIndex, columnOverIndex);
         setColumnOrderState(reorderColumnIdList);
@@ -79,7 +79,7 @@ export default function useKanbanContainer() {
     }
 
     // This is code for handle drag task
-    if (columnActive == undefined) {
+    if (columnDragActive == undefined) {
       const taskActiveColumn = active.data?.current?.statusId || active.id;
       const taskOverColumn = over.data?.current?.statusId || over.id.toString().replace('column', '');
 
@@ -131,7 +131,7 @@ export default function useKanbanContainer() {
   const handleDragEnd = ({active, over}: DragEndEvent) => {
     if (!over) {
       setTaskActive(undefined);
-      setColumnActive(undefined);
+      setColumnDragActive(undefined);
       return;
     }
     if (over) {
@@ -176,7 +176,7 @@ export default function useKanbanContainer() {
         apiUpdateTaskStatus(activeData.id, parseInt(overData.statusId));
       }
 
-      if (activeContainerId == overContainerId && !columnActive) {
+      if (activeContainerId == overContainerId && !columnDragActive) {
         const beforePositionInColumn = activeData.sortable.index;
         const afterPositionInColumn = overData.sortable.index;
         alert('Let move task on the same column');
@@ -202,7 +202,7 @@ export default function useKanbanContainer() {
     handleDragEnd,
     handleDragOver,
     taskActive,
-    columnActive,
+    columnDragActive,
     columnOrderState
   };
 }
