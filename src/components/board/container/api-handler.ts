@@ -24,8 +24,12 @@ export const apiUpdateTaskKanban = (
   let nextIndex: number;
 
   const mergeTasks = flatArrr.flat(1);
+
+  if (mergeTasks.length == 0) {
+    api.task.update({id: activeTask.id, statusId}).then(socketUpdateList);
+  }
+
   mergeTasks.forEach((task, idx) => {
-    // When over column have task
     if (task.id == activeTask.id) {
       prevIndex = mergeTasks[idx - 1]?.index;
       nextIndex = mergeTasks[idx + 1]?.index;

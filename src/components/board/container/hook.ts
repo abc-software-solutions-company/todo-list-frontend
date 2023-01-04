@@ -94,7 +94,6 @@ export default function useKanbanContainer() {
         const overIndex =
           over.id in boardState ? boardState[taskOverColumn].length : over.data.current?.sortable?.index;
         boardUpdateDragEnd = moveToColumn(boardState, taskActiveColumn, activeItem, taskOverColumn, overIndex);
-        updatePosition = boardUpdateDragEnd;
         setBoardState(boardUpdateDragEnd);
       }
       setOverColumnActive(taskOverColumn);
