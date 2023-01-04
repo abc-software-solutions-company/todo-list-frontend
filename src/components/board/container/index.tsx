@@ -25,7 +25,6 @@ const KanbanContainer = () => {
   } = useKanbanContainer();
 
   const {setNodeRef} = useDroppable({id: 'drag-column'});
-
   if (statusList)
     return (
       <div className={style['kanban-container']}>
@@ -76,6 +75,8 @@ const KanbanContainer = () => {
         </div>
       </div>
     );
+
+  return null;
 };
 
 export default KanbanContainer;
