@@ -115,14 +115,11 @@ export default function useKanbanContainer() {
         apiUpdateColumnKanban(activeColumnId, columnOrderState, statusList, listID);
         return;
       }
-      alert(`activeColumnId is ${startColumnActive}`);
-      alert(`overColumnId is ${overColumnActive}`);
       if (startColumnActive !== overColumnActive) {
-        alert(`over column is different`);
+        // alert(`over column is different`);
         const beforePositionInColumn = activeData.sortable.index;
         if (overData) {
           const afterPositionInColumn = overData.sortable.index;
-          alert('Let move task on the same column');
           updatePosition = {
             ...boardState,
             [overColumnActive]: arrayMove(
@@ -140,7 +137,6 @@ export default function useKanbanContainer() {
       if (startColumnActive == overColumnActive && !columnDragActive) {
         const beforePositionInColumn = activeData.sortable.index;
         const afterPositionInColumn = overData.sortable.index;
-        alert('Let move task on the same column');
         updatePosition = {
           ...boardState,
           [overColumnActive]: arrayMove(
