@@ -103,6 +103,8 @@ export default function useKanbanContainer() {
       setColumnDragActive(undefined);
       return;
     }
+
+    let updatePosition = {};
     if (over) {
       const overData: DNDCurrent | ITaskResponse | any = over.data.current;
       const activeData: DNDCurrent | ITaskResponse | any = active.data.current;
@@ -113,40 +115,43 @@ export default function useKanbanContainer() {
         apiUpdateColumnKanban(activeColumnId, columnOrderState, statusList, listID);
         return;
       }
-      // alert(`activeColumnId is ${startColumnActive}`);
-      // alert(`overColumnId is ${overColumnActive}`);
+      alert(`activeColumnId is ${startColumnActive}`);
+      alert(`overColumnId is ${overColumnActive}`);
       if (startColumnActive !== overColumnActive) {
-        // alert(`over column is different`);
+        alert(`over column is different`);
         const beforePositionInColumn = activeData.sortable.index;
         if (overData) {
           const afterPositionInColumn = overData.sortable.index;
-          // alert('Let move task on the same column');
-          setBoardState({
+          alert('Let move task on the same column');
+          updatePosition = {
             ...boardState,
             [overColumnActive]: arrayMove(
               boardState[Number(overColumnActive)],
               beforePositionInColumn,
               afterPositionInColumn
             )
-          });
-          return;
+          };
+          setBoardState(updatePosition);
         }
-        apiUpdateTaskKanban(boardState, activeData, overColumnActive);
+        apiUpdateTaskKanban(updatePosition, activeData, overColumnActive);
+        return;
       }
 
       if (startColumnActive == overColumnActive && !columnDragActive) {
         const beforePositionInColumn = activeData.sortable.index;
         const afterPositionInColumn = overData.sortable.index;
         alert('Let move task on the same column');
-        setBoardState({
+        updatePosition = {
           ...boardState,
           [overColumnActive]: arrayMove(
             boardState[Number(overColumnActive)],
             beforePositionInColumn,
             afterPositionInColumn
           )
-        });
-        apiUpdateTaskKanban(boardState, activeData, startColumnActive);
+        };
+        setBoardState(updatePosition);
+        apiUpdateTaskKanban(updatePosition, activeData, startColumnActive);
+        return;
       }
     }
   };

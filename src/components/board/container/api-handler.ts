@@ -31,11 +31,11 @@ export const apiUpdateTaskKanban = (
   mergeTasks.forEach((task, idx) => {
     if (task.id == activeTask.id) {
       const taskBefore = idx == 0 ? mergeTasks[mergeTasks.length - 1] : mergeTasks[idx - 1];
-      const taskAfter = idx == mergeTasks.length - 1 ? mergeTasks[0] : mergeTasks[idx];
+      const taskAfter = idx == mergeTasks.length - 1 ? mergeTasks[0] : mergeTasks[idx + 1];
       alert(`Task before name is ${taskBefore.name}`);
       alert(`Task after name is ${taskAfter.name}`);
       const newTaskIndex = (Number(taskBefore.index) + Number(taskAfter.index)) / 2;
-      // api.task.update({id: task.id, index: parseInt(newTaskIndex.toString()), statusId}).then(socketUpdateList);
+      api.task.update({id: task.id, index: parseInt(newTaskIndex.toString()), statusId}).then(socketUpdateList);
     }
   });
 };
