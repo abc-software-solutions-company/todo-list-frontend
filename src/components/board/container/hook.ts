@@ -138,7 +138,9 @@ export default function useKanbanContainer() {
       const overData: DNDCurrent | ITaskResponse | any = over.data.current;
       const activeData: DNDCurrent | ITaskResponse | any = active.data.current;
       const overContainerId = overData.sortable.containerId;
+      alert(JSON.stringify(active));
       const activeContainerId = activeData.sortable.containerId;
+      alert(activeContainerId);
 
       // const {id: overId, statusId: overStatusId, name: overName} = overData;
       // const {id: activeId, name: activeName} = activeData;
@@ -174,7 +176,7 @@ export default function useKanbanContainer() {
         apiUpdateTaskStatus(activeData.id, parseInt(overData.statusId));
       }
 
-      if (activeContainerId == overContainerId) {
+      if (activeContainerId == overContainerId && !columnActive) {
         const beforePositionInColumn = activeData.sortable.index;
         const afterPositionInColumn = overData.sortable.index;
         alert('Let move task on the same column');
@@ -186,7 +188,7 @@ export default function useKanbanContainer() {
             afterPositionInColumn
           )
         });
-        // apiUpdateTaskKanban(boardState, activeData, activeContainerId);
+        apiUpdateTaskKanban(boardState, activeData, activeContainerId);
       }
     }
   };
