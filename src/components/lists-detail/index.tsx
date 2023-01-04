@@ -10,7 +10,6 @@ import useTodolist from '@/states/todolist/use-todolist';
 
 import ErrorInformation from '../common/404';
 import Seo from '../common/seo/seo';
-import ToolBar from '../common/toolbar';
 import ListTask from './list-task';
 import styles from './style.module.scss';
 
@@ -59,7 +58,6 @@ const ListDetail: FC<Iprops> = ({id}) => {
         <>
           {assest && <Seo title={todolist.name} />}
           <div className={styles['list-detail']}>
-            <ToolBar />
             <ListTask />
             <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />
           </div>

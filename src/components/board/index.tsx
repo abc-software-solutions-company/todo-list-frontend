@@ -7,7 +7,6 @@ import {useStateAuth} from '@/states/auth';
 import useBoards from '@/states/board/use-boards';
 
 import ErrorInformation from '../common/404';
-import ToolBar from '../common/toolbar';
 import KanbanContainer from './container';
 
 export interface Iprops {
@@ -45,7 +44,6 @@ const KanbanDetail: FC<Iprops> = ({id}) => {
   if (boardData)
     return (
       <>
-        <ToolBar />
         <KanbanContainer />
       </>
     );

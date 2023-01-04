@@ -18,6 +18,8 @@ export interface ITodolistUpdate extends ITodolistGetOne {
     ids: string[];
   };
   isActive?: boolean;
+  statusId?: number;
+  statusIndex?: number;
 }
 
 export interface ITodolistSync {
