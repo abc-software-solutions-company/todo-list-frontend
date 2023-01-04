@@ -30,12 +30,12 @@ export const apiUpdateTaskKanban = (
   const mergeTasks = flatArrr.flat(1);
   mergeTasks.forEach((task, idx) => {
     if (task.id == activeTask.id) {
-      console.log(task);
       const taskBefore = idx == 0 ? mergeTasks[mergeTasks.length - 1] : mergeTasks[idx - 1];
       const taskAfter = idx == mergeTasks.length - 1 ? mergeTasks[0] : mergeTasks[idx];
+      alert(`Task before name is ${taskBefore.name}`);
+      alert(`Task after name is ${taskAfter.name}`);
       const newTaskIndex = (Number(taskBefore.index) + Number(taskAfter.index)) / 2;
-      console.log(newTaskIndex);
-      api.task.update({id: task.id, index: parseInt(newTaskIndex.toString()), statusId}).then(socketUpdateList);
+      // api.task.update({id: task.id, index: parseInt(newTaskIndex.toString()), statusId}).then(socketUpdateList);
     }
   });
 };

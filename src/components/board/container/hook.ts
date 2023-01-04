@@ -113,14 +113,14 @@ export default function useKanbanContainer() {
         apiUpdateColumnKanban(activeColumnId, columnOrderState, statusList, listID);
         return;
       }
-      alert(`activeColumnId is ${startColumnActive}`);
-      alert(`overColumnId is ${overColumnActive}`);
+      // alert(`activeColumnId is ${startColumnActive}`);
+      // alert(`overColumnId is ${overColumnActive}`);
       if (startColumnActive !== overColumnActive) {
-        alert(`over column is different`);
+        // alert(`over column is different`);
         const beforePositionInColumn = activeData.sortable.index;
         if (overData) {
           const afterPositionInColumn = overData.sortable.index;
-          alert('Let move task on the same column');
+          // alert('Let move task on the same column');
           setBoardState({
             ...boardState,
             [overColumnActive]: arrayMove(
@@ -129,10 +129,9 @@ export default function useKanbanContainer() {
               afterPositionInColumn
             )
           });
-          apiUpdateTaskKanban(boardState, activeData, overColumnActive);
           return;
         }
-        apiUpdateTaskStatus(active.id.toString(), overColumnActive);
+        apiUpdateTaskKanban(boardState, activeData, overColumnActive);
       }
 
       if (startColumnActive == overColumnActive && !columnDragActive) {
