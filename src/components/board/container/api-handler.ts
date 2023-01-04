@@ -1,20 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {IStatus} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import {getnewIndexForDragDrop} from '@/utils/function';
-
-export const apiUpdateTaskStatus = (id: string, statusId: number) => {
-  api.task
-    .update({id, statusId})
-    .then(() => console.log('Update task column success'))
-    .then(() => {
-      socketUpdateList();
-    })
-    .then(() => {
-      console.log('Change status ok');
-    });
-};
 
 export const apiUpdateTaskKanban = (
   data: {[x: number]: ITaskResponse[]},
@@ -25,16 +14,25 @@ export const apiUpdateTaskKanban = (
   Object.keys(data).map(x => {
     flatArrr.push(data[Number(x)]);
   });
+  const listTask = flatArrr.flat(1);
 
+  const listIndex = listTask.map(e => e.index);
   const statusId = overColumnId;
+
+  let prevIndex: number;
+  let nextIndex: number;
 
   const mergeTasks = flatArrr.flat(1);
   mergeTasks.forEach((task, idx) => {
     if (task.id == activeTask.id) {
-      const taskBefore = idx == 0 ? mergeTasks[mergeTasks.length - 1] : mergeTasks[idx - 1];
-      const taskAfter = idx == mergeTasks.length - 1 ? mergeTasks[0] : mergeTasks[idx + 1];
-      const newTaskIndex = (Number(taskBefore.index) + Number(taskAfter.index)) / 2;
-      api.task.update({id: task.id, index: parseInt(newTaskIndex.toString()), statusId}).then(socketUpdateList);
+      prevIndex = mergeTasks[idx - 1]?.index;
+      nextIndex = mergeTasks[idx + 1]?.index;
+
+      const newIndex = getnewIndexForDragDrop({listIndex, nextIndex, prevIndex});
+      if (newIndex) {
+        const {reset, value} = newIndex;
+        api.task.update({id: task.id, index: value, statusId}).then(socketUpdateList);
+      }
     }
   });
 };

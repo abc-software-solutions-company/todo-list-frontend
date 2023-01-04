@@ -10,7 +10,7 @@ import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useBoards from '@/states/board/use-boards';
 import {moveToColumn} from '@/utils/kanban/array';
 
-import {apiUpdateColumnKanban, apiUpdateTaskKanban, apiUpdateTaskStatus} from './api-handler';
+import {apiUpdateColumnKanban, apiUpdateTaskKanban} from './api-handler';
 import DNDCurrent from './type';
 
 export default function useKanbanContainer() {
