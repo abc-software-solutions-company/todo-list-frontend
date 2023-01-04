@@ -15,7 +15,7 @@ export const apiUpdateTaskStatus = (id: string, statusId: number) => {
     });
 };
 
-export const kanbanAPIHandler = (
+export const apiUpdateTaskKanban = (
   data: {[x: number]: ITaskResponse[]},
   activeTask: ITaskResponse,
   overColumnId: number

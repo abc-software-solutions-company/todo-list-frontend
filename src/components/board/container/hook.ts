@@ -10,7 +10,7 @@ import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useBoards from '@/states/board/use-boards';
 import {moveToColumn} from '@/utils/kanban/array';
 
-import {apiUpdateTaskStatus} from './api-handler';
+import {apiUpdateTaskKanban, apiUpdateTaskStatus} from './api-handler';
 import DNDCurrent from './type';
 
 export default function useKanbanContainer() {
@@ -135,20 +135,21 @@ export default function useKanbanContainer() {
       return;
     }
     if (over) {
-      const overData: DNDCurrent = over.data.current;
-      const activeData: DNDCurrent = active.data.current;
+      const overData: DNDCurrent | ITaskResponse | any = over.data.current;
+      const activeData: DNDCurrent | ITaskResponse | any = active.data.current;
+      const overContainerId = overData.sortable.containerId;
+      const activeContainerId = activeData.sortable.containerId;
 
       // const {id: overId, statusId: overStatusId, name: overName} = overData;
       // const {id: activeId, name: activeName} = activeData;
       const isDragBelowColumn = overData.name?.includes('column');
 
-      if (!isDragBelowColumn) {
-        console.log('This task is drag to short column area');
+      if (!isDragBelowColumn && activeContainerId !== overContainerId) {
+        alert('This task is drag to short column area');
         const newStatus = over.id.toString().replace('column', '');
         apiUpdateTaskStatus(activeData.id, parseInt(newStatus));
-        return;
       }
-      if (isDragBelowColumn) {
+      if (isDragBelowColumn && activeContainerId !== overContainerId) {
         console.log('This task is drag to column has overflow scroll or inside column');
         console.log('Active');
         console.log(active);
@@ -159,7 +160,7 @@ export default function useKanbanContainer() {
         const afterPositionInColumn = overData.sortable.index;
         // const allIdInColumn = overData.sortable.items;
         const overContainerId = overData.sortable.containerId;
-        console.log('Let move task id');
+        alert('Let move task id');
 
         setBoardState({
           ...boardState,
@@ -171,6 +172,21 @@ export default function useKanbanContainer() {
         });
         //This is where we check the task active position and task over position
         apiUpdateTaskStatus(activeData.id, parseInt(overData.statusId));
+      }
+
+      if (activeContainerId == overContainerId) {
+        const beforePositionInColumn = activeData.sortable.index;
+        const afterPositionInColumn = overData.sortable.index;
+        alert('Let move task on the same column');
+        setBoardState({
+          ...boardState,
+          [overContainerId]: arrayMove(
+            boardState[Number(overContainerId)],
+            beforePositionInColumn,
+            afterPositionInColumn
+          )
+        });
+        // apiUpdateTaskKanban(boardState, activeData, activeContainerId);
       }
     }
   };

@@ -25,6 +25,7 @@ const KanbanContainer = () => {
   } = useKanbanContainer();
 
   const {setNodeRef} = useDroppable({id: 'drag-column'});
+  if (!boardData) return null;
 
   return (
     <div className={style['kanban-container']}>
