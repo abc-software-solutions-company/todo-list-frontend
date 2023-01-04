@@ -32,9 +32,7 @@ export const apiUpdateTaskKanban = (
     if (task.id == activeTask.id) {
       console.log(task);
       const taskBefore = idx == 0 ? mergeTasks[mergeTasks.length - 1] : mergeTasks[idx - 1];
-      console.log('🚀 ~ file: api-handler.ts:31 ~ mergeTasks.forEach ~ taskBefore', taskBefore);
       const taskAfter = idx == mergeTasks.length - 1 ? mergeTasks[0] : mergeTasks[idx];
-      console.log('🚀 ~ file: api-handler.ts:33 ~ mergeTasks.forEach ~ taskAfter', taskAfter);
       const newTaskIndex = (Number(taskBefore.index) + Number(taskAfter.index)) / 2;
       console.log(newTaskIndex);
       api.task.update({id: task.id, index: parseInt(newTaskIndex.toString()), statusId}).then(socketUpdateList);
