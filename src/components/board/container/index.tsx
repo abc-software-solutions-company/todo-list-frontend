@@ -26,58 +26,55 @@ const KanbanContainer = () => {
 
   const {setNodeRef} = useDroppable({id: 'drag-column'});
 
-  if (statusList)
-    return (
-      <div className={style['kanban-container']}>
-        <div className="inner">
-          <DndContext
-            sensors={sensors}
-            onDragStart={handleDragStart}
-            onDragCancel={handleDragCancel}
-            onDragOver={handleDragOver}
-            onDragEnd={handleDragEnd}
-            autoScroll={true}
-          >
-            <SortableContext id="drag-column" items={[...columnOrderState]} strategy={horizontalListSortingStrategy}>
-              {columnOrderState.map((columnId: string) => (
-                <div className="kanban-wrapper" key={columnId} ref={setNodeRef}>
-                  <KanbanColumn id={'column' + columnId}>
+  return (
+    <div className={style['kanban-container']}>
+      <div className="inner">
+        <DndContext
+          sensors={sensors}
+          onDragStart={handleDragStart}
+          onDragCancel={handleDragCancel}
+          onDragOver={handleDragOver}
+          onDragEnd={handleDragEnd}
+          autoScroll={true}
+        >
+          <SortableContext id="drag-column" items={[...columnOrderState]} strategy={horizontalListSortingStrategy}>
+            {columnOrderState.map((columnId: string) => (
+              <div className="kanban-wrapper" key={columnId} ref={setNodeRef}>
+                <KanbanColumn id={'column' + columnId}>
+                  <KanbanColumnHeader
+                    name={statusList.filter(e => e.id == Number(columnId))[0]?.name || ''}
+                    color={statusList.filter(e => e.id == Number(columnId))[0]?.color || ''}
+                  />
+                  <KanbanColumnBody id={columnId} tasks={boardData[Number(columnId)]} />
+                  <KanbanColumnFooter id={Number(columnId)} />
+                </KanbanColumn>
+              </div>
+            ))}
+            {taskActive && (
+              <DragOverlay>
+                <KanbanTaskItem task={taskActive} />
+              </DragOverlay>
+            )}
+
+            {columnDragActive && (
+              <DragOverlay>
+                <div className="kanban-wrapper bg-[#f6fafe]" key={columnDragActive} ref={setNodeRef}>
+                  <KanbanColumn id={'column' + columnDragActive}>
                     <KanbanColumnHeader
-                      name={statusList.filter(e => e.id == Number(columnId))[0].name || ''}
-                      color={statusList.filter(e => e.id == Number(columnId))[0].color || ''}
+                      name={statusList.filter(e => e.id == Number(columnDragActive))[0].name}
+                      color={statusList.filter(e => e.id == Number(columnDragActive))[0].color}
                     />
-                    <KanbanColumnBody id={columnId} tasks={boardData[Number(columnId)]} />
-                    <KanbanColumnFooter id={Number(columnId)} />
+                    <KanbanColumnBody id={columnDragActive} tasks={boardData[Number(columnDragActive)]} />
+                    <KanbanColumnFooter id={Number(columnDragActive)} />
                   </KanbanColumn>
                 </div>
-              ))}
-              {taskActive && (
-                <DragOverlay>
-                  <KanbanTaskItem task={taskActive} />
-                </DragOverlay>
-              )}
-
-              {columnDragActive && (
-                <DragOverlay>
-                  <div className="kanban-wrapper bg-[#f6fafe]" key={columnDragActive} ref={setNodeRef}>
-                    <KanbanColumn id={'column' + columnDragActive}>
-                      <KanbanColumnHeader
-                        name={statusList.filter(e => e.id == Number(columnDragActive))[0].name}
-                        color={statusList.filter(e => e.id == Number(columnDragActive))[0].color}
-                      />
-                      <KanbanColumnBody id={columnDragActive} tasks={boardData[Number(columnDragActive)]} />
-                      <KanbanColumnFooter id={Number(columnDragActive)} />
-                    </KanbanColumn>
-                  </div>
-                </DragOverlay>
-              )}
-            </SortableContext>
-          </DndContext>
-        </div>
+              </DragOverlay>
+            )}
+          </SortableContext>
+        </DndContext>
       </div>
-    );
-
-  return null;
+    </div>
+  );
 };
 
 export default KanbanContainer;

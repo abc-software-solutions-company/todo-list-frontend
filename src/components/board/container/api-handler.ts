@@ -8,7 +8,8 @@ import {getnewIndexForDragDrop} from '@/utils/function';
 export const apiUpdateTaskKanban = (
   data: {[x: number]: ITaskResponse[]},
   activeTask: ITaskResponse,
-  overColumnId: number
+  overColumnId: number,
+  todolistId: string
 ) => {
   const flatArrr: ITaskResponse[][] = [];
   Object.keys(data).map(x => {
@@ -31,7 +32,12 @@ export const apiUpdateTaskKanban = (
       const newIndex = getnewIndexForDragDrop({listIndex, nextIndex, prevIndex});
       if (newIndex) {
         const {reset, value} = newIndex;
-        api.task.update({id: task.id, index: value, statusId}).then(socketUpdateList);
+        api.task
+          .update({id: task.id, index: value, statusId})
+          .then(socketUpdateList)
+          .then(() => {
+            if (reset) api.task.reindexAll({todolistId});
+          });
       }
     }
   });

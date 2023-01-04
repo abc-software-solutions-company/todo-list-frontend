@@ -15,6 +15,7 @@ import DNDCurrent from './type';
 
 export default function useKanbanContainer() {
   const {statusList, boardData} = useBoards();
+  const todolistId = boardData.id;
 
   const mapDataKanban = (statusList: IStatus[]) => {
     const boardDataMap: {[x: number]: ITaskResponse[]} = {};
@@ -111,8 +112,7 @@ export default function useKanbanContainer() {
 
       if (columnDragActive) {
         const activeColumnId = Number(active.id.toString().replace('column', ''));
-        const listID = boardData.id;
-        apiUpdateColumnKanban(activeColumnId, columnOrderState, statusList, listID);
+        apiUpdateColumnKanban(activeColumnId, columnOrderState, statusList, todolistId);
         return;
       }
       if (startColumnActive !== overColumnActive) {
@@ -130,7 +130,7 @@ export default function useKanbanContainer() {
           };
           setBoardState(updatePosition);
         }
-        apiUpdateTaskKanban(updatePosition, activeData, overColumnActive);
+        apiUpdateTaskKanban(updatePosition, activeData, overColumnActive, todolistId);
         return;
       }
 
@@ -146,7 +146,7 @@ export default function useKanbanContainer() {
           )
         };
         setBoardState(updatePosition);
-        apiUpdateTaskKanban(updatePosition, activeData, startColumnActive);
+        apiUpdateTaskKanban(updatePosition, activeData, startColumnActive, todolistId);
         return;
       }
     }
