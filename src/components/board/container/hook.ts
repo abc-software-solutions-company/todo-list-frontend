@@ -83,6 +83,7 @@ export default function useKanbanContainer() {
     if (columnDragActive == undefined) {
       const taskActiveColumn = active.data?.current?.statusId || active.id;
       const taskOverColumn = over.data?.current?.statusId || over.id.toString().replace('column', '');
+      setOverColumnActive(taskOverColumn);
 
       if (taskActiveColumn !== taskOverColumn) {
         const activeItem = active.data.current as ITaskResponse;
@@ -104,11 +105,34 @@ export default function useKanbanContainer() {
     if (over) {
       const overData: DNDCurrent | ITaskResponse | any = over.data.current;
       const activeData: DNDCurrent | ITaskResponse | any = active.data.current;
-      const activeColumnId = activeData.sortable.containerId;
+      const activeColumnId = activeData.statusId;
 
+      if (columnDragActive) {
+        const activeColumnId = Number(active.id.toString().replace('column', ''));
+        const listID = boardData.id;
+        apiUpdateColumnKanban(activeColumnId, columnOrderState, statusList, listID);
+        return;
+      }
+      alert(`activeColumnId is ${activeColumnId}`);
+      alert(`overColumnId is ${overColumnActive}`);
       if (activeColumnId !== overColumnActive) {
         alert(`over column is different`);
-        apiUpdateTaskStatus(active.id, overColumnActive);
+        const beforePositionInColumn = activeData.sortable.index;
+        if (overData) {
+          const afterPositionInColumn = overData.sortable.index;
+          alert('Let move task on the same column');
+          setBoardState({
+            ...boardState,
+            [overColumnActive]: arrayMove(
+              boardState[Number(overColumnActive)],
+              beforePositionInColumn,
+              afterPositionInColumn
+            )
+          });
+          apiUpdateTaskKanban(boardState, activeData, overColumnActive);
+          return;
+        }
+        apiUpdateTaskStatus(active.id.toString(), overColumnActive);
       }
 
       if (activeColumnId == overColumnActive && !columnDragActive) {
@@ -125,11 +149,6 @@ export default function useKanbanContainer() {
         });
         apiUpdateTaskKanban(boardState, activeData, activeColumnId);
       }
-    }
-    if (columnDragActive) {
-      const activeColumnId = Number(active.id.toString().replace('column', ''));
-      const listID = boardData.id;
-      apiUpdateColumnKanban(activeColumnId, columnOrderState, statusList, listID);
     }
   };
 
