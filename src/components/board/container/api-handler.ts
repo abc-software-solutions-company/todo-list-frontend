@@ -2,6 +2,7 @@ import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {IStatus} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
+import {getnewIndexForDragDrop} from '@/utils/function';
 
 export const apiUpdateTaskStatus = (id: string, statusId: number) => {
   api.task
@@ -42,30 +43,25 @@ export const apiUpdateColumnKanban = (
   activeColumnId: number,
   arrangeColumn: string[],
   statusList: IStatus[],
-  listID: string
+  todoListId: string
 ) => {
+  console.log('🚀 ~ file: api-handler.ts:50 ~ arrangeColumn', arrangeColumn);
   const activeColumnPosition = arrangeColumn.findIndex(x => x == activeColumnId.toString());
-  let columnLeftPosition = 0;
-  let columnRightPosition = 0;
-  if (activeColumnPosition !== 0) {
-    columnLeftPosition = activeColumnPosition - 1;
+
+  const prevIndex = statusList.filter(x => x.id == Number(arrangeColumn[activeColumnPosition - 1]))[0]?.index;
+  const nextIndex = statusList.filter(x => x.id == Number(arrangeColumn[activeColumnPosition + 1]))[0]?.index;
+  const listIndex = statusList.map(e => e.index);
+
+  const newIndex = getnewIndexForDragDrop({listIndex, nextIndex, prevIndex});
+  if (newIndex) {
+    const {value, reset} = newIndex;
+    api.todolist
+      .update({id: todoListId, statusId: activeColumnId, statusIndex: value})
+      .then(() => {
+        if (reset) {
+          console.log('api reset status index');
+        }
+      })
+      .then(socketUpdateList);
   }
-  if (activeColumnPosition !== arrangeColumn.length - 1) {
-    columnRightPosition = activeColumnPosition + 1;
-  }
-
-  const columnLeft = statusList.filter(x => x.id == Number(arrangeColumn[columnLeftPosition]))[0];
-  const columnRight = statusList.filter(x => x.id == Number(arrangeColumn[columnRightPosition]))[0];
-
-  let newIndex = 0;
-  if (activeColumnPosition !== 0 && activeColumnPosition !== arrangeColumn.length - 1) {
-    newIndex = (Number(columnLeft.index) + Number(columnRight.index)) / 2;
-  }
-
-  if (activeColumnPosition == 0) newIndex = Number(columnLeft.index) - Number(columnLeft.index / 2);
-
-  if (activeColumnPosition == arrangeColumn.length - 1)
-    newIndex = Number(columnRight.index) + Number(columnRight.index / 2);
-
-  api.todolist.update({id: listID, statusId: activeColumnId, statusIndex: newIndex}).then(socketUpdateList);
 };

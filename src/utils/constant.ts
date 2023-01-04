@@ -18,6 +18,8 @@ export const JoinerBgColos = [
 ];
 
 export const IndexStep: number = Math.pow(2, 30);
+export const limitDifferenceIndex = 32;
+
 export const Priorities = {lowest: 'Lowest', low: 'Low', medium: 'Medium', high: 'High', highest: 'Highest'};
 export const PriorityColors = {
   lowest: '#78716C',
