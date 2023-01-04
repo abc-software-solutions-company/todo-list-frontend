@@ -20,19 +20,23 @@ const ToolBarRight: FC = () => {
   const {todolist} = useTodolist();
   const {setIsOpenModal, setSelectedTodolist} = useModals();
 
-  if (isListDetailPage(path, id as string)) setSelectedTodolist(todolist);
-  if (isBoardPage(path, id as string)) setSelectedTodolist(boardData);
+  const setSelectList = () => {
+    if (isListDetailPage(path, id as string)) setSelectedTodolist(todolist);
+    if (isBoardPage(path, id as string)) setSelectedTodolist(boardData);
+  };
 
   const onSettingBoard = () => {
+    setSelectList();
     setIsOpenModal('settings');
   };
 
   const onDelete = () => {
+    setSelectList();
     setIsOpenModal('deleteList');
   };
 
   const onAddTask = () => {
-    setSelectedTodolist(todolist);
+    setSelectList();
     setIsOpenModal('createTask');
   };
 
