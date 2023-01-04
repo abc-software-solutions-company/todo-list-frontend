@@ -36,7 +36,7 @@ export default function useKanbanContainer() {
   const [startColumnActive, setStartColumnActive] = useState<number>(0);
 
   let boardUpdateDragEnd: SetStateAction<{[x: number]: ITaskResponse[]}>;
-  let updatePosition = {};
+  let updateTaskPosition = {};
 
   useEffect(() => {
     setBoardState(() => mapDataKanban(statusList));
@@ -118,14 +118,14 @@ export default function useKanbanContainer() {
       }
 
       if (startColumnActive !== overColumnActive) {
-        apiUpdateTaskKanban(updatePosition, activeData, overColumnActive, todolistId);
+        apiUpdateTaskKanban(updateTaskPosition, activeData, overColumnActive, todolistId);
         return;
       }
 
       if (startColumnActive == overColumnActive && !columnDragActive) {
         const beforePositionInColumn = activeData.sortable.index;
         const afterPositionInColumn = overData.sortable.index;
-        updatePosition = {
+        updateTaskPosition = {
           ...boardState,
           [overColumnActive]: arrayMove(
             boardState[Number(overColumnActive)],
@@ -133,8 +133,8 @@ export default function useKanbanContainer() {
             afterPositionInColumn
           )
         };
-        setBoardState(updatePosition);
-        apiUpdateTaskKanban(updatePosition, activeData, startColumnActive, todolistId);
+        setBoardState(updateTaskPosition);
+        apiUpdateTaskKanban(updateTaskPosition, activeData, startColumnActive, todolistId);
         return;
       }
     }
