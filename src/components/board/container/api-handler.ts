@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {IStatus} from '@/data/api/types/todolist.type';
@@ -43,20 +42,21 @@ export const apiUpdateTaskKanban = (
   });
 };
 
-export const apiUpdateColumnKanban = (activeColumnId: number, arrangeColumn: string[], statusList: IStatus[]) => {
-  alert(JSON.stringify(arrangeColumn));
+export const apiUpdateColumnKanban = (
+  activeColumnId: number,
+  arrangeColumn: string[],
+  statusList: IStatus[],
+  listID: string
+) => {
   const activeColumnPosition = arrangeColumn.findIndex(x => x == activeColumnId.toString());
   const columnLeftPosition = activeColumnPosition == 0 ? arrangeColumn.length - 1 : activeColumnPosition - 1;
   const columnRightPosition = activeColumnPosition == arrangeColumn.length - 1 ? 0 : activeColumnPosition + 1;
 
-  alert(activeColumnId);
-  alert(columnLeftPosition);
-  alert(activeColumnPosition);
-  alert(columnRightPosition);
+  const columnLeft = statusList.filter(x => x.id == Number(arrangeColumn[columnLeftPosition]))[0];
+  // const columnActive = statusList.filter(x => x.id == activeColumnId);
+  const columnRight = statusList.filter(x => x.id == Number(arrangeColumn[columnRightPosition]))[0];
 
-  const columnLeft = statusList.filter(x => x.id == Number(arrangeColumn[columnLeftPosition]));
-  const columnActive = statusList.filter(x => x.id == activeColumnId);
-  const columnRight = statusList.filter(x => x.id == Number(arrangeColumn[columnRightPosition]));
-  alert(JSON.stringify(columnLeft));
-  alert(JSON.stringify(columnRight));
+  const newIndex = (Number(columnLeft.index) + Number(columnRight.index)) / 2;
+
+  api.todolist.update({id: listID, statusId: activeColumnId, statusIndex: newIndex});
 };

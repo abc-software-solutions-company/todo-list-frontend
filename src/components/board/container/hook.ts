@@ -14,7 +14,7 @@ import {apiUpdateColumnKanban, apiUpdateTaskKanban, apiUpdateTaskStatus} from '.
 import DNDCurrent from './type';
 
 export default function useKanbanContainer() {
-  const {statusList} = useBoards();
+  const {statusList, boardData} = useBoards();
 
   const mapDataKanban = (statusList: IStatus[]) => {
     const boardDataMap: {[x: number]: ITaskResponse[]} = {};
@@ -100,8 +100,8 @@ export default function useKanbanContainer() {
       return;
     }
     if (over) {
-      const overData: DNDCurrent | ITaskResponse = over.data.current;
-      const activeData: DNDCurrent | ITaskResponse = active.data.current;
+      const overData: DNDCurrent | ITaskResponse | any = over.data.current;
+      const activeData: DNDCurrent | ITaskResponse | any = active.data.current;
       const overColumnId = overData.statusId || overData.sortable.containerId;
       const activeColumnId = activeData.statusId || activeData.sortable.containerId;
       const isDragBelowColumn = overData.name?.includes('column');
@@ -111,10 +111,10 @@ export default function useKanbanContainer() {
       }
       if (isDragBelowColumn && activeColumnId !== overColumnId) {
         console.log('This task is drag to column has overflow scroll or inside column');
-        console.log('Active');
-        console.log(active);
-        console.log('Over');
-        console.log(over);
+        // console.log('Active');
+        // console.log(active);
+        // console.log('Over');
+        // console.log(over);
 
         const beforePositionInColumn = activeData.sortable.index;
         const afterPositionInColumn = overData.sortable.index;
@@ -142,7 +142,8 @@ export default function useKanbanContainer() {
     }
     if (columnDragActive) {
       const activeColumnId = Number(active.id.toString().replace('column', ''));
-      apiUpdateColumnKanban(activeColumnId, columnOrderState, statusList);
+      const listID = boardData.id;
+      apiUpdateColumnKanban(activeColumnId, columnOrderState, statusList, listID);
     }
   };
 
