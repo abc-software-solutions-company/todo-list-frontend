@@ -55,7 +55,7 @@ const ToolBarRight: FC = () => {
             />
           </div>
         )}
-        <div className={`kanban-view ${!isKanbanView ? '' : 'list-view-active'}`}>
+        <div className={`kanban-view ${!isKanbanView ? '' : 'active'}`}>
           <Icon
             name="list-view"
             className="ico-vertical leading-tight hover:cursor-pointer"
@@ -63,7 +63,7 @@ const ToolBarRight: FC = () => {
             onClick={() => router.push(`${ROUTES.KANBAN}/${id}`)}
           />
         </div>
-        <div className={`list-view ${isKanbanView ? '' : 'list-view-active'}`}>
+        <div className={`list-view ${isKanbanView ? '' : 'active'}`}>
           <Icon
             name="horizontal"
             className="ico-horizontal leading-tight hover:cursor-pointer"
@@ -71,10 +71,12 @@ const ToolBarRight: FC = () => {
             onClick={() => router.push(`${ROUTES.LIST}/${id}`)}
           />
         </div>
-        <div className="tool-filter">
-          <ToolFilter todolist={todolist} />
-        </div>
-        <div className="delete">
+        {!isKanbanView && (
+          <div className="tool-filter">
+            <ToolFilter todolist={todolist} />
+          </div>
+        )}
+        <div className="delete ml-1">
           <span className="hidden sm:block">Settings</span>
 
           <Icon
