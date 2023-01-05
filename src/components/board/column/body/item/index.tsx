@@ -49,6 +49,7 @@ const KanbanTaskItem = ({task}: IKanbanTaskItem) => {
         <KanbanTaskEditDelete task={task} />
       </div>
 
+      <p className="text-red-500">{task.indexColumn}</p>
       <KanbanTaskName id={task.id} name={task.name} />
       <div className="actions">
         <div className="left">

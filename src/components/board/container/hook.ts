@@ -110,7 +110,6 @@ export default function useKanbanContainer() {
 
     if (over) {
       const overData: DNDCurrent | ITaskResponse | any = over.data.current;
-      const activeData: DNDCurrent | ITaskResponse | any = active.data.current;
 
       if (columnDragActive) {
         const activeColumnId = Number(active.id.toString().replace('column', ''));
@@ -120,12 +119,12 @@ export default function useKanbanContainer() {
 
       if (startColumnActive !== overColumnActive) {
         const listTask = boardData.tasks.filter(x => x.statusId === overColumnActive);
-        apiUpdateTaskKanban(updateTaskPosition, activeData, overColumnActive, todolistId);
+        apiUpdateTaskKanban(boardState, taskActive, startColumnActive, overColumnActive, todolistId);
         return;
       }
 
       if (startColumnActive == overColumnActive && !columnDragActive) {
-        const beforePositionInColumn = activeData.sortable.index;
+        const beforePositionInColumn = taskActive.sortable.index;
         const afterPositionInColumn = overData.sortable.index;
         updateTaskPosition = {
           ...boardState,
@@ -137,7 +136,7 @@ export default function useKanbanContainer() {
         };
         setBoardState(updateTaskPosition);
         const listTask = boardData.tasks.filter(x => x.statusId === overColumnActive);
-        apiUpdateTaskKanban(updateTaskPosition, activeData, overColumnActive, todolistId);
+        apiUpdateTaskKanban(updateTaskPosition, taskActive, startColumnActive, overColumnActive, todolistId);
         return;
       }
     }
