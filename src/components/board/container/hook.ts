@@ -120,13 +120,9 @@ export default function useKanbanContainer() {
       }
 
       if (startColumnActive !== overColumnActive) {
-        // setBoardState(updateTaskPosition);
-        // apiUpdateTaskKanban(boardState, taskActive, startColumnActive, overColumnActive, todolistId);
+        apiUpdateTaskKanban(boardState, taskActive, startColumnActive, overColumnActive, todolistId);
         const beforePositionInColumn = taskActive.sortable.index;
         const afterPositionInColumn = taskOver.sortable.index;
-        alert('Different column');
-        alert(beforePositionInColumn);
-        alert(afterPositionInColumn);
         updateTaskPosition = {
           ...boardState,
           [overColumnActive]: arrayMove(
@@ -142,8 +138,6 @@ export default function useKanbanContainer() {
       if (startColumnActive == overColumnActive && !columnDragActive) {
         const beforePositionInColumn = taskActive.sortable.index;
         const afterPositionInColumn = taskOver.sortable.index;
-        alert(beforePositionInColumn);
-        alert(afterPositionInColumn);
         updateTaskPosition = {
           ...boardState,
           [overColumnActive]: arrayMove(
@@ -153,7 +147,7 @@ export default function useKanbanContainer() {
           )
         };
         setBoardState(updateTaskPosition);
-        // apiUpdateTaskKanban(updateTaskPosition, taskActive, startColumnActive, overColumnActive, todolistId);
+        apiUpdateTaskKanban(updateTaskPosition, taskActive, startColumnActive, overColumnActive, todolistId);
         return;
       }
     }
