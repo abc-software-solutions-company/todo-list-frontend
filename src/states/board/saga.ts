@@ -10,7 +10,7 @@ import {IGetBoardPayloadAction} from './types';
 
 function* getBoard({payload}: IGetBoardPayloadAction) {
   try {
-    const response: AxiosResponse<ITodolistResponse, any> = yield call(() => api.todolist.getOne(payload));
+    const response: AxiosResponse<ITodolistResponse, any> = yield call(() => api.todolist.getOneKanban(payload));
     console.log(response);
 
     yield put(boardSlice.actions.getBoardSuccess(response.data));

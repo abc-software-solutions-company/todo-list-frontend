@@ -65,6 +65,7 @@ export interface ITaskCreate {
 export interface ITaskUpdate extends ITaskGet {
   name?: string;
   index?: number;
+  indexColumn?: number;
   isDone?: boolean;
   priority?: string;
   storyPoint?: string;
@@ -115,6 +116,7 @@ export interface ITaskResponse extends ITaskGet, IBaseResponse {
   dueDate: Date;
   priority: string;
   index: number;
+  indexColumn: number;
   attachments: IAttachmentResponse[];
   comments: ICommentResponse[];
   assignees: IAssigneeResponse[];
