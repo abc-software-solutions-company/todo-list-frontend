@@ -1,5 +1,5 @@
 .contents :global {
-  @apply w-[406px];
+  @apply w-full lg:w-[406px];
   .wrapper {
     @apply py-4 text-h7;
   }
@@ -24,7 +24,7 @@
     @apply hover:bg-sky-50;
   }
   .content {
-    @apply w-[310px] line-clamp-2;
+    @apply w-11/12 line-clamp-2;
     a {
       @apply text-slate-700 underline;
     }
