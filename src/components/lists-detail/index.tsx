@@ -21,10 +21,14 @@ const ListDetail: FC<Iprops> = ({id}) => {
   const auth = useStateAuth();
   const router = useRouter();
 
-  const {todolist, write, assest, error, getTodolist} = useTodolist();
-  const {setIsOpenModal, setSelectedTodolist} = useModals();
+  const {todolist, write, assest, error, getTodolist, statusList} = useTodolist();
+  const {setIsOpenModal, setSelectedTodolist, setSelectedColumnId} = useModals();
+
+  const statusIdList = statusList.map(e => e.id);
+  const backlogId = Math.min(...statusIdList);
 
   const onClickFloatIcon = () => {
+    setSelectedColumnId(backlogId);
     setSelectedTodolist(todolist);
     setIsOpenModal('createTask');
   };

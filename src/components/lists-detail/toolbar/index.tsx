@@ -19,9 +19,12 @@ import Tool, {IToolProps} from './tool';
 import ToolMenu from './tool-menu';
 
 const ToolbarDetail: FC = () => {
-  const {todolist, write, owner} = useTodolist();
+  const {todolist, write, owner, statusList} = useTodolist();
   const {setIsOpenModal, setSelectedTask, setSelectedTodolist, setSelectedColumnId} = useModals();
   const router = useRouter();
+
+  const statusIdList = statusList.map(e => e.id);
+  const backlogId = Math.min(...statusIdList);
 
   const {id, name, favorite} = todolist;
 
@@ -29,9 +32,6 @@ const ToolbarDetail: FC = () => {
     api.todolist.update({id, name: value});
   };
 
-  // const onListsView = () => {
-  //   router.push(`${ROUTES.LIST}/${id}`);
-  // };
   const onKanbanView = () => {
     router.push(`${ROUTES.KANBAN}/${id}`);
   };
@@ -39,7 +39,7 @@ const ToolbarDetail: FC = () => {
     setSelectedTask();
     setSelectedTodolist(todolist);
     setIsOpenModal('createTask');
-    setSelectedColumnId(undefined);
+    setSelectedColumnId(backlogId);
   };
   const onDelete = () => {
     setSelectedTodolist(todolist);

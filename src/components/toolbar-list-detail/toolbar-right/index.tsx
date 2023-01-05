@@ -17,11 +17,16 @@ const ToolBarRight: FC = () => {
   const {id} = router.query;
 
   const {boardData} = useBoards();
-  const {todolist} = useTodolist();
-  const {setIsOpenModal, setSelectedTodolist} = useModals();
+  const {todolist, statusList} = useTodolist();
+  const {setIsOpenModal, setSelectedTodolist, setSelectedColumnId} = useModals();
 
   const setSelectList = () => {
-    if (isListDetailPage(path, id as string)) setSelectedTodolist(todolist);
+    if (isListDetailPage(path, id as string)) {
+      setSelectedTodolist(todolist);
+      const statusIdList = statusList.map(e => e.id);
+      const backlogId = Math.min(...statusIdList);
+      setSelectedColumnId(backlogId);
+    }
     if (isBoardPage(path, id as string)) setSelectedTodolist(boardData);
   };
 
