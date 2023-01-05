@@ -6,4 +6,5 @@ export interface IInitialState {
     data: INotificationResponse[];
     error: any;
   };
+  numberOfUnreadNotifications: number;
 }

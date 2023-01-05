@@ -10,7 +10,7 @@ const Invited: FC<TypeNotifications> = props => {
   const {content, link, sender} = notification;
 
   const textLink = (
-    <Link href={`${ROUTES.LIST}/${link}}`} onClick={handleIsRead}>
+    <Link href={`${ROUTES.LIST}/${link}`} onClick={handleIsRead}>
       {content}
     </Link>
   );

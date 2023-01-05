@@ -16,6 +16,9 @@ const notificationsSlice = createSlice({
     getNotificationFailure: (state, {payload}) => {
       state.notification.loading = false;
       state.notification.error = payload;
+    },
+    setNumberOfUnreadNotification: (state, {payload}) => {
+      state.numberOfUnreadNotifications = payload;
     }
   }
 });

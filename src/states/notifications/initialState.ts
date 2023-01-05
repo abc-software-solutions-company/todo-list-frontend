@@ -7,7 +7,8 @@ const initialState: IInitialState = {
     loading: false,
     data: [] as INotificationResponse[],
     error: null
-  }
+  },
+  numberOfUnreadNotifications: 0
 };
 
 export default initialState;

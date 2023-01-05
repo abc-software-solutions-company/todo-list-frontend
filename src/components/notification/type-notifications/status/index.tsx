@@ -14,7 +14,7 @@ const Status: FC<TypeNotifications> = props => {
   const statusAfter: IStatus = JSON.parse(after);
 
   const textLink = (
-    <Link href={`${ROUTES.TASK}/${link}}`} onClick={handleIsRead}>
+    <Link href={`${ROUTES.TASK}/${link}`} onClick={handleIsRead}>
       {content}
     </Link>
   );

@@ -12,20 +12,29 @@ import Contents from './contents';
 const Notification: FC = () => {
   const auth = useStateAuth();
   const {notifications, getNotifications} = useNotifications();
+  const {numberOfUnreadNotifications, setNumberOfUnreadNotification} = useNotifications();
+
+  const unread = notifications.filter(item => {
+    if (item.isRead == false) return item;
+  });
+
+  const [flag, setFlag] = useState<boolean>(false);
+
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setFlag(true);
+    setNumberOfUnreadNotification(0);
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
+    setFlag(false);
+    setNumberOfUnreadNotification(unread.length);
     setAnchorEl(null);
   };
 
   const open = Boolean(anchorEl);
-  const unread = notifications.filter(item => {
-    if (item.isRead == false) return item;
-  });
 
   useEffect(() => {
     if (auth) {
@@ -50,9 +59,15 @@ const Notification: FC = () => {
     };
   }, [auth]);
 
+  useEffect(() => {
+    if (flag == false) {
+      setNumberOfUnreadNotification(unread.length);
+    }
+  }, [unread.length]);
+
   return (
     <>
-      <Badge badgeContent={unread.length} color="error" className="cursor-pointer" onClick={handleClick}>
+      <Badge badgeContent={numberOfUnreadNotifications} color="error" className="cursor-pointer" onClick={handleClick}>
         <Icon name="ico-bell" />
       </Badge>
       <Popover
@@ -72,7 +87,7 @@ const Notification: FC = () => {
           maxWidth: 'xl'
         }}
       >
-        <Contents />
+        <Contents handleClose={handleClose} />
       </Popover>
     </>
   );
