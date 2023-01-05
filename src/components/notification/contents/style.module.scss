@@ -3,22 +3,23 @@
   hr {
     @apply mt-4;
   }
-  .header {
-    @apply relative text-center;
-  }
-  .title {
-    @apply text-base font-semibold text-slate-500;
-  }
-  .ico {
-    @apply absolute top-0 right-[14px];
-    @apply cursor-pointer text-slate-500;
-  }
   .empty {
     @apply mt-4 text-center text-slate-500;
   }
+  .load-more {
+    @apply mt-3 cursor-pointer text-center underline;
+  }
+  .header {
+    @apply relative text-center;
+    .title {
+      @apply text-base font-semibold text-slate-500;
+    }
+    .ico {
+      @apply absolute top-0 right-[14px] cursor-pointer text-slate-500;
+    }
+  }
   .item {
-    @apply relative flex cursor-pointer gap-2 px-4 py-1.5;
-    @apply hover:bg-sky-50;
+    @apply relative flex cursor-pointer gap-2 px-4 py-1.5 hover:bg-sky-50;
     .sender-name {
       @apply font-semibold;
     }
@@ -31,13 +32,9 @@
         @apply text-xs;
       }
     }
-  }
-  .dot {
-    @apply absolute top-2 right-3;
-    @apply inline-block h-3 w-3 rounded-full bg-sky-500;
-  }
-  .load-more {
-    @apply mt-3 cursor-pointer;
-    @apply text-center underline;
+    .dot {
+      @apply absolute top-2 right-3;
+      @apply inline-block h-3 w-3 rounded-full bg-sky-500;
+    }
   }
 }

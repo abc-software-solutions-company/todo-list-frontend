@@ -18,18 +18,14 @@ const Notification: FC = () => {
     if (item.isRead == false) return item;
   });
 
-  const [flag, setFlag] = useState<boolean>(false);
-
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setFlag(true);
     setNumberOfUnreadNotification(0);
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
-    setFlag(false);
     setNumberOfUnreadNotification(unread.length);
     setAnchorEl(null);
   };
@@ -60,7 +56,7 @@ const Notification: FC = () => {
   }, [auth]);
 
   useEffect(() => {
-    if (flag == false) {
+    if (!anchorEl) {
       setNumberOfUnreadNotification(unread.length);
     }
   }, [unread.length]);

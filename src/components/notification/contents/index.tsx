@@ -14,9 +14,7 @@ interface IProps {
   handleClose?: () => void;
 }
 
-const Contents: FC<IProps> = props => {
-  const {handleClose} = props;
-
+const Contents: FC<IProps> = ({handleClose}) => {
   const {notifications} = useNotifications();
   const [count, setCount] = useState(1);
 
