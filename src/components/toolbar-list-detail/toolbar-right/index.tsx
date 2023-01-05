@@ -8,7 +8,7 @@ import useModals from '@/states/modals/use-modals';
 import useTodolist from '@/states/todolist/use-todolist';
 import {isBoardPage, isListDetailPage} from '@/utils/check-routes';
 
-import ToolFilter from '../../tool-filter';
+import ToolFilter from '../../common/tool-filter';
 import style from './style.module.scss';
 
 const ToolBarRight: FC = () => {
@@ -55,20 +55,20 @@ const ToolBarRight: FC = () => {
             />
           </div>
         )}
-        <div className={`list-view ${!isKanbanView ? 'list-view-active' : ''}`}>
+        <div className={`kanban-view ${!isKanbanView ? '' : 'list-view-active'}`}>
           <Icon
             name="list-view"
             className="ico-vertical leading-tight hover:cursor-pointer"
             size={16}
-            onClick={() => router.push(`${ROUTES.LIST}/${id}`)}
+            onClick={() => router.push(`${ROUTES.KANBAN}/${id}`)}
           />
         </div>
-        <div className={`kanban-view ${isKanbanView ? 'list-view-active' : ''}`}>
+        <div className={`list-view ${isKanbanView ? '' : 'list-view-active'}`}>
           <Icon
             name="horizontal"
             className="ico-horizontal leading-tight hover:cursor-pointer"
             size={16}
-            onClick={() => router.push(`${ROUTES.KANBAN}/${id}`)}
+            onClick={() => router.push(`${ROUTES.LIST}/${id}`)}
           />
         </div>
         <div className="tool-filter">

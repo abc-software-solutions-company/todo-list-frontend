@@ -1,7 +1,6 @@
 import {useRouter} from 'next/router';
 import React, {useEffect} from 'react';
 
-import ToolBar from '@/components/common/toolbar';
 import Footer from '@/components/footer';
 import TopBarNew from '@/components/topbar-new';
 import {ROUTES} from '@/configs/routes.config';
@@ -23,7 +22,6 @@ export default function NewLayout({children}: React.PropsWithChildren<Record<str
   return (
     <div className={styles['new-layout']}>
       <TopBarNew />
-      <ToolBar />
 
       <main>{children}</main>
       {router.asPath === ROUTES.LOGIN ? (

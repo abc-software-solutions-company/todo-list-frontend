@@ -4,6 +4,7 @@ import React from 'react';
 import KanbanDetail from '@/components/board';
 import ErrorInformation from '@/components/common/404';
 import Seo from '@/components/common/seo/seo';
+import ToolBar from '@/components/toolbar-list-detail';
 import {getStaticPaths, getStaticProps} from '@/data/ssr/lists.ssr';
 import NewLayout from '@/layouts/new-layout';
 
@@ -15,6 +16,7 @@ export default function PageListDetailKanban({id, seo}: InferGetStaticPropsType<
     return (
       <>
         <Seo {...seo} />
+        <ToolBar />
         <KanbanDetail id={id} />
       </>
     );
