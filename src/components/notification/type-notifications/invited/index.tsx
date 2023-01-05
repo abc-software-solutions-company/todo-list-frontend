@@ -16,7 +16,7 @@ const Invited: FC<TypeNotifications> = props => {
   );
   return (
     <p className="content">
-      {sender.name} invited you in a list task {textLink}
+      <span className="sender-name">{sender.name}</span> invited you in a list task {textLink}
     </p>
   );
 };

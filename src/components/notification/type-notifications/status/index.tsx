@@ -21,8 +21,9 @@ const Status: FC<TypeNotifications> = props => {
 
   return (
     <p className="content">
-      {sender.name} changed a task {textLink} from <span style={{color: statusBefore.color}}>{statusBefore.name}</span>{' '}
-      to <span style={{color: statusAfter.color}}>{statusAfter.name}</span>
+      <span className="sender-name">{sender.name}</span> changed a task {textLink} from{' '}
+      <span style={{color: statusBefore.color}}>{statusBefore.name}</span> to{' '}
+      <span style={{color: statusAfter.color}}>{statusAfter.name}</span>
     </p>
   );
 };

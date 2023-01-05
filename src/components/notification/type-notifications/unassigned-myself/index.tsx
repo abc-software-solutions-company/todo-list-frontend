@@ -17,7 +17,8 @@ const UnassignedMyself: FC<TypeNotifications> = props => {
 
   return (
     <p className="content">
-      {sender.name} unassigned a task {textLink} to {sender.name}
+      <span className="sender-name">{sender.name}</span> unassigned a task {textLink} to{' '}
+      <span className="sender-name">{sender.name}</span>
     </p>
   );
 };

@@ -30,7 +30,8 @@ const Priority: FC<TypeNotifications> = props => {
 
   return (
     <p className="content">
-      {sender.name} changed a task {textLink} from <span style={{color: colorBefore}}>{taskBefore.priority}</span> to{' '}
+      <span className="sender-name">{sender.name}</span> changed a task {textLink} from{' '}
+      <span style={{color: colorBefore}}>{taskBefore.priority}</span> to{' '}
       <span style={{color: colorAfter}}>{taskAfter.priority}</span>
     </p>
   );

@@ -67,7 +67,18 @@ const Notification: FC = () => {
 
   return (
     <>
-      <Badge badgeContent={numberOfUnreadNotifications} color="error" className="cursor-pointer" onClick={handleClick}>
+      <Badge
+        badgeContent={numberOfUnreadNotifications}
+        color="error"
+        className="cursor-pointer"
+        onClick={handleClick}
+        sx={{
+          '& .MuiBadge-badge': {
+            top: 5,
+            right: 2
+          }
+        }}
+      >
         <Icon name="ico-bell" />
       </Badge>
       <Popover
@@ -82,9 +93,13 @@ const Notification: FC = () => {
           vertical: 'top',
           horizontal: 'right'
         }}
-        sx={{
-          width: 1,
-          maxWidth: 'xl'
+        sx={{marginBottom: 4}}
+        PaperProps={{
+          elevation: 1,
+          sx: {
+            scrollbarWidth: 'thin',
+            paddingY: 2
+          }
         }}
       >
         <Contents handleClose={handleClose} />

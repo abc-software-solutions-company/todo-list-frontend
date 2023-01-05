@@ -17,7 +17,7 @@ const DeletedTask: FC<TypeNotifications> = props => {
 
   return (
     <p className="content">
-      {sender.name} delete to a task {textLink}
+      <span className="sender-name">{sender.name}</span> delete to a task {textLink}
     </p>
   );
 };

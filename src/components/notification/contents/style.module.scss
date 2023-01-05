@@ -1,20 +1,17 @@
 .contents :global {
-  @apply w-full lg:w-[406px];
-  .wrapper {
-    @apply py-4 text-h7;
-  }
+  @apply w-full text-h7 lg:w-[406px];
   hr {
     @apply mt-4;
   }
   .header {
     @apply relative text-center;
-    .title {
-      @apply text-base font-semibold text-slate-500;
-    }
-    .ico {
-      @apply absolute top-0 right-[14px];
-      @apply cursor-pointer text-slate-500;
-    }
+  }
+  .title {
+    @apply text-base font-semibold text-slate-500;
+  }
+  .ico {
+    @apply absolute top-0 right-[14px];
+    @apply cursor-pointer text-slate-500;
   }
   .empty {
     @apply mt-4 text-center text-slate-500;
@@ -22,15 +19,18 @@
   .item {
     @apply relative flex cursor-pointer gap-2 px-4 py-1.5;
     @apply hover:bg-sky-50;
-  }
-  .content {
-    @apply w-11/12 line-clamp-2;
-    a {
-      @apply text-slate-700 underline;
+    .sender-name {
+      @apply font-semibold;
     }
-  }
-  .time {
-    @apply text-xs;
+    .content {
+      @apply mr-3 line-clamp-2 lg:w-[310px];
+      a {
+        @apply text-slate-700 underline;
+      }
+      .time {
+        @apply text-xs;
+      }
+    }
   }
   .dot {
     @apply absolute top-2 right-3;
@@ -38,6 +38,6 @@
   }
   .load-more {
     @apply mt-3 cursor-pointer;
-    @apply text-center text-slate-500 underline;
+    @apply text-center underline;
   }
 }

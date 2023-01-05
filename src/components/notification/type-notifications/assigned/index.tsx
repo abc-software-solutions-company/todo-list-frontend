@@ -17,7 +17,7 @@ const Assigned: FC<TypeNotifications> = props => {
 
   return (
     <p className="content">
-      {sender.name} assigned a task {textLink} to you
+      <span className="sender-name">{sender.name}</span> assigned a task {textLink} to you
     </p>
   );
 };
