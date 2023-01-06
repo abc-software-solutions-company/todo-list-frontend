@@ -25,15 +25,6 @@ const TopAreaLeft: FC = () => {
     router.events.on('routeChangeComplete', () => {
       setPageTitle(removeNotificationNumber);
     });
-
-    window.addEventListener(
-      'hashchange',
-      function () {
-        if (location.hash.length > 0) setPageTitle(removeNotificationNumber);
-        else setPageTitle(removeNotificationNumber);
-      },
-      false
-    );
   }, []);
 
   return (
