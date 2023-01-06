@@ -22,6 +22,7 @@ const TopAreaLeft: FC = () => {
   };
 
   useEffect(() => {
+    setPageTitle(removeNotificationNumber);
     router.events.on('routeChangeComplete', () => {
       setPageTitle(removeNotificationNumber);
     });
