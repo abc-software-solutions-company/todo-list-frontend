@@ -7,6 +7,7 @@ import AssignedMyself from './assigned-myself';
 import DeletedTask from './deleted-task';
 import Invited from './invited';
 import Priority from './priority';
+import RenameTask from './rename-task';
 import Status from './status';
 import {Type, TypeNotifications} from './types';
 import Unassigned from './unassigned';
@@ -36,6 +37,9 @@ const TypeNotifcations: FC<TypeNotifications> = props => {
       break;
     case Type.PRIORITY:
       typeConponent = <Priority notification={notification} handleIsRead={() => handleIsRead(notification.id)} />;
+      break;
+    case Type.RENAME_TASK:
+      typeConponent = <RenameTask notification={notification} handleIsRead={() => handleIsRead(notification.id)} />;
       break;
     case Type.STATUS:
       typeConponent = <Status notification={notification} handleIsRead={() => handleIsRead(notification.id)} />;

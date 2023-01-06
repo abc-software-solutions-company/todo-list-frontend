@@ -6,9 +6,10 @@ export enum Type {
   DELETED_TASK = 'deleted-task',
   INVITED = 'invited',
   PRIORITY = 'priority',
+  RENAME_TASK = 'rename-task',
+  STATUS = 'status',
   UNASSIGNED = 'unassigned',
-  UNASSIGNED_MYSELF = 'unassigned-myself',
-  STATUS = 'status'
+  UNASSIGNED_MYSELF = 'unassigned-myself'
 }
 
 export interface TypeNotifications {
