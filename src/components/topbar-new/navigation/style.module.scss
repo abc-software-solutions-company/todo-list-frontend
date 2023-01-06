@@ -1,13 +1,13 @@
 .navigation {
   @apply py-6;
-  @apply text-base font-semibold text-[#0EA5E9];
+  @apply text-base font-semibold text-sky-500;
   @apply hidden md:block;
 }
 .menu-bar {
   @apply flex items-center justify-between;
   @apply rounded-lg bg-[#F1F5F9] md:h-16 md:px-3;
   a {
-    @apply px-1;
+    @apply px-3;
   }
 }
 
@@ -15,7 +15,7 @@
   @apply gap-x-6 py-3;
 }
 .active {
-  @apply border-b-[1.5px] border-b-blue-500 pb-2;
+  @apply border-b-2 border-b-sky-500 pb-5;
 }
 
 .menu-bar-right {
