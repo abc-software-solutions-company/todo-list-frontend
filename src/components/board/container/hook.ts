@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
 import {DragEndEvent, DragOverEvent, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
 import {arrayMove} from '@dnd-kit/sortable';
@@ -11,7 +10,6 @@ import useBoards from '@/states/board/use-boards';
 import {moveToColumn} from '@/utils/kanban/array';
 
 import {apiUpdateColumnKanban, apiUpdateTaskKanban} from './api-handler';
-import DNDCurrent from './type';
 
 export default function useKanbanContainer() {
   const {statusList, boardData} = useBoards();
@@ -35,8 +33,9 @@ export default function useKanbanContainer() {
   const [overColumnActive, setOverColumnActive] = useState<number>(0);
   const [startColumnActive, setStartColumnActive] = useState<number>(0);
 
+  const [positionOnOtherColumn, setPositionOnOtherColumn] = useState<number>(0);
+
   let boardUpdateDragEnd: SetStateAction<{[x: number]: ITaskResponse[]}>;
-  let updateTaskPosition = {};
 
   useEffect(() => {
     setBoardState(() => mapDataKanban(statusList));
@@ -88,13 +87,15 @@ export default function useKanbanContainer() {
     if (columnDragActive == undefined) {
       const taskActiveColumn = active.data?.current?.statusId || active.id;
       const taskOverColumn = over.data?.current?.statusId || over.id.toString().replace('column', '');
+      const taskOverIndex = over.data?.current?.sortable.index;
+      if (taskOverIndex >= 0) setPositionOnOtherColumn(taskOverIndex);
+      console.log(positionOnOtherColumn);
 
       if (taskActiveColumn !== taskOverColumn) {
         const activeItem = active.data.current as ITaskResponse;
         const overIndex =
           over.id in boardState ? boardState[taskOverColumn].length : over.data.current?.sortable?.index;
         boardUpdateDragEnd = moveToColumn(boardState, taskActiveColumn, activeItem, taskOverColumn, overIndex);
-        updateTaskPosition = boardUpdateDragEnd;
         setBoardState(boardUpdateDragEnd);
       }
       setOverColumnActive(taskOverColumn);
@@ -109,23 +110,31 @@ export default function useKanbanContainer() {
     }
 
     if (over) {
-      const overData: DNDCurrent | ITaskResponse | any = over.data.current;
-
       if (columnDragActive) {
         const activeColumnId = Number(active.id.toString().replace('column', ''));
-        // apiUpdateColumnKanban(activeColumnId, columnOrderState, statusList, todolistId);
+        apiUpdateColumnKanban(activeColumnId, columnOrderState, statusList, todolistId);
         return;
       }
 
       if (startColumnActive !== overColumnActive) {
-        // apiUpdateTaskKanban(boardState, taskActive, startColumnActive, overColumnActive, todolistId);
+        apiUpdateTaskKanban(boardState, taskActive, startColumnActive, overColumnActive, todolistId);
+        const afterPositionInColumn = boardState[overColumnActive].findIndex(e => e.id == over.id);
+        const updateTaskPosition = {
+          ...boardState,
+          [overColumnActive]: arrayMove(
+            boardState[Number(overColumnActive)],
+            positionOnOtherColumn,
+            afterPositionInColumn
+          )
+        };
+        setBoardState(updateTaskPosition);
         return;
       }
 
       if (startColumnActive == overColumnActive && !columnDragActive) {
         const beforePositionInColumn = boardState[startColumnActive].findIndex(e => e.id == active.id);
         const afterPositionInColumn = boardState[overColumnActive].findIndex(e => e.id == over.id);
-        updateTaskPosition = {
+        const updateTaskPosition = {
           ...boardState,
           [overColumnActive]: arrayMove(
             boardState[Number(overColumnActive)],
@@ -134,7 +143,7 @@ export default function useKanbanContainer() {
           )
         };
         setBoardState(updateTaskPosition);
-        // apiUpdateTaskKanban(updateTaskPosition, taskActive, startColumnActive, overColumnActive, todolistId);
+        apiUpdateTaskKanban(updateTaskPosition, taskActive, startColumnActive, overColumnActive, todolistId);
         return;
       }
     }

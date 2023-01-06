@@ -1,4 +1,4 @@
-import {DndContext, DragOverlay, useDroppable} from '@dnd-kit/core';
+import {closestCorners, DndContext, DragOverlay, useDroppable} from '@dnd-kit/core';
 import {horizontalListSortingStrategy, SortableContext} from '@dnd-kit/sortable';
 import React from 'react';
 
@@ -35,6 +35,7 @@ const KanbanContainer = () => {
           onDragCancel={handleDragCancel}
           onDragOver={handleDragOver}
           onDragEnd={handleDragEnd}
+          collisionDetection={closestCorners}
           autoScroll={true}
         >
           <SortableContext id="drag-column" items={[...columnOrderState]} strategy={horizontalListSortingStrategy}>
