@@ -4,8 +4,8 @@ import React from 'react';
 
 import KanbanColumn from '../column';
 import KanbanColumnBody from '../column/body';
-import KanbanColumnFooter from '../column/body/add-task';
 import KanbanTaskItem from '../column/body/item';
+import KanbanColumnFooter from '../column/footer/add-task';
 import KanbanColumnHeader from '../column/header';
 import useKanbanContainer from './hook';
 import style from './style.module.scss';
