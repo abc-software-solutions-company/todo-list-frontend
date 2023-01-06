@@ -43,7 +43,6 @@ export const apiUpdateColumnKanban = (
   statusList: IStatus[],
   todoListId: string
 ) => {
-  console.log('🚀 ~ file: api-handler.ts:50 ~ arrangeColumn', arrangeColumn);
   const activeColumnPosition = arrangeColumn.findIndex(x => x == activeColumnId.toString());
 
   const prevIndex = statusList.filter(x => x.id == Number(arrangeColumn[activeColumnPosition - 1]))[0]?.index;
