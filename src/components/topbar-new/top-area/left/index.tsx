@@ -31,11 +31,13 @@ const TopAreaLeft: FC = () => {
           onClick={() => returnTo(currentPage)}
         />
       </div>
-      <div className="page-title">{pageTitle}</div>
-      <div className="page-action">
-        <div className="favorite-list">
-          {isListDetailPage(path, id as string) && <TodolistFavorite id={todolist.id} favorite={todolist.favorite} />}
-          {isBoardPage(path, id as string) && <TodolistFavorite id={boardData.id} favorite={boardData.favorite} />}
+      <div className="page-title">
+        <p>{pageTitle}</p>
+        <div className="page-action">
+          <div className="favorite-list">
+            {isListDetailPage(path, id as string) && <TodolistFavorite id={todolist.id} favorite={todolist.favorite} />}
+            {isBoardPage(path, id as string) && <TodolistFavorite id={boardData.id} favorite={boardData.favorite} />}
+          </div>
         </div>
       </div>
     </div>

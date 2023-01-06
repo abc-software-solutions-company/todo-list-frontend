@@ -11,9 +11,7 @@
   }
   .page-title {
     @apply text-h4 font-semibold;
-  }
-  .favorite-list {
-    @apply hidden md:block;
+    @apply gap-x-1 sm:flex;
   }
   .more {
     @apply hidden md:block;
