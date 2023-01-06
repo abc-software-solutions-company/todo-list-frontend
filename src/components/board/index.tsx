@@ -41,7 +41,7 @@ const KanbanDetail: FC<Iprops> = ({id}) => {
     };
   }, [auth]);
   if (error) return <ErrorInformation />;
-  if (boardData)
+  if (boardData && boardData.id == id)
     return (
       <>
         <KanbanContainer />

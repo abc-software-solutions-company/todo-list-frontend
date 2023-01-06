@@ -1,4 +1,3 @@
-import {useRouter} from 'next/router';
 import {FC, useEffect} from 'react';
 
 import FloatIcon from '@/core-ui/float-icon';
@@ -19,7 +18,6 @@ export interface Iprops {
 
 const ListDetail: FC<Iprops> = ({id}) => {
   const auth = useStateAuth();
-  const router = useRouter();
 
   const {todolist, write, assest, error, getTodolist, statusList} = useTodolist();
   const {setIsOpenModal, setSelectedTodolist, setSelectedColumnId} = useModals();
@@ -57,7 +55,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
   }, [auth]);
 
   if (todolist)
-    if (router.asPath.includes(todolist.id))
+    if (todolist.id == id)
       return (
         <>
           {assest && <Seo title={todolist.name} />}
