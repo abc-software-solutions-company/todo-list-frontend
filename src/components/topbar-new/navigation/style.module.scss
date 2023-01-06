@@ -1,14 +1,18 @@
 .navigation {
-  @apply py-6 text-base font-semibold;
-  @apply text-[#0EA5E9];
+  @apply py-6;
+  @apply text-base font-semibold text-[#0EA5E9];
+  @apply hidden md:block;
 }
 .menu-bar {
-  @apply items-center;
-  @apply justify-between rounded-lg md:flex md:h-16 md:bg-[#F1F5F9] md:px-3;
+  @apply flex items-center justify-between;
+  @apply rounded-lg bg-[#F1F5F9] md:h-16 md:px-3;
+  a {
+    @apply px-1;
+  }
 }
 
 .menu-bar-left {
-  @apply hidden gap-x-6 py-3 md:flex;
+  @apply gap-x-6 py-3;
 }
 .active {
   @apply border-b-[1.5px] border-b-blue-500 pb-2;
