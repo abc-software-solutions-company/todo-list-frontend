@@ -4,7 +4,7 @@
     @apply flex gap-x-2;
   }
   .view-mode {
-    @apply flex  gap-x-2;
+    @apply flex  items-center gap-x-2;
   }
   .btn {
     @apply flex items-center px-1 leading-tight hover:cursor-pointer;
