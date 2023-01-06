@@ -1,0 +1,6 @@
+.toolbar-container :global {
+  @apply mt-5 min-h-[50px] p-3;
+  @apply rounded-lg border border-[#E2E8F0];
+  @apply flex justify-center gap-x-1 md:justify-between;
+  @apply bg-white  font-medium;
+}

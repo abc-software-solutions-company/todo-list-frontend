@@ -5,6 +5,8 @@ import useBoards from '@/states/board/use-boards';
 import useTodolist from '@/states/todolist/use-todolist';
 import {isBoardPage, isListDetailPage} from '@/utils/check-routes';
 
+import style from './style.module.scss';
+
 const ToolBarLeft: FC = () => {
   const router = useRouter();
   const path = router.asPath;
@@ -18,7 +20,7 @@ const ToolBarLeft: FC = () => {
   if (isBoardPage(path, id as string)) listName = boardData.name;
 
   return (
-    <div className="toolbar-left">
+    <div className={style['toolbar-left']}>
       <p>{listName}</p>
     </div>
   );
