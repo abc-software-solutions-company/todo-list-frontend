@@ -82,7 +82,7 @@ const ToolBarRight: FC = () => {
           </div>
         )}
         <div className="delete ml-1">
-          <span className="hidden sm:block">Settings</span>
+          <span className="hidden sm:block">Delete</span>
 
           <Icon
             name="Delete list"

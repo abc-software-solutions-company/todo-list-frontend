@@ -16,13 +16,24 @@ const TopAreaLeft: FC = () => {
   const path = router.asPath;
   const {id} = router.query;
   const [pageTitle, setPageTitle] = useState('');
+
+  const removeNotificationNumber = () => {
+    return document.title.slice(0, document.title.lastIndexOf('('));
+  };
+
   useEffect(() => {
-    if (typeof window !== undefined) {
-      setPageTitle(document.title);
-    }
     router.events.on('routeChangeComplete', () => {
-      setPageTitle(document.title);
+      setPageTitle(removeNotificationNumber);
     });
+
+    window.addEventListener(
+      'hashchange',
+      function () {
+        if (location.hash.length > 0) setPageTitle(removeNotificationNumber);
+        else setPageTitle(removeNotificationNumber);
+      },
+      false
+    );
   }, []);
 
   return (
