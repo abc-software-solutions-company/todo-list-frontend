@@ -1,9 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 import {FC} from 'react';
 
 import Back from '@/components/common/back';
 import TodolistFavorite from '@/components/common/todolist-favorite';
 import {ROUTES} from '@/configs/routes.config';
-import Icon from '@/core-ui/icon';
 import {isBoardPage, isListDetailPage} from '@/utils/check-routes';
 
 import useTopAreaLeft from './hook';
@@ -15,7 +15,8 @@ const TopAreaLeft: FC = () => {
     <div className={style['top-area-left']}>
       <div className="decor">
         <div className="decor-inner">
-          <Icon name="decor" className="ico-three-line text-white" />
+          {/* <Icon name="decor" className="ico-three-line text-white" /> */}
+          <img src="/icons/breadcumb.png" alt="Google Login" />
         </div>
       </div>
       <div className="back block md:hidden">
