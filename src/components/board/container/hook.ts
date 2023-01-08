@@ -99,11 +99,16 @@ export default function useKanbanContainer() {
       // }
       // setOverColumnActive(taskOverColumn);
       const activeContainer = active.data.current?.sortable.containerId;
-      console.log('🚀 ~ file: hook.ts:102 ~ handleDragOver ~ activeContainer', activeContainer);
-      const overContainer = over.data.current?.sortable.containerId || over.id;
+      // console.log('🚀 ~ file: hook.ts:102 ~ handleDragOver ~ activeContainer', activeContainer);
+      // const overContainer = over.data.current?.sortable.containerId || over.id;
+      let overContainer = over.data.current?.sortable.containerId;
+      if (overContainer === 'drag-column') overContainer = over.id.toString().replace('column', '');
+
       console.log('🚀 ~ file: hook.ts:104 ~ handleDragOver ~ overContainer', overContainer);
 
-      if (activeContainer !== overContainer) {
+      if (activeContainer !== overContainer && boardState[overContainer]) {
+        console.log(boardState[overContainer].length);
+
         setBoardState((todolistKanban: {[x: string]: string | any[]}) => {
           const activeIndex = active.data.current?.sortable.index;
           const overIndex =
@@ -140,7 +145,12 @@ export default function useKanbanContainer() {
 
       if (active.id !== over.id) {
         const activeContainer = active.data.current?.sortable.containerId;
-        const overContainer = over.data.current?.sortable.containerId || over.id;
+        // console.log('🚀 ~ file: hook.ts:102 ~ handleDragOver ~ activeContainer', activeContainer);
+        // const overContainer = over.data.current?.sortable.containerId || over.id;
+        let overContainer = over.data.current?.sortable.containerId;
+        if (overContainer === 'drag-column') overContainer = over.id.toString().replace('column', '');
+
+        console.log('🚀 ~ file: hook.ts:104 ~ handleDragOver ~ overContainer', overContainer);
         const activeIndex = active.data.current?.sortable.index;
         const overIndex =
           over.id in boardState ? boardState[overContainer].length + 1 : over.data.current?.sortable.index;

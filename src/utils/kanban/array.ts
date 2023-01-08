@@ -5,7 +5,7 @@ export const removeAtIndex = (array: any, index: any) => {
 };
 
 export const insertAtIndex = (array: any, index: any, item: any) => {
-  console.log(array);
+  // console.log(array);
 
   return [...array.slice(0, index), item, ...array.slice(index)];
 };
