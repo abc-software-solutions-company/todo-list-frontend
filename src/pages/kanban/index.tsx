@@ -11,7 +11,7 @@ export default function KanbanPage() {
   const {todolistKanban, getTodolist} = useTodolist();
 
   useEffect(() => {
-    getTodolist('qrb20');
+    getTodolist('7wfr7');
   }, []);
 
   if (!todolistKanban) return null;

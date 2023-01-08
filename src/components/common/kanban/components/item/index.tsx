@@ -17,31 +17,14 @@ interface IItemKanbanProp {
 
 const Item = ({id, dragOverlay}: IItemKanbanProp) => {
   const {todolist} = useTodolist();
+  const {tasks} = todolist;
   const styleOverLay = {
     cursor: dragOverlay ? 'grabbing' : 'grab'
   };
-  const task = JSON.parse(id);
 
   return (
     <div style={styleOverLay} className={style['item-kanban bg-blue-300']}>
-      {/* <KanbanTaskItem task={task} assigneeList={todolist.members} /> */}
-      {/* {task.name} */}
-      {task?.attachments?.length > 0 && <KanbanTaskThumbnail url={task.attachments[0].link} />}
-      {/* <div className={`action-edit-delete ${showEdiDelete ? 'block' : 'hidden'}`}>
-        <KanbanTaskEditDelete task={task} />
-      </div> */}
-      <KanbanTaskName id={task.id} name={task.name} />
-      <div className="actions">
-        <div className="left">
-          <KanbanTaskCreatedDate date={new Date(task.createdDate)} />
-          <KanbanTaskPriority priority={task.priority} taskId={task.id} />
-          <KanbanTaskStoryPoint point={5} />
-        </div>
-        <div className="right">
-          <KanbanTaskAssignee assignees={task.assignees} id={task.id} assigneeList={todolist.members} />
-        </div>
-      </div>
-      <div className="status-change"></div>
+      {tasks.filter(x => x.id == id)[0].name}
     </div>
   );
 };

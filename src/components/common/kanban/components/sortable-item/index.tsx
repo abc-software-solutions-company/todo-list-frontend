@@ -9,7 +9,6 @@ interface ISortableItemProp {
   id: any;
 }
 const SortableItem = ({id}: ISortableItemProp) => {
-  // const {todolist} = useTodolist();
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id});
 
   const style = {
