@@ -189,6 +189,8 @@ export default function useKanbanContainer() {
     }
   };
 
+  // console.log(boardState);
+
   return {
     boardData: boardState,
     sensors,
