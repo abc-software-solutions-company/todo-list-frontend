@@ -1,28 +1,27 @@
-import {ITaskResponse} from '@/data/api/types/task.type';
+import {arrayMove as dndKitArrayMove} from '@dnd-kit/sortable';
 
-export const removeItem = (column: ITaskResponse[], item: ITaskResponse) => {
-  return column.filter(e => e.id !== item.id);
+export const removeAtIndex = (array: any, index: any) => {
+  return [...array.slice(0, index), ...array.slice(index + 1)];
 };
 
-export const insertItem = (column: ITaskResponse[], item: ITaskResponse, order = 0, statusId = 0) => {
-  const arr1 = column.slice(0, order);
-  const arr2 = column.slice(order);
-  item.statusId = statusId;
-  return [...arr1, item, ...arr2];
+export const insertAtIndex = (array: any, index: any, item: any) => {
+  return [...array.slice(0, index), item, ...array.slice(index)];
 };
 
-export const moveToColumn = (
-  items: {[x: number]: ITaskResponse[]},
-  activeContainer: number,
-  activeItem: ITaskResponse,
-  overContainer: number,
-  order: number
+export const arrayMove = (array: any, oldIndex: any, newIndex: any) => {
+  return dndKitArrayMove(array, oldIndex, newIndex);
+};
+export const moveBetweenContainers = (
+  items: {[x: string]: any},
+  activeContainer: string | number,
+  activeIndex: any,
+  overContainer: string | number,
+  overIndex: any,
+  item: any
 ) => {
-  console.log(activeContainer);
-
   return {
     ...items,
-    [activeContainer]: removeItem(items[activeContainer], activeItem),
-    [overContainer]: insertItem(items[overContainer], activeItem, order, overContainer)
+    [activeContainer]: removeAtIndex(items[activeContainer], activeIndex),
+    [overContainer]: insertAtIndex(items[overContainer], overIndex, item)
   };
 };

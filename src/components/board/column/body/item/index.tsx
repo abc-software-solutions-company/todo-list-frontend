@@ -20,7 +20,7 @@ interface IKanbanTaskItem {
 
 const KanbanTaskItem = ({task}: IKanbanTaskItem) => {
   const {boardData} = useBoards();
-  const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task.id, data: task});
+  const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task});
   const [showEdiDelete, setShowEditDelete] = useState<boolean>(false);
 
   const styleDnd = {
@@ -44,24 +44,7 @@ const KanbanTaskItem = ({task}: IKanbanTaskItem) => {
       onMouseOver={onMouseOverTask}
       onMouseOut={onMouseOutTask}
     >
-      {task?.attachments?.length > 0 && <KanbanTaskThumbnail url={task.attachments[0].link} />}
-      <div className={`action-edit-delete ${showEdiDelete ? 'block bg-white' : 'hidden'}`}>
-        <KanbanTaskEditDelete task={task} />
-      </div>
-
-      <p className="text-red-500">{task.indexColumn}</p>
-      <KanbanTaskName id={task.id} name={task.name} />
-      <div className="actions">
-        <div className="left">
-          <KanbanTaskCreatedDate date={new Date(task.createdDate)} />
-          <KanbanTaskPriority priority={task.priority} taskId={task.id} />
-          <KanbanTaskStoryPoint point={5} />
-        </div>
-        <div className="right">
-          <KanbanTaskAssignee assignees={task.assignees} id={task.id} assigneeList={boardData.members} />
-        </div>
-      </div>
-      <div className="status-change"></div>
+      <p>{task}</p>
     </li>
   );
 };
