@@ -7,24 +7,13 @@ import {IndexStep} from '@/utils/constant';
 import {getnewIndexForDragDrop} from '@/utils/function';
 
 export const apiUpdateTaskKanban = (
-  data: {[x: number]: ITaskResponse[]},
+  tasks: ITaskResponse[],
   activeTask: ITaskResponse,
   startColumnId: number,
   overColumnId: number,
   todolistId: string
 ) => {
-  console.log(startColumnId);
-  console.log(overColumnId);
-  console.log(data);
-  if (data[overColumnId].length == 1) {
-    const indexColumn = IndexStep;
-    api.task.update({id: activeTask.id, statusId: overColumnId, indexColumn}).then(socketUpdateList);
-    return;
-  }
-
-  const listIndex = data[overColumnId].map(e => e.indexColumn);
-  if (listIndex.length > 0) {
-    const listTask = data[overColumnId];
+ 
     const activeTaskPosition = listTask.findIndex(x => x.id === activeTask.id);
     const prevIndex = listTask[activeTaskPosition - 1]?.indexColumn;
     const nextIndex = listTask[activeTaskPosition + 1]?.indexColumn;
