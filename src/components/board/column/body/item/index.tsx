@@ -15,13 +15,15 @@ import KanbanTaskName from './task-name';
 import KanbanTaskThumbnail from './thumbnail';
 
 interface IKanbanTaskItem {
-  task: ITaskResponse;
+  id: string;
 }
 
-const KanbanTaskItem = ({task}: IKanbanTaskItem) => {
+const KanbanTaskItem = ({id}: IKanbanTaskItem) => {
   const {boardData} = useBoards();
-  const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task});
+  const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id});
   const [showEdiDelete, setShowEditDelete] = useState<boolean>(false);
+  const {tasks} = boardData;
+  const task = tasks.filter(e => e.id == id)[0];
 
   const styleDnd = {
     transform: CSS.Transform.toString(transform),
@@ -44,7 +46,25 @@ const KanbanTaskItem = ({task}: IKanbanTaskItem) => {
       onMouseOver={onMouseOverTask}
       onMouseOut={onMouseOutTask}
     >
-      <p>{task}</p>
+      {/* <p>{id}</p> */}
+      {task?.attachments?.length > 0 && <KanbanTaskThumbnail url={task.attachments[0].link} />}
+      <div className={`action-edit-delete ${showEdiDelete ? 'block bg-white' : 'hidden'}`}>
+        <KanbanTaskEditDelete task={task} />
+      </div>
+
+      <p className="text-red-500">{task.indexColumn}</p>
+      <KanbanTaskName id={task.id} name={task.name} />
+      <div className="actions">
+        <div className="left">
+          <KanbanTaskCreatedDate date={new Date(task.createdDate)} />
+          <KanbanTaskPriority priority={task.priority} taskId={task.id} />
+          <KanbanTaskStoryPoint point={5} />
+        </div>
+        <div className="right">
+          <KanbanTaskAssignee assignees={task.assignees} id={task.id} assigneeList={boardData.members} />
+        </div>
+      </div>
+      <div className="status-change"></div>
     </li>
   );
 };
