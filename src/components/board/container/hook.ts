@@ -100,10 +100,7 @@ export default function useKanbanContainer() {
       // setOverColumnActive(taskOverColumn);
       const activeContainer = active.data.current?.sortable.containerId;
       console.log('🚀 ~ file: hook.ts:102 ~ handleDragOver ~ activeContainer', activeContainer);
-      let overContainer = over.data.current?.sortable.containerId || over.id;
-      if (overContainer.includes('drag-column')) {
-        overContainer = overColumnActive;
-      }
+      const overContainer = over.data.current?.sortable.containerId || over.id;
       console.log('🚀 ~ file: hook.ts:104 ~ handleDragOver ~ overContainer', overContainer);
 
       if (activeContainer !== overContainer) {
