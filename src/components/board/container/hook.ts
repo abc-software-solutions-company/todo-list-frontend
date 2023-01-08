@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
 import {DragEndEvent, DragOverEvent, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
 import {arrayMove} from '@dnd-kit/sortable';
@@ -11,7 +10,6 @@ import useBoards from '@/states/board/use-boards';
 import {moveBetweenContainers} from '@/utils/kanban/array';
 
 import {apiUpdateColumnKanban, apiUpdateTaskKanban} from './api-handler';
-import DNDCurrent from './type';
 
 export default function useKanbanContainer() {
   const {statusList, boardData} = useBoards();
@@ -74,10 +72,10 @@ export default function useKanbanContainer() {
 
     // This is code for handle drag column
     if (columnDragActive) {
-      const columnDragActive = active.id.toString().replace('column', '');
+      const IdColumnSelected = active.id.toString().replace('column', '');
       const columnOver = over.data?.current?.statusId || over.id.toString().replace('column', '');
-      if (columnDragActive != columnOver) {
-        const columnActiveIndex = columnOrderState.findIndex(e => e == columnDragActive);
+      if (IdColumnSelected != columnOver) {
+        const columnActiveIndex = columnOrderState.findIndex(e => e == IdColumnSelected);
         const columnOverIndex = columnOrderState.findIndex(e => e == columnOver);
         const reorderColumnIdList = arrayMove(columnOrderState, columnActiveIndex, columnOverIndex);
         setColumnOrderState(reorderColumnIdList);
@@ -99,16 +97,11 @@ export default function useKanbanContainer() {
       // }
       // setOverColumnActive(taskOverColumn);
       const activeContainer = active.data.current?.sortable.containerId;
-      // console.log('🚀 ~ file: hook.ts:102 ~ handleDragOver ~ activeContainer', activeContainer);
       // const overContainer = over.data.current?.sortable.containerId || over.id;
       let overContainer = over.data.current?.sortable.containerId;
       if (overContainer === 'drag-column') overContainer = over.id.toString().replace('column', '');
 
-      console.log('🚀 ~ file: hook.ts:104 ~ handleDragOver ~ overContainer', overContainer);
-
       if (activeContainer !== overContainer && boardState[overContainer]) {
-        console.log(boardState[overContainer].length);
-
         setBoardState((todolistKanban: {[x: string]: string | any[]}) => {
           const activeIndex = active.data.current?.sortable.index;
           const overIndex =
@@ -135,8 +128,6 @@ export default function useKanbanContainer() {
     }
 
     if (over) {
-      const overData: DNDCurrent | ITaskResponse | any = over.data.current;
-
       if (columnDragActive) {
         const activeColumnId = Number(active.id.toString().replace('column', ''));
         apiUpdateColumnKanban(activeColumnId, columnOrderState, statusList, todolistId);
@@ -145,36 +136,36 @@ export default function useKanbanContainer() {
 
       if (active.id !== over.id) {
         const activeContainer = active.data.current?.sortable.containerId;
-        // console.log('🚀 ~ file: hook.ts:102 ~ handleDragOver ~ activeContainer', activeContainer);
         // const overContainer = over.data.current?.sortable.containerId || over.id;
         let overContainer = over.data.current?.sortable.containerId;
         if (overContainer === 'drag-column') overContainer = over.id.toString().replace('column', '');
 
-        console.log('🚀 ~ file: hook.ts:104 ~ handleDragOver ~ overContainer', overContainer);
         const activeIndex = active.data.current?.sortable.index;
         const overIndex =
           over.id in boardState ? boardState[overContainer].length + 1 : over.data.current?.sortable.index;
         let newItems;
 
-        setBoardState((todolistKanban: {[x: string]: any}) => {
-          if (activeContainer === overContainer) {
-            newItems = {
-              ...todolistKanban,
-              [overContainer]: arrayMove(todolistKanban[overContainer], activeIndex, overIndex)
-            };
-          } else {
-            newItems = moveBetweenContainers(
-              todolistKanban,
-              activeContainer,
-              activeIndex,
-              overContainer,
-              overIndex,
-              active.id
-            );
-          }
+        if (boardState[overContainer]) {
+          setBoardState((todolistKanban: {[x: string]: any}) => {
+            if (activeContainer === overContainer) {
+              newItems = {
+                ...todolistKanban,
+                [overContainer]: arrayMove(todolistKanban[overContainer], activeIndex, overIndex)
+              };
+            } else {
+              newItems = moveBetweenContainers(
+                todolistKanban,
+                activeContainer,
+                activeIndex,
+                overContainer,
+                overIndex,
+                active.id
+              );
+            }
 
-          return newItems;
-        });
+            return newItems;
+          });
+        }
       }
 
       // if (startColumnActive !== overColumnActive) {
@@ -201,8 +192,6 @@ export default function useKanbanContainer() {
       // }
     }
   };
-
-  // console.log(boardState);
 
   return {
     boardData: boardState,
