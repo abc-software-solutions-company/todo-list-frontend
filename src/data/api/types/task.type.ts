@@ -85,6 +85,7 @@ export interface ITaskUpdate extends ITaskGet {
   description?: string;
   isActive?: boolean;
   statusId?: number;
+  resetIndexColumn?: boolean;
 }
 
 export interface ITaskReindexAll {
