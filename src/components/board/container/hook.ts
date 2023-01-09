@@ -135,14 +135,16 @@ export default function useKanbanContainer() {
             [overContainer]: arrayMove(boardState[overContainer], activeIndex, overIndex)
           };
         } else {
-          newBoardState = moveBetweenContainers(
-            boardState,
-            activeContainer,
-            activeIndex,
-            overContainer,
-            overIndex,
-            active.id
-          );
+          if (overContainer !== undefined) {
+            newBoardState = moveBetweenContainers(
+              boardState,
+              activeContainer,
+              activeIndex,
+              overContainer,
+              overIndex,
+              active.id
+            );
+          } else newBoardState = boardState;
         }
         setBoardState(newBoardState);
         const listTaskOverColumn = newBoardState[overContainer];

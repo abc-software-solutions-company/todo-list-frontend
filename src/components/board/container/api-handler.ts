@@ -16,8 +16,8 @@ export const apiUpdateTaskKanban = (
 ) => {
   // alert(JSON.stringify(taskIds));
   const listIndex = tasks.map(e => e.indexColumn);
-  const activeTaskPosition = taskIds.findIndex(e => e === activeTaskId);
-  alert(activeTaskPosition);
+  // const activeTaskPosition = taskIds.findIndex(e => e === activeTaskId);
+  // alert(activeTaskPosition);
   // const prevIndex = taskIds[activeTaskPosition - 1]?.indexColumn;
   // const nextIndex = taskIds[activeTaskPosition + 1]?.indexColumn;
   // alert(prevIndex);
