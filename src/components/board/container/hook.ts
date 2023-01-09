@@ -83,20 +83,20 @@ export default function useKanbanContainer() {
       if (overContainer === 'drag-column') overContainer = over.id.toString().replace('column', '');
 
       if (activeContainer !== overContainer && boardState[overContainer]) {
-        setBoardState((todolistKanban: {[x: string]: any}) => {
-          const activeIndex = active.data.current?.sortable.index;
-          const overIndex =
-            over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
+        const activeIndex = active.data.current?.sortable.index;
+        const overIndex =
+          over.id in boardState ? boardState[overContainer].length + 1 : over.data.current?.sortable.index;
 
-          return moveBetweenContainers(
-            todolistKanban,
-            activeContainer,
-            activeIndex,
-            overContainer,
-            overIndex,
-            active.id
-          );
-        });
+        const newBoardState = moveBetweenContainers(
+          boardState,
+          activeContainer,
+          activeIndex,
+          overContainer,
+          overIndex,
+          active.id
+        );
+
+        setBoardState(newBoardState);
       }
     }
   };
