@@ -8,22 +8,25 @@ import {getnewIndexForDragDrop} from '@/utils/function';
 
 export const apiUpdateTaskKanban = (
   tasks: ITaskResponse[],
-  activeTask: ITaskResponse,
+  taskIds: string[],
+  activeTaskId: string,
   startColumnId: number,
   overColumnId: number,
   todolistId: string
 ) => {
- 
-    const activeTaskPosition = listTask.findIndex(x => x.id === activeTask.id);
-    const prevIndex = listTask[activeTaskPosition - 1]?.indexColumn;
-    const nextIndex = listTask[activeTaskPosition + 1]?.indexColumn;
-    const newIndex = getnewIndexForDragDrop({listIndex, nextIndex, prevIndex});
-    if (newIndex) {
-      const {reset, value} = newIndex;
-      api.task.update({id: activeTask.id, indexColumn: value, statusId: overColumnId}).then(socketUpdateList);
-    }
-    return;
-  }
+  alert(JSON.stringify(taskIds));
+  const listIndex = tasks.map(e => e.indexColumn);
+  const activeTaskPosition = taskIds.findIndex(e => e === activeTaskId);
+  // const prevIndex = taskIds[activeTaskPosition - 1]?.indexColumn;
+  // const nextIndex = taskIds[activeTaskPosition + 1]?.indexColumn;
+  // alert(prevIndex);
+  // alert(nextIndex);
+  // const newIndex = getnewIndexForDragDrop({listIndex, nextIndex, prevIndex});
+  // if (newIndex) {
+  //   const {reset, value} = newIndex;
+  //   api.task.update({id: activeTaskId, indexColumn: value, statusId: overColumnId}).then(socketUpdateList);
+  // }
+  return;
 };
 
 export const apiUpdateColumnKanban = (

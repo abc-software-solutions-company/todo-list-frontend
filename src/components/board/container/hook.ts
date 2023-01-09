@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import {DragEndEvent, DragOverEvent, DragStartEvent, UniqueIdentifier} from '@dnd-kit/core';
 import {arrayMove} from '@dnd-kit/sortable';
-import {SetStateAction, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 
-import {ITaskResponse} from '@/data/api/types/task.type';
 import {IStatus} from '@/data/api/types/todolist.type';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useBoards from '@/states/board/use-boards';
@@ -13,10 +12,11 @@ import {apiUpdateColumnKanban, apiUpdateTaskKanban} from './api-handler';
 
 export default function useKanbanContainer() {
   const {statusList, boardData} = useBoards();
+  const {tasks} = boardData;
   const todolistId = boardData.id;
 
   const mapDataKanban = (statusList: IStatus[]) => {
-    const boardDataMap: {[x: number]: ITaskResponse[]} = {};
+    const boardDataMap: {[x: number]: string[]} = {};
     statusList.map(lists => {
       const columnData = {
         [lists.id]: lists.tasks?.map(e => e.id)
@@ -30,11 +30,6 @@ export default function useKanbanContainer() {
   const [taskActive, setTaskActive] = useState<UniqueIdentifier>();
   const [columnOrderState, setColumnOrderState] = useState<string[]>(statusList.map(e => e.id.toString()));
   const [columnDragActive, setColumnDragActive] = useState<string>();
-  const [overColumnActive, setOverColumnActive] = useState<number>(0);
-  const [startColumnActive, setStartColumnActive] = useState<number>(0);
-
-  let boardUpdateDragEnd: SetStateAction<{[x: number]: ITaskResponse[]}>;
-  const updateTaskPosition = {};
 
   useEffect(() => {
     setBoardState(() => mapDataKanban(statusList));
@@ -48,13 +43,12 @@ export default function useKanbanContainer() {
   };
 
   const handleDragStart = ({active}: DragStartEvent) => {
-    const {id, data} = active;
+    const {id} = active;
     if (isColumnSelected(id)) {
       setTaskActive(undefined);
       setColumnDragActive(id.toString().replace('column', ''));
     } else {
       setTaskActive(id);
-      setStartColumnActive(data.current?.statusId);
       setColumnDragActive(undefined);
     }
   };
@@ -84,25 +78,12 @@ export default function useKanbanContainer() {
 
     // This is code for handle drag task
     if (columnDragActive == undefined) {
-      // const taskActiveColumn = active.data?.current?.statusId || active.id;
-      // const taskOverColumn = over.data?.current?.statusId || over.id.toString().replace('column', '');
-
-      // if (taskActiveColumn !== taskOverColumn) {
-      //   const activeItem = active.data.current as ITaskResponse;
-      //   const overIndex =
-      //     over.id in boardState ? boardState[taskOverColumn].length : over.data.current?.sortable?.index;
-      //   boardUpdateDragEnd = moveToColumn(boardState, taskActiveColumn, activeItem, taskOverColumn, overIndex);
-      //   updateTaskPosition = boardUpdateDragEnd;
-      //   setBoardState(boardUpdateDragEnd);
-      // }
-      // setOverColumnActive(taskOverColumn);
       const activeContainer = active.data.current?.sortable.containerId;
-      // const overContainer = over.data.current?.sortable.containerId || over.id;
       let overContainer = over.data.current?.sortable.containerId;
       if (overContainer === 'drag-column') overContainer = over.id.toString().replace('column', '');
 
       if (activeContainer !== overContainer && boardState[overContainer]) {
-        setBoardState((todolistKanban: {[x: string]: string | any[]}) => {
+        setBoardState((todolistKanban: {[x: string]: any}) => {
           const activeIndex = active.data.current?.sortable.index;
           const overIndex =
             over.id in todolistKanban ? todolistKanban[overContainer].length + 1 : over.data.current?.sortable.index;
@@ -146,53 +127,34 @@ export default function useKanbanContainer() {
               ? boardState[overContainer].length + 1
               : 1
             : over.data.current?.sortable.index;
-        let newItems;
+        let newBoardState;
 
-        if (boardState[overContainer]) {
-          setBoardState((todolistKanban: {[x: string]: any}) => {
-            if (activeContainer === overContainer) {
-              newItems = {
-                ...todolistKanban,
-                [overContainer]: arrayMove(todolistKanban[overContainer], activeIndex, overIndex)
-              };
-            } else {
-              newItems = moveBetweenContainers(
-                todolistKanban,
-                activeContainer,
-                activeIndex,
-                overContainer,
-                overIndex,
-                active.id
-              );
-            }
-
-            return newItems;
-          });
+        if (activeContainer === overContainer) {
+          newBoardState = {
+            ...boardState,
+            [overContainer]: arrayMove(boardState[overContainer], activeIndex, overIndex)
+          };
+        } else {
+          newBoardState = moveBetweenContainers(
+            boardState,
+            activeContainer,
+            activeIndex,
+            overContainer,
+            overIndex,
+            active.id
+          );
         }
+        setBoardState(newBoardState);
+        const listTaskOverColumn = newBoardState[overContainer];
+        apiUpdateTaskKanban(
+          tasks,
+          listTaskOverColumn,
+          active.id.toString(),
+          activeContainer,
+          overContainer,
+          todolistId
+        );
       }
-
-      // if (startColumnActive !== overColumnActive) {
-      // const listTask = boardData.tasks.filter(x => x.statusId === overColumnActive);
-      // apiUpdateTaskKanban(boardState, taskActive, startColumnActive, overColumnActive, todolistId);
-      // return;
-      // }
-
-      // if (startColumnActive == overColumnActive && !columnDragActive) {
-      //   const beforePositionInColumn = taskActive.sortable.index;
-      //   const afterPositionInColumn = overData.sortable.index;
-      //   updateTaskPosition = {
-      //     ...boardState,
-      //     [overColumnActive]: arrayMove(
-      //       boardState[Number(overColumnActive)],
-      //       beforePositionInColumn,
-      //       afterPositionInColumn
-      //     )
-      //   };
-      //   setBoardState(updateTaskPosition);
-      //   const listTask = boardData.tasks.filter(x => x.statusId === overColumnActive);
-      //   // apiUpdateTaskKanban(updateTaskPosition, taskActive, startColumnActive, overColumnActive, todolistId);
-      //   return;
-      // }
     }
   };
 

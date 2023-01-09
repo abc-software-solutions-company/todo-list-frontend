@@ -46,7 +46,7 @@ const KanbanTaskItem = ({id}: IKanbanTaskItem) => {
       onMouseOver={onMouseOverTask}
       onMouseOut={onMouseOutTask}
     >
-      {/* <p>{id}</p> */}
+      <p>{id}</p>
       {task?.attachments?.length > 0 && <KanbanTaskThumbnail url={task.attachments[0].link} />}
       <div className={`action-edit-delete ${showEdiDelete ? 'block bg-white' : 'hidden'}`}>
         <KanbanTaskEditDelete task={task} />

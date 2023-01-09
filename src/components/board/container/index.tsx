@@ -52,7 +52,7 @@ const KanbanContainer = () => {
             ))}
             {taskActive && (
               <DragOverlay>
-                <KanbanTaskItem id={taskActive} />
+                <KanbanTaskItem id={taskActive.toString()} />
               </DragOverlay>
             )}
 

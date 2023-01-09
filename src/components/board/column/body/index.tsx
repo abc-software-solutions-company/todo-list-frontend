@@ -2,13 +2,11 @@ import {useDroppable} from '@dnd-kit/core';
 import {SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import React from 'react';
 
-import {ITaskResponse} from '@/data/api/types/task.type';
-
 import KanbanTaskItem from './item';
 import style from './style.module.scss';
 
 interface IKanbanColumnBody {
-  tasks?: ITaskResponse[];
+  tasks?: string[];
   id: string;
 }
 
