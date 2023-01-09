@@ -102,6 +102,8 @@ export default function useKanbanContainer() {
   };
 
   const handleDragEnd = ({active, over}: DragEndEvent) => {
+    let newBoardState = undefined;
+
     if (!over) {
       setTaskActive(undefined);
       setColumnDragActive(undefined);
@@ -127,7 +129,6 @@ export default function useKanbanContainer() {
               ? boardState[overContainer].length + 1
               : 1
             : over.data.current?.sortable.index;
-        let newBoardState;
 
         if (activeContainer === overContainer) {
           newBoardState = {
@@ -147,16 +148,17 @@ export default function useKanbanContainer() {
           } else newBoardState = boardState;
         }
         setBoardState(newBoardState);
-        const listTaskOverColumn = newBoardState[overContainer];
-        apiUpdateTaskKanban(
-          tasks,
-          listTaskOverColumn,
-          active.id.toString(),
-          activeContainer,
-          overContainer,
-          todolistId
-        );
+        // apiUpdateTaskKanban(
+        //   tasks,
+        //   listTaskOverColumn,
+        //   active.id.toString(),
+        //   activeContainer,
+        //   overContainer,
+        //   todolistId
+        // );
       }
+      if (newBoardState) console.log(newBoardState);
+      else console.log(boardState);
     }
   };
 
