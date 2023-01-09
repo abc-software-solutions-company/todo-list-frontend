@@ -151,14 +151,10 @@ export default function useKanbanContainer() {
       }
 
       if (newBoardState) {
-        console.log(newBoardState);
         const newStatus = overContainer > 0 ? overContainer : overColumnId;
-        console.log('🚀 ~ file: hook.ts:154 ~ handleDragEnd ~ newStatus', newStatus);
         apiUpdateTaskKanban(tasks, newBoardState[overContainer], active.id.toString(), newStatus);
       } else {
-        console.log(boardState);
         const oldStatus = activeContainer;
-        console.log('🚀 ~ file: hook.ts:159 ~ handleDragEnd ~ oldStatus', oldStatus);
         apiUpdateTaskKanban(tasks, boardState[activeContainer], active.id.toString(), oldStatus);
       }
     }

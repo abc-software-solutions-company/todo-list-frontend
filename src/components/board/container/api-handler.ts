@@ -11,45 +11,31 @@ export const apiUpdateTaskKanban = (
   taskIds: string[],
   activeTaskId: string,
   newStatus: number
-) =>
-  // tasks: ITaskResponse[],
-  // taskIds: string[],
-  // activeTaskId: string,
-  // startColumnId: number,
-  // overColumnId: number,
-  // todolistId: string
-  {
-    if (!taskIds) {
-      console.log('Update column have no task');
-      console.log('🚀 ~ file: api-handler.ts:14 ~ newStatus', newStatus);
+) => {
+  if (!taskIds) {
+    api.task.update({id: activeTaskId, indexColumn: IndexStep, statusId: newStatus}).then(socketUpdateList);
+  } else {
+    const activeTaskPosition = taskIds.findIndex(e => e == activeTaskId);
+    console.log('🚀 ~ file: api-handler.ts:19 ~ activeTaskPosition', activeTaskPosition);
 
-      // api.task.update({id: activeTaskId, indexColumn: IndexStep, statusId: newStatus}).then(socketUpdateList);
-    } else {
-      const activeTaskPosition = taskIds.findIndex(e => e == activeTaskId);
-      console.log('🚀 ~ file: api-handler.ts:19 ~ activeTaskPosition', activeTaskPosition);
+    const listIndex = tasks.map(e => e.indexColumn);
 
-      // alert(JSON.stringify(taskIds));
-      const listIndex = tasks.map(e => e.indexColumn);
-      // console.log('🚀 ~ file: api-handler.ts:23 ~ listIndex', listIndex);
-      // const activeTaskPosition = taskIds.findIndex(e => e === activeTaskId);
-      // alert(activeTaskPosition);
-      const preTaskId = taskIds[activeTaskPosition - 1];
-      const nextTaskId = taskIds[activeTaskPosition + 1];
-      const prevIndex = tasks.filter(e => e.id == preTaskId)[0]?.indexColumn;
-      console.log('🚀 ~ file: api-handler.ts:34 ~ prevIndex', prevIndex);
-      const nextIndex = tasks.filter(e => e.id == nextTaskId)[0]?.indexColumn;
-      console.log('🚀 ~ file: api-handler.ts:36 ~ nextIndex', nextIndex);
-      const newIndex = getnewIndexForDragDrop({listIndex, nextIndex, prevIndex});
-      console.log('🚀 ~ file: api-handler.ts:31 ~ newIndex', newIndex);
+    const preTaskId = taskIds[activeTaskPosition - 1];
+    const nextTaskId = taskIds[activeTaskPosition + 1];
 
-      if (newIndex) {
-        const {reset, value} = newIndex;
-        api.task
-          .update({id: activeTaskId, indexColumn: value, statusId: newStatus, resetIndexColumn: reset})
-          .then(socketUpdateList);
-      }
+    const prevIndex = tasks.filter(e => e.id == preTaskId)[0]?.indexColumn;
+    const nextIndex = tasks.filter(e => e.id == nextTaskId)[0]?.indexColumn;
+
+    const newIndex = getnewIndexForDragDrop({listIndex, nextIndex, prevIndex});
+
+    if (newIndex) {
+      const {reset, value} = newIndex;
+      api.task
+        .update({id: activeTaskId, indexColumn: value, statusId: newStatus, resetIndexColumn: reset})
+        .then(socketUpdateList);
     }
-  };
+  }
+};
 
 export const apiUpdateColumnKanban = (
   activeColumnId: number,
@@ -57,7 +43,6 @@ export const apiUpdateColumnKanban = (
   statusList: IStatus[],
   todoListId: string
 ) => {
-  console.log('🚀 ~ file: api-handler.ts:50 ~ arrangeColumn', arrangeColumn);
   const activeColumnPosition = arrangeColumn.findIndex(x => x == activeColumnId.toString());
 
   const prevIndex = statusList.filter(x => x.id == Number(arrangeColumn[activeColumnPosition - 1]))[0]?.index;
