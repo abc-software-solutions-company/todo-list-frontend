@@ -2,7 +2,6 @@ import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import React, {useState} from 'react';
 
-import {ITaskResponse} from '@/data/api/types/task.type';
 import useBoards from '@/states/board/use-boards';
 
 import KanbanTaskAssignee from './assignee';
