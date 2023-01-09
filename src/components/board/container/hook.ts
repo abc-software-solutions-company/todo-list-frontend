@@ -159,7 +159,7 @@ export default function useKanbanContainer() {
         console.log(boardState);
         const oldStatus = activeContainer;
         console.log('🚀 ~ file: hook.ts:159 ~ handleDragEnd ~ oldStatus', oldStatus);
-        // apiUpdateTaskKanban(tasks, boardState[activeContainer], active.id.toString(), oldStatus);
+        apiUpdateTaskKanban(tasks, boardState[activeContainer], active.id.toString(), oldStatus);
       }
     }
   };
