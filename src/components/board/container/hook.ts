@@ -30,6 +30,7 @@ export default function useKanbanContainer() {
   const [taskActive, setTaskActive] = useState<UniqueIdentifier>();
   const [columnOrderState, setColumnOrderState] = useState<string[]>(statusList.map(e => e.id.toString()));
   const [columnDragActive, setColumnDragActive] = useState<string>();
+  const [overColumnId, setOverColumnId] = useState<number>(0);
 
   useEffect(() => {
     setBoardState(() => mapDataKanban(statusList));
@@ -97,6 +98,7 @@ export default function useKanbanContainer() {
         );
 
         setBoardState(newBoardState);
+        setOverColumnId(overContainer);
       }
     }
   };
@@ -109,7 +111,9 @@ export default function useKanbanContainer() {
       setColumnDragActive(undefined);
       return;
     }
-
+    const activeContainer = active.data.current?.sortable.containerId;
+    let overContainer = over.data.current?.sortable.containerId;
+    if (overContainer === 'drag-column') overContainer = over.id.toString().replace('column', '');
     if (over) {
       if (columnDragActive) {
         const activeColumnId = Number(active.id.toString().replace('column', ''));
@@ -118,10 +122,6 @@ export default function useKanbanContainer() {
       }
 
       if (active.id !== over.id) {
-        const activeContainer = active.data.current?.sortable.containerId;
-        let overContainer = over.data.current?.sortable.containerId;
-        if (overContainer === 'drag-column') overContainer = over.id.toString().replace('column', '');
-
         const activeIndex = active.data.current?.sortable.index;
         const overIndex =
           over.id in boardState
@@ -148,17 +148,19 @@ export default function useKanbanContainer() {
           } else newBoardState = boardState;
         }
         setBoardState(newBoardState);
-        // apiUpdateTaskKanban(
-        //   tasks,
-        //   listTaskOverColumn,
-        //   active.id.toString(),
-        //   activeContainer,
-        //   overContainer,
-        //   todolistId
-        // );
       }
-      if (newBoardState) console.log(newBoardState);
-      else console.log(boardState);
+
+      if (newBoardState) {
+        console.log(newBoardState);
+        const newStatus = overContainer > 0 ? overContainer : overColumnId;
+        console.log('🚀 ~ file: hook.ts:154 ~ handleDragEnd ~ newStatus', newStatus);
+        apiUpdateTaskKanban(tasks, newBoardState[overContainer], active.id.toString(), newStatus);
+      } else {
+        console.log(boardState);
+        const oldStatus = activeContainer;
+        console.log('🚀 ~ file: hook.ts:159 ~ handleDragEnd ~ oldStatus', oldStatus);
+        // apiUpdateTaskKanban(tasks, boardState[activeContainer], active.id.toString(), oldStatus);
+      }
     }
   };
 
