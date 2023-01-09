@@ -31,7 +31,12 @@ export const apiUpdateTaskKanban = (
     if (newIndex) {
       const {reset, value} = newIndex;
       api.task
-        .update({id: activeTaskId, indexColumn: value, statusId: newStatus, resetIndexColumn: reset})
+        .update({
+          id: activeTaskId,
+          indexColumn: value ? value : (taskIds.length + 1) * IndexStep,
+          statusId: newStatus,
+          resetIndexColumn: reset
+        })
         .then(socketUpdateList);
     }
   }

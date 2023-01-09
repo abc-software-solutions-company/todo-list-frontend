@@ -80,26 +80,25 @@ export default function useKanbanContainer() {
 
     // This is code for handle drag task
     if (columnDragActive == undefined) {
-      const activeContainer = active.data.current?.sortable.containerId;
-      let overContainer = over.data.current?.sortable.containerId;
-      if (overContainer === 'drag-column') overContainer = over.id.toString().replace('column', '');
+      const activeColumn = active.data.current?.sortable.containerId;
+      let overColumn = over.data.current?.sortable.containerId;
+      if (overColumn === 'drag-column') overColumn = over.id.toString().replace('column', '');
 
-      if (activeContainer !== overContainer && boardState[overContainer]) {
+      if (activeColumn !== overColumn && boardState[overColumn]) {
         const activeIndex = active.data.current?.sortable.index;
-        const overIndex =
-          over.id in boardState ? boardState[overContainer].length + 1 : over.data.current?.sortable.index;
+        const overIndex = over.id in boardState ? boardState[overColumn].length + 1 : over.data.current?.sortable.index;
 
         const newBoardState = moveBetweenContainers(
           boardState,
-          activeContainer,
+          activeColumn,
           activeIndex,
-          overContainer,
+          overColumn,
           overIndex,
           active.id.toString()
         );
 
         setBoardState(newBoardState);
-        setOverColumnId(overContainer);
+        setOverColumnId(overColumn);
       }
     }
   };
@@ -112,9 +111,9 @@ export default function useKanbanContainer() {
       setColumnDragActive(undefined);
       return;
     }
-    const activeContainer = active.data.current?.sortable.containerId;
-    let overContainer = over.data.current?.sortable.containerId;
-    if (overContainer === 'drag-column') overContainer = over.id.toString().replace('column', '');
+    const activeColumn = active.data.current?.sortable.containerId;
+    let overColumn = over.data.current?.sortable.containerId;
+    if (overColumn === 'drag-column') overColumn = over.id.toString().replace('column', '');
 
     if (over) {
       if (columnDragActive) {
@@ -127,23 +126,23 @@ export default function useKanbanContainer() {
         const activeIndex = active.data.current?.sortable.index;
         const overIndex =
           over.id in boardState
-            ? boardState[overContainer] !== undefined
-              ? boardState[overContainer].length + 1
+            ? boardState[overColumn] !== undefined
+              ? boardState[overColumn].length + 1
               : 1
             : over.data.current?.sortable.index;
 
-        if (activeContainer === overContainer) {
+        if (activeColumn === overColumn) {
           newBoardState = {
             ...boardState,
-            [overContainer]: arrayMove(boardState[overContainer], activeIndex, overIndex)
+            [overColumn]: arrayMove(boardState[overColumn], activeIndex, overIndex)
           };
         } else {
-          if (overContainer !== undefined) {
+          if (overColumn !== undefined) {
             newBoardState = moveBetweenContainers(
               boardState,
-              activeContainer,
+              activeColumn,
               activeIndex,
-              overContainer,
+              overColumn,
               overIndex,
               active.id.toString()
             );
@@ -153,11 +152,11 @@ export default function useKanbanContainer() {
       }
 
       if (newBoardState) {
-        const newStatus = overContainer > 0 ? overContainer : overColumnId;
-        apiUpdateTaskKanban(tasks, newBoardState[overContainer], active.id.toString(), newStatus);
+        const newStatus = overColumn > 0 ? overColumn : overColumnId;
+        apiUpdateTaskKanban(tasks, newBoardState[overColumn], active.id.toString(), newStatus);
       } else {
-        const oldStatus = activeContainer;
-        apiUpdateTaskKanban(tasks, boardState[activeContainer], active.id.toString(), oldStatus);
+        const oldStatus = activeColumn;
+        apiUpdateTaskKanban(tasks, boardState[activeColumn], active.id.toString(), oldStatus);
       }
     }
   };
