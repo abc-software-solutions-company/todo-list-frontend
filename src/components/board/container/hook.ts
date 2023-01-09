@@ -82,10 +82,14 @@ export default function useKanbanContainer() {
       let overContainer = over.data.current?.sortable.containerId;
       if (overContainer === 'drag-column') overContainer = over.id.toString().replace('column', '');
 
-      if (activeContainer !== overContainer && boardState[overContainer]) {
+      if (activeContainer !== overContainer) {
         const activeIndex = active.data.current?.sortable.index;
         const overIndex =
-          over.id in boardState ? boardState[overContainer].length + 1 : over.data.current?.sortable.index;
+          over.id in boardState
+            ? boardState[overContainer] !== undefined
+              ? boardState[overContainer].length + 1
+              : 1
+            : over.data.current?.sortable.index;
 
         const newBoardState = moveBetweenContainers(
           boardState,
