@@ -45,7 +45,7 @@ const KanbanContainer = () => {
                     name={statusList.filter(e => e.id == Number(columnId))[0]?.name || ''}
                     color={statusList.filter(e => e.id == Number(columnId))[0]?.color || ''}
                   />
-                  <KanbanColumnBody id={columnId} tasks={boardData[Number(columnId)]} />
+                  <KanbanColumnBody id={columnId} taskIds={boardData[Number(columnId)]} />
                   <KanbanColumnFooter id={Number(columnId)} />
                 </KanbanColumn>
               </div>
@@ -64,7 +64,7 @@ const KanbanContainer = () => {
                       name={statusList.filter(e => e.id == Number(columnDragActive))[0].name}
                       color={statusList.filter(e => e.id == Number(columnDragActive))[0].color}
                     />
-                    <KanbanColumnBody id={columnDragActive} tasks={boardData[Number(columnDragActive)]} />
+                    <KanbanColumnBody id={columnDragActive} taskIds={boardData[Number(columnDragActive)]} />
                     <KanbanColumnFooter id={Number(columnDragActive)} />
                   </KanbanColumn>
                 </div>
