@@ -23,7 +23,7 @@ export const apiUpdateTaskKanban = (
       console.log('Update column have no task');
       console.log('🚀 ~ file: api-handler.ts:14 ~ newStatus', newStatus);
 
-      api.task.update({id: activeTaskId, indexColumn: IndexStep, statusId: newStatus}).then(socketUpdateList);
+      // api.task.update({id: activeTaskId, indexColumn: IndexStep, statusId: newStatus}).then(socketUpdateList);
     } else {
       const activeTaskPosition = taskIds.findIndex(e => e == activeTaskId);
       console.log('🚀 ~ file: api-handler.ts:19 ~ activeTaskPosition', activeTaskPosition);
