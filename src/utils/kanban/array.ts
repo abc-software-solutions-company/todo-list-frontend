@@ -1,25 +1,25 @@
 import {arrayMove as dndKitArrayMove} from '@dnd-kit/sortable';
 
-export const removeAtIndex = (array: any, index: any) => {
+export const removeAtIndex = (array: string[], index: number) => {
   return [...array.slice(0, index), ...array.slice(index + 1)];
 };
 
-export const insertAtIndex = (array: any, index: any, item: any) => {
+export const insertAtIndex = (array: string[], index: number, item: string) => {
   // console.log(array);
 
   return [...array.slice(0, index), item, ...array.slice(index)];
 };
 
-export const arrayMove = (array: any, oldIndex: any, newIndex: any) => {
+export const arrayMove = (array: string[], oldIndex: number, newIndex: number) => {
   return dndKitArrayMove(array, oldIndex, newIndex);
 };
 export const moveBetweenContainers = (
-  items: {[x: string]: any},
+  items: {[x: string]: string[]},
   activeContainer: string | number,
-  activeIndex: any,
+  activeIndex: number,
   overContainer: string | number,
-  overIndex: any,
-  item: any
+  overIndex: number,
+  item: string
 ) => {
   return {
     ...items,

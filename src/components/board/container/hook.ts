@@ -69,6 +69,7 @@ export default function useKanbanContainer() {
     if (columnDragActive) {
       const IdColumnSelected = active.id.toString().replace('column', '');
       const columnOver = over.data?.current?.statusId || over.id.toString().replace('column', '');
+
       if (IdColumnSelected != columnOver) {
         const columnActiveIndex = columnOrderState.findIndex(e => e == IdColumnSelected);
         const columnOverIndex = columnOrderState.findIndex(e => e == columnOver);
@@ -94,7 +95,7 @@ export default function useKanbanContainer() {
           activeIndex,
           overContainer,
           overIndex,
-          active.id
+          active.id.toString()
         );
 
         setBoardState(newBoardState);
@@ -114,6 +115,7 @@ export default function useKanbanContainer() {
     const activeContainer = active.data.current?.sortable.containerId;
     let overContainer = over.data.current?.sortable.containerId;
     if (overContainer === 'drag-column') overContainer = over.id.toString().replace('column', '');
+
     if (over) {
       if (columnDragActive) {
         const activeColumnId = Number(active.id.toString().replace('column', ''));
@@ -143,7 +145,7 @@ export default function useKanbanContainer() {
               activeIndex,
               overContainer,
               overIndex,
-              active.id
+              active.id.toString()
             );
           } else newBoardState = boardState;
         }
