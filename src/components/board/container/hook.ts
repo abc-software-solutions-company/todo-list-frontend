@@ -123,7 +123,7 @@ export default function useKanbanContainer() {
         const activeIndex = active.data.current?.sortable.index;
         const overIndex =
           over.id in boardState
-            ? boardState[overContainer]
+            ? boardState[overContainer] !== undefined
               ? boardState[overContainer].length + 1
               : 1
             : over.data.current?.sortable.index;
