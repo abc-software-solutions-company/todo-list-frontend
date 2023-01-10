@@ -22,15 +22,15 @@ const useTopbar = () => {
         router.push(ROUTES.LIST);
         break;
       case `${ROUTES.LIST}/[id]`:
-        if (checkPage === '/tasks') router.push(ROUTES.TASK);
+        if (checkPage === ROUTES.TASK) router.push(ROUTES.TASK);
         else router.push(ROUTES.LIST);
         break;
       case `${ROUTES.TASK}/[id]`:
         if (checkPage === ROUTES.KANBAN) {
           router.push(ROUTES.KANBAN + '/' + LocalStorage.listId.get());
-        } else if (checkPage === '/lists') {
+        } else if (checkPage === ROUTES.LIST) {
           router.push(ROUTES.LIST + '/' + LocalStorage.listId.get());
-        } else if (checkPage === '/tasks') {
+        } else if (checkPage === ROUTES.TASK) {
           router.push(ROUTES.TASK);
         }
         break;

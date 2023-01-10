@@ -1,11 +1,13 @@
 import {FC, useEffect} from 'react';
 
+import {ROUTES} from '@/configs/routes.config';
 import FloatIcon from '@/core-ui/float-icon';
 import socket from '@/data/socket';
 import {SOCKET_EVENTS} from '@/data/socket/type';
 import {useStateAuth} from '@/states/auth';
 import useModals from '@/states/modals/use-modals';
 import useTodolist from '@/states/todolist/use-todolist';
+import LocalStorage from '@/utils/local-storage';
 
 import ErrorInformation from '../common/404';
 import Seo from '../common/seo/seo';
@@ -47,6 +49,8 @@ const ListDetail: FC<Iprops> = ({id}) => {
       console.log('SocketIO', SOCKET_EVENTS.updateList);
       getTodolist(id);
     });
+
+    LocalStorage.checkPage.set(ROUTES.LIST);
 
     return () => {
       socket.off(SOCKET_EVENTS.reconnect);
