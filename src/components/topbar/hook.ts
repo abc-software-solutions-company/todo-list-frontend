@@ -32,6 +32,8 @@ const useTopbar = () => {
           router.push(ROUTES.LIST + '/' + LocalStorage.listId.get());
         } else if (checkPage === ROUTES.TASK) {
           router.push(ROUTES.TASK);
+        } else if (!checkPage) {
+          router.push(ROUTES.LIST + '/' + LocalStorage.listId.get());
         }
         break;
       default:
