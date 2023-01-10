@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import {FC, useEffect} from 'react';
 
+import {ROUTES} from '@/configs/routes.config';
 import socket from '@/data/socket';
 import {SOCKET_EVENTS} from '@/data/socket/type';
 import {useStateAuth} from '@/states/auth';
 import useBoards from '@/states/board/use-boards';
+import LocalStorage from '@/utils/local-storage';
 
 import ErrorInformation from '../common/404';
 import KanbanContainer from './container';
@@ -34,6 +36,8 @@ const KanbanDetail: FC<Iprops> = ({id}) => {
       console.log('SocketIO', SOCKET_EVENTS.updateList);
       getBoard(id);
     });
+
+    LocalStorage.checkPage.set(ROUTES.KANBAN);
 
     return () => {
       socket.off(SOCKET_EVENTS.reconnect);
