@@ -1,6 +1,6 @@
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
-import React, {useState} from 'react';
+import React, {FC, memo, useState} from 'react';
 
 import useBoards from '@/states/board/use-boards';
 
@@ -17,7 +17,7 @@ interface IKanbanTaskItem {
   id: string;
 }
 
-const KanbanTaskItem = ({id}: IKanbanTaskItem) => {
+const KanbanTaskItem: FC<IKanbanTaskItem> = ({id}) => {
   const {boardData} = useBoards();
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id});
   const [showEdiDelete, setShowEditDelete] = useState<boolean>(false);
@@ -68,4 +68,4 @@ const KanbanTaskItem = ({id}: IKanbanTaskItem) => {
   );
 };
 
-export default KanbanTaskItem;
+export default memo(KanbanTaskItem);
