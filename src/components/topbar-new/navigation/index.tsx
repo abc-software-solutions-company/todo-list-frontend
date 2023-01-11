@@ -3,6 +3,7 @@ import {useRouter} from 'next/router';
 import {FC} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
+import Icon from '@/core-ui/icon';
 
 import style from './style.module.scss';
 
@@ -20,11 +21,17 @@ const Navigation: FC = () => {
             <a className={(currentPage === ROUTES.LIST && style.active) || ''}>My Lists</a>
           </Link>
         </div>
-        {/* <div className={style['menu-bar-right']}>
-          <div className="search-box">
+        <div className={style['menu-bar-right']}>
+          {/* <div className="search-box">
             <input placeholder="Search" />
-          </div>
-        </div> */}
+          </div> */}
+          <Icon
+            name="list-view"
+            className="ico-vertical leading-tight hover:cursor-pointer"
+            size={16}
+            onClick={() => router.push(`${ROUTES.KANBAN}/${id}`)}
+          />
+        </div>
       </div>
     </div>
   );
