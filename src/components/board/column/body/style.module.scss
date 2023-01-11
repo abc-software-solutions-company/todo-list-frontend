@@ -1,5 +1,5 @@
 .column-body :global {
   @apply w-[266px] list-none overflow-y-auto md:w-[285px];
-  max-height: 60vh;
+  max-height: 100vh;
   overflow: auto;
 }
