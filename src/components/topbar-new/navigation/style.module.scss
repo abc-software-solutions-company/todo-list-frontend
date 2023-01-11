@@ -18,8 +18,12 @@
   @apply border-b-2 border-b-sky-500 pb-5;
 }
 
+.active-list-mode {
+  @apply rounded border bg-[#E5E7EB] px-1;
+}
+
 .menu-bar-right {
-  @apply flex items-center;
+  @apply flex items-center gap-x-4;
   input {
     @apply h-8 rounded-lg border px-2;
   }
