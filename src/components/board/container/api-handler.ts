@@ -39,6 +39,9 @@ export const apiUpdateTaskKanban = (
         })
         .then(socketUpdateList);
     }
+
+    if (!newIndex)
+      api.task.update({id: activeTaskId, indexColumn: IndexStep, statusId: newStatus}).then(socketUpdateList);
   }
 };
 
