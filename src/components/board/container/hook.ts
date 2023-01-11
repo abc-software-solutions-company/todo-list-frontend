@@ -28,9 +28,9 @@ export default function useKanbanContainer() {
 
   const [boardState, setBoardState] = useState(() => mapDataKanban(statusList));
   const [taskActive, setTaskActive] = useState<UniqueIdentifier>();
+
   const [columnOrderState, setColumnOrderState] = useState<string[]>(statusList.map(e => e.id.toString()));
   const [columnDragActive, setColumnDragActive] = useState<string>();
-  const [overColumnId, setOverColumnId] = useState<number>(0);
 
   useEffect(() => {
     setBoardState(() => mapDataKanban(statusList));
@@ -98,7 +98,7 @@ export default function useKanbanContainer() {
         );
 
         setBoardState(newBoardState);
-        setOverColumnId(overColumn);
+        console.log('🚀 ~ file: hook.ts:104 ~ handleDragOver ~ overColumn', overColumn);
       }
     }
   };
@@ -151,12 +151,9 @@ export default function useKanbanContainer() {
         setBoardState(newBoardState);
       }
 
-      if (newBoardState) {
-        const newStatus = overColumn > 0 ? overColumn : overColumnId;
-        apiUpdateTaskKanban(tasks, newBoardState[overColumn], active.id.toString(), newStatus);
-      } else {
-        const oldStatus = activeColumn;
-        apiUpdateTaskKanban(tasks, boardState[activeColumn], active.id.toString(), oldStatus);
+      const status = overColumn;
+      if (status > 0) {
+        apiUpdateTaskKanban(tasks, boardState[activeColumn], active.id.toString(), status);
       }
     }
   };

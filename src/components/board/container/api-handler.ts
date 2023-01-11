@@ -12,34 +12,33 @@ export const apiUpdateTaskKanban = (
   activeTaskId: string,
   newStatus: number
 ) => {
-  if (!taskIds) {
-    api.task.update({id: activeTaskId, indexColumn: IndexStep, statusId: newStatus}).then(socketUpdateList);
-  } else {
-    const activeTaskPosition = taskIds.findIndex(e => e == activeTaskId);
-    console.log('🚀 ~ file: api-handler.ts:19 ~ activeTaskPosition', activeTaskPosition);
+  const activeTaskPosition = taskIds.findIndex(e => e == activeTaskId);
+  console.log('🚀 ~ file: api-handler.ts:19 ~ activeTaskPosition', activeTaskPosition);
 
-    const listIndex = tasks.map(e => e.indexColumn);
+  const listIndex = tasks.map(e => e.indexColumn);
 
-    const preTaskId = taskIds[activeTaskPosition - 1];
-    const nextTaskId = taskIds[activeTaskPosition + 1];
+  const preTaskId = taskIds[activeTaskPosition - 1];
+  const nextTaskId = taskIds[activeTaskPosition + 1];
 
-    const prevIndex = tasks.filter(e => e.id == preTaskId)[0]?.indexColumn;
-    const nextIndex = tasks.filter(e => e.id == nextTaskId)[0]?.indexColumn;
+  const prevIndex = tasks.filter(e => e.id == preTaskId)[0]?.indexColumn;
+  const nextIndex = tasks.filter(e => e.id == nextTaskId)[0]?.indexColumn;
 
-    const newIndex = getnewIndexForDragDrop({listIndex, nextIndex, prevIndex});
+  const newIndex = getnewIndexForDragDrop({listIndex, nextIndex, prevIndex});
 
-    if (newIndex) {
-      const {reset, value} = newIndex;
-      api.task
-        .update({
-          id: activeTaskId,
-          indexColumn: value ? value : (taskIds.length + 1) * IndexStep,
-          statusId: newStatus,
-          resetIndexColumn: reset
-        })
-        .then(socketUpdateList);
-    }
+  if (newIndex) {
+    const {reset, value} = newIndex;
+    api.task
+      .update({
+        id: activeTaskId,
+        indexColumn: value ? value : (taskIds.length + 1) * IndexStep,
+        statusId: newStatus,
+        resetIndexColumn: reset
+      })
+      .then(socketUpdateList);
   }
+
+  if (!newIndex)
+    api.task.update({id: activeTaskId, indexColumn: IndexStep, statusId: newStatus}).then(socketUpdateList);
 };
 
 export const apiUpdateColumnKanban = (
