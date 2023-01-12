@@ -1,6 +1,6 @@
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
-import React, {FC, memo, ReactNode} from 'react';
+import React, {ReactNode} from 'react';
 
 interface IKanbanColumn {
   onDragStart?: () => void;
@@ -10,7 +10,7 @@ interface IKanbanColumn {
   id: string;
 }
 
-const KanbanColumn: FC<IKanbanColumn> = ({children, id}) => {
+export default function KanbanColumn({children, id}: IKanbanColumn) {
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id});
   const styleDnd = {
     transform: CSS.Transform.toString(transform),
@@ -22,6 +22,4 @@ const KanbanColumn: FC<IKanbanColumn> = ({children, id}) => {
       {children}
     </ul>
   );
-};
-
-export default memo(KanbanColumn);
+}

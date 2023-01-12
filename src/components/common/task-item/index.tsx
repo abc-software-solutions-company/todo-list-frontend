@@ -2,7 +2,6 @@ import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import classNames from 'classnames';
 import {useRouter} from 'next/router';
-import {memo} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
 import Checkbox from '@/core-ui/checkbox';
@@ -22,7 +21,8 @@ export interface ITaskItemProps {
   write?: boolean;
   kanban?: boolean;
 }
-const TaskItem = (props: ITaskItemProps) => {
+
+export default function TaskItem(props: ITaskItemProps) {
   const {task, todolist, isSelect, write, kanban = false} = props;
 
   const {getMyTasks} = useTasks();
@@ -104,6 +104,4 @@ const TaskItem = (props: ITaskItemProps) => {
       )}
     </>
   );
-};
-
-export default memo(TaskItem);
+}

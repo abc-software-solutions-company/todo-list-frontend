@@ -1,6 +1,6 @@
 import {DndContext, DragOverlay, useDroppable} from '@dnd-kit/core';
 import {horizontalListSortingStrategy, SortableContext} from '@dnd-kit/sortable';
-import React, {memo} from 'react';
+import React from 'react';
 
 import KanbanColumn from '../column';
 import KanbanColumnBody from '../column/body';
@@ -77,4 +77,4 @@ const KanbanContainer = () => {
   );
 };
 
-export default memo(KanbanContainer);
+export default KanbanContainer;

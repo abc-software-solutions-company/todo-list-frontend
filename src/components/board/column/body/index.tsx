@@ -1,6 +1,6 @@
 import {useDroppable} from '@dnd-kit/core';
 import {SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
-import React, {FC, memo} from 'react';
+import React from 'react';
 
 import KanbanTaskItem from './item';
 import style from './style.module.scss';
@@ -10,7 +10,7 @@ interface IKanbanColumnBody {
   id: string;
 }
 
-const KanbanColumnBody: FC<IKanbanColumnBody> = ({id, taskIds = []}) => {
+export default function KanbanColumnBody({id, taskIds = []}: IKanbanColumnBody) {
   const {setNodeRef} = useDroppable({id});
 
   return (
@@ -22,5 +22,4 @@ const KanbanColumnBody: FC<IKanbanColumnBody> = ({id, taskIds = []}) => {
       </ul>
     </SortableContext>
   );
-};
-export default memo(KanbanColumnBody);
+}
