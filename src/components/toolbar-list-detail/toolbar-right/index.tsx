@@ -60,6 +60,22 @@ const ToolBarRight: FC = () => {
             />
           </div>
         )}
+        <div className={`kanban-view ${!isKanbanView ? '' : 'active'}`}>
+          <Icon
+            name="list-view"
+            className="ico-vertical leading-tight hover:cursor-pointer"
+            size={16}
+            onClick={() => router.push(`${ROUTES.KANBAN}/${id}`)}
+          />
+        </div>
+        <div className={`list-view ${isKanbanView ? '' : 'active'}`}>
+          <Icon
+            name="horizontal"
+            className="ico-horizontal leading-tight hover:cursor-pointer"
+            size={16}
+            onClick={() => router.push(`${ROUTES.LIST}/${id}`)}
+          />
+        </div>
         {!isKanbanView && (
           <div className="tool-filter">
             <ToolFilter todolist={todolist} />
