@@ -34,38 +34,37 @@ const KanbanTaskItem = ({id}: IKanbanTaskItem) => {
     setShowEditDelete(true);
   };
   const onMouseOutTask = () => setShowEditDelete(false);
-
-  return (
-    <li
-      className={style[`kanban-task-item`]}
-      ref={setNodeRef}
-      style={styleDnd}
-      {...attributes}
-      {...listeners}
-      onMouseOver={onMouseOverTask}
-      onMouseOut={onMouseOutTask}
-    >
-      {/* <p>{id}</p> */}
-      {task?.attachments?.length > 0 && <KanbanTaskThumbnail url={task.attachments[0].link} />}
-      <div className={`action-edit-delete ${showEdiDelete ? 'block bg-white' : 'hidden'}`}>
-        <KanbanTaskEditDelete task={task} />
-      </div>
-
-      {/* <p className="text-red-500">{task.indexColumn}</p> */}
-      <KanbanTaskName id={task.id} name={task.name} />
-      <div className="actions">
-        <div className="left">
-          <KanbanTaskCreatedDate date={new Date(task.createdDate)} />
-          <KanbanTaskPriority priority={task.priority} taskId={task.id} />
-          <KanbanTaskStoryPoint point={5} />
+  if (task)
+    return (
+      <li
+        className={style[`kanban-task-item`]}
+        ref={setNodeRef}
+        style={styleDnd}
+        {...attributes}
+        {...listeners}
+        onMouseOver={onMouseOverTask}
+        onMouseOut={onMouseOutTask}
+      >
+        {task?.attachments?.length > 0 && <KanbanTaskThumbnail url={task.attachments[0].link} />}
+        <div className={`action-edit-delete ${showEdiDelete ? 'block bg-white' : 'hidden'}`}>
+          <KanbanTaskEditDelete task={task} />
         </div>
-        <div className="right">
-          <KanbanTaskAssignee assignees={task.assignees} id={task.id} assigneeList={boardData.members} />
+
+        <KanbanTaskName id={task.id} name={task.name} />
+        <div className="actions">
+          <div className="left">
+            <KanbanTaskCreatedDate date={new Date(task.createdDate)} />
+            <KanbanTaskPriority priority={task.priority} taskId={task.id} />
+            <KanbanTaskStoryPoint point={5} />
+          </div>
+          <div className="right">
+            <KanbanTaskAssignee assignees={task.assignees} id={task.id} assigneeList={boardData.members} />
+          </div>
         </div>
-      </div>
-      <div className="status-change"></div>
-    </li>
-  );
+        <div className="status-change"></div>
+      </li>
+    );
+  return <></>;
 };
 
 export default KanbanTaskItem;
