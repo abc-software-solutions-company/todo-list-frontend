@@ -1,6 +1,6 @@
 .task-thumbnail :global {
   @apply mb-3 flex justify-center;
   img {
-    @apply max-h-36 rounded;
+    @apply max-h-64 max-w-full rounded;
   }
 }
