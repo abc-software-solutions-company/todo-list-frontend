@@ -52,27 +52,6 @@ jobs:
       - name: Remove .env_temp file
         run: rm -r -f .env_temp
 
-      - name: Install Yarn, PM2 (Install first time only, after that this command run quickly)
-        run: npm install -g yarn pm2
-
-      - name: Remove package-lock.json (Prevent error or conflicted version of npm, yarn, etc when developer forgot to delete it in pull request)
-        run: rm -r -f package-lock.json
-
-      - name: Install or Update Node Module from package.json
-        run: yarn
-
-      - name: Generate Icon Font (Optional)
-        run: yarn genfont
-
-      - name: Build Optimized Production Website (.next folder will be created)
-        run: yarn build
-
-      - name: Copy all file (After build successfull) to Web Server Folder (Default Folder defined by Linux Home Directory)
-        run: cp -rf ./ $HOME/dist
-
-      - name: Change directory to Web Server Folder and restart Web Server.
-        run: |
-          RUNNER_TRACKING_ID="" && \
-          cd $HOME/dist && \
-          pm2 start yarn -- start && \
-          pm2 restart yarn
+      # Reference from offical Docker youtube channel: https://youtu.be/aNh8iShFXto
+      - name: Build Docker and deployment
+        run: sudo chmod +x docker-build.sh && sudo ./docker-build.sh
