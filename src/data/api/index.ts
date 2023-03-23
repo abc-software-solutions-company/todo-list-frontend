@@ -46,7 +46,8 @@ const api = {
   },
   notification: {
     get: () => http.get<INotificationResponse[]>(API_ENDPOINTS.NOTIFICATION),
-    update: (id: string) => http.patch(API_ENDPOINTS.NOTIFICATION + '/' + id)
+    update: (id: string) => http.patch(API_ENDPOINTS.NOTIFICATION + '/' + id),
+    updateAll: () => http.patch<INotificationResponse[]>(API_ENDPOINTS.NOTIFICATION)
   }
 };
 

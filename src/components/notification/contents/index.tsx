@@ -20,13 +20,17 @@ const Contents: FC<IProps> = ({handleClose}) => {
 
   const numberShow = 4;
   const notificationShowed = notifications.slice(0, numberShow * count);
+  const unreadNotificationIds = notifications.filter(item => !item.isRead).map(item => item.id);
 
   const handleCount = () => {
     setCount(count + 1);
   };
-
   const handleIsRead = (id: string) => {
     api.notification.update(id);
+  };
+
+  const hadleReadAll = () => {
+    api.notification.updateAll();
   };
 
   return (
@@ -65,6 +69,11 @@ const Contents: FC<IProps> = ({handleClose}) => {
             {notifications.length > 4 && notificationShowed.length < notifications.length && (
               <p className="load-more" onClick={handleCount}>
                 Load more
+              </p>
+            )}
+            {unreadNotificationIds.length > 0 && (
+              <p className="read-all" onClick={hadleReadAll}>
+                Mark all as read
               </p>
             )}
           </div>

@@ -9,6 +9,9 @@
   .load-more {
     @apply mt-3 cursor-pointer text-center underline;
   }
+  .read-all {
+    @apply mt-3 cursor-pointer underline;
+  }
   .header {
     @apply relative text-center;
     .title {
@@ -36,5 +39,8 @@
       @apply absolute top-2 right-3;
       @apply inline-block h-3 w-3 rounded-full bg-sky-500;
     }
+  }
+  .footer {
+    @apply flex justify-around;
   }
 }
