@@ -8,6 +8,7 @@ export interface ITodolistGetOne {
 
 export interface ITodolistCreate {
   name: string;
+  taskSymbol?: string;
 }
 
 export interface ITodolistUpdate extends ITodolistGetOne {

@@ -13,10 +13,12 @@ import {IProps} from '../types-create-update';
 
 interface IFormInputs {
   name: string;
+  taskSymbol: string;
 }
 
 const Schema = yup.object().shape({
-  name: yup.string().required('Please enter your list name.')
+  name: yup.string().required('Please enter your list name.'),
+  taskSymbol: yup.string()
 });
 
 export default function useModalCreateList({open, onClose, onSuccess}: IProps) {
@@ -36,9 +38,9 @@ export default function useModalCreateList({open, onClose, onSuccess}: IProps) {
 
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
     if (isSubmitting) return;
-    const {name} = formData;
+    const {name, taskSymbol} = formData;
 
-    const req = api.todolist.create({name}).then(res => {
+    const req = api.todolist.create({name, taskSymbol}).then(res => {
       toast.show({type: 'success', title: 'Create List', content: ToastContents.SUCCESS});
       router.push(ROUTES.LIST + '/' + res.data.id);
     });
