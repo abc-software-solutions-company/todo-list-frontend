@@ -105,6 +105,7 @@ export interface IAssigneeResponse {
 export interface ITaskResponse extends ITaskGet, IBaseResponse {
   sortable?: any;
   name: string;
+  order: number;
   description: string;
   todolistId: string;
   statusId: number;

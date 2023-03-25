@@ -72,7 +72,7 @@ export default function TaskItem(props: ITaskItemProps) {
           }}
         >
           <p className="h6" onClick={onClick}>
-            {task.name}
+            {todolist.taskSymbol ? `${todolist.taskSymbol}-${task.order}:  ${task.name}` : task.name}
           </p>
           <Actions {...{...props, todolist, write}} kanban={true} />
         </div>
@@ -97,7 +97,7 @@ export default function TaskItem(props: ITaskItemProps) {
         >
           <Checkbox checked={task.isDone} onChange={onChange} disabled={!write} />
           <p className={`h6 ${task.isDone && 'checked'}`} onClick={onClick}>
-            {task.name}
+            {todolist.taskSymbol ? `${todolist.taskSymbol}-${task.order}:  ${task.name}` : task.name}
           </p>
           <Actions {...{...props, todolist, write}} />
         </div>
