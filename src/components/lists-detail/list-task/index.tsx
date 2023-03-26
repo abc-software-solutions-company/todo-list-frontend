@@ -21,6 +21,7 @@ const ListTask = () => {
     if (statusFilterInList) return todolist.tasks.filter(e => !statusFilterInList || e.statusId == statusFilterInList);
     return todolist.tasks?.filter(e => !e.isDone);
   };
+
   const tasks = getTasks();
 
   const sensors = useSensorGroup();
