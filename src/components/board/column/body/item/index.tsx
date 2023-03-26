@@ -21,7 +21,7 @@ const KanbanTaskItem = ({id}: IKanbanTaskItem) => {
   const {boardData} = useBoards();
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id});
   const [showEdiDelete, setShowEditDelete] = useState<boolean>(false);
-  const {tasks} = boardData;
+  const {tasks, taskSymbol} = boardData;
   const task = tasks.filter(e => e.id == id)[0];
 
   const styleDnd = {
@@ -50,7 +50,7 @@ const KanbanTaskItem = ({id}: IKanbanTaskItem) => {
           <KanbanTaskEditDelete task={task} />
         </div>
 
-        <KanbanTaskName id={task.id} name={task.name} />
+        <KanbanTaskName id={task.id} name={taskSymbol ? `${taskSymbol}-${task.order}:  ${task.name}` : task.name} />
         <div className="actions">
           <div className="left">
             <KanbanTaskCreatedDate date={new Date(task.createdDate)} />
@@ -64,7 +64,6 @@ const KanbanTaskItem = ({id}: IKanbanTaskItem) => {
         <div className="status-change"></div>
       </li>
     );
-  return <></>;
 };
 
 export default KanbanTaskItem;

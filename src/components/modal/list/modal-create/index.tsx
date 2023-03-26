@@ -39,7 +39,7 @@ const ModalCreateList: FC<IProps> = props => {
                 placeholder={'Enter your list name'}
                 {...register('name')}
               />
-              <Input className="mt-3" placeholder={'Enter your task symbol'} {...register('taskSymbol')} />
+              <Input className="mt-4" placeholder={'Enter your task symbol'} {...register('taskSymbol')} />
             </Modal.Body>
             <Modal.Footer>
               <div className="content">
