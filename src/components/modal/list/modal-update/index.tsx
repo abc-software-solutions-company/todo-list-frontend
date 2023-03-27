@@ -18,8 +18,8 @@ const ModalUpdateList: FC<IProps> = props => {
   const {data, open, hiddenVisibility, onClose} = props;
   const {errors, onSubmit, register, setValue, owner, ownerKanban} = useModalUpdateList(props);
   const [options, setOptions] = useState<IUserResponse[]>([]);
-  const defaultMemberIds = data?.members?.map((e: {id: any}) => e.id) || [];
-  const memberDefaultValue = options.filter(e => defaultMemberIds.includes(e.id));
+  const defaultMemberIds = data?.members?.map((e: {id: any}) => e.id);
+  const memberDefaultValue = options.filter(e => defaultMemberIds?.includes(e.id));
   const visibilityDefaultValue = hiddenVisibility
     ? undefined
     : data?.visibility
@@ -71,10 +71,12 @@ const ModalUpdateList: FC<IProps> = props => {
                   })}
                 </Select>
               )}
-              {data && (owner || ownerKanban) && (
+              {data && options.length > 0 && (owner || ownerKanban) && (
                 <Autocomplete
                   multiple
-                  className="input-members"
+                  limitTags={3}
+                  disablePortal
+                  className="input-members scrollbar max-h-36 overflow-scroll bg-white"
                   defaultValue={[...memberDefaultValue]}
                   onChange={(e, value) => setValue('member', {ids: value.map(u => u.id)})}
                   options={options}
