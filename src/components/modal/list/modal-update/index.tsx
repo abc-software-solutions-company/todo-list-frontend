@@ -1,4 +1,4 @@
-import {Autocomplete, MenuItem, Select, TextField} from '@mui/material';
+import {Autocomplete, ButtonGroup, Grid, MenuItem, Popper, Select, TextField} from '@mui/material';
 import cls from 'classnames';
 import {FC, useEffect, useState} from 'react';
 
@@ -75,13 +75,17 @@ const ModalUpdateList: FC<IProps> = props => {
                 <Autocomplete
                   multiple
                   limitTags={3}
-                  disablePortal
                   className="input-members scrollbar max-h-36 overflow-scroll bg-white"
                   defaultValue={[...memberDefaultValue]}
                   onChange={(e, value) => setValue('member', {ids: value.map(u => u.id)})}
                   options={options}
                   disableCloseOnSelect
                   getOptionLabel={option => option.email || 'no email'}
+                  PopperComponent={popperProp => (
+                    <Popper placement="top" {...popperProp}>
+                      {popperProp.children}
+                    </Popper>
+                  )}
                   renderOption={(prop, option, state) => {
                     const {selected} = state;
                     if (!selected)
