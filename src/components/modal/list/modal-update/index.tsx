@@ -82,7 +82,7 @@ const ModalUpdateList: FC<IProps> = props => {
                   disableCloseOnSelect
                   getOptionLabel={option => option.email || 'no email'}
                   PopperComponent={popperProp => (
-                    <Popper placement="top" {...popperProp}>
+                    <Popper placement="top" className="absolute top-0 left-0" {...popperProp}>
                       {popperProp.children}
                     </Popper>
                   )}
