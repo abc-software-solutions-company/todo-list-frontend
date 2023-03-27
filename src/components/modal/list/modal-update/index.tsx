@@ -71,7 +71,7 @@ const ModalUpdateList: FC<IProps> = props => {
                   })}
                 </Select>
               )}
-              {data && (owner || ownerKanban) && (
+              {data && options.length > 0 && (owner || ownerKanban) && (
                 <Autocomplete
                   multiple
                   className="input-members"
