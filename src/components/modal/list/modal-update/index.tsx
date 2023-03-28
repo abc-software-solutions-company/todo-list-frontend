@@ -59,6 +59,7 @@ const ModalUpdateList: FC<IProps> = props => {
                 error={errors.taskSymbol?.message}
                 value={data?.taskSymbol}
                 placeholder={'Enter your task Symbol. EX: TEST (optional)'}
+                maxLength={5}
                 {...register('taskSymbol')}
                 className="mt-4"
               />

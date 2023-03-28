@@ -18,7 +18,7 @@ interface IFormInputs {
 
 const Schema = yup.object().shape({
   name: yup.string().required('Please enter your list name.'),
-  taskSymbol: yup.string()
+  taskSymbol: yup.string().max(5, 'Maximum is 5')
 });
 
 export default function useModalCreateList({open, onClose, onSuccess}: IProps) {

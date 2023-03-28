@@ -10,12 +10,16 @@ import useTopAreaLeft from './hook';
 import style from './style.module.scss';
 
 const TopAreaLeft: FC = () => {
-  const {boardData, currentPage, id, pageTitle, path, returnTo, todolist} = useTopAreaLeft();
+  const {boardData, currentPage, id, path, returnTo, todolist} = useTopAreaLeft();
+
+  let listName = '';
+  if (isListDetailPage(path, id as string)) listName = todolist.name;
+  if (isBoardPage(path, id as string)) listName = boardData.name;
+
   return (
     <div className={style['top-area-left']}>
       <div className="decor">
         <div className="decor-inner">
-          {/* <Icon name="decor" className="ico-three-line text-white" /> */}
           <img src="/icons/breadcumb.png" alt="Google Login" />
         </div>
       </div>
@@ -33,7 +37,7 @@ const TopAreaLeft: FC = () => {
         />
       </div>
       <div className="page-title">
-        <p>{pageTitle}</p>
+        <p>{listName}</p>
         <div className="page-action">
           <div className="favorite-list">
             {isListDetailPage(path, id as string) && <TodolistFavorite id={todolist.id} favorite={todolist.favorite} />}

@@ -1,5 +1,4 @@
 import {useRouter} from 'next/router';
-import {useEffect, useState} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
 import useBoards from '@/states/board/use-boards';
@@ -14,8 +13,6 @@ const useTopAreaLeft = () => {
   const path = router.asPath;
   const currentPage = router.pathname;
   const {id} = router.query;
-
-  const [pageTitle, setPageTitle] = useState('');
 
   const returnTo = (curPage: string) => {
     const checkPage = LocalStorage.checkPage.get();
@@ -42,18 +39,7 @@ const useTopAreaLeft = () => {
     }
   };
 
-  const removeNotificationNumber = () => {
-    return document.title.slice(0, document.title.lastIndexOf('('));
-  };
-
-  useEffect(() => {
-    setPageTitle(removeNotificationNumber);
-    router.events.on('routeChangeComplete', () => {
-      setPageTitle(removeNotificationNumber);
-    });
-  }, []);
-
-  return {todolist, boardData, path, currentPage, pageTitle, returnTo, id};
+  return {todolist, boardData, path, currentPage, returnTo, id};
 };
 
 export default useTopAreaLeft;

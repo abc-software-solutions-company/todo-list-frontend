@@ -39,7 +39,13 @@ const ModalCreateList: FC<IProps> = props => {
                 placeholder={'Enter your list name'}
                 {...register('name')}
               />
-              <Input className="mt-4" placeholder={'Enter your task symbol (Optional)'} {...register('taskSymbol')} />
+              <Input
+                className="mt-4"
+                placeholder={'Enter your task symbol (Optional)'}
+                maxLength={5}
+                {...register('taskSymbol')}
+                error={errors.taskSymbol?.message}
+              />
             </Modal.Body>
             <Modal.Footer>
               <div className="content">
