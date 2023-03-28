@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import classNames from 'classnames';
@@ -24,9 +25,10 @@ export interface ITaskItemProps {
 
 export default function TaskItem(props: ITaskItemProps) {
   const {task, todolist, isSelect, write, kanban = false} = props;
-
+  const {taskSymbol} = todolist;
+  const {order, name, id, isDone} = task;
   const {getMyTasks} = useTasks();
-  const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: task.id});
+  const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: id});
 
   const styleDnd = {
     transform: CSS.Transform.toString(transform),
@@ -47,8 +49,8 @@ export default function TaskItem(props: ITaskItemProps) {
 
   const router = useRouter();
 
-  const onChange = () => setDone(task.id, task.isDone);
-  const onClick = () => router.push(ROUTES.TASK + '/' + task.id);
+  const onChange = () => setDone(id, isDone);
+  const onClick = () => router.push(ROUTES.TASK + '/' + id);
 
   return (
     <>
@@ -62,17 +64,12 @@ export default function TaskItem(props: ITaskItemProps) {
           onClick={e => {
             const elmCheckbox = e.currentTarget.querySelector('.form-checkbox') as HTMLInputElement | null;
             const elmText = e.currentTarget.querySelector('h6')?.classList;
-            if (task?.isDone) {
-              elmText?.remove('checked');
-              elmCheckbox?.removeAttribute('checked');
-            } else {
-              elmText?.add('checked');
-              elmCheckbox?.setAttribute('checked', '');
-            }
+            elmText?.toggle('checked');
+            elmCheckbox?.toggleAttribute('checked');
           }}
         >
           <p className="h6" onClick={onClick}>
-            {todolist.taskSymbol ? `${todolist.taskSymbol}-${task.order}:  ${task.name}` : task.name}
+            {taskSymbol ? `${taskSymbol}-${order}:  ${name}` : name}
           </p>
           <Actions {...{...props, todolist, write}} kanban={true} />
         </div>
@@ -83,21 +80,10 @@ export default function TaskItem(props: ITaskItemProps) {
           style={styleDnd}
           {...attributes}
           {...listeners}
-          onClick={e => {
-            const elmCheckbox = e.currentTarget.querySelector('.form-checkbox') as HTMLInputElement | null;
-            const elmText = e.currentTarget.querySelector('h6')?.classList;
-            if (task?.isDone) {
-              elmText?.remove('checked');
-              elmCheckbox?.removeAttribute('checked');
-            } else {
-              elmText?.add('checked');
-              elmCheckbox?.setAttribute('checked', '');
-            }
-          }}
         >
-          <Checkbox checked={task.isDone} onChange={onChange} disabled={!write} />
-          <p className={`h6 ${task.isDone && 'checked'}`} onClick={onClick}>
-            {todolist.taskSymbol ? `${todolist.taskSymbol}-${task.order}:  ${task.name}` : task.name}
+          <Checkbox checked={isDone} onChange={onChange} disabled={!write} />
+          <p className={`h6 ${isDone && 'checked'}`} onClick={onClick}>
+            {taskSymbol ? `(${taskSymbol}-${order}) :  ${name}` : name}
           </p>
           <Actions {...{...props, todolist, write}} />
         </div>
