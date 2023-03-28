@@ -21,7 +21,6 @@ const ToolBarLeft: FC = () => {
 
   return (
     <div className={style['toolbar-left']}>
-      aaaaa
       <p>{listName}</p>
     </div>
   );

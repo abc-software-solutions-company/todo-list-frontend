@@ -4,17 +4,13 @@ import {FC} from 'react';
 import Back from '@/components/common/back';
 import TodolistFavorite from '@/components/common/todolist-favorite';
 import {ROUTES} from '@/configs/routes.config';
-import {isBoardPage, isListDetailPage} from '@/utils/check-routes';
+import {isBoardPage, isListDetailPage, isMyListPage, isMyTasksPage} from '@/utils/check-routes';
 
 import useTopAreaLeft from './hook';
 import style from './style.module.scss';
 
 const TopAreaLeft: FC = () => {
   const {boardData, currentPage, id, path, returnTo, todolist} = useTopAreaLeft();
-
-  let listName = '';
-  if (isListDetailPage(path, id as string)) listName = todolist.name;
-  if (isBoardPage(path, id as string)) listName = boardData.name;
 
   return (
     <div className={style['top-area-left']}>
@@ -37,7 +33,11 @@ const TopAreaLeft: FC = () => {
         />
       </div>
       <div className="page-title">
-        <p>{listName}</p>
+        <p>To-Do List |</p>
+        {isMyListPage(path, id as string) && 'My Lists'}
+        {isMyTasksPage(path, id as string) && 'My Tasks'}
+        {isListDetailPage(path, id as string) && todolist.name}
+        {isBoardPage(path, id as string) && boardData.name}
         <div className="page-action">
           <div className="favorite-list">
             {isListDetailPage(path, id as string) && <TodolistFavorite id={todolist.id} favorite={todolist.favorite} />}
