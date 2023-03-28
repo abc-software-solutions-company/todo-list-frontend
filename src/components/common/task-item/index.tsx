@@ -24,7 +24,7 @@ export interface ITaskItemProps {
 }
 
 export default function TaskItem(props: ITaskItemProps) {
-  const {task, todolist, isSelect, write, kanban = false} = props;
+  const {task, todolist, isSelect, write = false} = props;
   const {taskSymbol} = todolist;
   const {order, name, id, isDone} = task;
   const {getMyTasks} = useTasks();
@@ -53,41 +53,18 @@ export default function TaskItem(props: ITaskItemProps) {
   const onClick = () => router.push(ROUTES.TASK + '/' + id);
 
   return (
-    <>
-      {kanban ? (
-        <div
-          className={classNames(style['task-kanban'], `item ${isSelect && 'select'}`, 'hover:bg-blue-100')}
-          ref={setNodeRef}
-          style={styleDnd}
-          {...attributes}
-          {...listeners}
-          onClick={e => {
-            const elmCheckbox = e.currentTarget.querySelector('.form-checkbox') as HTMLInputElement | null;
-            const elmText = e.currentTarget.querySelector('h6')?.classList;
-            elmText?.toggle('checked');
-            elmCheckbox?.toggleAttribute('checked');
-          }}
-        >
-          <p className="h6" onClick={onClick}>
-            {taskSymbol ? `${taskSymbol}-${order}:  ${name}` : name}
-          </p>
-          <Actions {...{...props, todolist, write}} kanban={true} />
-        </div>
-      ) : (
-        <div
-          className={classNames(style.task, `item ${isSelect && 'select'}`, 'hover:bg-blue-100')}
-          ref={setNodeRef}
-          style={styleDnd}
-          {...attributes}
-          {...listeners}
-        >
-          <Checkbox checked={isDone} onChange={onChange} disabled={!write} />
-          <p className={`h6 ${isDone && 'checked'}`} onClick={onClick}>
-            {taskSymbol ? `(${taskSymbol}-${order}) :  ${name}` : name}
-          </p>
-          <Actions {...{...props, todolist, write}} />
-        </div>
-      )}
-    </>
+    <div
+      className={classNames(style.task, `item ${isSelect && 'select'}`, 'hover:bg-blue-100')}
+      ref={setNodeRef}
+      style={styleDnd}
+      {...attributes}
+      {...listeners}
+    >
+      <Checkbox checked={isDone} onChange={onChange} disabled={!write} />
+      <p className={`h6 ${isDone && 'checked'}`} onClick={onClick}>
+        {taskSymbol ? `(${taskSymbol}-${order}) :  ${name}` : name}
+      </p>
+      <Actions {...{...props, todolist, write}} />
+    </div>
   );
 }

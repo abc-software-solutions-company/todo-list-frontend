@@ -58,8 +58,7 @@ const ModalUpdateList: FC<IProps> = props => {
               <Input
                 error={errors.taskSymbol?.message}
                 value={data?.taskSymbol}
-                autoFocus={true}
-                placeholder={'Enter your task Symbol. EX:TEST'}
+                placeholder={'Enter your task Symbol. EX: TEST (optional)'}
                 {...register('taskSymbol')}
                 className="mt-4"
               />

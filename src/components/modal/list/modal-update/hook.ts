@@ -42,7 +42,8 @@ export default function useModalUpdateList({data, open, onClose, onSuccess}: IPr
 
   useEffect(() => {
     reset();
-    setValue('name', data?.name || '', 'taskSymbol', data?.taskSymbol || '');
+    setValue('name', data?.name || '');
+    setValue('taskSymbol', data?.taskSymbol || '');
   }, [data, open, setValue]);
 
   const submitHandler: SubmitHandler<IFormInputs> = async formData => {
@@ -51,7 +52,7 @@ export default function useModalUpdateList({data, open, onClose, onSuccess}: IPr
 
     if (data) {
       const {id} = data;
-      const req = api.todolist.update({id, name, visibility, member}).then(res => {
+      const req = api.todolist.update({id, name, visibility, member, taskSymbol}).then(res => {
         if (router.asPath.includes(ROUTES.LIST)) {
           const newTodolist: ITodolistResponse = res.data;
           newTodolist.name = name;
@@ -72,10 +73,6 @@ export default function useModalUpdateList({data, open, onClose, onSuccess}: IPr
 
     onClose();
   };
-
-  useEffect(() => {
-    setValue('name', data?.name || '');
-  }, [data]);
 
   return {errors, isSubmitting, setValue, onSubmit: handleSubmit(submitHandler), owner, ownerKanban, ...rest};
 }

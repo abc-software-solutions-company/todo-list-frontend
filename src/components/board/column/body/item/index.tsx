@@ -50,7 +50,7 @@ const KanbanTaskItem = ({id}: IKanbanTaskItem) => {
           <KanbanTaskEditDelete task={task} />
         </div>
 
-        <KanbanTaskName id={task.id} name={taskSymbol ? `${taskSymbol}-${task.order}:  ${task.name}` : task.name} />
+        <KanbanTaskName id={task.id} name={taskSymbol ? `(${taskSymbol}-${task.order}) :  ${task.name}` : task.name} />
         <div className="actions">
           <div className="left">
             <KanbanTaskCreatedDate date={new Date(task.createdDate)} />

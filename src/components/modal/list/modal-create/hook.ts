@@ -13,7 +13,7 @@ import {IProps} from '../types-create-update';
 
 interface IFormInputs {
   name: string;
-  taskSymbol: string;
+  taskSymbol?: string;
 }
 
 const Schema = yup.object().shape({

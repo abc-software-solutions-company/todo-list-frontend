@@ -23,6 +23,7 @@ export interface ITodolistUpdate extends ITodolistGetOne {
   statusIndex?: number;
   resetIndexStatus?: boolean;
   resetIndexTask?: boolean;
+  taskSymbol?: string;
 }
 
 export interface ITodolistSync {
