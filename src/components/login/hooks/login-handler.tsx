@@ -8,22 +8,17 @@ import {useDispatchAuth} from '@/states/auth/context';
 import LocalStorage from '@/utils/local-storage';
 
 export default function useLoginHandler() {
-  // Initial toast, router and auth disaptch
   const toast = useToast();
-  const router = useRouter();
+  const {asPath: currentPath, push: routerPush, reload: routerReload} = useRouter();
   const dispatchAuth = useDispatchAuth();
 
-  // Save token and redirect to specific page when login success
-  const loginSuccess = (data: IAuthResponse) => {
-    LocalStorage.accessToken.set(data.accessToken);
-    const {user} = data;
+  const loginSuccess = ({accessToken, user}: IAuthResponse) => {
+    LocalStorage.accessToken.set(accessToken);
     dispatchAuth(AuthActions.login(user));
-    const previousPage = LocalStorage.previousPage.get();
-    if (previousPage) router.push(previousPage);
-    else router.push(ROUTES.HOME);
+    if (currentPath == ROUTES.LOGIN) routerPush(LocalStorage.previousPage.get() || ROUTES.HOME);
+    else routerReload();
   };
 
-  // Show Error when Login Failed
   const loginFailed = () => toast.show({type: 'danger', title: 'Error', content: 'Can&apos;t create user.'});
 
   return {loginSuccess, loginFailed};
