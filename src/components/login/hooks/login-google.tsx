@@ -20,13 +20,11 @@ export default function useLoginGoogle() {
   googleProvider.setCustomParameters({
     prompt: 'select_account'
   });
+
   const signInWithGoogle = () => signInWithPopup(fireAuth, googleProvider);
 
-  const onLoginSuccess = (res: AxiosResponse<IAuthResponse, any>) => {
-    const {accessToken, user} = res.data;
+  const onLoginSuccess = ({data: {accessToken, user}}: AxiosResponse<IAuthResponse, any>) =>
     loginSuccess({accessToken, user});
-    if (router.asPath === ROUTES.LIST) router.reload();
-  };
 
   const loginWithGmail = ({email, name}: IAuthLogin) => {
     if (router.asPath === ROUTES.LOGIN) {
@@ -49,14 +47,13 @@ export default function useLoginGoogle() {
       .then(() => {})
       .catch(() => {});
     fireAuth.beforeAuthStateChanged(user => {
-      if (user?.email && user?.displayName) {
-        loginWithGmail({name: user.displayName, email: user.email});
-      }
+      if (user?.email && user?.displayName) loginWithGmail({name: user.displayName, email: user.email});
     });
   };
 
   useEffect(() => {
     initFirebase();
   }, []);
+
   return {openGooglePopUp};
 }
