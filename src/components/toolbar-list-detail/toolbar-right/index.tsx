@@ -14,10 +14,11 @@ const ToolBarRight: FC = () => {
   const router = useRouter();
   const path = router.asPath;
   const {id} = router.query;
-  const {data: todolist, statusList} = useTodolist();
-  const {setIsOpenModal, setSelectedColumnId} = useModals();
+  const {todolist, statusList} = useTodolist();
+  const {setIsOpenModal, setSelectedColumnId, setSelectedTodolist} = useModals();
 
   const setSelectList = () => {
+    setSelectedTodolist(todolist);
     if (isListDetailPage(path, id as string)) {
       const statusIdList = statusList.map(e => e.id);
       const backlogId = Math.min(...statusIdList);

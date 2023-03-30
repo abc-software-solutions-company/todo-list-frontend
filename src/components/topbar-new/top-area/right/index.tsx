@@ -17,7 +17,7 @@ import style from './style.module.scss';
 
 const TopAreaRight: FC = () => {
   const {boardData} = useBoards();
-  const {todolist} = useTodolist();
+  const {data: todolist} = useTodolist();
 
   const router = useRouter();
   const path = router.asPath;

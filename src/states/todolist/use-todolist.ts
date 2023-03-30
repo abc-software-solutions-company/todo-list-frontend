@@ -27,7 +27,7 @@ export default function useTodolist() {
   const write = Boolean(data) ? data.visibility === 'PUBLIC' || Boolean(auth && auth.id === data.userId) : false;
   const owner = Boolean(data) ? Boolean(auth && auth.id === data.userId) : false;
   return {
-    data,
+    todolist: data,
     loading,
     statusList,
     statusActive,

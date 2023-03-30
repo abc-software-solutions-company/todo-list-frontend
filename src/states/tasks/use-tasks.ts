@@ -10,7 +10,7 @@ export default function useTasks() {
   const {actions} = tasksSlice;
 
   const dispatch = useDispatch();
-  const getMyTasks = () => dispatch(actions.getMyTasksRequest());
+  const fetchData = () => dispatch(actions.getMyTasksRequest());
 
-  return {myTasks: data, getMyTasks, ...restState};
+  return {myTasks: data, fetchData, ...restState};
 }

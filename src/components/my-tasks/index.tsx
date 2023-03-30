@@ -14,11 +14,11 @@ import styles from './style.module.scss';
 
 const MyTasks = () => {
   const auth = useStateAuth();
-  const {myTasks, getMyTasks} = useTasks();
+  const {myTasks, fetchData} = useTasks();
 
   useEffect(() => {
     LocalStorage.checkPage.set(ROUTES.TASK);
-    getMyTasks();
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const MyTasks = () => {
 
     socket.on(SOCKET_EVENTS.updateList, () => {
       console.log('SocketIO', SOCKET_EVENTS.updateList);
-      getMyTasks();
+      fetchData();
     });
 
     return () => {
@@ -41,24 +41,21 @@ const MyTasks = () => {
       socket.off(SOCKET_EVENTS.updateList);
     };
   }, [auth]);
-  if (myTasks == undefined) return <Loading />;
 
-  if (myTasks)
-    return (
-      <>
-        <div className={styles['list-task']}>
-          <div className="h-[12px]"></div>
-          <div className="flex items-center justify-end">
-            {myTasks
-              ?.filter(x => x != null)
-              .map(e => e.tasks.length)
-              .reduce((a, b) => a + b, 0) != 0 && <ToolFilter myTasks={myTasks} />}
-          </div>
-          <ListTask />
-        </div>
-      </>
-    );
-  return <></>;
+  if (!myTasks) return <Loading />;
+
+  return (
+    <div className={styles['list-task']}>
+      <div className="h-[12px]"></div>
+      <div className="flex items-center justify-end">
+        {myTasks
+          ?.filter(x => x != null)
+          .map(e => e.tasks.length)
+          .reduce((a, b) => a + b, 0) != 0 && <ToolFilter myTasks={myTasks} />}
+      </div>
+      <ListTask />
+    </div>
+  );
 };
 
 export default MyTasks;

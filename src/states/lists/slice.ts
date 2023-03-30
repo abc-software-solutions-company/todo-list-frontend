@@ -1,13 +1,11 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
-import initialState, {isOpenModal} from './initialState';
-import {ISetIsOpenModalPayload} from './types';
+import initialState from './initialState';
 
 const listsSlice = createSlice({
   name: 'lists',
   initialState,
   reducers: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getMyListRequest: state => {
       state.myList.loading = true;
     },
@@ -29,13 +27,6 @@ const listsSlice = createSlice({
     getFavoriteListFailure: (state, {payload}) => {
       state.favoriteList.loading = false;
       state.favoriteList.error = payload;
-    },
-    setIsOpenModal: (state, {payload}: PayloadAction<ISetIsOpenModalPayload>) => {
-      const newIsOpenModal = {...isOpenModal};
-      Object.keys(newIsOpenModal).map(e => {
-        if (e == payload) newIsOpenModal[e] = true;
-      });
-      state.isOpenModal = newIsOpenModal;
     }
   }
 });

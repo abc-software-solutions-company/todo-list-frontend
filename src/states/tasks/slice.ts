@@ -6,7 +6,6 @@ const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getMyTasksRequest: state => {
       state.myTasks.loading = true;
     },

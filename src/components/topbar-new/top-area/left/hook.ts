@@ -6,7 +6,7 @@ import useTodolist from '@/states/todolist/use-todolist';
 import LocalStorage from '@/utils/local-storage';
 
 const useTopAreaLeft = () => {
-  const {data: todolist, loading: todolistLoading} = useTodolist();
+  const {todolist, loading: todolistLoading} = useTodolist();
   const {boardData, loading: boardLoading} = useBoards();
   const router = useRouter();
 

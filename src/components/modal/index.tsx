@@ -74,7 +74,6 @@ const Modal = () => {
         open={isOpenModal.createTask}
         onClose={onClose}
         onSuccess={socketUpdateList}
-        todolistData={selectedTodolist}
         statusId={selectedStatusId}
       />
       {selectedTask && (

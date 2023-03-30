@@ -27,7 +27,7 @@ export default function TaskItem(props: ITaskItemProps) {
   const {task, todolist, isSelect, write = false} = props;
   const {taskSymbol} = todolist;
   const {order, name, id, isDone} = task;
-  const {getMyTasks} = useTasks();
+  const {fetchData: getMyTasks} = useTasks();
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: id});
 
   const styleDnd = {

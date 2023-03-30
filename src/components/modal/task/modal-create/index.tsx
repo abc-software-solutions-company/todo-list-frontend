@@ -23,7 +23,7 @@ interface IFormInputs {
 }
 
 const ModalCreateTask: FC<IProps> = props => {
-  const {data: todolist, getTodolist} = useTodolist();
+  const {todolist, getTodolist} = useTodolist();
   const {open, onClose, onSuccess, statusId} = props;
   const toast = useToast();
 
@@ -31,18 +31,19 @@ const ModalCreateTask: FC<IProps> = props => {
     const {name} = formData;
     const req: Promise<any>[] = [];
 
-    req.push(
-      api.task.create({name, todolistId: todolist.id, statusId}).then(() => {
-        toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
-      })
-    );
+    if (todolist) {
+      req.push(
+        api.task.create({name, todolistId: todolist.id, statusId}).then(() => {
+          toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
+        })
+      );
+    }
 
     Promise.allSettled(req)
       .then(onSuccess)
       .then(() => getTodolist(todolist.id))
-      .catch(() => {
-        return toast.show({type: 'danger', title: 'Error', content: ToastContents.ERROR});
-      });
+      .catch(() => toast.show({type: 'danger', title: 'Error', content: ToastContents.ERROR}));
+
     onClose();
   };
 

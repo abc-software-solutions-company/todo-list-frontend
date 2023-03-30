@@ -21,7 +21,7 @@ export interface Iprops {
 const ListDetail: FC<Iprops> = ({id}) => {
   const auth = useStateAuth();
 
-  const {data, write, assest, error, getTodolist, statusList} = useTodolist();
+  const {todolist, write, assest, error, getTodolist, statusList} = useTodolist();
   const {setIsOpenModal, setSelectedTodolist, setSelectedColumnId} = useModals();
 
   const statusIdList = statusList.map(e => e.id);
@@ -29,7 +29,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
 
   const onClickFloatIcon = () => {
     setSelectedColumnId(backlogId);
-    setSelectedTodolist(data);
+    setSelectedTodolist(todolist);
     setIsOpenModal('createTask');
   };
 
@@ -58,10 +58,10 @@ const ListDetail: FC<Iprops> = ({id}) => {
     };
   }, [auth]);
   if (error) return <ErrorInformation />;
-  if (data && data.id)
+  if (todolist?.id === id)
     return (
       <>
-        {assest && <Seo title={data.name} />}
+        {assest && <Seo title={todolist.name} />}
         <div className={styles['list-detail']}>
           <ListTask />
           <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />

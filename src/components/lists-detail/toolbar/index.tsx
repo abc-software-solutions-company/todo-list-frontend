@@ -1,11 +1,9 @@
 import classNames from 'classnames';
 import {useRouter} from 'next/router';
-// import {useRouter} from 'next/router';
 import {FC} from 'react';
 
 import InputAutosize from '@/components/common/input-autosize';
 import {ROUTES} from '@/configs/routes.config';
-// import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 import api from '@/data/api';
 import useModals from '@/states/modals/use-modals';
@@ -81,11 +79,6 @@ const ToolbarDetail: FC = () => {
     text: 'Kanban View',
     onClick: onKanbanView
   };
-  // const listToolProps: IToolProps = {
-  //   icon: <Icon name="ico-horizontal" />,
-  //   text: 'Lists View',
-  //   onClick: onListsView
-  // };
 
   const toolMenuItems = [
     deleteToolProps,
@@ -105,11 +98,6 @@ const ToolbarDetail: FC = () => {
         <InputAutosize value={name} handleSave={handleSave} role="title" write={write} />
       </div>
       <div className={classNames(style.tools, style.right)}>
-        {/* {router.asPath.includes(ROUTES.LIST) ? (
-          <Tool {...kanbanToolProps} className={style['tool-outer']} />
-        ) : (
-          <Tool {...listToolProps} className={style['tool-outer']} />
-        )} */}
         <Tool {...kanbanToolProps} className={style['tool-outer']} />
         <Tool {...addTaskToolProps} className={style['tool-outer']} />
         <Tool {...deleteToolProps} className={style['tool-outer']} />

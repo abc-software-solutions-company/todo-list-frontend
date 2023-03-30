@@ -17,7 +17,6 @@ const Lists: FC = () => {
   const onNew = () => setIsOpenModal('createList');
 
   useEffect(() => {
-    console.log('🚀 ~ file: index.tsx:23 ~ useEffect ~ useEffect:');
     LocalStorage.checkPage.set(ROUTES.LIST);
     get();
   }, []);
