@@ -14,15 +14,9 @@ export type IGetTodolistPayloadAction = PayloadAction<IGetTodolistPayload>;
 export type ISetIsOpenModalPayload = keyof typeof isOpenModal | null;
 
 export interface IInitialState {
-  todolist: {
-    loading: boolean;
-    data: ITodolistResponse;
-    error: any;
-  };
-  taskKanbanActive?: ITaskResponse;
-  taskKanbanOver?: ITaskResponse;
-  todolistKanban: any;
-  kanbanActive: boolean;
+  loading: boolean;
+  data: ITodolistResponse;
+  error: any;
   statusList: IStatus[];
   statusFilter: number;
   statusActive: number;

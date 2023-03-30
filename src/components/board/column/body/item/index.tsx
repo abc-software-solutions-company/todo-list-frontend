@@ -5,10 +5,8 @@ import React, {useState} from 'react';
 import useBoards from '@/states/board/use-boards';
 
 import KanbanTaskAssignee from './assignee';
-import KanbanTaskCreatedDate from './created-date';
 import KanbanTaskEditDelete from './edit-delete';
 import KanbanTaskPriority from './priority';
-import KanbanTaskStoryPoint from './story-point';
 import style from './style.module.scss';
 import KanbanTaskName from './task-name';
 import KanbanTaskThumbnail from './thumbnail';
@@ -56,9 +54,7 @@ const KanbanTaskItem = ({id}: IKanbanTaskItem) => {
         />
         <div className="actions">
           <div className="left">
-            <KanbanTaskCreatedDate date={new Date(task.createdDate)} />
             <KanbanTaskPriority priority={task.priority} taskId={task.id} />
-            <KanbanTaskStoryPoint point={5} />
           </div>
           <div className="right">
             <KanbanTaskAssignee assignees={task.assignees} id={task.id} assigneeList={boardData.members} />

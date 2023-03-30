@@ -23,5 +23,5 @@ export default function useLists() {
   const setSelectedTodolist = (param?: ITodolistResponse) => dispatch(actions.setSelectedTodolist(param));
   const setIsOpenModal = (param: ISetIsOpenModalPayload) => dispatch(actions.setIsOpenModal(param));
 
-  return {myList, favoriteList, ...rest, get, setSelectedTodolist, setIsOpenModal};
+  return {myList, favoriteList, ...rest, get, setSelectedTodolist, setIsOpenModal, myListState: state};
 }

@@ -13,12 +13,9 @@ import LobbyTitle from './title';
 const Lobby: FC = () => {
   const router = useRouter();
 
-  const {setIsOpenModal, setSelectedTodolist} = useModals();
+  const {setIsOpenModal} = useModals();
 
-  const onNew = () => {
-    setIsOpenModal('createList');
-    setSelectedTodolist();
-  };
+  const onNew = () => setIsOpenModal('createList');
 
   return (
     <>

@@ -12,7 +12,6 @@ interface IFormInputs {
   name: string;
 }
 
-// Schema validate form
 const Schema = yup.object().shape({
   name: yup.string().required('Please fill in your name').max(32, 'Your name must not exceed 32 letters').trim()
 });
@@ -20,21 +19,18 @@ const Schema = yup.object().shape({
 export default function useGuestLoginHook() {
   const {openGooglePopUp} = useLoginGoogle();
 
-  // Handle After Login Success | After Login Failed
   const {loginSuccess, loginFailed} = useLoginHandler();
-  // Media Query for Todo List Logo in HomePage (@TinTran)
+
   const {register, handleSubmit, formState} = useForm<IFormInputs>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: yupResolver(Schema)
   });
-  // Form Login Onsubmit handler
+
   const submitHandler: SubmitHandler<IFormInputs> = data => {
     api.auth
       .login(data)
-      .then(res => {
-        loginSuccess(res.data);
-      })
+      .then(res => loginSuccess(res.data))
       .catch(() => loginFailed());
   };
 

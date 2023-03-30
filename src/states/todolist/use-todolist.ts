@@ -9,9 +9,7 @@ import {ISetIsOpenModalPayload} from './types';
 
 export default function useTodolist() {
   const todolistState = useSelector((root: RootState) => root.todolist);
-  const {todolist, statusList, todolistKanban, kanbanActive, statusActive, taskKanbanActive, taskKanbanOver, ...rest} =
-    todolistState;
-  const {data, ...restTodolist} = todolist;
+  const {data, loading, error, statusList, statusActive, ...rest} = todolistState;
   const auth = useStateAuth();
   const dispatch = useDispatch();
 
@@ -25,23 +23,15 @@ export default function useTodolist() {
   const setSelectedTask = (value?: ITaskResponse) => dispatch(actions.setSelectedTask(value));
   const setIsOpenModal = (value: ISetIsOpenModalPayload) => dispatch(actions.setIsOpenModal(value));
 
-  const setTodolistKanban = (value: any) => dispatch(actions.setTodolistKanban(value));
-  const setStatusActive = (value: number) => dispatch(actions.setStatusActive(value));
-  const setTaskKanbanActive = (value: any) => dispatch(actions.setTaskKanbanActive(value));
-  const setTaskKanbanOver = (value: any) => dispatch(actions.setTaskKanbanOver(value));
-
   const assest = Boolean(data) ? data.visibility !== 'PRIVATE' || Boolean(auth && auth.id === data.userId) : false;
   const write = Boolean(data) ? data.visibility === 'PUBLIC' || Boolean(auth && auth.id === data.userId) : false;
   const owner = Boolean(data) ? Boolean(auth && auth.id === data.userId) : false;
-  const error = todolist.error;
   return {
-    todolist: data,
+    data,
+    loading,
     statusList,
     statusActive,
-    todolistKanban,
     ...rest,
-    ...restTodolist,
-    kanbanActive,
     assest,
     write,
     owner,
@@ -51,12 +41,6 @@ export default function useTodolist() {
     setStatusFilter,
     setSelectedTask,
     setIsOpenModal,
-    setTodolist,
-    setTodolistKanban,
-    setStatusActive,
-    setTaskKanbanActive,
-    setTaskKanbanOver,
-    taskKanbanActive,
-    taskKanbanOver
+    setTodolist
   };
 }

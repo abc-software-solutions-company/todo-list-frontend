@@ -97,7 +97,7 @@ const Topbar: FC<IProps> = ({className}) => {
                 )}
               </span>
               {auth?.email == null && (
-                <span className="unverified" onClick={() => handleSocial()}>
+                <span className="unverified hover:cursor-pointer" onClick={() => handleSocial()}>
                   (Unverified)
                 </span>
               )}

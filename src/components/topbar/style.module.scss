@@ -33,6 +33,6 @@
   }
   .unverified,
   .logout {
-    @apply ml-1 cursor-pointer text-base text-red-500;
+    @apply ml-1 text-base text-red-500 hover:cursor-pointer;
   }
 }

@@ -13,7 +13,7 @@ import useTodolist from '@/states/todolist/use-todolist';
 import {IndexStep} from '@/utils/constant';
 
 const ListTask = () => {
-  const {todolist, write, setTodolist} = useTodolist();
+  const {data: todolist, write, setTodolist} = useTodolist();
   const {statusFilterInList, setStatusFilterInList} = useFilter();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 

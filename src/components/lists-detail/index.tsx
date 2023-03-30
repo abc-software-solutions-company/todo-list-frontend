@@ -21,7 +21,7 @@ export interface Iprops {
 const ListDetail: FC<Iprops> = ({id}) => {
   const auth = useStateAuth();
 
-  const {todolist, write, assest, error, getTodolist, statusList} = useTodolist();
+  const {data, write, assest, error, getTodolist, statusList} = useTodolist();
   const {setIsOpenModal, setSelectedTodolist, setSelectedColumnId} = useModals();
 
   const statusIdList = statusList.map(e => e.id);
@@ -29,7 +29,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
 
   const onClickFloatIcon = () => {
     setSelectedColumnId(backlogId);
-    setSelectedTodolist(todolist);
+    setSelectedTodolist(data);
     setIsOpenModal('createTask');
   };
 
@@ -57,20 +57,17 @@ const ListDetail: FC<Iprops> = ({id}) => {
       socket.off(SOCKET_EVENTS.updateList);
     };
   }, [auth]);
-
-  if (todolist)
-    if (todolist.id == id)
-      return (
-        <>
-          {assest && <Seo title={todolist.name} />}
-          <div className={styles['list-detail']}>
-            <ListTask />
-            <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />
-          </div>
-        </>
-      );
   if (error) return <ErrorInformation />;
-
+  if (data && data.id)
+    return (
+      <>
+        {assest && <Seo title={data.name} />}
+        <div className={styles['list-detail']}>
+          <ListTask />
+          <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />
+        </div>
+      </>
+    );
   return null;
 };
 

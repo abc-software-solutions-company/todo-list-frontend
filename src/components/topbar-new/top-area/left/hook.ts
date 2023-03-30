@@ -6,8 +6,8 @@ import useTodolist from '@/states/todolist/use-todolist';
 import LocalStorage from '@/utils/local-storage';
 
 const useTopAreaLeft = () => {
-  const {todolist} = useTodolist();
-  const {boardData} = useBoards();
+  const {data: todolist, loading: todolistLoading} = useTodolist();
+  const {boardData, loading: boardLoading} = useBoards();
   const router = useRouter();
 
   const path = router.asPath;
@@ -39,7 +39,7 @@ const useTopAreaLeft = () => {
     }
   };
 
-  return {todolist, boardData, path, currentPage, returnTo, id};
+  return {todolist, boardData, path, currentPage, returnTo, id, todolistLoading, boardLoading};
 };
 
 export default useTopAreaLeft;

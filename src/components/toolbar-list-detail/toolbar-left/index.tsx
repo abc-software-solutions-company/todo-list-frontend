@@ -13,7 +13,7 @@ const ToolBarLeft: FC = () => {
   const {id} = router.query;
 
   const {boardData} = useBoards();
-  const {todolist} = useTodolist();
+  const {data: todolist} = useTodolist();
 
   let listName = '';
   if (isListDetailPage(path, id as string)) listName = todolist.name;
