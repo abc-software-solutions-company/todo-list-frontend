@@ -19,7 +19,7 @@ import Tool, {IToolProps} from './tool';
 import ToolMenu from './tool-menu';
 
 const ToolbarDetail: FC = () => {
-  const {todolist, write, owner, statusList} = useTodolist();
+  const {data: todolist, write, owner, statusList} = useTodolist();
   const {setIsOpenModal, setSelectedTask, setSelectedTodolist, setSelectedColumnId} = useModals();
   const router = useRouter();
 

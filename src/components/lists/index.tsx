@@ -12,14 +12,12 @@ import Toolbar from './toolbar';
 
 const Lists: FC = () => {
   const {myList, favoriteList, get} = useLists();
-  const {setIsOpenModal, setSelectedTodolist} = useModals();
+  const {setIsOpenModal} = useModals();
 
-  const onNew = () => {
-    setIsOpenModal('createList');
-    setSelectedTodolist();
-  };
+  const onNew = () => setIsOpenModal('createList');
 
   useEffect(() => {
+    console.log('🚀 ~ file: index.tsx:23 ~ useEffect ~ useEffect:');
     LocalStorage.checkPage.set(ROUTES.LIST);
     get();
   }, []);

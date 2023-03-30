@@ -15,7 +15,6 @@ export interface IInitialState {
     data: ITodolistResponse[];
     error: any;
   };
-  selectedTodolist?: ITodolistResponse;
   isOpenModal: {
     edit: boolean;
     delete: boolean;

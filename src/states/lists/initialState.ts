@@ -19,7 +19,6 @@ const initialState: IInitialState = {
     data: [] as ITodolistResponse[],
     error: null
   },
-  selectedTodolist: undefined,
   isOpenModal
 };
 

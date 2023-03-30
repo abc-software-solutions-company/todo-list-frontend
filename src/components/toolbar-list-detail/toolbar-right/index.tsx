@@ -44,14 +44,9 @@ const ToolBarRight: FC = () => {
   return (
     <div className={style['toolbar-right']}>
       <div className="view-mode">
-        <div className={`add-task`}>
+        <div className="add-task hover:cursor-pointer" onClick={onAddTask}>
           <span className="hidden sm:block">Add Task</span>
-          <Icon
-            name="add-task"
-            className="ico-plus-circle leading-tight hover:cursor-pointer"
-            size={16}
-            onClick={onAddTask}
-          />
+          <Icon name="add-task" className="ico-plus-circle leading-tight" size={16} />
         </div>
         <div className={`kanban-view ${!isKanbanView ? '' : 'active'}`}>
           <Icon

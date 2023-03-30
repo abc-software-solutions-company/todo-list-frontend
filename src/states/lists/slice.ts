@@ -1,7 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {ITodolistResponse} from '@/data/api/types/todolist.type';
-
 import initialState, {isOpenModal} from './initialState';
 import {ISetIsOpenModalPayload} from './types';
 
@@ -31,9 +29,6 @@ const listsSlice = createSlice({
     getFavoriteListFailure: (state, {payload}) => {
       state.favoriteList.loading = false;
       state.favoriteList.error = payload;
-    },
-    setSelectedTodolist: (state, {payload}: PayloadAction<ITodolistResponse | undefined>) => {
-      state.selectedTodolist = payload;
     },
     setIsOpenModal: (state, {payload}: PayloadAction<ISetIsOpenModalPayload>) => {
       const newIsOpenModal = {...isOpenModal};
