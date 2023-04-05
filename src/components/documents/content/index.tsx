@@ -4,7 +4,9 @@ import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
+import useToast from '@/core-ui/toast';
 import {useDocumentsStore} from '@/hooks/useDocuments';
+import {ToastContents} from '@/utils/toast-content';
 
 import style from './style.module.scss';
 
@@ -18,7 +20,8 @@ export interface IForm {
 
 const DocumentContent: React.FC = () => {
   const [edit, setEdit] = useState(false);
-  const {document, updateDocument,error} = useDocumentsStore();
+  const {show} = useToast();
+  const {document, updateDocument, error} = useDocumentsStore();
   const {id, name, content, favorite} = document;
   const {control, handleSubmit} = useForm({
     defaultValues: {
@@ -27,8 +30,10 @@ const DocumentContent: React.FC = () => {
   });
   const onSubmit: SubmitHandler<IForm> = data => {
     updateDocument({id, name, ...data, favorite});
-    if(!error) 
-    setEdit(false);
+    if (error) {
+      setEdit(true);
+      show({type: 'danger', title: 'Priority', content: ToastContents.ERROR});
+    } else show({type: 'success', title: 'Priority', content: ToastContents.SUCCESS});
   };
 
   return (
