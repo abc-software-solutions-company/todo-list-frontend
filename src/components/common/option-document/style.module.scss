@@ -1,9 +1,9 @@
 .options :global {
-  @apply w-40 py-1 px-3;
+  @apply absolute left-[70%] z-10 w-40 py-1;
   @apply border border-[#E2E8F0];
-  @apply bg-white;
+  @apply bg-white shadow-[0_10px_22px_rgba(45,77,108,0.15)];
   a {
-    @apply block  py-3;
+    @apply block  py-3 px-3;
     @apply text-black no-underline hover:bg-slate-200;
     @apply border-b last:border-none;
   }

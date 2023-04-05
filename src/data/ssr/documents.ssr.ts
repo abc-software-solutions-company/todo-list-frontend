@@ -12,9 +12,7 @@ export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = asyn
   try {
     const {id} = params!;
     return {
-      props: {
-        id
-      }
+      props: {id}
     };
   } catch (error) {
     return {
@@ -22,9 +20,3 @@ export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = asyn
     };
   }
 };
-
-// export const getStaticPaths: GetStaticPaths<ParsedQueryParams> = async () => {
-//   const allList = await api.todolist.get();
-//   const paths = allList.data.flatMap(({id}) => ({params: {id}}));
-//   return {paths, fallback: 'blocking'};
-// };

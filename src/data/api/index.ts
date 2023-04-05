@@ -3,6 +3,7 @@ import http from '@/utils/http';
 
 import {IAuthLogin, IAuthResponse, IAuthUpdate} from './types/auth.type';
 import {ISeo} from './types/commom';
+import {IGetDocuments, IUpdateDocument} from './types/documents.type';
 import {INotificationResponse} from './types/notification.type';
 import {ITaskCreate, ITaskGet, ITaskReindexAll, ITaskResponse, ITaskUpdate} from './types/task.type';
 import {
@@ -48,6 +49,11 @@ const api = {
     get: () => http.get<INotificationResponse[]>(API_ENDPOINTS.NOTIFICATION),
     update: (id: string) => http.patch(API_ENDPOINTS.NOTIFICATION + '/' + id),
     updateAll: () => http.patch<INotificationResponse[]>(API_ENDPOINTS.NOTIFICATION)
+  },
+  documents: {
+    getListDocument: (id: string) => http.get<IGetDocuments[]>(API_ENDPOINTS.DOCUMENT + '/tree/' + id),
+    getOneDocument: (id: string) => http.get<IGetDocuments>(API_ENDPOINTS.DOCUMENT + '/' + id),
+    updateDocument: (data: IUpdateDocument) => http.patch<IGetDocuments>(API_ENDPOINTS.DOCUMENT + '/update', data)
   }
 };
 

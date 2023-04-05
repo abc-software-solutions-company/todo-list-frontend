@@ -7,10 +7,9 @@ interface IProps {
   id: string;
 }
 const Documents: FC<IProps> = ({id}) => {
-  console.log('🚀 ~ file: index.tsx:10 ~ id:', id);
   return (
     <div className="flex">
-      <DocumentList />
+      <DocumentList id={id} />
       <DocumentContent />
     </div>
   );

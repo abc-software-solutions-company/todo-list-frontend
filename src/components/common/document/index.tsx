@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import Icon from '@/core-ui/icon';
 
 import OptionDocument from '../option-document';
 
 interface IProps {
-  onClick?: () => void;
+  showMoreDoc?: () => void;
+  showContent?: () => void;
   iconDropdown?: any;
   content?: string;
 }
-const Document: React.FC<IProps> = ({onClick, content, iconDropdown}) => {
+const Document: React.FC<IProps> = ({showMoreDoc, showContent, content, iconDropdown}) => {
   const [showOptions, setShowOptions] = useState(false);
   const [showPopupOptions, setShowPopupOptions] = useState(false);
 
@@ -20,16 +21,31 @@ const Document: React.FC<IProps> = ({onClick, content, iconDropdown}) => {
   function handleMouseLeave() {
     setShowOptions(false);
   }
+
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (showPopupOptions && !event.target.closest('.options')) {
+        setShowPopupOptions(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showPopupOptions]);
+
   return (
     <div className="relative">
       <div
-        className="flex cursor-pointer justify-between py-3 hover:bg-slate-100"
+        className="flex cursor-pointer justify-between py-3 hover:rounded-md hover:bg-slate-100"
         onMouseOver={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="flex w-full" onClick={onClick}>
-          <Icon name="drop" className={iconDropdown} />
-          <p>{content}</p>
+        <div className="flex w-full" onClick={showContent}>
+          <Icon name="drop" className={iconDropdown} onClick={showMoreDoc} />
+          <p className="max-h-[25px] overflow-hidden"> 📗 {content}</p>
         </div>
         {showOptions && (
           <div className="mr-4">
@@ -45,7 +61,7 @@ const Document: React.FC<IProps> = ({onClick, content, iconDropdown}) => {
           </div>
         )}
       </div>
-      {showPopupOptions && <OptionDocument className="absolute left-[70%] z-10" />}
+      {showPopupOptions && <OptionDocument />}
     </div>
   );
 };
