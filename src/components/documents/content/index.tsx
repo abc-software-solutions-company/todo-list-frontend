@@ -25,15 +25,18 @@ const DocumentContent: React.FC = () => {
   const {id, name, content, favorite} = document;
   const {control, handleSubmit} = useForm({
     defaultValues: {
-      content: ''
+      content: content
     }
   });
   const onSubmit: SubmitHandler<IForm> = data => {
     updateDocument({id, name, ...data, favorite});
     if (error) {
       setEdit(true);
-      show({type: 'danger', title: 'Priority', content: ToastContents.ERROR});
-    } else show({type: 'success', title: 'Priority', content: ToastContents.SUCCESS});
+      show({type: 'danger', title: 'Edit Content', content: ToastContents.ERROR});
+    } else {
+      setEdit(false);
+      show({type: 'success', title: 'Edit Content', content: ToastContents.SUCCESS});
+    }
   };
 
   return (

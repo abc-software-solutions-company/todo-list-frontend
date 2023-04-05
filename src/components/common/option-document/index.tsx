@@ -1,14 +1,20 @@
-import Link from 'next/link';
 import React, {FC} from 'react';
+
+import Button from '@/core-ui/button';
 
 import style from './style.module.scss';
 
-const OptionDocument: FC = () => {
+interface Iprops {
+  handleRename: () => void;
+}
+const OptionDocument: FC<Iprops> = ({handleRename}) => {
   return (
     <div className={style.options}>
-      <Link href="">Rename</Link>
-      <Link href="">Add to Favorate</Link>
-      <Link href="">Delete</Link>
+      <Button className="btn" onClick={handleRename}>
+        Rename
+      </Button>
+      <Button className="btn">Add to Favorate</Button>
+      <Button className="btn">Delete</Button>
     </div>
   );
 };
