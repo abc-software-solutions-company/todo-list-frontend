@@ -2,6 +2,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 
 import boardSlice from './board/slice';
+import documentsSlice from './documents/slice';
 import filterSlice from './filter/slice';
 import globalSlice from './global/slice';
 import listsSlice from './lists/slice';
@@ -20,6 +21,7 @@ const store = configureStore({
     global: globalSlice.reducer,
     task: taskSlice.reducer,
     todolist: todolistSlice.reducer,
+    documents: documentsSlice.reducer,
     lists: listsSlice.reducer,
     tasks: tasksSlice.reducer,
     modals: modalsSlice.reducer,
@@ -31,7 +33,7 @@ const store = configureStore({
 
 sagaMiddleware.run(saga);
 
-export {boardSlice, globalSlice, store, taskSlice, todolistSlice};
+export {boardSlice, documentsSlice, globalSlice, store, taskSlice, todolistSlice};
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {post: postState, comments: CommentsState, users: UsersState}

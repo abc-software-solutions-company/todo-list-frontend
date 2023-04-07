@@ -1,23 +1,28 @@
 import cls from 'classnames';
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 
 import Document from '@/components/common/document';
 import Icon from '@/core-ui/icon';
+import {IDocumentResponse} from '@/data/api/types/document.type';
 import useModals from '@/states/modals/use-modals';
 
 import style from './style.module.scss';
 
-interface IItemProps {
-  listId: string;
+interface IDocuments {
+  documents?: IDocumentResponse[];
+  favoriteDocuments?: IDocumentResponse[];
 }
-
-const DocumentList: React.FC<IItemProps> = ({listId}) => {
+const DocumentList: FC<IDocuments> = ({documents = [], favoriteDocuments = []}) => {
   const [showFavorite, setShowFavorite] = useState([]);
   const [showPages, setShowPages] = useState([]);
-  const {setIsOpenModal} = useModals();
+  const {setIsOpenModal, setSelectedTodolist} = useModals();
   const onNew = () => {
     setIsOpenModal('createDocument');
+    setSelectedTodolist();
   };
+  // const onClick = id => {
+  //   setSelectedDocument(id);
+  // };
   function toggleShow(
     i: number,
     set: {
@@ -40,34 +45,38 @@ const DocumentList: React.FC<IItemProps> = ({listId}) => {
       <hr />
       <div>
         <p className="mt-3 font-bold">Favorite</p>
-        {[1, 2, 3].map(i => (
-          <div key={i}>
-            <Document
-              content="CSS"
-              onClick={() => toggleShow(i, setShowFavorite)}
-              iconDropdown={showFavorite.includes(i) ? 'ico-angle-down-small' : 'ico-angle-right-small'}
-            />
-            <div className={cls(showFavorite.includes(i) ? 'block' : 'hidden', `ml-4`)}>
-              {[2, 3].map(k => (
-                <Document content="CSS" key={k} />
-              ))}
+        {favoriteDocuments.length ? (
+          [1, 2, 3].map(i => (
+            <div key={i}>
+              <Document
+                content="CSS"
+                onClick={() => toggleShow(i, setShowFavorite)}
+                iconDropdown={showFavorite.includes(i) ? 'ico-angle-down-small' : 'ico-angle-right-small'}
+              />
+              <div className={cls(showFavorite.includes(i) ? 'block' : 'hidden', `ml-4`)}>
+                {[2, 3].map(k => (
+                  <Document content="CSS" key={k} />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <Document content="Empty document" key={0} />
+        )}
       </div>
       <div>
         <p className="mt-3 font-bold">Pages</p>
-        {[7, 8, 9].map(i => (
-          <div key={i}>
+        {documents.map(i => (
+          <div key={i.id}>
             <Document
-              content="Tim hieu ve React"
+              content={i.name}
               onClick={() => toggleShow(i, setShowPages)}
               iconDropdown={showFavorite.includes(i) ? 'ico-angle-down-small' : 'ico-angle-right-small'}
             />
             <div className={cls(showPages.includes(i) ? 'block' : 'hidden', `ml-4`)}>
-              {[7, 8, 9].map(k => (
+              {/* {[7, 8, 9].map(k => (
                 <Document content="React" key={k} />
-              ))}
+              ))} */}
             </div>
           </div>
         ))}

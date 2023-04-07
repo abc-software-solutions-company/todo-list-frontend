@@ -21,10 +21,10 @@ const Schema = yup.object().shape({
   content: yup.string()
 });
 
-export default function useModalCreateDocument({open, onClose, onSuccess}: IProps) {
+export default function useModalCreateDocument({open, onClose, onSuccess, data}: IProps) {
   const router = useRouter();
   const toast = useToast();
-
+  // const {id} = data;
   const {formState, handleSubmit, reset, setValue, ...rest} = useForm<IFormInputs>({
     resolver: yupResolver(Schema),
     mode: 'onChange'
@@ -35,14 +35,13 @@ export default function useModalCreateDocument({open, onClose, onSuccess}: IProp
   }, [open]);
 
   const {errors, isSubmitting} = formState;
-
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
     if (isSubmitting) return;
     const {name, content} = formData;
     const todolistId = String(router.query.id);
     const req = api.document.create({name, todolistId, content}).then(res => {
       toast.show({type: 'success', title: 'Create Document', content: ToastContents.SUCCESS});
-      window.location.reload();
+      router.push(ROUTES.DOCUMENT + '/' + res.data.todolistId);
     });
 
     req

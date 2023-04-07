@@ -7,13 +7,12 @@ import {Modal} from '@/core-ui/modal';
 import iosAutoFocus from '@/utils/ios-autofocus';
 
 import useModalCreateDocument from '../../documents/modal-create/hook';
-import {IProps} from '../../list/types-create-update';
 import styles from '../style-create-upate.module.scss';
+import {IProps} from '../types-create-update';
 
 const ModalCreateDocument: FC<IProps> = props => {
   const {open, onClose} = props;
   const {isSubmitting, errors, onSubmit, register, setFocus} = useModalCreateDocument(props);
-
   useEffect(() => {
     setFocus('name');
     iosAutoFocus();

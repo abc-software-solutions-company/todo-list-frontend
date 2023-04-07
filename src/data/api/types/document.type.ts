@@ -8,6 +8,10 @@ export interface IDocumentCreate {
 export interface IDocumentGet {
   id: string;
 }
+export interface IDocumentGetByList {
+  todolistId: string;
+}
+
 export interface IDocumentUpdate {
   id: string;
   name?: string;

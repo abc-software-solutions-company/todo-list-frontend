@@ -14,7 +14,11 @@ interface IList {
 const List: FC<IList> = ({list = [], ...props}) => {
   return (
     <div className="list">
-      {list.length ? list.map(todolist => <Item {...props} key={todolist.id} todolist={todolist} />) : <span className="empty">Empty list</span>}
+      {list.length ? (
+        list.map(todolist => <Item {...props} key={todolist.id} todolist={todolist} />)
+      ) : (
+        <span className="empty">Empty list</span>
+      )}
     </div>
   );
 };

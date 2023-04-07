@@ -1,9 +1,9 @@
-import {IDocumentResponse} from '@/data/api/types/document.type';
+import {ITodolistResponse} from '@/data/api/types/todolist.type';
 
 export interface IProps {
   open: boolean;
   onClose: () => void;
   onSuccess?: () => void;
   hiddenVisibility?: boolean;
-  data?: IDocumentResponse;
+  data?: ITodolistResponse;
 }

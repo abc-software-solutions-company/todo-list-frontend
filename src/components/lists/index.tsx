@@ -23,7 +23,6 @@ const Lists: FC = () => {
     LocalStorage.checkPage.set(ROUTES.LIST);
     get();
   }, []);
-
   return (
     <div className={styles['page-list']}>
       <Toolbar title="My Lists" showActions={true} />

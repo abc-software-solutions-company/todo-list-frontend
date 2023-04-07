@@ -50,7 +50,7 @@ const Modal = () => {
   return (
     <>
       {/* Modal Document */}
-      <ModalCreateDocument open={isOpenModal.createDocument} onClose={onClose} />
+      <ModalCreateDocument data={selectedTodolist} open={isOpenModal.createDocument} onClose={onClose} />
 
       {/* Modal user */}
       {auth && <ModalUpdateUser open={isOpenModal.updateUser} onClose={onClose} data={auth} />}

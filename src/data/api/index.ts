@@ -3,7 +3,13 @@ import http from '@/utils/http';
 
 import {IAuthLogin, IAuthResponse, IAuthUpdate} from './types/auth.type';
 import {ISeo} from './types/commom';
-import {IDocumentCreate, IDocumentGet, IDocumentResponse, IDocumentUpdate} from './types/document.type';
+import {
+  IDocumentCreate,
+  IDocumentGet,
+  IDocumentGetByList,
+  IDocumentResponse,
+  IDocumentUpdate
+} from './types/document.type';
 import {INotificationResponse} from './types/notification.type';
 import {ITaskCreate, ITaskGet, ITaskReindexAll, ITaskResponse, ITaskUpdate} from './types/task.type';
 import {
@@ -26,10 +32,13 @@ const api = {
     update: (data: IUserResponse) => http.patch<IUserResponse>(API_ENDPOINTS.USER, data)
   },
   document: {
-    get: () => http.get<IDocumentGet[]>(API_ENDPOINTS.DOCUMENT),
+    get: () => http.get<IDocumentResponse[]>(API_ENDPOINTS.DOCUMENT),
     // getOne: ({id}: ITodolistGetOne) => http.get<IDocumentResponse>(API_ENDPOINTS.LIST + '/' + id),
+    getByList: ({todolistIdid}: IDocumentGetByList) =>
+      http.get<IDocumentResponse[]>(API_ENDPOINTS.DOCUMENT + '/tree/' + todolistIdid),
     create: (data: IDocumentCreate) => http.post<IDocumentResponse>(API_ENDPOINTS.DOCUMENT, data),
-    update: (data: IDocumentUpdate) => http.patch<IDocumentResponse>(API_ENDPOINTS.DOCUMENT, data)
+    update: (data: IDocumentUpdate) => http.patch<IDocumentResponse>(API_ENDPOINTS.DOCUMENT, data),
+    getFavorite: () => http.get<IDocumentResponse[]>(API_ENDPOINTS.LIST + '/favorite')
   },
   todolist: {
     get: () => http.get<ITodolistResponse[]>(API_ENDPOINTS.LIST),
