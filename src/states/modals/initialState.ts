@@ -1,6 +1,7 @@
 import {IInitialState} from './types';
 
 export const isOpenModal = {
+  createDocument: false,
   createList: false,
   createTask: false,
   deleteTask: false,

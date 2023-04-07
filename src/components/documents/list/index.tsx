@@ -6,6 +6,7 @@ import OptionDocument from '@/components/common/option-document';
 import Icon from '@/core-ui/icon';
 import {IGetDocuments} from '@/data/api/types/documents.type';
 import {useDocumentsStore} from '@/hooks/useDocuments';
+import useModals from '@/states/modals/use-modals';
 
 import style from './style.module.scss';
 
@@ -18,6 +19,10 @@ const DocumentList: React.FC<IProps> = ({id}) => {
   const {documents, getAllDocument, getDocument} = useDocumentsStore();
   const [isRename, setisRename] = useState(false);
   const [selectedDocumentId, setSelectedDocumentId] = useState<string | undefined>(undefined);
+  const {setIsOpenModal} = useModals();
+  const onNew = () => {
+    setIsOpenModal('createDocument');
+  };
 
   useEffect(() => {
     getAllDocument(id);
@@ -60,7 +65,6 @@ const DocumentList: React.FC<IProps> = ({id}) => {
           onSave={() => {
             setisRename(true);
           }}
-          // isSelected={selectedDocumentId === node.id}
           showPopup={() => {
             setSelectedDocumentId(node.id);
           }}
@@ -86,7 +90,7 @@ const DocumentList: React.FC<IProps> = ({id}) => {
       <div className={style['document-list']}>
         <div className="mb-3 flex justify-between">
           <h4 className="font-bold">Documents</h4>
-          <Icon name="add" className="ico-plus-circle cursor-pointer text-sky-500" />
+          <Icon name="add" className="ico-plus-circle cursor-pointer text-sky-500" onClick={onNew} />
         </div>
         <hr />
         <div>
