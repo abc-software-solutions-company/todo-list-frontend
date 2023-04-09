@@ -62,7 +62,7 @@ jobs:
           # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
           channel-id: "C03U08LM17B"
           # For posting a simple plain text message
-          slack-message: "GitHub build result: ${{ job.status }}\nPlease check result in\nhttps://github.com/abc-software-solutions-company/lucky-draw-website/actions/runs/${{ github.run_id }}"
+          slack-message: "GitHub build result: ${{ job.status }}\nPlease check result in\nhttps://github.com/abc-software-solutions-company/todo-list-website//actions/runs/${{ github.run_id }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         if: always() # Pick up events even if the job fails or is canceled.
