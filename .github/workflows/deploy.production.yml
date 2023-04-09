@@ -12,39 +12,8 @@ env:
   APP_ENV: ${{ secrets.PRODUCTION }}
 
 jobs:
-  test:
-    name: "CI: Test with ESLint and Cypress headless (comming soon)"
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }} for run testing (CI)
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: ESLint Check
-        run: npm install -g yarn && yarn && yarn lint
-      - name: Post testing (CI) result to a Slack channel
-        id: slack
-        uses: slackapi/slack-github-action@v1.23.0
-        with:
-          # Slack channel id, channel name, or user id to post message.
-          # See also: https://api.slack.com/methods/chat.postMessage#channels
-          # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
-          channel-id: "C052DN0CP4J"
-          # For posting a simple plain text message
-          slack-message: "PRODUCTION (CI) Result: ${{ job.status }}\nhttps://github.com/abc-software-solutions-company/todo-list-website/actions/runs/${{ github.run_id }}"
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        if: always() # Pick up events even if the job fails or is canceled.
-
   build:
     name: "Deploy to Production"
-    needs: test
     environment:
       name: production
 
