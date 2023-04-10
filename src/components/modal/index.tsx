@@ -20,13 +20,13 @@ import ModalUpdateUser from './user/modal-update';
 const Modal = () => {
   const auth = useStateAuth();
   const {get} = useLists();
+
   const {isOpenModal, setIsOpenModal} = useModals();
   const {selectedTask, selectedTodolist, selectedStatusId} = useModals();
 
   const onClose = () => {
     setIsOpenModal(null);
   };
-
   useEffect(() => {
     if (auth) {
       socket.auth = {...auth, listID: selectedTodolist?.id};

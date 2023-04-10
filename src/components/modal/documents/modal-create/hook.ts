@@ -4,12 +4,12 @@ import {useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
-import {ROUTES} from '@/configs/routes.config';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
+import {useDocumentsStore} from '@/hooks/useDocuments';
 import {ToastContents} from '@/utils/toast-content';
 
-import {IProps} from '../types-create-update';
+import {IProps} from '../types-create';
 
 interface IFormInputs {
   name: string;
@@ -21,9 +21,10 @@ const Schema = yup.object().shape({
   content: yup.string()
 });
 
-export default function useModalCreateDocument({open, onClose, onSuccess}: IProps) {
+export default function useModalCreateDocument({open, onClose}: IProps) {
   const router = useRouter();
   const toast = useToast();
+  const {getAllDocument} = useDocumentsStore();
 
   const {formState, handleSubmit, reset, setValue, ...rest} = useForm<IFormInputs>({
     resolver: yupResolver(Schema),
@@ -40,15 +41,15 @@ export default function useModalCreateDocument({open, onClose, onSuccess}: IProp
     if (isSubmitting) return;
     const {name, content} = formData;
     const todolistId = String(router.query.id);
-    const req = api.document.create({name, todolistId, content}).then(res => {
+    const req = api.documents.create({name, todolistId, content}).then(() => {
       toast.show({type: 'success', title: 'Create Document', content: ToastContents.SUCCESS});
-      window.location.reload();
     });
 
     req
-      .then(onSuccess)
-      .catch(e => {
-        console.log(e);
+      .then(() => {
+        getAllDocument(todolistId);
+      })
+      .catch(() => {
         toast.show({type: 'danger', title: 'Error', content: ToastContents.ERROR});
       })
       .finally(() => reset());

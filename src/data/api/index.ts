@@ -52,8 +52,8 @@ const api = {
   },
   documents: {
     getListDocument: (id: string) => http.get<IGetDocuments[]>(API_ENDPOINTS.DOCUMENT + '/tree/' + id),
-    getOneDocument: (id: string) => http.get<IDocumentResponse>(API_ENDPOINTS.DOCUMENT + '/' + id),
-    updateDocument: (data: IUpdateDocument) => http.patch<IDocumentResponse>(API_ENDPOINTS.DOCUMENT + '/update', data),
+    getOneDocument: (id: string) => http.get<IGetDocuments>(API_ENDPOINTS.DOCUMENT + '/' + id),
+    updateDocument: (data: IUpdateDocument) => http.patch<IGetDocuments>(API_ENDPOINTS.DOCUMENT + '/update', data),
     create: (data: IDocumentCreate) => http.post<IDocumentResponse>(API_ENDPOINTS.DOCUMENT, data)
   }
 };

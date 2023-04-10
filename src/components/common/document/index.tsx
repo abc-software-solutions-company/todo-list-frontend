@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
