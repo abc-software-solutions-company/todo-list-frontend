@@ -4,5 +4,5 @@ export interface IProps {
   open: boolean;
   onClose: () => void;
   hiddenVisibility?: boolean;
-  data?: ITodolistResponse;
+  data?: IDocumentResponse;
 }
