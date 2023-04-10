@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import {FC} from 'react';
 
+import AssigneeIcon from '@/components/common/assignee-icon';
 import useTask from '@/states/task/use-task';
 import {IBaseProps} from '@/types';
 
@@ -12,7 +13,10 @@ export const Reporter: FC<IBaseProps> = ({className}) => {
   return (
     <div className={classNames('reporter', className)}>
       <Title text="Reporter" />
-      <div className="name">{user?.name || ''}</div>
+      <div className="flex w-full items-center gap-x-2.5">
+        <AssigneeIcon name={user?.name} bg="bg-sky-500" />
+        <div className="name">{user?.name || ''}</div>
+      </div>
     </div>
   );
 };

@@ -18,9 +18,9 @@ const BodyRight: FC<IBaseProps> = ({className}) => {
     <div className={className}>
       <div className={classNames(style['body-right'], 'body-right')}>
         <Status className="divide item" />
+        <Reporter className="divide item mobile" />
         <Assignee className="divide item mobile" />
         <Priority className="divide item mobile" />
-        <Reporter className="divide item mobile" />
         <StoryPoint className="divide item mobile" />
         <TaskDate className="divide item" />
         <Comment className="divide item lg:hidden" />
