@@ -36,7 +36,6 @@ export default function useModalCreateDocument({open, onClose}: IProps) {
   }, [open]);
 
   const {errors, isSubmitting} = formState;
-
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
     if (isSubmitting) return;
     const {name, content} = formData;

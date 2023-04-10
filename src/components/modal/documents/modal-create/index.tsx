@@ -13,7 +13,6 @@ import {IProps} from '../types-create';
 const ModalCreateDocument: FC<IProps> = props => {
   const {open, onClose} = props;
   const {isSubmitting, errors, onSubmit, register, setFocus} = useModalCreateDocument(props);
-
   useEffect(() => {
     setFocus('name');
     iosAutoFocus();
