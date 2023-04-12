@@ -17,6 +17,7 @@ interface IProps {
 }
 const Document: React.FC<IProps> = ({content, iconDropdown, active, getDocument, showMoreDoc, showContent}) => {
   const [isRename, setIsRename] = useState<boolean>(false);
+  console.log('🚀 ~ file: index.tsx:20 ~ setIsRename:', setIsRename);
 
   return (
     <div className="relative">
