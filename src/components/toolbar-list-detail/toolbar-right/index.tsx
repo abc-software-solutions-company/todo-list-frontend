@@ -17,7 +17,7 @@ const ToolBarRight: FC = () => {
   const {id} = router.query;
 
   const {boardData} = useBoards();
-  const {todolist, statusList} = useTodolist();
+  const {todolist, statusList, write, owner} = useTodolist();
   const {setIsOpenModal, setSelectedTodolist, setSelectedColumnId} = useModals();
 
   const setSelectList = () => {
@@ -46,14 +46,17 @@ const ToolBarRight: FC = () => {
   };
 
   const isKanbanView = router.asPath.includes(ROUTES.KANBAN) ? true : false;
+
   return (
     <div className={style['toolbar-right']}>
       <div className="view-mode">
-        {!isKanbanView && (
+        {!isKanbanView && (write || owner) ? (
           <div className={`add-task hover:cursor-pointer`} onClick={onAddTask}>
             <span className="hidden sm:block">Add Task</span>
             <Icon name="add-task" className="ico-plus-circle icons" size={16} onClick={onAddTask} />
           </div>
+        ) : (
+          ''
         )}
         <div className={`kanban-view ${!isKanbanView ? '' : 'active'}`}>
           <Icon
@@ -80,15 +83,19 @@ const ToolBarRight: FC = () => {
             <ToolFilter todolist={todolist} />
           </div>
         )}
-        <div className="delete ml-1 hover:cursor-pointer" onClick={onDelete}>
-          <span className="hidden sm:block">Delete</span>
-          <Icon name="Delete list" className="ico-trash-2 icons" size={16} onClick={onDelete} />
+        {(write || owner) && (
+          <div className="delete ml-1 hover:cursor-pointer" onClick={onDelete}>
+            <span className="hidden sm:block">Delete</span>
+            <Icon name="Delete list" className="ico-trash-2 icons" size={16} onClick={onDelete} />
+          </div>
+        )}
+      </div>
+      {(write || owner) && (
+        <div className="settings hover:cursor-pointer" onClick={() => onSettingBoard()}>
+          <span className="hidden sm:block">Settings</span>
+          <Icon name="Settings" className="ico-settings icons" size={16} />
         </div>
-      </div>
-      <div className="settings hover:cursor-pointer" onClick={() => onSettingBoard()}>
-        <span className="hidden sm:block">Settings</span>
-        <Icon name="Settings" className="ico-settings icons" size={16} />
-      </div>
+      )}
     </div>
   );
 };
