@@ -5,7 +5,6 @@ import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
 import useToast from '@/core-ui/toast';
-import api from '@/data/api';
 import {useDocumentsStore} from '@/hooks/useDocuments';
 import {ToastContents} from '@/utils/toast-content';
 
@@ -21,10 +20,10 @@ const Schema = yup.object().shape({
   content: yup.string()
 });
 
-export default function useModalCreateDocument({open, onClose}: IProps) {
+export default function useModalCreateDocument({open, onClose, docChild}: IProps) {
   const router = useRouter();
   const toast = useToast();
-  const {getAllDocument} = useDocumentsStore();
+  const {error, document, createDocument} = useDocumentsStore();
 
   const {formState, handleSubmit, reset, setValue, ...rest} = useForm<IFormInputs>({
     resolver: yupResolver(Schema),
@@ -38,21 +37,17 @@ export default function useModalCreateDocument({open, onClose}: IProps) {
   const {errors, isSubmitting} = formState;
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
     if (isSubmitting) return;
-    const {name, content} = formData;
     const todolistId = String(router.query.id);
-    const req = api.documents.create({name, todolistId, content}).then(() => {
-      toast.show({type: 'success', title: 'Create Document', content: ToastContents.SUCCESS});
-    });
-
-    req
-      .then(() => {
-        getAllDocument(todolistId);
-      })
-      .catch(() => {
-        toast.show({type: 'danger', title: 'Error', content: ToastContents.ERROR});
-      })
-      .finally(() => reset());
-
+    const parentId = document.id;
+    if (docChild) {
+      createDocument({todolistId, parentId, ...formData});
+    } else createDocument({todolistId, ...formData});
+    if (error) {
+      toast.show({type: 'danger', title: 'Create Document Error', content: ToastContents.ERROR});
+    } else {
+      toast.show({type: 'success', title: 'Create Document Error', content: ToastContents.SUCCESS});
+    }
+    reset();
     onClose();
   };
 

@@ -21,15 +21,15 @@ export interface IForm {
 const DocumentContent: React.FC = () => {
   const [edit, setEdit] = useState(false);
   const {show} = useToast();
-  const {document, updateDocument, error} = useDocumentsStore();
-  const {id, name, content, favorite} = document;
+  const {document, error, updateDocument, setDocument} = useDocumentsStore();
   const {control, handleSubmit} = useForm({
     defaultValues: {
-      content: content
+      content: document?.content
     }
   });
   const onSubmit: SubmitHandler<IForm> = data => {
-    updateDocument({id, name, ...data, favorite});
+    setDocument(data.content);
+    updateDocument({...document, content: data.content});
     if (error) {
       setEdit(true);
       show({type: 'danger', title: 'Edit Content', content: ToastContents.ERROR});
@@ -58,8 +58,10 @@ const DocumentContent: React.FC = () => {
             name="content"
             control={control}
             rules={{required: false}}
-            defaultValue={content}
-            render={({field}) => <Editor name="example" value={content} onChange={text => field.onChange(text)} />}
+            defaultValue={document?.content}
+            render={({field}) => (
+              <Editor name="example" value={document.content} onChange={text => field.onChange(text)} />
+            )}
           />
           <div className="mt-4 flex gap-4">
             <Button
@@ -80,7 +82,7 @@ const DocumentContent: React.FC = () => {
           </div>
         </form>
       ) : (
-        <div className="mt-4" dangerouslySetInnerHTML={{__html: content}} />
+        <div className="mt-4" dangerouslySetInnerHTML={{__html: document?.content}} />
       )}
     </div>
   );

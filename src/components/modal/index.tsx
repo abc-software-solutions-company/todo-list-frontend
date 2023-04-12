@@ -6,7 +6,6 @@ import {useStateAuth} from '@/states/auth';
 import useLists from '@/states/lists/use-lists';
 import useModals from '@/states/modals/use-modals';
 
-import ModalCreateDocument from './documents/modal-create';
 import ModalCreateList from './list/modal-create';
 import ModalDeleteList from './list/modal-delete';
 import ModalShareList from './list/modal-share';
@@ -49,9 +48,6 @@ const Modal = () => {
 
   return (
     <>
-      {/* Modal Document */}
-      <ModalCreateDocument data={selectedTodolist} open={isOpenModal.createDocument} onClose={onClose} />
-
       {/* Modal user */}
       {auth && <ModalUpdateUser open={isOpenModal.updateUser} onClose={onClose} data={auth} />}
 

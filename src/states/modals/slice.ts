@@ -1,6 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {IDocumentResponse} from '@/data/api/types/document.type';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 
@@ -23,9 +22,6 @@ const modalsSlice = createSlice({
     },
     setSelectedTodolist: (state, {payload}: PayloadAction<ITodolistResponse | undefined>) => {
       state.selectedTodolist = payload;
-    },
-    setSelectedDocument: (state, {payload}: PayloadAction<IDocumentResponse | undefined>) => {
-      state.selectedDocument = payload;
     },
     setSelectedColumnId: (state, {payload}: PayloadAction<number | undefined>) => {
       state.selectedStatusId = payload;

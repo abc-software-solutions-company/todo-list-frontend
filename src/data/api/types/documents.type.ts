@@ -14,6 +14,7 @@ export interface IUpdateDocument {
   content: string;
   favorite: boolean;
 }
+
 export interface IDocumentCreate {
   name: string;
   content?: string;
@@ -21,11 +22,11 @@ export interface IDocumentCreate {
   parentId?: string;
   todolistId: string;
 }
-export interface IDocumentResponse {
+export interface IDocumentAttribute {
   id: string;
   name: string;
-  content?: string;
-  favorite?: boolean;
-  parentId?: string;
+  content: string;
+  favorite: boolean;
+  parentId: string;
   todolistId: string;
 }
