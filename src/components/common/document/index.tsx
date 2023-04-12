@@ -16,8 +16,8 @@ interface IProps {
   getDocument: () => void;
 }
 const Document: React.FC<IProps> = ({content, iconDropdown, active, getDocument, showMoreDoc, showContent}) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isRename, setIsRename] = useState<boolean>(false);
-  console.log('🚀 ~ file: index.tsx:20 ~ setIsRename:', setIsRename);
 
   return (
     <div className="relative">
