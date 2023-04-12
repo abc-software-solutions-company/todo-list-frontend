@@ -7,7 +7,7 @@ import Icon from '@/core-ui/icon';
 import {MUI_ICON} from '@/utils/mui-icon';
 
 interface Iprops {
-  onRename: () => void;
+  onRename?: () => void;
   onAddFavorite?: () => void;
   onDelete?: () => void;
 }
