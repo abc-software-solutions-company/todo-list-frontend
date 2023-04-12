@@ -18,14 +18,13 @@ interface IProps {
 const Document: React.FC<IProps> = ({content, iconDropdown, active, getDocument, showMoreDoc, showContent}) => {
   const [isRename, setIsRename] = useState<boolean>(false);
 
-  
   return (
     <div className="relative">
       {!isRename ? (
         <div
           className={cls(
-            active && 'bg-slate-100 -mx-3 px-3',
-            'flex cursor-pointer justify-between py-3 hover:rounded-md hover:bg-slate-100'
+            active ? '-mx-3 bg-slate-100 px-3' : 'hover:rounded-md hover:bg-slate-100',
+            'flex cursor-pointer justify-between py-3'
           )}
           onClick={getDocument}
         >

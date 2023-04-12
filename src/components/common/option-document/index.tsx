@@ -36,7 +36,7 @@ const OptionDocument: FC<Iprops> = ({onAddFavorite, onDelete, onRename}) => {
   ));
   return (
     <>
-      <div className="flex space-x-3">
+      <div className="flex space-x-3 ml-2">
         <ToolMenu display="alway" icon={<MUI_ICON.MORE_HORIZON />} items={toolMenuItems} margin={-0.5} />
         <Icon
           name="plus"
