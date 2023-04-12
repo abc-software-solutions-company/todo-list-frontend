@@ -15,7 +15,7 @@ const Editor = dynamic(() => import('@/components/common/ckeditor'), {
 });
 
 export interface IForm {
-  content: string;
+  content?: string;
 }
 
 const DocumentContent: React.FC = () => {
@@ -28,8 +28,8 @@ const DocumentContent: React.FC = () => {
     }
   });
   const onSubmit: SubmitHandler<IForm> = data => {
-    setDocument(data.content);
-    updateDocument({...document, content: data.content});
+    setDocument(String(data.content));
+    updateDocument({...document, content: String(data.content)});
     if (error) {
       setEdit(true);
       show({type: 'danger', title: 'Edit Content', content: ToastContents.ERROR});
@@ -60,7 +60,7 @@ const DocumentContent: React.FC = () => {
             rules={{required: false}}
             defaultValue={document?.content}
             render={({field}) => (
-              <Editor name="example" value={document.content} onChange={text => field.onChange(text)} />
+              <Editor name="example" value={String(document.content)} onChange={text => field.onChange(text)} />
             )}
           />
           <div className="mt-4 flex gap-4">
@@ -82,7 +82,7 @@ const DocumentContent: React.FC = () => {
           </div>
         </form>
       ) : (
-        <div className="mt-4" dangerouslySetInnerHTML={{__html: document?.content}} />
+        <div className="mt-4" dangerouslySetInnerHTML={{__html: String(document?.content)}} />
       )}
     </div>
   );

@@ -7,6 +7,5 @@ export const API_ENDPOINTS = {
   LIST: `${PREFIX}/todolists`,
   DOCUMENT: `${PREFIX}/document`,
   FAVORITE: `${PREFIX}/favorites`,
-  NOTIFICATION: `${PREFIX}/notifications`,
-  DOCUMENT: `${PREFIX}/document`
+  NOTIFICATION: `${PREFIX}/notifications`
 };
