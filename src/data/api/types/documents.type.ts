@@ -25,8 +25,8 @@ export interface IDocumentCreate {
 export interface IDocumentAttribute {
   id: string;
   name: string;
-  content: string;
+  content?: string;
   favorite: boolean;
-  parentId: string;
+  parentId?: string;
   todolistId: string;
 }

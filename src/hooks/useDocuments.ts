@@ -13,9 +13,9 @@ type State = {
 };
 
 type Action = {
-  getAllDocument: (keyword: string) => void;
-  getDocument: (keyword: string) => void;
-  updateDocument: (keyword: IUpdateDocument) => void;
+  getAllDocument: (listId: string) => void;
+  getDocument: (id: string) => void;
+  updateDocument: (data: IUpdateDocument) => void;
   createDocument: (data: IDocumentCreate) => void;
   setDocument: (newContent: string) => void;
 };
@@ -35,9 +35,9 @@ export const useDocumentsStore = create<State & Action>()(
             content: newContent
           }
         })),
-      getAllDocument: async id => {
+      getAllDocument: async listId => {
         try {
-          const res = await api.documents.getListDocument(id);
+          const res = await api.documents.getListDocument(listId);
           set(
             state => {
               state.documents = res.data;
