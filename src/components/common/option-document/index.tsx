@@ -30,13 +30,13 @@ const OptionDocument: FC<Iprops> = ({onAddFavorite, onDelete, onRename}) => {
     text: 'Delete',
     onClick: onDelete
   };
-
+  //FIXME:Click name can call action, but click outside name not active action, please fill color button for deubg.
   const toolMenuItems = [renameToolProps, favoriteToolProps, deleteToolProps].map((item, idx) => (
     <Tool key={idx} {...{...item, className: 'flex-row-reverse w-full'}} />
   ));
   return (
     <>
-      <div className="flex space-x-3 ml-2">
+      <div className="ml-2 flex space-x-3">
         <ToolMenu display="alway" icon={<MUI_ICON.MORE_HORIZON />} items={toolMenuItems} margin={-0.5} />
         <Icon
           name="plus"
