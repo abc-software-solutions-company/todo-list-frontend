@@ -3,6 +3,7 @@ import {CSS} from '@dnd-kit/utilities';
 import React, {useState} from 'react';
 
 import useBoards from '@/states/board/use-boards';
+import useTodolist from '@/states/todolist/use-todolist';
 
 import KanbanTaskAssignee from './assignee';
 import KanbanTaskCreatedDate from './created-date';
@@ -19,6 +20,7 @@ interface IKanbanTaskItem {
 
 const KanbanTaskItem = ({id}: IKanbanTaskItem) => {
   const {boardData} = useBoards();
+  const {write: isWrite, owner} = useTodolist();
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id});
   const [showEdiDelete, setShowEditDelete] = useState<boolean>(false);
   const {tasks, taskSymbol} = boardData;
@@ -46,10 +48,11 @@ const KanbanTaskItem = ({id}: IKanbanTaskItem) => {
         onMouseOut={onMouseOutTask}
       >
         {task?.attachments?.length > 0 && <KanbanTaskThumbnail url={task.attachments[0].link} />}
-        <div className={`action-edit-delete ${showEdiDelete ? 'block bg-white' : 'hidden'}`}>
-          <KanbanTaskEditDelete task={task} />
-        </div>
-
+        {(isWrite || owner) && (
+          <div className={`action-edit-delete ${showEdiDelete ? 'block bg-white' : 'hidden'}`}>
+            <KanbanTaskEditDelete task={task} />
+          </div>
+        )}
         <KanbanTaskName
           id={task.id}
           name={taskSymbol && task.order ? `${taskSymbol}-${task.order}:  ${task.name}` : task.name}
