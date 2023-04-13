@@ -5,6 +5,7 @@ import {FC} from 'react';
 import StatusSelect from '@/components/common/statusSelect';
 import api from '@/data/api';
 import {socketUpdateList} from '@/data/socket';
+import useTodolist from '@/states/todolist/use-todolist';
 import {IBaseProps} from '@/types';
 
 import useTask from '../../../../states/task/use-task';
@@ -16,7 +17,8 @@ interface StatusProps extends IBaseProps {
 }
 
 const Status: FC<StatusProps> = ({className, noTitle}) => {
-  const {task, write, update} = useTask();
+  const {task, update} = useTask();
+  const {write: isWrite, owner} = useTodolist();
   const {id, statusId, todolist} = task;
   const onChange = (event: SelectChangeEvent<number>) => {
     api.task
@@ -29,7 +31,13 @@ const Status: FC<StatusProps> = ({className, noTitle}) => {
   return (
     <div className={classNames('status', className)}>
       {!noTitle && <Title text="Status" />}
-      <StatusSelect className={style.status} id={statusId} list={todolist.status} onChange={onChange} readonly={!write} />
+      <StatusSelect
+        className={style.status}
+        id={statusId}
+        list={todolist.status}
+        onChange={onChange}
+        readonly={!(isWrite || owner)}
+      />
     </div>
   );
 };

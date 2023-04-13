@@ -20,4 +20,9 @@
   .float-icon {
     @apply flex cursor-pointer md:hidden;
   }
+  .read-only {
+    & * {
+      @apply hover:cursor-text;
+    }
+  }
 }

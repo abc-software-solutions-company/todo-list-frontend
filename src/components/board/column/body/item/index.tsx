@@ -5,7 +5,11 @@ import React, {memo} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
 import useBoards from '@/states/board/use-boards';
+<<<<<<< HEAD
 import {PriorityIcons} from '@/utils/constant';
+=======
+import useTodolist from '@/states/todolist/use-todolist';
+>>>>>>> 0ed4b4d7 (TD-284 Nếu người tạo lits để chế độ readonly thì người khác khi vào list đó chỉ xem và không được thao tác làm gì cả)
 
 import KanbanTaskAssignee from './assignee';
 import KanbanTaskCreatedDate from './created-date';
@@ -22,6 +26,7 @@ interface IKanbanTaskItem {
 const KanbanTaskItem = ({id}: IKanbanTaskItem) => {
   const router = useRouter();
   const {boardData} = useBoards();
+  const {write: isWrite, owner} = useTodolist();
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id});
   const {tasks, taskSymbol} = boardData;
 

@@ -29,6 +29,10 @@
     .MuiSelect-icon {
       @apply hidden fill-white lg:block;
     }
+
+    .MuiInputBase-readOnly {
+      @apply hover:cursor-text;
+    }
   }
   .piority {
     @apply h-6 w-fit;

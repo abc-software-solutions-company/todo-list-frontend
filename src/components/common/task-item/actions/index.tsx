@@ -11,6 +11,7 @@ import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {socketUpdateList} from '@/data/socket';
 import useModals from '@/states/modals/use-modals';
+import useTodolist from '@/states/todolist/use-todolist';
 import {MUI_ICON} from '@/utils/mui-icon';
 import {ToastContents} from '@/utils/toast-content';
 
@@ -24,7 +25,7 @@ interface IActionsProps extends ITaskItemProps {
 
 const Actions: FC<IActionsProps> = ({task, todolist, write = false, kanban = false}) => {
   const {setIsOpenModal, setSelectedTask} = useModals();
-
+  const {write: isWrite, owner} = useTodolist();
   const toast = useToast();
   const [statusId, setStatusId] = useState(task.statusId);
   const assigneeList = todolist.members;
@@ -73,7 +74,17 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false, kanban = fal
     .map((item, idx) => <Tool key={idx} {...{...item, className: 'flex-row-reverse'}} />);
 
   return (
-    <div className={kanban ? style['actions-kanban'] : style.actions}>
+    <div
+      className={
+        kanban
+          ? !(isWrite || owner)
+            ? style['actions-kanban'] + ' read-only'
+            : style['actions-kanban']
+          : !(isWrite || owner)
+          ? style.actions + ' read-only'
+          : style.actions
+      }
+    >
       <StatusSelect className="status" id={statusId} list={todolist.status} readonly={!write} onChange={onChange} />
       <TaskAssignee
         {...{

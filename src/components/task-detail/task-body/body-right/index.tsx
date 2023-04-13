@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import {FC} from 'react';
 
+import useTodolist from '@/states/todolist/use-todolist';
 import {IBaseProps} from '@/types';
 
 import Comment from '../body-left/comment';
@@ -14,9 +15,10 @@ import TaskDate from './task-date';
 import TimeState from './time-state';
 
 const BodyRight: FC<IBaseProps> = ({className}) => {
+  const {write: isWrite, owner} = useTodolist();
   return (
     <div className={className}>
-      <div className={classNames(style['body-right'], 'body-right')}>
+      <div className={classNames(style['body-right'], `body-right ${!(isWrite || owner) && style['read-only']}`)}>
         <Status className="divide item" />
         <Reporter className="divide item mobile" />
         <Assignee className="divide item mobile" />

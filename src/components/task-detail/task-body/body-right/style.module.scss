@@ -49,3 +49,10 @@
     @apply text-h7 text-slate-600;
   }
 }
+.read-only :global {
+  .divide.item {
+    * {
+      @apply cursor-text;
+    }
+  }
+}
