@@ -1,5 +1,4 @@
 import {yupResolver} from '@hookform/resolvers/yup';
-import {useRouter} from 'next/router';
 import {useEffect} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
@@ -12,18 +11,15 @@ import {IProps} from '../types-create';
 
 interface IFormInputs {
   name: string;
-  content?: string;
 }
 
 const Schema = yup.object().shape({
-  name: yup.string().required('Please enter your Document name.'),
-  content: yup.string()
+  name: yup.string().required('Please enter your Document name.')
 });
 
-export default function useModalCreateDocument({open, onClose, docChild}: IProps) {
-  const router = useRouter();
+export default function useModalUpdateDocument({open, onClose}: IProps) {
   const toast = useToast();
-  const {error, document, createDocument} = useDocumentsStore();
+  const {error, document, updateDocument} = useDocumentsStore();
 
   const {formState, handleSubmit, reset, setValue, ...rest} = useForm<IFormInputs>({
     resolver: yupResolver(Schema),
@@ -37,15 +33,14 @@ export default function useModalCreateDocument({open, onClose, docChild}: IProps
   const {errors, isSubmitting} = formState;
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
     if (isSubmitting) return;
-    const todolistId = String(router.query.id);
-    const parentId = document.id;
-    if (docChild) {
-      createDocument({todolistId, parentId, ...formData});
-    } else createDocument({todolistId, ...formData});
+    const id = document.id;
+    const content = String(document.content);
+    const favorite = document.favorite;
+    updateDocument({id, content, favorite, ...formData});
     if (error) {
-      toast.show({type: 'danger', title: 'Create Document Error', content: ToastContents.ERROR});
+      toast.show({type: 'danger', title: 'Rename Error', content: ToastContents.ERROR});
     } else {
-      toast.show({type: 'success', title: 'Create Document Success', content: ToastContents.SUCCESS});
+      toast.show({type: 'success', title: 'Rename Success', content: ToastContents.SUCCESS});
     }
     reset();
     onClose();

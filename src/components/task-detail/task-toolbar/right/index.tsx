@@ -4,10 +4,9 @@ import Tool, {IToolProps} from '@/components/lists-detail/toolbar/tool';
 import ToolMenu from '@/components/lists-detail/toolbar/tool-menu';
 import Icon from '@/core-ui/icon';
 import useModals from '@/states/modals/use-modals';
+import useTask from '@/states/task/use-task';
 import {IBaseProps} from '@/types';
 import {MUI_ICON} from '@/utils/mui-icon';
-
-import useTask from '../../../../states/task/use-task';
 
 const Right: FC<IBaseProps> = ({className}) => {
   const {task, write} = useTask();

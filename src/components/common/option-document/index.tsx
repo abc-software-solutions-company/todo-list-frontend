@@ -3,20 +3,21 @@ import React, {FC, useState} from 'react';
 import Tool, {IToolProps} from '@/components/lists-detail/toolbar/tool';
 import ToolMenu from '@/components/lists-detail/toolbar/tool-menu';
 import ModalCreateDocument from '@/components/modal/documents/modal-create';
+import ModalUpdateDocument from '@/components/modal/documents/modal-update';
 import Icon from '@/core-ui/icon';
 import {MUI_ICON} from '@/utils/mui-icon';
 
 interface Iprops {
-  onRename?: () => void;
   onAddFavorite?: () => void;
   onDelete?: () => void;
 }
-const OptionDocument: FC<Iprops> = ({onAddFavorite, onDelete, onRename}) => {
+const OptionDocument: FC<Iprops> = ({onAddFavorite, onDelete}) => {
   const [creteChildDoc, isCreateChildDoc] = useState<boolean>(false);
+  const [showModalUpdate, isShowModalUpdate] = useState<boolean>(false);
   const renameToolProps: IToolProps = {
     icon: <></>,
     text: 'Rename',
-    onClick: onRename
+    onClick: () => isShowModalUpdate(true)
   };
 
   const favoriteToolProps: IToolProps = {
@@ -49,6 +50,9 @@ const OptionDocument: FC<Iprops> = ({onAddFavorite, onDelete, onRename}) => {
       </div>
       {creteChildDoc && (
         <ModalCreateDocument open={creteChildDoc} onClose={() => isCreateChildDoc(false)} docChild={true} />
+      )}
+      {showModalUpdate && (
+        <ModalUpdateDocument open={showModalUpdate} onClose={() => isShowModalUpdate(false)} docChild={false} />
       )}
     </>
   );

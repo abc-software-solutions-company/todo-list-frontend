@@ -20,5 +20,6 @@ export interface IInitialState {
     updateUser: boolean;
     updateTask: boolean;
     createDocument: boolean;
+    updateDocument: boolean;
   };
 }
