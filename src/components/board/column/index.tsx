@@ -1,4 +1,6 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
+
+import {useBoardState} from '@/hooks/useBoardState';
 
 import KanbanColumnBody from './body';
 import KanbanColumnFooter from './footer/add-task';
@@ -7,19 +9,20 @@ import KanbanColumnWrapper from './wrapper';
 
 export interface IKanbanColumnProps {
   columnId: string;
-  name: string;
-  color: string;
-  taskIds: string[];
+  itemIds: string[];
 }
 
-const KanbanColumn: FC<IKanbanColumnProps> = ({columnId, name, color, taskIds}) => {
+const KanbanColumn: FC<IKanbanColumnProps> = ({columnId, itemIds}) => {
+  const boardStore = useBoardState();
+  const {name, color} = boardStore.entitiesColumn[columnId].status;
+
   return (
-    <KanbanColumnWrapper id={'column' + columnId}>
+    <KanbanColumnWrapper columnId={columnId}>
       <KanbanColumnHeader name={name} color={color} />
-      <KanbanColumnBody id={columnId} taskIds={taskIds} />
-      <KanbanColumnFooter id={Number(columnId)} />
+      <KanbanColumnBody columnId={columnId} itemIds={itemIds} />
+      <KanbanColumnFooter columnId={columnId} />
     </KanbanColumnWrapper>
   );
 };
 
-export default KanbanColumn;
+export default memo(KanbanColumn);

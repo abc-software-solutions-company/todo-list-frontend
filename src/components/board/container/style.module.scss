@@ -1,7 +1,6 @@
 .kanban-container :global {
   @apply mt-6;
   .inner {
-    @apply grid grid-cols-6 gap-x-4;
-    @apply h-[65vh] w-[1840px];
+    @apply grid w-[1840px] grid-cols-6 gap-x-4;
   }
 }

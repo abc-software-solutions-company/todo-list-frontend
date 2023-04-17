@@ -48,9 +48,9 @@ const ListTask = () => {
           let newTaskIndex: number | undefined;
           let reindexAll = false;
           const limitDifferenceIndex = 32;
-          const listIndex = tasks.map(e => e.index);
-          const maxIndex = Math.max(...listIndex);
-          const minIndex = Math.min(...listIndex);
+          const indexList = tasks.map(e => e.index);
+          const maxIndex = Math.max(...indexList);
+          const minIndex = Math.min(...indexList);
           const taskBefore = arrangeTask[index - 1];
           const task = arrangeTask[index];
           const taskAfter = arrangeTask[index + 1];

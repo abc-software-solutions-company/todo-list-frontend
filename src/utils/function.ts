@@ -1,7 +1,7 @@
 import {IndexStep, limitDifferenceIndex} from './constant';
 
 export interface IGetNewIndexParams {
-  listIndex: number[];
+  indexList: number[];
   prevIndex?: number;
   nextIndex?: number;
 }
@@ -17,14 +17,12 @@ export function shortName(name: string) {
     .join('');
 }
 
-export function getnewIndexForDragDrop({listIndex, prevIndex, nextIndex}: IGetNewIndexParams) {
-  let newIndex: number | undefined;
+export function getnewIndexForDragDrop({indexList, prevIndex, nextIndex}: IGetNewIndexParams) {
+  let newIndex = IndexStep;
   let resetIndex = false;
-  const maxIndex = Math.max(...listIndex);
-  const minIndex = Math.min(...listIndex);
-
-  if (!prevIndex && !nextIndex) return null;
-
+  const maxIndex = Math.max(...indexList);
+  const minIndex = Math.min(...indexList);
+  if (!prevIndex && !nextIndex) return {value: newIndex, reset: resetIndex};
   if (!prevIndex || !nextIndex) {
     const besideIndex = Number(prevIndex || nextIndex);
     if (besideIndex === minIndex) newIndex = Math.round(minIndex / 2);
@@ -34,7 +32,6 @@ export function getnewIndexForDragDrop({listIndex, prevIndex, nextIndex}: IGetNe
     newIndex = Math.round((Number(prevIndex) + Number(nextIndex)) / 2);
     if (Math.abs(Number(prevIndex) - Number(nextIndex)) < limitDifferenceIndex * 2) resetIndex = true;
   }
-
   return {
     value: newIndex,
     reset: resetIndex

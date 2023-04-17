@@ -6,17 +6,17 @@ import KanbanTaskItem from './item';
 import style from './style.module.scss';
 
 interface IKanbanColumnBody {
-  taskIds?: string[];
-  id: string;
+  itemIds?: string[];
+  columnId: string;
 }
-const KanbanColumnBody: FC<IKanbanColumnBody> = ({id, taskIds = []}) => {
-  const {setNodeRef} = useDroppable({id});
+const KanbanColumnBody: FC<IKanbanColumnBody> = ({columnId, itemIds = []}) => {
+  const {setNodeRef} = useDroppable({id: columnId});
 
   return (
-    <SortableContext id={id} items={taskIds} strategy={verticalListSortingStrategy}>
+    <SortableContext id={columnId} items={itemIds} strategy={verticalListSortingStrategy}>
       <ul className={style['column-body']} ref={setNodeRef}>
-        {taskIds.map((taskId, index) => (
-          <KanbanTaskItem key={index} id={taskId} />
+        {itemIds.map((itemId, i) => (
+          <KanbanTaskItem key={i} itemId={itemId} />
         ))}
       </ul>
     </SortableContext>
