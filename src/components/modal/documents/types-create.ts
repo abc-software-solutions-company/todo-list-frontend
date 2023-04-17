@@ -1,6 +1,7 @@
 export interface IProps {
   open: boolean;
   onClose: () => void;
+  onSuccess?: () => void;
   docChild?: boolean;
 }
 

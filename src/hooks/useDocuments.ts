@@ -3,7 +3,12 @@ import {devtools} from 'zustand/middleware';
 import {immer} from 'zustand/middleware/immer';
 
 import api from '@/data/api';
-import {IDocumentAttribute, IDocumentCreate, IGetDocuments, IUpdateDocument} from '@/data/api/types/documents.type';
+import {
+  IDocumentAttribute,
+  IDocumentCreate,
+  IGetDocuments,
+  IUpdateDocument
+} from '@/data/api/types/documents.type';
 
 type State = {
   error: boolean;
@@ -26,7 +31,7 @@ export const useDocumentsStore = create<State & Action>()(
       documents: [],
       error: false,
       isFeching: false,
-      document: {id: '', content: '', name: '', favorite: false, todolistId: '', parentId: ''},
+      document: {id: '', content: '', name: '', todolistId: '', parentId: ''},
       setDocument: newContent =>
         set(state => ({
           ...state,
