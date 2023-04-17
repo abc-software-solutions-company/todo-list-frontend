@@ -1,11 +1,23 @@
 .topbar-share :global {
   @apply hidden md:block;
-
+  @apply flex items-center gap-x-6;
   .topbar-share-inner {
-    @apply bg-[#38BDF8] text-h6 font-medium text-white;
+    @apply bg-[#38BDF8] text-sm text-white;
     @apply rounded-md border border-transparent;
-    @apply flex items-center gap-x-2;
+    @apply flex items-center gap-x-1;
     @apply cursor-pointer;
-    @apply mr-20 p-2;
+    @apply mr-20 py-1 px-2;
   }
+  .topbar-link-inner {
+    @apply font-semibold;
+    a:first-child {
+      @apply mr-3;
+    }
+    a:last-child {
+      @apply ml-3;
+    }
+  }
+}
+.active {
+  @apply underline;
 }

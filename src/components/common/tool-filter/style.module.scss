@@ -13,7 +13,7 @@
     }
   }
   .MuiSelect-select {
-    @apply h-6 p-0 pl-5;
+    @apply h-6 p-0;
     padding-right: 0 !important;
     .dropdown-name {
       @apply mt-2 h-auto py-0 px-1 align-middle text-brand;

@@ -78,6 +78,18 @@ const ToolBarRight: FC = () => {
           <Icon name="documents" className="ico-note-list icons" size={24} />
           <span>Docs</span>
         </div>
+        {isKanbanView && (
+          <div className="flex cursor-pointer items-center">
+            <Icon name="ico-codicon-list-filter mr-1" size={20} />
+            <span>Filter</span>
+          </div>
+        )}
+        {isKanbanView && (
+          <div className="flex cursor-pointer items-center">
+            <Icon name="ico-sort-ascending-outlined mr-1" size={20} />
+            <span>Sort</span>
+          </div>
+        )}
         {!isKanbanView && (
           <div className="tool-filter">
             <ToolFilter todolist={todolist} />
