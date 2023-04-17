@@ -1,0 +1,21 @@
+name: Test Slack Notification
+
+on:
+  push:
+    branches: ["test-slack"]
+
+jobs:
+  build:
+    name: "Test Slack Notification"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Post build result to a Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          channel-id: "C053HR3MDQB"
+          slack-message: "Project name PRODUCTION: ${{ job.status }}\nhttps://github.com/abc-software-solutions-company/todo-list-website//actions/runs/${{ github.run_id }}"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        if: always()
