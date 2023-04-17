@@ -31,7 +31,7 @@ const DocumentList: React.FC<IProps> = ({id}) => {
     });
   }
 
-  const renderNode = (node: IGetDocuments, css: string) => {
+  const renderNode = (node: IGetDocuments) => {
     return (
       <div key={node.id}>
         <Document
@@ -47,8 +47,8 @@ const DocumentList: React.FC<IProps> = ({id}) => {
           active={document.id == node.id}
         />
         {node.children && (
-          <div className={cls(showPages.includes(node.id) ? 'block' : 'hidden', css)}>
-            {node.children.map(child => renderNode(child, 'ml-4'))}
+          <div className={cls(showPages.includes(node.id) ? 'block' : 'hidden', 'ml-6')}>
+            {node.children.map(child => renderNode(child))}
           </div>
         )}
       </div>
@@ -69,7 +69,7 @@ const DocumentList: React.FC<IProps> = ({id}) => {
         <hr />
         <div>
           <p className="mt-3 font-bold">Pages</p>
-          <div className="relative">{documents?.map(item => renderNode(item, 'ml-4'))}</div>
+          <div className="relative">{documents?.map(item => renderNode(item))}</div>
         </div>
       </div>
       {showModalCreate && (
