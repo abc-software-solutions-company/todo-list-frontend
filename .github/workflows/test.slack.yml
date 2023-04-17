@@ -30,7 +30,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "GitHub Action build result: ${{ env.STATUS }} ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                    "text": "<${{ github.event.pull_request.html_url || github.event.head_commit.url }}|*AP STAGE*${{ env.STATUS }}>"
                   }
                 }
               ]
