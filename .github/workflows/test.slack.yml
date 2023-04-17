@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Default Status
-        run: echo "STATUS=✅" >> $GITHUB_ENV
+      # - name: Set build status emoji to success
+      #   run: echo "STATUS=✅" >> $GITHUB_ENV
 
       - name: Post build result to a Slack channel
         id: slack
