@@ -6,7 +6,7 @@ on:
 
 env:
   APP_ENV: ${{ secrets.PRODUCTION }}
-  STATUS: "OKLA"
+  STATUS: "❌"
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Default Status
-        run: echo "STATUS=NOTOK" >> $GITHUB_ENV
+        run: echo "STATUS=✅" >> $GITHUB_ENV
 
       - name: Post build result to a Slack channel
         id: slack
