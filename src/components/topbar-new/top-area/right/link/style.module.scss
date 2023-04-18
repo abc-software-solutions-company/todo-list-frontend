@@ -1,0 +1,12 @@
+.topbar-link :global {
+  @apply mr-2 font-semibold;
+  a:first-child {
+    @apply mr-3;
+  }
+  a:last-child {
+    @apply ml-3;
+  }
+}
+.active {
+  @apply underline;
+}
