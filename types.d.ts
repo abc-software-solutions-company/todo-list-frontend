@@ -19,3 +19,4 @@ declare module '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 
 declare module 'glightbox';
 declare module 'glightbox/dist/css/glightbox.min.css';
+declare module 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard';

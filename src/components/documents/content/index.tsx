@@ -14,6 +14,10 @@ const Editor = dynamic(() => import('@/components/common/ckeditor'), {
   ssr: false
 });
 
+const WYSIWYG = dynamic(() => import('@/components/common/wysiwyg'), {
+  ssr: true
+});
+
 export interface IForm {
   content?: string;
 }
@@ -82,7 +86,7 @@ const DocumentContent: React.FC = () => {
           </div>
         </form>
       ) : (
-        <div className="mt-4" dangerouslySetInnerHTML={{__html: String(document?.content)}} />
+        <WYSIWYG content={document.content} />
       )}
     </div>
   );
