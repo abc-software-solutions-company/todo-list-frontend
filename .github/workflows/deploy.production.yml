@@ -64,7 +64,7 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.23.0
         with:
-          channel-id: "C052DN0CP4J"
+          channel-id: "C053JVDGG12"
           payload: |
             {
               "text": "TODO-LIST-WEBSITE-FE-PRODUCTION ${{ env.STATUS }}",
