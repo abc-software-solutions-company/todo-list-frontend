@@ -12,6 +12,7 @@ import {isBoardPage, isListDetailPage} from '@/utils/check-routes';
 import {MUI_ICON} from '@/utils/mui-icon';
 
 import TopBarAccount from './account';
+import TopBarLink from './link';
 import TopBarShare from './share';
 import style from './style.module.scss';
 
@@ -42,7 +43,12 @@ const TopAreaRight: FC = () => {
   ));
   return (
     <div className={style['top-area-right']}>
-      {(isBoardPage(path, id as string) || isListDetailPage(path, id as string)) && <TopBarShare onShare={onShare} />}
+      <TopBarLink />
+      {(isBoardPage(path, id as string) || isListDetailPage(path, id as string)) && (
+        <>
+          <TopBarShare onShare={onShare} />
+        </>
+      )}
       <div className="notification">
         <Notification />
       </div>

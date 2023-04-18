@@ -16,7 +16,7 @@ const KanbanColumnBody: FC<IKanbanColumnBody> = ({columnId, itemIds = []}) => {
     <SortableContext id={columnId} items={itemIds} strategy={verticalListSortingStrategy}>
       <ul className={style['column-body']} ref={setNodeRef}>
         {itemIds.map((itemId, i) => (
-          <KanbanTaskItem key={i} itemId={itemId} />
+          <KanbanTaskItem key={itemId + i} itemId={itemId} />
         ))}
       </ul>
     </SortableContext>
