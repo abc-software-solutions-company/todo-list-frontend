@@ -10,15 +10,23 @@ import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useFilter from '@/states/filter/use-filter';
 import useTodolist from '@/states/todolist/use-todolist';
-import {IndexStep} from '@/utils/constant';
+import {IndexStep, Priorities} from '@/utils/constant';
 
 const ListTask = () => {
   const {todolist, write, setTodolist} = useTodolist();
-  const {statusFilterInList, setStatusFilterInList} = useFilter();
+  const {statusFilterInList, setStatusFilterInList, priorityFilterInList, setPriorityFilterInList} = useFilter();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   const getTasks = () => {
+    const PrioritiesList = Object.values(Priorities).reverse();
+    const PrioritieValue = PrioritiesList.includes(priorityFilterInList) ? priorityFilterInList : '';
+    if (PrioritieValue && statusFilterInList)
+      return todolist.tasks.filter(
+        e =>
+          !PrioritieValue || !statusFilterInList || (e.priority == PrioritieValue && e.statusId == statusFilterInList)
+      );
     if (statusFilterInList) return todolist.tasks.filter(e => !statusFilterInList || e.statusId == statusFilterInList);
+    if (PrioritieValue) return todolist.tasks.filter(e => !PrioritieValue || e.priority == PrioritieValue);
     return todolist.tasks?.filter(e => !e.isDone);
   };
 
@@ -79,6 +87,7 @@ const ListTask = () => {
 
   useEffect(() => {
     setStatusFilterInList(0);
+    setPriorityFilterInList('');
   }, []);
 
   return (

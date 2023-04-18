@@ -11,6 +11,12 @@ const filterSlice = createSlice({
     },
     setStatusFilterInMyTask: (state, {payload}: PayloadAction<number[]>) => {
       state.statusFilterInMytask = payload;
+    },
+    setPriorityFilterInList: (state, {payload}: PayloadAction<string>) => {
+      state.priorityFilterInList = payload;
+    },
+    setPriorityFilterInMyTask: (state, {payload}: PayloadAction<string[]>) => {
+      state.priorityFilterInMytask = payload;
     }
   }
 });
