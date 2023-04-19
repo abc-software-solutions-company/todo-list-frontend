@@ -3,7 +3,7 @@ import React from 'react';
 
 import Icon from '@/core-ui/icon';
 
-// import OptionDocument from '../option-document';
+import OptionDocument from '../option-document';
 
 interface IProps {
   iconDropdown?: any;
@@ -27,7 +27,7 @@ const Document: React.FC<IProps> = ({content, iconDropdown, active, getDocument,
           <Icon name="drop" className={iconDropdown} onClick={showMoreDoc} />
           <p className="max-h-[25px] overflow-hidden">📗 {content}</p>
         </div>
-        {/* <OptionDocument /> */}
+        <OptionDocument />
       </div>
     </div>
   );
