@@ -84,7 +84,7 @@ const DocumentContent: React.FC = () => {
         </form>
       ) : (
         <div
-          className="scrollbar max-h-[67vh] mt-4 overflow-y-scroll"
+          className="scrollbar max-h-[70vh] overflow-y-auto"
           dangerouslySetInnerHTML={{__html: String(document?.content)}}
         />
       )}
