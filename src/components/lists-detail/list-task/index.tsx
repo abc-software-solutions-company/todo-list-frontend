@@ -14,19 +14,33 @@ import {IndexStep, Priorities} from '@/utils/constant';
 
 const ListTask = () => {
   const {todolist, write, setTodolist} = useTodolist();
-  const {statusFilterInList, setStatusFilterInList, priorityFilterInList, setPriorityFilterInList} = useFilter();
+  const {
+    statusFilterInList,
+    setStatusFilterInList,
+    priorityFilterInList,
+    setPriorityFilterInList,
+    setFeatureFilterInList,
+    featureFilterInList
+  } = useFilter();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   const getTasks = () => {
-    const PrioritiesList = Object.values(Priorities).reverse();
-    const PrioritieValue = PrioritiesList.includes(priorityFilterInList) ? priorityFilterInList : '';
-    if (PrioritieValue && statusFilterInList)
+    const prioritiesList = Object.values(Priorities).reverse();
+    const prioritieValue = prioritiesList.includes(priorityFilterInList) ? priorityFilterInList : '';
+    console.log(featureFilterInList, prioritieValue, statusFilterInList);
+    if (prioritieValue && statusFilterInList && featureFilterInList != 'undefined')
       return todolist.tasks.filter(
-        e =>
-          !PrioritieValue || !statusFilterInList || (e.priority == PrioritieValue && e.statusId == statusFilterInList)
+        e => e.priority == prioritieValue && e.statusId == statusFilterInList && e.isFeature == featureFilterInList
       );
-    if (statusFilterInList) return todolist.tasks.filter(e => !statusFilterInList || e.statusId == statusFilterInList);
-    if (PrioritieValue) return todolist.tasks.filter(e => !PrioritieValue || e.priority == PrioritieValue);
+    if (prioritieValue && featureFilterInList != 'undefined')
+      return todolist.tasks.filter(e => e.priority == prioritieValue && e.isFeature == featureFilterInList);
+    if (statusFilterInList && featureFilterInList != 'undefined')
+      return todolist.tasks.filter(e => e.statusId == statusFilterInList && e.isFeature == featureFilterInList);
+    if (prioritieValue && statusFilterInList)
+      return todolist.tasks.filter(e => e.priority == prioritieValue && e.statusId == statusFilterInList);
+    if (statusFilterInList) return todolist.tasks.filter(e => e.statusId == statusFilterInList);
+    if (prioritieValue) return todolist.tasks.filter(e => e.priority == prioritieValue);
+    if (featureFilterInList != 'undefined') return todolist.tasks.filter(e => e.isFeature == featureFilterInList);
     return todolist.tasks?.filter(e => !e.isDone);
   };
 
@@ -88,6 +102,7 @@ const ListTask = () => {
   useEffect(() => {
     setStatusFilterInList(0);
     setPriorityFilterInList('');
+    setFeatureFilterInList();
   }, []);
 
   return (

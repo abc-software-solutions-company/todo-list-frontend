@@ -13,7 +13,7 @@ const ListTask: FC = () => {
   const auth = useStateAuth();
   const {myTasks} = useTasks();
   const {write: isWrite, owner} = useTodolist();
-  const {statusFilterInMytask, setStatusFilterInMyTask, priorityFilterInList} = useFilter();
+  const {statusFilterInMytask, setStatusFilterInMyTask, priorityFilterInList, featureFilterInList} = useFilter();
 
   const filterMyTasks = () => {
     const PrioritiesList = Object.values(Priorities).reverse();
@@ -23,17 +23,27 @@ const ListTask: FC = () => {
         return {
           ...todolist,
           tasks:
-            PrioritieValue && statusFilterInMytask.length != 0
+            PrioritieValue && statusFilterInMytask.length != 0 && featureFilterInList != 'undefined'
               ? todolist?.tasks.filter(
                   e =>
-                    !PrioritieValue ||
-                    !statusFilterInMytask[index] ||
-                    (e.priority == PrioritieValue && e.statusId == statusFilterInMytask[index])
+                    e.priority == PrioritieValue &&
+                    e.statusId == statusFilterInMytask[index] &&
+                    e.isFeature == featureFilterInList
                 )
+              : PrioritieValue && statusFilterInMytask.length != 0
+              ? todolist?.tasks.filter(e => e.priority == PrioritieValue && e.statusId == statusFilterInMytask[index])
+              : featureFilterInList != 'undefined' && statusFilterInMytask.length != 0
+              ? todolist?.tasks.filter(
+                  e => e.isFeature == featureFilterInList && e.statusId == statusFilterInMytask[index]
+                )
+              : PrioritieValue && featureFilterInList != 'undefined'
+              ? todolist?.tasks.filter(e => e.priority == PrioritieValue && e.isFeature == featureFilterInList)
               : PrioritieValue
-              ? todolist?.tasks.filter(e => !PrioritieValue || e.priority == PrioritieValue)
+              ? todolist?.tasks.filter(e => e.priority == PrioritieValue)
               : statusFilterInMytask.length != 0
-              ? todolist?.tasks.filter(e => !statusFilterInMytask[index] || e.statusId == statusFilterInMytask[index])
+              ? todolist?.tasks.filter(e => e.statusId == statusFilterInMytask[index])
+              : featureFilterInList != 'undefined'
+              ? todolist?.tasks.filter(e => e.isFeature == featureFilterInList)
               : todolist?.tasks.filter(e => !e.isDone)
         };
       });
