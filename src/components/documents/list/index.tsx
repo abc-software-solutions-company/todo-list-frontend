@@ -19,7 +19,6 @@ const DocumentList: React.FC<IProps> = ({id}) => {
   const [showPages, setShowPages] = useState<Array<string>>([]);
   const [showModalCreate, isShowModalCreate] = useState<boolean>(false);
   const {documents, document, isFeching, getAllDocument, getDocument} = useDocumentsStore();
-
   useEffect(() => {
     getAllDocument(id);
   }, [isFeching]);

@@ -21,14 +21,14 @@ export interface IForm {
 const DocumentContent: React.FC = () => {
   const [edit, setEdit] = useState(false);
   const {show} = useToast();
-  const {document, error, updateDocument, setDocument} = useDocumentsStore();
+  const {document, error, updateDocument, setContentDocument} = useDocumentsStore();
   const {control, handleSubmit} = useForm({
     defaultValues: {
       content: document?.content
     }
   });
   const onSubmit: SubmitHandler<IForm> = data => {
-    setDocument(String(data.content));
+    setContentDocument(String(data.content));
     updateDocument({...document, content: String(data.content)});
     if (error) {
       setEdit(true);
@@ -41,17 +41,19 @@ const DocumentContent: React.FC = () => {
 
   return (
     <div className={style['document-content']}>
-      <div>
-        <Icon name="content" className="ico-fluent_text-description mr-1" size={20} />
-        <span className="mr-3">Content</span>
-        <Button
-          text="Edit"
-          className="bg-slate-100"
-          onClick={() => {
-            setEdit(!edit);
-          }}
-        />
-      </div>
+      {document && (
+        <div>
+          <Icon name="content" className="ico-fluent_text-description mr-1" size={20} />
+          <span className="mr-3">Content</span>
+          <Button
+            text="Edit"
+            className="bg-slate-100"
+            onClick={() => {
+              setEdit(!edit);
+            }}
+          />
+        </div>
+      )}
       {edit ? (
         <form className="decsription-form" onSubmit={handleSubmit(onSubmit)}>
           <Controller
