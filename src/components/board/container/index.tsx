@@ -81,8 +81,8 @@ const KanbanContainer: FC = () => {
     //move column
     if (activeColumn === 'board' && overColumn === 'board') {
       const newIds = arrayMove(boardState.ids, activeIndex, overIndex);
+      const indexList = boardState.ids.map(e => Number(boardStore.entitiesColumn[e].status.index));
       setBoardState({...boardState, ids: newIds});
-      const indexList = newIds.map(e => Number(boardStore.entitiesColumn[e].status.index));
       const prevIndex = boardStore.entitiesColumn[newIds[overIndex - 1]]?.status.index;
       const nextIndex = boardStore.entitiesColumn[newIds[overIndex + 1]]?.status.index;
       const {reset: resetIndexStatus, value: statusIndex} = getnewIndexForDragDrop({indexList, prevIndex, nextIndex});
@@ -97,8 +97,8 @@ const KanbanContainer: FC = () => {
     else if (activeColumn === overColumn) {
       const newEntities = {...boardState.entities};
       newEntities[activeColumn] = arrayMove(newEntities[activeColumn], activeIndex, overIndex);
+      const indexList = boardState.entities[overColumn].map(e => Number(boardStore.entitiesItem[e].indexColumn));
       setBoardState({...boardState, entities: newEntities});
-      const indexList = newEntities[overColumn].map(e => Number(boardStore.entitiesItem[e].indexColumn));
       const prevIndex = boardStore.entitiesItem[newEntities[overColumn][overIndex - 1]]?.indexColumn;
       const nextIndex = boardStore.entitiesItem[newEntities[overColumn][overIndex + 1]]?.indexColumn;
       const {reset: resetIndexColumn, value: indexColumn} = getnewIndexForDragDrop({indexList, prevIndex, nextIndex});
@@ -117,7 +117,12 @@ const KanbanContainer: FC = () => {
         <DndContext sensors={sensors} onDragStart={onDragStart} onDragOver={onDragOver} onDragEnd={onDragEnd}>
           <SortableContext id="board" items={boardState.ids} strategy={horizontalListSortingStrategy}>
             {boardState.ids.map((id, i) => (
-              <KanbanColumn key={id + i} columnId={id} itemIds={boardState.entities[id]} />
+              <KanbanColumn
+                key={id + i}
+                columnId={id}
+                itemIds={boardState.entities[id]}
+                showHeader={i + 1 !== boardState.ids.length}
+              />
             ))}
           </SortableContext>
           {activeItemId && (
@@ -127,7 +132,11 @@ const KanbanContainer: FC = () => {
           )}
           {activeColumnId && (
             <DragOverlay>
-              <KanbanColumn columnId={activeColumnId} itemIds={boardState.entities[activeColumnId]} />
+              <KanbanColumn
+                columnId={activeColumnId}
+                itemIds={boardState.entities[activeColumnId]}
+                showHeader={false}
+              />
             </DragOverlay>
           )}
         </DndContext>

@@ -12,7 +12,7 @@ const KanbanColumnWrapper: FC<IKanbanColumnWrapperProps> = ({columnId, children}
   const style = {transform: CSS.Transform.toString(transform), transition, opacity: isDragging ? 0.5 : 1};
 
   return (
-    <ul className="kanban-column-container h-full" ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <ul className="h-fit" ref={setNodeRef} style={style} {...attributes} {...listeners}>
       {children}
     </ul>
   );
