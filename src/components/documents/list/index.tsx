@@ -35,7 +35,7 @@ const DocumentList: React.FC<IProps> = ({id}) => {
     return (
       <div key={node.id}>
         <Document
-          content={node.name}
+          name={node.name}
           showMoreDoc={() => toggleShow(node.id, setShowPages)}
           iconDropdown={
             node.children && (showPages.includes(node.id) ? 'ico-angle-down-small' : 'ico-angle-right-small')

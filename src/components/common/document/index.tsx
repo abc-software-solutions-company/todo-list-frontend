@@ -2,18 +2,24 @@ import cls from 'classnames';
 import React from 'react';
 
 import Icon from '@/core-ui/icon';
+import useToast from '@/core-ui/toast';
+import {useDocumentsStore} from '@/hooks/useDocuments';
+import {ToastContents} from '@/utils/toast-content';
 
 import OptionDocument from '../option-document';
 
 interface IProps {
   iconDropdown?: any;
-  content?: string;
+  name?: string;
   active?: boolean;
   showMoreDoc?: () => void;
   showContent?: () => void;
   getDocument: () => void;
 }
-const Document: React.FC<IProps> = ({content, iconDropdown, active, getDocument, showMoreDoc, showContent}) => {
+const Document: React.FC<IProps> = ({name, iconDropdown, active, getDocument, showMoreDoc, showContent}) => {
+  const {error, document, updateDocument} = useDocumentsStore();
+  const toast = useToast();
+  const {id, content} = document;
   return (
     <div className="relative">
       <div
@@ -25,9 +31,18 @@ const Document: React.FC<IProps> = ({content, iconDropdown, active, getDocument,
       >
         <div className="flex w-full" onClick={showContent}>
           <Icon name="drop" className={iconDropdown} onClick={showMoreDoc} />
-          <p className="max-h-[25px] overflow-hidden">📗 {content}</p>
+          <p className="max-h-[25px] overflow-hidden">📗 {name}</p>
         </div>
-        <OptionDocument />
+        <OptionDocument
+          onAddFavorite={() => {
+            updateDocument({id, content, favorite: true});
+            if (error) {
+              toast.show({type: 'danger', title: 'Delete Error', content: ToastContents.ERROR});
+            } else {
+              toast.show({type: 'success', title: 'Delete Success', content: ToastContents.SUCCESS});
+            }
+          }}
+        />
       </div>
     </div>
   );
