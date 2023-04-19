@@ -42,7 +42,7 @@ const DocumentContent: React.FC = () => {
 
   return (
     <div className={cls(style['document-content'])}>
-      <div>
+      <div className="mb-3">
         <Icon name="content" className="ico-fluent_text-description mr-1" size={20} />
         <span className="mr-3">Content</span>
         <Button
