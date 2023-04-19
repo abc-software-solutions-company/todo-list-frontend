@@ -1,5 +1,5 @@
 .document-list :global {
-  @apply mt-5 mr-16 w-[310px] p-3;
+  @apply mt-5 mr-16 max-h-[100vh] w-[310px] p-3;
   @apply rounded-lg border border-[#E2E8F0];
   @apply bg-white;
 }
