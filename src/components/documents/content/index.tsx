@@ -1,3 +1,4 @@
+import cls from 'classnames';
 import dynamic from 'next/dynamic';
 import React, {useState} from 'react';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
@@ -40,7 +41,7 @@ const DocumentContent: React.FC = () => {
   };
 
   return (
-    <div className={style['document-content']}>
+    <div className={cls(style['document-content'], 'scrollbar')}>
       <div>
         <Icon name="content" className="ico-fluent_text-description mr-1" size={20} />
         <span className="mr-3">Content</span>
@@ -87,5 +88,4 @@ const DocumentContent: React.FC = () => {
     </div>
   );
 };
-
 export default DocumentContent;

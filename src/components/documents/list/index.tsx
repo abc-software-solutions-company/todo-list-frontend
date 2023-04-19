@@ -69,7 +69,7 @@ const DocumentList: React.FC<IProps> = ({id}) => {
         <hr />
         <div>
           <p className="mt-3 font-bold">Pages</p>
-          <div className="relative">{documents?.map(item => renderNode(item))}</div>
+          <div className="scrollbar relative overflow-x-scroll overflow-y-scroll">{documents?.map(item => renderNode(item))}</div>
         </div>
       </div>
       {showModalCreate && (

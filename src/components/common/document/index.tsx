@@ -3,7 +3,7 @@ import React from 'react';
 
 import Icon from '@/core-ui/icon';
 
-import OptionDocument from '../option-document';
+// import OptionDocument from '../option-document';
 
 interface IProps {
   iconDropdown?: any;
@@ -15,7 +15,7 @@ interface IProps {
 }
 const Document: React.FC<IProps> = ({content, iconDropdown, active, getDocument, showMoreDoc, showContent}) => {
   return (
-    <div className="relative">
+    <div className="relative min-w-[10rem]">
       <div
         className={cls(
           active ? '-mx-3 bg-slate-100 px-3' : 'hover:rounded-md hover:bg-slate-100',
@@ -23,11 +23,11 @@ const Document: React.FC<IProps> = ({content, iconDropdown, active, getDocument,
         )}
         onClick={getDocument}
       >
-        <div className="flex w-full" onClick={showContent}>
+        <div className="flex" onClick={showContent}>
           <Icon name="drop" className={iconDropdown} onClick={showMoreDoc} />
           <p className="max-h-[25px] overflow-hidden">📗 {content}</p>
         </div>
-        <OptionDocument />
+        {/* <OptionDocument /> */}
       </div>
     </div>
   );
