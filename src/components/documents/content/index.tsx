@@ -84,7 +84,7 @@ const DocumentContent: React.FC = () => {
           </div>
         </form>
       ) : (
-        <div className="mt-4" dangerouslySetInnerHTML={{__html: String(document?.content)}} />
+        <div className="mt-4" dangerouslySetInnerHTML={{__html: document?.content || ''}} />
       )}
     </div>
   );

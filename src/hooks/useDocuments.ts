@@ -18,7 +18,6 @@ type Action = {
   updateDocument: (data: IUpdateDocument) => void;
   createDocument: (data: IDocumentCreate) => void;
   setContentDocument: (newContent: string) => void;
-  // setDocument: (data: IDocumentAttribute) => void;
 };
 
 export const useDocumentsStore = create<State & Action>()(
@@ -27,7 +26,7 @@ export const useDocumentsStore = create<State & Action>()(
       documents: [],
       error: false,
       isFeching: false,
-      document: {id: '', content: '', name: '', todolistId: '', parentId: ''},
+      document: {} as IDocumentAttribute,
       setContentDocument: newContent =>
         set(state => ({
           ...state,
@@ -44,6 +43,7 @@ export const useDocumentsStore = create<State & Action>()(
               state.documents = res.data;
               state.document = res.data[0];
               state.isFeching = true;
+              if (!state.document?.id && !state.documents) state.document = state.documents?.[0];
             },
             false,
             'documents/getAllDocument'
