@@ -102,7 +102,7 @@ const ListTask = () => {
   useEffect(() => {
     setStatusFilterInList(0);
     setPriorityFilterInList('');
-    setFeatureFilterInList();
+    setFeatureFilterInList(false);
   }, []);
 
   return (

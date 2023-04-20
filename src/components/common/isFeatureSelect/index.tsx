@@ -47,7 +47,7 @@ const FeatureSelect: FC<IProps> = ({isFeature: isFeatureValue, className, onChan
         )}
         {list.map(({id, name, color, status}) => {
           return (
-            <MenuItem key={id} value={status} sx={{color, justifyContent: 'end', padding: '4px 16px'}}>
+            <MenuItem key={id} value={status.toString()} sx={{color, justifyContent: 'end', padding: '4px 16px'}}>
               <div className="is-feature-inner relative">
                 <span className="is-feature-name inline-block rounded text-h6" style={{color}}>
                   {name}

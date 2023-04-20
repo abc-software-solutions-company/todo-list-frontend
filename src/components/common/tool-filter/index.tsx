@@ -106,7 +106,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
   };
 
   const onChangeIsFeature = (event: SelectChangeEvent<unknown>) => {
-    const newIsFeature = event.target.value;
+    const newIsFeature = event.target.value as boolean;
     console.log(newIsFeature);
     setIsFeature(newIsFeature);
     if (todolist) {
