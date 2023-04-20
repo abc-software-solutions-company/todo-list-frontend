@@ -3,4 +3,6 @@ export interface IInitialState {
   statusFilterInMytask: number[];
   priorityFilterInList: string;
   priorityFilterInMytask: string[];
+  featureFilterInList: boolean | undefined | string;
+  featureFilterInMytask: boolean[] | undefined | string;
 }

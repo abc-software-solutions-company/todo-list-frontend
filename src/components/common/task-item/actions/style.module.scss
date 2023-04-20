@@ -1,5 +1,24 @@
 .actions :global {
   @apply flex items-center gap-x-2.5;
+
+  .is-feature {
+    @apply relative flex h-full items-center;
+    .MuiSelect-select {
+      @apply h-full w-full p-0 text-h6;
+      .mobile-icon {
+        @apply absolute flex h-[23px] w-full items-center justify-center lg:hidden;
+      }
+    }
+    .MuiOutlinedInput-notchedOutline {
+      @apply border-0;
+    }
+    .MuiInputBase-readOnly {
+      @apply hover:cursor-text;
+    }
+    .is-feature-name {
+      @apply hidden pl-3 pr-8 lg:block lg:py-0.5;
+    }
+  }
   .status {
     @apply relative flex h-full items-center;
     .MuiOutlinedInput-root {
@@ -56,6 +75,15 @@
 
 .actions-kanban :global {
   @apply flex items-center gap-x-2.5;
+  .is-feature {
+    @apply relative flex h-full items-center;
+    .MuiSelect-select {
+      @apply h-full w-full px-2 py-0.5 text-h6;
+      .mobile-icon {
+        @apply absolute flex h-[23px] w-full items-center justify-center lg:hidden;
+      }
+    }
+  }
   .status {
     @apply relative flex h-full items-center;
     .MuiOutlinedInput-root {

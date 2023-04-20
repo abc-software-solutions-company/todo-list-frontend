@@ -1,6 +1,7 @@
 import {SelectChangeEvent} from '@mui/material';
 import {FC, useEffect, useState} from 'react';
 
+// import FeatureSelect from '@/components/common/isFeatureSelect';
 import StatusSelect from '@/components/common/statusSelect';
 import TaskAssignee from '@/components/common/task-assignee';
 import TaskPiority from '@/components/common/task-priority';
@@ -28,6 +29,7 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false, kanban = fal
   const {write: isWrite, owner} = useTodolist();
   const toast = useToast();
   const [statusId, setStatusId] = useState(task.statusId);
+  // const [isFeature, setIsFeature] = useState(task.isFeature);
   const assigneeList = todolist.members;
 
   useEffect(() => {
@@ -49,6 +51,12 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false, kanban = fal
     setStatusId(newStatusId);
     api.task.update({id: task.id, statusId: newStatusId}).then(socketUpdateList);
   };
+
+  // const onChangeIsFeature = (event: SelectChangeEvent<unknown>) => {
+  //   const newIsFeature = Boolean(event.target.value);
+  //   setIsFeature(newIsFeature);
+  //   api.task.update({id: task.id, isFeature: newIsFeature}).then(socketUpdateList);
+  // };
 
   const onChangePriority = (event: SelectChangeEvent<unknown>) => {
     api.task
@@ -85,6 +93,7 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false, kanban = fal
           : style.actions
       }
     >
+      {/* <FeatureSelect className="is-feature" isFeature={isFeature} readonly={!write} onChange={onChangeIsFeature} /> */}
       <StatusSelect className="status" id={statusId} list={todolist.status} readonly={!write} onChange={onChange} />
       <TaskAssignee
         {...{

@@ -4,7 +4,9 @@ const initialState: IInitialState = {
   statusFilterInList: 0,
   statusFilterInMytask: [],
   priorityFilterInList: '',
-  priorityFilterInMytask: []
+  priorityFilterInMytask: [],
+  featureFilterInList: false,
+  featureFilterInMytask: []
 };
 
 export default initialState;

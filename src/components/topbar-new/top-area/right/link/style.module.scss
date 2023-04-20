@@ -6,6 +6,9 @@
   a:last-child {
     @apply ml-3;
   }
+  span {
+    @apply mx-3 text-sky-500 hover:cursor-pointer;
+  }
 }
 .active {
   @apply underline;

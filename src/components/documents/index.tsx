@@ -3,12 +3,12 @@ import React, {FC} from 'react';
 import DocumentContent from './content';
 import DocumentList from './list';
 
-interface IProps {
+interface IDocumentsProps {
   id: string;
 }
-const Documents: FC<IProps> = ({id}) => {
+const Documents: FC<IDocumentsProps> = ({id}) => {
   return (
-    <div className="flex">
+    <div className="mt-4 flex gap-6">
       <DocumentList id={id} />
       <DocumentContent />
     </div>

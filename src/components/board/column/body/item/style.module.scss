@@ -8,13 +8,12 @@
     @apply text-sm font-medium text-blue-900;
   }
   .actions {
-    @apply flex justify-between gap-x-2;
+    @apply flex items-center justify-between gap-x-2;
     .left {
       @apply flex items-center gap-x-2;
-      @apply h-8;
     }
     .right {
-      @apply flex;
+      @apply flex items-center;
     }
   }
   .action-edit-delete {

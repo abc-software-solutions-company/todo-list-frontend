@@ -9,7 +9,7 @@ import Icon from '@/core-ui/icon';
 import {MUI_ICON} from '@/utils/mui-icon';
 
 export interface IProps {
-  onAddFavorite?: () => void;
+  onAddFavorite: () => void;
 }
 
 const OptionDocument: FC<IProps> = ({onAddFavorite}) => {
@@ -26,7 +26,7 @@ const OptionDocument: FC<IProps> = ({onAddFavorite}) => {
   const favoriteToolProps: IToolProps = {
     icon: <></>,
     text: 'Add to favorite',
-    onClick: () => onAddFavorite
+    onClick: () => onAddFavorite()
   };
 
   const deleteToolProps: IToolProps = {

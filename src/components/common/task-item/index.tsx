@@ -51,7 +51,6 @@ export default function TaskItem(props: ITaskItemProps) {
 
   const onChange = () => setDone(id, isDone);
   const onClick = () => router.push(ROUTES.TASK + '/' + id);
-
   return (
     <div
       className={classNames(style.task, `item ${isSelect && 'select'}`, 'hover:bg-blue-100')}

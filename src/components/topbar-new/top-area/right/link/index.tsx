@@ -10,22 +10,12 @@ const TopBarLink = () => {
   const currentPage = router.pathname;
   return (
     <div className={style['topbar-link']}>
-      <Link href={ROUTES.LIST}>
-        <a className={(currentPage === ROUTES.LIST && style.active) || ''}>My Lists</a>
+      <Link href={ROUTES.TASK}>
+        <span className={(currentPage === ROUTES.TASK && style.active) || ''}>My Tasks</span>
       </Link>
       <i className="inline-block font-light not-italic text-gray-200">|</i>
-      <Link href={ROUTES.TASK}>
-        <a
-          className={
-            ((currentPage === ROUTES.LIST + '/[id]' ||
-              currentPage === ROUTES.TASK ||
-              currentPage === ROUTES.KANBAN + '/[id]') &&
-              style.active) ||
-            ''
-          }
-        >
-          My Tasks
-        </a>
+      <Link href={ROUTES.LIST}>
+        <span className={(currentPage === ROUTES.LIST && style.active) || ''}>My Lists</span>
       </Link>
     </div>
   );

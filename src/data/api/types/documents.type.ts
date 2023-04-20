@@ -9,8 +9,9 @@ export interface IGetDocuments {
 
 export interface IUpdateDocument {
   id: string;
-  name: string;
-  content: string;
+  name?: string;
+  content?: string;
+  favorite?: boolean;
   isActive?: boolean;
 }
 
@@ -24,6 +25,7 @@ export interface IDocumentAttribute {
   id: string;
   name: string;
   content?: string;
+  favorite?: boolean;
   parentId?: string;
   todolistId: string;
 }

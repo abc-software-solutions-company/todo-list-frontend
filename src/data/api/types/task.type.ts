@@ -84,6 +84,7 @@ export interface ITaskUpdate extends ITaskGet {
   };
   description?: string;
   isActive?: boolean;
+  isFeature?: boolean;
   statusId?: number;
   resetIndexColumn?: boolean;
 }
@@ -124,4 +125,5 @@ export interface ITaskResponse extends ITaskGet, IBaseResponse {
   assignees: IAssigneeResponse[];
   todolist: ITodolistResponse;
   isActive: boolean;
+  isFeature: boolean;
 }

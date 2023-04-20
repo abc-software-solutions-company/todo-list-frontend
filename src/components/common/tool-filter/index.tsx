@@ -2,11 +2,13 @@ import {MenuItem, Select, SelectChangeEvent, SxProps, Theme} from '@mui/material
 import classNames from 'classnames';
 import {FC, useState} from 'react';
 
+// import FeatureSelect from '@/components/common/isFeatureSelect';
 import TaskPiority from '@/components/common/task-priority';
 import Icon from '@/core-ui/icon';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import useFilter from '@/states/filter/use-filter';
 
+// import useTodolist from '@/states/todolist/use-todolist';
 import style from './style.module.scss';
 
 interface IProps {
@@ -34,7 +36,8 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
   const {setStatusFilterInList, setStatusFilterInMyTask, setPriorityFilterInList} = useFilter();
   const [selectStatus, setSelectStatus] = useState<number>(0);
   const [selectPriority, setSelectPriority] = useState<string>('');
-
+  // const [isFeature, setIsFeature] = useState<any>(false);
+  // const {write: isWrite} = useTodolist();
   const temp0: {id: number[]; color: string} = {id: [], color: '#78716C'};
   const temp1: {id: number[]; color: string} = {id: [], color: '#0EA5E9'};
   const temp2: {id: number[]; color: string} = {id: [], color: '#F59E0B'};
@@ -102,6 +105,18 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
     }
   };
 
+  // const onChangeIsFeature = (event: SelectChangeEvent<unknown>) => {
+  //   const newIsFeature = event.target.value as boolean;
+  //   console.log(newIsFeature);
+  //   setIsFeature(newIsFeature);
+  //   if (todolist) {
+  //     setFeatureFilterInList(newIsFeature);
+  //   }
+  //   if (myTasks) {
+  //     setFeatureFilterInList(newIsFeature);
+  //   }
+  // };
+
   const sxMenuItem: SxProps<Theme> = {justifyContent: 'end', padding: '4px 16px', height: 36, minHeight: 36};
 
   return (
@@ -150,6 +165,17 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
             />
           </div>
         </MenuItem>
+        {/* <MenuItem sx={{color: '#000000', ...sxMenuItem}}>
+          <div className={`${style['sub-select']}`}>
+            <FeatureSelect
+              defaultItem="All Types"
+              className="is-feature"
+              isFeature={isFeature}
+              readonly={!isWrite}
+              onChange={onChangeIsFeature}
+            />
+          </div>
+        </MenuItem> */}
       </Select>
     </div>
   );

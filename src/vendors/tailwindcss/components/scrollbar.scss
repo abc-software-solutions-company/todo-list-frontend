@@ -3,18 +3,23 @@
     @apply h-2 w-2;
   }
   &::-webkit-scrollbar-track {
-    @apply bg-blue-100;
+    @apply rounded bg-blue-100;
   }
   &::-webkit-scrollbar-thumb {
-    @apply bg-blue-500;
+    @apply rounded-md bg-blue-200;
   }
   &::-webkit-scrollbar-thumb:hover {
-    @apply bg-blue-600;
+    @apply bg-blue-200;
   }
   &.scrolling-touch {
     -webkit-overflow-scrolling: touch;
   }
   &.scrolling-auto {
     -webkit-overflow-scrolling: auto;
+  }
+}
+.scrollbar-none {
+  &::-webkit-scrollbar {
+    @apply h-0 w-0;
   }
 }
