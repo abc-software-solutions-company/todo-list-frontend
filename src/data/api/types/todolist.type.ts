@@ -35,6 +35,7 @@ export interface IStatus {
   id: number;
   name: string;
   color: string;
+  backgroundColor: string;
   index: number;
   tasks?: ITaskResponse[];
 }

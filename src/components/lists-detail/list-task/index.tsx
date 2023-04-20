@@ -18,29 +18,28 @@ const ListTask = () => {
     statusFilterInList,
     setStatusFilterInList,
     priorityFilterInList,
-    setPriorityFilterInList,
-    setFeatureFilterInList,
-    featureFilterInList
+    setPriorityFilterInList
+    // setFeatureFilterInList,
+    // featureFilterInList
   } = useFilter();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   const getTasks = () => {
     const prioritiesList = Object.values(Priorities).reverse();
     const prioritieValue = prioritiesList.includes(priorityFilterInList) ? priorityFilterInList : '';
-    console.log(featureFilterInList, prioritieValue, statusFilterInList);
-    if (prioritieValue && statusFilterInList && featureFilterInList != 'undefined')
-      return todolist.tasks.filter(
-        e => e.priority == prioritieValue && e.statusId == statusFilterInList && e.isFeature == featureFilterInList
-      );
-    if (prioritieValue && featureFilterInList != 'undefined')
-      return todolist.tasks.filter(e => e.priority == prioritieValue && e.isFeature == featureFilterInList);
-    if (statusFilterInList && featureFilterInList != 'undefined')
-      return todolist.tasks.filter(e => e.statusId == statusFilterInList && e.isFeature == featureFilterInList);
+    // if (prioritieValue && statusFilterInList && featureFilterInList != 'undefined')
+    //   return todolist.tasks.filter(
+    //     e => e.priority == prioritieValue && e.statusId == statusFilterInList && e.isFeature == featureFilterInList
+    //   );
+    // if (prioritieValue && featureFilterInList != 'undefined')
+    //   return todolist.tasks.filter(e => e.priority == prioritieValue && e.isFeature == featureFilterInList);
+    // if (statusFilterInList && featureFilterInList != 'undefined')
+    //   return todolist.tasks.filter(e => e.statusId == statusFilterInList && e.isFeature == featureFilterInList);
     if (prioritieValue && statusFilterInList)
       return todolist.tasks.filter(e => e.priority == prioritieValue && e.statusId == statusFilterInList);
     if (statusFilterInList) return todolist.tasks.filter(e => e.statusId == statusFilterInList);
     if (prioritieValue) return todolist.tasks.filter(e => e.priority == prioritieValue);
-    if (featureFilterInList != 'undefined') return todolist.tasks.filter(e => e.isFeature == featureFilterInList);
+    // if (featureFilterInList != 'undefined') return todolist.tasks.filter(e => e.isFeature == featureFilterInList);
     return todolist.tasks?.filter(e => !e.isDone);
   };
 
@@ -102,7 +101,7 @@ const ListTask = () => {
   useEffect(() => {
     setStatusFilterInList(0);
     setPriorityFilterInList('');
-    setFeatureFilterInList(false);
+    // setFeatureFilterInList();
   }, []);
 
   return (
