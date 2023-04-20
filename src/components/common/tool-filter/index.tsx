@@ -12,7 +12,6 @@ import {
   SelectChangeEvent
 } from '@mui/material';
 import classNames from 'classnames';
-import Link from 'next/link';
 import {FC, useState} from 'react';
 
 import Icon from '@/core-ui/icon';
