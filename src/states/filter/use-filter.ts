@@ -11,7 +11,9 @@ export default function useFilter() {
     priorityFilterInList,
     priorityFilterInMytask,
     featureFilterInList,
-    featureFilterInMytask
+    featureFilterInMytask,
+    assigneeFilterInList,
+    assigneeFilterInMytask
   } = filterState;
   const {actions} = filterSlice;
 
@@ -20,8 +22,12 @@ export default function useFilter() {
   const setStatusFilterInMyTask = (value: number[]) => dispatch(actions.setStatusFilterInMyTask(value));
   const setPriorityFilterInList = (value: string) => dispatch(actions.setPriorityFilterInList(value));
   const setPriorityFilterInMyTask = (value: string[]) => dispatch(actions.setPriorityFilterInMyTask(value));
-  const setFeatureFilterInList = (value: boolean | undefined | string) => dispatch(actions.setFeatureFilterInList(value));
-  const setFeatureFilterInMyTask = (value: boolean[] | undefined | string) => dispatch(actions.setFeatureFilterInMyTask(value));
+  const setAssigneeFilterInList = (value: string) => dispatch(actions.setAssigneeFilterInList(value));
+  const setAssigneeFilterInMyTask = (value: string[]) => dispatch(actions.setAssigneeFilterInMyTask(value));
+  const setFeatureFilterInList = (value: boolean | undefined | string) =>
+    dispatch(actions.setFeatureFilterInList(value));
+  const setFeatureFilterInMyTask = (value: boolean[] | undefined | string) =>
+    dispatch(actions.setFeatureFilterInMyTask(value));
 
   return {
     statusFilterInList,
@@ -35,6 +41,10 @@ export default function useFilter() {
     setFeatureFilterInList,
     setFeatureFilterInMyTask,
     featureFilterInList,
-    featureFilterInMytask
+    featureFilterInMytask,
+    setAssigneeFilterInList,
+    setAssigneeFilterInMyTask,
+    assigneeFilterInList,
+    assigneeFilterInMytask
   };
 }

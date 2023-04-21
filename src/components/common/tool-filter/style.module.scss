@@ -68,12 +68,18 @@
   .MuiButtonBase-root {
     @apply hover:bg-transparent;
   }
+  .MuiSelect-outlined {
+    @apply border-0 border-none;
+  }
 }
 
 .menu-dropdown :global {
   @apply w-full max-w-xs;
   .MuiPaper-root {
     background-color: #000;
+  }
+  .MuiSelect-outlined {
+    @apply border-0 border-none;
   }
 }
 

@@ -6,7 +6,9 @@ const initialState: IInitialState = {
   priorityFilterInList: '',
   priorityFilterInMytask: [],
   featureFilterInList: false,
-  featureFilterInMytask: []
+  featureFilterInMytask: [],
+  assigneeFilterInList: '',
+  assigneeFilterInMytask: []
 };
 
 export default initialState;

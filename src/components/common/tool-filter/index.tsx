@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import {ExpandLess, ExpandMore} from '@mui/icons-material';
 import {
   Collapse,
@@ -16,10 +17,12 @@ import {FC, useState} from 'react';
 
 import Icon from '@/core-ui/icon';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import useMemberOptions from '@/hooks/useMemberOptions';
 import useFilter from '@/states/filter/use-filter';
+import useTodolist from '@/states/todolist/use-todolist';
 import {Priorities, PriorityColors, PriorityIcons} from '@/utils/constant';
 
-// import useTodolist from '@/states/todolist/use-todolist';
+import AssigneeIcon from '../assignee-icon';
 import style from './style.module.scss';
 
 interface IProps {
@@ -45,14 +48,17 @@ const status: StatusIprops[] = [
 ];
 
 const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
-  const {setStatusFilterInList, setStatusFilterInMyTask, setPriorityFilterInList} = useFilter();
+  const {setStatusFilterInList, setStatusFilterInMyTask, setPriorityFilterInList, setAssigneeFilterInList} =
+    useFilter();
   const [selectStatus, setSelectStatus] = useState<number>(0);
-  const [selectPriority, setSelectPriority] = useState<string>('');
+  const [selectPriority, setSelectPriority] = useState<string>('default');
+  const [selectAssignee, setSelectAssignee] = useState<string>('default');
   const [openStatus, setOpenStatus] = useState(false);
+  const [openAssignee, setOpenAssignee] = useState(false);
   const [openPriority, setOpenPriority] = useState(false);
   // const [isFeature, setIsFeature] = useState<any>(false);
   // const {write: isWrite} = useTodolist();
-
+  const {todolist: todoList} = useTodolist();
   const prioList = Object.values(Priorities).reverse();
   const prioColors = Object.values(PriorityColors).reverse();
   const prioIcons = Object.values(PriorityIcons).reverse();
@@ -118,7 +124,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
       });
     });
   }
-
+  const assignees: {id: string; name: string; email?: string}[] = [];
   const myTasksStatus: {id: number[]; color: string; backgroundColor: string}[] = [];
   myTasksStatus.push(temp0, temp1, temp2, temp3, temp4, temp5);
 
@@ -128,6 +134,10 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
 
   const onOpenStatus = () => {
     setOpenStatus(!openStatus);
+  };
+
+  const onOpenAssignee = () => {
+    setOpenAssignee(!openAssignee);
   };
 
   const onChangeStatus = (e: SelectChangeEvent<number>) => {
@@ -156,11 +166,27 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
     }
   };
 
+  const onChangeAssignee = (e: SelectChangeEvent<unknown>) => {
+    const assigneeValue = String(e.target.value);
+    setSelectAssignee(assigneeValue);
+    if (todolist) {
+      setAssigneeFilterInList(assigneeValue);
+    }
+    if (myTasks) {
+      setAssigneeFilterInList(assigneeValue);
+    }
+  };
+
   const onReset = () => {
     setSelectStatus(0);
     setSelectPriority('default');
+    setSelectAssignee('default');
     setStatusFilterInList(0);
     setPriorityFilterInList('');
+    setAssigneeFilterInList('default');
+    setOpenAssignee(false);
+    setOpenPriority(false);
+    setOpenStatus(false);
   };
 
   // const onChangeIsFeature = (event: SelectChangeEvent<unknown>) => {
@@ -174,7 +200,12 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
   //     setFeatureFilterInList(newIsFeature);
   //   }
   // };
-
+  const {options} = useMemberOptions(todoList.members);
+  todoList.tasks.map(({assignees: Assigneeitem}) => {
+    Assigneeitem[0]?.user?.id && assignees.push(Assigneeitem[0]?.user);
+  });
+  const newAssigneeList = Array.from(new Set(assignees.map(e => e.id)));
+  const assigneeOptions = newAssigneeList.map(e => options.filter(a => a.id == e));
   return (
     <div className={classNames(style['tool-filter'], className)}>
       <div className="filter-icon">
@@ -279,6 +310,60 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
             </Collapse>
           </List>
           <hr />
+        </MenuItem>
+        <MenuItem className={`${style['menu-item']} menu-item`}>
+          <List component="nav">
+            <ListItemButton onClick={onOpenAssignee}>
+              <span>Assignee</span>
+              {openAssignee ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={openAssignee} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <FormControl>
+                  <RadioGroup
+                    aria-labelledby="radio-assginee-group-label"
+                    defaultValue={selectAssignee}
+                    name="radio-assginee-group"
+                    onChange={onChangeAssignee}
+                    className="priority-radios"
+                  >
+                    <FormControlLabel
+                      key={'default'}
+                      value={'default'}
+                      sx={{color: '#000000'}}
+                      control={<Radio />}
+                      label="Assignees"
+                      checked={selectAssignee == 'default'}
+                    />
+                    <FormControlLabel
+                      key={'Unassigned'}
+                      value={'Unassigned'}
+                      sx={{color: '#000000'}}
+                      control={<Radio />}
+                      label="Unassigned"
+                      checked={selectAssignee == 'Unassigned'}
+                    />
+                    {assigneeOptions.map(a => (
+                      <FormControlLabel
+                        key={a[0].id}
+                        value={a[0].id}
+                        control={<Radio />}
+                        label={
+                          <>
+                            <div className="assignee-user mr-1">
+                              <AssigneeIcon name={a[0].name} bg={a[0].bg} />
+                            </div>
+                            <span>{a[0].name}</span>
+                          </>
+                        }
+                        checked={selectAssignee == a[0].id}
+                      />
+                    ))}
+                  </RadioGroup>
+                </FormControl>
+              </List>
+            </Collapse>
+          </List>
         </MenuItem>
       </Select>
     </div>

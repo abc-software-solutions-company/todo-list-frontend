@@ -5,4 +5,6 @@ export interface IInitialState {
   priorityFilterInMytask: string[];
   featureFilterInList: boolean | undefined | string;
   featureFilterInMytask: boolean[] | undefined | string;
+  assigneeFilterInList: string;
+  assigneeFilterInMytask: string[];
 }

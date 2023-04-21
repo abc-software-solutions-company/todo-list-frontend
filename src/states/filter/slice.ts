@@ -23,6 +23,12 @@ const filterSlice = createSlice({
     },
     setFeatureFilterInMyTask: (state, {payload}: PayloadAction<boolean[] | undefined | string>) => {
       state.featureFilterInMytask = payload;
+    },
+    setAssigneeFilterInList: (state, {payload}: PayloadAction<string>) => {
+      state.assigneeFilterInList = payload;
+    },
+    setAssigneeFilterInMyTask: (state, {payload}: PayloadAction<string[]>) => {
+      state.assigneeFilterInMytask = payload;
     }
   }
 });
