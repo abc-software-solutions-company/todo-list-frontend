@@ -23,6 +23,7 @@ import useTodolist from '@/states/todolist/use-todolist';
 import {Priorities, PriorityColors, PriorityIcons} from '@/utils/constant';
 
 import AssigneeIcon from '../assignee-icon';
+import BpRadio from '../mui-custom-radio-button';
 import style from './style.module.scss';
 
 interface IProps {
@@ -216,11 +217,13 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
       <Select style={{width: 65}} variant="standard" disableUnderline className={style['menu-dropdown']} autoWidth>
         <MenuItem className={style['menu-item']}>
           <div className="menu-header-inner">
-            <span>Filter</span>
-            <span onClick={onReset}>Reset</span>
+            <span className="font-bold">Filter</span>
+            <span className="text-blue-500" onClick={onReset}>
+              Reset
+            </span>
           </div>
-          <hr />
         </MenuItem>
+        <hr className="mx-[20px] mt-3" />
         <MenuItem className={`${style['menu-item']} menu-item`}>
           <List component="nav">
             <ListItemButton onClick={onOpenStatus}>
@@ -241,7 +244,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
                       key={0}
                       value={0}
                       sx={{color: '#000000', background: '#F1F5F9'}}
-                      control={<Radio />}
+                      control={<BpRadio />}
                       label="Not Done"
                       checked={selectStatus == 0}
                     />
@@ -250,7 +253,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
                         key={color}
                         value={id}
                         sx={{color, background: backgroundColor}}
-                        control={<Radio />}
+                        control={<BpRadio />}
                         label={name}
                         checked={selectStatus == id}
                       />
@@ -282,7 +285,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
                       key={0}
                       value={'default'}
                       sx={{color: '#000000'}}
-                      control={<Radio />}
+                      control={<BpRadio />}
                       label="Prioritys"
                       checked={selectPriority == 'default'}
                     />
@@ -290,7 +293,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
                       <FormControlLabel
                         key={index}
                         value={e}
-                        control={<Radio />}
+                        control={<BpRadio />}
                         label={
                           <>
                             <Icon
@@ -331,7 +334,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
                       key={'default'}
                       value={'default'}
                       sx={{color: '#000000'}}
-                      control={<Radio />}
+                      control={<BpRadio />}
                       label="Assignees"
                       checked={selectAssignee == 'default'}
                     />
@@ -339,7 +342,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
                       key={'Unassigned'}
                       value={'Unassigned'}
                       sx={{color: '#000000'}}
-                      control={<Radio />}
+                      control={<BpRadio />}
                       label="Unassigned"
                       checked={selectAssignee == 'Unassigned'}
                     />
