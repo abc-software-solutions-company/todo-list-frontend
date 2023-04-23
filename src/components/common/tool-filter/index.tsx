@@ -213,7 +213,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
         <span>Filter</span>
       </div>
 
-      <Select className={style['menu-dropdown']} autoWidth>
+      <Select style={{width: 65}} variant="standard" disableUnderline className={style['menu-dropdown']} autoWidth>
         <MenuItem className={style['menu-item']}>
           <div className="menu-header-inner">
             <span>Filter</span>
