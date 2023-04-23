@@ -26,6 +26,7 @@ const ListTask = () => {
   } = useFilter();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
+  //FIXME: Fix chữa cháy kịp buổi release, sẽ sớm viết lại hàm getTask và các filter cho gọn hơn.
   const getTasks = () => {
     const prioritiesList = Object.values(Priorities).reverse();
     const prioritieValue = prioritiesList.includes(priorityFilterInList) ? priorityFilterInList : '';
@@ -122,7 +123,7 @@ const ListTask = () => {
   useEffect(() => {
     setStatusFilterInList(0);
     setPriorityFilterInList('');
-    setAssigneeFilterInList('');
+    setAssigneeFilterInList('default');
     // setFeatureFilterInList();
   }, []);
 

@@ -335,7 +335,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
                       value={'default'}
                       sx={{color: '#000000'}}
                       control={<BpRadio />}
-                      label="Assignees"
+                      label="Show All"
                       checked={selectAssignee == 'default'}
                     />
                     <FormControlLabel
