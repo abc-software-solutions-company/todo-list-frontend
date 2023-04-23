@@ -15,7 +15,7 @@ export default function useMemberOptions(members: IMember[], memberActiveId?: st
       name: 'Unassigned'
     }
   ];
-  const optionsList: IOptions[] = members
+  const optionsList: IOptions[] = (members || [])
     ?.map((e, index) => ({bg: JoinerBgColos[index % JoinerBgColos.length], ...e}))
     .sort(a => (a.id == auth?.id ? -1 : 1));
 

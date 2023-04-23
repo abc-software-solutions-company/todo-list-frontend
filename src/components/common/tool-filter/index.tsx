@@ -201,7 +201,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
   //   }
   // };
   const {options} = useMemberOptions(todoList.members);
-  todoList.tasks.map(({assignees: Assigneeitem}) => {
+  (todoList.tasks || []).map(({assignees: Assigneeitem}) => {
     Assigneeitem[0]?.user?.id && assignees.push(Assigneeitem[0]?.user);
   });
   const newAssigneeList = Array.from(new Set(assignees.map(e => e.id)));
