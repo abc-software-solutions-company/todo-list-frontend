@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import React from 'react';
+import React, {useState} from 'react';
 
 import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
@@ -20,8 +20,14 @@ const Document: React.FC<IProps> = ({name, iconDropdown, active, getDocument, sh
   const {error, document, updateDocument} = useDocumentsStore();
   const toast = useToast();
   const {id, content} = document;
+  const [isShown, setIsShown] = useState(false);
+
   return (
-    <div className="relative min-w-[10rem]">
+    <div
+      className="relative min-w-[10rem]"
+      onMouseEnter={() => setIsShown(true)}
+      onMouseLeave={() => setIsShown(false)}
+    >
       <div
         className={cls(
           active ? '-mx-3 bg-slate-100 px-3' : 'hover:rounded-md hover:bg-slate-100',
@@ -33,16 +39,18 @@ const Document: React.FC<IProps> = ({name, iconDropdown, active, getDocument, sh
           <Icon name="drop" className={iconDropdown} onClick={showMoreDoc} />
           <p className="max-h-[25px] overflow-hidden">📗 {name}</p>
         </div>
-        <OptionDocument
-          onAddFavorite={() => {
-            updateDocument({id, content, favorite: true});
-            if (error) {
-              toast.show({type: 'danger', title: 'Delete Error', content: ToastContents.ERROR});
-            } else {
-              toast.show({type: 'success', title: 'Delete Success', content: ToastContents.SUCCESS});
-            }
-          }}
-        />
+        {isShown && (
+          <OptionDocument
+            onAddFavorite={() => {
+              updateDocument({id, content, favorite: true});
+              if (error) {
+                toast.show({type: 'danger', title: 'Delete Error', content: ToastContents.ERROR});
+              } else {
+                toast.show({type: 'success', title: 'Delete Success', content: ToastContents.SUCCESS});
+              }
+            }}
+          />
+        )}
       </div>
     </div>
   );

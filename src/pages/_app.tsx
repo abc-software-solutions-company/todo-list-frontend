@@ -1,4 +1,3 @@
-import 'prismjs/themes/prism-tomorrow.min.css';
 import '@/vendors/bootstrap/bootstrap.scss';
 import '@/vendors/tailwindcss/style.scss';
 import '@/vendors/menu/style.scss';

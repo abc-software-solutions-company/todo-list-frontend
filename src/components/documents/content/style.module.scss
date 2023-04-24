@@ -3,6 +3,9 @@
   @apply rounded-lg border border-[#E2E8F0];
   @apply bg-white;
   .ck-editor__editable {
-    @apply max-h-[59vh] ;
+    @apply max-h-[59vh];
+  }
+  pre {
+    @apply bg-slate-800 p-2 text-slate-200;
   }
 }
