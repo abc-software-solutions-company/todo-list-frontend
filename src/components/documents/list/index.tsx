@@ -42,7 +42,7 @@ const DocumentList: React.FC<IProps> = ({id}) => {
           }
           getDocument={() => {
             getDocument(node.id);
-            router.push(`${ROUTES.DOCUMENT}/${node.id}`, undefined, {shallow: true});
+            router.push(`${ROUTES.DOCUMENT}/${id}?id=${node.id}`, undefined, {shallow: true});
           }}
           active={document.id == node.id}
         />
