@@ -321,60 +321,62 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
             </List>
             <hr />
           </MenuItem>
-          <MenuItem className={`${style['menu-item']} menu-item`}>
-            <List component="nav" className="list-inner">
-              <ListItemButton onClick={onOpenAssignee}>
-                <span>Assignee</span>
-                {openAssignee ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
-              <Collapse in={openAssignee} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <FormControl>
-                    <RadioGroup
-                      aria-labelledby="radio-assginee-group-label"
-                      defaultValue={selectAssignee}
-                      name="radio-assginee-group"
-                      onChange={onChangeAssignee}
-                      className="priority-radios"
-                    >
-                      <FormControlLabel
-                        key={'default'}
-                        value={'default'}
-                        sx={{color: '#000000'}}
-                        control={<BpRadio />}
-                        label="Show All"
-                        checked={selectAssignee == 'default'}
-                      />
-                      <FormControlLabel
-                        key={'Unassigned'}
-                        value={'Unassigned'}
-                        sx={{color: '#000000'}}
-                        control={<BpRadio />}
-                        label="Unassigned"
-                        checked={selectAssignee == 'Unassigned'}
-                      />
-                      {assigneeOptions.map(a => (
+          {!myTasks?.length && (
+            <MenuItem className={`${style['menu-item']} menu-item`}>
+              <List component="nav" className="list-inner">
+                <ListItemButton onClick={onOpenAssignee}>
+                  <span>Assignee</span>
+                  {openAssignee ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+                <Collapse in={openAssignee} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <FormControl>
+                      <RadioGroup
+                        aria-labelledby="radio-assginee-group-label"
+                        defaultValue={selectAssignee}
+                        name="radio-assginee-group"
+                        onChange={onChangeAssignee}
+                        className="priority-radios"
+                      >
                         <FormControlLabel
-                          key={a[0].id}
-                          value={a[0].id}
+                          key={'default'}
+                          value={'default'}
+                          sx={{color: '#000000'}}
                           control={<BpRadio />}
-                          label={
-                            <>
-                              <div className="assignee-user mr-1">
-                                <AssigneeIcon name={a[0].name} bg={a[0].bg} />
-                              </div>
-                              <span>{a[0].name}</span>
-                            </>
-                          }
-                          checked={selectAssignee == a[0].id}
+                          label="Show All"
+                          checked={selectAssignee == 'default'}
                         />
-                      ))}
-                    </RadioGroup>
-                  </FormControl>
-                </List>
-              </Collapse>
-            </List>
-          </MenuItem>
+                        <FormControlLabel
+                          key={'Unassigned'}
+                          value={'Unassigned'}
+                          sx={{color: '#000000'}}
+                          control={<BpRadio />}
+                          label="Unassigned"
+                          checked={selectAssignee == 'Unassigned'}
+                        />
+                        {assigneeOptions.map(a => (
+                          <FormControlLabel
+                            key={a[0].id}
+                            value={a[0].id}
+                            control={<BpRadio />}
+                            label={
+                              <>
+                                <div className="assignee-user mr-1">
+                                  <AssigneeIcon name={a[0].name} bg={a[0].bg} />
+                                </div>
+                                <span>{a[0].name}</span>
+                              </>
+                            }
+                            checked={selectAssignee == a[0].id}
+                          />
+                        ))}
+                      </RadioGroup>
+                    </FormControl>
+                  </List>
+                </Collapse>
+              </List>
+            </MenuItem>
+          )}
         </div>
       </Select>
     </div>
