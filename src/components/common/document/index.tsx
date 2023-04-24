@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import React, {useState} from 'react';
+import React from 'react';
 
 import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
@@ -21,7 +21,6 @@ const Document: React.FC<IProps> = ({name, iconDropdown, active, favorite, getDo
   const {error, document, updateDocument} = useDocumentsStore();
   const toast = useToast();
   const {id, content} = document;
-  const [isFavorite, setIsFavorite] = useState(false);
   return (
     <div className="relative min-w-[10rem]">
       <div
@@ -38,9 +37,7 @@ const Document: React.FC<IProps> = ({name, iconDropdown, active, favorite, getDo
         <OptionDocument
           textFavorite={favorite ? 'Remove favorite' : 'Add favorite'}
           handleFavorite={() => {
-            if (favorite) setIsFavorite(false);
-            else setIsFavorite(true);
-            updateDocument({id, content, favorite: isFavorite});
+            updateDocument({id, content, favorite: !favorite});
             if (error) {
               toast.show({type: 'danger', title: 'Favorite Error', content: ToastContents.ERROR});
             } else {
