@@ -9,10 +9,11 @@ import Icon from '@/core-ui/icon';
 import {MUI_ICON} from '@/utils/mui-icon';
 
 export interface IProps {
-  onAddFavorite: () => void;
+  textFavorite: string;
+  handleFavorite: () => void;
 }
 
-const OptionDocument: FC<IProps> = ({onAddFavorite}) => {
+const OptionDocument: FC<IProps> = ({textFavorite, handleFavorite}) => {
   const [creteChildDoc, isCreateChildDoc] = useState<boolean>(false);
   const [showModalUpdate, isShowModalUpdate] = useState<boolean>(false);
   const [showModalDelete, isShowModalDelete] = useState<boolean>(false);
@@ -23,10 +24,10 @@ const OptionDocument: FC<IProps> = ({onAddFavorite}) => {
     onClick: () => isShowModalUpdate(true)
   };
 
-  const favoriteToolProps: IToolProps = {
+  const addFavoriteToolProps: IToolProps = {
     icon: <></>,
-    text: 'Add to favorite',
-    onClick: () => onAddFavorite()
+    text: textFavorite,
+    onClick: () => handleFavorite()
   };
 
   const deleteToolProps: IToolProps = {
@@ -34,9 +35,8 @@ const OptionDocument: FC<IProps> = ({onAddFavorite}) => {
     text: 'Delete',
     onClick: () => isShowModalDelete(true)
   };
-  //FIXME:Click name can call action, but click outside name not active action, please fill color button for deubg.
-  const toolMenuItems = [renameToolProps, favoriteToolProps, deleteToolProps].map((item, idx) => (
-    <Tool key={idx} {...{...item, className: 'flex-row-reverse w-full'}} />
+  const toolMenuItems = [renameToolProps, addFavoriteToolProps, deleteToolProps].map((item, idx) => (
+    <Tool key={idx} {...{...item, className: 'flex-row-reverse w-full justify-end'}} />
   ));
   return (
     <>

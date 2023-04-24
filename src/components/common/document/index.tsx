@@ -12,11 +12,12 @@ interface IProps {
   iconDropdown?: any;
   name?: string;
   active?: boolean;
+  favorite?: boolean;
   showMoreDoc?: () => void;
   showContent?: () => void;
   getDocument: () => void;
 }
-const Document: React.FC<IProps> = ({name, iconDropdown, active, getDocument, showMoreDoc, showContent}) => {
+const Document: React.FC<IProps> = ({name, iconDropdown, active, favorite, getDocument, showMoreDoc, showContent}) => {
   const {error, document, updateDocument} = useDocumentsStore();
   const toast = useToast();
   const {id, content} = document;
@@ -41,12 +42,13 @@ const Document: React.FC<IProps> = ({name, iconDropdown, active, getDocument, sh
         </div>
         {isShown && (
           <OptionDocument
-            onAddFavorite={() => {
-              updateDocument({id, content, favorite: true});
+            textFavorite={favorite ? 'Remove favorite' : 'Add favorite'}
+            handleFavorite={() => {
+              updateDocument({id, content, favorite: !favorite});
               if (error) {
-                toast.show({type: 'danger', title: 'Delete Error', content: ToastContents.ERROR});
+                toast.show({type: 'danger', title: 'Favorite Error', content: ToastContents.ERROR});
               } else {
-                toast.show({type: 'success', title: 'Delete Success', content: ToastContents.SUCCESS});
+                toast.show({type: 'success', title: 'Favorite Success', content: ToastContents.SUCCESS});
               }
             }}
           />
