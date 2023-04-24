@@ -25,15 +25,14 @@ export interface IForm {
 const DocumentContent: React.FC = () => {
   const [edit, setEdit] = useState(false);
   const {show} = useToast();
-  const {document, error, updateDocument, setDocument} = useDocumentsStore();
+  const {document, error, updateDocument} = useDocumentsStore();
   const {control, handleSubmit} = useForm({
     defaultValues: {
       content: document?.content
     }
   });
   const onSubmit: SubmitHandler<IForm> = data => {
-    setDocument(String(data.content));
-    updateDocument({...document, content: String(data.content)});
+    updateDocument({...document, content: data.content || ''});
     if (error) {
       setEdit(true);
       show({type: 'danger', title: 'Edit Content', content: ToastContents.ERROR});

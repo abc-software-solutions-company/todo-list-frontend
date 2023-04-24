@@ -3,12 +3,7 @@ import {devtools} from 'zustand/middleware';
 import {immer} from 'zustand/middleware/immer';
 
 import api from '@/data/api';
-import {
-  IDocumentAttribute,
-  IDocumentCreate,
-  IGetDocuments,
-  IUpdateDocument
-} from '@/data/api/types/documents.type';
+import {IDocumentAttribute, IDocumentCreate, IGetDocuments, IUpdateDocument} from '@/data/api/types/documents.type';
 
 type State = {
   error: boolean;
@@ -47,6 +42,7 @@ export const useDocumentsStore = create<State & Action>()(
             state => {
               state.documents = res.data;
               state.isFeching = true;
+              if (!state.document?.id) state.document = state.documents?.[0];
             },
             false,
             'documents/getAllDocument'

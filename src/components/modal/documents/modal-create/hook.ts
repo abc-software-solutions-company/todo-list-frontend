@@ -38,8 +38,8 @@ export default function useModalCreateDocument({open, onClose, docChild}: IProps
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
     if (isSubmitting) return;
     const todolistId = String(router.query.id);
-    const parentId = document.id;
     if (docChild) {
+      const parentId = document.id;
       createDocument({todolistId, parentId, ...formData});
     } else createDocument({todolistId, ...formData});
     if (error) {
