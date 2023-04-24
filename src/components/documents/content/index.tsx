@@ -32,7 +32,6 @@ const DocumentContent: React.FC = () => {
     }
   });
   const onSubmit: SubmitHandler<IForm> = data => {
-    console.log('🚀 ~ file: index.tsx:97 ~ data:', data);
     updateDocument({...document, content: data.content || ''});
     if (error) {
       setEdit(true);
