@@ -69,13 +69,13 @@ const DocumentList: React.FC<IProps> = ({id}) => {
         <hr />
         <div>
           <p className="mt-3 font-bold">Favorite</p>
-          <div className="scrollbar relative max-h-[67vh] overflow-x-auto overflow-y-auto">
+          <div className="scrollbar relative max-h-[33vh] overflow-x-auto overflow-y-auto">
             {documents?.map(item => item.favorite && renderNode(item, item.favorite))}
           </div>
         </div>
         <div>
           <p className="mt-3 font-bold">Pages</p>
-          <div className="scrollbar relative max-h-[67vh] overflow-x-auto overflow-y-auto">
+          <div className="scrollbar relative max-h-[33vh] overflow-x-auto overflow-y-auto">
             {documents?.map(item => renderNode(item, item.favorite))}
           </div>
         </div>
