@@ -99,9 +99,32 @@
 }
 
 .menu-item {
-  @apply hover:bg-transparent;
+  &:hover {
+    background-color: transparent !important;
+  }
 }
-
-.MuiPaper-root {
-  background-color: #000;
+.scrollbar {
+  &::-webkit-scrollbar {
+    @apply h-2 w-2;
+  }
+  &::-webkit-scrollbar-track {
+    @apply rounded bg-blue-400;
+  }
+  &::-webkit-scrollbar-thumb {
+    @apply rounded bg-blue-500;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    @apply bg-blue-500;
+  }
+  &.scrolling-touch {
+    -webkit-overflow-scrolling: touch;
+  }
+  &.scrolling-auto {
+    -webkit-overflow-scrolling: auto;
+  }
+}
+.scrollbar-none {
+  &::-webkit-scrollbar {
+    @apply h-0 w-0;
+  }
 }

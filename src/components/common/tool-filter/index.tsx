@@ -221,159 +221,161 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
         autoWidth
         sx={{'&:hover': {backgroundColor: 'transparent'}, '&:active': {backgroundColor: 'transparent'}}}
       >
-        <MenuItem className={style['menu-item']}>
-          <div className="menu-header-inner">
-            <span className="font-bold">Filter</span>
-            <span className="font-medium text-blue-500" onClick={onReset}>
-              Reset
-            </span>
-          </div>
-        </MenuItem>
-        <hr className="mx-[20px] mt-3" />
-        <MenuItem className={`${style['menu-item']} menu-item`}>
-          <List component="nav" className="list-inner">
-            <ListItemButton onClick={onOpenStatus}>
-              <span>Status</span>
-              {openStatus ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={openStatus} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <FormControl>
-                  <RadioGroup
-                    aria-labelledby="radio-status-group-label"
-                    defaultValue={selectStatus}
-                    name="radio-status-group"
-                    onChange={onChangeStatus}
-                    className="status-radios"
-                  >
-                    <FormControlLabel
-                      key={0}
-                      value={0}
-                      sx={{color: '#000000', background: '#F1F5F9'}}
-                      control={<BpRadio />}
-                      label="Not Done"
-                      checked={selectStatus == 0}
-                    />
-                    {status.map(({id, name, color, backgroundColor}) => (
+        <div className="select-inner scrollbar max-h-[70vh] overflow-y-auto overflow-x-hidden">
+          <MenuItem className={style['menu-item']}>
+            <div className="menu-header-inner">
+              <span className="font-bold">Filter</span>
+              <span className="font-medium text-blue-500" onClick={onReset}>
+                Reset
+              </span>
+            </div>
+          </MenuItem>
+          <hr className="mx-[20px] mt-3" />
+          <MenuItem className={`${style['menu-item']} menu-item`}>
+            <List component="nav" className="list-inner">
+              <ListItemButton onClick={onOpenStatus}>
+                <span>Status</span>
+                {openStatus ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+              <Collapse in={openStatus} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <FormControl>
+                    <RadioGroup
+                      aria-labelledby="radio-status-group-label"
+                      defaultValue={selectStatus}
+                      name="radio-status-group"
+                      onChange={onChangeStatus}
+                      className="status-radios"
+                    >
                       <FormControlLabel
-                        key={color}
-                        value={id}
-                        sx={{color, background: backgroundColor}}
+                        key={0}
+                        value={0}
+                        sx={{color: '#000000', background: '#F1F5F9'}}
                         control={<BpRadio />}
-                        label={name}
-                        checked={selectStatus == id}
+                        label="Not Done"
+                        checked={selectStatus == 0}
                       />
-                    ))}
-                  </RadioGroup>
-                </FormControl>
-              </List>
-            </Collapse>
-          </List>
-          <hr />
-        </MenuItem>
-        <MenuItem className={`${style['menu-item']} menu-item`}>
-          <List component="nav" className="list-inner">
-            <ListItemButton onClick={onOpenPriority}>
-              <span>Priority</span>
-              {openPriority ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={openPriority} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <FormControl>
-                  <RadioGroup
-                    aria-labelledby="radio-priority-group-label"
-                    defaultValue={selectPriority}
-                    name="radio-priority-group"
-                    onChange={onChangePriority}
-                    className="priority-radios"
-                  >
-                    <FormControlLabel
-                      key={0}
-                      value={'default'}
-                      sx={{color: '#000000'}}
-                      control={<BpRadio />}
-                      label="Prioritys"
-                      checked={selectPriority == 'default'}
-                    />
-                    {prioList.map((e, index) => (
+                      {status.map(({id, name, color, backgroundColor}) => (
+                        <FormControlLabel
+                          key={color}
+                          value={id}
+                          sx={{color, background: backgroundColor}}
+                          control={<BpRadio />}
+                          label={name}
+                          checked={selectStatus == id}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                </List>
+              </Collapse>
+            </List>
+            <hr />
+          </MenuItem>
+          <MenuItem className={`${style['menu-item']} menu-item`}>
+            <List component="nav" className="list-inner">
+              <ListItemButton onClick={onOpenPriority}>
+                <span>Priority</span>
+                {openPriority ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+              <Collapse in={openPriority} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <FormControl>
+                    <RadioGroup
+                      aria-labelledby="radio-priority-group-label"
+                      defaultValue={selectPriority}
+                      name="radio-priority-group"
+                      onChange={onChangePriority}
+                      className="priority-radios"
+                    >
                       <FormControlLabel
-                        key={index}
-                        value={e}
+                        key={0}
+                        value={'default'}
+                        sx={{color: '#000000'}}
                         control={<BpRadio />}
-                        label={
-                          <>
-                            <Icon
-                              className="priority-icon mr-1 "
-                              name={prioIcons[index]}
-                              style={{color: prioColors[index]}}
-                            />
-                            {e}
-                          </>
-                        }
-                        checked={selectPriority == e}
+                        label="Prioritys"
+                        checked={selectPriority == 'default'}
                       />
-                    ))}
-                  </RadioGroup>
-                </FormControl>
-              </List>
-            </Collapse>
-          </List>
-          <hr />
-        </MenuItem>
-        <MenuItem className={`${style['menu-item']} menu-item`}>
-          <List component="nav" className="list-inner">
-            <ListItemButton onClick={onOpenAssignee}>
-              <span>Assignee</span>
-              {openAssignee ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={openAssignee} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <FormControl>
-                  <RadioGroup
-                    aria-labelledby="radio-assginee-group-label"
-                    defaultValue={selectAssignee}
-                    name="radio-assginee-group"
-                    onChange={onChangeAssignee}
-                    className="priority-radios"
-                  >
-                    <FormControlLabel
-                      key={'default'}
-                      value={'default'}
-                      sx={{color: '#000000'}}
-                      control={<BpRadio />}
-                      label="Show All"
-                      checked={selectAssignee == 'default'}
-                    />
-                    <FormControlLabel
-                      key={'Unassigned'}
-                      value={'Unassigned'}
-                      sx={{color: '#000000'}}
-                      control={<BpRadio />}
-                      label="Unassigned"
-                      checked={selectAssignee == 'Unassigned'}
-                    />
-                    {assigneeOptions.map(a => (
+                      {prioList.map((e, index) => (
+                        <FormControlLabel
+                          key={index}
+                          value={e}
+                          control={<BpRadio />}
+                          label={
+                            <>
+                              <Icon
+                                className="priority-icon mr-1 "
+                                name={prioIcons[index]}
+                                style={{color: prioColors[index]}}
+                              />
+                              {e}
+                            </>
+                          }
+                          checked={selectPriority == e}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                </List>
+              </Collapse>
+            </List>
+            <hr />
+          </MenuItem>
+          <MenuItem className={`${style['menu-item']} menu-item`}>
+            <List component="nav" className="list-inner">
+              <ListItemButton onClick={onOpenAssignee}>
+                <span>Assignee</span>
+                {openAssignee ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+              <Collapse in={openAssignee} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <FormControl>
+                    <RadioGroup
+                      aria-labelledby="radio-assginee-group-label"
+                      defaultValue={selectAssignee}
+                      name="radio-assginee-group"
+                      onChange={onChangeAssignee}
+                      className="priority-radios"
+                    >
                       <FormControlLabel
-                        key={a[0].id}
-                        value={a[0].id}
+                        key={'default'}
+                        value={'default'}
+                        sx={{color: '#000000'}}
                         control={<BpRadio />}
-                        label={
-                          <>
-                            <div className="assignee-user mr-1">
-                              <AssigneeIcon name={a[0].name} bg={a[0].bg} />
-                            </div>
-                            <span>{a[0].name}</span>
-                          </>
-                        }
-                        checked={selectAssignee == a[0].id}
+                        label="Show All"
+                        checked={selectAssignee == 'default'}
                       />
-                    ))}
-                  </RadioGroup>
-                </FormControl>
-              </List>
-            </Collapse>
-          </List>
-        </MenuItem>
+                      <FormControlLabel
+                        key={'Unassigned'}
+                        value={'Unassigned'}
+                        sx={{color: '#000000'}}
+                        control={<BpRadio />}
+                        label="Unassigned"
+                        checked={selectAssignee == 'Unassigned'}
+                      />
+                      {assigneeOptions.map(a => (
+                        <FormControlLabel
+                          key={a[0].id}
+                          value={a[0].id}
+                          control={<BpRadio />}
+                          label={
+                            <>
+                              <div className="assignee-user mr-1">
+                                <AssigneeIcon name={a[0].name} bg={a[0].bg} />
+                              </div>
+                              <span>{a[0].name}</span>
+                            </>
+                          }
+                          checked={selectAssignee == a[0].id}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                </List>
+              </Collapse>
+            </List>
+          </MenuItem>
+        </div>
       </Select>
     </div>
   );
