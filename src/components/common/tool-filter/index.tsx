@@ -354,22 +354,24 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
                           label="Unassigned"
                           checked={selectAssignee == 'Unassigned'}
                         />
-                        {assigneeOptions.map(a => (
-                          <FormControlLabel
-                            key={a[0]?.id}
-                            value={a[0]?.id}
-                            control={<BpRadio />}
-                            label={
-                              <>
-                                <div className="assignee-user mr-1">
-                                  <AssigneeIcon name={a[0]?.name} bg={a[0]?.bg} />
-                                </div>
-                                <span>{a[0]?.name}</span>
-                              </>
-                            }
-                            checked={selectAssignee == a[0]?.id}
-                          />
-                        ))}
+                        {assigneeOptions
+                          .filter(a => a.length > 0)
+                          .map(a => (
+                            <FormControlLabel
+                              key={a[0].id}
+                              value={a[0].id}
+                              control={<BpRadio />}
+                              label={
+                                <>
+                                  <div className="assignee-user mr-1">
+                                    <AssigneeIcon name={a[0].name} bg={a[0].bg} />
+                                  </div>
+                                  <span>{a[0].name}</span>
+                                </>
+                              }
+                              checked={selectAssignee == a[0].id}
+                            />
+                          ))}
                       </RadioGroup>
                     </FormControl>
                   </List>
