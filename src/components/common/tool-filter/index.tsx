@@ -222,10 +222,10 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
         sx={{'&:hover': {backgroundColor: 'transparent'}, '&:active': {backgroundColor: 'transparent'}}}
       >
         <div className="select-inner scrollbar max-h-[70vh] overflow-y-auto overflow-x-hidden">
-          <MenuItem className={style['menu-item']}>
+          <MenuItem className={`${style['menu-item']} hover:cursor-default`}>
             <div className="menu-header-inner">
               <span className="font-bold">Filter</span>
-              <span className="font-medium text-blue-500" onClick={onReset}>
+              <span className="font-medium text-blue-500 hover:cursor-pointer" onClick={onReset}>
                 Reset
               </span>
             </div>
