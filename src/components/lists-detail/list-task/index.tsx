@@ -38,6 +38,10 @@ const ListTask = () => {
     //   return todolist.tasks.filter(e => e.priority == prioritieValue && e.isFeature == featureFilterInList);
     // if (statusFilterInList && featureFilterInList != 'undefined')
     //   return todolist.tasks.filter(e => e.statusId == statusFilterInList && e.isFeature == featureFilterInList);
+    if (assigneeFilterInList == 'Unassigned' && statusFilterInList && prioritieValue)
+      return todolist.tasks.filter(
+        e => e.assignees.length == 0 && e.statusId == statusFilterInList && e.priority == prioritieValue
+      );
     if (assigneeFilterInList != 'default' && statusFilterInList && prioritieValue)
       return todolist.tasks.filter(
         e =>
@@ -45,16 +49,20 @@ const ListTask = () => {
           e.statusId == statusFilterInList &&
           e.priority == prioritieValue
       );
-    if (prioritieValue && statusFilterInList)
-      return todolist.tasks.filter(e => e.priority == prioritieValue && e.statusId == statusFilterInList);
+    if (assigneeFilterInList == 'Unassigned' && prioritieValue)
+      return todolist.tasks.filter(e => e.assignees.length == 0 && e.priority == prioritieValue);
+    if (assigneeFilterInList == 'Unassigned' && statusFilterInList)
+      return todolist.tasks.filter(e => e.assignees.length == 0 && e.statusId == statusFilterInList);
     if (assigneeFilterInList != 'default' && statusFilterInList)
       return todolist.tasks.filter(
         e => e.assignees[0]?.userId == assigneeFilterInList && e.statusId == statusFilterInList
       );
     if (prioritieValue && assigneeFilterInList != 'default')
       return todolist.tasks.filter(e => e.priority == prioritieValue && e.assignees[0]?.userId == assigneeFilterInList);
-    if (statusFilterInList) return todolist.tasks.filter(e => e.statusId == statusFilterInList);
+    if (prioritieValue && statusFilterInList)
+      return todolist.tasks.filter(e => e.priority == prioritieValue && e.statusId == statusFilterInList);
     if (prioritieValue) return todolist.tasks.filter(e => e.priority == prioritieValue);
+    if (statusFilterInList) return todolist.tasks.filter(e => e.statusId == statusFilterInList);
     if (assigneeFilterInList == 'Unassigned') {
       return todolist.tasks.filter(e => e.assignees.length == 0);
     } else if (assigneeFilterInList != 'default') {
