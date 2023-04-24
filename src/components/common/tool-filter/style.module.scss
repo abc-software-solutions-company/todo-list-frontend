@@ -13,13 +13,76 @@
     }
   }
   .MuiSelect-select {
-    @apply h-6 p-0;
+    @apply h-6 p-0 pl-16;
     padding-right: 0 !important;
-    .dropdown-name {
-      @apply mt-2 h-auto py-0 px-1 align-middle text-brand;
+  }
+  .MuiList-root {
+    @apply w-full max-w-xs;
+  }
+}
+.menu-item :global {
+  width: 300px;
+  @apply flex flex-col px-[20px];
+  hr {
+    @apply block w-full;
+  }
+  .menu-header-inner {
+    @apply flex w-full justify-between;
+  }
+  .MuiList-subheader {
+    @apply flex w-full justify-between;
+  }
+  .MuiListSubheader-root {
+    @apply p-0;
+  }
+  .MuiListItemButton-root {
+    @apply mb-3 flex w-full justify-between p-0;
+  }
+  .MuiList-root {
+    @apply w-full;
+  }
+  .status-radios {
+    @apply font-semibold;
+    .MuiFormControlLabel-root {
+      @apply ml-8 mb-2.5 w-fit rounded px-2 py-1;
+    }
+    .MuiRadio-root {
+      @apply absolute left-0 p-0;
+    }
+    .MuiTypography-root {
+      @apply flex items-center;
     }
   }
-  .MuiOutlinedInput-notchedOutline {
-    @apply border-0 p-0;
+  .priority-radios {
+    @apply font-semibold;
+    .MuiFormControlLabel-root {
+      @apply ml-8 mb-3.5 w-fit;
+    }
+    .MuiRadio-root {
+      @apply absolute left-0 p-0;
+    }
+    .MuiTypography-root {
+      @apply flex items-center;
+    }
   }
+  .MuiButtonBase-root {
+    @apply hover:bg-transparent;
+  }
+  .MuiSelect-outlined {
+    @apply border-0 border-none;
+  }
+}
+
+.menu-dropdown :global {
+  @apply w-full max-w-xs;
+  .MuiPaper-root {
+    background-color: #000;
+  }
+  .MuiSelect-outlined {
+    @apply border-0 border-none;
+  }
+}
+
+.menu-item {
+  @apply hover:bg-transparent;
 }

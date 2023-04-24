@@ -1,8 +1,9 @@
 import {Active, DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, Over} from '@dnd-kit/core';
 import {arrayMove, horizontalListSortingStrategy, SortableContext} from '@dnd-kit/sortable';
-import React, {FC, useCallback, useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 
 import api from '@/data/api';
+import {socketUpdateList} from '@/data/socket';
 import {useBoardState} from '@/hooks/useBoardState';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useBoards from '@/states/board/use-boards';
@@ -22,111 +23,119 @@ const KanbanContainer: FC = () => {
   const [boardState, setBoardState] = useState<BoardState>({ids: [], entities: {}});
   const [activeItemId, setActiveItemId] = useState<string>();
   const [activeColumnId, setActiveColumnId] = useState<string>();
+  const [needUpdate, setNeedUpdate] = useState(false);
 
   useEffect(() => {
     boardStore.generateState(statusList);
+    setNeedUpdate(true);
   }, [statusList]);
 
   useEffect(() => {
-    if (!boardState.ids.length) {
+    if (needUpdate) {
       const entities: BoardState['entities'] = {};
       const ids = boardStore.ids.map(key => {
         entities[key] = boardStore.entitiesColumn[key].ids;
         return key;
       });
       setBoardState({ids, entities});
+      setNeedUpdate(false);
     }
-  }, [boardStore]);
+  }, [needUpdate, boardStore]);
 
-  const getDragData = useCallback(({active, over}: {active: Active; over: Over | null}) => {
+  const getDragData = ({active, over}: {active: Active; over: Over | null}) => {
+    console.log('🚀 ~ file: index.tsx:46 ~ getDragData ~ over:', over);
     if (!over?.id) return null;
     const activeId = active.id as string;
-    const overId = over.id as string;
     const activeColumn = active.data.current?.sortable?.containerId as string | undefined;
+    const overId = over.id as string;
     const overContainerId = over?.data.current?.sortable?.containerId as string | undefined;
-    const overColumn = activeColumn !== 'board' && overContainerId === 'board' ? overId : overContainerId;
+    const overColumn = activeColumn !== 'board' ? (overContainerId === 'board' ? overId : overContainerId) : 'board';
     if (!activeColumn || !overColumn) return null;
+    const activeIndex = active?.data.current?.sortable?.index as number | undefined;
     const overIndex = over?.data.current?.sortable?.index as number | undefined;
-    const activeIndex = over?.data.current?.sortable?.index as number | undefined;
     if (overIndex === undefined || activeIndex === undefined || overIndex < 0) return null;
     return {activeColumn, overColumn, activeIndex, overIndex, activeId, overId};
-  }, []);
+  };
 
-  const onDragStart = useCallback(
-    ({active}: DragStartEvent) =>
-      active.data.current?.sortable?.containerId === 'board'
-        ? setActiveColumnId(active.id as string)
-        : setActiveItemId(active.id as string),
-    []
-  );
+  const onDragStart = ({active}: DragStartEvent) =>
+    active.data.current?.sortable?.containerId === 'board'
+      ? setActiveColumnId(active.id as string)
+      : setActiveItemId(active.id as string);
 
-  const onDragCancel = useCallback(() => {
+  const onDragCancel = () => {
     setActiveItemId(undefined);
     setActiveColumnId(undefined);
-  }, []);
+  };
+  const onDragOver = ({active, over}: DragOverEvent) => {
+    const dragData = getDragData({active, over});
+    if (!dragData) return;
+    const {activeColumn, overColumn, overIndex, activeId} = dragData;
+    if (activeColumn === overColumn) return;
+    const newEntities = {...boardState.entities};
+    newEntities[activeColumn] = newEntities[activeColumn].filter(e => e !== activeId);
+    const overEntity = newEntities[overColumn];
+    newEntities[overColumn] = [...overEntity.slice(0, overIndex), activeId, ...overEntity.slice(overIndex)];
+    setBoardState({...boardState, entities: newEntities});
+  };
 
-  const onDragOver = useCallback(
-    ({active, over}: DragOverEvent) => {
-      const dragData = getDragData({active, over});
-      if (!dragData) return;
-      const {activeColumn, overColumn, overIndex, activeId} = dragData;
-      if (activeColumn === overColumn) return;
+  const onDragEnd = ({active, over}: DragEndEvent) => {
+    onDragCancel();
+    const dragData = getDragData({active, over});
+    if (!dragData) return;
+    const {activeColumn, overColumn, activeIndex, overIndex, activeId} = dragData;
+    //move column
+    if (activeColumn === 'board' && overColumn === 'board') {
+      const indexList = boardState.ids
+        .filter(e => e !== activeId)
+        .map(e => Number(boardStore.entitiesColumn[e].status.index));
+      const newIds = arrayMove(boardState.ids, activeIndex, overIndex);
+      setBoardState({...boardState, ids: newIds});
+      const prevIndex = boardStore.entitiesColumn[newIds[overIndex - 1]]?.status.index;
+      const nextIndex = boardStore.entitiesColumn[newIds[overIndex + 1]]?.status.index;
+      const {reset: resetIndexStatus, value: statusIndex} = getnewIndexForDragDrop({indexList, prevIndex, nextIndex});
+      if (statusIndex) {
+        boardStore.updateState(state => {
+          state.entitiesColumn[activeId].status.index = statusIndex;
+        });
+        api.todolist
+          .update({id: listID, statusId: Number(activeId), statusIndex, resetIndexStatus})
+          .then(socketUpdateList);
+      }
+    }
+    // move item
+    else if (activeColumn === overColumn) {
       const newEntities = {...boardState.entities};
-      newEntities[activeColumn] = newEntities[activeColumn].filter(e => e !== activeId);
-      const overEntity = newEntities[overColumn];
-      newEntities[overColumn] = [...overEntity.slice(0, overIndex), activeId, ...overEntity.slice(overIndex)];
+      const indexList = boardState.entities[overColumn]
+        .filter(e => e !== activeId)
+        .map(e => Number(boardStore.entitiesItem[e].indexColumn));
+      newEntities[activeColumn] = arrayMove(newEntities[activeColumn], activeIndex, overIndex);
       setBoardState({...boardState, entities: newEntities});
-    },
-    [boardState, boardStore]
-  );
-
-  const onDragEnd = useCallback(
-    ({active, over}: DragEndEvent) => {
-      onDragCancel();
-      const dragData = getDragData({active, over});
-      if (!dragData) return;
-      const {activeColumn, overColumn, activeIndex, overIndex, activeId} = dragData;
-      //move column
-      if (activeColumn === 'board' && overColumn === 'board') {
-        setBoardState({...boardState, ids: arrayMove(boardState.ids, activeIndex, overIndex)});
-        const indexList = boardState.ids.map(e => boardStore.entitiesColumn[e].status.index);
-        const prevIndex = boardStore.entitiesColumn[boardState.ids[overIndex - 1]]?.status.index;
-        const nextIndex = boardStore.entitiesColumn[boardState.ids[overIndex + 1]]?.status.index;
-        const {reset: resetIndexStatus, value: statusIndex} = getnewIndexForDragDrop({indexList, prevIndex, nextIndex});
-        if (statusIndex) {
-          boardStore.updateState(state => {
-            state.entitiesColumn[activeId].status.index = statusIndex;
-          });
-          api.todolist.update({id: listID, statusId: Number(activeId), statusIndex, resetIndexStatus});
-        }
+      const prevIndex = boardStore.entitiesItem[newEntities[overColumn][overIndex - 1]]?.indexColumn;
+      const nextIndex = boardStore.entitiesItem[newEntities[overColumn][overIndex + 1]]?.indexColumn;
+      const {reset: resetIndexColumn, value: indexColumn} = getnewIndexForDragDrop({indexList, prevIndex, nextIndex});
+      if (indexColumn) {
+        boardStore.updateState(state => {
+          state.entitiesItem[activeId].indexColumn = indexColumn;
+        });
+        api.task
+          .update({id: activeId, statusId: Number(overColumn), indexColumn, resetIndexColumn})
+          .then(socketUpdateList);
       }
-      // move item
-      else if (activeColumn === overColumn) {
-        const newEntities = {...boardState.entities};
-        newEntities[activeColumn] = arrayMove(newEntities[activeColumn], activeIndex, overIndex);
-        setBoardState({...boardState, entities: newEntities});
-        const indexList = newEntities[overColumn].map(e => boardStore.entitiesItem[e].indexColumn);
-        const prevIndex = boardStore.entitiesItem[boardState.entities[overColumn][overIndex - 1]]?.indexColumn;
-        const nextIndex = boardStore.entitiesItem[boardState.entities[overColumn][overIndex + 1]]?.indexColumn;
-        const {reset: resetIndexColumn, value: indexColumn} = getnewIndexForDragDrop({indexList, prevIndex, nextIndex});
-        if (indexColumn) {
-          boardStore.updateState(state => {
-            state.entitiesItem[activeId].indexColumn = indexColumn;
-          });
-          api.task.update({id: activeId, statusId: Number(overColumn), indexColumn, resetIndexColumn});
-        }
-      }
-    },
-    [boardState, boardStore]
-  );
+    }
+  };
 
   return (
     <div className={style['kanban-container']}>
       <div className="inner">
         <DndContext sensors={sensors} onDragStart={onDragStart} onDragOver={onDragOver} onDragEnd={onDragEnd}>
           <SortableContext id="board" items={boardState.ids} strategy={horizontalListSortingStrategy}>
-            {boardState.ids.map(id => (
-              <KanbanColumn key={id} columnId={id} itemIds={boardState.entities[id]} />
+            {boardState.ids.map((id, i) => (
+              <KanbanColumn
+                key={id + i}
+                columnId={id}
+                itemIds={boardState.entities[id]}
+                showHeader={i + 1 !== boardState.ids.length}
+              />
             ))}
           </SortableContext>
           {activeItemId && (
@@ -136,7 +145,11 @@ const KanbanContainer: FC = () => {
           )}
           {activeColumnId && (
             <DragOverlay>
-              <KanbanColumn columnId={activeColumnId} itemIds={boardState.entities[activeColumnId]} />
+              <KanbanColumn
+                columnId={activeColumnId}
+                itemIds={boardState.entities[activeColumnId]}
+                showHeader={false}
+              />
             </DragOverlay>
           )}
         </DndContext>

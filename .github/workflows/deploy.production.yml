@@ -52,6 +52,9 @@ jobs:
       - name: Build Docker and deployment
         run: sudo chmod +x docker-build.sh && sudo ./docker-build.sh
 
+      - name: Set build status emoji to success
+        run: echo "STATUS=✅" >> $GITHUB_ENV
+
       - name: Prune docker image trash
         run: sudo docker rmi -f $(sudo docker images --filter "dangling=true" -q --no-trunc)
         if: always()
@@ -64,7 +67,7 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.23.0
         with:
-          channel-id: "C052DN0CP4J"
+          channel-id: "C053JVDGG12"
           payload: |
             {
               "text": "TODO-LIST-WEBSITE-FE-PRODUCTION ${{ env.STATUS }}",

@@ -10,9 +10,10 @@ import KanbanColumnWrapper from './wrapper';
 export interface IKanbanColumnProps {
   columnId: string;
   itemIds: string[];
+  showHeader?: boolean;
 }
 
-const KanbanColumn: FC<IKanbanColumnProps> = ({columnId, itemIds}) => {
+const KanbanColumn: FC<IKanbanColumnProps> = ({columnId, itemIds, showHeader = true}) => {
   const boardStore = useBoardState();
   const {name, color} = boardStore.entitiesColumn[columnId].status;
 
@@ -20,7 +21,7 @@ const KanbanColumn: FC<IKanbanColumnProps> = ({columnId, itemIds}) => {
     <KanbanColumnWrapper columnId={columnId}>
       <KanbanColumnHeader name={name} color={color} />
       <KanbanColumnBody columnId={columnId} itemIds={itemIds} />
-      <KanbanColumnFooter columnId={columnId} />
+      {showHeader && <KanbanColumnFooter columnId={columnId} />}
     </KanbanColumnWrapper>
   );
 };

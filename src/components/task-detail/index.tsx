@@ -23,7 +23,7 @@ const TaskDetail: FC<IProps> = ({task: {id, todolistId}}) => {
   useEffect(() => {
     initial(id);
     LocalStorage.listId.set(todolistId);
-  }, [auth]);
+  }, [id, todolistId]);
 
   useEffect(() => {
     if (auth) {

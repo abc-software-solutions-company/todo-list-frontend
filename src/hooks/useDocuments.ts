@@ -17,7 +17,7 @@ type Action = {
   getDocument: (id: string) => void;
   updateDocument: (data: IUpdateDocument) => void;
   createDocument: (data: IDocumentCreate) => void;
-  setDocument: (newContent: string) => void;
+  setContentDocument: (newContent: string) => void;
 };
 
 export const useDocumentsStore = create<State & Action>()(
@@ -26,8 +26,8 @@ export const useDocumentsStore = create<State & Action>()(
       documents: [],
       error: false,
       isFeching: false,
-      document: {id: '', content: '', name: '', todolistId: '', parentId: ''},
-      setDocument: newContent =>
+      document: {} as IDocumentAttribute,
+      setContentDocument: newContent =>
         set(state => ({
           ...state,
           document: {
@@ -50,8 +50,8 @@ export const useDocumentsStore = create<State & Action>()(
         } catch (error) {
           set(
             state => {
-              state.isFeching = false;
               state.error = true;
+              state.isFeching = false;
             },
             false,
             'documents/error'
@@ -84,8 +84,8 @@ export const useDocumentsStore = create<State & Action>()(
           const res = await api.documents.create(data);
           set(
             state => {
-              state.isFeching = false;
               state.document = res.data;
+              state.isFeching = false;
             },
             false,
             'documents/createDocumentSucces'
@@ -93,8 +93,8 @@ export const useDocumentsStore = create<State & Action>()(
         } catch (error) {
           set(
             state => {
-              state.isFeching = false;
               state.error = true;
+              state.isFeching = false;
             },
             false,
             'documents/createDocumentError'
@@ -106,8 +106,8 @@ export const useDocumentsStore = create<State & Action>()(
           const res = await api.documents.updateDocument(data);
           set(
             state => {
-              state.isFeching = false;
               state.document = res.data;
+              state.isFeching = false;
             },
             false,
             'documents/updateDocument'
@@ -115,8 +115,8 @@ export const useDocumentsStore = create<State & Action>()(
         } catch (error) {
           set(
             state => {
-              state.isFeching = false;
               state.error = true;
+              state.isFeching = false;
             },
             false,
             'documents/error'

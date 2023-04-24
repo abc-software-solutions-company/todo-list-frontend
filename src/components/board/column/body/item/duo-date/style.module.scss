@@ -1,0 +1,5 @@
+.kanban-task-duo-date {
+  @apply flex items-center gap-x-2 overflow-hidden rounded-[4px]  bg-blue-600;
+  @apply text-sm font-medium text-white;
+  @apply h-[30px] px-2;
+}

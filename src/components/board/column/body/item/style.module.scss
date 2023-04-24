@@ -1,20 +1,19 @@
 .kanban-task-item :global {
   @apply relative mb-3 list-none rounded-md border border-slate-200 bg-white p-3;
+  .bg {
+    @apply overflow-hidden;
+  }
   .task-name {
     @apply hover:cursor-pointer;
     @apply text-sm font-medium text-blue-900;
   }
-  .bg {
-    @apply h-full w-full;
-  }
   .actions {
-    @apply flex justify-between gap-x-2;
+    @apply flex items-center justify-between gap-x-2;
     .left {
       @apply flex items-center gap-x-2;
-      @apply h-8;
     }
     .right {
-      @apply flex;
+      @apply flex items-center;
     }
   }
   .action-edit-delete {

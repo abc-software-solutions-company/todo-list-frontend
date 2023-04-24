@@ -35,6 +35,7 @@ export interface IStatus {
   id: number;
   name: string;
   color: string;
+  backgroundColor: string;
   index: number;
   tasks?: ITaskResponse[];
 }
@@ -51,6 +52,7 @@ export interface ITask {
   name: string;
   order: number;
   isDone: boolean;
+  isFeature: boolean;
   statusId: number;
   index: number;
   priority: keyof typeof Priorities;

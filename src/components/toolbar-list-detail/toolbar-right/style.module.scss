@@ -12,6 +12,9 @@
   .sort {
     @apply flex gap-x-1;
   }
+  .tool-filter {
+    @apply ml-2;
+  }
   .settings {
     @apply flex gap-x-1 pl-1;
   }

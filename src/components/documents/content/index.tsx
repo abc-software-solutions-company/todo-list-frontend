@@ -44,17 +44,19 @@ const DocumentContent: React.FC = () => {
 
   return (
     <div className={style['document-content']}>
-      <div>
-        <Icon name="content" className="ico-fluent_text-description mr-1" size={20} />
-        <span className="mr-3">Content</span>
-        <Button
-          text="Edit"
-          className="bg-slate-100"
-          onClick={() => {
-            setEdit(!edit);
-          }}
-        />
-      </div>
+      {document && (
+        <div className="mb-3">
+          <Icon name="content" className="ico-fluent_text-description mr-1" size={20} />
+          <span className="mr-3">Content</span>
+          <Button
+            text="Edit"
+            className="bg-slate-100"
+            onClick={() => {
+              setEdit(!edit);
+            }}
+          />
+        </div>
+      )}
       {edit ? (
         <form className="decsription-form" onSubmit={handleSubmit(onSubmit)}>
           <Controller
@@ -90,5 +92,4 @@ const DocumentContent: React.FC = () => {
     </div>
   );
 };
-
 export default DocumentContent;

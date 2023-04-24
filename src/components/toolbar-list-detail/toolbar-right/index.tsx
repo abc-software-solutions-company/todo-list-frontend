@@ -23,7 +23,7 @@ const ToolBarRight: FC = () => {
   const setSelectList = () => {
     if (isListDetailPage(path, id as string)) {
       setSelectedTodolist(todolist);
-      const statusIdList = statusList.map(e => e.id);
+      const statusIdList = statusList.map((e: {id: number}) => e.id);
       const backlogId = Math.min(...statusIdList);
       setSelectedColumnId(backlogId);
     }

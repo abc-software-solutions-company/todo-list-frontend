@@ -4,6 +4,7 @@ export interface IGetNewIndexParams {
   indexList: number[];
   prevIndex?: number;
   nextIndex?: number;
+  order?: 'ASC' | 'DESC';
 }
 
 export function shortName(name: string) {
@@ -17,23 +18,17 @@ export function shortName(name: string) {
     .join('');
 }
 
-export function getnewIndexForDragDrop({indexList, prevIndex, nextIndex}: IGetNewIndexParams) {
+export function getnewIndexForDragDrop({indexList, prevIndex, nextIndex, order = 'ASC'}: IGetNewIndexParams) {
   let newIndex = IndexStep;
   let resetIndex = false;
-  const maxIndex = Math.max(...indexList);
-  const minIndex = Math.min(...indexList);
+  const bottomIndex = order === 'ASC' ? Math.max(...indexList) : Math.min(...indexList);
+  const topIndex = order === 'DESC' ? Math.max(...indexList) : Math.min(...indexList);
   if (!prevIndex && !nextIndex) return {value: newIndex, reset: resetIndex};
-  if (!prevIndex || !nextIndex) {
-    const besideIndex = Number(prevIndex || nextIndex);
-    if (besideIndex === minIndex) newIndex = Math.round(minIndex / 2);
-    if (besideIndex === maxIndex) newIndex = Number(maxIndex) + IndexStep;
-    if (newIndex && newIndex <= limitDifferenceIndex) resetIndex = true;
-  } else {
+  if (!prevIndex && nextIndex) newIndex = Math.round(topIndex / 2);
+  if (prevIndex && !nextIndex) newIndex = Number(bottomIndex) + IndexStep;
+  if (prevIndex && nextIndex) {
     newIndex = Math.round((Number(prevIndex) + Number(nextIndex)) / 2);
     if (Math.abs(Number(prevIndex) - Number(nextIndex)) < limitDifferenceIndex * 2) resetIndex = true;
   }
-  return {
-    value: newIndex,
-    reset: resetIndex
-  };
+  return {value: newIndex, reset: resetIndex};
 }

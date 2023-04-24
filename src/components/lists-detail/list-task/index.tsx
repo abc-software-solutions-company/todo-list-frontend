@@ -10,15 +10,58 @@ import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useFilter from '@/states/filter/use-filter';
 import useTodolist from '@/states/todolist/use-todolist';
-import {IndexStep} from '@/utils/constant';
+import {IndexStep, Priorities} from '@/utils/constant';
 
 const ListTask = () => {
   const {todolist, write, setTodolist} = useTodolist();
-  const {statusFilterInList, setStatusFilterInList} = useFilter();
+  const {
+    statusFilterInList,
+    setStatusFilterInList,
+    priorityFilterInList,
+    setPriorityFilterInList,
+    assigneeFilterInList,
+    setAssigneeFilterInList
+    // setFeatureFilterInList,
+    // featureFilterInList
+  } = useFilter();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
+  //FIXME: Fix chữa cháy kịp buổi release, sẽ sớm viết lại hàm getTask và các filter cho gọn hơn.
   const getTasks = () => {
-    if (statusFilterInList) return todolist.tasks.filter(e => !statusFilterInList || e.statusId == statusFilterInList);
+    const prioritiesList = Object.values(Priorities).reverse();
+    const prioritieValue = prioritiesList.includes(priorityFilterInList) ? priorityFilterInList : '';
+    // if (prioritieValue && statusFilterInList && featureFilterInList != 'undefined')
+    //   return todolist.tasks.filter(
+    //     e => e.priority == prioritieValue && e.statusId == statusFilterInList && e.isFeature == featureFilterInList
+    //   );
+    // if (prioritieValue && featureFilterInList != 'undefined')
+    //   return todolist.tasks.filter(e => e.priority == prioritieValue && e.isFeature == featureFilterInList);
+    // if (statusFilterInList && featureFilterInList != 'undefined')
+    //   return todolist.tasks.filter(e => e.statusId == statusFilterInList && e.isFeature == featureFilterInList);
+    if (assigneeFilterInList != 'default' && statusFilterInList && prioritieValue)
+      return todolist.tasks.filter(
+        e =>
+          e.assignees[0]?.userId == assigneeFilterInList &&
+          e.statusId == statusFilterInList &&
+          e.priority == prioritieValue
+      );
+    if (prioritieValue && statusFilterInList)
+      return todolist.tasks.filter(e => e.priority == prioritieValue && e.statusId == statusFilterInList);
+    if (assigneeFilterInList != 'default' && statusFilterInList)
+      return todolist.tasks.filter(
+        e => e.assignees[0]?.userId == assigneeFilterInList && e.statusId == statusFilterInList
+      );
+    if (prioritieValue && assigneeFilterInList != 'default')
+      return todolist.tasks.filter(e => e.priority == prioritieValue && e.assignees[0]?.userId == assigneeFilterInList);
+    if (statusFilterInList) return todolist.tasks.filter(e => e.statusId == statusFilterInList);
+    if (prioritieValue) return todolist.tasks.filter(e => e.priority == prioritieValue);
+    if (assigneeFilterInList == 'Unassigned') {
+      return todolist.tasks.filter(e => e.assignees.length == 0);
+    } else if (assigneeFilterInList != 'default') {
+      return todolist.tasks.filter(e => e.assignees[0]?.userId == assigneeFilterInList);
+    }
+    // if (assigneeFilterInList === '') return todolist.tasks.filter(e => e.assignees[0]?.userId == '');
+    // if (featureFilterInList != 'undefined') return todolist.tasks.filter(e => e.isFeature == featureFilterInList);
     return todolist.tasks?.filter(e => !e.isDone);
   };
 
@@ -79,6 +122,9 @@ const ListTask = () => {
 
   useEffect(() => {
     setStatusFilterInList(0);
+    setPriorityFilterInList('');
+    setAssigneeFilterInList('default');
+    // setFeatureFilterInList();
   }, []);
 
   return (

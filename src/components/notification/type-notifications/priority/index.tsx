@@ -38,5 +38,3 @@ const Priority: FC<TypeNotifications> = props => {
 };
 
 export default Priority;
-
-// "Hoa Pham" changed a task "abc" from "Medium" to "High"
