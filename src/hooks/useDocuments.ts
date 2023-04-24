@@ -42,7 +42,7 @@ export const useDocumentsStore = create<State & Action>()(
             state => {
               state.documents = res.data;
               state.isFeching = true;
-              if (!state.document?.id && !state.documents) state.document = state.documents?.[0];
+              if (!state.document?.id) state.document = state.documents?.[0];
             },
             false,
             'documents/getAllDocument'

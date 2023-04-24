@@ -14,6 +14,10 @@ const Editor = dynamic(() => import('@/components/common/ckeditor'), {
   ssr: false
 });
 
+const WYSIWYG = dynamic(() => import('@/components/common/wysiwyg'), {
+  ssr: true
+});
+
 export interface IForm {
   content?: string;
 }
@@ -21,15 +25,14 @@ export interface IForm {
 const DocumentContent: React.FC = () => {
   const [edit, setEdit] = useState(false);
   const {show} = useToast();
-  const {document, error, updateDocument, setContentDocument} = useDocumentsStore();
+  const {document, error, updateDocument} = useDocumentsStore();
   const {control, handleSubmit} = useForm({
     defaultValues: {
-      content: document?.content
+      content: ''
     }
   });
   const onSubmit: SubmitHandler<IForm> = data => {
-    setContentDocument(String(data.content));
-    updateDocument({...document, content: String(data.content)});
+    updateDocument({...document, content: data.content || ''});
     if (error) {
       setEdit(true);
       show({type: 'danger', title: 'Edit Content', content: ToastContents.ERROR});
@@ -62,7 +65,7 @@ const DocumentContent: React.FC = () => {
             rules={{required: false}}
             defaultValue={document?.content}
             render={({field}) => (
-              <Editor name="example" value={String(document.content)} onChange={text => field.onChange(text)} />
+              <Editor name="example" value={document.content || ''} onChange={text => field.onChange(text)} />
             )}
           />
           <div className="mt-4 flex gap-4">
@@ -84,10 +87,9 @@ const DocumentContent: React.FC = () => {
           </div>
         </form>
       ) : (
-        <div
-          className="scrollbar max-h-[70vh] overflow-y-auto"
-          dangerouslySetInnerHTML={{__html: document?.content || ''}}
-        />
+        <div className="scrollbar max-h-[70vh] overflow-y-auto">
+          <WYSIWYG content={document.content} />
+        </div>
       )}
     </div>
   );
