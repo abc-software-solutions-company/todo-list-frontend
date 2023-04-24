@@ -42,7 +42,7 @@ const DocumentList: React.FC<IProps> = ({id}) => {
           }
           getDocument={() => {
             getDocument(node.id);
-            router.push(`${ROUTES.DOCUMENT}/${id}?id=${node.id}`, undefined, {shallow: true});
+            router.push(`${ROUTES.DOCUMENT}/${node.id}`, undefined, {shallow: true});
           }}
           active={document.id == node.id}
         />
@@ -67,16 +67,18 @@ const DocumentList: React.FC<IProps> = ({id}) => {
           />
         </div>
         <hr />
-        <div>
-          <p className="mt-3 font-bold">Favorite</p>
-          <div className="scrollbar relative max-h-[33vh] overflow-x-auto overflow-y-auto">
-            {documents?.map(item => item.favorite && renderNode(item, item.favorite))}
+        <div className="max-h-[70vh]">
+          <div>
+            <p className="mt-3 font-bold">Favorite</p>
+            <div className="scrollbar relative max-h-[34vh] overflow-x-auto overflow-y-auto">
+              {documents?.map(item => item.favorite && renderNode(item, item.favorite))}
+            </div>
           </div>
-        </div>
-        <div>
-          <p className="mt-3 font-bold">Pages</p>
-          <div className="scrollbar relative max-h-[33vh] overflow-x-auto overflow-y-auto">
-            {documents?.map(item => renderNode(item, item.favorite))}
+          <div>
+            <p className="mt-3 font-bold">Pages</p>
+            <div className="scrollbar relative max-h-[34vh] overflow-x-auto overflow-y-auto">
+              {documents?.map(item => renderNode(item, item.favorite))}
+            </div>
           </div>
         </div>
       </div>
