@@ -30,10 +30,11 @@ const DocumentList: React.FC<IProps> = ({id}) => {
     });
   }
 
-  const renderNode = (node: IGetDocuments) => {
+  const renderNode = (node: IGetDocuments, favorite: boolean) => {
     return (
       <div key={node.id}>
         <Document
+          favorite={favorite}
           name={node.name}
           showMoreDoc={() => toggleShow(node.id, setShowPages)}
           iconDropdown={
@@ -47,7 +48,7 @@ const DocumentList: React.FC<IProps> = ({id}) => {
         />
         {node.children && (
           <div className={cls(showPages.includes(node.id) ? 'block' : 'hidden', 'ml-6')}>
-            {node.children.map(child => renderNode(child))}
+            {node.children.map(child => renderNode(child, node.favorite))}
           </div>
         )}
       </div>
@@ -67,9 +68,15 @@ const DocumentList: React.FC<IProps> = ({id}) => {
         </div>
         <hr />
         <div>
+          <p className="mt-3 font-bold">Favorite</p>
+          <div className="scrollbar relative max-h-[67vh] overflow-x-auto overflow-y-auto">
+            {documents?.map(item => item.favorite && renderNode(item, item.favorite))}
+          </div>
+        </div>
+        <div>
           <p className="mt-3 font-bold">Pages</p>
           <div className="scrollbar relative max-h-[67vh] overflow-x-auto overflow-y-auto">
-            {documents?.map(item => renderNode(item))}
+            {documents?.map(item => renderNode(item, item.favorite))}
           </div>
         </div>
       </div>

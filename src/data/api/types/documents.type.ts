@@ -3,6 +3,7 @@ export interface IGetDocuments {
   name: string;
   content: string;
   parentId: string;
+  favorite: boolean;
   todolistId: string;
   children: IGetDocuments[];
 }
