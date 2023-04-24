@@ -22,9 +22,9 @@
     @apply flex items-center gap-x-1;
   }
   .active {
-    @apply rounded border bg-[#E5E7EB] px-1 pt-1;
+    @apply rounded border bg-[#E5E7EB] px-[3px] py-[3px];
   }
   .icons {
-    @apply leading-tight hover:cursor-pointer;
+    @apply leading-none hover:cursor-pointer;
   }
 }
