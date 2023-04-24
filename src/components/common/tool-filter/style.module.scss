@@ -13,7 +13,7 @@
     }
   }
   .MuiSelect-select {
-    @apply h-6 p-0 pl-16;
+    @apply h-6 bg-transparent p-0 pl-16;
     padding-right: 0 !important;
   }
   .MuiList-root {
@@ -22,7 +22,10 @@
 }
 .menu-item :global {
   width: 300px;
-  @apply flex flex-col px-[20px];
+  @apply flex flex-col px-[20px] py-0;
+  .MuiTouchRipple-root {
+    @apply hidden;
+  }
   hr {
     @apply block w-full;
   }
@@ -36,27 +39,39 @@
     @apply p-0;
   }
   .MuiListItemButton-root {
-    @apply mb-3 flex w-full justify-between p-0;
+    @apply mb-3 flex w-full justify-between p-0 font-semibold;
   }
   .MuiList-root {
-    @apply w-full;
+    @apply w-full py-0;
+  }
+  .list-inner {
+    @apply py-3;
+  }
+  .MuiTypography-root {
+    @apply font-medium;
   }
   .status-radios {
     @apply font-semibold;
     .MuiFormControlLabel-root {
       @apply ml-8 mb-2.5 w-fit rounded px-2 py-1;
+      &:last-child {
+        @apply mb-0;
+      }
     }
     .MuiRadio-root {
       @apply absolute left-0 p-0;
     }
     .MuiTypography-root {
-      @apply flex items-center;
+      @apply flex items-center font-semibold;
     }
   }
   .priority-radios {
     @apply font-semibold;
     .MuiFormControlLabel-root {
       @apply ml-8 mb-3.5 w-fit;
+      &:last-child {
+        @apply mb-0;
+      }
     }
     .MuiRadio-root {
       @apply absolute left-0 p-0;
@@ -85,4 +100,8 @@
 
 .menu-item {
   @apply hover:bg-transparent;
+}
+
+.MuiPaper-root {
+  background-color: #000;
 }

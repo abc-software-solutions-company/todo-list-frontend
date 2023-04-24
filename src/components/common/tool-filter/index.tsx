@@ -214,18 +214,25 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
         <span>Filter</span>
       </div>
 
-      <Select style={{width: 65}} variant="standard" disableUnderline className={style['menu-dropdown']} autoWidth>
+      <Select
+        style={{width: 65}}
+        variant="standard"
+        disableUnderline
+        className={style['menu-dropdown']}
+        autoWidth
+        sx={{'&:hover': {backgroundColor: 'transparent'}, '&:active': {backgroundColor: 'transparent'}}}
+      >
         <MenuItem className={style['menu-item']}>
           <div className="menu-header-inner">
             <span className="font-bold">Filter</span>
-            <span className="text-blue-500" onClick={onReset}>
+            <span className="font-medium text-blue-500" onClick={onReset}>
               Reset
             </span>
           </div>
         </MenuItem>
         <hr className="mx-[20px] mt-3" />
         <MenuItem className={`${style['menu-item']} menu-item`}>
-          <List component="nav">
+          <List component="nav" className="list-inner">
             <ListItemButton onClick={onOpenStatus}>
               <span>Status</span>
               {openStatus ? <ExpandLess /> : <ExpandMore />}
@@ -266,7 +273,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
           <hr />
         </MenuItem>
         <MenuItem className={`${style['menu-item']} menu-item`}>
-          <List component="nav">
+          <List component="nav" className="list-inner">
             <ListItemButton onClick={onOpenPriority}>
               <span>Priority</span>
               {openPriority ? <ExpandLess /> : <ExpandMore />}
@@ -315,7 +322,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
           <hr />
         </MenuItem>
         <MenuItem className={`${style['menu-item']} menu-item`}>
-          <List component="nav">
+          <List component="nav" className="list-inner">
             <ListItemButton onClick={onOpenAssignee}>
               <span>Assignee</span>
               {openAssignee ? <ExpandLess /> : <ExpandMore />}
@@ -350,7 +357,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
                       <FormControlLabel
                         key={a[0].id}
                         value={a[0].id}
-                        control={<Radio />}
+                        control={<BpRadio />}
                         label={
                           <>
                             <div className="assignee-user mr-1">
