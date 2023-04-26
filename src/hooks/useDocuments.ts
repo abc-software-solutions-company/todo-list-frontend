@@ -19,6 +19,7 @@ type Action = {
   updateDocument: (data: IUpdateDocument) => void;
   createDocument: (data: IDocumentCreate) => void;
   resetDocument: () => void;
+  resetDocumentFavorite: () => void;
   addDocumentsFavorite: (newItem: IGetDocuments) => void;
   removeDocumentsFavorite: (id: string) => void;
 };
@@ -36,6 +37,11 @@ export const useDocumentsStore = create<State & Action>()(
           state.document = {} as IDocumentAttribute;
         });
       },
+      resetDocumentFavorite: () => {
+        set(state => {
+          state.documentsFavorite = [];
+        });
+      },
       addDocumentsFavorite: newItem => {
         set(prevState => ({documentsFavorite: prevState.documentsFavorite.concat(newItem)}));
       },
@@ -50,6 +56,7 @@ export const useDocumentsStore = create<State & Action>()(
           set(
             state => {
               state.documents = res.data;
+              state.documentsFavorite = res.data.filter(doc => doc.favorite == true);
               state.isFeching = true;
               if (!state.document?.id) state.document = state.documents?.[0];
             },

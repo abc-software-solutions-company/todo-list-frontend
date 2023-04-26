@@ -4,33 +4,31 @@ import React, {useState} from 'react';
 import Document from '@/components/common/document';
 import {IGetDocuments} from '@/data/api/types/documents.type';
 
-import useListDocuments from './hook';
-
 interface IRecursiveListProps {
-  document: IGetDocuments;
+  node: IGetDocuments;
   favorite: boolean;
 }
-const RecursiveList: React.FC<IRecursiveListProps> = ({document, favorite}) => {
+const RecursiveList: React.FC<IRecursiveListProps> = ({node, favorite}) => {
   const [showPages, setShowPages] = useState<Array<string>>([]);
-  const {toggleShow} = useListDocuments();
+
+  const toggleShow = (i: string, set: React.Dispatch<React.SetStateAction<string[]>>) => {
+    set(prevState => {
+      if (prevState.includes(i)) return prevState.filter((item: any) => item !== i);
+      else return [...prevState, i];
+    });
+  };
 
   return (
-    <div key={document.id}>
+    <div key={node.id}>
       <Document
-        favorite={favorite}
-        name={document.name}
-        showMoreDoc={() => toggleShow(document.id, setShowPages)}
-        iconDropdown={
-          document.children && (showPages.includes(document.id) ? 'ico-angle-down-small' : 'ico-angle-right-small')
-        }
-        getDocument={() => {}}
-        active={document.id == document.id}
-        handleFavorite={() => {}}
+        showMoreDoc={() => toggleShow(node.id, setShowPages)}
+        iconDropdown={node.children && (showPages.includes(node.id) ? 'ico-angle-down-small' : 'ico-angle-right-small')}
+        item={node}
       />
-      {document.children && (
-        <div className={cls(showPages.includes(document.id) ? 'block' : 'hidden', 'ml-6')}>
-          {document.children.map(child => (
-            <RecursiveList document={child} key={child.id} favorite={favorite} />
+      {node.children && (
+        <div className={cls(showPages.includes(node.id) ? 'block' : 'hidden', 'ml-6')}>
+          {node.children.map(child => (
+            <RecursiveList node={child} key={child.id} favorite={favorite} />
           ))}
         </div>
       )}
