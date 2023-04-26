@@ -9,6 +9,8 @@ import Icon from '@/core-ui/icon';
 import {IGetDocuments} from '@/data/api/types/documents.type';
 import {useDocumentsStore} from '@/hooks/useDocuments';
 
+import useListDocuments from './hook';
+import RecursiveList from './recursive-list';
 import style from './style.module.scss';
 
 interface IProps {
@@ -18,6 +20,7 @@ interface IProps {
 const DocumentList: React.FC<IProps> = ({id}) => {
   const [showPages, setShowPages] = useState<Array<string>>([]);
   const [showModalCreate, isShowModalCreate] = useState<boolean>(false);
+  const {toggleShow} = useListDocuments();
   const {
     documents,
     document,
@@ -37,13 +40,6 @@ const DocumentList: React.FC<IProps> = ({id}) => {
   useEffect(() => {
     getAllDocument(id);
   }, [isFeching]);
-
-  function toggleShow(i: string, set: React.Dispatch<React.SetStateAction<string[]>>) {
-    set(prevState => {
-      if (prevState.includes(i)) return prevState.filter((item: any) => item !== i);
-      else return [...prevState, i];
-    });
-  }
 
   const renderNode = (node: IGetDocuments, favorite: boolean) => {
     return (
@@ -90,13 +86,17 @@ const DocumentList: React.FC<IProps> = ({id}) => {
           <div>
             <p className="mt-3 font-bold">Favorite</p>
             <div className="scrollbar relative max-h-[34vh] overflow-x-auto overflow-y-auto">
-              {documentsFavorite?.map(item => renderNode(item, item.favorite))}
+              {documentsFavorite?.map(item => (
+                <RecursiveList key={item.id} document={item} favorite={item.favorite} />
+              ))}
             </div>
           </div>
           <div>
             <p className="mt-3 font-bold">Pages</p>
             <div className="scrollbar relative max-h-[34vh] overflow-x-auto overflow-y-auto">
-              {documents?.map(item => renderNode(item, item.favorite))}
+              {documents?.map(item => (
+                <RecursiveList key={item.id} document={item} favorite={item.favorite} />
+              ))}
             </div>
           </div>
         </div>
