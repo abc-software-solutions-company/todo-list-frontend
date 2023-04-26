@@ -27,11 +27,11 @@ const DocumentContent: React.FC = () => {
   const {show} = useToast();
   const {document, error, updateDocument} = useDocumentsStore();
   const {control, handleSubmit, reset} = useForm<IForm>({
-    defaultValues: {content: document.content}
+    defaultValues: {content: document?.content}
   });
 
   useEffect(() => {
-    reset({content: document.content});
+    reset({content: document?.content});
   }, [document]);
 
   const onSubmit: SubmitHandler<IForm> = data => {
