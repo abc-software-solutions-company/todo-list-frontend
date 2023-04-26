@@ -18,7 +18,12 @@ interface IProps {
 const DocumentList: React.FC<IProps> = ({id}) => {
   const [showPages, setShowPages] = useState<Array<string>>([]);
   const [showModalCreate, isShowModalCreate] = useState<boolean>(false);
-  const {documents, document, isFeching, getAllDocument, getDocument} = useDocumentsStore();
+  const {documents, document, isFeching, getAllDocument, resetDocument, getDocument} = useDocumentsStore();
+
+  useEffect(() => {
+    resetDocument();
+  }, [id]);
+
   useEffect(() => {
     getAllDocument(id);
   }, [isFeching]);

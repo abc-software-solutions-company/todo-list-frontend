@@ -26,10 +26,8 @@ const DocumentContent: React.FC = () => {
   const [edit, setEdit] = useState(false);
   const {show} = useToast();
   const {document, error, updateDocument} = useDocumentsStore();
-  const {control, handleSubmit, reset} = useForm({
-    defaultValues: {
-      content: ''
-    }
+  const {control, handleSubmit, reset} = useForm<IForm>({
+    defaultValues: {content: document.content}
   });
 
   useEffect(() => {
