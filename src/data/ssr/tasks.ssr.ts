@@ -18,7 +18,8 @@ export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = asyn
     return {
       props: {
         task
-      }
+      },
+      revalidate: 60 // In seconds
     };
   } catch (error) {
     return {

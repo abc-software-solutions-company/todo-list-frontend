@@ -20,7 +20,8 @@ export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = asyn
       props: {
         id,
         seo
-      }
+      },
+      revalidate: 60 // In seconds
     };
   } catch (error) {
     return {

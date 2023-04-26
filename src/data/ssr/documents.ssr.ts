@@ -12,7 +12,8 @@ export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = asyn
   try {
     const {id} = params!;
     return {
-      props: {id}
+      props: {id},
+      revalidate: 60 // In seconds
     };
   } catch (error) {
     return {
