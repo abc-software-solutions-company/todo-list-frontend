@@ -18,7 +18,17 @@ interface IProps {
 const DocumentList: React.FC<IProps> = ({id}) => {
   const [showPages, setShowPages] = useState<Array<string>>([]);
   const [showModalCreate, isShowModalCreate] = useState<boolean>(false);
-  const {documents, document, isFeching, getAllDocument, resetDocument, getDocument} = useDocumentsStore();
+  const {
+    documents,
+    document,
+    isFeching,
+    documentsFavorite,
+    addDocumentsFavorite,
+    getAllDocument,
+    removeDocumentsFavorite,
+    resetDocument,
+    getDocument
+  } = useDocumentsStore();
 
   useEffect(() => {
     resetDocument();
@@ -50,6 +60,10 @@ const DocumentList: React.FC<IProps> = ({id}) => {
             router.push(`${ROUTES.DOCUMENT}/${id}?id=${node.id}`, undefined, {shallow: true});
           }}
           active={document.id == node.id}
+          handleFavorite={() => {
+            if (favorite) removeDocumentsFavorite(node.id);
+            else addDocumentsFavorite(node);
+          }}
         />
         {node.children && (
           <div className={cls(showPages.includes(node.id) ? 'block' : 'hidden', 'ml-6')}>
@@ -76,7 +90,7 @@ const DocumentList: React.FC<IProps> = ({id}) => {
           <div>
             <p className="mt-3 font-bold">Favorite</p>
             <div className="scrollbar relative max-h-[34vh] overflow-x-auto overflow-y-auto">
-              {documents?.map(item => item.favorite && renderNode(item, item.favorite))}
+              {documentsFavorite?.map(item => renderNode(item, item.favorite))}
             </div>
           </div>
           <div>

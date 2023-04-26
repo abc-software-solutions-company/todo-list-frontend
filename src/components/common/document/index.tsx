@@ -16,8 +16,18 @@ interface IProps {
   showMoreDoc?: () => void;
   showContent?: () => void;
   getDocument: () => void;
+  handleFavorite: () => void;
 }
-const Document: React.FC<IProps> = ({name, iconDropdown, active, favorite, getDocument, showMoreDoc, showContent}) => {
+const Document: React.FC<IProps> = ({
+  name,
+  iconDropdown,
+  active,
+  favorite,
+  getDocument,
+  showMoreDoc,
+  showContent,
+  handleFavorite
+}) => {
   const {error, document, updateDocument} = useDocumentsStore();
   const toast = useToast();
   const {id, content} = document;
@@ -50,6 +60,7 @@ const Document: React.FC<IProps> = ({name, iconDropdown, active, favorite, getDo
               } else {
                 toast.show({type: 'success', title: 'Favorite Success', content: ToastContents.SUCCESS});
               }
+              handleFavorite();
             }}
           />
         )}

@@ -10,6 +10,7 @@ type State = {
   isFeching: boolean;
   document: IDocumentAttribute;
   documents: IGetDocuments[];
+  documentsFavorite: IGetDocuments[];
 };
 
 type Action = {
@@ -18,12 +19,15 @@ type Action = {
   updateDocument: (data: IUpdateDocument) => void;
   createDocument: (data: IDocumentCreate) => void;
   resetDocument: () => void;
+  addDocumentsFavorite: (newItem: IGetDocuments) => void;
+  removeDocumentsFavorite: (id: string) => void;
 };
 
 export const useDocumentsStore = create<State & Action>()(
   devtools(
     immer(set => ({
       documents: [],
+      documentsFavorite: [],
       error: false,
       isFeching: false,
       document: {} as IDocumentAttribute,
@@ -31,6 +35,14 @@ export const useDocumentsStore = create<State & Action>()(
         set(state => {
           state.document = {} as IDocumentAttribute;
         });
+      },
+      addDocumentsFavorite: newItem => {
+        set(prevState => ({documentsFavorite: prevState.documentsFavorite.concat(newItem)}));
+      },
+      removeDocumentsFavorite: id => {
+        set(prevState => ({
+          documentsFavorite: prevState.documentsFavorite.filter(doc => doc.id !== id)
+        }));
       },
       getAllDocument: async listId => {
         try {
