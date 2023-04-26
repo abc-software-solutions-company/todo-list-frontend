@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 
 import Button from '@/core-ui/button';
@@ -26,11 +26,16 @@ const DocumentContent: React.FC = () => {
   const [edit, setEdit] = useState(false);
   const {show} = useToast();
   const {document, error, updateDocument} = useDocumentsStore();
-  const {control, handleSubmit} = useForm({
+  const {control, handleSubmit, reset} = useForm({
     defaultValues: {
       content: ''
     }
   });
+
+  useEffect(() => {
+    reset({content: document.content});
+  }, [document]);
+
   const onSubmit: SubmitHandler<IForm> = data => {
     updateDocument({...document, content: data.content || ''});
     if (error) {
