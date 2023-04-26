@@ -58,7 +58,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
   if (myTasks) {
     const statusList: StatusItem[] = [];
 
-    myTasks.map(({status}) => status.map(statusItem => statusList.push(statusItem)));
+    myTasks.map(e => e?.status.map(statusItem => statusList.push(statusItem)));
     if (statusList && statusList.length > 0) {
       const newStatusList = statusList!
         .map(e => ({name: e.name, color: e.color}))
