@@ -17,7 +17,7 @@ type Action = {
   getDocument: (id: string) => void;
   updateDocument: (data: IUpdateDocument) => void;
   createDocument: (data: IDocumentCreate) => void;
-  setContentDocument: (newContent: string) => void;
+  resetDocument: () => void;
 };
 
 export const useDocumentsStore = create<State & Action>()(
@@ -27,14 +27,11 @@ export const useDocumentsStore = create<State & Action>()(
       error: false,
       isFeching: false,
       document: {} as IDocumentAttribute,
-      setContentDocument: newContent =>
-        set(state => ({
-          ...state,
-          document: {
-            ...state.document,
-            content: newContent
-          }
-        })),
+      resetDocument: () => {
+        set(state => {
+          state.document = {} as IDocumentAttribute;
+        });
+      },
       getAllDocument: async listId => {
         try {
           const res = await api.documents.getListDocument(listId);

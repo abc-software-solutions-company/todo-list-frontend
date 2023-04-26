@@ -26,10 +26,8 @@ const DocumentContent: React.FC = () => {
   const [edit, setEdit] = useState(false);
   const {show} = useToast();
   const {document, error, updateDocument} = useDocumentsStore();
-  const {control, handleSubmit} = useForm({
-    defaultValues: {
-      content: ''
-    }
+  const {control, handleSubmit} = useForm<IForm>({
+    defaultValues: {content: document.content}
   });
   const onSubmit: SubmitHandler<IForm> = data => {
     updateDocument({...document, content: data.content || ''});
