@@ -9,6 +9,7 @@ import useBoards from '@/states/board/use-boards';
 import LocalStorage from '@/utils/local-storage';
 
 import ErrorInformation from '../common/404';
+import Seo from '../common/seo/seo';
 import KanbanContainer from './container';
 
 export interface Iprops {
@@ -18,7 +19,7 @@ export interface Iprops {
 const KanbanDetail: FC<Iprops> = ({id}) => {
   const auth = useStateAuth();
 
-  const {getBoard, boardData, error} = useBoards();
+  const {getBoard, assest, boardData, error} = useBoards();
 
   useEffect(() => {
     if (auth) {
@@ -47,7 +48,12 @@ const KanbanDetail: FC<Iprops> = ({id}) => {
 
   if (error) return <ErrorInformation />;
   if (!boardData || boardData.id !== id) return null;
-  return <KanbanContainer />;
+  return (
+    <>
+      {assest && <Seo title={boardData.name} />}
+      <KanbanContainer />;
+    </>
+  );
 };
 
 export default KanbanDetail;
