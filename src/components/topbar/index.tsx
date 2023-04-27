@@ -5,6 +5,7 @@ import {useRouter} from 'next/router';
 import {FC, useState} from 'react';
 
 import ModalThirdPartyLogin from '@/components/modal/modal-third-party-login';
+import useTask from '@/states/task/use-task';
 
 import Account from '../common/account';
 import AssigneeIcon from '../common/assignee-icon';
@@ -19,10 +20,10 @@ interface IProps {
 
 const Topbar: FC<IProps> = ({className}) => {
   const router = useRouter();
+  const {task} = useTask();
   const {auth, currentPage, handleSocial, returnTo, socialOpen, setSocialOpen, ROUTES} = useTopbar();
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-
   const isKanban = () => {
     if (router.asPath.includes(ROUTES.KANBAN)) return true;
     return false;
@@ -43,17 +44,17 @@ const Topbar: FC<IProps> = ({className}) => {
       {auth?.name && (
         <div className={`${isKanban() ? '' : 'container'} `}>
           <div className="inner">
-            <Back
-              visibleOn={[
-                `${ROUTES.LIST}`,
-                `${ROUTES.LIST}/[id]`,
-                `${ROUTES.TASK}`,
-                `${ROUTES.TASK}/[id]`,
-                `${ROUTES.KANBAN}/[id]`
-              ]}
-              currentPage={currentPage}
-              onClick={() => returnTo(currentPage)}
-            />
+            {(`${ROUTES.LIST}` ||
+              `${ROUTES.LIST}/[id]` ||
+              `${ROUTES.TASK}` ||
+              `${ROUTES.TASK}/[id]` ||
+              `${ROUTES.KANBAN}/[id]`) && (
+              <div className="left-topbar flex w-full items-center">
+                <Back currentPage={currentPage} onClick={() => returnTo(currentPage)} />
+                <span className="h2 ml-2 ">{task.todolist.name}</span>
+              </div>
+            )}
+
             <div className="authenticated">
               <Link href={ROUTES.TASK}>
                 <a className={`h2 text ${currentPage === ROUTES.TASK && 'active'}`}>My Tasks</a>
