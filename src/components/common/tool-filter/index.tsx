@@ -12,7 +12,7 @@ import {
   SelectChangeEvent
 } from '@mui/material';
 import classNames from 'classnames';
-import router from 'next/router';
+import {useRouter} from 'next/router';
 import {FC, useState} from 'react';
 
 import useTopbar from '@/components/topbar/hook';
@@ -50,6 +50,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
   const [openStatus, setOpenStatus] = useState(false);
   const [openAssignee, setOpenAssignee] = useState(false);
   const [openPriority, setOpenPriority] = useState(false);
+  const router = useRouter();
   const isKanbanView = router.asPath.includes(ROUTES.KANBAN) ? true : false;
   // const [isFeature, setIsFeature] = useState<any>(false);
   // const {write: isWrite} = useTodolist();
