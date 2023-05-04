@@ -61,7 +61,11 @@ const Topbar: FC<IProps> = ({className}) => {
                   currentPage={currentPage}
                   onClick={() => returnTo(currentPage)}
                 />
-                <span className="h2 ml-2 ">{task?.todolist?.name}</span>
+                <Link href={`${ROUTES.LIST}/${task?.todolist?.id}`}>
+                  <span className="text-slate-950 ml-2 cursor-pointer text-base font-semibold md:text-h4">
+                    {task?.todolist?.name}
+                  </span>
+                </Link>
               </div>
             )}
 

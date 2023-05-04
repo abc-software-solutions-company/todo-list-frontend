@@ -79,9 +79,8 @@ const ToolBarRight: FC = () => {
           <span>Docs</span>
         </div>
         {isKanbanView && (
-          <div className="flex cursor-pointer items-center">
-            <Icon name="ico-codicon-list-filter mr-1" size={20} />
-            <span>Filter</span>
+          <div className="tool-filter">
+            <ToolFilter todolist={todolist} />
           </div>
         )}
         {isKanbanView && (

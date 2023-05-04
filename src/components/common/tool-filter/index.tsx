@@ -12,9 +12,11 @@ import {
   SelectChangeEvent
 } from '@mui/material';
 import classNames from 'classnames';
+import router from 'next/router';
 import {FC, useState} from 'react';
 
 import useTopbar from '@/components/topbar/hook';
+import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import useMemberOptions from '@/hooks/useMemberOptions';
@@ -48,6 +50,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
   const [openStatus, setOpenStatus] = useState(false);
   const [openAssignee, setOpenAssignee] = useState(false);
   const [openPriority, setOpenPriority] = useState(false);
+  const isKanbanView = router.asPath.includes(ROUTES.KANBAN) ? true : false;
   // const [isFeature, setIsFeature] = useState<any>(false);
   // const {write: isWrite} = useTodolist();
   const {todolist: todoList} = useTodolist();
@@ -197,63 +200,66 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
             </div>
           </MenuItem>
           <hr className="mx-[20px] mt-3" />
-          <MenuItem className={`${style['menu-item']} menu-item`} sx={{paddingY: '0px', paddingX: '20px'}}>
-            <List component="nav" className="list-inner">
-              <ListItemButton onClick={onOpenStatus} className={!openStatus ? 'is-close' : ''}>
-                <span>Status</span>
-                {openStatus ? (
-                  <ExpandLess fontSize="small" sx={{color: '#64748B', fontWeight: '100'}} />
-                ) : (
-                  <ExpandMore fontSize="small" sx={{color: '#64748B', fontWeight: '100'}} />
-                )}
-              </ListItemButton>
-              <Collapse in={openStatus} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <FormControl>
-                    <RadioGroup
-                      aria-labelledby="radio-status-group-label"
-                      defaultValue={selectStatus}
-                      name="radio-status-group"
-                      onChange={onChangeStatus}
-                      className="status-radios"
-                    >
-                      <FormControlLabel
-                        key={0}
-                        value={0}
-                        sx={{color: '#000000', background: '#F1F5F9'}}
-                        control={<BpRadio />}
-                        label="Not Done"
-                        checked={selectStatus == 0}
-                      />
-                      {todolist &&
-                        todoList?.status?.map(({id, color, name, index}) => (
-                          <FormControlLabel
-                            key={index}
-                            value={id}
-                            sx={{color, background: color + '32'}}
-                            control={<BpRadio />}
-                            label={name}
-                            checked={selectStatus == id}
-                          />
-                        ))}
-                      {myTasks &&
-                        myTasksStatus?.map(({id, color, name}) => (
-                          <FormControlLabel
-                            key={color}
-                            value={id && id[0]}
-                            sx={{color, background: color + '32'}}
-                            control={<BpRadio />}
-                            label={name}
-                            checked={selectStatus == (id && id[0])}
-                          />
-                        ))}
-                    </RadioGroup>
-                  </FormControl>
-                </List>
-              </Collapse>
-            </List>
-            <hr />
-          </MenuItem>
+          {!isKanbanView && (
+            <MenuItem className={`${style['menu-item']} menu-item`} sx={{paddingY: '0px', paddingX: '20px'}}>
+              <List component="nav" className="list-inner">
+                <ListItemButton onClick={onOpenStatus} className={!openStatus ? 'is-close' : ''}>
+                  <span>Status</span>
+                  {openStatus ? (
+                    <ExpandLess fontSize="small" sx={{color: '#64748B', fontWeight: '100'}} />
+                  ) : (
+                    <ExpandMore fontSize="small" sx={{color: '#64748B', fontWeight: '100'}} />
+                  )}
+                </ListItemButton>
+                <Collapse in={openStatus} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <FormControl>
+                      <RadioGroup
+                        aria-labelledby="radio-status-group-label"
+                        defaultValue={selectStatus}
+                        name="radio-status-group"
+                        onChange={onChangeStatus}
+                        className="status-radios"
+                      >
+                        <FormControlLabel
+                          key={0}
+                          value={0}
+                          sx={{color: '#000000', background: '#F1F5F9'}}
+                          control={<BpRadio />}
+                          label="Not Done"
+                          checked={selectStatus == 0}
+                        />
+                        {todolist &&
+                          todoList?.status?.map(({id, color, name, index}) => (
+                            <FormControlLabel
+                              key={index}
+                              value={id}
+                              sx={{color, background: color + '32'}}
+                              control={<BpRadio />}
+                              label={name}
+                              checked={selectStatus == id}
+                            />
+                          ))}
+                        {myTasks &&
+                          myTasksStatus?.map(({id, color, name}) => (
+                            <FormControlLabel
+                              key={color}
+                              value={id && id[0]}
+                              sx={{color, background: color + '32'}}
+                              control={<BpRadio />}
+                              label={name}
+                              checked={selectStatus == (id && id[0])}
+                            />
+                          ))}
+                      </RadioGroup>
+                    </FormControl>
+                  </List>
+                </Collapse>
+              </List>
+              <hr />
+            </MenuItem>
+          )}
+
           <MenuItem className={`${style['menu-item']} menu-item`} sx={{paddingY: '0px', paddingX: '20px'}}>
             <List component="nav" className={`list-inner ${myTasks?.length && 'is-last'}`}>
               <ListItemButton onClick={onOpenPriority} className={!openPriority ? 'is-close' : ''}>
