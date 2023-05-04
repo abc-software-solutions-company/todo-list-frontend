@@ -3,6 +3,7 @@ import {arrayMove, horizontalListSortingStrategy, SortableContext} from '@dnd-ki
 import React, {FC, useEffect, useState} from 'react';
 
 import api from '@/data/api';
+import {ITaskResponse} from '@/data/api/types/task.type';
 import {socketUpdateList} from '@/data/socket';
 import {useBoardState} from '@/hooks/useBoardState';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
@@ -30,63 +31,52 @@ const KanbanContainer: FC = () => {
   const [needUpdate, setNeedUpdate] = useState(false);
 
   useEffect(() => {
-    boardStore.generateState(statusList);
+    const newStatusList: {
+      id: number;
+      backgroundColor: string;
+      index: number;
+      name: string;
+      color: string;
+      tasks: ITaskResponse[] | undefined;
+    }[] = [];
+    const prioritiesList = Object.values(Priorities).reverse();
+    const prioritieValue = prioritiesList.includes(priorityFilterInList) ? priorityFilterInList : '';
+    statusList.map(a =>
+      newStatusList.push({
+        id: a.id,
+        backgroundColor: a.backgroundColor,
+        index: a.index,
+        name: a.name,
+        color: a.color,
+        tasks: a.tasks?.filter(e => {
+          if (assigneeFilterInList == 'Unassigned' && prioritieValue)
+            return e.assignees.length == 0 && e.priority == prioritieValue;
+          if (prioritieValue && assigneeFilterInList != 'default')
+            return e.priority == prioritieValue && e.assignees[0]?.userId == assigneeFilterInList;
+          if (prioritieValue) return e.priority == prioritieValue;
+          if (assigneeFilterInList == 'Unassigned') {
+            return e.assignees.length == 0;
+          } else if (assigneeFilterInList != 'default') {
+            return e.assignees[0]?.userId == assigneeFilterInList;
+          }
+          return e;
+        })
+      })
+    );
+    boardStore.generateState(newStatusList);
     setNeedUpdate(true);
-  }, [statusList]);
+  }, [statusList, priorityFilterInList, assigneeFilterInList]);
   useEffect(() => {
     if (needUpdate) {
       const entities: BoardState['entities'] = {};
-      const prioritiesList = Object.values(Priorities).reverse();
-      const prioritieValue = prioritiesList.includes(priorityFilterInList) ? priorityFilterInList : '';
       const ids = boardStore.ids.map(key => {
-        const filteredId: string[] = [];
-        boardStore.entitiesColumn[key].ids.map(a => {
-          if (assigneeFilterInList == 'Unassigned' && prioritieValue) {
-            if (
-              boardStore.entitiesItem[a].assignees.length == 0 &&
-              boardStore.entitiesItem[a].priority == prioritieValue
-            ) {
-              filteredId.push(boardStore.entitiesItem[a].id);
-            } else {
-              filteredId.push();
-            }
-          } else if (assigneeFilterInList != 'default' && prioritieValue) {
-            if (
-              boardStore.entitiesItem[a].priority == prioritieValue &&
-              boardStore.entitiesItem[a].assignees[0]?.userId == assigneeFilterInList
-            ) {
-              filteredId.push(boardStore.entitiesItem[a].id);
-            } else {
-              filteredId.push();
-            }
-          } else if (prioritieValue) {
-            if (boardStore.entitiesItem[a].priority == prioritieValue) {
-              filteredId.push(boardStore.entitiesItem[a].id);
-            } else {
-              filteredId.push();
-            }
-          } else if (assigneeFilterInList == 'Unassigned') {
-            if (boardStore.entitiesItem[a].assignees.length == 0) {
-              filteredId.push(boardStore.entitiesItem[a].id);
-            } else {
-              filteredId.push();
-            }
-          } else if (assigneeFilterInList != 'default') {
-            if (boardStore.entitiesItem[a].assignees[0]?.userId == assigneeFilterInList) {
-              filteredId.push(boardStore.entitiesItem[a].id);
-            } else {
-              filteredId.push();
-            }
-          } else if (assigneeFilterInList == 'default' && !prioritieValue) {
-            filteredId.push(boardStore.entitiesItem[a].id);
-          }
-        });
-        entities[key] = filteredId;
+        entities[key] = boardStore.entitiesColumn[key].ids;
         return key;
       });
+      setNeedUpdate(false);
       setBoardState({ids, entities});
     }
-  }, [needUpdate, boardStore, priorityFilterInList, assigneeFilterInList]);
+  }, [needUpdate, boardStore]);
 
   const getDragData = ({active, over}: {active: Active; over: Over | null}) => {
     if (!over?.id) return null;
