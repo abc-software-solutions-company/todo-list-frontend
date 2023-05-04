@@ -62,14 +62,58 @@ const KanbanContainer: FC = () => {
   useEffect(() => {
     if (needUpdate) {
       const entities: BoardState['entities'] = {};
+      const prioritiesList = Object.values(Priorities).reverse();
+      const prioritieValue = prioritiesList.includes(priorityFilterInList) ? priorityFilterInList : '';
       const ids = boardStore.ids.map(key => {
-        entities[key] = boardStore.entitiesColumn[key].ids;
+        const filteredId: string[] = [];
+        boardStore.entitiesColumn[key].ids.map(a => {
+          if (assigneeFilterInList == 'Unassigned' && prioritieValue) {
+            if (
+              boardStore.entitiesItem[a].assignees.length == 0 &&
+              boardStore.entitiesItem[a].priority == prioritieValue
+            ) {
+              filteredId.push(boardStore.entitiesItem[a].id);
+            } else {
+              filteredId.push();
+            }
+          } else if (assigneeFilterInList != 'default' && prioritieValue) {
+            if (
+              boardStore.entitiesItem[a].priority == prioritieValue &&
+              boardStore.entitiesItem[a].assignees[0]?.userId == assigneeFilterInList
+            ) {
+              filteredId.push(boardStore.entitiesItem[a].id);
+            } else {
+              filteredId.push();
+            }
+          } else if (prioritieValue) {
+            if (boardStore.entitiesItem[a].priority == prioritieValue) {
+              filteredId.push(boardStore.entitiesItem[a].id);
+            } else {
+              filteredId.push();
+            }
+          } else if (assigneeFilterInList == 'Unassigned') {
+            if (boardStore.entitiesItem[a].assignees.length == 0) {
+              filteredId.push(boardStore.entitiesItem[a].id);
+            } else {
+              filteredId.push();
+            }
+          } else if (assigneeFilterInList != 'default') {
+            if (boardStore.entitiesItem[a].assignees[0]?.userId == assigneeFilterInList) {
+              filteredId.push(boardStore.entitiesItem[a].id);
+            } else {
+              filteredId.push();
+            }
+          } else if (assigneeFilterInList == 'default' && !prioritieValue) {
+            filteredId.push(boardStore.entitiesItem[a].id);
+          }
+        });
+        entities[key] = filteredId;
         return key;
       });
       setNeedUpdate(false);
       setBoardState({ids, entities});
     }
-  }, [needUpdate, boardStore]);
+  }, [needUpdate, boardStore, priorityFilterInList, assigneeFilterInList]);
 
   const getDragData = ({active, over}: {active: Active; over: Over | null}) => {
     if (!over?.id) return null;
