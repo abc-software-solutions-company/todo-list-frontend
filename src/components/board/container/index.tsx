@@ -16,6 +16,7 @@ import {IApdater} from '@/utils/zustand-adapter';
 import KanbanColumn from '../column';
 import KanbanTaskItem from '../column/body/item';
 import style from './style.module.scss';
+import { IStatus } from '@/data/api/types/todolist.type';
 
 export type BoardState = IApdater<string[]>;
 
@@ -31,14 +32,7 @@ const KanbanContainer: FC = () => {
   const [needUpdate, setNeedUpdate] = useState(false);
 
   useEffect(() => {
-    const newStatusList: {
-      id: number;
-      backgroundColor: string;
-      index: number;
-      name: string;
-      color: string;
-      tasks: ITaskResponse[] | undefined;
-    }[] = [];
+    const newStatusList: IStatus[] = [];
     const prioritiesList = Object.values(Priorities).reverse();
     const prioritieValue = prioritiesList.includes(priorityFilterInList) ? priorityFilterInList : '';
     statusList.map(a =>
