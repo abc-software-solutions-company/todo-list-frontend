@@ -3,7 +3,7 @@ import {arrayMove, horizontalListSortingStrategy, SortableContext} from '@dnd-ki
 import React, {FC, useEffect, useState} from 'react';
 
 import api from '@/data/api';
-import {ITaskResponse} from '@/data/api/types/task.type';
+import {IStatus} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import {useBoardState} from '@/hooks/useBoardState';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
@@ -16,7 +16,6 @@ import {IApdater} from '@/utils/zustand-adapter';
 import KanbanColumn from '../column';
 import KanbanTaskItem from '../column/body/item';
 import style from './style.module.scss';
-import { IStatus } from '@/data/api/types/todolist.type';
 
 export type BoardState = IApdater<string[]>;
 
