@@ -3,13 +3,13 @@ import {arrayMove, horizontalListSortingStrategy, SortableContext} from '@dnd-ki
 import React, {FC, useEffect, useState} from 'react';
 
 import api from '@/data/api';
+import {ITaskResponse} from '@/data/api/types/task.type';
 import {IStatus} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import {useBoardState} from '@/hooks/useBoardState';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useBoards from '@/states/board/use-boards';
 import useFilter from '@/states/filter/use-filter';
-import {Priorities} from '@/utils/constant';
 import {getnewIndexForDragDrop} from '@/utils/function';
 import {IApdater} from '@/utils/zustand-adapter';
 
@@ -23,7 +23,13 @@ const KanbanContainer: FC = () => {
   const sensors = useSensorGroup();
   const {listID, statusList} = useBoards();
   const boardStore = useBoardState();
-  const {priorityFilterInList, assigneeFilterInList} = useFilter();
+  const {
+    priorityFilterInList,
+    assigneeFilterInList,
+    getFilterdTasks,
+    setAssigneeFilterInList,
+    setPriorityFilterInList
+  } = useFilter();
 
   const [boardState, setBoardState] = useState<BoardState>({ids: [], entities: {}});
   const [activeItemId, setActiveItemId] = useState<string>();
@@ -32,33 +38,21 @@ const KanbanContainer: FC = () => {
 
   useEffect(() => {
     const newStatusList: IStatus[] = [];
-    const prioritiesList = Object.values(Priorities).reverse();
-    const prioritieValue = prioritiesList.includes(priorityFilterInList) ? priorityFilterInList : '';
     statusList.map(a =>
       newStatusList.push({
-        id: a.id,
-        backgroundColor: a.backgroundColor,
-        index: a.index,
-        name: a.name,
-        color: a.color,
-        tasks: a.tasks?.filter(e => {
-          if (assigneeFilterInList == 'Unassigned' && prioritieValue)
-            return e.assignees.length == 0 && e.priority == prioritieValue;
-          if (prioritieValue && assigneeFilterInList != 'default')
-            return e.priority == prioritieValue && e.assignees[0]?.userId == assigneeFilterInList;
-          if (prioritieValue) return e.priority == prioritieValue;
-          if (assigneeFilterInList == 'Unassigned') {
-            return e.assignees.length == 0;
-          } else if (assigneeFilterInList != 'default') {
-            return e.assignees[0]?.userId == assigneeFilterInList;
-          }
-          return e;
-        })
+        ...a,
+        tasks: getFilterdTasks(a.tasks as ITaskResponse[])
       })
     );
     boardStore.generateState(newStatusList);
     setNeedUpdate(true);
   }, [statusList, priorityFilterInList, assigneeFilterInList]);
+
+  useEffect(() => {
+    setPriorityFilterInList('');
+    setAssigneeFilterInList('default');
+  }, []);
+
   useEffect(() => {
     if (needUpdate) {
       const entities: BoardState['entities'] = {};

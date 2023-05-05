@@ -1,5 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
+import {ITaskResponse} from '@/data/api/types/task.type';
+
 import initialState from './initialState';
 
 const filterSlice = createSlice({
@@ -29,6 +31,9 @@ const filterSlice = createSlice({
     },
     setAssigneeFilterInMyTask: (state, {payload}: PayloadAction<string[]>) => {
       state.assigneeFilterInMytask = payload;
+    },
+    setFilterTasks: (state, {payload}: PayloadAction<ITaskResponse[]>) => {
+      state.filterTasks = payload;
     }
   }
 });

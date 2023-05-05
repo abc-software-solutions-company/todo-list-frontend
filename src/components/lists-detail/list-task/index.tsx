@@ -10,74 +10,31 @@ import {socketUpdateList} from '@/data/socket';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useFilter from '@/states/filter/use-filter';
 import useTodolist from '@/states/todolist/use-todolist';
-import {IndexStep, Priorities} from '@/utils/constant';
+import {IndexStep} from '@/utils/constant';
 
 const ListTask = () => {
   const {todolist, write, setTodolist} = useTodolist();
+  console.log('🚀 ~ file: index.tsx:17 ~ ListTask ~ todolist:', todolist);
   const {
-    statusFilterInList,
     setStatusFilterInList,
-    priorityFilterInList,
     setPriorityFilterInList,
+    setAssigneeFilterInList,
+    getFilterdTasks,
+    priorityFilterInList,
     assigneeFilterInList,
-    setAssigneeFilterInList
-    // setFeatureFilterInList,
-    // featureFilterInList
+    statusFilterInList,
+    setFilterTasks,
+    filterTasks
   } = useFilter();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   //FIXME: Fix chữa cháy kịp buổi release, sẽ sớm viết lại hàm getTask và các filter cho gọn hơn.
-  const getTasks = () => {
-    const prioritiesList = Object.values(Priorities).reverse();
-    const prioritieValue = prioritiesList.includes(priorityFilterInList) ? priorityFilterInList : '';
-    // if (prioritieValue && statusFilterInList && featureFilterInList != 'undefined')
-    //   return todolist.tasks.filter(
-    //     e => e.priority == prioritieValue && e.statusId == statusFilterInList && e.isFeature == featureFilterInList
-    //   );
-    // if (prioritieValue && featureFilterInList != 'undefined')
-    //   return todolist.tasks.filter(e => e.priority == prioritieValue && e.isFeature == featureFilterInList);
-    // if (statusFilterInList && featureFilterInList != 'undefined')
-    //   return todolist.tasks.filter(e => e.statusId == statusFilterInList && e.isFeature == featureFilterInList);
-    if (assigneeFilterInList == 'Unassigned' && statusFilterInList && prioritieValue)
-      return todolist.tasks.filter(
-        e => e.assignees.length == 0 && e.statusId == statusFilterInList && e.priority == prioritieValue
-      );
-    if (assigneeFilterInList != 'default' && statusFilterInList && prioritieValue)
-      return todolist.tasks.filter(
-        e =>
-          e.assignees[0]?.userId == assigneeFilterInList &&
-          e.statusId == statusFilterInList &&
-          e.priority == prioritieValue
-      );
-    if (assigneeFilterInList == 'Unassigned' && prioritieValue)
-      return todolist.tasks.filter(e => e.assignees.length == 0 && e.priority == prioritieValue);
-    if (assigneeFilterInList == 'Unassigned' && statusFilterInList)
-      return todolist.tasks.filter(e => e.assignees.length == 0 && e.statusId == statusFilterInList);
-    if (assigneeFilterInList != 'default' && statusFilterInList)
-      return todolist.tasks.filter(
-        e => e.assignees[0]?.userId == assigneeFilterInList && e.statusId == statusFilterInList
-      );
-    if (prioritieValue && assigneeFilterInList != 'default')
-      return todolist.tasks.filter(e => e.priority == prioritieValue && e.assignees[0]?.userId == assigneeFilterInList);
-    if (prioritieValue && statusFilterInList)
-      return todolist.tasks.filter(e => e.priority == prioritieValue && e.statusId == statusFilterInList);
-    if (prioritieValue) return todolist.tasks.filter(e => e.priority == prioritieValue);
-    if (statusFilterInList) return todolist.tasks.filter(e => e.statusId == statusFilterInList);
-    if (assigneeFilterInList == 'Unassigned') {
-      return todolist.tasks.filter(e => e.assignees.length == 0);
-    } else if (assigneeFilterInList != 'default') {
-      return todolist.tasks.filter(e => e.assignees[0]?.userId == assigneeFilterInList);
-    }
-    // if (assigneeFilterInList === '') return todolist.tasks.filter(e => e.assignees[0]?.userId == '');
-    // if (featureFilterInList != 'undefined') return todolist.tasks.filter(e => e.isFeature == featureFilterInList);
-    return todolist.tasks?.filter(e => !e.isDone);
-  };
 
-  const tasks = getTasks();
-
+  useEffect(() => {
+    setFilterTasks(getFilterdTasks(todolist.tasks));
+  }, [priorityFilterInList, assigneeFilterInList, statusFilterInList, todolist]);
   const sensors = useSensorGroup();
   const modifiers = [restrictToVerticalAxis];
-
   const onDragCancel = () => setActiveId(null);
   const onDragStart = ({active}: DragStartEvent) => {
     if (active) setActiveId(active.id);
@@ -99,7 +56,7 @@ const ListTask = () => {
           let newTaskIndex: number | undefined;
           let reindexAll = false;
           const limitDifferenceIndex = 32;
-          const indexList = tasks.map(e => e.index);
+          const indexList = filterTasks.map(e => e.index);
           const maxIndex = Math.max(...indexList);
           const minIndex = Math.min(...indexList);
           const taskBefore = arrangeTask[index - 1];
@@ -132,16 +89,19 @@ const ListTask = () => {
     setStatusFilterInList(0);
     setPriorityFilterInList('');
     setAssigneeFilterInList('default');
-    // setFeatureFilterInList();
   }, []);
 
   return (
     <DndContext {...{sensors, modifiers, onDragCancel, onDragEnd, onDragStart}}>
       <div className="tasks">
-        {tasks && tasks.length === 0 && <span className="empty">Empty list</span>}
-        {tasks && tasks.length > 0 && (
-          <SortableContext disabled={!write} items={tasks.map(task => task.id)} strategy={verticalListSortingStrategy}>
-            {tasks.map(task => (
+        {filterTasks && filterTasks.length === 0 && <span className="empty">Empty list</span>}
+        {filterTasks && filterTasks.length > 0 && (
+          <SortableContext
+            disabled={!write}
+            items={filterTasks.map(task => task.id)}
+            strategy={verticalListSortingStrategy}
+          >
+            {filterTasks.map(task => (
               <TaskItem key={task.id} task={task} todolist={todolist} write={write} />
             ))}
           </SortableContext>
@@ -149,8 +109,8 @@ const ListTask = () => {
         <DragOverlay>
           {activeId ? (
             <TaskItem
-              key={tasks.filter(e => e.id === activeId)[0].id}
-              task={tasks.filter(e => e.id === activeId)[0]}
+              key={filterTasks.filter(e => e.id === activeId)[0].id}
+              task={filterTasks.filter(e => e.id === activeId)[0]}
               isSelect={true}
               todolist={todolist}
             />

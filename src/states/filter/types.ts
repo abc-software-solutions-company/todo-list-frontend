@@ -1,3 +1,5 @@
+import {ITaskResponse} from '@/data/api/types/task.type';
+
 export interface IInitialState {
   statusFilterInList: number;
   statusFilterInMytask: number[];
@@ -7,4 +9,5 @@ export interface IInitialState {
   featureFilterInMytask: boolean[] | undefined | string;
   assigneeFilterInList: string;
   assigneeFilterInMytask: string[];
+  filterTasks: ITaskResponse[];
 }
