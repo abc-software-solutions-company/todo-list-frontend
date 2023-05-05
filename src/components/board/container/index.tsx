@@ -16,6 +16,7 @@ import {IApdater} from '@/utils/zustand-adapter';
 import KanbanColumn from '../column';
 import KanbanTaskItem from '../column/body/item';
 import style from './style.module.scss';
+import { IStatus } from '@/data/api/types/todolist.type';
 
 export type BoardState = IApdater<string[]>;
 
