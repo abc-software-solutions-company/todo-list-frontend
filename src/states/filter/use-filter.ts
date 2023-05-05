@@ -1,5 +1,8 @@
 import {useDispatch, useSelector} from 'react-redux';
 
+import {ITaskResponse} from '@/data/api/types/task.type';
+import {Priorities} from '@/utils/constant';
+
 import {RootState} from '../store';
 import filterSlice from './slice';
 
@@ -13,7 +16,8 @@ export default function useFilter() {
     featureFilterInList,
     featureFilterInMytask,
     assigneeFilterInList,
-    assigneeFilterInMytask
+    assigneeFilterInMytask,
+    filterTasks
   } = filterState;
   const {actions} = filterSlice;
 
@@ -28,6 +32,38 @@ export default function useFilter() {
     dispatch(actions.setFeatureFilterInList(value));
   const setFeatureFilterInMyTask = (value: boolean[] | undefined | string) =>
     dispatch(actions.setFeatureFilterInMyTask(value));
+  const setFilterTasks = (value: ITaskResponse[]) => dispatch(actions.setFilterTasks(value));
+  const getFilterdTasks = (filterList: ITaskResponse[]) => {
+    const prioritiesList = Object.values(Priorities).reverse();
+    const prioritieValue = prioritiesList.includes(priorityFilterInList) ? priorityFilterInList : '';
+    return filterList.filter(e => {
+      if (assigneeFilterInList == 'Unassigned' && statusFilterInList && prioritieValue)
+        return e.assignees.length == 0 && e.statusId == statusFilterInList && e.priority == prioritieValue;
+      if (assigneeFilterInList != 'default' && statusFilterInList && prioritieValue)
+        return (
+          e.assignees[0]?.userId == assigneeFilterInList &&
+          e.statusId == statusFilterInList &&
+          e.priority == prioritieValue
+        );
+      if (assigneeFilterInList == 'Unassigned' && prioritieValue)
+        return e.assignees.length == 0 && e.priority == prioritieValue;
+      if (prioritieValue && assigneeFilterInList != 'default')
+        return e.priority == prioritieValue && e.assignees[0]?.userId == assigneeFilterInList;
+      if (assigneeFilterInList == 'Unassigned' && statusFilterInList)
+        return e.assignees.length == 0 && e.statusId == statusFilterInList;
+      if (assigneeFilterInList != 'default' && statusFilterInList)
+        return e.assignees[0]?.userId == assigneeFilterInList && e.statusId == statusFilterInList;
+      if (prioritieValue && statusFilterInList) return e.priority == prioritieValue && e.statusId == statusFilterInList;
+      if (prioritieValue) return e.priority == prioritieValue;
+      if (statusFilterInList) return e.statusId == statusFilterInList;
+      if (assigneeFilterInList == 'Unassigned') {
+        return e.assignees.length == 0;
+      } else if (assigneeFilterInList != 'default') {
+        return e.assignees[0]?.userId == assigneeFilterInList;
+      }
+      return !e.isDone;
+    });
+  };
 
   return {
     statusFilterInList,
@@ -45,6 +81,9 @@ export default function useFilter() {
     setAssigneeFilterInList,
     setAssigneeFilterInMyTask,
     assigneeFilterInList,
-    assigneeFilterInMytask
+    assigneeFilterInMytask,
+    filterTasks,
+    setFilterTasks,
+    getFilterdTasks
   };
 }

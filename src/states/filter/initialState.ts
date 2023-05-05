@@ -8,7 +8,8 @@ const initialState: IInitialState = {
   featureFilterInList: false,
   featureFilterInMytask: [],
   assigneeFilterInList: '',
-  assigneeFilterInMytask: []
+  assigneeFilterInMytask: [],
+  filterTasks: []
 };
 
 export default initialState;
