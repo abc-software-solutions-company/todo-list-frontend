@@ -87,7 +87,7 @@ const ModalUpdateList: FC<IProps> = props => {
                   onChange={(e, value) => setValue('member', {ids: value.map(u => u.id)})}
                   options={options}
                   disableCloseOnSelect
-                  getOptionLabel={option => option.email || 'no email'}
+                  getOptionLabel={option => `${option.name} (${option.email})`}
                   renderOption={(prop, option, state) => {
                     const {selected} = state;
                     if (!selected)
