@@ -39,7 +39,7 @@ export const useDocumentsStore = create<State & Action>()(
       },
       resetDocumentFavorite: () => {
         set(state => {
-          state.documentsFavorite = [];
+          state.documentsFavorite = state.documents.filter(doc => doc.favorite == true);
         });
       },
       addDocumentsFavorite: newItem => {
@@ -56,8 +56,8 @@ export const useDocumentsStore = create<State & Action>()(
           set(
             state => {
               state.documents = res.data;
-              state.documentsFavorite = res.data.filter(doc => doc.favorite == true);
               state.isFeching = true;
+              state.documentsFavorite = res.data.filter(doc => doc.favorite == true);
               if (!state.document?.id) state.document = state.documents?.[0];
             },
             false,

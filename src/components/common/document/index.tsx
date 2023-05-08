@@ -12,16 +12,15 @@ interface IProps {
   iconDropdown?: string;
   item: IGetDocuments;
   showMoreDoc?: () => void;
-  showContent?: () => void;
 }
-const Document: React.FC<IProps> = ({iconDropdown, item, showMoreDoc, showContent}) => {
+const Document: React.FC<IProps> = ({iconDropdown, item, showMoreDoc}) => {
   const [isShown, setIsShown] = useState(false);
   const {document} = useDocumentsStore();
   const {handleGetDocument, handleFavorite} = useListDocuments();
 
   return (
     <div
-      className="relative min-w-[10rem]"
+      className="relative md:min-w-[10rem]"
       onMouseEnter={() => setIsShown(true)}
       onMouseLeave={() => setIsShown(false)}
     >
@@ -30,9 +29,11 @@ const Document: React.FC<IProps> = ({iconDropdown, item, showMoreDoc, showConten
           item.id == document.id ? '-mx-3 bg-slate-100 px-3' : 'hover:rounded-md hover:bg-slate-100',
           'flex cursor-pointer justify-between py-3'
         )}
-        onClick={() => handleGetDocument(item.id)}
+        onClick={() => {
+          handleGetDocument(item.id);
+        }}
       >
-        <div className="flex" onClick={showContent}>
+        <div className="flex">
           <Icon name="drop" className={iconDropdown} onClick={showMoreDoc} />
           <p className="max-h-[25px] overflow-hidden">📗 {item.name}</p>
         </div>
