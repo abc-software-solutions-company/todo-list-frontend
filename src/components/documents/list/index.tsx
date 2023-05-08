@@ -38,8 +38,6 @@ const DocumentList: React.FC<IProps> = ({id}) => {
         />
       </div>
       <hr />
-      {/* <DocumentListType type="Favorite" listDocument={documentsFavorite} />
-       */}
       <div>
         <p className="mt-3 font-bold">Favorite</p>
         <div className="scrollbar relative max-h-[35vh] max-w-lg overflow-auto">
