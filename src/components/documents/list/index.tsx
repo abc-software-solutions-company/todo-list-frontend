@@ -17,7 +17,6 @@ const DocumentList: React.FC<IProps> = ({id}) => {
   const [showModalCreate, isShowModalCreate] = useState<boolean>(false);
   const {documents, isFeching, documentsFavorite, getAllDocument, resetDocumentFavorite, resetDocument} =
     useDocumentsStore();
-  console.log('🚀 ~ file: index.tsx:17 ~ documentsFavorite:', documentsFavorite);
 
   useEffect(() => {
     resetDocument();
@@ -46,8 +45,11 @@ const DocumentList: React.FC<IProps> = ({id}) => {
         <div className="scrollbar relative max-h-[35vh] max-w-lg overflow-auto">
           {documentsFavorite?.map(item => (
             <div key={item.id}>
-              <Document showMoreDoc={() => {}} iconDropdown={''} item={item} />
-              {item.parentId && <RecursiveList key={item.id} node={item} favorite={item.favorite} />}
+              {item.children ? (
+                <RecursiveList key={item.id} node={item} favorite={item.favorite} />
+              ) : (
+                <Document showMoreDoc={() => {}} iconDropdown={''} item={item} />
+              )}
             </div>
           ))}
         </div>

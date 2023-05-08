@@ -22,6 +22,7 @@ type Action = {
   resetDocumentFavorite: () => void;
   addDocumentsFavorite: (newItem: IGetDocuments) => void;
   removeDocumentsFavorite: (id: string) => void;
+  getDocumentFavorite: (documents: any) => IGetDocuments[];
 };
 
 export const useDocumentsStore = create<State & Action>()(
@@ -50,6 +51,21 @@ export const useDocumentsStore = create<State & Action>()(
           documentsFavorite: prevState.documentsFavorite.filter(doc => doc.id !== id)
         }));
       },
+      getDocumentFavorite: documents => {
+        function getAllItems(items: any) {
+          let result: any[] = [];
+          items.forEach((item: {children: string | any[]}) => {
+            result.push(item);
+            if (item.children && item.children.length > 0) {
+              result = [...result, ...getAllItems(item.children)];
+            }
+          });
+          return result;
+        }
+
+        const allItems = getAllItems(documents).filter(doc => doc.favorite == true);
+        return allItems;
+      },
       getAllDocument: async listId => {
         try {
           const res = await api.documents.getListDocument(listId);
@@ -57,7 +73,7 @@ export const useDocumentsStore = create<State & Action>()(
             state => {
               state.documents = res.data;
               state.isFeching = true;
-              state.documentsFavorite = res.data.filter(doc => doc.favorite == true);
+              state.documentsFavorite = state.getDocumentFavorite(state.documents);
               if (!state.document?.id) state.document = state.documents?.[0];
             },
             false,
