@@ -3,8 +3,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {Priorities} from '@/utils/constant';
 
-import useBoards from '../board/use-boards';
 import {RootState} from '../store';
+import useTodolist from '../todolist/use-todolist';
 import filterSlice from './slice';
 
 export default function useFilter() {
@@ -24,7 +24,7 @@ export default function useFilter() {
     filterTasks
   } = filterState;
   const {actions} = filterSlice;
-  const {statusList} = useBoards();
+  const {statusList} = useTodolist();
   const dispatch = useDispatch();
   const setStatusFilterInList = (value: number) => dispatch(actions.setStatusFilterInList(value));
   const setCurrentStatus = (value: number) => dispatch(actions.setCurrentStatus(value));

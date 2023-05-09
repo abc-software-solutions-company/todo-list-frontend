@@ -149,8 +149,8 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
   };
 
   const onReset = () => {
-    setCurrentAssignee('');
-    setCurrentPriority('');
+    setCurrentAssignee('default');
+    setCurrentPriority('default');
     setCurrentStatus(0);
     setSelectStatus(0);
     setSelectPriority('default');
@@ -165,8 +165,12 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
   };
 
   useEffect(() => {
-    if (currentPriority || (currentAssignee != '' && currentAssignee != 'default') || currentStatus) {
-        setSelectStatus(currentStatus);
+    if (
+      (currentPriority != 'default' && currentPriority != '') ||
+      (currentAssignee != '' && currentAssignee != 'default') ||
+      currentStatus
+    ) {
+      setSelectStatus(currentStatus);
       setSelectPriority(currentPriority);
       setSelectAssignee(currentAssignee);
     } else {

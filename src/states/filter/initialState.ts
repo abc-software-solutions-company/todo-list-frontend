@@ -10,8 +10,8 @@ const initialState: IInitialState = {
   assigneeFilterInList: '',
   assigneeFilterInMytask: [],
   currentStatus: 0,
-  currentPriority: '',
-  currentAssignee: '',
+  currentPriority: 'default',
+  currentAssignee: 'default',
   filterTasks: []
 };
 
