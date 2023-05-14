@@ -6,11 +6,14 @@ import {useRouter} from 'next/router';
 
 import {ROUTES} from '@/configs/routes.config';
 import Checkbox from '@/core-ui/checkbox';
+import Icon from '@/core-ui/icon';
+import useToast from '@/core-ui/toast';
 import api from '@/data/api/index';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import useTasks from '@/states/tasks/use-tasks';
+import {ToastContents} from '@/utils/toast-content';
 
 import Actions from './actions';
 import style from './style.module.scss';
@@ -28,6 +31,7 @@ export default function TaskItem(props: ITaskItemProps) {
   const {taskSymbol} = todolist;
   const {order, name, id, isDone} = task;
   const {getMyTasks} = useTasks();
+  const toast = useToast();
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: id});
 
   const styleDnd = {
@@ -51,6 +55,11 @@ export default function TaskItem(props: ITaskItemProps) {
 
   const onChange = () => setDone(id, isDone);
   const onClick = () => router.push(ROUTES.TASK + '/' + id);
+  const taskName = taskSymbol && order ? `${taskSymbol}-${order}:  ${name}` : name;
+  const onCopyTaskName = () => {
+    navigator.clipboard.writeText(taskName);
+    toast.show({type: 'success', title: 'Copy task name success', content: ToastContents.SUCCESS});
+  };
   return (
     <div
       className={classNames(style.task, `item ${isSelect && 'select'}`, 'hover:bg-blue-100')}
@@ -60,8 +69,9 @@ export default function TaskItem(props: ITaskItemProps) {
       {...listeners}
     >
       <Checkbox checked={isDone} onChange={onChange} disabled={!write} />
+      <Icon name="ico-copy" className="pl-3" onClick={onCopyTaskName} />
       <div className={`h6 ${isDone && 'checked'}`} onClick={onClick}>
-        {taskSymbol && order ? `${taskSymbol}-${order}:  ${name}` : name}
+        {taskName}
       </div>
       <Actions {...{...props, todolist, write}} />
     </div>
