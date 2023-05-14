@@ -8,7 +8,7 @@ interface IDocumentsProps {
 }
 const Documents: FC<IDocumentsProps> = ({id}) => {
   return (
-    <div className="mt-4 flex gap-6">
+    <div className="mt-4 flex max-h-screen gap-6">
       <DocumentList id={id} />
       <DocumentContent />
     </div>

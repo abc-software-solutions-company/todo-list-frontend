@@ -22,8 +22,11 @@ export interface IToastItem {
 
 class Toast implements IToast {
   private static instance: IToast;
+
   private static icon: string;
+
   private elementPool: ObjectPool;
+
   private toaster: HTMLElement;
 
   constructor(maxItems = 5, forceCreateNew = true) {

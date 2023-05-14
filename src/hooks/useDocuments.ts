@@ -10,6 +10,7 @@ type State = {
   isFeching: boolean;
   document: IDocumentAttribute;
   documents: IGetDocuments[];
+  documentsFavorite: IGetDocuments[];
 };
 
 type Action = {
@@ -18,12 +19,17 @@ type Action = {
   updateDocument: (data: IUpdateDocument) => void;
   createDocument: (data: IDocumentCreate) => void;
   resetDocument: () => void;
+  resetDocumentFavorite: () => void;
+  addDocumentsFavorite: (newItem: IGetDocuments) => void;
+  removeDocumentsFavorite: (id: string) => void;
+  getDocumentFavorite: (documents: IGetDocuments[]) => IGetDocuments[];
 };
 
 export const useDocumentsStore = create<State & Action>()(
   devtools(
     immer(set => ({
       documents: [],
+      documentsFavorite: [],
       error: false,
       isFeching: false,
       document: {} as IDocumentAttribute,
@@ -32,6 +38,34 @@ export const useDocumentsStore = create<State & Action>()(
           state.document = {} as IDocumentAttribute;
         });
       },
+      resetDocumentFavorite: () => {
+        set(state => {
+          state.documentsFavorite = state.documents.filter(doc => doc.favorite == true);
+        });
+      },
+      addDocumentsFavorite: newItem => {
+        set(prevState => ({documentsFavorite: prevState.documentsFavorite.concat(newItem)}));
+      },
+      removeDocumentsFavorite: id => {
+        set(prevState => ({
+          documentsFavorite: prevState.documentsFavorite.filter(doc => doc.id !== id)
+        }));
+      },
+      getDocumentFavorite: documents => {
+        function getAllItems(items: any) {
+          let result: IGetDocuments[] = [];
+          items.forEach((item: IGetDocuments) => {
+            result.push(item);
+            if (item.children && item.children.length > 0) {
+              result = [...result, ...getAllItems(item.children)];
+            }
+          });
+          return result;
+        }
+
+        const allItems = getAllItems(documents);
+        return allItems.filter(doc => doc.favorite == true);
+      },
       getAllDocument: async listId => {
         try {
           const res = await api.documents.getListDocument(listId);
@@ -39,6 +73,7 @@ export const useDocumentsStore = create<State & Action>()(
             state => {
               state.documents = res.data;
               state.isFeching = true;
+              state.documentsFavorite = state.getDocumentFavorite(state.documents);
               if (!state.document?.id) state.document = state.documents?.[0];
             },
             false,
