@@ -1,0 +1,6 @@
+node_modules
+.next
+.github
+.vscode
+.cli
+e2e
