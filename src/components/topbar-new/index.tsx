@@ -4,7 +4,7 @@ import TopArea from './top-area';
 
 const TopBarNew: FC = () => {
   return (
-    <div className="topbar-new">
+    <div className="topbar-new mx-auto lg:mx-0">
       <TopArea />
     </div>
   );

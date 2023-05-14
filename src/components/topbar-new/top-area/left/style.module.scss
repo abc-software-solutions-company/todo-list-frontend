@@ -11,7 +11,7 @@
   }
   .page-title {
     @apply text-h4 font-semibold;
-    @apply gap-x-1 sm:flex;
+    @apply flex gap-x-1;
   }
   .more {
     @apply hidden md:block;

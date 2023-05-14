@@ -6,6 +6,6 @@
     @apply rounded-md border border-transparent;
     @apply flex items-center gap-x-1;
     @apply cursor-pointer;
-    @apply mr-20 py-1 px-2;
+    @apply py-1 px-2 lg:mr-20;
   }
 }

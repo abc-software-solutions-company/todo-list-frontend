@@ -1,5 +1,5 @@
 .topbar-link :global {
-  @apply mr-[-0.75rem] font-semibold;
+  @apply mr-[-0.75rem] text-sm md:text-lg md:font-semibold;
   a:first-child {
     @apply mr-3;
   }
