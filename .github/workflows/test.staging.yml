@@ -25,4 +25,4 @@ jobs:
         run: yarn install
 
       - name: Run Typescript Checks
-        run: yarn lint
+        run: yarn build
