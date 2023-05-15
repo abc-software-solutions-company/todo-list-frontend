@@ -51,6 +51,8 @@ export default function TaskItem(props: ITaskItemProps) {
 
   const onChange = () => setDone(id, isDone);
   const onClick = () => router.push(ROUTES.TASK + '/' + id);
+  const taskName = taskSymbol && order ? `${taskSymbol}-${order}:  ${name}` : name;
+
   return (
     <div
       className={classNames(style.task, `item ${isSelect && 'select'}`, 'hover:bg-blue-100')}
@@ -63,7 +65,7 @@ export default function TaskItem(props: ITaskItemProps) {
       <div className={`h6 ${isDone && 'checked'}`} onClick={onClick}>
         {taskSymbol && order ? `${taskSymbol}-${order}:  ${name}` : name}
       </div>
-      <Actions {...{...props, todolist, write}} />
+      <Actions {...{...props, todolist, write, taskName}} />
     </div>
   );
 }
