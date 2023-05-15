@@ -22,9 +22,10 @@ import style from './style.module.scss';
 interface IActionsProps extends ITaskItemProps {
   write?: boolean;
   kanban?: boolean;
+  taskName: string;
 }
 
-const Actions: FC<IActionsProps> = ({task, todolist, write = false, kanban = false}) => {
+const Actions: FC<IActionsProps> = ({task, todolist, write = false, kanban = false, taskName}) => {
   const {setIsOpenModal, setSelectedTask} = useModals();
   const {write: isWrite, owner} = useTodolist();
   const toast = useToast();
@@ -52,6 +53,11 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false, kanban = fal
     api.task.update({id: task.id, statusId: newStatusId}).then(socketUpdateList);
   };
 
+  const onCopyTaskName = () => {
+    navigator.clipboard.writeText(taskName);
+    toast.show({type: 'success', title: 'Copy task name success', content: ToastContents.SUCCESS});
+  };
+
   // const onChangeIsFeature = (event: SelectChangeEvent<unknown>) => {
   //   const newIsFeature = Boolean(event.target.value);
   //   setIsFeature(newIsFeature);
@@ -77,7 +83,13 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false, kanban = fal
     onClick: onEdit
   };
 
-  const toolMenuItems = [deleteToolProps, editToolProps]
+  const copyTaskNameProps: IToolProps = {
+    icon: <Icon name="ico-copy" />,
+    text: 'Copy Name',
+    onClick: onCopyTaskName
+  };
+
+  const toolMenuItems = [deleteToolProps, editToolProps, copyTaskNameProps]
     .filter(item => !item.hidden)
     .map((item, idx) => <Tool key={idx} {...{...item, className: 'flex-row-reverse'}} />);
 

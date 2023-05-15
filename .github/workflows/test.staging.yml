@@ -25,4 +25,4 @@ jobs:
         run: yarn install
 
       - name: Run Typescript Checks
-        run: yarn build
+        run: yarn genfont && yarn build
