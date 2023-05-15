@@ -33,11 +33,13 @@ const TopAreaLeft: FC = () => {
         />
       </div>
       <div className="page-title">
-        <p>To-Do List |</p>
-        {isMyListPage(path, id as string) && 'My Lists'}
-        {isMyTasksPage(path, id as string) && 'My Tasks'}
-        {isListDetailPage(path, id as string) && todolist.name}
-        {isBoardPage(path, id as string) && boardData.name}
+        <p>{`To-Do List |
+         ${isMyListPage(path, id as string) && 'My Lists'}
+         ${isMyTasksPage(path, id as string) && 'My Tasks'}
+         ${isListDetailPage(path, id as string) && todolist.name}
+         ${isBoardPage(path, id as string) && boardData.name}
+        `}</p>
+
         <div className="page-action">
           <div className="favorite-list">
             {isListDetailPage(path, id as string) && <TodolistFavorite id={todolist.id} favorite={todolist.favorite} />}
