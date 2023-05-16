@@ -72,7 +72,7 @@ const Actions: FC<IActionsProps> = ({task, todolist, write = false, kanban = fal
   };
 
   const deleteToolProps: IToolProps = {
-    icon: <Icon name="ico-trash-2" />,
+    icon: <Icon name="ico-trash" />,
     text: 'Delete',
     onClick: onDelete
   };
