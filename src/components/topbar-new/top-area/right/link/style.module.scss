@@ -6,8 +6,11 @@
   a:last-child {
     @apply ml-3;
   }
-  span {
+  a {
     @apply mx-3 text-sky-500 hover:cursor-pointer;
+  }
+  .un-active {
+    @apply hover:no-underline;
   }
 }
 .active {
