@@ -1,11 +1,11 @@
 .topbar-share :global {
   @apply hidden md:block;
-  @apply flex items-center;
+  @apply items-center md:flex;
   .topbar-share-inner {
     @apply bg-[#38BDF8] text-sm text-white;
     @apply rounded-md border border-transparent;
-    @apply flex items-center gap-x-1;
+    @apply items-center gap-x-1 md:flex;
     @apply cursor-pointer;
-    @apply mr-20 py-1 px-2;
+    @apply py-1 px-2 lg:mr-20;
   }
 }

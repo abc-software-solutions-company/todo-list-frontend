@@ -4,7 +4,7 @@ import {FC} from 'react';
 import Back from '@/components/common/back';
 import TodolistFavorite from '@/components/common/todolist-favorite';
 import {ROUTES} from '@/configs/routes.config';
-import {isBoardPage, isListDetailPage, isMyListPage, isMyTasksPage} from '@/utils/check-routes';
+import {isBoardPage, isDocumentPage, isListDetailPage, isMyListPage, isMyTasksPage} from '@/utils/check-routes';
 
 import useTopAreaLeft from './hook';
 import style from './style.module.scss';
@@ -33,11 +33,13 @@ const TopAreaLeft: FC = () => {
         />
       </div>
       <div className="page-title">
-        <p>To-Do List |</p>
-        {isMyListPage(path, id as string) && 'My Lists'}
-        {isMyTasksPage(path, id as string) && 'My Tasks'}
-        {isListDetailPage(path, id as string) && todolist.name}
-        {isBoardPage(path, id as string) && boardData.name}
+        <p>{`To-Do List
+         ${isMyListPage(path, id as string) ? '| My Lists' : ''}
+         ${isMyTasksPage(path, id as string) ? '| My Tasks' : ''}
+         ${isListDetailPage(path, id as string) || isDocumentPage(path, id as string) ? `| ${todolist.name}` : ''}
+         ${isBoardPage(path, id as string) ? `| ${boardData.name}` : ''}
+        `}</p>
+
         <div className="page-action">
           <div className="favorite-list">
             {isListDetailPage(path, id as string) && <TodolistFavorite id={todolist.id} favorite={todolist.favorite} />}

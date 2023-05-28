@@ -16,6 +16,11 @@ export const isBoardPage = (path: string, id: string) => {
   if (path.includes(ROUTES.KANBAN) && id) return true;
   return false;
 };
+
+export const isDocumentPage = (path: string, id: string) => {
+  if (path.includes(ROUTES.DOCUMENT) && id) return true;
+  return false;
+};
 export const isTaskPage = (path: string, id: string) => {
   if (path.includes(ROUTES.TASK) && id) return true;
   return false;

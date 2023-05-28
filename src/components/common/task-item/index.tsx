@@ -63,7 +63,7 @@ export default function TaskItem(props: ITaskItemProps) {
     >
       <Checkbox checked={isDone} onChange={onChange} disabled={!write} />
       <div className={`h6 ${isDone && 'checked'}`} onClick={onClick}>
-        {taskSymbol && order ? `${taskSymbol}-${order}:  ${name}` : name}
+        {taskName}
       </div>
       <Actions {...{...props, todolist, write, taskName}} />
     </div>
