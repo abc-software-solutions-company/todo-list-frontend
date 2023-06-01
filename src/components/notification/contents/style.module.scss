@@ -27,17 +27,17 @@
       @apply font-semibold;
     }
     .content {
-      @apply mr-3 line-clamp-2 lg:w-[310px];
+      @apply lg:w-[310px];
       a {
         @apply text-slate-700 underline;
-      }
-      .time {
-        @apply text-xs;
       }
     }
     .dot {
       @apply absolute top-2 right-3;
       @apply inline-block h-3 w-3 rounded-full bg-sky-500;
+    }
+    .time {
+      @apply text-xs font-normal text-slate-400;
     }
   }
   .footer {
