@@ -36,7 +36,11 @@ const TopAreaLeft: FC = () => {
         <p>{`To-Do List
          ${isMyListPage(path, id as string) ? '| My Lists' : ''}
          ${isMyTasksPage(path, id as string) ? '| My Tasks' : ''}
-         ${isListDetailPage(path, id as string) || isDocumentPage(path, id as string) ? `| ${todolist.name}` : ''}
+         ${
+           Boolean(isListDetailPage(path, id as string) || isDocumentPage(path, id as string))
+             ? `| ${todolist.name || ''}`
+             : ''
+         }
          ${isBoardPage(path, id as string) ? `| ${boardData.name}` : ''}
         `}</p>
 

@@ -8,6 +8,7 @@ import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 import {IGetDocuments} from '@/data/api/types/documents.type';
 import {useDocumentsStore} from '@/hooks/useDocuments';
+import useTodolist from '@/states/todolist/use-todolist';
 
 import style from './style.module.scss';
 
@@ -19,9 +20,11 @@ const DocumentList: React.FC<IProps> = ({id}) => {
   const [showPages, setShowPages] = useState<Array<string>>([]);
   const [showModalCreate, isShowModalCreate] = useState<boolean>(false);
   const {documents, document, isFeching, getAllDocument, resetDocument, getDocument} = useDocumentsStore();
+  const todolistState = useTodolist();
 
   useEffect(() => {
     resetDocument();
+    todolistState.getTodolist(id);
   }, [id]);
 
   useEffect(() => {
