@@ -21,7 +21,8 @@ export default function useFilter() {
     currentAssignee,
     currentPriority,
     currentStatus,
-    filterTasks
+    filterTasks,
+    nameFilter
   } = filterState;
   const {actions} = filterSlice;
   const {statusList} = useTodolist();
@@ -117,6 +118,8 @@ export default function useFilter() {
       }
     });
   };
+  const getFilterTaskByName = () => dispatch(actions.getFilterTaskByName());
+  const setNameFilterTask = (value: string) => dispatch(actions.setNameFilterTask(value));
 
   return {
     statusFilterInList,
@@ -143,6 +146,9 @@ export default function useFilter() {
     currentAssignee,
     currentPriority,
     currentStatus,
-    getFilterdTasks
+    getFilterdTasks,
+    getFilterTaskByName,
+    setNameFilterTask,
+    nameFilter
   };
 }

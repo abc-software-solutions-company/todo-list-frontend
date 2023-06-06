@@ -28,7 +28,9 @@ const ListTask = () => {
     filterTasks,
     setStatusFilterInList,
     setPriorityFilterInList,
-    setAssigneeFilterInList
+    setAssigneeFilterInList,
+    getFilterTaskByName,
+    nameFilter
   } = useFilter();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
@@ -36,7 +38,8 @@ const ListTask = () => {
 
   useEffect(() => {
     setFilterTasks(getFilterdTasks(todolist.tasks, false));
-  }, [priorityFilterInList, assigneeFilterInList, statusFilterInList, todolist, router]);
+    getFilterTaskByName();
+  }, [priorityFilterInList, assigneeFilterInList, statusFilterInList, todolist, router, nameFilter]);
   const sensors = useSensorGroup();
   const modifiers = [restrictToVerticalAxis];
   const onDragCancel = () => setActiveId(null);

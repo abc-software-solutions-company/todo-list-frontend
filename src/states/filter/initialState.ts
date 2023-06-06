@@ -12,7 +12,8 @@ const initialState: IInitialState = {
   currentStatus: 0,
   currentPriority: 'default',
   currentAssignee: 'default',
-  filterTasks: []
+  filterTasks: [],
+  nameFilter: ''
 };
 
 export default initialState;
