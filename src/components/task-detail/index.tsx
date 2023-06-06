@@ -1,4 +1,3 @@
-import {useRouter} from 'next/router';
 import {FC, useEffect} from 'react';
 
 import {ITaskResponse} from '@/data/api/types/task.type';
@@ -13,10 +12,10 @@ import TaskToolbar from './task-toolbar';
 
 interface IProps {
   task: ITaskResponse;
+  className?: string;
 }
 
-const TaskDetail: FC<IProps> = ({task: {id, todolistId}}) => {
-  const router = useRouter();
+const TaskDetail: FC<IProps> = ({task: {id, todolistId}, className}) => {
   const auth = useStateAuth();
   const {task, assest, initial} = useTask();
 
@@ -33,11 +32,10 @@ const TaskDetail: FC<IProps> = ({task: {id, todolistId}}) => {
   }, [auth]);
 
   if (!task) return null;
-  if (!router.asPath.includes(task.id)) return null;
   if (!assest) return <ErrorInformation />;
 
   return (
-    <div className="sm:container">
+    <div className={className}>
       <TaskToolbar />
       <TaskBody />
     </div>

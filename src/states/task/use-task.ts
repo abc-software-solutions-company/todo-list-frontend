@@ -13,8 +13,12 @@ export default function useTask() {
 
   const initial = (id: string) => dispatch(actions.getTaskRequest({id}));
   const update = () => dispatch(actions.getTaskRequest({id: task.id}));
-  const assest = Boolean(task) ? task.todolist.visibility !== 'PRIVATE' || Boolean(auth && auth.id === task.todolist.userId) : false;
-  const write = Boolean(task) ? task.todolist.visibility === 'PUBLIC' || Boolean(auth && auth.id === task.todolist.userId) : false;
+  const assest = Boolean(task)
+    ? task.todolist.visibility !== 'PRIVATE' || Boolean(auth && auth.id === task.todolist.userId)
+    : false;
+  const write = Boolean(task)
+    ? task.todolist.visibility === 'PUBLIC' || Boolean(auth && auth.id === task.todolist.userId)
+    : false;
 
   return {task, ...rest, assest, write, initial, update};
 }

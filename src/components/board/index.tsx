@@ -51,7 +51,7 @@ const KanbanDetail: FC<Iprops> = ({id}) => {
   return (
     <>
       {assest && <Seo title={boardData.name} />}
-      <KanbanContainer />;
+      <KanbanContainer />
     </>
   );
 };

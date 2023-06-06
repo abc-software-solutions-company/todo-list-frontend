@@ -12,6 +12,7 @@ const TaskToolbar: FC<IBaseProps> = ({className}) => {
   const {task} = useTask();
   const taskSymbol = task?.todolist.taskSymbol;
   const order = task?.order;
+
   return (
     <div className={classNames(style.toolbar, className)}>
       <div className="header">
