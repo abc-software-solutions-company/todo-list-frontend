@@ -20,8 +20,9 @@ export const getStaticProps: GetStaticProps<PageProps, ParsedQueryParams> = asyn
       props: {
         id,
         seo
-      },
-      revalidate: 60 // In seconds
+      }
+      //FIXME: This revalidate rule may be cause slow api due to a lot of static page call api, I am changing to Using On-Demand Revalidation
+      // revalidate: 60 // In seconds
     };
   } catch (error) {
     return {
