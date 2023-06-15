@@ -9,7 +9,15 @@ env:
   STATUS: "❌"
 
 jobs:
+  clear-docker-cache:
+    name: "Clear Docker Cache"
+    runs-on: [self-hosted, staging]
+    steps:
+      - name: Docker Prune
+        run: sudo docker system prune -f -a --volumes
+
   build:
+    needs: [clear-docker-cache]
     name: "Deploy to Staging"
     environment:
       name: staging
@@ -47,14 +55,6 @@ jobs:
 
       - name: Set build status emoji to success
         run: echo "STATUS=✅" >> $GITHUB_ENV
-
-      - name: Prune docker image trash
-        run: sudo docker rmi -f $(sudo docker images --filter "dangling=true" -q --no-trunc)
-        if: always()
-
-      - name: Prune docker container trash
-        run: sudo docker container prune -f --filter "until=24h"
-        if: always()
 
       - name: Post build result to a Slack channel
         id: slack
