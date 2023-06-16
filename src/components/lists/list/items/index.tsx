@@ -17,11 +17,12 @@ interface IItemProps {
   hiddenEdit?: boolean;
   hiddenDelete?: boolean;
   hiddenShare?: boolean;
+  hiddenOpenDocument?: boolean;
 }
 
 const Item: FC<IItemProps> = ({todolist, ...props}) => {
   const {id, name, favorite} = todolist;
-  const {hiddenDelete, hiddenEdit, hiddenFavorite, hiddenShare} = props;
+  const {hiddenDelete, hiddenEdit, hiddenFavorite, hiddenShare, hiddenOpenDocument} = props;
   const router = useRouter();
 
   const {get: onSuccess} = useLists();
@@ -40,6 +41,10 @@ const Item: FC<IItemProps> = ({todolist, ...props}) => {
   const onShare = () => {
     setIsOpenModal('shareList');
     setSelectedTodolist(todolist);
+  };
+
+  const onOpenDocumentation = () => {
+    router.push(`${ROUTES.DOCUMENT}/${id}`);
   };
 
   const onDetail = (todolistId: string) => router.push(`${ROUTES.LIST}/${todolistId}`);
@@ -65,7 +70,14 @@ const Item: FC<IItemProps> = ({todolist, ...props}) => {
     hidden: hiddenShare
   };
 
-  const tools = [editToolProps, deleteToolProps, shareToolProps].filter(item => !item.hidden);
+  const openDocumentationProps: IToolProps = {
+    icon: <Icon name="ico-notebook" />,
+    text: 'Open Documentation',
+    onClick: onOpenDocumentation,
+    hidden: hiddenOpenDocument
+  };
+
+  const tools = [editToolProps, deleteToolProps, shareToolProps, openDocumentationProps].filter(item => !item.hidden);
 
   const toolMenuItems = tools.map((item, idx) => <Tool key={idx} {...{...item, className: 'flex-row-reverse'}} />);
 
