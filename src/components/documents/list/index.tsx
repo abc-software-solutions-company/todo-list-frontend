@@ -64,7 +64,7 @@ const DocumentList: React.FC<IProps> = ({id}) => {
   };
 
   return (
-    <div className="h-fit">
+    <div className="h-fit sticky top-0">
       <div className={style['document-list']}>
         <div className="mb-3 flex justify-between">
           <h4 className="font-bold">Documents</h4>
