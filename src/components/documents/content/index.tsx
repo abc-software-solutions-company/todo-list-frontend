@@ -90,7 +90,7 @@ const DocumentContent: React.FC = () => {
           </div>
         </form>
       ) : (
-        <div className="scrollbar max-h-[70vh] overflow-y-auto">
+        <div>
           <WYSIWYG content={document?.content} />
         </div>
       )}

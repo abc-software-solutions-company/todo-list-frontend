@@ -1,5 +1,5 @@
 .document-content :global {
-  @apply w-full px-5 py-6;
+  @apply w-full px-5 py-6 h-fit;
   @apply rounded-lg border border-[#E2E8F0];
   @apply bg-white;
   .ck-editor__editable {
