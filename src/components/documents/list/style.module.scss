@@ -1,5 +1,5 @@
 .document-list :global {
-  @apply  w-[310px] p-3;
+  @apply h-screen w-[310px] overflow-hidden;
   @apply rounded-lg border border-[#E2E8F0];
   @apply bg-white;
 }
