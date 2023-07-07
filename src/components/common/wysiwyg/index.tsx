@@ -1,4 +1,3 @@
-import Prism from 'prismjs';
 import React, {useCallback, useEffect} from 'react';
 
 import {replaceCdnUrl} from '@/utils/misc';
@@ -27,7 +26,11 @@ const WYSIWYG: React.FC<IProps> = ({content}) => {
   }, []);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') Prism.highlightAll();
+    const prismjs = import('prismjs');
+    prismjs.then(resp => {
+      const prism = resp.default;
+      prism.highlightAll();
+    });
 
     const glightbox = import('glightbox');
     import('glightbox/dist/css/glightbox.min.css');
@@ -38,15 +41,9 @@ const WYSIWYG: React.FC<IProps> = ({content}) => {
         loop: true
       });
     });
-  }, []);
+  }, [content]);
 
-  return (
-    <div
-      ref={ref}
-      className="wysiwyg ck-content prose"
-      dangerouslySetInnerHTML={{__html: replaceCdnUrl(content) || ''}}
-    ></div>
-  );
+  return <div ref={ref} className="wysiwyg" dangerouslySetInnerHTML={{__html: replaceCdnUrl(content) || ''}}></div>;
 };
 
 export default WYSIWYG;

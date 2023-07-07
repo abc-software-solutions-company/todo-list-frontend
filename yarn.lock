@@ -6087,7 +6087,7 @@ github-from-package@0.0.0:
 
 glightbox@^3.2.0:
   version "3.2.0"
-  resolved "https://registry.npmjs.org/glightbox/-/glightbox-3.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/glightbox/-/glightbox-3.2.0.tgz#d460e6ffc70ba2dcc2842e0b31d51a2e03266ba2"
   integrity sha512-iit1xYixqL4YVL+I2YJLfMeyJwvLi6FE6kY3qNKeZHEJgRIz80QU8Rm7YCyw1wOTgXvmNDnXGVhHOHRCwnDltQ==
 
 glob-parent@^5.1.2, glob-parent@~5.1.2:

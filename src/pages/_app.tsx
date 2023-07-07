@@ -3,6 +3,7 @@ import '@/vendors/tailwindcss/style.scss';
 import '@/vendors/menu/style.scss';
 import '@/vendors/abc-icons/dist/abc.scss';
 import 'nprogress/nprogress.css';
+import 'prismjs/themes/prism-tomorrow.min.css';
 
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
