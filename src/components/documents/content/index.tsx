@@ -5,7 +5,7 @@ import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
-import {useDocumentsStore} from '@/hooks/useDocuments';
+import {useDocumentsStore} from '@/states/useDocuments';
 import {ToastContents} from '@/utils/toast-content';
 
 import style from './style.module.scss';
@@ -25,29 +25,30 @@ export interface IForm {
 const DocumentContent: React.FC = () => {
   const [edit, setEdit] = useState(false);
   const {show} = useToast();
-  const {document, error, updateDocument} = useDocumentsStore();
+  const {currentDocument, error, updateDocument} = useDocumentsStore();
+
   const {control, handleSubmit, reset} = useForm<IForm>({
-    defaultValues: {content: document?.content}
+    defaultValues: {content: currentDocument?.content}
   });
 
   useEffect(() => {
-    reset({content: document?.content});
-  }, [document]);
+    reset({content: currentDocument?.content});
+  }, [currentDocument]);
 
   const onSubmit: SubmitHandler<IForm> = data => {
-    updateDocument({...document, content: data.content || ''});
+    updateDocument({...currentDocument, content: data.content});
     if (error) {
       setEdit(true);
-      show({type: 'danger', title: 'Edit Content', content: ToastContents.ERROR});
+      show({type: 'danger', title: 'Edit Content Fail', content: ToastContents.ERROR});
     } else {
       setEdit(false);
-      show({type: 'success', title: 'Edit Content', content: ToastContents.SUCCESS});
+      show({type: 'success', title: 'Edit Content Success', content: ToastContents.SUCCESS});
     }
   };
 
   return (
     <div className={style['document-content']}>
-      {document && (
+      {currentDocument && (
         <div className="mb-3 flex items-center">
           <Icon name="content" className="ico-fluent_text-description mr-1" size={20} />
           <span className="mr-3">Content</span>
@@ -66,9 +67,9 @@ const DocumentContent: React.FC = () => {
             name="content"
             control={control}
             rules={{required: false}}
-            defaultValue={document?.content}
+            defaultValue={currentDocument?.content}
             render={({field}) => (
-              <Editor name="example" value={String(document.content)} onChange={text => field.onChange(text)} />
+              <Editor name="example" value={String(currentDocument.content)} onChange={text => field.onChange(text)} />
             )}
           />
           <div className="mt-4 flex gap-4">
@@ -85,13 +86,13 @@ const DocumentContent: React.FC = () => {
               color="white"
               text="Cancel"
               type="button"
-              onClick={() => setEdit(false)}
+              onClick={() => setEdit(!edit)}
             />
           </div>
         </form>
       ) : (
         <div>
-          <WYSIWYG content={document?.content} />
+          <WYSIWYG content={currentDocument?.content} />
         </div>
       )}
     </div>

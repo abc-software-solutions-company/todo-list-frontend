@@ -6,10 +6,10 @@ import DocumentList from './list';
 interface IDocumentsProps {
   id: string;
 }
-const Documents: FC<IDocumentsProps> = ({id}) => {
+const Documents: FC<IDocumentsProps> = ({}) => {
   return (
     <div className="mt-4 flex gap-6">
-      <DocumentList id={id} />
+      <DocumentList />
       <DocumentContent />
     </div>
   );

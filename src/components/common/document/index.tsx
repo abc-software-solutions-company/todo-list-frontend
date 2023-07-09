@@ -1,50 +1,35 @@
 import cls from 'classnames';
-import React, {useState} from 'react';
+import React from 'react';
 
-import Icon from '@/core-ui/icon';
-import useToast from '@/core-ui/toast';
-import {useDocumentsStore} from '@/hooks/useDocuments';
-import {ToastContents} from '@/utils/toast-content';
-
-import OptionDocument from '../option-document';
+import {IDocumentAttribute} from '@/data/api/types/documents.type';
+import {useDocumentsStore} from '@/states/useDocuments';
 
 interface IProps {
-  iconDropdown?: any;
-  name?: string;
-  active?: boolean;
-  favorite?: boolean;
-  showMoreDoc?: () => void;
-  showContent?: () => void;
-  getDocument: () => void;
+  item: IDocumentAttribute;
 }
-const Document: React.FC<IProps> = ({name, iconDropdown, active, favorite, getDocument, showMoreDoc, showContent}) => {
-  const {error, document, updateDocument} = useDocumentsStore();
-  const toast = useToast();
-  const {id, content} = document;
-  const [isShown, setIsShown] = useState(false);
+const Document: React.FC<IProps> = ({item}) => {
+  const {currentDocument, getDocument} = useDocumentsStore();
 
   return (
-    <div
-      className="relative min-w-[10rem]"
-      onMouseEnter={() => setIsShown(true)}
-      onMouseLeave={() => setIsShown(false)}
-    >
+    <div className="relative min-w-[10rem]">
       <div
         className={cls(
-          active ? 'bg-slate-100' : ' hover:bg-slate-100',
+          currentDocument.id === item.id ? 'bg-slate-100' : ' hover:bg-slate-100',
           'my-1 flex cursor-pointer justify-between py-3 px-6'
         )}
-        onClick={getDocument}
+        onClick={() => {
+          getDocument(item.id);
+        }}
       >
-        <div className="flex" onClick={showContent}>
-          <Icon name="drop" className={iconDropdown} onClick={showMoreDoc} />
-          <p className="max-h-[25px] overflow-hidden">📗 {name}</p>
+        <div className="flex">
+          {/* <Icon name="drop" className={iconDropdown} onClick={showMoreDoc} /> */}
+          <p className="max-h-[25px] overflow-hidden">📗 {item.name}</p>
         </div>
-        {isShown && (
+        {/* {isShown && (
           <OptionDocument
             textFavorite={favorite ? 'Remove favorite' : 'Add favorite'}
             handleFavorite={() => {
-              updateDocument({id, content, favorite: !favorite});
+              updateDocument({...currentDocument, favorite: !favorite});
               if (error) {
                 toast.show({type: 'danger', title: 'Favorite Error', content: ToastContents.ERROR});
               } else {
@@ -52,7 +37,7 @@ const Document: React.FC<IProps> = ({name, iconDropdown, active, favorite, getDo
               }
             }}
           />
-        )}
+        )} */}
       </div>
     </div>
   );

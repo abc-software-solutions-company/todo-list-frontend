@@ -5,7 +5,7 @@ import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
 import useToast from '@/core-ui/toast';
-import {useDocumentsStore} from '@/hooks/useDocuments';
+import {useDocumentsStore} from '@/states/useDocuments';
 import {ToastContents} from '@/utils/toast-content';
 
 import {IProps} from '../types-create';
@@ -20,10 +20,10 @@ const Schema = yup.object().shape({
   content: yup.string()
 });
 
-export default function useModalCreateDocument({open, onClose, docChild}: IProps) {
+export default function useModalCreateDocument({open, docChild, onClose}: IProps) {
   const router = useRouter();
   const toast = useToast();
-  const {error, document, createDocument} = useDocumentsStore();
+  const {error, currentDocument, createDocument} = useDocumentsStore();
 
   const {formState, handleSubmit, reset, setValue, ...rest} = useForm<IFormInputs>({
     resolver: yupResolver(Schema),
@@ -39,7 +39,7 @@ export default function useModalCreateDocument({open, onClose, docChild}: IProps
     if (isSubmitting) return;
     const todolistId = String(router.query.id);
     if (docChild) {
-      const parentId = document.id;
+      const parentId = currentDocument.id;
       createDocument({todolistId, parentId, ...formData});
     } else createDocument({todolistId, ...formData});
     if (error) {

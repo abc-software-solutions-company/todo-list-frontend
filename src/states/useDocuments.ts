@@ -8,7 +8,10 @@ import {IDocumentAttribute, IDocumentCreate, IGetDocuments, IUpdateDocument} fro
 type State = {
   error: boolean;
   isFeching: boolean;
-  document: IDocumentAttribute;
+  isCreating: boolean;
+  isUpdating: boolean;
+  isDeleting: boolean;
+  currentDocument: IDocumentAttribute;
   documents: IGetDocuments[];
 };
 
@@ -17,7 +20,6 @@ type Action = {
   getDocument: (id: string) => void;
   updateDocument: (data: IUpdateDocument) => void;
   createDocument: (data: IDocumentCreate) => void;
-  resetDocument: () => void;
 };
 
 export const useDocumentsStore = create<State & Action>()(
@@ -26,23 +28,29 @@ export const useDocumentsStore = create<State & Action>()(
       documents: [],
       error: false,
       isFeching: false,
-      document: {} as IDocumentAttribute,
-      resetDocument: () => {
-        set(state => {
-          state.document = {} as IDocumentAttribute;
-        });
-      },
+      isCreating: false,
+      isUpdating: false,
+      isDeleting: false,
+      currentDocument: {} as IDocumentAttribute,
       getAllDocument: async listId => {
         try {
+          set(
+            state => {
+              state.isFeching = true;
+            },
+            false,
+            'documents/getDocuments'
+          );
           const res = await api.documents.getListDocument(listId);
           set(
             state => {
+              state.isFeching = false;
               state.documents = res.data;
-              state.isFeching = true;
-              if (!state.document?.id) state.document = state.documents?.[0];
+              if (!state.currentDocument?.id) state.currentDocument = state.documents?.[0];
+              else state.currentDocument = {} as IDocumentAttribute;
             },
             false,
-            'documents/getAllDocument'
+            'documents/getAllDocumentSucces'
           );
         } catch (error) {
           set(
@@ -51,38 +59,30 @@ export const useDocumentsStore = create<State & Action>()(
               state.isFeching = false;
             },
             false,
-            'documents/error'
+            'documents/getDocumentsFail'
           );
         }
       },
-      getDocument: async id => {
-        try {
-          const res = await api.documents.getOneDocument(id);
-          set(
-            state => {
-              state.document = res.data;
-            },
-            false,
-            'documents/getOneDocument'
-          );
-        } catch (error) {
-          set(
-            state => {
-              state.isFeching = false;
-              state.error = true;
-            },
-            false,
-            'documents/error'
-          );
-        }
+      getDocument: id => {
+        set(
+          state => {
+            const result = state.documents.findIndex(document => document.id === id);
+            if (result !== -1) {
+              state.currentDocument = state.documents[result];
+            }
+          },
+          false,
+          'documents/getDocumentSucces'
+        );
       },
       createDocument: async data => {
         try {
           const res = await api.documents.create(data);
+          set({isCreating: true}, false, 'createDocument');
           set(
             state => {
-              state.document = res.data;
-              state.isFeching = false;
+              state.currentDocument = res.data;
+              state.isCreating = false;
             },
             false,
             'documents/createDocumentSucces'
@@ -91,32 +91,33 @@ export const useDocumentsStore = create<State & Action>()(
           set(
             state => {
               state.error = true;
-              state.isFeching = false;
+              state.isCreating = false;
             },
             false,
-            'documents/createDocumentError'
+            'documents/createDocumentFail'
           );
         }
       },
       updateDocument: async data => {
         try {
           const res = await api.documents.updateDocument(data);
+          set({isUpdating: true}, false, 'updateDocument');
           set(
             state => {
-              state.document = res.data;
-              state.isFeching = false;
+              state.currentDocument = res.data;
+              state.isUpdating = false;
             },
             false,
-            'documents/updateDocument'
+            'documents/updateDocumentSucces'
           );
         } catch (error) {
           set(
             state => {
               state.error = true;
-              state.isFeching = false;
+              state.isUpdating = false;
             },
             false,
-            'documents/error'
+            'documents/updateDocumentFail'
           );
         }
       }
