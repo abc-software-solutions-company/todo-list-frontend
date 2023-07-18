@@ -16,7 +16,8 @@ type State = {
 };
 
 type Action = {
-  getAllDocument: (listId: string) => void;
+  initState: () => void;
+  getDocuments: (listId: string) => void;
   getDocument: (id: string) => void;
   updateDocument: (data: IUpdateDocument) => void;
   createDocument: (data: IDocumentCreate) => void;
@@ -32,7 +33,22 @@ export const useDocumentsStore = create<State & Action>()(
       isUpdating: false,
       isDeleting: false,
       currentDocument: {} as IDocumentAttribute,
-      getAllDocument: async listId => {
+      initState: () => {
+        set(
+          {
+            documents: [],
+            error: false,
+            isFeching: false,
+            isCreating: false,
+            isUpdating: false,
+            isDeleting: false,
+            currentDocument: {} as IDocumentAttribute
+          },
+          false,
+          'documents/initState'
+        );
+      },
+      getDocuments: async listId => {
         try {
           set(
             state => {
@@ -47,7 +63,6 @@ export const useDocumentsStore = create<State & Action>()(
               state.isFeching = false;
               state.documents = res.data;
               if (!state.currentDocument?.id) state.currentDocument = state.documents?.[0];
-              else state.currentDocument = {} as IDocumentAttribute;
             },
             false,
             'documents/getAllDocumentSucces'

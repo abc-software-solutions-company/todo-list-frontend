@@ -11,15 +11,17 @@ import {useDocumentsStore} from '@/states/useDocuments';
 import style from './style.module.scss';
 
 const DocumentList: React.FC = ({}) => {
-  const [showModalCreate, isShowModalCreate] = useState(false);
-  const {documents, getAllDocument} = useDocumentsStore();
-  const todolistState = useTodolist();
   const router = useRouter();
+  const {id} = router.query;
+  const todolistState = useTodolist();
+  const documentState = useDocumentsStore();
+  const [showModalCreate, isShowModalCreate] = useState(false);
 
   useEffect(() => {
-    getAllDocument(String(router.query.id));
-    todolistState.getTodolist(String(router.query.id));
-  }, []);
+    documentState.initState();
+    documentState.getDocuments(id as string);
+    todolistState.getTodolist(id as string);
+  }, [id]);
 
   // function toggleShow(i: string, set: React.Dispatch<React.SetStateAction<string[]>>) {
   //   set(prevState => {
@@ -52,11 +54,11 @@ const DocumentList: React.FC = ({}) => {
         <div className="scrollbar max-h-full overflow-y-auto">
           <div>
             <p className="mt-3 px-3 font-bold">Favorite</p>
-            <div>{documents?.map(item => item.favorite && renderNode(item))}</div>
+            <div>{documentState.documents?.map(item => item.favorite && renderNode(item))}</div>
           </div>
           <div>
             <p className="mt-3 px-3 font-bold">Pages</p>
-            <div>{documents?.map(item => renderNode(item))}</div>
+            <div>{documentState.documents?.map(item => renderNode(item))}</div>
           </div>
         </div>
       </div>

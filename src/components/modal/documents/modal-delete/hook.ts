@@ -1,15 +1,15 @@
 import useToast from '@/core-ui/toast';
-import {useDocumentsStore} from '@/hooks/useDocuments';
+import {useDocumentsStore} from '@/states/useDocuments';
 import {ToastContents} from '@/utils/toast-content';
 
 import {IProps} from '../types-create';
 
 export default function useModalDelete({onClose}: IProps) {
   const toast = useToast();
-  const {error, document, updateDocument} = useDocumentsStore();
-  const id = document.id;
-  const content = String(document.content);
-  const name = document.name;
+  const {error, currentDocument, updateDocument} = useDocumentsStore();
+  const id = currentDocument.id;
+  const content = String(currentDocument.content);
+  const name = currentDocument.name;
   const onClick = () => {
     if (document) {
       updateDocument({

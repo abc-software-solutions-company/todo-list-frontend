@@ -4,7 +4,7 @@ import {FC, useEffect} from 'react';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
 import {Modal} from '@/core-ui/modal';
-import {useDocumentsStore} from '@/hooks/useDocuments';
+import {useDocumentsStore} from '@/states/useDocuments';
 import iosAutoFocus from '@/utils/ios-autofocus';
 
 import useModalUpdateDocument from '../../documents/modal-update/hook';
@@ -14,7 +14,7 @@ import {IProps} from '../types-create';
 const ModalUpdateDocument: FC<IProps> = props => {
   const {open, onClose} = props;
   const {isSubmitting, errors, onSubmit, register, setFocus} = useModalUpdateDocument(props);
-  const {document} = useDocumentsStore();
+  const {currentDocument} = useDocumentsStore();
   useEffect(() => {
     setFocus('name');
     iosAutoFocus();
@@ -37,8 +37,8 @@ const ModalUpdateDocument: FC<IProps> = props => {
               <Input
                 autoFocus={true}
                 error={errors.name?.message}
-                placeholder={document.name}
-                value={document.name}
+                placeholder={currentDocument.name}
+                value={currentDocument.name}
                 {...register('name')}
               />
             </Modal.Body>
