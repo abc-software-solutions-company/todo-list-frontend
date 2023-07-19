@@ -4,7 +4,6 @@ import React, {useEffect, useState} from 'react';
 import Document from '@/components/common/document';
 import ModalCreateDocument from '@/components/modal/documents/modal-create';
 import Icon from '@/core-ui/icon';
-import {IGetDocuments} from '@/data/api/types/documents.type';
 import useTodolist from '@/states/todolist/use-todolist';
 import {useDocumentsStore} from '@/states/useDocuments';
 
@@ -30,14 +29,14 @@ const DocumentList: React.FC = ({}) => {
   //   });
   // }
 
-  const renderNode = (node: IGetDocuments) => {
-    return (
-      <div key={node.id}>
-        <Document item={node} />
-        {node.children && <div className="ml-6">{node.children.map(child => renderNode(child))}</div>}
-      </div>
-    );
-  };
+  // const renderNode = (node: IGetDocuments) => {
+  //   return (
+  //     <div key={node.id}>
+  //       <Document item={node} />
+  //       {node.children && <div className="ml-6">{node.children.map(child => renderNode(child))}</div>}
+  //     </div>
+  //   );
+  // };
 
   return (
     <div className="sticky top-0 h-fit">
@@ -54,11 +53,15 @@ const DocumentList: React.FC = ({}) => {
         <div className="scrollbar max-h-full overflow-y-auto">
           <div>
             <p className="mt-3 px-3 font-bold">Favorite</p>
-            <div>{documentState.documents?.map(item => item.favorite && renderNode(item))}</div>
+            <div>{documentState.documents?.map(item => item.favorite && <Document item={item} key={item.id} />)}</div>
           </div>
           <div>
             <p className="mt-3 px-3 font-bold">Pages</p>
-            <div>{documentState.documents?.map(item => renderNode(item))}</div>
+            <div>
+              {documentState.documents?.map(item => (
+                <Document item={item} key={item.id} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

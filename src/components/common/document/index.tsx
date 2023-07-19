@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import React from 'react';
+import React, {useState} from 'react';
 
 import Icon from '@/core-ui/icon';
 import {IDocumentAttribute} from '@/data/api/types/documents.type';
@@ -12,6 +12,7 @@ interface IProps {
 }
 const Document: React.FC<IProps> = ({item}) => {
   const documentState = useDocumentsStore();
+  const [showMoreDoc, setShowMoreDoc] = useState();
 
   return (
     <div className="relative min-w-[10rem]">
@@ -25,7 +26,13 @@ const Document: React.FC<IProps> = ({item}) => {
         }}
       >
         <div className="flex">
-          <Icon name="drop" className="" onClick={() => {}} />
+          <Icon
+            name="drop"
+            className=""
+            onClick={() => {
+              setShowMoreDoc(!showMoreDoc);
+            }}
+          />
           <p className="max-h-[25px] overflow-hidden">📗 {item.name}</p>
         </div>
         {/* {isShown && ( */}
@@ -42,6 +49,13 @@ const Document: React.FC<IProps> = ({item}) => {
         />
         {/* )} */}
       </div>
+      {item.children && (
+        <div className={cls('ml-6', !showMoreDoc && 'hidden')}>
+          {item.children.map(child => (
+            <Document item={child} key={child.id} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

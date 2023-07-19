@@ -3,7 +3,7 @@ import {devtools} from 'zustand/middleware';
 import {immer} from 'zustand/middleware/immer';
 
 import api from '@/data/api';
-import {IDocumentAttribute, IDocumentCreate, IGetDocuments, IUpdateDocument} from '@/data/api/types/documents.type';
+import {IDocumentAttribute, IDocumentCreate, IUpdateDocument} from '@/data/api/types/documents.type';
 
 type State = {
   error: boolean;
@@ -12,7 +12,7 @@ type State = {
   isUpdating: boolean;
   isDeleting: boolean;
   currentDocument: IDocumentAttribute;
-  documents: IGetDocuments[];
+  documents: IDocumentAttribute[];
 };
 
 type Action = {
