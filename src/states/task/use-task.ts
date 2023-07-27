@@ -14,10 +14,14 @@ export default function useTask() {
   const initial = (id: string) => dispatch(actions.getTaskRequest({id}));
   const update = () => dispatch(actions.getTaskRequest({id: task.id}));
   const assest = Boolean(task)
-    ? task.todolist.visibility !== 'PRIVATE' || Boolean(auth && auth.id === task.todolist.userId)
+    ? task.todolist.visibility !== 'PRIVATE' ||
+      Boolean(auth && auth.id === task.todolist.userId) ||
+      Boolean(auth && task.todolist.members.map(e => e.user?.id).includes(auth?.id))
     : false;
   const write = Boolean(task)
-    ? task.todolist.visibility === 'PUBLIC' || Boolean(auth && auth.id === task.todolist.userId)
+    ? task.todolist.visibility === 'PUBLIC' ||
+      Boolean(auth && auth.id === task.todolist.userId) ||
+      Boolean(auth && task.todolist.members.map(e => e.user?.id).includes(auth?.id))
     : false;
 
   return {task, ...rest, assest, write, initial, update};

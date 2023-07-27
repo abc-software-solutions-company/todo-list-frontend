@@ -17,7 +17,11 @@ export default function PageTask({task}: InferGetStaticPropsType<typeof getStati
   const auth = useStateAuth();
   const {name, todolist} = task;
   if (!task) return <ErrorInformation />;
-  const assest = Boolean(task) ? todolist.visibility !== 'PRIVATE' || todolist.userId === auth?.id : false;
+  const assest = Boolean(task)
+    ? todolist.visibility !== 'PRIVATE' ||
+      todolist.userId === auth?.id ||
+      todolist.members?.map(e => e.user?.id).includes(auth?.id)
+    : false;
   if (!router.asPath.includes(task.id)) return null;
 
   return (

@@ -30,8 +30,16 @@ export default function useTodolist() {
   const setTaskKanbanActive = (value: any) => dispatch(actions.setTaskKanbanActive(value));
   const setTaskKanbanOver = (value: any) => dispatch(actions.setTaskKanbanOver(value));
 
-  const assest = Boolean(data) ? data.visibility !== 'PRIVATE' || Boolean(auth && auth.id === data.userId) : false;
-  const write = Boolean(data) ? data.visibility === 'PUBLIC' || Boolean(auth && auth.id === data.userId) : false;
+  const assest = Boolean(data)
+    ? data.visibility !== 'PRIVATE' ||
+      Boolean(auth && auth.id === data.userId) ||
+      Boolean(auth && data?.members?.map(e => e.id).includes(auth?.id))
+    : false;
+  const write = Boolean(data)
+    ? data.visibility === 'PUBLIC' ||
+      Boolean(auth && auth.id === data.userId) ||
+      Boolean(auth && data?.members?.map(e => e.id).includes(auth?.id))
+    : false;
   const owner = Boolean(data) ? Boolean(auth && auth.id === data.userId) : false;
   const error = todolist.error;
   return {
