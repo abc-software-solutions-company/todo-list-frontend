@@ -48,7 +48,7 @@ const filterSlice = createSlice({
       state.nameFilter = payload.toLowerCase();
     },
     getFilterTaskByName: state => {
-      state.filterTasks = state.filterTasks.filter(e => e.name.toLowerCase().includes(state.nameFilter));
+      state.filterTasks = state.filterTasks?.filter(e => e.name.toLowerCase().includes(state.nameFilter));
     }
   }
 });
