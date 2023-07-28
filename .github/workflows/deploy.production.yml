@@ -1,85 +1,56 @@
-name: Deploy to Production
+# This workflow will use github action server to build docker, then deploy docker image on your own server.
+# Prevent overload, high cpu, high RAM usage on your own server.
+# This not only work for Amazon Web Service, but also work for 3rd party server like Vietnix VPS, Digital Ocean, Viettel IDC,...
+# Attention: Use your Visual Studio Code to open and copy ssh key, do not use cat command on terminal to copy key.
+name: Deploy on server production
+
+env:
+  APP_ENV: ${{ secrets.PRODUCTION }}
 
 on:
   push:
     branches: ["release"]
 
-env:
-  APP_ENV: ${{ secrets.PRODUCTION }}
-  STATUS: "❌"
-
 jobs:
-  clear-docker-cache:
-    name: "Clear Docker Cache"
-    runs-on: [self-hosted, production]
+  build-and-deploy:
+    runs-on: ubuntu-latest
     steps:
-      - name: Docker Prune
-        run: sudo docker system prune -f -a --volumes
-  build:
-    needs: [clear-docker-cache]
-    name: "Deploy to Production"
-    environment:
-      name: production
+      - name: Pull code
+        uses: actions/checkout@v3
 
-    runs-on: [self-hosted, production]
+      - name: Extract env file multi line.
+        run: |
+          rm -r -f .env
+          touch .env_temp
+          echo $APP_ENV | tee .env_temp
+          sed 's/ /\n/g' .env_temp >> .env
+          rm -r -f .env_temp
 
-    strategy:
-      matrix:
-        node-version: [16.x]
+      - name: Docker
+        run: |
+          docker build -t todo-list-website .
+          docker save -o todo-list-website.tar todo-list-website
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }} for pull code (CD)
-        uses: actions/setup-node@v3
+      - name: Copy Docker image to ec2 use SSH Key
+        uses: appleboy/scp-action@master
         with:
-          node-version: ${{ matrix.node-version }}
+          host: ${{ secrets.PRODUCTION_SERVER_HOST }}
+          username: ubuntu
+          port: 22
+          key: ${{ secrets.PRODUCTION_SERVER_KEY_SSH }}
+          source: "todo-list-website.tar,docker-compose.yml"
+          target: "~/todo-list-website"
 
-      - name: Delete old env file
-        run: rm -r -f .env
-
-      - name: Create env_temp file
-        run: touch .env_temp
-
-      - name: Copy Secret Key Multiline environment variable to .env_temp file
-        run: echo $APP_ENV | tee .env_temp
-
-      - name: Replace space character with break-line in .env file
-        run: sed 's/ /\n/g' .env_temp >> .env
-
-      - name: Set Github Commit SHA ID
-        id: vars
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-
-      - name: Append Github Commit SHA ID to .env file
-        run: echo NEXT_PUBLIC_GIT_COMMIT_SHA=${{ steps.vars.outputs.sha_short }} >> .env
-
-      - name: Remove .env_temp file
-        run: rm -r -f .env_temp
-
-      - name: Build Docker and deployment
-        run: sudo chmod +x docker-build-prod.sh && sudo ./docker-build-prod.sh
-
-      - name: Set build status emoji to success
-        run: echo "STATUS=✅" >> $GITHUB_ENV
-
-      - name: Post build result to a Slack channel
-        id: slack
-        uses: slackapi/slack-github-action@v1.23.0
+      - name: Executing remote ssh commands using SSH Key
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          channel-id: "C053JVDGG12"
-          payload: |
-            {
-              "text": "TODO-LIST-WEBSITE-FE-PRODUCTION ${{ env.STATUS }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "<https://github.com/abc-software-solutions-company/todo-list-website/actions/runs/${{ github.run_id }}|TODO-LIST-WEBSITE-*FE-PRODUCTION* ${{ env.STATUS }}>"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        if: always()
+          host: ${{ secrets.PRODUCTION_SERVER_HOST }}
+          username: ubuntu
+          port: 22
+          key: ${{ secrets.PRODUCTION_SERVER_KEY_SSH }}
+          script: |
+            cd ~/todo-list-website
+            sudo snap install docker
+            sudo docker load --input todo-list-website.tar
+            sudo docker-compose up -d --force-recreate
+            rm -rf todo-list-website.tar
