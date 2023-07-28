@@ -64,9 +64,9 @@ const DocumentList: React.FC<IProps> = ({id}) => {
   };
 
   return (
-    <div className="h-fit">
+    <div className="sticky top-0 h-fit">
       <div className={style['document-list']}>
-        <div className="mb-3 flex justify-between">
+        <div className="flex justify-between px-3 py-3">
           <h4 className="font-bold">Documents</h4>
           <Icon
             name="add"
@@ -75,18 +75,14 @@ const DocumentList: React.FC<IProps> = ({id}) => {
           />
         </div>
         <hr />
-        <div className="max-h-[70vh]">
+        <div className="scrollbar max-h-full overflow-y-auto">
           <div>
-            <p className="mt-3 font-bold">Favorite</p>
-            <div className="scrollbar relative max-h-[34vh] overflow-x-auto overflow-y-auto">
-              {documents?.map(item => item.favorite && renderNode(item, item.favorite))}
-            </div>
+            <p className="mt-3 px-3 font-bold">Favorite</p>
+            <div>{documents?.map(item => item.favorite && renderNode(item, item.favorite))}</div>
           </div>
           <div>
-            <p className="mt-3 font-bold">Pages</p>
-            <div className="scrollbar relative max-h-[34vh] overflow-x-auto overflow-y-auto">
-              {documents?.map(item => renderNode(item, item.favorite))}
-            </div>
+            <p className="mt-3 px-3 font-bold">Pages</p>
+            <div>{documents?.map(item => renderNode(item, item.favorite))}</div>
           </div>
         </div>
       </div>

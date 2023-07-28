@@ -1,7 +1,9 @@
 import {useRouter} from 'next/router';
 import {FC} from 'react';
 
+import Input from '@/core-ui/input';
 import useBoards from '@/states/board/use-boards';
+import useFilter from '@/states/filter/use-filter';
 import useTodolist from '@/states/todolist/use-todolist';
 import {isBoardPage, isListDetailPage} from '@/utils/check-routes';
 
@@ -14,6 +16,8 @@ const ToolBarLeft: FC = () => {
 
   const {boardData} = useBoards();
   const {todolist} = useTodolist();
+  const {setNameFilterTask, nameFilter} = useFilter();
+  const onNameFilter = (value: string) => setNameFilterTask(value);
 
   let listName = '';
   if (isListDetailPage(path, id as string)) listName = todolist.name;
@@ -21,7 +25,13 @@ const ToolBarLeft: FC = () => {
 
   return (
     <div className={style['toolbar-left']}>
-      <p>{listName}</p>
+      <p className="list-name">{listName}</p>
+      <Input
+        placeholder="Search by name"
+        value={nameFilter}
+        onChange={e => onNameFilter(e.target.value)}
+        className="search"
+      />
     </div>
   );
 };

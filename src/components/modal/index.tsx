@@ -10,6 +10,7 @@ import ModalCreateList from './list/modal-create';
 import ModalDeleteList from './list/modal-delete';
 import ModalShareList from './list/modal-share';
 import ModalUpdateList from './list/modal-update';
+import ModalTaskDetail from './modal-task-detail';
 import ModalCreateTask from './task/modal-create';
 import ModalDeleteTask from './task/modal-delete';
 import ModalShareTask from './task/modal-share';
@@ -26,6 +27,7 @@ const Modal = () => {
   const onClose = () => {
     setIsOpenModal(null);
   };
+
   useEffect(() => {
     if (auth) {
       socket.auth = {...auth, listID: selectedTodolist?.id};
@@ -94,6 +96,7 @@ const Modal = () => {
         />
       )}
       {selectedTask && <ModalShareTask open={isOpenModal.shareTask} onClose={onClose} data={selectedTask} />}
+      <ModalTaskDetail />
     </>
   );
 };

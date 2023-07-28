@@ -78,7 +78,11 @@ export const Modal: FC<IModalProps> & IModalComposition = ({
     <ModalContext.Provider value={memoizedContextValue}>
       <Portal>
         <CSSTransition in={isOpen} timeout={transitionTime}>
-          <div className={cls('abc-modal', 'scrollbar', `abc-modal-${variant}`)} tabIndex={-1}>
+          <div
+            className={cls('abc-modal', 'scrollbar', `abc-modal-${variant}`)}
+            tabIndex={-1}
+            onKeyUp={e => e.key === 'Escape' && onClose()}
+          >
             <div className={cls('abc-modal-dialog', className, dialogVariantClass)}>
               <div className="abc-modal-content">{children}</div>
             </div>

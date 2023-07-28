@@ -1,10 +1,9 @@
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
-import {useRouter} from 'next/router';
 import React, {memo} from 'react';
 
-import {ROUTES} from '@/configs/routes.config';
 import {useBoardState} from '@/hooks/useBoardState';
+import {useModalTaskDetailState} from '@/hooks/useModalTaskDetail';
 import useBoards from '@/states/board/use-boards';
 
 import KanbanTaskAssignee from './assignee';
@@ -20,9 +19,9 @@ interface IKanbanTaskItem {
 }
 
 const KanbanTaskItem = ({itemId}: IKanbanTaskItem) => {
-  const router = useRouter();
   const boardStore = useBoardState();
   const {boardData} = useBoards();
+  const modalTaskDetailState = useModalTaskDetailState();
   const {members, taskSymbol} = boardData;
   const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({id: itemId});
   const task = boardStore.entitiesItem[itemId];
@@ -30,9 +29,13 @@ const KanbanTaskItem = ({itemId}: IKanbanTaskItem) => {
   if (!task) return null;
   const {attachments, assignees, id, name, dueDate, order, priority, storyPoint} = task;
 
+  const onClick = () => {
+    modalTaskDetailState.setState(task);
+  };
+
   return (
     <li className={style[`kanban-task-item`]} ref={setNodeRef} style={styleDnd} {...attributes} {...listeners}>
-      <div className="bg" onClick={() => router.push(`${ROUTES.TASK}/${itemId}`)}>
+      <div className="bg" onClick={onClick}>
         {Boolean(attachments?.length) && <KanbanTaskThumbnail url={attachments?.[0]?.link} />}
         <KanbanTaskName name={(taskSymbol && order ? `[${taskSymbol}-${order}] ` : '') + name} />
         {process.env.NODE_ENV === 'development' && <KanbanTaskName name={String(task.indexColumn)} />}

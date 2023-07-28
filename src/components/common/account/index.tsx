@@ -6,6 +6,7 @@ import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 import {IUserResponse} from '@/data/api/types/user.type';
 import useModals from '@/states/modals/use-modals';
+import LocalStorage from '@/utils/local-storage';
 
 import AssigneeIcon from '../assignee-icon';
 import style from './style.module.scss';
@@ -57,6 +58,7 @@ const Account: FC<IAccountProps> = props => {
                     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                     handleClosePopover && handleClosePopover();
                     router.push(ROUTES.LOGIN);
+                    LocalStorage.clearAll();
                   }}
                 >
                   Log Out

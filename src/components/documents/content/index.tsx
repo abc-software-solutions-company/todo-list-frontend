@@ -48,7 +48,7 @@ const DocumentContent: React.FC = () => {
   return (
     <div className={style['document-content']}>
       {document && (
-        <div className="mb-3">
+        <div className="mb-3 flex items-center">
           <Icon name="content" className="ico-fluent_text-description mr-1" size={20} />
           <span className="mr-3">Content</span>
           <Button
@@ -90,7 +90,7 @@ const DocumentContent: React.FC = () => {
           </div>
         </form>
       ) : (
-        <div className="scrollbar max-h-[70vh] overflow-y-auto">
+        <div>
           <WYSIWYG content={document?.content} />
         </div>
       )}

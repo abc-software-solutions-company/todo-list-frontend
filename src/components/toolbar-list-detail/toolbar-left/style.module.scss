@@ -1,3 +1,9 @@
 .toolbar-left :global {
-  @apply hidden md:block;
+  @apply flex items-center;
+  .list-name {
+    @apply hidden md:block;
+  }
+  .search {
+    @apply ml-2 mr-2 h-8 w-full rounded-md md:w-40;
+  }
 }

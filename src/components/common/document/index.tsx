@@ -31,8 +31,8 @@ const Document: React.FC<IProps> = ({name, iconDropdown, active, favorite, getDo
     >
       <div
         className={cls(
-          active ? '-mx-3 bg-slate-100 px-3' : 'hover:rounded-md hover:bg-slate-100',
-          'flex cursor-pointer justify-between py-3'
+          active ? 'bg-slate-100' : ' hover:bg-slate-100',
+          'my-1 flex cursor-pointer justify-between py-3 px-6'
         )}
         onClick={getDocument}
       >

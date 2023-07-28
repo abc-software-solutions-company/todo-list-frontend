@@ -13,4 +13,5 @@ export interface IInitialState {
   assigneeFilterInList: string;
   assigneeFilterInMytask: string[];
   filterTasks: ITaskResponse[];
+  nameFilter: string;
 }

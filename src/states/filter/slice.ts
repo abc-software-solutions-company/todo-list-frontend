@@ -43,6 +43,12 @@ const filterSlice = createSlice({
     },
     setFilterTasks: (state, {payload}: PayloadAction<ITaskResponse[]>) => {
       state.filterTasks = payload;
+    },
+    setNameFilterTask: (state, {payload}: PayloadAction<string>) => {
+      state.nameFilter = payload.toLowerCase();
+    },
+    getFilterTaskByName: state => {
+      state.filterTasks = state.filterTasks?.filter(e => e.name.toLowerCase().includes(state.nameFilter));
     }
   }
 });

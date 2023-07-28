@@ -1,6 +1,7 @@
 .toolbar-container :global {
   @apply mt-5 min-h-[44px] py-2 px-4;
   @apply rounded-lg border border-[#E2E8F0];
-  @apply flex items-center justify-center gap-x-1 md:justify-between;
-  @apply bg-white  font-medium;
+  @apply gap-2;
+  @apply bg-white font-medium;
+  @apply flex flex-col items-center justify-center md:flex-row md:justify-between;
 }

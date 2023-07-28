@@ -19,7 +19,7 @@ const KanbanColumn: FC<IKanbanColumnProps> = ({columnId, itemIds, showHeader = t
 
   return (
     <KanbanColumnWrapper columnId={columnId}>
-      <KanbanColumnHeader name={name} color={color} numberTasks={tasks?.length} />
+      <KanbanColumnHeader name={name} color={color} numberTasks={tasks?.length} columnId={columnId} />
       <KanbanColumnBody columnId={columnId} itemIds={itemIds} />
       {showHeader && <KanbanColumnFooter columnId={columnId} />}
     </KanbanColumnWrapper>

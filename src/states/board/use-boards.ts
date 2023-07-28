@@ -21,8 +21,16 @@ export default function useBoards() {
 
   const setIsOpenModal = (value: ISetIsOpenModalPayload) => dispatch(actions.setIsOpenModal(value));
 
-  const assest = Boolean(data) ? data.visibility !== 'PRIVATE' || Boolean(auth && auth.id === data.userId) : false;
-  const write = Boolean(data) ? data.visibility === 'PUBLIC' || Boolean(auth && auth.id === data.userId) : false;
+  const assest = Boolean(data)
+    ? data.visibility !== 'PRIVATE' ||
+      Boolean(auth && auth.id === data.userId) ||
+      Boolean(auth && data?.members?.map(e => e.id).includes(auth?.id))
+    : false;
+  const write = Boolean(data)
+    ? data.visibility === 'PUBLIC' ||
+      Boolean(auth && auth.id === data.userId) ||
+      Boolean(auth && data?.members?.map(e => e.id).includes(auth?.id))
+    : false;
   const owner = Boolean(data) ? Boolean(auth && auth.id === data.userId) : false;
   const error = board.error;
   return {
