@@ -26,23 +26,21 @@ const CustomApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) =>
   const Layout = (Component as any).Layout || Noop;
 
   return (
-    <DeployRestart>
-      <NProgres>
-        <DefaultSeo />
-        <AuthProvider>
-          <Provider store={store}>
-            <MuiThemeProvider>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <Layout pageProps={pageProps}>
-                  <Component {...pageProps} key={router.route} />
-                  <Modal />
-                </Layout>
-              </LocalizationProvider>
-            </MuiThemeProvider>
-          </Provider>
-        </AuthProvider>
-      </NProgres>
-    </DeployRestart>
+    <NProgres>
+      <DefaultSeo />
+      <AuthProvider>
+        <Provider store={store}>
+          <MuiThemeProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Layout pageProps={pageProps}>
+                <Component {...pageProps} key={router.route} />
+                <Modal />
+              </Layout>
+            </LocalizationProvider>
+          </MuiThemeProvider>
+        </Provider>
+      </AuthProvider>
+    </NProgres>
   );
 };
 
