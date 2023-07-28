@@ -10,7 +10,6 @@ import type {AppProps} from 'next/app';
 import {useRouter} from 'next/router';
 import {Provider} from 'react-redux';
 
-import DeployRestart from '@/components/common/deploy-restart';
 import MuiThemeProvider from '@/components/common/mui-theme-provider';
 import NProgres from '@/components/common/nprogress';
 import DefaultSeo from '@/components/common/seo/default-seo';
