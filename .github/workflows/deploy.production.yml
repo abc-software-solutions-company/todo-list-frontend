@@ -57,7 +57,7 @@ jobs:
         run: rm -r -f .env_temp
 
       - name: Build Docker and deployment
-        run: sudo chmod +x docker-build.sh && sudo ./docker-build.sh
+        run: sudo chmod +x docker-build-prod.sh && sudo ./docker-build-prod.sh
 
       - name: Set build status emoji to success
         run: echo "STATUS=✅" >> $GITHUB_ENV
