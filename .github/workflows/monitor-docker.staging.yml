@@ -1,0 +1,18 @@
+name: Monitor Docker State
+
+on:
+  push:
+    branches: ["github-tool"]
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Monitor RAM, CPU,... for all conta
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.STAGE_SERVER_HOST }}
+          username: ubuntu
+          port: 22
+          key: ${{ secrets.STAGE_SERVER_KEY_SSH }}
+          script: |
+            sudo docker stats  --no-stream
