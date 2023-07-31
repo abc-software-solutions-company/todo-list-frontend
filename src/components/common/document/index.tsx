@@ -12,7 +12,7 @@ interface IProps {
 }
 const Document: React.FC<IProps> = ({item}) => {
   const documentState = useDocumentsStore();
-  const [showMoreDoc, setShowMoreDoc] = useState();
+  const [showMoreDoc, setShowMoreDoc] = useState(false);
 
   return (
     <div className="relative min-w-[10rem]">
@@ -28,7 +28,7 @@ const Document: React.FC<IProps> = ({item}) => {
         <div className="flex">
           <Icon
             name="drop"
-            className=""
+            className={item.children ? 'block' : 'hidden'}
             onClick={() => {
               setShowMoreDoc(!showMoreDoc);
             }}
@@ -49,13 +49,13 @@ const Document: React.FC<IProps> = ({item}) => {
         />
         {/* )} */}
       </div>
-      {item.children && (
-        <div className={cls('ml-6', !showMoreDoc && 'hidden')}>
+      {/* {item.children && (
+        <div className={cls('ml-6', showMoreDoc === false && 'hidden')}>
           {item.children.map(child => (
             <Document item={child} key={child.id} />
           ))}
         </div>
-      )}
+      )} */}
     </div>
   );
 };
