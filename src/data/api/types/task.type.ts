@@ -1,4 +1,5 @@
 import {IBaseResponse} from '@/types';
+import {AttachmentType} from '@/utils/constant';
 
 import {IStatus, ITodolistResponse} from './todolist.type';
 import {IUserResponse} from './user.type';
@@ -11,6 +12,7 @@ export interface IAttachment {
 export interface IAttachmentCreate {
   name: string;
   link: string;
+  type?: keyof typeof AttachmentType;
 }
 
 export interface IAttachmentUpdate {
@@ -18,6 +20,7 @@ export interface IAttachmentUpdate {
   name?: string;
   link?: string;
   isActive?: boolean;
+  type?: string;
 }
 
 export interface IAttachmentResponse extends IAttachmentCreate {
