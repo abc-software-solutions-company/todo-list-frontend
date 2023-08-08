@@ -1,12 +1,13 @@
 import Prism from 'prismjs';
 import React, {useCallback, useEffect} from 'react';
 
+import {IDocumentAttribute} from '@/data/api/types/documents.type';
 import {replaceCdnUrl} from '@/utils/misc';
 
 interface IProps {
   className?: string;
-  content: any;
-  render: any;
+  content: string;
+  render: IDocumentAttribute;
 }
 
 function wrapImage() {
@@ -50,7 +51,7 @@ const WYSIWYG: React.FC<IProps> = ({content, render}) => {
     <div
       ref={ref}
       className="wysiwyg ck-content prose"
-      dangerouslySetInnerHTML={{__html: replaceCdnUrl(content) || ''}}
+      dangerouslySetInnerHTML={{__html: replaceCdnUrl(content)}}
     ></div>
   );
 };
