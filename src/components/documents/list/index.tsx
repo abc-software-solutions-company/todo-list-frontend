@@ -64,7 +64,7 @@ const DocumentList: React.FC<IProps> = ({id}) => {
   };
 
   return (
-    <div className="sticky top-0 h-fit">
+    <>
       <div className={style['document-list']}>
         <div className="flex justify-between px-3 py-3">
           <h4 className="font-bold">Documents</h4>
@@ -75,7 +75,7 @@ const DocumentList: React.FC<IProps> = ({id}) => {
           />
         </div>
         <hr />
-        <div className="scrollbar max-h-full overflow-y-auto">
+        <div className="scrollbar h-fit max-h-[80vh] overflow-y-auto">
           <div>
             <p className="mt-3 px-3 font-bold">Favorite</p>
             <div>{documents?.map(item => item.favorite && renderNode(item, item.favorite))}</div>
@@ -89,7 +89,7 @@ const DocumentList: React.FC<IProps> = ({id}) => {
       {showModalCreate && (
         <ModalCreateDocument open={showModalCreate} onClose={() => isShowModalCreate(false)} docChild={false} />
       )}
-    </div>
+    </>
   );
 };
 
