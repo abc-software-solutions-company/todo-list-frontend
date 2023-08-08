@@ -6,11 +6,14 @@ import {replaceCdnUrl} from '@/utils/misc';
 interface IProps {
   className?: string;
   content: any;
+  render: any;
 }
 
 function wrapImage() {
   const imageNode = document.querySelectorAll('.wysiwyg img') as NodeList;
+
   const images = Array.from(imageNode) as HTMLImageElement[];
+
   images.forEach(elem => {
     const anchor = document.createElement('a');
     anchor.href = elem.src;
@@ -21,10 +24,13 @@ function wrapImage() {
   });
 }
 
-const WYSIWYG: React.FC<IProps> = ({content}) => {
-  const ref = useCallback((node: HTMLDivElement) => {
-    if (node) wrapImage();
-  }, []);
+const WYSIWYG: React.FC<IProps> = ({content, render}) => {
+  const ref = useCallback(
+    (node: HTMLDivElement) => {
+      if (node) wrapImage();
+    },
+    [render]
+  );
 
   useEffect(() => {
     if (typeof window !== 'undefined') Prism.highlightAll();
@@ -38,7 +44,7 @@ const WYSIWYG: React.FC<IProps> = ({content}) => {
         loop: true
       });
     });
-  }, []);
+  }, [render]);
 
   return (
     <div
