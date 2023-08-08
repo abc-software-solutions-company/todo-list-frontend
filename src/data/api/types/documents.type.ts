@@ -1,13 +1,3 @@
-export interface IGetDocuments {
-  id: string;
-  name: string;
-  content: string;
-  parentId: string;
-  favorite: boolean;
-  todolistId: string;
-  children: IGetDocuments[];
-}
-
 export interface IUpdateDocument {
   id: string;
   name?: string;
@@ -26,7 +16,8 @@ export interface IDocumentAttribute {
   id: string;
   name: string;
   content?: string;
-  favorite?: boolean;
-  parentId?: string;
+  favorite: boolean;
   todolistId: string;
+  parentId: string;
+  children?: IDocumentAttribute[];
 }

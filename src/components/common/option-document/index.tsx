@@ -10,10 +10,11 @@ import {MUI_ICON} from '@/utils/mui-icon';
 
 export interface IProps {
   textFavorite: string;
+  showDelete?: boolean;
   handleFavorite: () => void;
 }
 
-const OptionDocument: FC<IProps> = ({textFavorite, handleFavorite}) => {
+const OptionDocument: FC<IProps> = ({textFavorite, showDelete = false, handleFavorite}) => {
   const [creteChildDoc, isCreateChildDoc] = useState<boolean>(false);
   const [showModalUpdate, isShowModalUpdate] = useState<boolean>(false);
   const [showModalDelete, isShowModalDelete] = useState<boolean>(false);
@@ -32,10 +33,13 @@ const OptionDocument: FC<IProps> = ({textFavorite, handleFavorite}) => {
 
   const deleteToolProps: IToolProps = {
     icon: <></>,
-    text: 'Delete',
-    onClick: () => isShowModalDelete(true)
+    text: showDelete ? 'Delete document' : '',
+    onClick: () => showDelete && isShowModalDelete(true)
   };
-  const toolMenuItems = [renameToolProps, addFavoriteToolProps, deleteToolProps].map((item, idx) => (
+  const tool = showDelete
+    ? [renameToolProps, addFavoriteToolProps, deleteToolProps]
+    : [renameToolProps, addFavoriteToolProps];
+  const toolMenuItems = tool.map((item, idx) => (
     <Tool key={idx} {...{...item, className: 'flex-row-reverse w-full justify-end'}} />
   ));
   return (

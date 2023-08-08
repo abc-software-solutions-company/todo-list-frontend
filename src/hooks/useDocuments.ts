@@ -3,13 +3,14 @@ import {devtools} from 'zustand/middleware';
 import {immer} from 'zustand/middleware/immer';
 
 import api from '@/data/api';
-import {IDocumentAttribute, IDocumentCreate, IGetDocuments, IUpdateDocument} from '@/data/api/types/documents.type';
+import {IDocumentAttribute, IDocumentCreate, IUpdateDocument} from '@/data/api/types/documents.type';
 
 type State = {
   error: boolean;
   isFeching: boolean;
   document: IDocumentAttribute;
-  documents: IGetDocuments[];
+  documents: IDocumentAttribute[];
+  documentsFavorite: IDocumentAttribute[];
 };
 
 type Action = {
@@ -18,6 +19,8 @@ type Action = {
   updateDocument: (data: IUpdateDocument) => void;
   createDocument: (data: IDocumentCreate) => void;
   resetDocument: () => void;
+  addFavorite: (document: IDocumentAttribute) => void;
+  resetDocumentsFavorite: () => void;
 };
 
 export const useDocumentsStore = create<State & Action>()(
@@ -26,6 +29,7 @@ export const useDocumentsStore = create<State & Action>()(
       documents: [],
       error: false,
       isFeching: false,
+      documentsFavorite: [],
       document: {} as IDocumentAttribute,
       resetDocument: () => {
         set(state => {
@@ -39,6 +43,7 @@ export const useDocumentsStore = create<State & Action>()(
             state => {
               state.documents = res.data;
               state.isFeching = true;
+              state.documentsFavorite = res.data.map(item => item);
               if (!state.document?.id) state.document = state.documents?.[0];
             },
             false,
@@ -119,6 +124,14 @@ export const useDocumentsStore = create<State & Action>()(
             'documents/error'
           );
         }
+      },
+      addFavorite: document => {
+        set(state => {
+          state.documentsFavorite = [...state.documentsFavorite, document];
+        });
+      },
+      resetDocumentsFavorite: () => {
+        set({documentsFavorite: []});
       }
     }))
   )
