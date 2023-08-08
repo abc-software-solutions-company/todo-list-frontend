@@ -7,7 +7,6 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 import {IStatus} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
 import {useBoardState} from '@/hooks/useBoardState';
-import {useModalTaskDetailState} from '@/hooks/useModalTaskDetail';
 import {useSensorGroup} from '@/lib/dnd-kit/sensor/sensor-group';
 import useBoards from '@/states/board/use-boards';
 import useFilter from '@/states/filter/use-filter';
@@ -41,7 +40,6 @@ const KanbanContainer: FC = () => {
   const [activeItemId, setActiveItemId] = useState<string>();
   const [activeColumnId, setActiveColumnId] = useState<string>();
   const [needUpdate, setNeedUpdate] = useState(false);
-  const modalTaskDetailState = useModalTaskDetailState();
 
   useEffect(() => {
     if (currentPriority || (currentAssignee != '' && currentAssignee != 'default') || currentStatus) {
@@ -76,7 +74,6 @@ const KanbanContainer: FC = () => {
       });
       setNeedUpdate(false);
       setBoardState({ids, entities});
-      modalTaskDetailState.resetState();
     }
   }, [needUpdate, boardStore]);
 
