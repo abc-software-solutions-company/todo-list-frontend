@@ -68,6 +68,7 @@ export interface ITaskUpdate extends ITaskGet {
   indexColumn?: number;
   isDone?: boolean;
   priority?: string;
+  type?: string;
   storyPoint?: string;
   startDate?: Date;
   dueDate?: Date;
@@ -118,6 +119,7 @@ export interface ITaskResponse extends ITaskGet, IBaseResponse {
   startDate: Date;
   dueDate: Date;
   priority: string;
+  type: string;
   index: number;
   indexColumn: number;
   attachments: IAttachmentResponse[];

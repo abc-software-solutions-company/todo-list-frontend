@@ -44,3 +44,9 @@ export const LobbyTexts = {
   CREATE: ' Create New List ',
   MY_LISTS: 'My Lists'
 };
+
+export const TaskTypeData = [
+  {text: 'Task', icon: 'ico-check-2', bgColor: 'bg-[#4DA8E5]'},
+  {text: 'Story', icon: 'ico-bookmark-2', bgColor: 'bg-[#5ABE47]'},
+  {text: 'Bug', icon: 'ico-circle-2', bgColor: 'bg-[#E74E40]'}
+];
