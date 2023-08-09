@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 
 import DocumentContent from './content';
-import DocumentList from './list';
+import SpaceList from './space-list';
 
 interface IDocumentsProps {
   id: string;
@@ -9,7 +9,7 @@ interface IDocumentsProps {
 const Documents: FC<IDocumentsProps> = ({id}) => {
   return (
     <div className="mt-4 flex gap-6">
-      <DocumentList id={id} />
+      <SpaceList id={id} />
       <DocumentContent />
     </div>
   );

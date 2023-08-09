@@ -9,7 +9,6 @@ import {ToastContents} from '@/utils/toast-content';
 import OptionDocument from '../option-document';
 
 interface IProps {
-  className: string;
   iconDropdown?: any;
   name?: string;
   active?: boolean;
@@ -25,7 +24,6 @@ const Document: React.FC<IProps> = ({
   active,
   favorite,
   showDelete,
-  className,
   getDocument,
   showMoreDoc,
   showContent
@@ -37,7 +35,7 @@ const Document: React.FC<IProps> = ({
 
   return (
     <div
-      className={cls('relative min-w-[10rem]', className)}
+      className={'relative min-w-[10rem]'}
       onMouseEnter={() => setIsShown(true)}
       onMouseLeave={() => setIsShown(false)}
     >

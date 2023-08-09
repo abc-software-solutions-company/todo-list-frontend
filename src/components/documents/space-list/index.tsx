@@ -1,10 +1,8 @@
 import cls from 'classnames';
-import router from 'next/router';
 import React, {useEffect, useState} from 'react';
 
 import Document from '@/components/common/document';
 import ModalCreateDocument from '@/components/modal/documents/modal-create';
-import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 import {IDocumentAttribute} from '@/data/api/types/documents.type';
 import {useDocumentsStore} from '@/hooks/useDocuments';
@@ -50,7 +48,6 @@ const SpaceList: React.FC<IProps> = ({id}) => {
           }
           getDocument={() => {
             documentsState.getDocument(node.id);
-            router.push(`${ROUTES.DOCUMENT}/${id}?id=${node.id}`, undefined, {shallow: true});
           }}
           active={documentsState.document.id == node.id}
         />
