@@ -3,6 +3,7 @@ import {useRouter} from 'next/router';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {useModalTaskDetailState} from '@/hooks/useModalTaskDetail';
 import useTodolist from '@/states/todolist/use-todolist';
 import {ToastContents} from '@/utils/toast-content';
 
@@ -10,6 +11,7 @@ import {IProps} from '.';
 
 export default function useModalDelete({onClose, onSuccess, data}: IProps) {
   const {todolist, setTodolist, getTodolist} = useTodolist();
+  const modalTaskDetailState = useModalTaskDetailState();
   const router = useRouter();
   const toast = useToast();
   const {id} = data;
@@ -25,6 +27,7 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
           router.back();
         }
         toast.show({type: 'success', title: 'Delete ', content: ToastContents.SUCCESS});
+        modalTaskDetailState.setState(null);
       });
 
       req
