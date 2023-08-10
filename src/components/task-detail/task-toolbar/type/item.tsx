@@ -1,18 +1,16 @@
+import Image from 'next/image';
 import {FC} from 'react';
-
-import IssueTypeIcon from '@/components/common/issue-type-icon';
 
 interface TypeItemProps {
   text?: string;
-  bgColor?: string;
   icon?: string;
   onClick?: () => void;
 }
 
-const TypeItem: FC<TypeItemProps> = ({text, bgColor, icon = '', onClick}) => {
+const TypeItem: FC<TypeItemProps> = ({text, icon = '', onClick}) => {
   return (
     <div className="flex cursor-pointer space-x-2" onClick={onClick}>
-      <IssueTypeIcon icon={icon} bgColor={bgColor} />
+      <Image src={`/icons/${icon}`} alt="" width={24} height={24} />
       <p className="font-semibold">{text}</p>
     </div>
   );

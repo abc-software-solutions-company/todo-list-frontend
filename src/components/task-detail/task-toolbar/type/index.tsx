@@ -1,14 +1,14 @@
 import {Popover} from '@mui/material';
+import Image from 'next/image';
 import {FC, useState} from 'react';
 
-import IssueTypeIcon from '@/components/common/issue-type-icon';
 import Button from '@/core-ui/button';
 
 import TypeItem from './item';
 
 interface ITypeProps {
-  data: {text: string; icon: string; bgColor: string}[];
-  selected?: {text: string; icon: string; bgColor: string};
+  data: {text: string; icon: string}[];
+  selected?: {text: string; icon: string};
   onSelect?: (value: string) => void;
 }
 
@@ -33,7 +33,7 @@ export const Type: FC<ITypeProps> = ({data, selected, onSelect}) => {
   return (
     <div>
       <Button className="rounded bg-slate-100 p-1 px-2 text-h7" onClick={handleClick}>
-        <IssueTypeIcon icon={selected?.icon} bgColor={selected?.bgColor} />
+        <Image src={`/icons/${selected?.icon}`} alt={selected?.text} width={24} height={24} />
       </Button>
       <Popover
         open={open}
@@ -46,8 +46,8 @@ export const Type: FC<ITypeProps> = ({data, selected, onSelect}) => {
       >
         <div className="flex flex-col space-y-4 p-4">
           <p className="font-semibold">CHANGE ISSUE TYPE</p>
-          {data.map(({text, bgColor, icon}, index) => (
-            <TypeItem key={index} text={text} bgColor={bgColor} icon={icon} onClick={() => handleSelect(text)} />
+          {data.map(({text, icon}, index) => (
+            <TypeItem key={index} text={text} icon={icon} onClick={() => handleSelect(text)} />
           ))}
         </div>
       </Popover>
