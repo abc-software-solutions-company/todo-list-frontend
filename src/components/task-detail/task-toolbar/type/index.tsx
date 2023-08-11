@@ -29,7 +29,7 @@ export const Type: FC<ITypeProps> = ({data, title, trigger, onSelect}) => {
   const open = Boolean(anchorEl);
 
   return (
-    <div>
+    <>
       <button onClick={handleClick}>{trigger}</button>
       <Popover
         open={open}
@@ -54,7 +54,7 @@ export const Type: FC<ITypeProps> = ({data, title, trigger, onSelect}) => {
           ))}
         </div>
       </Popover>
-    </div>
+    </>
   );
 };
 

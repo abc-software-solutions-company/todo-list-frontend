@@ -18,7 +18,7 @@ const Tool: FC<IToolProps> = ({className, icon, text, hidden, onClick}) => {
   return (
     <Button onClick={onClick} className={classNames(className, style.tool)}>
       {icon}
-      {text && <span>{text}</span>}
+      {text && <span className="text-h6">{text}</span>}
     </Button>
   );
 };
