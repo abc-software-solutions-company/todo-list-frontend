@@ -14,7 +14,7 @@ import {IProps} from '../types-create';
 const ModalUpdateDocument: FC<IProps> = props => {
   const {open, onClose} = props;
   const {isSubmitting, errors, onSubmit, register, setFocus} = useModalUpdateDocument(props);
-  const {document} = useDocumentsStore();
+  const documentsState = useDocumentsStore();
   useEffect(() => {
     setFocus('name');
     iosAutoFocus();
@@ -37,8 +37,8 @@ const ModalUpdateDocument: FC<IProps> = props => {
               <Input
                 autoFocus={true}
                 error={errors.name?.message}
-                placeholder={document.name}
-                value={document.name}
+                placeholder={documentsState.currentDocument.name}
+                value={documentsState.currentDocument.name}
                 {...register('name')}
               />
             </Modal.Body>

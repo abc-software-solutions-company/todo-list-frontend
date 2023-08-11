@@ -1,32 +1,50 @@
 import cls from 'classnames';
-import React from 'react';
+import React, {Fragment, useState} from 'react';
 
 import Document from '@/components/common/document';
 import {IDocumentAttribute} from '@/data/api/types/documents.type';
-import {IBaseProps} from '@/types';
 
-interface ISpaceListProps extends IBaseProps {
+interface IDocumentListProps {
+  classNames?: string;
+  isShowDelete?: boolean;
   items: IDocumentAttribute[];
 }
 
-const SpaceList: React.FC<ISpaceListProps> = ({className, items}) => {
-  function toggleShow(i: string, set: React.Dispatch<React.SetStateAction<string[]>>) {
-    set(prevState => {
-      if (prevState.includes(i)) return prevState.filter((item: any) => item !== i);
-      else return [...prevState, i];
-    });
-  }
+const DocumentList: React.FC<IDocumentListProps> = ({classNames, isShowDelete = true, items}) => {
+  const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
-  const renderNode = (node: IDocumentAttribute) => {
-    return (
-      <Document
-        showMoreDoc={() => toggleShow(node.id, setShowPages)}
-        iconDropdown={node.children && (showPages.includes(node.id) ? 'ico-angle-down-small' : 'ico-angle-right-small')}
-      />
-    );
+  const toggleExpand = (itemId: string) => {
+    setExpandedItems(prevItems => {
+      if (prevItems.includes(itemId)) {
+        return prevItems.filter(id => id !== itemId);
+      } else {
+        return [...prevItems, itemId];
+      }
+    });
   };
 
-  return <div className={cls('comp-document-list', className)}>{items.map(() => ())}</div>;
+  const renderDocument = (item: IDocumentAttribute) => (
+    <Document
+      key={item.id}
+      showDelete={isShowDelete}
+      item={item}
+      isShowChildren={expandedItems.includes(item.id)}
+      onShowChildren={() => toggleExpand(item.id)}
+    />
+  );
+
+  return (
+    <div className={cls('comp-document-list', classNames)}>
+      {items.map(item => (
+        <Fragment key={item.id}>
+          {renderDocument(item)}
+          <div className={cls('pl-6', !expandedItems.includes(item.id) && 'hidden')}>
+            {item.children && item.children.map(renderDocument)}
+          </div>
+        </Fragment>
+      ))}
+    </div>
+  );
 };
 
-export default SpaceList;
+export default DocumentList;

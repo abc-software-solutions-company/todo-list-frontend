@@ -25,17 +25,17 @@ export interface IForm {
 const DocumentContent: React.FC = () => {
   const [edit, setEdit] = useState(false);
   const {show} = useToast();
-  const {document, error, updateDocument} = useDocumentsStore();
+  const {currentDocument, error, updateDocument} = useDocumentsStore();
   const {control, handleSubmit, reset} = useForm<IForm>({
-    defaultValues: {content: document?.content}
+    defaultValues: {content: currentDocument?.content}
   });
 
   useEffect(() => {
-    reset({content: document?.content});
-  }, [document]);
+    reset({content: currentDocument?.content});
+  }, [currentDocument]);
 
   const onSubmit: SubmitHandler<IForm> = data => {
-    updateDocument({...document, content: data.content || ''});
+    updateDocument({...currentDocument, content: data.content || ''});
     if (error) {
       setEdit(true);
       show({type: 'danger', title: 'Edit Content', content: ToastContents.ERROR});
@@ -47,7 +47,7 @@ const DocumentContent: React.FC = () => {
 
   return (
     <div className={style['document-content']}>
-      {document && (
+      {currentDocument && (
         <div className="mb-3 flex items-center">
           <Icon name="content" className="ico-fluent_text-description mr-1" size={20} />
           <span className="mr-3">Content</span>
@@ -66,9 +66,9 @@ const DocumentContent: React.FC = () => {
             name="content"
             control={control}
             rules={{required: false}}
-            defaultValue={document?.content}
+            defaultValue={currentDocument?.content}
             render={({field}) => (
-              <Editor name="example" value={String(document.content)} onChange={text => field.onChange(text)} />
+              <Editor name="example" value={String(currentDocument.content)} onChange={text => field.onChange(text)} />
             )}
           />
           <div className="mt-4 flex gap-4">
@@ -90,9 +90,11 @@ const DocumentContent: React.FC = () => {
           </div>
         </form>
       ) : (
-        <div>
-          <WYSIWYG content={document.content || ''} render={document} />
-        </div>
+        currentDocument && (
+          <div>
+            <WYSIWYG content={currentDocument.content || ''} render={currentDocument} />
+          </div>
+        )
       )}
     </div>
   );

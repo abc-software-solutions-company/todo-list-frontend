@@ -14,7 +14,7 @@ export default function DocumentsPage({id}: InferGetStaticPropsType<typeof getSt
     <>
       <Seo title="My Lists" />
       <ToolBar option={false} />
-      <Documents id={id} />
+      <Documents />
     </>
   );
 }

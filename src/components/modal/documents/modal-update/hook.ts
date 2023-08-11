@@ -2,9 +2,7 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 
-import useToast from '@/core-ui/toast';
 import {useDocumentsStore} from '@/hooks/useDocuments';
-import {ToastContents} from '@/utils/toast-content';
 
 import {IProps} from '../types-create';
 
@@ -17,8 +15,7 @@ const Schema = yup.object().shape({
 });
 
 export default function useModalUpdateDocument({onClose}: IProps) {
-  const toast = useToast();
-  const {error, document, updateDocument} = useDocumentsStore();
+  const documentsState = useDocumentsStore();
 
   const {formState, handleSubmit, reset, setValue, ...rest} = useForm<IFormInputs>({
     resolver: yupResolver(Schema),
@@ -28,14 +25,7 @@ export default function useModalUpdateDocument({onClose}: IProps) {
   const {errors, isSubmitting} = formState;
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
     if (isSubmitting) return;
-    const id = document.id;
-    const content = String(document.content);
-    updateDocument({id, content, ...formData});
-    if (error) {
-      toast.show({type: 'danger', title: 'Rename Error', content: ToastContents.ERROR});
-    } else {
-      toast.show({type: 'success', title: 'Rename Success', content: ToastContents.SUCCESS});
-    }
+    documentsState.updateDocument({...documentsState.currentDocument, ...formData});
     onClose();
   };
 

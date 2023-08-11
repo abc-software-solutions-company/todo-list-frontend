@@ -3,7 +3,7 @@ import http from '@/utils/http';
 
 import {IAuthLogin, IAuthResponse, IAuthUpdate} from './types/auth.type';
 import {ISeo} from './types/commom';
-import {IDocumentAttribute, IDocumentCreate, IGetDocuments, IUpdateDocument} from './types/documents.type';
+import {IDocumentAttribute, IDocumentCreate, IUpdateDocument} from './types/documents.type';
 import {INotificationResponse} from './types/notification.type';
 import {ITaskCreate, ITaskGet, ITaskReindexAll, ITaskResponse, ITaskUpdate} from './types/task.type';
 import {
@@ -51,9 +51,10 @@ const api = {
     updateAll: () => http.patch<INotificationResponse[]>(API_ENDPOINTS.NOTIFICATION)
   },
   documents: {
-    getListDocument: (id: string) => http.get<IGetDocuments[]>(API_ENDPOINTS.DOCUMENT + '/tree/' + id),
+    getListDocument: (id: string) => http.get<IDocumentAttribute[]>(API_ENDPOINTS.DOCUMENT + '/tree/' + id),
     getOneDocument: (id: string) => http.get<IDocumentAttribute>(API_ENDPOINTS.DOCUMENT + '/' + id),
     updateDocument: (data: IUpdateDocument) => http.patch<IDocumentAttribute>(API_ENDPOINTS.DOCUMENT + '/update', data),
+    handleFavorite: (id: string) => http.patch<IDocumentAttribute>(API_ENDPOINTS.DOCUMENT + '/handle-favorite/' + id),
     create: (data: IDocumentCreate) => http.post<IDocumentAttribute>(API_ENDPOINTS.DOCUMENT, data)
   }
 };

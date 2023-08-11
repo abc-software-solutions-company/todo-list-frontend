@@ -12,7 +12,7 @@ import styles from './style.module.scss';
 const ModalDeleteDocument: FC<IProps> = props => {
   const {open, onClose} = props;
   const {onClick} = useModalDelete(props);
-  const {document} = useDocumentsStore();
+  const documentsState = useDocumentsStore();
   return (
     <>
       {open && (
@@ -25,7 +25,7 @@ const ModalDeleteDocument: FC<IProps> = props => {
           <Modal.Header>
             <h3 className="title">
               <span className="block text-center">Are you sure you want to delete document:</span>
-              <i className="block text-center">{document.name}</i>
+              <i className="block text-center">{documentsState.currentDocument.name}</i>
             </h3>
           </Modal.Header>
           <Modal.Footer>

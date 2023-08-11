@@ -14,7 +14,7 @@ export interface IProps {
   handleFavorite: () => void;
 }
 
-const OptionDocument: FC<IProps> = ({textFavorite, showDelete = false, handleFavorite}) => {
+const OptionDocument: FC<IProps> = ({textFavorite, showDelete = true, handleFavorite}) => {
   const [creteChildDoc, isCreateChildDoc] = useState<boolean>(false);
   const [showModalUpdate, isShowModalUpdate] = useState<boolean>(false);
   const [showModalDelete, isShowModalDelete] = useState<boolean>(false);
