@@ -39,7 +39,7 @@ const Left: FC<IBaseProps> = ({className}) => {
         data={TaskTypeData}
         title="CHANGE ISSUE TYPE"
         trigger={
-          <div className="flex space-x-2">
+          <div className="flex w-28 space-x-2">
             <Image src={`/icons/${taskType?.icon}`} alt={taskType?.text} width={40} height={32} />
             {taskSymbol && order && <span className="text-h3 font-normal">{taskOrder}:</span>}
           </div>
