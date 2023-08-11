@@ -1,5 +1,5 @@
 .body-left :global {
-  @apply lg:h-[740px] lg:overflow-auto;
+  @apply lg:h-[740px] lg:overflow-auto lg:overflow-x-hidden;
   textarea {
     box-shadow: none;
   }
