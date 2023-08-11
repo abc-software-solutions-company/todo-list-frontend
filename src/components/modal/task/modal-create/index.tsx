@@ -1,9 +1,11 @@
+import {useRouter} from 'next/router';
 import {FC} from 'react';
 import {SubmitHandler} from 'react-hook-form';
 
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
+import {useModalTaskDetailState} from '@/hooks/useModalTaskDetail';
 import useTodolist from '@/states/todolist/use-todolist';
 import {ToastContents} from '@/utils/toast-content';
 
@@ -23,9 +25,11 @@ interface IFormInputs {
 }
 
 const ModalCreateTask: FC<IProps> = props => {
+  const router = useRouter();
   const {todolist, getTodolist} = useTodolist();
   const {open, todolistData, onClose, onSuccess, statusId} = props;
   const toast = useToast();
+  const modalTaskDetailState = useModalTaskDetailState();
 
   const submitHandler: SubmitHandler<IFormInputs> = formData => {
     const {name} = formData;
@@ -33,7 +37,11 @@ const ModalCreateTask: FC<IProps> = props => {
 
     if (todolistData) {
       req.push(
-        api.task.create({name, todolistId: todolistData.id, statusId}).then(() => {
+        api.task.create({name, todolistId: todolistData.id, statusId}).then(res => {
+          const isBoard = router.asPath.includes('board');
+          if (isBoard) {
+            modalTaskDetailState.setState(res.data);
+          }
           toast.show({type: 'success', title: 'Create To-Do', content: 'Successful!'});
         })
       );

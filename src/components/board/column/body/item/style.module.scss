@@ -10,10 +10,10 @@
   .actions {
     @apply flex items-center justify-between gap-x-2;
     .left {
-      @apply flex items-center gap-x-2;
+      @apply flex items-center;
     }
     .right {
-      @apply flex items-center;
+      @apply flex items-center gap-x-2;
     }
   }
   .action-edit-delete {

@@ -90,9 +90,7 @@ const DocumentContent: React.FC = () => {
           </div>
         </form>
       ) : (
-        <div>
-          <WYSIWYG content={document?.content} />
-        </div>
+        <div>{document && <WYSIWYG content={document.content || ''} render={document} />}</div>
       )}
     </div>
   );

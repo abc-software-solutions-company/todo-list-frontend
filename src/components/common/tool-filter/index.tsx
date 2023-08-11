@@ -51,7 +51,8 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
     currentStatus,
     setCurrentAssignee,
     setCurrentPriority,
-    setCurrentStatus
+    setCurrentStatus,
+    setCurrentType
   } = useFilter();
   const {auth} = useTopbar();
   const [selectStatus, setSelectStatus] = useState<number | number[]>(0);
@@ -153,6 +154,7 @@ const ToolFilter: FC<IProps> = ({className, todolist, myTasks}) => {
     setCurrentPriority('default');
     setCurrentStatus(0);
     setSelectStatus(0);
+    setCurrentType('');
     setSelectPriority('default');
     setSelectAssignee('default');
     setStatusFilterInList(0);

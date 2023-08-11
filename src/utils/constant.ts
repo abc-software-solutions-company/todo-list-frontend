@@ -49,3 +49,8 @@ export const AttachmentType = {
   image: 'image',
   file: 'file'
 };
+export const TaskTypeData = [
+  {text: 'Task', icon: 'task-icon.svg'},
+  {text: 'Story', icon: 'story-icon.svg'},
+  {text: 'Bug', icon: 'bug-icon.svg'}
+];

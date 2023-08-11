@@ -20,6 +20,9 @@ const filterSlice = createSlice({
     setCurrentPriority: (state, {payload}: PayloadAction<string>) => {
       state.currentPriority = payload;
     },
+    setCurrentType: (state, {payload}: PayloadAction<string>) => {
+      state.currentType = payload;
+    },
     setPriorityFilterInList: (state, {payload}: PayloadAction<string>) => {
       state.priorityFilterInList = payload;
     },

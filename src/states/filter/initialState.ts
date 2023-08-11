@@ -11,6 +11,7 @@ const initialState: IInitialState = {
   assigneeFilterInMytask: [],
   currentStatus: 0,
   currentPriority: 'default',
+  currentType: '',
   currentAssignee: 'default',
   filterTasks: [],
   nameFilter: ''
