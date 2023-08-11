@@ -81,11 +81,11 @@ const FileAttachment: FC<IBaseProps> = ({className}) => {
 
   return (
     <>
-      <div className={classNames(className, style['task-images'])}>
+      <div className={classNames(className, style['task-attachments'])}>
         {attachments
           .filter(item => item?.type && item.type !== 'image')
           .map((e, idx) => (
-            <div key={idx} className={classNames('task-image', `${!task ? 'upload' : ''}`)}>
+            <div key={idx} className={classNames('attachment', `${!task ? 'upload' : ''}`)}>
               <Icon name="ico-file-download" size={48} className="btn-created-date" />
               {e.createdDate && (
                 <div className="info">

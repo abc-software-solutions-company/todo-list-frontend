@@ -14,8 +14,8 @@ const Attachments: FC<IBaseProps> = ({className}) => {
   return (
     <div className={classNames('attachment', className, style.attachment)}>
       <Title icon={<Icon name="ico-paperclip" />} text="Attachments" />
-      <ImageAttachments className="task-images" />
-      <FileAttachment className="task-images" />
+      <ImageAttachments className="task-attachments" />
+      <FileAttachment className="task-attachments" />
       <Upload className={style.upload} />
     </div>
   );

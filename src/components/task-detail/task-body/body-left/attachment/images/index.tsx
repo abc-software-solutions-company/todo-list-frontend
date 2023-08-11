@@ -82,11 +82,11 @@ const ImageAttachments: FC<IBaseProps> = ({className}) => {
 
   return (
     <>
-      <div className={classNames(className, style['task-images'])}>
+      <div className={classNames(className, style['task-attachments'])}>
         {attachments
           .filter(item => item?.type && item.type !== 'file')
           .map((e, idx) => (
-            <div key={idx} className={classNames('task-image', `${!task ? 'upload' : ''}`)}>
+            <div key={idx} className={classNames('attachment', `${!task ? 'upload' : ''}`)}>
               <div className="image">
                 <PopUpImage imageList={[e.link]}>
                   <Image src={e.link} alt="" objectFit="contain" layout="fill" />
