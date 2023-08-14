@@ -1,4 +1,5 @@
 .body-left :global {
+  @apply lg:h-[740px] lg:overflow-auto lg:overflow-x-hidden;
   textarea {
     box-shadow: none;
   }
@@ -37,7 +38,7 @@
       }
     }
     .edit-btn {
-      @apply rounded bg-slate-200 p-1 text-h7 text-slate-500;
+      @apply rounded bg-slate-100 p-1 text-h7;
     }
   }
 

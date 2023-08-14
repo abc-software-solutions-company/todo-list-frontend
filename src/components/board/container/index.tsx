@@ -30,7 +30,9 @@ const KanbanContainer: FC = () => {
     currentAssignee,
     currentPriority,
     currentStatus,
+    currentType,
     getFilterdTasks,
+    setCurrentType,
     setStatusFilterInList,
     setPriorityFilterInList,
     setAssigneeFilterInList
@@ -42,11 +44,13 @@ const KanbanContainer: FC = () => {
   const [needUpdate, setNeedUpdate] = useState(false);
 
   useEffect(() => {
-    if (currentPriority || (currentAssignee != '' && currentAssignee != 'default') || currentStatus) {
+    if (currentPriority || (currentAssignee != '' && currentAssignee != 'default') || currentStatus || currentType) {
+      setCurrentType(currentType);
       setPriorityFilterInList(currentPriority);
       setAssigneeFilterInList(currentAssignee);
       setStatusFilterInList(0);
     } else {
+      setCurrentType('');
       setStatusFilterInList(0);
       setPriorityFilterInList('');
       setAssigneeFilterInList('default');
@@ -63,7 +67,7 @@ const KanbanContainer: FC = () => {
     );
     boardStore.generateState(newStatusList);
     setNeedUpdate(true);
-  }, [statusList, priorityFilterInList, assigneeFilterInList, statusFilterInList]);
+  }, [statusList, priorityFilterInList, assigneeFilterInList, statusFilterInList, currentType]);
 
   useEffect(() => {
     if (needUpdate) {

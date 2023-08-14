@@ -1,5 +1,5 @@
 .task-body :global {
-  @apply mt-4 bg-gray-50 px-4 shadow-md lg:mt-8 lg:px-8;
+  @apply mt-3 bg-gray-50 px-4 shadow-md lg:mt-6 lg:px-8;
   @apply lg:grid lg:grid-cols-3 lg:gap-x-32;
 
   .body-left-wrapper {
@@ -18,7 +18,7 @@
   }
 
   .item {
-    @apply py-4 lg:py-5;
+    @apply py-4;
     .title {
       @apply mb-3 flex items-center gap-2.5;
       i::before {

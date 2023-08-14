@@ -2,11 +2,13 @@
   @apply mx-4 sm:mx-0;
   .header {
     @apply mt-5 flex items-center justify-between gap-2;
+    @apply lg:grid lg:grid-cols-3 lg:gap-x-28;
     .abc-btn {
       @apply min-h-fit min-w-fit p-0;
     }
     .left {
-      @apply flex grow items-start gap-2.5;
+      @apply col-span-2;
+      @apply flex grow items-center gap-2.5;
       .name-form {
         @apply flex w-full items-center gap-2.5;
       }

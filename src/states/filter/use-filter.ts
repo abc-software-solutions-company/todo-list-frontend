@@ -21,6 +21,7 @@ export default function useFilter() {
     currentAssignee,
     currentPriority,
     currentStatus,
+    currentType,
     filterTasks,
     nameFilter
   } = filterState;
@@ -31,6 +32,7 @@ export default function useFilter() {
   const setCurrentStatus = (value: number) => dispatch(actions.setCurrentStatus(value));
   const setStatusFilterInMyTask = (value: number[]) => dispatch(actions.setStatusFilterInMyTask(value));
   const setCurrentPriority = (value: string) => dispatch(actions.setCurrentPriority(value));
+  const setCurrentType = (value: string) => dispatch(actions.setCurrentType(value));
   const setPriorityFilterInList = (value: string) => dispatch(actions.setPriorityFilterInList(value));
   const setPriorityFilterInMyTask = (value: string[]) => dispatch(actions.setPriorityFilterInMyTask(value));
   const setCurrentAssignee = (value: string) => dispatch(actions.setCurrentAssignee(value));
@@ -56,12 +58,19 @@ export default function useFilter() {
             e.priority == prioritieValue &&
             !(e.statusId == revStatusList[0].id)
           );
+        //
+        if (assigneeFilterInList === 'Unassigned' && currentType)
+          return e.assignees.length == 0 && e.type === currentType;
         if (assigneeFilterInList == 'Unassigned' && statusFilterInList == 0)
           return e.assignees.length == 0 && !(e.statusId == revStatusList[0].id);
+        if (assigneeFilterInList != 'default' && currentType)
+          return e.assignees[0]?.userId == assigneeFilterInList && e.type === currentType;
         if (assigneeFilterInList != 'default' && statusFilterInList == 0)
           return e.assignees[0]?.userId == assigneeFilterInList && !(e.statusId == revStatusList[0].id);
+        if (prioritieValue && currentType) return e.priority == prioritieValue && e.type === currentType;
         if (prioritieValue && statusFilterInList == 0)
           return e.priority == prioritieValue && !(e.statusId == revStatusList[0].id);
+        //
         if (assigneeFilterInList == 'Unassigned' && statusFilterInList && prioritieValue)
           return e.assignees.length == 0 && e.statusId == statusFilterInList && e.priority == prioritieValue;
         if (assigneeFilterInList != 'default' && statusFilterInList && prioritieValue)
@@ -80,7 +89,9 @@ export default function useFilter() {
           return e.assignees[0]?.userId == assigneeFilterInList && e.statusId == statusFilterInList;
         if (prioritieValue && statusFilterInList)
           return e.priority == prioritieValue && e.statusId == statusFilterInList;
+        //
         if (prioritieValue) return e.priority == prioritieValue;
+        if (currentType) return e.type === currentType;
         if (statusFilterInList) return e.statusId == statusFilterInList;
         if (assigneeFilterInList == 'Unassigned') {
           return e.assignees.length == 0;
@@ -97,16 +108,24 @@ export default function useFilter() {
             e.statusId == statusFilterInList &&
             e.priority == prioritieValue
           );
+        //
+        if (assigneeFilterInList == 'Unassigned' && currentType)
+          return e.assignees.length == 0 && e.type === currentType;
         if (assigneeFilterInList == 'Unassigned' && prioritieValue)
           return e.assignees.length == 0 && e.priority == prioritieValue;
+        if (assigneeFilterInList != 'default' && currentType)
+          return e.assignees[0]?.userId == assigneeFilterInList && e.type === currentType;
         if (prioritieValue && assigneeFilterInList != 'default')
           return e.priority == prioritieValue && e.assignees[0]?.userId == assigneeFilterInList;
+        if (prioritieValue && currentType) return e.priority == prioritieValue && e.type === currentType;
         if (assigneeFilterInList == 'Unassigned' && statusFilterInList)
           return e.assignees.length == 0 && e.statusId == statusFilterInList;
         if (assigneeFilterInList != 'default' && statusFilterInList)
           return e.assignees[0]?.userId == assigneeFilterInList && e.statusId == statusFilterInList;
         if (prioritieValue && statusFilterInList)
           return e.priority == prioritieValue && e.statusId == statusFilterInList;
+        //
+        if (currentType) return e.type === currentType;
         if (prioritieValue) return e.priority == prioritieValue;
         if (statusFilterInList) return e.statusId == statusFilterInList;
         if (assigneeFilterInList == 'Unassigned') {
@@ -129,6 +148,7 @@ export default function useFilter() {
     setCurrentPriority,
     setCurrentStatus,
     setCurrentAssignee,
+    setCurrentType,
     priorityFilterInList,
     priorityFilterInMytask,
     setPriorityFilterInList,
@@ -146,6 +166,7 @@ export default function useFilter() {
     currentAssignee,
     currentPriority,
     currentStatus,
+    currentType,
     getFilterdTasks,
     getFilterTaskByName,
     setNameFilterTask,

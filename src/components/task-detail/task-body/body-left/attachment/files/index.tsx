@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import {ButtonBase, Popover} from '@mui/material';
 import classNames from 'classnames';
-import Image from 'next/image';
 import Link from 'next/link';
 import {FC, MouseEvent, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 
-import PopUpImage from '@/components/common/popup-img';
 import Button from '@/core-ui/button';
+import Icon from '@/core-ui/icon';
 import IconButton from '@/core-ui/icon-button';
 import Input from '@/core-ui/input';
 import useToast from '@/core-ui/toast';
@@ -23,7 +22,7 @@ import style from './style.module.scss';
 interface IFormInputs {
   name: string;
 }
-const ImageAttachments: FC<IBaseProps> = ({className}) => {
+const FileAttachment: FC<IBaseProps> = ({className}) => {
   const toast = useToast();
   const [imageSelected, setImageSelected] = useState<number>();
   const {task, write, update} = useTask();
@@ -84,14 +83,10 @@ const ImageAttachments: FC<IBaseProps> = ({className}) => {
     <>
       <div className={classNames(className, style['task-attachments'])}>
         {attachments
-          .filter(item => item?.type && item.type !== 'file')
+          .filter(item => item?.type && item.type !== 'image')
           .map((e, idx) => (
             <div key={idx} className={classNames('attachment', `${!task ? 'upload' : ''}`)}>
-              <div className="image">
-                <PopUpImage imageList={[e.link]}>
-                  <Image src={e.link} alt="" objectFit="contain" layout="fill" />
-                </PopUpImage>
-              </div>
+              <Icon name="ico-file-download" size={48} className="btn-created-date" />
               {e.createdDate && (
                 <div className="info">
                   <div className="info-name">{e.name}</div>
@@ -174,4 +169,4 @@ const ImageAttachments: FC<IBaseProps> = ({className}) => {
     </>
   );
 };
-export default ImageAttachments;
+export default FileAttachment;

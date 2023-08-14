@@ -4,6 +4,8 @@ export interface IBaseResponse {
 }
 export interface IBaseProps {
   className?: string;
+  visible?: boolean;
+  disabled?: boolean;
 }
 
 export interface IStateInit {
