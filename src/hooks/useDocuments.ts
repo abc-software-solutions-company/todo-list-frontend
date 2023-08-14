@@ -22,6 +22,7 @@ type Action = {
   createDocument: (data: IDocumentCreate) => void;
   addFavoriteDocument: (id: string) => void;
   removeFavoriteDocument: (id: string) => void;
+  getDocumentsFavorite: (listId: string) => void;
 };
 
 export const useDocumentsStore = create<State & Action>()(
@@ -50,11 +51,26 @@ export const useDocumentsStore = create<State & Action>()(
           set({error: true, isFeching: false}, false, 'documents/error');
         }
       },
+      getDocumentsFavorite: async listId => {
+        try {
+          set({isFeching: true}, false, 'Documents/GetDocumentsFavorite');
+          const res = await api.documents.getDocumentsFavorite(listId);
+          set(
+            state => {
+              state.documentsFavorite = res.data;
+              state.isFeching = false;
+            },
+            false,
+            'documents/GetDocumentsFavoriteSuccess'
+          );
+        } catch (error) {
+          set({error: true, isFeching: false}, false, 'documents/erGetDocumentsFavoritError');
+        }
+      },
       getDocument: async id => {
         try {
           set({isFeching: true}, false, 'Documents/GetDocument');
           const res = await api.documents.getOneDocument(id);
-          console.log('🚀 ~ file: useDocuments.ts:56 ~ res:', res);
           set({currentDocument: res.data, isFeching: false}, false, 'documents/getOneDocument');
         } catch (error) {
           set({isFeching: false, error: true}, false, 'documents/error');
@@ -102,14 +118,13 @@ export const useDocumentsStore = create<State & Action>()(
         }
       },
       addFavoriteDocument: async id => {
-        console.log('ADD:');
         try {
           set({isUpdating: true}, false, 'Documents/addAndRemoveDocument');
-          const res = await api.documents.handleFavorite(id);
+          await api.documents.handleFavorite(id);
           set(
             state => {
               state.isUpdating = false;
-              state.documentsFavorite = [...state.documentsFavorite, res.data];
+              state.documentsFavorite = [state.currentDocument, ...state.documentsFavorite];
             },
             false,
             'documents/addAndRemoveDocument'
@@ -119,7 +134,6 @@ export const useDocumentsStore = create<State & Action>()(
         }
       },
       removeFavoriteDocument: async id => {
-        console.log('REVOME');
         try {
           set({isUpdating: true}, false, 'Documents/addAndRemoveDocument');
           await api.documents.handleFavorite(id);

@@ -24,24 +24,24 @@ const DocumentList: React.FC<IDocumentListProps> = ({classNames, isShowDelete = 
   };
 
   const renderDocument = (item: IDocumentAttribute) => (
-    <Document
-      key={item.id}
-      showDelete={isShowDelete}
-      item={item}
-      isShowChildren={expandedItems.includes(item.id)}
-      onShowChildren={() => toggleExpand(item.id)}
-    />
+    <>
+      <Document
+        key={item.id}
+        showDelete={isShowDelete}
+        item={item}
+        isShowChildren={expandedItems.includes(item.id)}
+        onShowChildren={() => toggleExpand(item.id)}
+      />
+      <div className={cls('pl-6', !expandedItems.includes(item.id) && 'hidden')}>
+        {item.children && item.children.map(renderDocument)}
+      </div>
+    </>
   );
 
   return (
     <div className={cls('comp-document-list', classNames)}>
       {items.map(item => (
-        <Fragment key={item.id}>
-          {renderDocument(item)}
-          <div className={cls('pl-6', !expandedItems.includes(item.id) && 'hidden')}>
-            {item.children && item.children.map(renderDocument)}
-          </div>
-        </Fragment>
+        <Fragment key={item.id}>{renderDocument(item)}</Fragment>
       ))}
     </div>
   );

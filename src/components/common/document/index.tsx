@@ -44,10 +44,10 @@ const Document: React.FC<IProps> = ({item, isShowChildren, showDelete = true, on
         {isShown && (
           <OptionDocument
             showDelete={showDelete}
-            textFavorite={item.favorite ? 'Remove favorite' : 'Add favorite'}
+            textFavorite={item.favorite !== null ? 'Remove favorite' : 'Add favorite'}
             handleFavorite={() => {
-              if (item.favorite) documentsState.addFavoriteDocument(item.id);
-              else documentsState.removeFavoriteDocument(item.id);
+              if (item.favorite === null) documentsState.addFavoriteDocument(item.id);
+              else documentsState.removeFavoriteDocument(documentsState.currentDocument.id);
             }}
           />
         )}

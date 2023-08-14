@@ -6,7 +6,7 @@ import {replaceCdnUrl} from '@/utils/misc';
 
 interface IProps {
   className?: string;
-  content: string;
+  content?: string;
   render: IDocumentAttribute;
 }
 
@@ -47,6 +47,7 @@ const WYSIWYG: React.FC<IProps> = ({content, render}) => {
     });
   }, [render]);
 
+  if (!content) return null;
   return (
     <div
       ref={ref}

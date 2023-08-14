@@ -25,18 +25,19 @@ export interface IForm {
 const DocumentContent: React.FC = () => {
   const [edit, setEdit] = useState(false);
   const {show} = useToast();
-  const {currentDocument, error, updateDocument} = useDocumentsStore();
+  const documentsState = useDocumentsStore();
   const {control, handleSubmit, reset} = useForm<IForm>({
-    defaultValues: {content: currentDocument?.content}
+    defaultValues: {content: documentsState.currentDocument?.content}
   });
 
   useEffect(() => {
-    reset({content: currentDocument?.content});
-  }, [currentDocument]);
+    reset({content: documentsState.currentDocument?.content});
+    setEdit(false);
+  }, [documentsState.currentDocument]);
 
   const onSubmit: SubmitHandler<IForm> = data => {
-    updateDocument({...currentDocument, content: data.content || ''});
-    if (error) {
+    documentsState.updateDocument({...documentsState.currentDocument, content: data.content || ''});
+    if (documentsState.error) {
       setEdit(true);
       show({type: 'danger', title: 'Edit Content', content: ToastContents.ERROR});
     } else {
@@ -44,10 +45,9 @@ const DocumentContent: React.FC = () => {
       show({type: 'success', title: 'Edit Content', content: ToastContents.SUCCESS});
     }
   };
-
   return (
     <div className={style['document-content']}>
-      {currentDocument && (
+      {documentsState.currentDocument && (
         <div className="mb-3 flex items-center">
           <Icon name="content" className="ico-fluent_text-description mr-1" size={20} />
           <span className="mr-3">Content</span>
@@ -66,9 +66,13 @@ const DocumentContent: React.FC = () => {
             name="content"
             control={control}
             rules={{required: false}}
-            defaultValue={currentDocument?.content}
+            defaultValue={documentsState.currentDocument?.content}
             render={({field}) => (
-              <Editor name="example" value={String(currentDocument.content)} onChange={text => field.onChange(text)} />
+              <Editor
+                name="example"
+                value={String(documentsState.currentDocument.content)}
+                onChange={text => field.onChange(text)}
+              />
             )}
           />
           <div className="mt-4 flex gap-4">
@@ -90,11 +94,7 @@ const DocumentContent: React.FC = () => {
           </div>
         </form>
       ) : (
-        currentDocument && (
-          <div>
-            <WYSIWYG content={currentDocument.content || ''} render={currentDocument} />
-          </div>
-        )
+        <WYSIWYG content={documentsState.currentDocument.content} render={documentsState.currentDocument} />
       )}
     </div>
   );

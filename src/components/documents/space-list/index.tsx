@@ -6,8 +6,8 @@ import Icon from '@/core-ui/icon';
 import {useDocumentsStore} from '@/hooks/useDocuments';
 import useTodolist from '@/states/todolist/use-todolist';
 
-import DocumentsPage from './list/Documents';
-import DocumentsFavorite from './list/Favorite';
+import DocumentsPage from './Documents';
+import DocumentsFavorite from './Favorite';
 import style from './style.module.scss';
 
 const ListSpace: React.FC = ({}) => {
@@ -19,13 +19,14 @@ const ListSpace: React.FC = ({}) => {
 
   useEffect(() => {
     documentState.initState();
-    documentState.getDocuments(id as string);
     todolistState.getTodolist(id as string);
+    documentState.getDocuments(id as string);
+    documentState.getDocumentsFavorite(id as string);
   }, [id]);
 
   useEffect(() => {
-    console.log('LOAD DOCUMENTS');
     documentState.getDocuments(id as string);
+    documentState.getDocumentsFavorite(id as string);
   }, [documentState.isCreating, documentState.isUpdating, documentState.isDeleting]);
 
   return (

@@ -52,6 +52,7 @@ const api = {
   },
   documents: {
     getListDocument: (id: string) => http.get<IDocumentAttribute[]>(API_ENDPOINTS.DOCUMENT + '/tree/' + id),
+    getDocumentsFavorite: (id: string) => http.get<IDocumentAttribute[]>(API_ENDPOINTS.DOCUMENT + '/favorite/' + id),
     getOneDocument: (id: string) => http.get<IDocumentAttribute>(API_ENDPOINTS.DOCUMENT + '/' + id),
     updateDocument: (data: IUpdateDocument) => http.patch<IDocumentAttribute>(API_ENDPOINTS.DOCUMENT + '/update', data),
     handleFavorite: (id: string) => http.patch<IDocumentAttribute>(API_ENDPOINTS.DOCUMENT + '/handle-favorite/' + id),
