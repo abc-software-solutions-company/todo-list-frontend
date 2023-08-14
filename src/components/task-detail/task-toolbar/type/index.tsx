@@ -30,7 +30,9 @@ export const Type: FC<ITypeProps> = ({data, title, trigger, onSelect}) => {
 
   return (
     <>
-      <button onClick={handleClick}>{trigger}</button>
+      <button className="min-w-fit" onClick={handleClick}>
+        {trigger}
+      </button>
       <Popover
         open={open}
         anchorEl={anchorEl}

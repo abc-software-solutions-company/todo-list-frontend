@@ -39,9 +39,11 @@ const Left: FC<IBaseProps> = ({className}) => {
         data={TaskTypeData}
         title="CHANGE ISSUE TYPE"
         trigger={
-          <div className="flex w-28 space-x-2">
-            <Image src={`/icons/${taskType?.icon}`} alt={taskType?.text} width={40} height={32} />
-            {taskSymbol && order && <span className="text-h3 font-normal">{taskOrder}:</span>}
+          <div className="flex items-center space-x-2">
+            <div className="relative h-6 w-6 ">
+              <Image src={`/icons/${taskType?.icon}`} alt={taskType?.text} layout="fill" objectFit="contain" />
+            </div>
+            {taskSymbol && order && <p className="text-h3 font-normal">{taskOrder}:</p>}
           </div>
         }
         onSelect={value => onSelectType(value)}
