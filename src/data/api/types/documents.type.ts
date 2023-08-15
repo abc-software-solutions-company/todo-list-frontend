@@ -2,7 +2,7 @@ export interface IUpdateDocument {
   id: string;
   name?: string;
   content?: string;
-  favorite?: Date;
+  favorite?: number;
   isActive?: boolean;
 }
 
@@ -16,7 +16,7 @@ export interface IDocumentAttribute {
   id: string;
   name: string;
   content?: string;
-  favorite: Date;
+  favorite: number;
   todolistId: string;
   parentId: string;
   children?: IDocumentAttribute[];
