@@ -14,10 +14,10 @@ const Navigation: FC = () => {
     <div className={style.navigation}>
       <div className={style['menu-bar']}>
         <div className={style['menu-bar-left']}>
-          <Link href={ROUTES.TASK}>
+          <Link legacyBehavior href={ROUTES.TASK}>
             <a className={(currentPage === ROUTES.TASK && style.active) || ''}>My Tasks</a>
           </Link>
-          <Link href={ROUTES.LIST}>
+          <Link legacyBehavior href={ROUTES.LIST}>
             <a className={(currentPage === ROUTES.LIST && style.active) || ''}>My Lists</a>
           </Link>
         </div>
