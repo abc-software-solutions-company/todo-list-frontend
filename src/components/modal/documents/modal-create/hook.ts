@@ -10,12 +10,10 @@ import {IProps} from '../types-create';
 
 interface IFormInputs {
   name: string;
-  content?: string;
 }
 
 const Schema = yup.object().shape({
-  name: yup.string().required('Please enter your Document name.'),
-  content: yup.string()
+  name: yup.string().required('Please enter your Document name.')
 });
 
 export default function useModalCreateDocument({open, onClose, docChild}: IProps) {

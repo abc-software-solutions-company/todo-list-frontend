@@ -33,7 +33,7 @@ const DocumentList: React.FC<IDocumentListProps> = ({classNames, isShowDelete = 
         onShowChildren={() => toggleExpand(item.id)}
       />
       <div className={cls('pl-6', !expandedItems.includes(item.id) && 'hidden')}>
-        {item.children && item.children.map(renderDocument)}
+        {item.children && item.children.map(child => <Fragment key={child.id}>{renderDocument(child)}</Fragment>)}
       </div>
     </>
   );

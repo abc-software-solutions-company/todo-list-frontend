@@ -13,6 +13,7 @@ import {IProps} from '../types-create';
 const ModalCreateDocument: FC<IProps> = props => {
   const {open, onClose} = props;
   const {isSubmitting, errors, onSubmit, register, setFocus} = useModalCreateDocument(props);
+
   useEffect(() => {
     setFocus('name');
     iosAutoFocus();
@@ -37,12 +38,6 @@ const ModalCreateDocument: FC<IProps> = props => {
                 error={errors.name?.message}
                 placeholder={'Enter your document name'}
                 {...register('name')}
-              />
-              <Input
-                className="mt-4"
-                placeholder={'Enter your content'}
-                {...register('content')}
-                error={errors.content?.message}
               />
             </Modal.Body>
             <Modal.Footer>
