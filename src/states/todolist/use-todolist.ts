@@ -30,7 +30,7 @@ export default function useTodolist() {
   const setTaskKanbanActive = (value: any) => dispatch(actions.setTaskKanbanActive(value));
   const setTaskKanbanOver = (value: any) => dispatch(actions.setTaskKanbanOver(value));
 
-  const assest = Boolean(data)
+  const haveAccessPermission = Boolean(data)
     ? data.visibility !== 'PRIVATE' ||
       Boolean(auth && auth.id === data.userId) ||
       Boolean(auth && data?.members?.map(e => e.id).includes(auth?.id))
@@ -50,7 +50,7 @@ export default function useTodolist() {
     ...rest,
     ...restTodolist,
     kanbanActive,
-    assest,
+    haveAccessPermission,
     write,
     owner,
     error,

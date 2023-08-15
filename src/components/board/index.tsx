@@ -19,7 +19,7 @@ export interface Iprops {
 const KanbanDetail: FC<Iprops> = ({id}) => {
   const auth = useStateAuth();
 
-  const {getBoard, assest, boardData, error} = useBoards();
+  const {getBoard, haveAccessPermission, boardData, error} = useBoards();
 
   useEffect(() => {
     if (auth) {
@@ -50,7 +50,7 @@ const KanbanDetail: FC<Iprops> = ({id}) => {
   if (!boardData || boardData.id !== id) return null;
   return (
     <>
-      {assest && <Seo title={boardData.name} />}
+      {haveAccessPermission && <Seo title={boardData.name} />}
       <KanbanContainer />
     </>
   );
