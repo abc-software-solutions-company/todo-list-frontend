@@ -1,4 +1,3 @@
-import {InferGetStaticPropsType} from 'next';
 import React from 'react';
 
 import Seo from '@/components/common/seo/seo';
@@ -9,7 +8,7 @@ import NewLayout from '@/layouts/new-layout';
 
 export {getStaticPaths, getStaticProps};
 
-export default function DocumentsPage({id}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function DocumentsPage() {
   return (
     <>
       <Seo title="My Lists" />
