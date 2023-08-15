@@ -6,8 +6,8 @@ import Icon from '@/core-ui/icon';
 import {useDocumentsStore} from '@/hooks/useDocuments';
 import useTodolist from '@/states/todolist/use-todolist';
 
-import DocumentsPage from './Documents';
-import DocumentsFavorite from './Favorite';
+import DocumentsPage from './documents';
+import DocumentsFavorite from './favorite';
 import style from './style.module.scss';
 
 const ListSpace: React.FC = ({}) => {
