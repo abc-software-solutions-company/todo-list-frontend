@@ -41,7 +41,7 @@ const Left: FC<IBaseProps> = ({className}) => {
         trigger={
           <div className="flex items-center space-x-2">
             <div className="relative h-6 w-6 ">
-              <Image src={`/icons/${taskType?.icon}`} alt={taskType?.text} layout="fill" objectFit="contain" />
+              <Image src={`/icons/${taskType?.icon}`} alt={taskType?.text || ''} layout="fill" objectFit="contain" />
             </div>
             {taskSymbol && order && <p className="text-h3 font-normal">{taskOrder}:</p>}
           </div>

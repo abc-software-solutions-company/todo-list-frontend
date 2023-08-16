@@ -3,11 +3,11 @@ import React, {
   ChangeEvent,
   ChangeEventHandler,
   FC,
+  forwardRef,
   InputHTMLAttributes,
+  memo,
   ReactNode,
   Ref,
-  forwardRef,
-  memo,
   useEffect,
   useState
 } from 'react';
@@ -67,5 +67,5 @@ const Switcher: FC<ISwitcherProps> = forwardRef(
     );
   }
 );
-
+Switcher.displayName = 'Switcher';
 export default memo(Switcher);
