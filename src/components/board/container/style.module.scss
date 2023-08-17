@@ -3,6 +3,6 @@
   .inner {
     @apply grid w-[1840px] grid-cols-6 gap-x-4;
     @apply scrollbar overflow-auto;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 210px);
   }
 }
