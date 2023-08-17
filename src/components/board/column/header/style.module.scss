@@ -1,6 +1,6 @@
 .kanban-column-header :global {
   @apply flex justify-between;
-  @apply sticky top-0 z-10 bg-[#f6fafe] pb-4;
+  @apply sticky top-0 z-10 overflow-hidden bg-[#f6fafe] px-1 pb-4;
   .column-name {
     @apply text-h4 font-semibold;
   }

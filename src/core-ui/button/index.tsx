@@ -49,7 +49,15 @@ const Button: FC<IButtonProps> = ({
   }
 
   props.onClick = onClick;
-  props.className = cls('abc-btn', className, variant, size, color, loading && 'loading', disabled && Tag === 'a' && 'disabled');
+  props.className = cls(
+    'abc-btn',
+    className,
+    variant,
+    size,
+    color,
+    loading && 'loading',
+    disabled && Tag === 'a' && 'disabled'
+  );
 
   return (
     <Tag {...props} {...rest}>
