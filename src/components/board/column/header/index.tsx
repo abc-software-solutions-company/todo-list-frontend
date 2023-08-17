@@ -14,7 +14,6 @@ interface IKanbanColumnHeaderProps {
 }
 
 const KanbanColumnHeader: FC<IKanbanColumnHeaderProps> = ({name, color, numberTasks, columnId}) => {
-  console.log('🚀 ~ file: index.tsx:17 ~ name:', name);
   const {boardData} = useBoards();
   const {setIsOpenModal, setSelectedTodolist, setSelectedColumnId} = useModals();
 
