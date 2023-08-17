@@ -13,7 +13,7 @@ export default function useTask() {
 
   const initial = (id: string) => dispatch(actions.getTaskRequest({id}));
   const update = () => dispatch(actions.getTaskRequest({id: task.id}));
-  const assest = Boolean(task)
+  const haveAccessPermission = Boolean(task)
     ? task.todolist.visibility !== 'PRIVATE' ||
       Boolean(auth && auth.id === task.todolist.userId) ||
       Boolean(auth && task.todolist.members.map(e => e.user?.id).includes(auth?.id))
@@ -24,5 +24,5 @@ export default function useTask() {
       Boolean(auth && task.todolist.members.map(e => e.user?.id).includes(auth?.id))
     : false;
 
-  return {task, ...rest, assest, write, initial, update};
+  return {task, ...rest, haveAccessPermission, write, initial, update};
 }

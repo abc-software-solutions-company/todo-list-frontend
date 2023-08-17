@@ -17,7 +17,7 @@ interface IProps {
 
 const TaskDetail: FC<IProps> = ({task: {id, todolistId}, className}) => {
   const auth = useStateAuth();
-  const {task, assest, initial} = useTask();
+  const {task, haveAccessPermission, initial} = useTask();
 
   useEffect(() => {
     initial(id);
@@ -32,7 +32,7 @@ const TaskDetail: FC<IProps> = ({task: {id, todolistId}, className}) => {
   }, [auth]);
 
   if (!task) return null;
-  if (!assest) return <ErrorInformation />;
+  if (!haveAccessPermission) return <ErrorInformation />;
 
   return (
     <div className={className}>

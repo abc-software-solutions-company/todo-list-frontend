@@ -21,7 +21,7 @@ export default function useBoards() {
 
   const setIsOpenModal = (value: ISetIsOpenModalPayload) => dispatch(actions.setIsOpenModal(value));
 
-  const assest = Boolean(data)
+  const haveAccessPermission = Boolean(data)
     ? data.visibility !== 'PRIVATE' ||
       Boolean(auth && auth.id === data.userId) ||
       Boolean(auth && data?.members?.map(e => e.id).includes(auth?.id))
@@ -38,7 +38,7 @@ export default function useBoards() {
     boardData: data,
     ...rest,
     ...restBoard,
-    assest,
+    haveAccessPermission,
     write,
     owner,
     error,
