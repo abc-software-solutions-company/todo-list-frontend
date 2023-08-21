@@ -1,14 +1,17 @@
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import classNames from 'classnames';
+import {useRouter} from 'next/router';
 import {FC, useEffect, useState} from 'react';
 
 import TaskItem from '@/components/common/task-item';
+import {ROUTES} from '@/configs/routes.config';
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import {ITaskResponse} from '@/data/api/types/task.type';
+import {useModalTaskDetailState} from '@/hooks/useModalTaskDetail';
 import useTask from '@/states/task/use-task';
 import {IBaseProps} from '@/types';
 import {ToastContents} from '@/utils/toast-content';
@@ -18,11 +21,21 @@ import Title from '../../title';
 type IRelatedTaskProps = IBaseProps;
 
 const RelatedTask: FC<IRelatedTaskProps> = ({className}) => {
+  const router = useRouter();
   const toast = useToast();
   const {task, update} = useTask();
+  const useModalTaskDetail = useModalTaskDetailState();
   const [isEditing, setIsEditing] = useState(false);
   const [relatedIds, setRelatedIds] = useState<string[]>([]);
   const [ortherTasks, setOrtherTasks] = useState<ITaskResponse[]>([]);
+
+  const handleOpenRelatedTask = (relatedTask: ITaskResponse) => {
+    if (useModalTaskDetail.task) {
+      useModalTaskDetail.setState(relatedTask);
+    } else {
+      router.push(`${ROUTES.TASK}/${relatedTask.id}`);
+    }
+  };
 
   const handleAddRelatedTask = () => {
     api.task
@@ -65,7 +78,7 @@ const RelatedTask: FC<IRelatedTaskProps> = ({className}) => {
               }
             }}
           />
-          <Icon name="ico-plus" onClick={handleAddRelatedTask} />
+          <Icon name="ico-plus-circle" onClick={handleAddRelatedTask} className="cursor-pointer" />
         </div>
       )}
       {task.relatedTasks.map(item => (
@@ -74,6 +87,7 @@ const RelatedTask: FC<IRelatedTaskProps> = ({className}) => {
           task={item}
           todolist={item.todolist}
           className="!mt-2 !rounded !bg-inherit !p-2 hover:!bg-blue-100"
+          onClick={() => handleOpenRelatedTask(item)}
         />
       ))}
     </div>
