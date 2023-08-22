@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {FC, useEffect} from 'react';
 
 import {ROUTES} from '@/configs/routes.config';
@@ -63,7 +64,7 @@ const ListDetail: FC<Iprops> = ({id}) => {
       return (
         <>
           {assest && <Seo title={todolist.name} />}
-          <div className={styles['list-detail']}>
+          <div className={classNames(styles['list-detail'], 'scrollbar')}>
             <ListTask />
             <FloatIcon className="float-icon" onClick={onClickFloatIcon} hidden={!write} />
           </div>
