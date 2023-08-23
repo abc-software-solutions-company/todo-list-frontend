@@ -79,7 +79,7 @@ const RelatedTask: FC<IRelatedTaskProps> = ({className}) => {
             options={ortherTasks}
             sx={{width: 1}}
             getOptionLabel={({order, name}) => `${task.todolist.taskSymbol} ${order}-${name}`}
-            renderInput={params => <TextField {...params} label="Add sub task" />}
+            renderInput={params => <TextField {...params} label="Add related task" />}
             onChange={(_e, value) => {
               if (value) {
                 setRelatedId(value.id);
@@ -94,7 +94,7 @@ const RelatedTask: FC<IRelatedTaskProps> = ({className}) => {
           <TaskItem
             task={item}
             todolist={item.todolist}
-            className="!mt-2 !rounded !bg-inherit !p-2 hover:!bg-blue-100"
+            className="!mt-2 !rounded !border-t !bg-inherit !px-2 !py-1 hover:!bg-blue-100"
             onClick={() => handleOpenRelatedTask(item)}
           />
           <Icon name="ico-times" className="cursor-pointer" onClick={() => handleRemoveRelatedTask(item.id)} />
