@@ -6,8 +6,7 @@ import Icon from '@/core-ui/icon';
 import {useDocumentsStore} from '@/hooks/useDocuments';
 import useTodolist from '@/states/todolist/use-todolist';
 
-import DocumentsPage from './Documents';
-import DocumentsFavorite from './Favorite';
+import Documents from './Documents';
 import style from './style.module.scss';
 
 const ListSpace: React.FC = ({}) => {
@@ -42,8 +41,8 @@ const ListSpace: React.FC = ({}) => {
         </div>
         <hr />
         <div className="scrollbar max-h-full overflow-y-auto">
-          <DocumentsFavorite />
-          <DocumentsPage />
+          <Documents text="Favorites" items={documentState.documentsFavorite} isShowDelete={false} />
+          <Documents text="Pages" items={documentState.documents} />
         </div>
       </div>
       <ModalCreateDocument open={showModalCreate} onClose={() => isShowModalCreate(false)} docChild={false} />
