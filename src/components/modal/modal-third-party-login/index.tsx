@@ -4,7 +4,7 @@ import React from 'react';
 
 import useLoginGoogle from '@/components/login/hooks/login-google';
 import Button from '@/core-ui/button';
-import {Modal} from '@/core-ui/modal';
+import Modal from '@/core-ui/modal';
 
 import styles from './style.module.scss';
 
@@ -15,6 +15,7 @@ interface IProps {
 
 const ModalThirdPartyLogin: React.FC<IProps> = ({open, onClose}) => {
   const {openGooglePopUp} = useLoginGoogle();
+
   return (
     <Modal variant="center" className={cls(styles['com-modal-social'], 'max-w-[378px]')} open={open} onClose={onClose}>
       <Modal.Header />

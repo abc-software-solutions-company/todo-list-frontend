@@ -12,7 +12,7 @@ import React, {
   useState
 } from 'react';
 
-import {Color, XPosition} from '../types';
+import {ColorType, XPosition} from '../types';
 
 interface IRadioProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -21,7 +21,7 @@ interface IRadioProps extends InputHTMLAttributes<HTMLInputElement> {
   labelPosition?: XPosition;
   error?: ReactNode;
   name?: string;
-  color?: Color;
+  color?: ColorType;
   checked?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }

@@ -12,14 +12,14 @@ import React, {
   useState
 } from 'react';
 
-import {Color} from '../types';
+import {ColorType} from '../types';
 
 interface ISwitcherProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   disabled?: boolean;
   error?: ReactNode;
   name?: string;
-  color?: Color;
+  color?: ColorType;
   checked?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }

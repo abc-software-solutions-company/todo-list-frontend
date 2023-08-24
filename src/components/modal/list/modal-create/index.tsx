@@ -8,7 +8,7 @@ import {FC, useEffect, useState} from 'react';
 import AssigneeIcon from '@/components/common/assignee-icon';
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
-import {Modal} from '@/core-ui/modal';
+import Modal from '@/core-ui/modal';
 import api from '@/data/api';
 import {IUserResponse} from '@/data/api/types/user.type';
 import {Visibilities} from '@/utils/constant';

@@ -6,7 +6,7 @@ import * as yup from 'yup';
 
 import Button from '@/core-ui/button';
 import Input from '@/core-ui/input';
-import {Modal} from '@/core-ui/modal';
+import Modal from '@/core-ui/modal';
 import {ITaskResponse} from '@/data/api/types/task.type';
 import iosAutoFocus from '@/utils/ios-autofocus';
 
@@ -59,52 +59,50 @@ const ModalCreateUpdateTask: FC<IProps> = props => {
     setValue('name', taskData?.name || '');
   }, [open, taskData, setValue]);
 
+  if (!open) return null;
+
   return (
-    <>
-      {open && (
-        <Modal
-          className={cls(styles['com-modal-task-add-edit'], 'max-w-xl')}
-          variant="center"
-          open={open}
-          onClose={onClose}
-        >
-          <form onSubmit={onSubmit}>
-            <Modal.Header>
-              <h3 className="title">{title}</h3>
-            </Modal.Header>
-            <Modal.Body>
-              <Input
-                error={errors.name?.message}
-                autoFocus={true}
-                placeholder={'Enter your list name'}
-                {...register('name', {value: taskData?.name})}
-              />
-            </Modal.Body>
-            <Modal.Footer>
-              <div className="content">
-                <Button
-                  className="w-full"
-                  variant="outlined"
-                  color="primary"
-                  text="Cancel"
-                  onClick={onClose}
-                  type="button"
-                />
-                <Button
-                  className="w-full"
-                  variant="contained"
-                  color="primary"
-                  text={saveText}
-                  type="submit"
-                  loading={isSubmitting}
-                  disabled={isSubmitting}
-                />
-              </div>
-            </Modal.Footer>
-          </form>
-        </Modal>
-      )}
-    </>
+    <Modal
+      className={cls(styles['com-modal-task-add-edit'], 'max-w-xl')}
+      variant="center"
+      open={open}
+      onClose={onClose}
+    >
+      <form onSubmit={onSubmit}>
+        <Modal.Header>
+          <h3 className="title">{title}</h3>
+        </Modal.Header>
+        <Modal.Body>
+          <Input
+            error={errors.name?.message}
+            autoFocus={true}
+            placeholder={'Enter your list name'}
+            {...register('name', {value: taskData?.name})}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <div className="content">
+            <Button
+              className="w-full"
+              variant="outlined"
+              color="primary"
+              text="Cancel"
+              onClick={onClose}
+              type="button"
+            />
+            <Button
+              className="w-full"
+              variant="contained"
+              color="primary"
+              text={saveText}
+              type="submit"
+              loading={isSubmitting}
+              disabled={isSubmitting}
+            />
+          </div>
+        </Modal.Footer>
+      </form>
+    </Modal>
   );
 };
 

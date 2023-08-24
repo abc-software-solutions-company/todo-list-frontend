@@ -1,5 +1,5 @@
-import cls from 'classnames';
-import {FC, ReactNode} from 'react';
+import classNames from 'classnames';
+import React, {FC, ReactNode} from 'react';
 
 export interface IModalBodyProps {
   className?: string;
@@ -7,7 +7,9 @@ export interface IModalBodyProps {
 }
 
 const Body: FC<IModalBodyProps> = ({className, children}) => {
-  return <div className={cls('abc-modal-body', 'scrollbar', className)}>{children}</div>;
+  return <div className={classNames('abc-modal__body', className)}>{children}</div>;
 };
+
+Body.displayName = 'Modal.Body';
 
 export default Body;

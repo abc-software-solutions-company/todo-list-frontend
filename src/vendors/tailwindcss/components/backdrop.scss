@@ -1,7 +1,7 @@
 .abc-backdrop {
-  @apply fixed top-0 left-0 z-drawerbackdrop h-screen w-screen bg-black/[0.6];
-  animation: fadeIn 300ms;
-  &.exit {
-    animation: fadeOut 300ms;
+  @apply pointer-events-auto invisible h-screen w-screen bg-black/[0.6];
+  @apply fixed left-0 top-0 z-20;
+  &.show {
+    @apply visible;
   }
 }
