@@ -4,6 +4,8 @@ import React, {Fragment, useState} from 'react';
 import Document from '@/components/common/document';
 import {IDocumentAttribute} from '@/data/api/types/documents.type';
 
+import SortableDocument from '../../sortable-document';
+
 interface IDocumentListProps {
   classNames?: string;
   isShowDelete?: boolean;
@@ -26,24 +28,29 @@ const DocumentList: React.FC<IDocumentListProps> = ({classNames, isShowDelete = 
   const renderDocument = (item: IDocumentAttribute) => (
     <>
       <Document
+        className="nested-item"
         key={item.id}
         showDelete={isShowDelete}
         item={item}
         isShowChildren={expandedItems.includes(item.id)}
         onShowChildren={() => toggleExpand(item.id)}
       />
-      <div className={cls('pl-6', !expandedItems.includes(item.id) && 'hidden')}>
-        {item.children && item.children.map(child => <Fragment key={child.id}>{renderDocument(child)}</Fragment>)}
-      </div>
+      {expandedItems.includes(item.id) && (
+        <div className="nested-sortable pl-6">
+          {item.children && item.children.map(child => <Fragment key={child.id}>{renderDocument(child)}</Fragment>)}
+        </div>
+      )}
     </>
   );
 
   return (
-    <div className={cls('comp-document-list', classNames)}>
-      {items.map(item => (
-        <Fragment key={item.id}>{renderDocument(item)}</Fragment>
-      ))}
-    </div>
+    <SortableDocument className={cls('comp-list', classNames)} onMove={() => {}}>
+      <div className="nested-sortable scrollbar max-h-[64vh] overflow-y-auto pr-1 md:pr-0">
+        {items.map(item => {
+          return <Fragment key={item.id}>{renderDocument(item)}</Fragment>;
+        })}
+      </div>
+    </SortableDocument>
   );
 };
 

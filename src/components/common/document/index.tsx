@@ -14,13 +14,13 @@ interface IProps extends IBaseProps {
   isShowChildren: boolean;
   onShowChildren?: () => void;
 }
-const Document: React.FC<IProps> = ({item, isShowChildren, showDelete = true, onShowChildren}) => {
+const Document: React.FC<IProps> = ({className, item, isShowChildren, showDelete = true, onShowChildren}) => {
   const documentsState = useDocumentsStore();
   const [isShown, setIsShown] = useState(false);
 
   return (
     <div
-      className="relative min-w-[10rem]"
+      className={cls('relative min-w-[10rem]', className)}
       onMouseEnter={() => setIsShown(true)}
       onMouseLeave={() => setIsShown(false)}
     >

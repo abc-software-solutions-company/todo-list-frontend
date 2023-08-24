@@ -9,23 +9,23 @@ export function useDocumentsMessages() {
   const toast = useToast();
 
   useEffect(() => {
-    if (!documentsState.isCreating && documentsState.error)
+    if (documentsState.isCreating == false && documentsState.error)
       toast.show({type: 'danger', title: 'Create Document Error', content: ToastContents.ERROR});
-    if (documentsState.isCreating === true && !documentsState.error)
+    if (documentsState.isCreating === false && !documentsState.error)
       toast.show({type: 'success', title: 'Create Document Success', content: ToastContents.SUCCESS});
   }, [documentsState.isCreating]);
 
   useEffect(() => {
-    if (!documentsState.isDeleting && documentsState.error)
+    if (documentsState.isDeleting == false && documentsState.error)
       toast.show({type: 'danger', title: 'Delete Error', content: ToastContents.ERROR});
-    if (documentsState.isDeleting === true && !documentsState.error)
+    if (documentsState.isDeleting === false && !documentsState.error)
       toast.show({type: 'success', title: 'Delete Success', content: ToastContents.SUCCESS});
   }, [documentsState.isDeleting]);
 
   useEffect(() => {
-    if (!documentsState.isUpdating && documentsState.error)
+    if (documentsState.isUpdating === false && documentsState.error)
       toast.show({type: 'danger', title: 'Update Error', content: ToastContents.ERROR});
-    if (documentsState.isUpdating === true && !documentsState.error)
+    if (documentsState.isUpdating === false && !documentsState.error)
       toast.show({type: 'success', title: 'Update Success', content: ToastContents.SUCCESS});
   }, [documentsState.isUpdating]);
 }
