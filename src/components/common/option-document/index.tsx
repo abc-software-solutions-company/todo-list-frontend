@@ -2,9 +2,9 @@ import React, {FC, useState} from 'react';
 
 import Tool, {IToolProps} from '@/components/lists-detail/toolbar/tool';
 import ToolMenu from '@/components/lists-detail/toolbar/tool-menu';
-import ModalCreateDocument from '@/components/modal/documents/modal-create';
-import ModalDeleteDocument from '@/components/modal/documents/modal-delete';
-import ModalUpdateDocument from '@/components/modal/documents/modal-update';
+import ModalCreateDocument from '@/components/modals/documents/modal-create';
+import ModalDeleteDocument from '@/components/modals/documents/modal-delete';
+import ModalUpdateDocument from '@/components/modals/documents/modal-update';
 import Icon from '@/core-ui/icon';
 import {MUI_ICON} from '@/utils/mui-icon';
 

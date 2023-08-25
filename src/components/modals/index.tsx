@@ -17,7 +17,7 @@ import ModalShareTask from './task/modal-share';
 import ModalUpdateTask from './task/modal-update';
 import ModalUpdateUser from './user/modal-update';
 
-const Modal = () => {
+const Modals = () => {
   const auth = useStateAuth();
   const {get} = useLists();
 
@@ -101,4 +101,4 @@ const Modal = () => {
   );
 };
 
-export default Modal;
+export default Modals;

@@ -1,7 +1,7 @@
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 
-import ModalCreateDocument from '@/components/modal/documents/modal-create';
+import ModalCreateDocument from '@/components/modals/documents/modal-create';
 import Icon from '@/core-ui/icon';
 import {useDocumentsStore} from '@/hooks/useDocuments';
 import useTodolist from '@/states/todolist/use-todolist';
