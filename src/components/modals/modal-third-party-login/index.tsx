@@ -21,7 +21,7 @@ const ModalThirdPartyLogin: React.FC<IProps> = ({open, onClose}) => {
       <Modal.Header />
       <Modal.Body className="container">
         <Button
-          className=" bg-white text-black"
+          className=" mt-6 mb-12 bg-white text-black"
           onClick={() => {
             openGooglePopUp();
             onClose();
