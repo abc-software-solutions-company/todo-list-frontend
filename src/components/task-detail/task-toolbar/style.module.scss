@@ -2,7 +2,7 @@
   @apply mx-4 sm:mx-0;
   .header {
     @apply mt-5 flex items-center justify-between gap-2;
-    @apply lg:grid lg:grid-cols-3 lg:gap-x-28;
+    @apply lg:grid lg:grid-cols-3 lg:gap-x-16;
     .abc-btn {
       @apply min-h-fit min-w-fit p-0;
     }

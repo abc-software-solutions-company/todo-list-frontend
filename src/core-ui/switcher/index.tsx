@@ -3,23 +3,23 @@ import React, {
   ChangeEvent,
   ChangeEventHandler,
   FC,
+  forwardRef,
   InputHTMLAttributes,
+  memo,
   ReactNode,
   Ref,
-  forwardRef,
-  memo,
   useEffect,
   useState
 } from 'react';
 
-import {Color} from '../types';
+import {ColorType} from '../types';
 
 interface ISwitcherProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   disabled?: boolean;
   error?: ReactNode;
   name?: string;
-  color?: Color;
+  color?: ColorType;
   checked?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
@@ -67,5 +67,5 @@ const Switcher: FC<ISwitcherProps> = forwardRef(
     );
   }
 );
-
+Switcher.displayName = 'Switcher';
 export default memo(Switcher);

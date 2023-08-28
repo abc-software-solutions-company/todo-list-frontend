@@ -1,6 +1,6 @@
 .task-body :global {
   @apply mt-3 bg-gray-50 px-4 shadow-md lg:mt-6 lg:px-8;
-  @apply lg:grid lg:grid-cols-3 lg:gap-x-32;
+  @apply lg:grid lg:grid-cols-3 lg:gap-x-20;
 
   .body-left-wrapper {
     @apply col-span-2;

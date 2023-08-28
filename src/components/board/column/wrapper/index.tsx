@@ -13,7 +13,7 @@ const KanbanColumnWrapper: FC<IKanbanColumnWrapperProps> = ({columnId, children}
 
   return (
     <ul className="h-full" ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <div className="h-fit">{children}</div>
+      <div className="h-full">{children}</div>
     </ul>
   );
 };

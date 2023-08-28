@@ -1,24 +1,33 @@
+import classNames from 'classnames';
 import React, {FC, ReactNode} from 'react';
 
-import IconButton from '../icon-button';
-import {useModal} from './modal';
+import Heading from '../heading';
+
+interface IModalHeaderTextProps {
+  className?: string;
+  content: ReactNode;
+}
 
 export interface IModalHeaderProps {
-  text?: string;
+  className?: string;
+  text?: string | null;
   children?: ReactNode;
 }
 
-const Header: FC<IModalHeaderProps> = ({text, children}) => {
-  const {onClose} = useModal();
-
-  const content = text ? <h3>{text}</h3> : children;
-
+const HeaderText: FC<IModalHeaderTextProps> = ({className, content}) => {
   return (
-    <div className="abc-modal-header">
-      <IconButton className="abc-modal-close" name="ico-x-circle" size={28} onClick={() => onClose(false)} />
+    <Heading as="h3" className={classNames('abc-modal__title', className)}>
       {content}
-    </div>
+    </Heading>
   );
 };
+
+const Header: FC<IModalHeaderProps> = ({className, text, children}) => {
+  const childrenIsText = typeof children === 'string';
+  const content = text ? <HeaderText content={text} /> : childrenIsText ? <HeaderText content={children} /> : children;
+  return <div className={classNames('abc-modal__header', className)}>{content}</div>;
+};
+
+Header.displayName = 'Modal.Header';
 
 export default Header;

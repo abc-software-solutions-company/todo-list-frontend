@@ -1,18 +1,24 @@
+import classNames from 'classnames';
 import React from 'react';
 
-import {useDocumentsStore} from '@/hooks/useDocuments';
+import {IDocumentAttribute} from '@/data/api/types/documents.type';
+import {IBaseProps} from '@/types';
 
 import DocumentList from '../list';
 
-const DocumentsPage: React.FC = ({}) => {
-  const documentState = useDocumentsStore();
+interface IDocumentsPageProps extends IBaseProps {
+  text: string;
+  isShowDelete?: boolean;
+  items: IDocumentAttribute[];
+}
 
+const Documents: React.FC<IDocumentsPageProps> = ({className, text, isShowDelete = false, items}) => {
   return (
-    <>
-      <p className="mt-3 px-3 font-bold">Page</p>
-      <DocumentList items={documentState.documents} />
-    </>
+    <div className={classNames('comp-documents', className)}>
+      <p className="my-3 px-3 font-bold">{text}</p>
+      <DocumentList items={items} isShowDelete={isShowDelete} />
+    </div>
   );
 };
 
-export default DocumentsPage;
+export default Documents;

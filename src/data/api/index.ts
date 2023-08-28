@@ -41,6 +41,8 @@ const api = {
   task: {
     get: () => http.get<ITaskResponse[]>(API_ENDPOINTS.TASK),
     getOne: ({id}: ITaskGet) => http.get<ITaskResponse>(API_ENDPOINTS.TASK + '/' + id),
+    findOrtherTaks: (taskId: string, todolistId: string) =>
+      http.post<ITaskResponse[]>(API_ENDPOINTS.TASK + '/find-orther-tasks', {taskId, todolistId}),
     create: (data: ITaskCreate) => http.post<ITaskResponse>(API_ENDPOINTS.TASK, data),
     update: (data: ITaskUpdate) => http.patch<ITaskResponse>(API_ENDPOINTS.TASK, data),
     reindexAll: (data: ITaskReindexAll) => http.patch(API_ENDPOINTS.TASK + '/reindex-all', data)
