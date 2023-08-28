@@ -17,7 +17,13 @@ const ModalThirdPartyLogin: React.FC<IProps> = ({open, onClose}) => {
   const {openGooglePopUp} = useLoginGoogle();
 
   return (
-    <Modal variant="center" className={cls(styles['com-modal-social'], 'max-w-[378px]')} open={open} onClose={onClose}>
+    <Modal
+      variant="center"
+      className={cls(styles['com-modal-social'], 'max-w-[378px]')}
+      open={open}
+      onClose={onClose}
+      data-testid="modal-third-party-login"
+    >
       <Modal.Header />
       <Modal.Body className="container">
         <Button

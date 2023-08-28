@@ -27,6 +27,8 @@
     "test:watch": "jest --watch",
     "test:ci": "jest --ci --watchAll=false --reporters=default --reporters=jest-junit",
     "test:coverage": "jest --silent --watchAll=false --coverage && yarn coverage:open",
+    "test:e2e-ui": "playwright test --ui",
+    "test:e2e": "playwright test",
     "coverage:open": "open-cli coverage/lcov-report/index.html -- 'google chrome'",
     "dev:lint": "npm-run-all --print-label --parallel dev lint",
     "genfont": "rimraf src/vendors/abc-icons/dist && node ./cli/generate-font.js",
@@ -83,6 +85,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^12.1.6",
+    "@playwright/test": "^1.37.1",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/line-clamp": "^0.4.0",

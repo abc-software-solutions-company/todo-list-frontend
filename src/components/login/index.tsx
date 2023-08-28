@@ -58,7 +58,7 @@ const Login: FC = () => {
               <div className={styles['login-buttons']}>
                 <div className="github"></div>
                 <div className="google">
-                  <Button onClick={openGooglePopUp}>
+                  <Button onClick={openGooglePopUp} data-testid="google-btn">
                     <img src="icons/google.png" alt="Google Login" />
                   </Button>
                 </div>
