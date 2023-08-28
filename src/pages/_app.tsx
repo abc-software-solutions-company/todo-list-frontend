@@ -19,7 +19,7 @@ import {store} from '@/states/store';
 
 const Noop: React.FC = ({children}: React.PropsWithChildren<any>) => <>{children}</>;
 
-const CustomApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) => {
+const CustomApp = ({Component, pageProps: {...pageProps}}: AppProps) => {
   const router = useRouter();
 
   const Layout = (Component as any).Layout || Noop;
