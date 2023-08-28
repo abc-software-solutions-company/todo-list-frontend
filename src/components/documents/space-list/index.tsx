@@ -41,8 +41,8 @@ const ListSpace: React.FC = ({}) => {
         </div>
         <hr />
         <div className="scrollbar max-h-full overflow-y-auto">
-          <Documents text="Favorites" items={documentState.documentsFavorite} isShowDelete={false} />
-          <Documents text="Pages" items={documentState.documents} />
+          <Documents text="Favorites" items={documentState.documentsFavorite} />
+          <Documents text="Pages" items={documentState.documents} isShowDelete />
         </div>
       </div>
       <ModalCreateDocument open={showModalCreate} onClose={() => isShowModalCreate(false)} docChild={false} />
