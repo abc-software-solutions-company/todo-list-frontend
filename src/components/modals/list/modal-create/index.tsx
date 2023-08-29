@@ -20,7 +20,7 @@ import {IProps} from '../types-create-update';
 import useModalCreateList from './hook';
 
 const ModalCreateList: FC<IProps> = props => {
-  const authState = useStateAuth();
+  const me = useStateAuth();
   const {open, onClose} = props;
   const {isSubmitting, errors, onSubmit, register, setFocus, setValue} = useModalCreateList(props);
   const [options, setOptions] = useState<IUserResponse[]>([]);
@@ -78,7 +78,7 @@ const ModalCreateList: FC<IProps> = props => {
             multiple
             className="input-members"
             onChange={(e, value) => setValue('member', {ids: value.map(u => u.id)})}
-            defaultValue={[authState as IUserResponse]}
+            defaultValue={[me as IUserResponse]}
             options={options}
             disableCloseOnSelect
             getOptionLabel={option => `${option.name} (${option.email})`}
