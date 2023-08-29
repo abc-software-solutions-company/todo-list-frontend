@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {ITaskResponse} from '@/data/api/types/task.type';
+import {ITaskResponse, ITaskUpdate} from '@/data/api/types/task.type';
 
 export type IAction = PayloadAction<{id: string}>;
 
@@ -9,12 +10,12 @@ const taskSlice = createSlice({
   initialState: {
     task: {
       loading: false,
+      isDelecting: undefined as unknown as boolean,
       data: undefined as unknown as ITaskResponse,
       error: null
     }
   },
   reducers: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getTaskRequest: (state, {payload}: IAction) => {
       state.task.loading = true;
     },
@@ -24,6 +25,19 @@ const taskSlice = createSlice({
     },
     getTaskFailure: (state, {payload}) => {
       state.task.loading = false;
+      state.task.error = payload;
+    },
+    // DESTROY
+    destroyRequest: (state, action: PayloadAction<ITaskUpdate>) => {
+      state.task.isDelecting = true;
+    },
+    destroySuccess: state => {
+      state.task.isDelecting = false;
+      state.task.data = undefined as any;
+    },
+    destroyFailure: (state, {payload}: PayloadAction<any>) => {
+      state.task.isDelecting = false;
+      state.task.data = undefined as any;
       state.task.error = payload;
     }
   }
