@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import {ButtonBase, Popover} from '@mui/material';
 import classNames from 'classnames';
 import Image from 'next/image';
@@ -28,7 +27,7 @@ const ImageAttachments: FC<IBaseProps> = ({className}) => {
   const [imageSelected, setImageSelected] = useState<number>();
   const {task, write, update} = useTask();
 
-  const attachments = task.attachments.filter(e => e.isActive);
+  const attachments = task?.attachments.filter(e => e.isActive);
 
   const {handleSubmit, setValue, setFocus, register} = useForm<IFormInputs>({
     mode: 'onChange',

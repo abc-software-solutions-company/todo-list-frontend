@@ -17,7 +17,7 @@ const Schema = yup.object().shape({
 export default function useModalUpdateDocument({onClose}: IProps) {
   const documentsState = useDocumentsStore();
 
-  const {formState, handleSubmit, reset, setValue, ...rest} = useForm<IFormInputs>({
+  const {formState, handleSubmit, ...rest} = useForm<IFormInputs>({
     resolver: yupResolver(Schema),
     mode: 'onChange'
   });

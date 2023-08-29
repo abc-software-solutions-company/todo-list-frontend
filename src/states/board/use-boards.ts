@@ -7,7 +7,7 @@ import {ISetIsOpenModalPayload} from './types';
 
 export default function useBoards() {
   const boardState = useSelector((root: RootState) => root.board);
-  const {isOpenModal, board, listID, ...rest} = boardState;
+  const {board, listID, ...rest} = boardState;
   const {data, ...restBoard} = board;
   const auth = useStateAuth();
   const dispatch = useDispatch();

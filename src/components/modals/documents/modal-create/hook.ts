@@ -20,7 +20,7 @@ export default function useModalCreateDocument({open, onClose, docChild}: IProps
   const router = useRouter();
   const documentsState = useDocumentsStore();
 
-  const {formState, handleSubmit, reset, setValue, ...rest} = useForm<IFormInputs>({
+  const {formState, handleSubmit, reset, ...rest} = useForm<IFormInputs>({
     resolver: yupResolver(Schema),
     mode: 'onChange'
   });

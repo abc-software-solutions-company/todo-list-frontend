@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import {ButtonBase, Popover} from '@mui/material';
 import classNames from 'classnames';
 import Link from 'next/link';
