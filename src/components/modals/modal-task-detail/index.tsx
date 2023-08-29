@@ -14,7 +14,7 @@ const ModalTaskDetail: FC = () => {
   if (!modalTaskDetailState.task) return null;
 
   return (
-    <Modal open={Boolean(modalTaskDetailState.task)} onClose={handleCloseModal} className="w-fit max-w-[90%]">
+    <Modal open={Boolean(modalTaskDetailState.task)} onClose={handleCloseModal} className="max-w-[90%]">
       <TaskDetail task={modalTaskDetailState.task} className="p-4" />
     </Modal>
   );
