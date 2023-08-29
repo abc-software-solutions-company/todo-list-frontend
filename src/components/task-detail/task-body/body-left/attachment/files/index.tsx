@@ -19,7 +19,7 @@ const FileAttachment: FC<IBaseProps> = ({className}) => {
   const toast = useToast();
   const {task, write, update} = useTask();
 
-  const attachments = task?.attachments.filter(e => e.isActive);
+  const attachments = task.attachments.filter(e => e.isActive);
 
   const [anchorDeleteEl, setAnchorDeleteEl] = useState<HTMLButtonElement | null>(null);
 

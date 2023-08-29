@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {ITaskResponse, ITaskUpdate} from '@/data/api/types/task.type';
@@ -9,7 +8,7 @@ export interface IInitialState {
   task: {
     loading: boolean;
     error: null;
-    data?: ITaskResponse;
+    data: ITaskResponse;
     isDelecting?: boolean;
   };
 }
@@ -17,7 +16,8 @@ export interface IInitialState {
 export const initialState: IInitialState = {
   task: {
     loading: false,
-    error: null
+    error: null,
+    data: undefined as unknown as ITaskResponse
   }
 };
 
@@ -25,7 +25,7 @@ const taskSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {
-    getTaskRequest: (state, {payload}: IAction) => {
+    getTaskRequest: (state, _action: IAction) => {
       state.task.loading = true;
     },
     getTaskSuccess: (state, {payload}) => {
@@ -37,16 +37,16 @@ const taskSlice = createSlice({
       state.task.error = payload;
     },
     // DESTROY
-    destroyRequest: (state, action: PayloadAction<ITaskUpdate>) => {
+    destroyRequest: (state, _action: PayloadAction<ITaskUpdate>) => {
       state.task.isDelecting = true;
     },
     destroySuccess: state => {
       state.task.isDelecting = false;
-      state.task.data = undefined;
+      state.task.data = undefined as unknown as ITaskResponse;
     },
     destroyFailure: (state, {payload}: PayloadAction<any>) => {
       state.task.isDelecting = false;
-      state.task.data = undefined;
+      state.task.data = undefined as unknown as ITaskResponse;
       state.task.error = payload;
     },
     // MISCS

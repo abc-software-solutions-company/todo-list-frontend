@@ -27,7 +27,7 @@ const ImageAttachments: FC<IBaseProps> = ({className}) => {
   const [imageSelected, setImageSelected] = useState<number>();
   const {task, write, update} = useTask();
 
-  const attachments = task?.attachments.filter(e => e.isActive);
+  const attachments = task.attachments.filter(e => e.isActive);
 
   const {handleSubmit, setValue, setFocus, register} = useForm<IFormInputs>({
     mode: 'onChange',
