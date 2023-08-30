@@ -58,6 +58,9 @@ export default function useFilter() {
             e.priority == prioritieValue &&
             !(e.statusId == revStatusList[0].id)
           );
+        if (currentType && prioritieValue && statusFilterInList) {
+          return e.type === currentType && e.priority == prioritieValue && e.statusId == statusFilterInList;
+        }
         //
         if (assigneeFilterInList === 'Unassigned' && currentType)
           return e.assignees.length == 0 && e.type === currentType;
