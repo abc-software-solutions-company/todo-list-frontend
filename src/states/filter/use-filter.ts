@@ -89,6 +89,7 @@ export default function useFilter() {
           return e.assignees[0]?.userId == assigneeFilterInList && e.statusId == statusFilterInList;
         if (prioritieValue && statusFilterInList)
           return e.priority == prioritieValue && e.statusId == statusFilterInList;
+        if (currentType && statusFilterInList) return e.type === currentType && e.statusId == statusFilterInList;
         //
         if (prioritieValue) return e.priority == prioritieValue;
         if (currentType) return e.type === currentType;
