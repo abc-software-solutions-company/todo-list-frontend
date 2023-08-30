@@ -11,7 +11,7 @@ import {ToastContents} from '@/utils/toast-content';
 import {IProps} from '.';
 
 export default function useModalDelete({onClose, onSuccess, data}: IProps) {
-  const {getTodolist} = useTodolist();
+  const {todolist, getTodolist} = useTodolist();
   const {isDelecting, error, destroy, resetCrudState} = useTask();
   const modalTaskDetailState = useModalTaskDetailState();
   const router = useRouter();
@@ -34,7 +34,7 @@ export default function useModalDelete({onClose, onSuccess, data}: IProps) {
       modalTaskDetailState.setState(null);
 
       onSuccess?.();
-      getTodolist(data.todolist.id);
+      getTodolist(todolist?.id || data?.todolist?.id);
       resetCrudState();
     }
 
