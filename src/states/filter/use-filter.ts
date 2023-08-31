@@ -74,6 +74,13 @@ export default function useFilter() {
           return checkType && checkStatus && checkAssigned;
         }
 
+        if (currentType && prioritieValue && assigneeFilterInList == 'Unassigned') {
+          return checkType && checkPriority && checkUnassigned;
+        }
+        if (currentType && prioritieValue && assigneeFilterInList !== 'default') {
+          return checkType && checkPriority && checkAssigned;
+        }
+
         if (statusFilterInList && prioritieValue && assigneeFilterInList == 'Unassigned') {
           return checkStatus && checkPriority && checkUnassigned;
         }
