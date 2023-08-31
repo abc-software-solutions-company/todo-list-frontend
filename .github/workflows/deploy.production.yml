@@ -49,6 +49,7 @@ jobs:
           port: 22
           key: ${{ secrets.PRODUCTION_SERVER_KEY_SSH }}
           script: |
+            sudo docker system prune -a -f
             cd ~/todo-list-website
             sudo snap install docker
             sudo docker load --input todo-list-website.tar
