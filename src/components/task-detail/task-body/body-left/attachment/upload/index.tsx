@@ -9,7 +9,8 @@ import useToast from '@/core-ui/toast';
 import api from '@/data/api';
 import useTask from '@/states/task/use-task';
 import {IBaseProps} from '@/types';
-import {imageValid} from '@/utils/image-valid';
+import {AttachmentType} from '@/utils/constant';
+import {validFileSize} from '@/utils/valid-file-size';
 
 import style from './style.module.scss';
 
@@ -31,9 +32,10 @@ const Upload: FC<IBaseProps> = ({className}) => {
       for (let i = 0; i < e.target.files.length; i++) {
         const file = e.target.files[i];
         const name = file.name;
+        const type: keyof typeof AttachmentType = file.type.startsWith('image') ? 'image' : 'file';
 
-        if (!imageValid(file)) {
-          toast.show({type: 'danger', title: 'error', content: `${name} not is a image or weight more than 5 MB `});
+        if (!validFileSize(file)) {
+          toast.show({type: 'danger', title: 'error', content: 'File or image must not larger than 25 MB '});
           continue;
         }
 
@@ -47,7 +49,7 @@ const Upload: FC<IBaseProps> = ({className}) => {
         s3.upload(s3ObjectRequest, (err: Error, response: ManagedUpload.SendData) => {
           if (err) console.log('Error', err);
           if (response) {
-            api.task.update({id, attachment: {create: {name: name, link: response.Location}}}).then(update);
+            api.task.update({id, attachment: {create: {name: name, link: response.Location, type}}}).then(update);
           }
         });
       }

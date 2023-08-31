@@ -2,7 +2,7 @@ import cls from 'classnames';
 import React, {FC, MouseEventHandler, ReactNode} from 'react';
 
 import Loading from '../loading';
-import {Color, Size, Variant, XPosition} from '../types';
+import {ButtonVariantType, ColorType, IconSizeType, XPosition} from '../types';
 
 interface IButtonProps {
   className?: string;
@@ -14,10 +14,10 @@ interface IButtonProps {
   disabled?: boolean;
   children?: ReactNode;
   type?: 'button' | 'submit' | 'reset';
-  color?: Color;
-  size?: Size;
+  color?: ColorType;
+  size?: IconSizeType;
   loadingPosition?: XPosition;
-  variant?: Variant;
+  variant?: ButtonVariantType;
   onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
 }
 
@@ -49,7 +49,15 @@ const Button: FC<IButtonProps> = ({
   }
 
   props.onClick = onClick;
-  props.className = cls('abc-btn', className, variant, size, color, loading && 'loading', disabled && Tag === 'a' && 'disabled');
+  props.className = cls(
+    'abc-btn',
+    className,
+    variant,
+    size,
+    color,
+    loading && 'loading',
+    disabled && Tag === 'a' && 'disabled'
+  );
 
   return (
     <Tag {...props} {...rest}>

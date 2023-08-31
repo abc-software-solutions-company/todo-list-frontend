@@ -1,5 +1,6 @@
 import {Active, DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, Over} from '@dnd-kit/core';
 import {arrayMove, horizontalListSortingStrategy, SortableContext} from '@dnd-kit/sortable';
+import classNames from 'classnames';
 import React, {FC, useEffect, useState} from 'react';
 
 import api from '@/data/api';
@@ -30,7 +31,9 @@ const KanbanContainer: FC = () => {
     currentAssignee,
     currentPriority,
     currentStatus,
+    currentType,
     getFilterdTasks,
+    setCurrentType,
     setStatusFilterInList,
     setPriorityFilterInList,
     setAssigneeFilterInList
@@ -42,11 +45,13 @@ const KanbanContainer: FC = () => {
   const [needUpdate, setNeedUpdate] = useState(false);
 
   useEffect(() => {
-    if (currentPriority || (currentAssignee != '' && currentAssignee != 'default') || currentStatus) {
+    if (currentPriority || (currentAssignee != '' && currentAssignee != 'default') || currentStatus || currentType) {
+      setCurrentType(currentType);
       setPriorityFilterInList(currentPriority);
       setAssigneeFilterInList(currentAssignee);
       setStatusFilterInList(0);
     } else {
+      setCurrentType('');
       setStatusFilterInList(0);
       setPriorityFilterInList('');
       setAssigneeFilterInList('default');
@@ -63,7 +68,7 @@ const KanbanContainer: FC = () => {
     );
     boardStore.generateState(newStatusList);
     setNeedUpdate(true);
-  }, [statusList, priorityFilterInList, assigneeFilterInList, statusFilterInList]);
+  }, [statusList, priorityFilterInList, assigneeFilterInList, statusFilterInList, currentType]);
 
   useEffect(() => {
     if (needUpdate) {
@@ -167,7 +172,7 @@ const KanbanContainer: FC = () => {
   };
 
   return (
-    <div className={style['kanban-container']}>
+    <div className={classNames(style['kanban-container'], 'scrollbar')}>
       <div className="inner">
         <DndContext sensors={sensors} onDragStart={onDragStart} onDragOver={onDragOver} onDragEnd={onDragEnd}>
           <SortableContext id="board" items={boardState.ids} strategy={horizontalListSortingStrategy}>

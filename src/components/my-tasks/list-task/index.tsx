@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import {useRouter} from 'next/router';
 import React, {FC, useEffect} from 'react';
 
 import TaskItem from '@/components/common/task-item';
@@ -11,9 +12,14 @@ import {Priorities} from '@/utils/constant';
 
 const ListTask: FC = () => {
   const auth = useStateAuth();
+  const router = useRouter();
   const {myTasks} = useTasks();
   const {write: isWrite, owner} = useTodolist();
   const {statusFilterInMytask, setStatusFilterInMyTask, priorityFilterInList, featureFilterInList} = useFilter();
+
+  const handleOnClick = (taskId: string) => {
+    router.push(`${ROUTES.TASK}/${taskId}`);
+  };
 
   const filterMyTasks = () => {
     const PrioritiesList = Object.values(Priorities).reverse();
@@ -73,7 +79,13 @@ const ListTask: FC = () => {
                   <div className="h-3 lg:h-4"></div>
                   <div className={`tasks ${(isWrite || owner) && 'read-only'}`}>
                     {todolist?.tasks.map(task => (
-                      <TaskItem key={task.id} task={task} todolist={todolist} write={write} />
+                      <TaskItem
+                        key={task.id}
+                        task={task}
+                        todolist={todolist}
+                        write={write}
+                        onClick={() => handleOnClick(task.id)}
+                      />
                     ))}
                   </div>
                 </>

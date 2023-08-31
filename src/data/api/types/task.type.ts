@@ -1,4 +1,5 @@
 import {IBaseResponse} from '@/types';
+import {AttachmentType} from '@/utils/constant';
 
 import {IStatus, ITodolistResponse} from './todolist.type';
 import {IUserResponse} from './user.type';
@@ -11,6 +12,7 @@ export interface IAttachment {
 export interface IAttachmentCreate {
   name: string;
   link: string;
+  type?: keyof typeof AttachmentType;
 }
 
 export interface IAttachmentUpdate {
@@ -18,6 +20,7 @@ export interface IAttachmentUpdate {
   name?: string;
   link?: string;
   isActive?: boolean;
+  type?: string;
 }
 
 export interface IAttachmentResponse extends IAttachmentCreate {
@@ -68,6 +71,8 @@ export interface ITaskUpdate extends ITaskGet {
   indexColumn?: number;
   isDone?: boolean;
   priority?: string;
+  relatedIds?: string[];
+  type?: string;
   storyPoint?: string;
   startDate?: Date;
   dueDate?: Date;
@@ -118,8 +123,10 @@ export interface ITaskResponse extends ITaskGet, IBaseResponse {
   startDate: Date;
   dueDate: Date;
   priority: string;
+  type: string;
   index: number;
   indexColumn: number;
+  relatedTasks: ITaskResponse[];
   attachments: IAttachmentResponse[];
   comments: ICommentResponse[];
   assignees: IAssigneeResponse[];

@@ -3,6 +3,7 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 export interface IInitialState {
   currentStatus: number;
   currentPriority: string;
+  currentType: string;
   currentAssignee: string;
   statusFilterInList: number;
   statusFilterInMytask: number[];

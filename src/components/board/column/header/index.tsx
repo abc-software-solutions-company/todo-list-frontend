@@ -28,7 +28,7 @@ const KanbanColumnHeader: FC<IKanbanColumnHeaderProps> = ({name, color, numberTa
       <p className="column-name" style={{color}}>
         {`${name} (${numberTasks ? numberTasks : 0})`}
       </p>
-      <Icon name="ico-plus-circle" className="btn-add-task" onClick={onAddTask} />
+      {name !== 'Done' && <Icon name="ico-plus-circle" className="btn-add-task" onClick={onAddTask} />}
     </div>
   );
 };

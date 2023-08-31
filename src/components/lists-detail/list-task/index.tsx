@@ -5,6 +5,7 @@ import {useRouter} from 'next/router';
 import {useEffect, useState} from 'react';
 
 import TaskItem from '@/components/common/task-item';
+import {ROUTES} from '@/configs/routes.config';
 import api from '@/data/api';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 import {socketUpdateList} from '@/data/socket';
@@ -35,6 +36,10 @@ const ListTask = () => {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   //FIXME: Fix chữa cháy kịp buổi release, sẽ sớm viết lại hàm getTask và các filter cho gọn hơn.
+
+  const handleOnClick = (taskId: string) => {
+    router.push(`${ROUTES.TASK}/${taskId}`);
+  };
 
   useEffect(() => {
     setFilterTasks(getFilterdTasks(todolist.tasks, false));
@@ -115,7 +120,13 @@ const ListTask = () => {
             strategy={verticalListSortingStrategy}
           >
             {filterTasks.map(task => (
-              <TaskItem key={task.id} task={task} todolist={todolist} write={write} />
+              <TaskItem
+                key={task.id}
+                task={task}
+                todolist={todolist}
+                write={write}
+                onClick={() => handleOnClick(task.id)}
+              />
             ))}
           </SortableContext>
         )}

@@ -12,17 +12,21 @@ export default function useTask() {
   const {actions} = taskSlice;
 
   const initial = (id: string) => dispatch(actions.getTaskRequest({id}));
-  const update = () => dispatch(actions.getTaskRequest({id: task.id}));
+  const update = () => dispatch(actions.getTaskRequest({id: task?.id || ''}));
+  const destroy = (id: string) => dispatch(actions.destroyRequest({id, isActive: false}));
+  const resetCrudState = () => dispatch(actions.resetCrudState());
+
   const assest = Boolean(task)
-    ? task.todolist.visibility !== 'PRIVATE' ||
-      Boolean(auth && auth.id === task.todolist.userId) ||
-      Boolean(auth && task.todolist.members.map(e => e.user?.id).includes(auth?.id))
-    : false;
-  const write = Boolean(task)
-    ? task.todolist.visibility === 'PUBLIC' ||
-      Boolean(auth && auth.id === task.todolist.userId) ||
-      Boolean(auth && task.todolist.members.map(e => e.user?.id).includes(auth?.id))
+    ? task?.todolist.visibility !== 'PRIVATE' ||
+      Boolean(auth && auth.id === task?.todolist.userId) ||
+      Boolean(auth && task?.todolist.members.map(e => e.user?.id).includes(auth?.id))
     : false;
 
-  return {task, ...rest, assest, write, initial, update};
+  const write = Boolean(task)
+    ? task?.todolist.visibility === 'PUBLIC' ||
+      Boolean(auth && auth.id === task?.todolist.userId) ||
+      Boolean(auth && task?.todolist.members.map(e => e.user?.id).includes(auth?.id))
+    : false;
+
+  return {task, ...taskData, ...rest, assest, write, initial, update, destroy, resetCrudState};
 }

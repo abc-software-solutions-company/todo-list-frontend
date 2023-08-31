@@ -1,0 +1,17 @@
+.task-attachments :global {
+  .attachment {
+    @apply flex gap-2.5 rounded-lg pt-3 hover:bg-white;
+    .icon-download {
+      @apply flex w-28 items-center justify-center border bg-white;
+    }
+    .info {
+      @apply w-[calc(100%-120px)] text-h7;
+      &-date {
+        @apply my-1 text-slate-600;
+      }
+      &-actions {
+        @apply flex gap-2.5  text-slate-500 underline;
+      }
+    }
+  }
+}

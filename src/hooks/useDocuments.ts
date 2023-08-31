@@ -3,86 +3,87 @@ import {devtools} from 'zustand/middleware';
 import {immer} from 'zustand/middleware/immer';
 
 import api from '@/data/api';
-import {IDocumentAttribute, IDocumentCreate, IGetDocuments, IUpdateDocument} from '@/data/api/types/documents.type';
+import {IDocumentAttribute, IDocumentCreate, IUpdateDocument} from '@/data/api/types/documents.type';
+import {IStateInit} from '@/types';
 
-type State = {
-  error: boolean;
-  isFeching: boolean;
-  document: IDocumentAttribute;
-  documents: IGetDocuments[];
-};
+interface State extends IStateInit {
+  currentDocument: IDocumentAttribute;
+  documents: IDocumentAttribute[];
+  documentsFavorite: IDocumentAttribute[];
+}
 
 type Action = {
-  getAllDocument: (listId: string) => void;
+  initState: () => void;
   getDocument: (id: string) => void;
+  resetDocumentsFavorite: () => void;
+  getDocuments: (listId: string) => void;
   updateDocument: (data: IUpdateDocument) => void;
+  deleteDoument: (data: IUpdateDocument) => void;
   createDocument: (data: IDocumentCreate) => void;
-  resetDocument: () => void;
+  addFavoriteDocument: (id: string) => void;
+  removeFavoriteDocument: (id: string) => void;
+  getDocumentsFavorite: (listId: string) => void;
 };
 
 export const useDocumentsStore = create<State & Action>()(
   devtools(
     immer(set => ({
+      currentDocument: {} as IDocumentAttribute,
       documents: [],
-      error: false,
-      isFeching: false,
-      document: {} as IDocumentAttribute,
-      resetDocument: () => {
-        set(state => {
-          state.document = {} as IDocumentAttribute;
-        });
+      documentsFavorite: [],
+      initState: () => {
+        set({currentDocument: undefined, documents: [], documentsFavorite: []}, false, 'initState');
       },
-      getAllDocument: async listId => {
+      getDocuments: async listId => {
         try {
+          set({isFeching: true}, false, 'Documents/GetDocuments');
           const res = await api.documents.getListDocument(listId);
           set(
             state => {
               state.documents = res.data;
-              state.isFeching = true;
-              if (!state.document?.id) state.document = state.documents?.[0];
+              state.isFeching = false;
+              if (!state.currentDocument?.id) state.currentDocument = state.documents?.[0];
             },
             false,
             'documents/getAllDocument'
           );
         } catch (error) {
+          set({error: true, isFeching: false}, false, 'documents/error');
+        }
+      },
+      getDocumentsFavorite: async listId => {
+        try {
+          set({isFeching: true}, false, 'Documents/GetDocumentsFavorite');
+          const res = await api.documents.getDocumentsFavorite(listId);
           set(
             state => {
-              state.error = true;
+              state.documentsFavorite = res.data;
               state.isFeching = false;
             },
             false,
-            'documents/error'
+            'documents/GetDocumentsFavoriteSuccess'
           );
+        } catch (error) {
+          set({error: true, isFeching: false}, false, 'documents/erGetDocumentsFavoritError');
         }
       },
       getDocument: async id => {
         try {
+          set({isFeching: true}, false, 'Documents/GetDocument');
           const res = await api.documents.getOneDocument(id);
-          set(
-            state => {
-              state.document = res.data;
-            },
-            false,
-            'documents/getOneDocument'
-          );
+          set({currentDocument: res.data, isFeching: false}, false, 'documents/getOneDocument');
         } catch (error) {
-          set(
-            state => {
-              state.isFeching = false;
-              state.error = true;
-            },
-            false,
-            'documents/error'
-          );
+          set({isFeching: false, error: true}, false, 'documents/error');
         }
       },
       createDocument: async data => {
         try {
+          set({isCreating: true}, false, 'Documents/CreateDocument');
           const res = await api.documents.create(data);
           set(
             state => {
-              state.document = res.data;
-              state.isFeching = false;
+              state.currentDocument = res.data;
+              state.isCreating = false;
             },
             false,
             'documents/createDocumentSucces'
@@ -91,7 +92,7 @@ export const useDocumentsStore = create<State & Action>()(
           set(
             state => {
               state.error = true;
-              state.isFeching = false;
+              state.isCreating = false;
             },
             false,
             'documents/createDocumentError'
@@ -100,25 +101,56 @@ export const useDocumentsStore = create<State & Action>()(
       },
       updateDocument: async data => {
         try {
+          set({isUpdating: true}, false, 'Documents/GetDocument');
           const res = await api.documents.updateDocument(data);
+          set({currentDocument: res.data, isUpdating: false}, false, 'documents/updateDocument');
+        } catch (error) {
+          set({error: true, isUpdating: false}, false, 'documents/updateError');
+        }
+      },
+      deleteDoument: async data => {
+        try {
+          set({isDeleting: true}, false, 'Documents/GetDocument');
+          await api.documents.updateDocument(data);
+          set({currentDocument: undefined, isDeleting: false}, false, 'documents/updateDocument');
+        } catch (error) {
+          set({error: true, isDeleting: false}, false, 'documents/updateError');
+        }
+      },
+      addFavoriteDocument: async id => {
+        try {
+          set({isUpdating: true}, false, 'Documents/addAndRemoveDocument');
+          await api.documents.handleFavorite(id);
           set(
             state => {
-              state.document = res.data;
-              state.isFeching = false;
+              state.isUpdating = false;
+              state.documentsFavorite = [state.currentDocument, ...state.documentsFavorite];
             },
             false,
-            'documents/updateDocument'
+            'documents/addAndRemoveDocument'
           );
         } catch (error) {
+          set({error: true, isUpdating: false}, false, 'documents/addAndRemoveDocument');
+        }
+      },
+      removeFavoriteDocument: async id => {
+        try {
+          set({isUpdating: true}, false, 'Documents/addAndRemoveDocument');
+          await api.documents.handleFavorite(id);
           set(
             state => {
-              state.error = true;
-              state.isFeching = false;
+              state.isUpdating = false;
+              state.documentsFavorite = state.documentsFavorite.filter(item => item.id !== id);
             },
             false,
-            'documents/error'
+            'documents/addAndRemoveDocument'
           );
+        } catch (error) {
+          set({error: true, isUpdating: false}, false, 'documents/addAndRemoveDocument');
         }
+      },
+      resetDocumentsFavorite: () => {
+        set({documentsFavorite: []});
       }
     }))
   )

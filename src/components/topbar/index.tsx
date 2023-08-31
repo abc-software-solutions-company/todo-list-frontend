@@ -33,26 +33,27 @@ const Topbar: FC<IProps> = ({className}) => {
               `${ROUTES.LIST}/[id]` ||
               `${ROUTES.TASK}` ||
               `${ROUTES.TASK}/[id]` ||
-              `${ROUTES.KANBAN}/[id]`) && (
-              <div className="left-topbar flex w-full items-center">
-                <Back
-                  visibleOn={[
-                    `${ROUTES.LIST}`,
-                    `${ROUTES.LIST}/[id]`,
-                    `${ROUTES.TASK}`,
-                    `${ROUTES.TASK}/[id]`,
-                    `${ROUTES.KANBAN}/[id]`
-                  ]}
-                  currentPage={currentPage}
-                  onClick={() => returnTo(currentPage)}
-                />
-                <Link href={`${ROUTES.LIST}/${task?.todolist?.id}`}>
-                  <span className="text-slate-950 ml-2 cursor-pointer text-base font-semibold md:text-h4">
-                    {task?.todolist?.name}
-                  </span>
-                </Link>
-              </div>
-            )}
+              `${ROUTES.KANBAN}/[id]`) &&
+              !(currentPage === '/') && (
+                <div className="left-topbar flex w-full items-center">
+                  <Back
+                    visibleOn={[
+                      `${ROUTES.LIST}`,
+                      `${ROUTES.LIST}/[id]`,
+                      `${ROUTES.TASK}`,
+                      `${ROUTES.TASK}/[id]`,
+                      `${ROUTES.KANBAN}/[id]`
+                    ]}
+                    currentPage={currentPage}
+                    onClick={() => returnTo(currentPage)}
+                  />
+                  <Link href={`${ROUTES.LIST}/${task?.todolist?.id}`} className="hover:no-underline">
+                    <span className="ml-2 cursor-pointer text-base font-semibold text-slate-700  md:text-h4">
+                      {task?.todolist?.name}
+                    </span>
+                  </Link>
+                </div>
+              )}
             <TopAreaRight />
           </div>
         </div>

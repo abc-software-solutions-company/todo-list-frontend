@@ -13,13 +13,13 @@ import {Provider} from 'react-redux';
 import MuiThemeProvider from '@/components/common/mui-theme-provider';
 import NProgres from '@/components/common/nprogress';
 import DefaultSeo from '@/components/common/seo/default-seo';
-import Modal from '@/components/modal';
+import Modals from '@/components/modals';
 import {AuthProvider} from '@/states/auth';
 import {store} from '@/states/store';
 
 const Noop: React.FC = ({children}: React.PropsWithChildren<any>) => <>{children}</>;
 
-const CustomApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) => {
+const CustomApp = ({Component, pageProps: {...pageProps}}: AppProps) => {
   const router = useRouter();
 
   const Layout = (Component as any).Layout || Noop;
@@ -33,7 +33,7 @@ const CustomApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) =>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Layout pageProps={pageProps}>
                 <Component {...pageProps} key={router.route} />
-                <Modal />
+                <Modals />
               </Layout>
             </LocalizationProvider>
           </MuiThemeProvider>

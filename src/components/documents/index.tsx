@@ -1,15 +1,14 @@
 import React, {FC} from 'react';
 
 import DocumentContent from './content';
-import DocumentList from './list';
+import {useDocumentsMessages} from './hook';
+import SpaceList from './space-list';
 
-interface IDocumentsProps {
-  id: string;
-}
-const Documents: FC<IDocumentsProps> = ({id}) => {
+const Documents: FC = () => {
+  useDocumentsMessages();
   return (
     <div className="mt-4 flex gap-6">
-      <DocumentList id={id} />
+      <SpaceList />
       <DocumentContent />
     </div>
   );

@@ -4,4 +4,14 @@ export interface IBaseResponse {
 }
 export interface IBaseProps {
   className?: string;
+  visible?: boolean;
+  disabled?: boolean;
+}
+
+export interface IStateInit {
+  isCreating?: boolean;
+  isUpdating?: boolean;
+  isDeleting?: boolean;
+  isFeching?: boolean;
+  error?: boolean;
 }

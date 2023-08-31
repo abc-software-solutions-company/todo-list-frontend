@@ -1,0 +1,5 @@
+.document-list :global {
+  @apply sticky top-0 h-fit max-h-[80vh] w-96 overflow-hidden;
+  @apply rounded-lg border border-[#E2E8F0];
+  @apply bg-white;
+}

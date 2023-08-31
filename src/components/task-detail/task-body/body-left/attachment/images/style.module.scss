@@ -1,6 +1,6 @@
-.task-images :global {
-  .task-image {
-    @apply flex gap-2.5 rounded-lg hover:bg-white;
+.task-attachments :global {
+  .attachment {
+    @apply flex gap-2.5 rounded-lg pt-3 hover:bg-white;
     .image {
       @apply relative h-20 w-28 min-w-[112px] overflow-hidden rounded border bg-white;
     }

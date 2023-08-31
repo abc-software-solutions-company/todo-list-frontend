@@ -3,7 +3,7 @@ import http from '@/utils/http';
 
 import {IAuthLogin, IAuthResponse, IAuthUpdate} from './types/auth.type';
 import {ISeo} from './types/commom';
-import {IDocumentAttribute, IDocumentCreate, IGetDocuments, IUpdateDocument} from './types/documents.type';
+import {IDocumentAttribute, IDocumentCreate, IUpdateDocument} from './types/documents.type';
 import {INotificationResponse} from './types/notification.type';
 import {ITaskCreate, ITaskGet, ITaskReindexAll, ITaskResponse, ITaskUpdate} from './types/task.type';
 import {
@@ -41,6 +41,8 @@ const api = {
   task: {
     get: () => http.get<ITaskResponse[]>(API_ENDPOINTS.TASK),
     getOne: ({id}: ITaskGet) => http.get<ITaskResponse>(API_ENDPOINTS.TASK + '/' + id),
+    findOrtherTaks: (taskId: string, todolistId: string) =>
+      http.post<ITaskResponse[]>(API_ENDPOINTS.TASK + '/find-orther-tasks', {taskId, todolistId}),
     create: (data: ITaskCreate) => http.post<ITaskResponse>(API_ENDPOINTS.TASK, data),
     update: (data: ITaskUpdate) => http.patch<ITaskResponse>(API_ENDPOINTS.TASK, data),
     reindexAll: (data: ITaskReindexAll) => http.patch(API_ENDPOINTS.TASK + '/reindex-all', data)
@@ -51,9 +53,11 @@ const api = {
     updateAll: () => http.patch<INotificationResponse[]>(API_ENDPOINTS.NOTIFICATION)
   },
   documents: {
-    getListDocument: (id: string) => http.get<IGetDocuments[]>(API_ENDPOINTS.DOCUMENT + '/tree/' + id),
+    getListDocument: (id: string) => http.get<IDocumentAttribute[]>(API_ENDPOINTS.DOCUMENT + '/tree/' + id),
+    getDocumentsFavorite: (id: string) => http.get<IDocumentAttribute[]>(API_ENDPOINTS.DOCUMENT + '/favorite/' + id),
     getOneDocument: (id: string) => http.get<IDocumentAttribute>(API_ENDPOINTS.DOCUMENT + '/' + id),
     updateDocument: (data: IUpdateDocument) => http.patch<IDocumentAttribute>(API_ENDPOINTS.DOCUMENT + '/update', data),
+    handleFavorite: (id: string) => http.patch<IDocumentAttribute>(API_ENDPOINTS.DOCUMENT + '/handle-favorite/' + id),
     create: (data: IDocumentCreate) => http.post<IDocumentAttribute>(API_ENDPOINTS.DOCUMENT, data)
   }
 };

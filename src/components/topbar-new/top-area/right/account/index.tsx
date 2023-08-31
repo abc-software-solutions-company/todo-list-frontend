@@ -3,7 +3,7 @@ import {FC, useState} from 'react';
 
 import Account from '@/components/common/account';
 import AssigneeIcon from '@/components/common/assignee-icon';
-import ModalThirdPartyLogin from '@/components/modal/modal-third-party-login';
+import ModalThirdPartyLogin from '@/components/modals/modal-third-party-login';
 import {useStateAuth} from '@/states/auth';
 
 import style from './style.module.scss';

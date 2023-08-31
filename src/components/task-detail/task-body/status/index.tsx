@@ -17,8 +17,8 @@ interface StatusProps extends IBaseProps {
 }
 
 const Status: FC<StatusProps> = ({className, noTitle}) => {
-  const {task, update} = useTask();
-  const {write: isWrite, owner} = useTodolist();
+  const {task, write: isWrite, update} = useTask();
+  const {owner} = useTodolist();
   const {id, statusId, todolist} = task;
   const onChange = (event: SelectChangeEvent<number>) => {
     api.task

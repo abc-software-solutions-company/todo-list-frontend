@@ -2,18 +2,19 @@ import React, {FC, useState} from 'react';
 
 import Tool, {IToolProps} from '@/components/lists-detail/toolbar/tool';
 import ToolMenu from '@/components/lists-detail/toolbar/tool-menu';
-import ModalCreateDocument from '@/components/modal/documents/modal-create';
-import ModalDeleteDocument from '@/components/modal/documents/modal-delete';
-import ModalUpdateDocument from '@/components/modal/documents/modal-update';
+import ModalCreateDocument from '@/components/modals/documents/modal-create';
+import ModalDeleteDocument from '@/components/modals/documents/modal-delete';
+import ModalUpdateDocument from '@/components/modals/documents/modal-update';
 import Icon from '@/core-ui/icon';
 import {MUI_ICON} from '@/utils/mui-icon';
 
 export interface IProps {
   textFavorite: string;
+  showDelete?: boolean;
   handleFavorite: () => void;
 }
 
-const OptionDocument: FC<IProps> = ({textFavorite, handleFavorite}) => {
+const OptionDocument: FC<IProps> = ({textFavorite, showDelete = true, handleFavorite}) => {
   const [creteChildDoc, isCreateChildDoc] = useState<boolean>(false);
   const [showModalUpdate, isShowModalUpdate] = useState<boolean>(false);
   const [showModalDelete, isShowModalDelete] = useState<boolean>(false);
@@ -32,10 +33,13 @@ const OptionDocument: FC<IProps> = ({textFavorite, handleFavorite}) => {
 
   const deleteToolProps: IToolProps = {
     icon: <></>,
-    text: 'Delete',
-    onClick: () => isShowModalDelete(true)
+    text: showDelete ? 'Delete document' : '',
+    onClick: () => showDelete && isShowModalDelete(true)
   };
-  const toolMenuItems = [renameToolProps, addFavoriteToolProps, deleteToolProps].map((item, idx) => (
+  const tool = showDelete
+    ? [renameToolProps, addFavoriteToolProps, deleteToolProps]
+    : [renameToolProps, addFavoriteToolProps];
+  const toolMenuItems = tool.map((item, idx) => (
     <Tool key={idx} {...{...item, className: 'flex-row-reverse w-full justify-end'}} />
   ));
   return (

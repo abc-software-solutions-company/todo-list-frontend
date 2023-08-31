@@ -1,12 +1,15 @@
 import {useRouter} from 'next/router';
-import {FC} from 'react';
+import {FC, useEffect} from 'react';
 
+import Type from '@/components/task-detail/task-toolbar/type';
 import {ROUTES} from '@/configs/routes.config';
 import Icon from '@/core-ui/icon';
 import useBoards from '@/states/board/use-boards';
+import useFilter from '@/states/filter/use-filter';
 import useModals from '@/states/modals/use-modals';
 import useTodolist from '@/states/todolist/use-todolist';
 import {isBoardPage, isListDetailPage} from '@/utils/check-routes';
+import {TaskTypeData} from '@/utils/constant';
 
 import ToolFilter from '../../common/tool-filter';
 import style from './style.module.scss';
@@ -16,6 +19,7 @@ const ToolBarRight: FC = () => {
   const path = router.asPath;
   const {id} = router.query;
 
+  const {currentType, getFilterdTasks, setCurrentType, setFilterTasks} = useFilter();
   const {boardData, owner: boardOwner, write: boardWrite} = useBoards();
   const {todolist, statusList, write, owner} = useTodolist();
   const {setIsOpenModal, setSelectedTodolist, setSelectedColumnId} = useModals();
@@ -41,6 +45,10 @@ const ToolBarRight: FC = () => {
   };
 
   const isKanbanView = router.asPath.includes(ROUTES.KANBAN) ? true : false;
+
+  useEffect(() => {
+    setFilterTasks(getFilterdTasks(todolist.tasks, false));
+  }, [currentType]);
 
   return (
     <div className={style['toolbar-right']}>
@@ -76,6 +84,16 @@ const ToolBarRight: FC = () => {
           <Icon name="documents" className="ico-note-list icons" size={20} />
           <span>Docs</span>
         </div>
+        <Type
+          data={TaskTypeData}
+          trigger={
+            <div className="flex cursor-pointer items-center gap-x-1">
+              <Icon name="Settings" className="ico-receipt icons" size={20} />
+              <span className="hidden sm:block">Type</span>
+            </div>
+          }
+          onSelect={value => setCurrentType(value)}
+        />
         <div className="tool-filter">
           <ToolFilter todolist={!isKanbanView ? todolist : boardData} />
         </div>

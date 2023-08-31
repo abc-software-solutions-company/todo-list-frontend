@@ -2,12 +2,12 @@ import cls from 'classnames';
 import React, {FC} from 'react';
 
 import Icon from '../icon';
-import {IconSize} from '../types';
+import {IconSizeType} from '../types';
 
 interface IProps {
   className?: string;
   name: string;
-  size?: IconSize;
+  size?: IconSizeType;
   onClick?: () => void;
 }
 
