@@ -52,6 +52,8 @@ export default function useFilter() {
       const checkUnassigned = task.assignees.length == 0;
       const checkAssigned = task.assignees[0]?.userId == assigneeFilterInList;
 
+      const isNotDone = task.isDone !== true;
+
       if (!isKanban) {
         // list
         // four conditions
@@ -107,6 +109,8 @@ export default function useFilter() {
         if (prioritieValue) return checkPriority;
         if (assigneeFilterInList == 'Unassigned') return checkUnassigned;
         if (assigneeFilterInList !== 'default') return checkAssigned;
+
+        return isNotDone;
       } else {
         // thress conditions
         if (currentType && prioritieValue && assigneeFilterInList == 'Unassigned') {
