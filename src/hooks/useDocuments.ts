@@ -112,7 +112,8 @@ export const useDocumentsStore = create<State & Action>()(
         try {
           set({isDeleting: true}, false, 'Documents/GetDocument');
           const res = await api.documents.updateDocument(data);
-          set({currentDocument: res.data, isDeleting: false}, false, 'documents/updateDocument');
+          console.log('🚀 ~ file: useDocuments.ts:115 ~ res:', res);
+          set({currentDocument: undefined, isDeleting: false}, false, 'documents/updateDocument');
         } catch (error) {
           set({error: true, isDeleting: false}, false, 'documents/updateError');
         }

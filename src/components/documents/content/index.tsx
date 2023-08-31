@@ -4,9 +4,7 @@ import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
-import useToast from '@/core-ui/toast';
 import {useDocumentsStore} from '@/hooks/useDocuments';
-import {ToastContents} from '@/utils/toast-content';
 
 import style from './style.module.scss';
 
@@ -24,7 +22,6 @@ export interface IForm {
 
 const DocumentContent: React.FC = () => {
   const [edit, setEdit] = useState(false);
-  const {show} = useToast();
   const documentsState = useDocumentsStore();
   const {control, handleSubmit, reset} = useForm<IForm>({
     defaultValues: {content: documentsState.currentDocument?.content}
@@ -37,13 +34,6 @@ const DocumentContent: React.FC = () => {
 
   const onSubmit: SubmitHandler<IForm> = data => {
     documentsState.updateDocument({...documentsState.currentDocument, content: data.content || ''});
-    if (documentsState.error) {
-      setEdit(true);
-      show({type: 'danger', title: 'Edit Content', content: ToastContents.ERROR});
-    } else {
-      setEdit(false);
-      show({type: 'success', title: 'Edit Content', content: ToastContents.SUCCESS});
-    }
   };
   return (
     <div className={style['document-content']}>
@@ -70,7 +60,7 @@ const DocumentContent: React.FC = () => {
             render={({field}) => (
               <Editor
                 name="example"
-                value={String(documentsState.currentDocument.content)}
+                value={documentsState.currentDocument.content || ''}
                 onChange={text => field.onChange(text)}
               />
             )}
