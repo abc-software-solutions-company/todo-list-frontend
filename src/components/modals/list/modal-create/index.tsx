@@ -1,3 +1,4 @@
+import {Chip} from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -65,7 +66,12 @@ const ModalCreateList: FC<IProps> = props => {
             {...register('taskSymbol')}
             error={errors.taskSymbol?.message}
           />
-          <Select {...register('visibility')} className="input-type" sx={[{color: '#334155'}]}>
+          <Select
+            {...register('visibility')}
+            defaultValue={Object.keys(Visibilities)[0]}
+            className="input-type"
+            sx={[{color: '#334155'}]}
+          >
             {Object.keys(Visibilities).map((key, idx) => {
               return (
                 <MenuItem key={key} value={key}>
@@ -82,6 +88,11 @@ const ModalCreateList: FC<IProps> = props => {
             options={options}
             disableCloseOnSelect
             getOptionLabel={option => `${option.name} (${option.email})`}
+            renderTags={(tagValue, getTagProps) => {
+              return tagValue.map((option, index) => (
+                <Chip {...getTagProps({index})} key={index} label={option.email} disabled={me?.id === option.id} />
+              ));
+            }}
             renderOption={(prop, option, state) => {
               const {selected} = state;
               if (!selected)
