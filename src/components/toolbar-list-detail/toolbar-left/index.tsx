@@ -1,5 +1,5 @@
 import {useRouter} from 'next/router';
-import {FC} from 'react';
+import {FC, useEffect} from 'react';
 
 import Input from '@/core-ui/input';
 import useBoards from '@/states/board/use-boards';
@@ -22,6 +22,10 @@ const ToolBarLeft: FC = () => {
   let listName = '';
   if (isListDetailPage(path, id as string)) listName = todolist.name;
   if (isBoardPage(path, id as string)) listName = boardData.name;
+
+  useEffect(() => {
+    setNameFilterTask('');
+  }, [id]);
 
   return (
     <div className={style['toolbar-left']}>
