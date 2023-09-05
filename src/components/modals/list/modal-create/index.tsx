@@ -65,7 +65,12 @@ const ModalCreateList: FC<IProps> = props => {
             {...register('taskSymbol')}
             error={errors.taskSymbol?.message}
           />
-          <Select {...register('visibility')} className="input-type" sx={[{color: '#334155'}]}>
+          <Select
+            {...register('visibility')}
+            defaultValue={Object.keys(Visibilities)[0]}
+            className="input-type"
+            sx={[{color: '#334155'}]}
+          >
             {Object.keys(Visibilities).map((key, idx) => {
               return (
                 <MenuItem key={key} value={key}>
