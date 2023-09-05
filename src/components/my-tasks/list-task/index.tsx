@@ -26,7 +26,7 @@ const ListTask: FC = () => {
     const PrioritieValue = PrioritiesList.includes(priorityFilterInList) ? priorityFilterInList : '';
     if (myTasks && myTasks.length > 0) {
       return myTasks.map((todolist, index) => {
-        const doneStatus = todolist.status.find(x => x.name === 'Done')?.id;
+        const doneStatus = todolist?.status.find(x => x.name === 'Done')?.id;
 
         return {
           ...todolist,
@@ -71,7 +71,7 @@ const ListTask: FC = () => {
             ? todolist.visibility === 'PUBLIC' || Boolean(auth && auth.id === todolist.userId)
             : false;
           return (
-            <div key={todolist.id}>
+            <div key={`${todolist.id}-${index}`}>
               {todolist.tasks?.length > 0 && (
                 <>
                   {index != 0 && <div className="h-6 lg:h-7"></div>}
