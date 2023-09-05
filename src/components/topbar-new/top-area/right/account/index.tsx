@@ -59,7 +59,7 @@ const TopBarAccount: FC = () => {
           )}
         </span>
         {auth?.email == null && (
-          <span className="unverified" onClick={() => handleSocial()}>
+          <span className="unverified cursor-pointer" onClick={() => handleSocial()}>
             (Unverified)
           </span>
         )}
