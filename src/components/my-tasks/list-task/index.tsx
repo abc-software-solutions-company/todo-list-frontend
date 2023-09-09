@@ -64,8 +64,7 @@ const ListTask: FC = () => {
           <span className="empty">Empty Tasks</span>
         </>
       )}
-      {onAfterFilter &&
-        onAfterFilter.length > 0 &&
+      {onAfterFilter && onAfterFilter.length > 0 ? (
         onAfterFilter.map((todolist, index) => {
           const write = Boolean(todolist)
             ? todolist.visibility === 'PUBLIC' || Boolean(auth && auth.id === todolist.userId)
@@ -94,7 +93,10 @@ const ListTask: FC = () => {
               )}
             </div>
           );
-        })}
+        })
+      ) : (
+        <p className="mt-5 w-full text-center">Empty task</p>
+      )}
     </>
   );
 };
