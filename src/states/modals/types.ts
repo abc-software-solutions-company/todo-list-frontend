@@ -2,8 +2,10 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 import {ITodolistResponse} from '@/data/api/types/todolist.type';
 
 import {isOpenModal} from './initialState';
+import { topbarPageName } from '@/components/topbar-hoa/page-name.type';
 
 export type ISetIsOpenModalPayload = keyof typeof isOpenModal | null;
+export type ISetTopbarPageName = keyof typeof topbarPageName | null;
 
 export interface IInitialState {
   selectedTask?: ITaskResponse;
@@ -21,5 +23,8 @@ export interface IInitialState {
     updateTask: boolean;
     createDocument: boolean;
     updateDocument: boolean;
+    testModal: boolean;
   };
 }
+
+

@@ -11,6 +11,7 @@ import saga from './saga';
 import taskSlice from './task/slice';
 import tasksSlice from './tasks/slice';
 import todolistSlice from './todolist/slice';
+import tasksInternSlice from './tasks-intern/slice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -23,6 +24,7 @@ const store = configureStore({
     todolist: todolistSlice.reducer,
     lists: listsSlice.reducer,
     tasks: tasksSlice.reducer,
+    tasksIntern: tasksInternSlice.reducer,
     modals: modalsSlice.reducer,
     filter: filterSlice.reducer,
     board: boardSlice.reducer,

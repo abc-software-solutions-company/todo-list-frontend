@@ -1,0 +1,55 @@
+.com-modal-todo-add-edit :global {
+  .abc-modal__content {
+    @apply flex flex-col items-start gap-3 p-6;
+  }
+  .abc-modal-body {
+    @apply w-full;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    @apply border-none;
+  }
+
+  input[type='datetime-local']::-webkit-inner-spin-button,
+  input[type='datetime-local']::-webkit-calendar-picker-indicator {
+    /* display: none;
+    -webkit-appearance: none; */
+    margin: 0;
+  }
+  input[type='datetime-local']::-webkit-datetime-edit {
+    display: none;
+  }
+}
+
+.input-modal-todo-add-edit {
+  width: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  font-family: Roboto;
+  background-color: inherit;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  resize: none;
+  &:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.input-taskname {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.input-des {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}

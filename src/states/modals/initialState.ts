@@ -1,5 +1,6 @@
 import {IInitialState} from './types';
 
+
 export const isOpenModal = {
   createDocument: false,
   updateDocument: false,
@@ -11,7 +12,8 @@ export const isOpenModal = {
   shareList: false,
   shareTask: false,
   updateUser: false,
-  updateTask: false
+  updateTask: false,
+  testModal: false
 };
 
 const initialState: IInitialState = {

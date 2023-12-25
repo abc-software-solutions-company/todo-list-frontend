@@ -115,6 +115,8 @@ export interface ITaskResponse extends ITaskGet, IBaseResponse {
   description: string;
   todolistId: string;
   statusId: number;
+  statusname: string;
+  statuscolor: string;
   userId: string;
   user?: IUserResponse;
   isDone: boolean;

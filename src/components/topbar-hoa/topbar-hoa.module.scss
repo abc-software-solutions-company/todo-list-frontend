@@ -1,0 +1,5 @@
+.topbar {
+    @apply flex justify-between items-center;
+    @apply border-b border-gray-300 bg-[#F8FAFC];
+    padding: 20px 32px 20px 24px;    
+}

@@ -11,11 +11,11 @@ const TopBarLink = () => {
 
   return (
     <div className={style['topbar-link']}>
-      <Link href={ROUTES.TASK}>
+      <Link href={ROUTES.TASK} legacyBehavior>
         <a className={(currentPage === ROUTES.TASK && style.active) || 'un-active'}>My Tasks</a>
       </Link>
       <i className="inline-block font-light not-italic text-gray-200">|</i>
-      <Link href={ROUTES.LIST}>
+      <Link href={ROUTES.LIST} legacyBehavior>
         <a className={(currentPage === ROUTES.LIST && style.active) || 'un-active'}>My Lists</a>
       </Link>
     </div>
