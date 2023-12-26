@@ -1,6 +1,6 @@
 import {Clock, SlidersHorizontal} from 'lucide-react';
 import React from 'react';
-
+import Card from './project/project-card';
 import NewLayout from '@/layouts/new-layout';
 
 export default function ProjectsPage() {
@@ -15,6 +15,9 @@ export default function ProjectsPage() {
           <SlidersHorizontal size={19} className="mr-2" /> Sell all
         </button>
       </div>
+      <Card />
+      <Card />
+      <Card />
     </>
   );
 }
