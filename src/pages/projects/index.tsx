@@ -1,6 +1,6 @@
 import {Clock, SlidersHorizontal} from 'lucide-react';
 import React from 'react';
-
+import TaskCard from './project/project-card';
 import NewLayout from '@/layouts/new-layout';
 
 export default function ProjectsPage() {
@@ -15,6 +15,12 @@ export default function ProjectsPage() {
           <SlidersHorizontal size={19} className="mr-2" /> Sell all
         </button>
       </div>
+      <TaskCard
+        title={'Task name'}
+        dueDate={'March 30,2023'}
+        completedTaskCount={'Completed'}
+        totalTaskCount={'20/20'}
+      />
     </>
   );
 }
