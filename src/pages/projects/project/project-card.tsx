@@ -3,8 +3,8 @@ import {FC} from 'react';
 interface ITaskCard {
   title: string;
   dueDate: string;
-  completedTaskCount: string;
-  totalTaskCount: string;
+  completedTaskCount: number;
+  totalTaskCount: number;
 }
 const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskCount}) => {
   return (
@@ -48,16 +48,18 @@ const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskC
                   <circle cx="4" cy="4" r="4" fill="#22C55E" />
                 </svg>
               </div>
-              <span className="text-[#22C55E]">{completedTaskCount}</span>
+              <span className="text-[#22C55E]">Complete</span>
             </div>
           </div>
           <div className="status">
             <div className="h-[4px] w-[366px] rounded-md bg-green-400"></div>
             <div className="flex items-center justify-between self-stretch">
-              <div className="">
-                <p>{totalTaskCount} Total Tasks</p>
+              <div>
+                <p>
+                  {totalTaskCount}/{completedTaskCount}
+                </p>
               </div>
-              <div className="">
+              <div>
                 <p>100%</p>
               </div>
             </div>
