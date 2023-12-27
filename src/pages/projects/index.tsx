@@ -26,7 +26,7 @@ export default function ProjectsPage() {
         bgColor: 'bg-gray-300'
       }))
     );
-  }, [recentProjects]);
+  }, [myList]);
 
   useEffect(() => {
     setMyProjects(
