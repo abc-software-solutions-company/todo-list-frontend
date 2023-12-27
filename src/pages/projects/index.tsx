@@ -6,18 +6,18 @@ import NewLayout from '@/layouts/new-layout';
 import TaskCard from './project/project-card';
 
 export default function ProjectsPage() {
-  const testData = [
-    {title: 'Task 1', dueDate: 'March 30,2023', completedTaskCount: 15, totalTaskCount: 20},
-    {title: 'Task 2', dueDate: 'April 15,2023', completedTaskCount: 10, totalTaskCount: 15},
-    {title: 'Task 3', dueDate: 'May 1,2023', completedTaskCount: 5, totalTaskCount: 10}
+  const recentProjects = [
+    {title: 'Project 1', dueDate: 'March 30,2023', completedTaskCount: 15, totalTaskCount: 20},
+    {title: 'Project 2', dueDate: 'April 15,2023', completedTaskCount: 10, totalTaskCount: 15},
+    {title: 'Project 3', dueDate: 'May 1,2023', completedTaskCount: 5, totalTaskCount: 10}
   ];
   const myProjects = [
-    {title: 'Task 1', dueDate: 'March 30,2023', completedTaskCount: 15, totalTaskCount: 20},
-    {title: 'Task 2', dueDate: 'April 15,2023', completedTaskCount: 10, totalTaskCount: 15},
-    {title: 'Task 3', dueDate: 'May 1,2023', completedTaskCount: 5, totalTaskCount: 10},
-    {title: 'Task 4', dueDate: 'March 30,2023', completedTaskCount: 12, totalTaskCount: 20},
-    {title: 'Task 5', dueDate: 'April 15,2023', completedTaskCount: 20, totalTaskCount: 15},
-    {title: 'Task 6', dueDate: 'May 1,2023', completedTaskCount: 8, totalTaskCount: 10}
+    {title: 'Project 1', dueDate: 'March 30,2023', completedTaskCount: 15, totalTaskCount: 20},
+    {title: 'Project 2', dueDate: 'April 15,2023', completedTaskCount: 10, totalTaskCount: 15},
+    {title: 'Project 3', dueDate: 'May 1,2023', completedTaskCount: 5, totalTaskCount: 10},
+    {title: 'Project 4', dueDate: 'March 30,2023', completedTaskCount: 12, totalTaskCount: 20},
+    {title: 'Project 5', dueDate: 'April 15,2023', completedTaskCount: 11, totalTaskCount: 15},
+    {title: 'Project 6', dueDate: 'May 1,2023', completedTaskCount: 8, totalTaskCount: 10}
   ];
 
   return (
@@ -26,7 +26,7 @@ export default function ProjectsPage() {
         <Clock size={20} className="mr-2" /> Recently viewed
       </div>
       <div className="grid grid-cols-3 gap-[24px]">
-        {testData.map((task, index) => (
+        {recentProjects.map((task, index) => (
           <TaskCard
             key={index}
             title={task.title}
