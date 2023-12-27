@@ -1,6 +1,6 @@
 import {FC} from 'react';
 
-interface ITaskCard {
+export interface ITaskCard {
   title: string;
   dueDate: string;
   completedTaskCount: number;

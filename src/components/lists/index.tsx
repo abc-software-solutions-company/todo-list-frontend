@@ -12,8 +12,8 @@ import Toolbar from './toolbar';
 
 const Lists: FC = () => {
   const {myList, favoriteList, get} = useLists();
-  const {setIsOpenModal, setSelectedTodolist} = useModals();
 
+  const {setIsOpenModal, setSelectedTodolist} = useModals();
   const onNew = () => {
     setIsOpenModal('createList');
     setSelectedTodolist();
