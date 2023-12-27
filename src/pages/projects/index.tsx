@@ -1,6 +1,6 @@
 import {Clock, SlidersHorizontal} from 'lucide-react';
 import React from 'react';
-import TaskCard from './project/project-card';
+
 import NewLayout from '@/layouts/new-layout';
 
 import TaskCard from './project/project-card';
