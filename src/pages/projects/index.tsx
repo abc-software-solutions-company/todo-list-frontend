@@ -11,15 +11,14 @@ export default function ProjectsPage() {
   const [recentProjects, setRecentProjects] = useState<ITaskCard[]>([]);
   const [myProjects, setMyProjects] = useState<ITaskCard[]>([]);
 
-  const recentlyViewed = recentProjects.slice(-3);
-
   useEffect(() => {
     get();
   }, []);
 
   useEffect(() => {
+    const recentlyViewed = myList.slice(-3);
     setRecentProjects(
-      myList.map(value => ({
+      recentlyViewed.map(value => ({
         title: value.name,
         dueDate: 'March 30,2023',
         completedTaskCount: 15,
@@ -27,7 +26,7 @@ export default function ProjectsPage() {
         bgColor: 'bg-gray-300'
       }))
     );
-  }, [myList]);
+  }, [recentProjects]);
 
   useEffect(() => {
     setMyProjects(
@@ -47,7 +46,7 @@ export default function ProjectsPage() {
         <Clock size={20} className="mr-2" /> Recently viewed
       </div>
       <div className="grid grid-cols-3 gap-[24px]">
-        {recentlyViewed.map((task, index) => (
+        {recentProjects.map((task, index) => (
           <TaskCard
             key={index}
             title={task.title}
