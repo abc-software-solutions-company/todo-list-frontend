@@ -5,11 +5,13 @@ interface ITaskCard {
   dueDate: string;
   completedTaskCount: number;
   totalTaskCount: number;
+  bgColor?: string;
 }
-const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskCount}) => {
+
+const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskCount, bgColor = 'bg-gray-300'}) => {
   return (
     <>
-      <div className=" flex w-[446px] flex-col gap-[44px] rounded-[8px] bg-gray-300 p-[40px]">
+      <div className={`flex w-[446px] flex-col gap-[44px] rounded-[8px] ${bgColor} p-[40px]`}>
         <div className="flex items-center justify-between self-stretch">
           <div className="flex w-[313.5px] flex-col items-start gap-[12px]">
             <h3 className="text-gray-950 text-20 font-roboto leading-24 font-normal">{title}</h3>
