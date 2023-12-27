@@ -9,9 +9,6 @@ export default function ProjectsPage() {
   const testData = [
     {title: 'Task 1', dueDate: 'March 30,2023', completedTaskCount: 15, totalTaskCount: 20},
     {title: 'Task 2', dueDate: 'April 15,2023', completedTaskCount: 10, totalTaskCount: 15},
-    {title: 'Task 2', dueDate: 'April 15,2023', completedTaskCount: 10, totalTaskCount: 15},
-    {title: 'Task 2', dueDate: 'April 15,2023', completedTaskCount: 10, totalTaskCount: 15},
-    {title: 'Task 2', dueDate: 'April 15,2023', completedTaskCount: 10, totalTaskCount: 15},
     {title: 'Task 3', dueDate: 'May 1,2023', completedTaskCount: 5, totalTaskCount: 10}
   ];
 
