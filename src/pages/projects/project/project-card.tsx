@@ -6,9 +6,52 @@ export interface ITaskCard {
   completedTaskCount: number;
   totalTaskCount: number;
   bgColor?: string;
+  members: {name: string}[];
 }
 
-const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskCount, bgColor = 'bg-gray-300'}) => {
+const TaskCard: FC<ITaskCard> = ({
+  title,
+  dueDate,
+  completedTaskCount,
+  totalTaskCount,
+  bgColor = 'bg-gray-300',
+  members
+}) => {
+  const renderAvatars = () => {
+    const avatarStyles = [
+      'absolute z-10 h-[32px] w-[32px] shrink-0 rounded-full bg-red-500',
+      'absolute left-[16px] z-20 h-[32px] w-[32px] shrink-0 rounded-full bg-orange-500',
+      'absolute left-[32px] z-30 h-[32px] w-[32px] shrink-0 rounded-full bg-yellow-500',
+      'absolute left-[48px] z-40 h-[32px] w-[32px] shrink-0 rounded-full bg-green-500',
+      'absolute left-[64px] z-50 h-[32px] w-[32px] shrink-0 rounded-full bg-blue-500'
+    ];
+    const avatars = members.map((member, index) => {
+      if (index < 5) {
+        const avatarStyle = avatarStyles[index];
+        const avatarInitial = member.name.charAt(0).toUpperCase();
+
+        return (
+          <div key={index} className={avatarStyle}>
+            <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center text-white">
+              {avatarInitial}
+            </p>
+          </div>
+        );
+      } else if (index === 5) {
+        return (
+          <div
+            key={index}
+            className="absolute left-[80px] z-[60] flex h-[32px] w-[32px] shrink-0 items-center justify-center rounded-full bg-white"
+          >
+            <p className="absolute"> +{members.length - index}</p>
+          </div>
+        );
+      }
+      return null;
+    });
+
+    return avatars;
+  };
   return (
     <>
       <div className={`flex w-[446px] flex-col gap-[44px] rounded-[8px] ${bgColor} p-[40px]`}>
@@ -33,14 +76,7 @@ const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskC
           <div className="flex items-center justify-between self-stretch">
             <div className="mb-6">
               <div className="relative flex">
-                <div className="absolute z-10 h-[32px] w-[32px] shrink-0 rounded-full bg-white"></div>
-                <div className="absolute left-[16px] z-20 h-[32px] w-[32px] shrink-0 rounded-full bg-neutral-600"></div>
-                <div className="absolute left-[32px] z-30 h-[32px] w-[32px] shrink-0 rounded-full bg-slate-700"></div>
-                <div className="absolute left-[48px] z-40 h-[32px] w-[32px] shrink-0 rounded-full bg-orange-200"></div>
-                <div className=" absolute left-[64px] z-50 h-[32px] w-[32px] shrink-0 rounded-full bg-orange-600"></div>
-                <div className=" absolute left-[80px] z-[60] flex h-[32px] w-[32px] shrink-0 items-center justify-center rounded-full bg-white">
-                  <p className="absolute">+4</p>
-                </div>
+                <p>{renderAvatars()}</p>
               </div>
             </div>
 
@@ -71,4 +107,5 @@ const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskC
     </>
   );
 };
+
 export default TaskCard;

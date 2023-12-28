@@ -11,6 +11,17 @@ export default function ProjectsPage() {
   const [recentProjects, setRecentProjects] = useState<ITaskCard[]>([]);
   const [myProjects, setMyProjects] = useState<ITaskCard[]>([]);
 
+  const membersData = [
+    {name: 'Long Hoang'},
+    {name: 'Khoa Nguyen'},
+    {name: 'Anh Nguyen'},
+    {name: 'Huy Ngo'},
+    {name: 'Loi Huynh'},
+    {name: 'Hung Le'},
+    {name: 'Truc Duong'},
+    {name: 'Gabimaru'}
+  ];
+
   useEffect(() => {
     get();
   }, []);
@@ -23,7 +34,8 @@ export default function ProjectsPage() {
         dueDate: 'March 30,2023',
         completedTaskCount: 15,
         totalTaskCount: 20,
-        bgColor: 'bg-gray-300'
+        bgColor: 'bg-gray-300',
+        members: membersData
       }))
     );
   }, [myList]);
@@ -35,7 +47,8 @@ export default function ProjectsPage() {
         dueDate: 'March 30,2023',
         completedTaskCount: 15,
         totalTaskCount: 20,
-        bgColor: 'bg-blue-300'
+        bgColor: 'bg-blue-300',
+        members: membersData
       }))
     );
   }, [myList]);
@@ -54,6 +67,7 @@ export default function ProjectsPage() {
             completedTaskCount={12}
             totalTaskCount={30}
             bgColor="bg-gray-300"
+            members={task.members}
           />
         ))}
       </div>
@@ -72,6 +86,7 @@ export default function ProjectsPage() {
             completedTaskCount={task.completedTaskCount}
             totalTaskCount={task.totalTaskCount}
             bgColor={task.bgColor}
+            members={task.members}
           />
         ))}
       </div>
