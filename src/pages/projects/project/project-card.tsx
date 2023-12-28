@@ -46,15 +46,20 @@ const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskC
             </div>
 
             <div className="flex items-center gap-2">
-              <div className="">
-                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                  <circle cx="4" cy="4" r="4" fill="#22C55E" />
-                </svg>
-              </div>
               {percent < 100 ? (
-                <span className="text-orange-600">In Progress</span>
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                    <circle cx="4" cy="4" r="4" fill="#F27D52" />
+                  </svg>
+                  <span className="text-orange-600">In Progress</span>
+                </>
               ) : (
-                <span className="text-[#22C55E]">Complete</span>
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                    <circle cx="4" cy="4" r="4" fill="#22C55E" />
+                  </svg>
+                  <span className="text-[#22C55E]">Complete</span>
+                </>
               )}
             </div>
           </div>
