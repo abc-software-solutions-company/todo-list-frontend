@@ -2,34 +2,47 @@ import {Clock, SlidersHorizontal} from 'lucide-react';
 import React, {useEffect, useState} from 'react';
 
 import NewLayout from '@/layouts/new-layout';
-import TaskCard, {ITaskCard} from './project/project-card';
 import useLists from '@/states/lists/use-lists';
+
+import TaskCard, {ITaskCard} from './project/project-card';
 
 export default function ProjectsPage() {
   const {myList, get} = useLists();
+  const [recentProjects, setRecentProjects] = useState<ITaskCard[]>([]);
   const [myProjects, setMyProjects] = useState<ITaskCard[]>([]);
-
-  const recentProjects = [
-    {title: 'Project 1', dueDate: 'March 30,2023', completedTaskCount: 15, totalTaskCount: 20},
-    {title: 'Project 2', dueDate: 'April 15,2023', completedTaskCount: 10, totalTaskCount: 15},
-    {title: 'Project 3', dueDate: 'May 1,2023', completedTaskCount: 5, totalTaskCount: 10}
-  ];
 
   useEffect(() => {
     get();
   }, []);
 
   useEffect(() => {
+    const recentlyViewed = myList.slice(-3);
+    setRecentProjects(
+      recentlyViewed.map(value => ({
+        title: value.name,
+        dueDate: 'March 30,2023',
+        completedTaskCount: 15,
+        totalTaskCount: 20,
+        bgColor: 'bg-gray-300'
+      }))
+    );
+  }, [myList]);
+
+  useEffect(() => {
     setMyProjects(
       myList.map(value => ({
         title: value.name,
         dueDate: 'March 30,2023',
-        completedTaskCount: 15,
+        completedTaskCount: 20,
         totalTaskCount: 20,
         bgColor: 'bg-blue-300'
       }))
     );
   }, [myList]);
+
+  useEffect(() => {
+    get();
+  }, []);
 
   return (
     <>
@@ -37,13 +50,13 @@ export default function ProjectsPage() {
         <Clock size={20} className="mr-2" /> Recently viewed
       </div>
       <div className="grid grid-cols-3 gap-[24px]">
-        {myProjects.map((task, index) => (
+        {recentProjects.map((task, index) => (
           <TaskCard
             key={index}
             title={task.title}
             dueDate={'March 30,2023'}
-            completedTaskCount={12}
-            totalTaskCount={30}
+            completedTaskCount={task.completedTaskCount}
+            totalTaskCount={task.totalTaskCount}
             bgColor="bg-gray-300"
           />
         ))}
