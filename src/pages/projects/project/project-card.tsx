@@ -77,4 +77,3 @@ const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskC
   );
 };
 export default TaskCard;
-`
