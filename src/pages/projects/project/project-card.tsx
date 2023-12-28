@@ -9,7 +9,7 @@ interface ITaskCard {
 const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskCount}) => {
   return (
     <>
-      <div className=" flex w-[446px] flex-col gap-[44px] rounded-[8px] bg-gray-300 p-[40px]">
+      <div className="mr-3 flex w-[446px] flex-col gap-[44px] rounded-[8px] bg-gray-300 p-[40px]">
         <div className="flex items-center justify-between self-stretch">
           <div className="flex w-[313.5px] flex-col items-start gap-[12px]">
             <h3 className="text-gray-950 text-20 font-roboto leading-24 font-normal">{title}</h3>
@@ -52,7 +52,14 @@ const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskC
             </div>
           </div>
           <div className="status">
-            <div className="h-[4px] w-[366px] rounded-md bg-green-400"></div>
+            <div
+              className="h-[4px] w-[366px] rounded-md"
+              style={{
+                background: `linear-gradient(to right, #22C55E ${
+                  (completedTaskCount / totalTaskCount) * 100
+                }%, #7B8794 0%)`
+              }}
+            ></div>
             <div className="flex items-center justify-between self-stretch">
               <div>
                 <p>

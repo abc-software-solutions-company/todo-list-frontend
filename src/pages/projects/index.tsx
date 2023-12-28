@@ -23,16 +23,17 @@ export default function ProjectsPage() {
           <SlidersHorizontal size={19} className="mr-2" /> Sell all
         </button>
       </div>
-
-      {testData.map((task, index) => (
-        <TaskCard
-          key={index}
-          title={task.title}
-          dueDate={task.dueDate}
-          completedTaskCount={task.completedTaskCount}
-          totalTaskCount={task.totalTaskCount}
-        />
-      ))}
+      <div className=" flex">
+        {testData.map((task, index) => (
+          <TaskCard
+            key={index}
+            title={task.title}
+            dueDate={task.dueDate}
+            completedTaskCount={task.completedTaskCount}
+            totalTaskCount={task.totalTaskCount}
+          />
+        ))}
+      </div>
     </>
   );
 }
