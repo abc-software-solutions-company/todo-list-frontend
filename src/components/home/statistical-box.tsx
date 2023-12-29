@@ -7,7 +7,6 @@ export interface IStaticsBoxProps {
   statis: string;
   icon1: ReactNode;
   icon2: ReactNode;
-  className?: string;
 }
 
 const StaticsBox: FC<IStaticsBoxProps> = ({ bgColor, percent, statis, title, icon1, icon2 }) => {
