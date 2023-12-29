@@ -33,12 +33,16 @@ export default function ProjectsPage() {
       myList.map(value => ({
         title: value.name,
         dueDate: 'March 30,2023',
-        completedTaskCount: 15,
+        completedTaskCount: 20,
         totalTaskCount: 20,
         bgColor: 'bg-blue-300'
       }))
     );
   }, [myList]);
+
+  useEffect(() => {
+    get();
+  }, []);
 
   return (
     <>
@@ -51,8 +55,8 @@ export default function ProjectsPage() {
             key={index}
             title={task.title}
             dueDate={'March 30,2023'}
-            completedTaskCount={12}
-            totalTaskCount={30}
+            completedTaskCount={task.completedTaskCount}
+            totalTaskCount={task.totalTaskCount}
             bgColor="bg-gray-300"
           />
         ))}

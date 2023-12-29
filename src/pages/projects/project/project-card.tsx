@@ -9,6 +9,7 @@ export interface ITaskCard {
 }
 
 const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskCount, bgColor = 'bg-gray-300'}) => {
+  const percent = Math.round((completedTaskCount / totalTaskCount) * 100);
   return (
     <>
       <div className={`flex w-[446px] flex-col gap-[44px] rounded-[8px] ${bgColor} p-[40px]`}>
@@ -45,16 +46,25 @@ const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskC
             </div>
 
             <div className="flex items-center gap-2">
-              <div className="">
-                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                  <circle cx="4" cy="4" r="4" fill="#22C55E" />
-                </svg>
-              </div>
-              <span className="text-[#22C55E]">Complete</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                <circle cx="4" cy="4" r="4" fill={percent < 100 ? '#FF9900' : '#22C55E'} />
+              </svg>
+              {percent < 100 ? (
+                <span className="text-orange-500">In Progress</span>
+              ) : (
+                <span className="text-[#22C55E]">Complete</span>
+              )}
             </div>
           </div>
           <div className="status">
-            <div className="h-[4px] w-[366px] rounded-md bg-green-400"></div>
+            <div
+              className="h-[4px] w-[366px] rounded-md"
+              style={{
+                background: `linear-gradient(to right, #22C55E ${
+                  (completedTaskCount / totalTaskCount) * 100
+                }%, #7B8794 0%)`
+              }}
+            ></div>
             <div className="flex items-center justify-between self-stretch">
               <div>
                 <p>
@@ -62,7 +72,7 @@ const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskC
                 </p>
               </div>
               <div>
-                <p>{((completedTaskCount / totalTaskCount) * 100).toFixed(0)}%</p>
+                <p>{percent}%</p>
               </div>
             </div>
           </div>
