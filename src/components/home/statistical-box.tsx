@@ -32,13 +32,13 @@ const StaticsBox: FC<IStaticsBoxProps> = ({ bgColor, percent, statis, title, ico
   }
 
   return (
-    <div className={`flex items-center justify-center w-[446px] h-[164px] rounded-[8px] ${bgColor} p-[40px]`}>
+    <div className={`flex items-center justify-center w-[446px] h-[164px] rounded-[8px] ${bgColor} p-[40px] mt-7 mr-5`}>
       <div className="flex flex-col items-center gap-[2px]">
-        <div className="flex items-center gap-[100px] justify-between w-full">
+        <div className="flex items-center gap-[150px] justify-between w-full mr-6">
           <h3 style={titleStyle}>{title}</h3>
           <div className="flex items-center justify-center h-[22px] w-[22px] opacity-50">{icon1}</div>
         </div>
-        <div className="flex items-center gap-[150px] justify-between w-full mt-[20px]">
+        <div className="flex items-center gap-[150px] justify-between w-full mt-[20px] mr-6">
           <div style={statisStyle}>
             <span style={{ fontSize: '28px' }}>{firstPart}</span>
             {secondPart && (
