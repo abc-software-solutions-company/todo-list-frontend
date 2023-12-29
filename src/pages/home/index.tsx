@@ -4,7 +4,7 @@ export default function Home() {
   const listStaticsBox: IStaticsBoxProps[] = [
     {
       title: "Current Project",
-      bgColor: "bg-blue-200",
+      bgColor: "bg-blue-300",
       percent: "+122",
       statis: "200",
       icon2: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-trending-up"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /><polyline points="16 7 22 7 22 13" /></svg>,
@@ -12,7 +12,7 @@ export default function Home() {
     },
     {
       title: "Task to day",
-      bgColor: "bg-blue-300",
+      bgColor: "bg-blue-400",
       percent: "+122",
       statis: "15/20",
       icon2: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-trending-up"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /><polyline points="16 7 22 7 22 13" /></svg>,
@@ -20,7 +20,7 @@ export default function Home() {
     },
     {
       title: "Work productivity",
-      bgColor: "bg-blue-200",
+      bgColor: "bg-blue-300",
       percent: "-0,22",
       statis: "70/100",
       icon2: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-trending-down"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>,
