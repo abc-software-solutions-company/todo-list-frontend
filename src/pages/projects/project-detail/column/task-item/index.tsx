@@ -27,7 +27,7 @@ const TaskItem: FC<ITaskItem> = ({
   members,
   hasBorder
 }) => {
-  const assigneeId = assignees.filter(e => e.isActive)[0]?.userId;
+  const assigneeId = assignees.find(e => e.isActive)?.userId;
   const {optionActive} = useMemberOptions(members, assigneeId);
 
   return (
