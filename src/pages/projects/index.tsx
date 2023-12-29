@@ -78,7 +78,7 @@ export default function ProjectsPage() {
       <div className="flex justify-between">
         <div className="mt-8 mb-4 font-bold">My project</div>
         <button className="flex items-center text-sm font-semibold">
-          <SlidersHorizontal size={19} className="mr-2" /> Sell all
+          <SlidersHorizontal size={19} className="mr-2" /> See all
         </button>
       </div>
       <div className="grid grid-cols-3 gap-[24px]">
