@@ -60,7 +60,7 @@ const TaskCard: FC<ITaskCard> = ({title, dueDate, completedTaskCount, totalTaskC
             <div
               className="h-[4px] w-[366px] rounded-md"
               style={{
-                background: `linear-gradient(to right, ${percent < 100 ? '#FF9900' : '#22C55E'} ${
+                background: `linear-gradient(to right, #22C55E ${
                   (completedTaskCount / totalTaskCount) * 100
                 }%, #7B8794 0%)`
               }}
