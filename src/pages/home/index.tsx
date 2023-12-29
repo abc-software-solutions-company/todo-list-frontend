@@ -29,9 +29,9 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex flex-col items-center">
-      <div>
-        <div className="flex gap-3">
+    <main className="h-full w-full">
+      <div className="px-4 py-6">
+        <div className="flex gap-x-6 items-center w-full">
           {listStaticsBox.map((Statics, index) => (
             <StaticsBox
               bgColor={Statics.bgColor}
