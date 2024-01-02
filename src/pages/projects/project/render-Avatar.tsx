@@ -1,10 +1,10 @@
 import {FC} from 'react';
 
-interface RenderAvatarsProps {
-  members: {name: string}[];
+interface AvatarsProps {
+  names: string[];
 }
 
-const RenderAvatars: FC<RenderAvatarsProps> = ({members}) => {
+const Avatars: FC<AvatarsProps> = ({names}) => {
   const avatarStyles = [
     'absolute z-10 h-[32px] w-[32px] shrink-0 rounded-full bg-red-500',
     'absolute left-[16px] z-20 h-[32px] w-[32px] shrink-0 rounded-full bg-orange-500',
@@ -13,10 +13,10 @@ const RenderAvatars: FC<RenderAvatarsProps> = ({members}) => {
     'absolute left-[64px] z-50 h-[32px] w-[32px] shrink-0 rounded-full bg-blue-500'
   ];
 
-  const avatars = members.map((member, index) => {
+  const avatars = names.map((name, index) => {
     if (index < 5) {
       const avatarStyle = avatarStyles[index];
-      const avatarInitial = member.name.charAt(0).toUpperCase();
+      const avatarInitial = name.charAt(0).toUpperCase();
 
       return (
         <div key={index} className={avatarStyle}>
@@ -31,7 +31,7 @@ const RenderAvatars: FC<RenderAvatarsProps> = ({members}) => {
           key={index}
           className="absolute left-[80px] z-[60] flex h-[32px] w-[32px] shrink-0 items-center justify-center rounded-full bg-white"
         >
-          <p className="absolute"> +{members.length - index}</p>
+          <p className="absolute"> +{name.length - index}</p>
         </div>
       );
     }
@@ -41,4 +41,4 @@ const RenderAvatars: FC<RenderAvatarsProps> = ({members}) => {
   return <div>{avatars}</div>;
 };
 
-export default RenderAvatars;
+export default Avatars;

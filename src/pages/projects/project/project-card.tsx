@@ -1,6 +1,6 @@
 import {FC} from 'react';
 
-import RenderAvatars from './render-Avatar';
+import Avatars from './render-Avatar';
 
 export interface IProjectCardProps {
   title: string;
@@ -19,6 +19,7 @@ const ProjectCard: FC<IProjectCardProps> = ({
   bgColor = 'bg-gray-300',
   members
 }) => {
+  const memberNames = members.map(member => member.name);
   const percent = Math.round((completedTaskCount / totalTaskCount) * 100);
 
   return (
@@ -44,7 +45,7 @@ const ProjectCard: FC<IProjectCardProps> = ({
         <div className="flex items-center justify-between self-stretch">
           <div className="mb-6">
             <div className="relative flex">
-              <RenderAvatars members={members} />
+              <Avatars names={memberNames} />
             </div>
           </div>
 
