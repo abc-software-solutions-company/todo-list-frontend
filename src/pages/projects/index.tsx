@@ -4,12 +4,12 @@ import React, {useEffect, useState} from 'react';
 import NewLayout from '@/layouts/new-layout';
 import useLists from '@/states/lists/use-lists';
 
-import TaskCard, {ITaskCard} from './project/project-card';
+import TaskCard, {IProjectCardProps} from './project/project-card';
 
 export default function ProjectsPage() {
   const {myList, get} = useLists();
-  const [recentProjects, setRecentProjects] = useState<ITaskCard[]>([]);
-  const [myProjects, setMyProjects] = useState<ITaskCard[]>([]);
+  const [recentProjects, setRecentProjects] = useState<IProjectCardProps[]>([]);
+  const [myProjects, setMyProjects] = useState<IProjectCardProps[]>([]);
 
   const membersData = [
     {name: 'Long Hoang'},
@@ -62,7 +62,7 @@ export default function ProjectsPage() {
       <div className="mt-8 mb-4 flex items-center font-bold">
         <Clock size={20} className="mr-2" /> Recently viewed
       </div>
-      <div className="grid grid-cols-3 gap-[24px]">
+      <div className="grid gap-[24px] sm:grid-cols-1 md:shrink-0 md:grid-cols-2 lg:grid-cols-3">
         {recentProjects.map((task, index) => (
           <TaskCard
             key={index}
@@ -81,7 +81,7 @@ export default function ProjectsPage() {
           <SlidersHorizontal size={19} className="mr-2" /> Sell all
         </button>
       </div>
-      <div className="grid grid-cols-3 gap-[24px]">
+      <div className="grid gap-[24px] sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {myProjects.map((task, index) => (
           <TaskCard
             key={index}
