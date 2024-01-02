@@ -32,7 +32,7 @@ export default function ProjectsPage() {
       recentlyViewed.map(value => ({
         title: value.name,
         dueDate: 'March 30,2023',
-        completedTaskCount: 15,
+        completedTaskCount: 10,
         totalTaskCount: 20,
         bgColor: 'bg-gray-300',
         members: membersData

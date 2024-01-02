@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import {FC, useState} from 'react';
 
 export interface ITaskCard {
   title: string;
@@ -94,9 +94,9 @@ const TaskCard: FC<ITaskCard> = ({
           </div>
           <div className="status">
             <div
-              className="h-[4px] w-[366px] rounded-md"
+              className="h-1 w-full rounded-md"
               style={{
-                background: `linear-gradient(to right, #22C55E ${
+                background: `linear-gradient(to right, ${percent < 100 ? '#FF9900' : '#22C55E'} ${
                   (completedTaskCount / totalTaskCount) * 100
                 }%, #7B8794 0%)`
               }}
