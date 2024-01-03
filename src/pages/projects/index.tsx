@@ -4,12 +4,23 @@ import React, {useEffect, useState} from 'react';
 import NewLayout from '@/layouts/new-layout';
 import useLists from '@/states/lists/use-lists';
 
-import TaskCard, {ITaskCard} from './project/project-card';
+import TaskCard, {IProjectCardProps} from './project/project-card';
 
 export default function ProjectsPage() {
   const {myList, get} = useLists();
-  const [recentProjects, setRecentProjects] = useState<ITaskCard[]>([]);
-  const [myProjects, setMyProjects] = useState<ITaskCard[]>([]);
+  const [recentProjects, setRecentProjects] = useState<IProjectCardProps[]>([]);
+  const [myProjects, setMyProjects] = useState<IProjectCardProps[]>([]);
+
+  const membersData = [
+    {name: 'Long Hoang'},
+    {name: 'Khoa Nguyen'},
+    {name: 'Anh Nguyen'},
+    {name: 'Huy Ngo'},
+    {name: 'Loi Huynh'},
+    {name: 'Hung Le'},
+    {name: 'Truc Duong'},
+    {name: 'Gabimaru'}
+  ];
 
   useEffect(() => {
     get();
@@ -21,9 +32,10 @@ export default function ProjectsPage() {
       recentlyViewed.map(value => ({
         title: value.name,
         dueDate: 'March 30,2023',
-        completedTaskCount: 15,
+        completedTaskCount: 10,
         totalTaskCount: 20,
-        bgColor: 'bg-gray-300'
+        bgColor: 'bg-gray-300',
+        members: membersData
       }))
     );
   }, [myList]);
@@ -35,7 +47,8 @@ export default function ProjectsPage() {
         dueDate: 'March 30,2023',
         completedTaskCount: 20,
         totalTaskCount: 20,
-        bgColor: 'bg-blue-300'
+        bgColor: 'bg-blue-300',
+        members: membersData
       }))
     );
   }, [myList]);
@@ -49,7 +62,7 @@ export default function ProjectsPage() {
       <div className="mt-8 mb-4 flex items-center font-bold">
         <Clock size={20} className="mr-2" /> Recently viewed
       </div>
-      <div className="grid grid-cols-3 gap-[24px]">
+      <div className="grid gap-[24px] sm:grid-cols-1 md:shrink-0 md:grid-cols-2 lg:grid-cols-3">
         {recentProjects.map((task, index) => (
           <TaskCard
             key={index}
@@ -58,6 +71,7 @@ export default function ProjectsPage() {
             completedTaskCount={task.completedTaskCount}
             totalTaskCount={task.totalTaskCount}
             bgColor="bg-gray-300"
+            members={task.members}
           />
         ))}
       </div>
@@ -67,7 +81,7 @@ export default function ProjectsPage() {
           <SlidersHorizontal size={19} className="mr-2" /> Sell all
         </button>
       </div>
-      <div className="grid grid-cols-3 gap-[24px]">
+      <div className="grid gap-[24px] sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {myProjects.map((task, index) => (
           <TaskCard
             key={index}
@@ -76,6 +90,7 @@ export default function ProjectsPage() {
             completedTaskCount={task.completedTaskCount}
             totalTaskCount={task.totalTaskCount}
             bgColor={task.bgColor}
+            members={task.members}
           />
         ))}
       </div>
