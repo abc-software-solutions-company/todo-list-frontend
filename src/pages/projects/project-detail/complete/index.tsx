@@ -19,7 +19,7 @@ const CompleteColumn: FC<ICompleteColumnProps> = ({className, completeTasks, tit
     <Column
       addTask={addTask}
       className={className}
-      title={`${title} - Today`}
+      title={`${title}`}
       symbol={symbol}
       borderBotColor={'border-blue-400'}
     >

@@ -19,7 +19,7 @@ const DoingColumn: FC<IDoingColumnProps> = ({className, doingTasks, title, symbo
     <Column
       addTask={addTask}
       className={className}
-      title={`${title} - Today`}
+      title={`${title}`}
       symbol={symbol}
       borderBotColor={'border-blue-400'}
     >
