@@ -6,9 +6,9 @@ import {useStateAuth} from '@/states/auth';
 import useTodolist from '@/states/todolist/use-todolist';
 
 import {ITaskResponse} from '../../../data/api/types/task.type';
-import Column from './column';
-import AddTask from './column/add-task';
-import TaskItem from './column/task-item';
+import CompleteColumn from './complete';
+import DoingColumn from './doing';
+import TodayColumn from './today';
 
 interface IProjectDetail {
   id: string;
@@ -28,11 +28,12 @@ const ProjectDetail: FC<IProjectDetail> = ({id}) => {
   const auth = useStateAuth();
   const {todolist, getTodolist, error} = useTodolist();
 
-  const [todayTask, setTodayTask] = useState<ITaskResponse[]>([]);
-  const [doingTask, setDoingTask] = useState<ITaskResponse[]>([]);
-  const [completeTask, setCompleteTask] = useState<ITaskResponse[]>([]);
+  const today: Date = new Date();
+  const todayString = `${today.getDate()} ${today.toLocaleString('en-US', {month: 'short'})}`;
 
-  const [isAddTaskVisible, setAddTaskVisible] = useState(false);
+  const [todayTasks, setTodayTasks] = useState<ITaskResponse[]>([]);
+  const [doingTasks, setDoingTasks] = useState<ITaskResponse[]>([]);
+  const [completeTasks, setCompleteTasks] = useState<ITaskResponse[]>([]);
 
   useEffect(() => {
     if (auth) {
@@ -44,8 +45,6 @@ const ProjectDetail: FC<IProjectDetail> = ({id}) => {
 
   useEffect(() => {
     if (todolist.tasks) {
-      const today: Date = new Date();
-
       const todayTaskTemp: ITaskResponse[] = [];
       const doingTaskTemp: ITaskResponse[] = [];
       const completeTaskTemp: ITaskResponse[] = [];
@@ -62,9 +61,9 @@ const ProjectDetail: FC<IProjectDetail> = ({id}) => {
         }
       }
 
-      setTodayTask([...todayTaskTemp]);
-      setDoingTask([...doingTaskTemp]);
-      setCompleteTask([...completeTaskTemp]);
+      setTodayTasks([...todayTaskTemp]);
+      setDoingTasks([...doingTaskTemp]);
+      setCompleteTasks([...completeTaskTemp]);
     }
   }, [todolist]);
 
@@ -72,86 +71,32 @@ const ProjectDetail: FC<IProjectDetail> = ({id}) => {
   return (
     <>
       <div className={`relative flex items-start justify-start gap-6 ${'bg-slate-50'}`}>
-        <Column
+        <TodayColumn
+          title={todayString}
           addTask={() => {
-            setAddTaskVisible(!isAddTaskVisible);
+            console.log('today');
           }}
-          title={'Today'}
-          symbol={'2000'}
-          borderBotColor={'border-blue-400'}
-        >
-          {!todayTask.length ? (
-            <div className="w-96 bg-gray-50 py-6 px-5">No Task!</div>
-          ) : (
-            todayTask.map((task, index) => (
-              <TaskItem
-                key={index}
-                // description={task.description}
-                description="
-                      Lorem ipsum dolor sit amet consectet. Sed diam sociis odio neque amet sed gravida amet consecte tre
-                      "
-                title={task.name}
-                assignees={task.assignees}
-                members={todolist.members}
-              />
-            ))
-          )}
-        </Column>
-        <Column
+          members={todolist.members}
+          symbol="2000"
+          todayTasks={todayTasks}
+        />
+        <DoingColumn
+          title="Doing"
+          symbol="2"
+          members={todolist.members}
+          doingTasks={doingTasks}
           addTask={() => {
-            setAddTaskVisible(!isAddTaskVisible);
+            console.log('doing');
           }}
-          title={'Doing'}
-          symbol={'2'}
-          borderBotColor={'border-yellow-500'}
-        >
-          {!doingTask.length ? (
-            <div className="w-96 bg-gray-50 py-6 px-5">No Task!</div>
-          ) : (
-            doingTask.map((task, index) => (
-              <TaskItem
-                key={index}
-                // description={task.description}
-                description="
-                    Lorem ipsum dolor sit amet consectet. Sed diam sociis odio neque amet sed gravida amet consecte tre
-                    "
-                title={task.name}
-                assignees={task.assignees}
-                members={todolist.members}
-              />
-            ))
-          )}
-        </Column>
-        <Column
-          addTask={() => {
-            setAddTaskVisible(!isAddTaskVisible);
-          }}
+        />
+        <CompleteColumn
           title={'Complete'}
           symbol={'2'}
-          borderBotColor={'border-green-500'}
-        >
-          {!completeTask.length! ? (
-            <div className="w-96 bg-gray-50 py-6 px-5">No Task!</div>
-          ) : (
-            completeTask.map((task, index) => (
-              <TaskItem
-                key={index}
-                // description={task.description}
-                description="
-                    Lorem ipsum dolor sit amet consectet. Sed diam sociis odio neque amet sed gravida amet consecte tre
-                    "
-                title={task.name}
-                assignees={task.assignees}
-                members={todolist.members}
-              />
-            ))
-          )}
-        </Column>
-        <AddTask
-          isShow={isAddTaskVisible}
-          onClick={() => {
-            setAddTaskVisible(!isAddTaskVisible);
+          addTask={() => {
+            console.log('complete');
           }}
+          members={todolist.members}
+          completeTasks={completeTasks}
         />
       </div>
     </>

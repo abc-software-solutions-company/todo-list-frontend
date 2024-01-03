@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, {FC} from 'react';
 
 import Icon from '@/core-ui/icon';
@@ -45,7 +46,7 @@ const TaskItem: FC<ITaskItem> = ({
         <div className="flex flex-col items-start justify-start gap-3">
           {beforeTitleImageSrc !== undefined && (
             <div className="flex flex-col items-start justify-start gap-3">
-              <img className="h-36 w-72 rounded-lg" src={beforeTitleImageSrc} />
+              <Image className="h-36 w-72 rounded-lg" src={beforeTitleImageSrc} alt="" />
             </div>
           )}
           <div className="inline-flex items-center justify-start gap-3 self-stretch">
@@ -62,10 +63,10 @@ const TaskItem: FC<ITaskItem> = ({
             <div className="flex items-start justify-start gap-1">
               {typeof afterTitleImageSrc !== 'string' ? (
                 afterTitleImageSrc.map((src, index) => (
-                  <img key={index} src={src} className="h-32 w-36 rounded-lg"></img>
+                  <Image key={index} src={src} className="h-32 w-36 rounded-lg" alt=""></Image>
                 ))
               ) : (
-                <img src={afterTitleImageSrc} className="h-32 w-72 rounded-lg"></img>
+                <Image src={afterTitleImageSrc} className="h-32 w-72 rounded-lg" alt=""></Image>
               )}
             </div>
           )}
@@ -82,17 +83,9 @@ const TaskItem: FC<ITaskItem> = ({
         <div className="inline-flex items-end justify-between self-stretch">
           <div className="flex items-center justify-center">
             <div className="relative flex h-8 w-8">
-              {/* <div className="absolute z-10 h-[32px] w-[32px] shrink-0 rounded-full bg-sky-300"></div>
-              <div className="absolute left-[16px] z-20 h-[32px] w-[32px] shrink-0 rounded-full bg-neutral-600"></div>
-              <div className="absolute left-[32px] z-30 h-[32px] w-[32px] shrink-0 rounded-full bg-slate-700"></div>
-              <div className="absolute left-[48px] z-40 h-[32px] w-[32px] shrink-0 rounded-full bg-orange-200"></div>
-              <div className=" absolute left-[64px] z-50 h-[32px] w-[32px] shrink-0 rounded-full bg-orange-600"></div>
-              <div className=" absolute left-[80px] z-[60] flex h-[32px] w-[32px] shrink-0 items-center justify-center rounded-full bg-white">
-                <p className="absolute">+4</p>
-              </div> */}
               {assignees.map((assignee, index) => (
-                <div key={index} className={`absolute left-[${16 * (index + 1)}px]`}>
-                  <AssigneeIcon name={optionActive?.name} bg={optionActive?.bg}></AssigneeIcon>
+                <div key={index} className={`absolute left-[${16 * index}px]`}>
+                  <AssigneeIcon name={optionActive?.name} bg={optionActive?.bg} />
                 </div>
               ))}
             </div>

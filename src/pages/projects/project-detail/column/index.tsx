@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, {FC} from 'react';
 
-import AddTaskButton from './add-task/button';
+import AddTaskButton from './add-task-btn';
 
 export interface IColumn {
   title: string;
@@ -12,9 +12,11 @@ export interface IColumn {
   addTask: () => void;
 }
 
-const Column: FC<IColumn> = ({title, symbol, borderBotColor, children, addTask}) => {
+const Column: FC<IColumn> = ({className, title, symbol, borderBotColor, children, addTask}) => {
   return (
-    <div className={`flex flex-col items-start justify-start gap-3 rounded-xl bg-gray-50 py-6 px-5 shadow`}>
+    <div
+      className={`${className} flex flex-col items-start justify-start gap-3 rounded-xl bg-gray-50 py-6 px-5 shadow`}
+    >
       <div
         className={`flex items-start justify-start gap-1 self-stretch border-b-2 py-3 ${classNames} ${borderBotColor}`}
       >
