@@ -9,7 +9,7 @@ interface IActiBottom {
 const ActiBottom: FC<IActiBottom> = ({type}) => {
   
   return (
-    <div className="flex items-start justify-between self-stretch w-[266px]">
+    <div className="flex items-start justify-between self-stretch w-full">
       <ActiBottomContent type={type} />
     </div>
   );

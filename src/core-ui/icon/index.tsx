@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import React, {FC, HTMLAttributes} from 'react';
+import React, {CSSProperties, FC, HTMLAttributes} from 'react';
 
 import {IconSizeType} from '../types';
 
@@ -8,7 +8,7 @@ interface IProps {
   name: string;
   size?: IconSizeType;
   onClick?: () => void;
-  style?: HTMLAttributes<HTMLElement>;
+  style?: CSSProperties
 }
 
 const Icon: FC<IProps> = ({className, name, size = 24, onClick, style}) => {

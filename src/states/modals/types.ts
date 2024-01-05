@@ -24,6 +24,7 @@ export interface IInitialState {
     createDocument: boolean;
     updateDocument: boolean;
     testModal: boolean;
+    searchModal: boolean;
   };
 }
 

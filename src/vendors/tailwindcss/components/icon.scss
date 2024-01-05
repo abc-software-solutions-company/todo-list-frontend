@@ -30,4 +30,7 @@
   &.size-48:before {
     @apply text-[48px];
   }
+  &.size-64:before {
+    @apply text-[64px];
+  }
 }

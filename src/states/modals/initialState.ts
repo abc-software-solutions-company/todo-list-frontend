@@ -13,7 +13,8 @@ export const isOpenModal = {
   shareTask: false,
   updateUser: false,
   updateTask: false,
-  testModal: false
+  testModal: false,
+  searchModal: false
 };
 
 const initialState: IInitialState = {

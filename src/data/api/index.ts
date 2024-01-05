@@ -40,6 +40,7 @@ const api = {
   },
   task: {
     get: () => http.get<ITaskResponse[]>(API_ENDPOINTS.TASK),
+    search: (query: string) => http.get<ITaskResponse[]>(API_ENDPOINTS.TASK + `/search?name=${query}`),
     getOne: ({id}: ITaskGet) => http.get<ITaskResponse>(API_ENDPOINTS.TASK + '/' + id),
     findOrtherTaks: (taskId: string, todolistId: string) =>
       http.post<ITaskResponse[]>(API_ENDPOINTS.TASK + '/find-orther-tasks', {taskId, todolistId}),

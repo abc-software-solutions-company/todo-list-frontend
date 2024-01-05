@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Activity from './activity/Activity';
+import Activity from './activity';
 
 interface IActivities {
 

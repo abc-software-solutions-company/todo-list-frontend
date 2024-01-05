@@ -24,9 +24,9 @@ const Navigation: FC = () => {
         <div className={style['menu-bar-right']}>
           {/* <div className="search-box">
             <input placeholder="Search" />
-          </div> */}
+            </div> */}
+          </div>
         </div>
-      </div>
     </div>
   );
 };

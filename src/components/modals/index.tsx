@@ -17,6 +17,7 @@ import ModalShareTask from './task/modal-share';
 import ModalUpdateTask from './task/modal-update';
 import ModalUpdateUser from './user/modal-update';
 import ModalCreateTest from './test/modal-create';
+import ModalSearch from './search';
 
 const Modals = () => {
   const auth = useStateAuth();
@@ -51,6 +52,9 @@ const Modals = () => {
 
   return (
     <>
+      {/* Modal test */}
+      <ModalSearch open={isOpenModal.searchModal} onClose={onClose} />
+
       {/* Modal test */}
       <ModalCreateTest open={isOpenModal.testModal} onClose={onClose} />
 

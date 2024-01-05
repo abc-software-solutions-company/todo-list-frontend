@@ -1,0 +1,15 @@
+.list-tasks-head {
+  @apply flex items-start gap-1 self-stretch border-b-[3px] py-3;
+
+  &.border-today {
+    border-color: theme('colors.blue.400');
+  }
+
+  &.border-doing {
+    border-color: theme('colors.yellow.500');
+  }
+
+  &.border-complete {
+    border-color: theme('colors.green.500');
+  }
+}

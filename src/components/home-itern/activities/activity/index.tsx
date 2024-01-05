@@ -2,8 +2,8 @@ import {FC} from 'react';
 import cls from 'classnames';
 import styles from './style.module.scss';
 import { ISetActivity } from './type';
-import ActiTop from '../acti-top/ActiTop';
-import ActiBottom from '../acti-bottom/ActiBottom';
+import ActiTop from '../acti-top';
+import ActiBottom from '../acti-bottom';
 
 interface IActivity {
   type: ISetActivity,

@@ -1,0 +1,14 @@
+.card-item :global {
+  @apply flex flex-col items-start gap-11 p-10;
+  @apply rounded-lg;
+
+
+  .images-stack:not(:first-child) {
+    @apply -mx-3 rounded-full;
+  }
+  .images-stack:first-child {
+    @apply -mr-3 rounded-full;  
+  }
+}
+
+  

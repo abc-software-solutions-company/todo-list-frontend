@@ -12,6 +12,11 @@ const TopBarRightIntern: FC = () => {
     setIsOpenModal('testModal');
     setSelectedTodolist();
   };
+
+  const onSearch = () => {
+    setIsOpenModal('searchModal');
+  };
+
   return (
     <div className="flex items-center justify-end gap-6">
       <div className="relative">
@@ -19,8 +24,12 @@ const TopBarRightIntern: FC = () => {
           type="search"
           placeholder="search..."
           className="position w-[335px] gap-2 rounded-lg bg-gray-200 py-3 px-4 pl-10"
+          onFocus={onSearch}
         />
-        <Icon name="ico-search" className="ps-3 pointer-events-none absolute inset-y-0 left-2 flex items-center" />
+        <Icon
+          name="ico-search"
+          className="ps-3 pointer-events-none absolute inset-y-0 left-2 flex items-center"
+        />
       </div>
 
       <Button className="flex items-center justify-center gap-2 rounded-lg border border-blue-700 py-4 px-3">
