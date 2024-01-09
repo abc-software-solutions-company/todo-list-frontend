@@ -5,7 +5,7 @@ import socket from '@/data/socket';
 import {useStateAuth} from '@/states/auth';
 import useTodolist from '@/states/todolist/use-todolist';
 
-import {ITaskResponse} from '../../../data/api/types/task.type';
+import {ITaskResponse} from '@/data/api/types/task.type';
 import CompleteColumn from './complete';
 import DoingColumn from './doing';
 import TodayColumn from './today';

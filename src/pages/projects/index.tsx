@@ -3,8 +3,8 @@ import React, {useEffect, useState} from 'react';
 
 import NewLayout from '@/layouts/new-layout';
 import useLists from '@/states/lists/use-lists';
-
-import TaskCard, {IProjectCardProps} from './project/project-card';
+import {IProjectCardProps} from '@/components/project/project-card';
+import ProjectCard from '@/components/project/project-card';
 
 export default function ProjectsPage() {
   const {myList, get} = useLists();
@@ -64,7 +64,7 @@ export default function ProjectsPage() {
       </div>
       <div className="grid gap-[24px] sm:grid-cols-1 md:shrink-0 md:grid-cols-2 lg:grid-cols-3">
         {recentProjects.map((task, index) => (
-          <TaskCard
+          <ProjectCard
             key={index}
             title={task.title}
             dueDate={'March 30,2023'}
@@ -83,7 +83,7 @@ export default function ProjectsPage() {
       </div>
       <div className="grid gap-[24px] sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {myProjects.map((task, index) => (
-          <TaskCard
+          <ProjectCard
             key={index}
             title={task.title}
             dueDate={task.dueDate}
