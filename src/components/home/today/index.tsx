@@ -8,6 +8,7 @@ import {ITaskResponse} from '@/data/api/types/task.type';
 import TodayColumn from '@/components/project-detail/today';
 import DoingColumn from '@/components/project-detail/doing';
 import CompleteColumn from '@/components/project-detail/complete';
+import AddTaskButton from '@/components/project-detail/column/add-task-btn';
 
 interface ITodayProps {
   className?: string | undefined;
@@ -87,6 +88,7 @@ const Today: FC<ITodayProps> = ({className}) => {
                 />
               ))
             ))}
+          <AddTaskButton className="ml-auto" />
         </div>
       </div>
     );

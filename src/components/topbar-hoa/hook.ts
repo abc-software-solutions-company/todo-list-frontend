@@ -11,12 +11,13 @@ const useTopbarIntern = () => {
   const [socialOpen, setSocialOpen] = useState(false);
   const handleSocial = () => setSocialOpen(true);
   const currentPage = router.pathname;
+  const path = router.asPath;
+  const {id} = router.query;
 
   const getPageName = () => {
     const checkPage = LocalStorage.checkPage.get();
     console.log(checkPage);
-    
-  }
+  };
 
   const returnTo = (curPage: string) => {
     const checkPage = LocalStorage.checkPage.get();
@@ -50,7 +51,7 @@ const useTopbarIntern = () => {
     }
   };
 
-  return {returnTo, currentPage, ROUTES, auth, socialOpen, handleSocial, router, setSocialOpen};
+  return {returnTo, path, id, currentPage, ROUTES, auth, socialOpen, handleSocial, router, setSocialOpen};
 };
 
 export default useTopbarIntern;

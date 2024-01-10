@@ -5,5 +5,11 @@ export const ROUTES = {
   LIST: '/lists',
   TASK: '/tasks',
   KANBAN: '/boards',
-  DOCUMENT: '/documents'
+  DOCUMENT: '/documents',
+  PROJECTS: '/projects',
+  TODAY: '/today',
+  UPCOMING: '/upcoming',
+  NOTIFICATION: '/notification',
+  SETTING: '/setting',
+  HOMEN: '/home'
 };
