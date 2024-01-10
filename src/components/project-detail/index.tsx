@@ -10,26 +10,17 @@ import CompleteColumn from './complete';
 import DoingColumn from './doing';
 import TodayColumn from './today';
 
+import {isSameDate} from '@/utils/same-date';
+
 interface IProjectDetail {
   id: string;
 }
-
-const isSameDate = (date1: Date, dateString: string): boolean => {
-  const date2: Date = new Date(dateString);
-
-  return (
-    date1.getDate() === date2.getDate() &&
-    date1.getMonth() === date2.getMonth() &&
-    date1.getFullYear() === date2.getFullYear()
-  );
-};
 
 const ProjectDetail: FC<IProjectDetail> = ({id}) => {
   const auth = useStateAuth();
   const {todolist, getTodolist, error} = useTodolist();
 
   const today: Date = new Date();
-  const todayString = `${today.getDate()} ${today.toLocaleString('en-US', {month: 'short'})}`;
 
   const [todayTasks, setTodayTasks] = useState<ITaskResponse[]>([]);
   const [doingTasks, setDoingTasks] = useState<ITaskResponse[]>([]);
@@ -72,7 +63,6 @@ const ProjectDetail: FC<IProjectDetail> = ({id}) => {
     <>
       <div className={`relative flex items-start justify-start gap-6 ${'bg-slate-50'}`}>
         <TodayColumn
-          title={todayString}
           addTask={() => {
             console.log('today');
           }}
@@ -81,7 +71,6 @@ const ProjectDetail: FC<IProjectDetail> = ({id}) => {
           todayTasks={todayTasks}
         />
         <DoingColumn
-          title="Doing"
           symbol="2"
           members={todolist.members}
           doingTasks={doingTasks}
@@ -90,7 +79,6 @@ const ProjectDetail: FC<IProjectDetail> = ({id}) => {
           }}
         />
         <CompleteColumn
-          title={'Complete'}
           symbol={'2'}
           addTask={() => {
             console.log('complete');

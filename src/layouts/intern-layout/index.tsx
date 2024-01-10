@@ -22,7 +22,7 @@ export default function InternLayout({children}: React.PropsWithChildren<Record<
       <Sidebar />
       <main className="flex flex-col border-l border-gray-500">
         <TopBarHoa />
-        <div className=" py-12 px-6">{ children }</div>
+        <div className=" py-12 px-6">{children}</div>
       </main>
     </div>
   );

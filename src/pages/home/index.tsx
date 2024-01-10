@@ -1,14 +1,14 @@
 import Seo from '@/components/common/seo/seo';
-import HomeIntern from '@/components/home-itern';
-import InternLayout from '@/layouts/intern-layout';
+import Home from '@/components/home';
+import Layout from '@/layouts/layout';
 
 export default function ProjectPage() {
   return (
     <>
       <Seo title="Home page" />
-      <HomeIntern />
+      <Home />
     </>
   );
 }
 
-ProjectPage.Layout = InternLayout;
+ProjectPage.Layout = Layout;

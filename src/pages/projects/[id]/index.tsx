@@ -2,7 +2,7 @@ import {InferGetStaticPropsType} from 'next';
 import React from 'react';
 
 import {getStaticPaths, getStaticProps} from '@/data/ssr/lists.ssr';
-import NewLayout from '@/layouts/new-layout';
+import Layout from '@/layouts/layout';
 
 import ProjectDetail from '@/components/project-detail';
 
@@ -16,4 +16,4 @@ export default function PageProjectDetail({id}: InferGetStaticPropsType<typeof g
   );
 }
 
-PageProjectDetail.Layout = NewLayout;
+PageProjectDetail.Layout = Layout;

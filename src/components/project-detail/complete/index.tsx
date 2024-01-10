@@ -9,17 +9,16 @@ interface ICompleteColumnProps {
   className?: string | undefined;
   completeTasks: ITaskResponse[];
   addTask: () => void;
-  title: string;
   symbol: string;
   members: IMember[];
 }
 
-const CompleteColumn: FC<ICompleteColumnProps> = ({className, completeTasks, title, symbol, members, addTask}) => {
+const CompleteColumn: FC<ICompleteColumnProps> = ({className, completeTasks, symbol, members, addTask}) => {
   return (
     <Column
       addTask={addTask}
       className={className}
-      title={`${title}`}
+      title={'Complete'}
       symbol={symbol}
       borderBotColor={'border-blue-400'}
     >

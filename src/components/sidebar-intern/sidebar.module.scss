@@ -1,6 +1,6 @@
 .sidebar :global {
-  @apply w-[321px] h-full inline-flex flex-shrink-0 flex-col items-center justify-between p-8;
-  
+  @apply fixed z-[1] inline-flex h-full w-[321px] flex-shrink-0 flex-col items-center justify-between border-r border-gray-500 p-8;
+
   .todoit {
     background: var(--Linear, linear-gradient(90deg, #3b92cf 0%, #3fc7f4 100%));
     background-clip: text;
@@ -8,4 +8,3 @@
     -webkit-text-fill-color: transparent;
   }
 }
-

@@ -2,7 +2,7 @@
 import Icon from '@/core-ui/icon';
 import styles from './sidebar.module.scss';
 import cls from 'classnames';
-import { FC, MouseEventHandler } from 'react';
+import {FC, MouseEventHandler} from 'react';
 
 interface ISidebarBrand {
   active: boolean;
@@ -10,12 +10,11 @@ interface ISidebarBrand {
   showMore: () => void;
 }
 
-const SidebarBrand: FC<ISidebarBrand> = ({ active, showLess, showMore }) => {
-
+const SidebarBrand: FC<ISidebarBrand> = ({active, showLess, showMore}) => {
   return (
     <div id="logo-section" className="flex items-center justify-between self-stretch">
       <div className={cls('flex items-center gap-3', {hidden: !active})}>
-        <img src={'icons/logo.svg'} />
+        <img src={'/icons/logo.svg'} />
         <p className={'font-sans text-xl font-semibold leading-6 ' + styles.todoit}>ToDoIt</p>
       </div>
       <div id="options" className="flex items-center">
