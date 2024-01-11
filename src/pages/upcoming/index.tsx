@@ -5,7 +5,7 @@ import Upcoming from '@/components/upcoming';
 export default function UpcomingPage() {
   return (
     <>
-      <Upcoming />
+      <Upcoming className="px-12 py-6" />
     </>
   );
 }

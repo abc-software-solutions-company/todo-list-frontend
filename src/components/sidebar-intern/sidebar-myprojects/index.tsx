@@ -5,20 +5,23 @@ import useTasks from '@/states/tasks/use-tasks';
 import {useEffect} from 'react';
 
 export default function SidebarMyProjects() {
-  // const {myList, get} = useLists();
-  const {myTasks, getMyTasks} = useTasks();
+  const {myList, get} = useLists();
 
   useEffect(() => {
-    getMyTasks();
+    get();
   }, []);
+
+  useEffect(() => {
+    get();
+  }, [myList]);
 
   return (
     <>
-      {myTasks?.length &&
-        myTasks.map(list => (
-          <AccordionIntern key={list.id} name={list.name}>
-            <SidebarTasks tasks={list.tasks} />
-          </AccordionIntern>
+      {myList?.length &&
+        myList.map(list => (
+          // <AccordionIntern key={list.id} name={list.name}>
+          <SidebarTasks tasks={list.tasks} />
+          // </AccordionIntern>
         ))}
     </>
   );

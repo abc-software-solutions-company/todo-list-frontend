@@ -5,7 +5,7 @@ import React from 'react';
 export default function TodayPage() {
   return (
     <>
-      <Today />
+      <Today className="py-12 px-6" />
     </>
   );
 }
