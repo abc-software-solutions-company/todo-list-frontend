@@ -1,5 +1,5 @@
 import SettingSidebar from '@/components/setting/setting-sidebar';
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useState} from 'react';
 
 import AccountSetting from '@/components/setting/account';
 import GeneralSetting from '@/components/setting/general';
