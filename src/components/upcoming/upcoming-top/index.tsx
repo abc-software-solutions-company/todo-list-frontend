@@ -11,9 +11,9 @@ interface IUpcomingTopProps {
 
 const UpcomingTop: FC<IUpcomingTopProps> = ({className}) => {
   return (
-    <div className={`${className} mt-5 flex justify-between`}>
+    <div className={`${className} fixed mt-5 flex justify-between`}>
       <DatePicker onChange={() => {}} title="December 22" value={new Date()} className={undefined}></DatePicker>
-      <div className="flex gap-3">
+      <div className="fixed right-0 flex gap-3">
         <div className="flex gap-[2px]">
           <UpcomingBtn
             content={<Icon name="angle-left" className="ico-angle-left" size={24}></Icon>}

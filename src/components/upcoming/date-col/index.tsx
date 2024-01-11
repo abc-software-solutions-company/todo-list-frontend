@@ -4,6 +4,7 @@ import {IMember} from '@/data/api/types/todolist.type';
 import useTasks from '@/states/tasks/use-tasks';
 import Icon from '@/core-ui/icon';
 import {ITaskResponse} from '@/data/api/types/task.type';
+import AddTaskButton from '@/components/project-detail/column/add-task-btn';
 
 interface IDateColumnProps {
   className?: string | undefined;
@@ -27,7 +28,7 @@ const DateColumn: FC<IDateColumnProps> = ({className, date, taskLists}) => {
 
   return (
     <div className={`${className} `}>
-      <div className="inline-flex h-96 w-96 flex-col items-center justify-between border-r border-gray-300 px-6">
+      <div className="inline-flex h-96 w-[425px] flex-col items-center justify-between border-r border-gray-300 px-6">
         <div className="flex h-96 flex-col items-center justify-start gap-8 self-stretch">
           <div className="flex h-20 flex-col items-center justify-start gap-4 self-stretch">
             <div className="flex h-20 flex-col items-center justify-center gap-2 self-stretch border-b-2 border-gray-500 px-3 py-4 opacity-40">
@@ -48,12 +49,13 @@ const DateColumn: FC<IDateColumnProps> = ({className, date, taskLists}) => {
             members={members}
           />
         ))}
-        <div className="inline-flex w-40 items-center justify-center gap-2 rounded-lg px-3 py-4">
+        {/* <div className="inline-flex w-40 items-center justify-center gap-2 rounded-lg px-3 py-4">
           <div className="relative h-6 w-6">
             <Icon name="plus" className="ico-plus text-blue-700"></Icon>
           </div>
           <div className=" text-lg font-semibold leading-normal text-gray-700">Add task</div>
-        </div>
+        </div> */}
+        <AddTaskButton className="fixed bottom-0" onClick={() => {}} />
       </div>
     </div>
   );

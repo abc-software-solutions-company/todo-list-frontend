@@ -2,7 +2,6 @@ import {motion, useAnimation} from 'framer-motion';
 import Button from '@/core-ui/button';
 import Icon from '@/core-ui/icon';
 import React, {useEffect, useState} from 'react';
-import cls from 'classnames';
 import SidebarBrand from '@/components/sidebar-intern/sidebar-brand';
 import SidebarActions from '@/components/sidebar-intern/sidebar-actions';
 import SidebarProjects from '@/components/sidebar/sidebar-projects';
@@ -58,7 +57,7 @@ const Sidebar = () => {
   return (
     <motion.div
       animate={controls}
-      className="animate fixed z-[1] inline-flex h-full w-[321px] flex-shrink-0 flex-col items-center justify-between border-r border-gray-500 p-8 duration-300"
+      className="animate fixed z-[1] inline-flex h-full w-[321px] flex-shrink-0 flex-col items-center justify-between border-r border-gray-500 bg-slate-50 p-8 duration-300"
     >
       <div id="top" className="flex w-full flex-col gap-6 self-stretch">
         <SidebarBrand active={active} showLess={showLess} showMore={showMore} />
