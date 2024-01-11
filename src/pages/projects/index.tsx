@@ -8,7 +8,7 @@ export default function ProjectsPage() {
   return (
     <>
       <Seo title="My Projects" />
-      <Project />
+      <Project className="py-12 px-6" />
     </>
   );
 }

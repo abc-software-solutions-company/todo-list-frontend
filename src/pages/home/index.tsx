@@ -6,7 +6,7 @@ export default function ProjectPage() {
   return (
     <>
       <Seo title="Home page" />
-      <Home />
+      <Home className="py-12 px-6" />
     </>
   );
 }

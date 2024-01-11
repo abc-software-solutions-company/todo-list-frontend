@@ -61,7 +61,7 @@ const ProjectDetail: FC<IProjectDetail> = ({id}) => {
   if (error) return <ErrorInformation />;
   return (
     <>
-      <div className={`relative flex items-start justify-start gap-6 ${'bg-slate-50'}`}>
+      <div className={`relative flex items-start justify-start gap-6 py-12 px-6 ${'bg-slate-50'}`}>
         <TodayColumn
           addTask={() => {
             console.log('today');

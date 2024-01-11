@@ -1,5 +1,5 @@
 import React, {CSSProperties, FC} from 'react';
-import Sidebar from '@/components/sidebar-intern/Sidebar';
+import Sidebar from '@/components/sidebar';
 import TopBarHoa from '@/components/topbar-hoa';
 
 interface INewLayoutProps extends React.PropsWithChildren<Record<string, unknown>> {
@@ -13,7 +13,7 @@ const NewLayout: FC<INewLayoutProps> = ({className, children}) => {
       <Sidebar />
       <main className="ml-[321px] flex flex-col ">
         <TopBarHoa />
-        <div className=" py-12 px-6">{children}</div>
+        <div>{children}</div>
       </main>
     </div>
   );
